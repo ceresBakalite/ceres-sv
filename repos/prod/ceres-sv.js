@@ -16,8 +16,8 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            let css = (this.getAttribute('css')) ? getBoolean(this.getAttribute('css')) : true;
-            if (css) await ( await importSlideViewStylesheet() );
+            slideview.csvCSS = (this.getAttribute('css')) ? this.getAttribute('css') : slideview.defaultCSS;
+            if (slideview.csvCSS) await ( await importSlideViewStylesheets() );
 
             let src = this.getAttribute('src');
             if (src) this.innerHTML =  await ( await fetch(src)).text();
@@ -101,6 +101,7 @@ var ceres = {};
 
             csv.listElement = document.getElementById(slideview.HTMLImageListElement) ? document.getElementById(slideview.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
             csv.callback = csv.progenitor.getAttribute('src') ? true : false;
+            csv.attribute.css = (csv.progenitor.getAttribute('cssurl')) ? getBoolean(csv.progenitor.getAttribute('sub')) : true;
 
             csv.attribute.trace = (csv.progenitor.getAttribute('trace')) ? getBoolean(csv.progenitor.getAttribute('trace')) : false;
             csv.attribute.css = (csv.progenitor.getAttribute('css')) ? getBoolean(csv.progenitor.getAttribute('css')) : true;
@@ -257,8 +258,12 @@ var ceres = {};
 
     }
 
-    function importSlideViewStylesheet()
+    function importSlideViewStylesheets()
     {
+        let cssArray = (slideview.csvCSS) ? slideview.csvCSS.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+
+        consol.log('cssArray: ' + cssArray.length');
+
         const link = document.createElement('link');
 
         link.rel = 'stylesheet';
