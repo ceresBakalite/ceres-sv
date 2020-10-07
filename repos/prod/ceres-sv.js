@@ -16,8 +16,8 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            slideview.csvCSS = (this.getAttribute('css')) ? this.getAttribute('css') : slideview.defaultCSS;
-            if (slideview.csvCSS) await ( await importSlideViewStylesheets() );
+            let css = (this.getAttribute('css')) ? this.getAttribute('css') : slideview.defaultCSS;
+            if (css) await ( await importSlideViewStylesheets(css) );
 
             let src = this.getAttribute('src');
             if (src) this.innerHTML =  await ( await fetch(src)).text();
@@ -256,9 +256,9 @@ var ceres = {};
 
     }
 
-    function importSlideViewStylesheets()
+    function importSlideViewStylesheets(str)
     {
-        let cssArray = (slideview.csvCSS) ? slideview.csvCSS.trim().replace(/,/gi, ';').replace(/;+$/g,"").replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        let cssArray = (str) ? str.trim().replace(/,/gi, ';').replace(/;+$/g,"").replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
