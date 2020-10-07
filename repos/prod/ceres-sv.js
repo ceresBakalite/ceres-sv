@@ -1,6 +1,6 @@
 export { ceres }
 
-var window.ceres = {};
+var ceres = {};
 (function(slideview)
 {
     'use strict';
