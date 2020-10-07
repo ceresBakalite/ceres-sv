@@ -407,4 +407,4 @@ var ceres = {};
         return lookup[token] || false;
     }
 
-}).apply(ceres);
+})(ceres);
