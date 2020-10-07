@@ -10,7 +10,7 @@ var ceres = {};
 
     slideview.HTMLSlideViewElement = 'ceres-sv'; // required (light) public element name and id
     slideview.HTMLImageListElement = 'ceres-csv'; // optional (light) public markup noscript tag id when using embedded image lists
-    slideview.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/stylesheets/ceres-sv.css'; // public attribute pointing to the default slideview stylesheet
+    slideview.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv.css'; // public attribute pointing to the default slideview stylesheet
 
     window.customElements.get(slideview.HTMLSlideViewElement) || window.customElements.define(slideview.HTMLSlideViewElement, class extends HTMLElement
     {
