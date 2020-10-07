@@ -258,8 +258,12 @@ var ceres = {};
 
     function importSlideViewStylesheets()
     {
-        slideview.csvCSS = slideview.csvCSS.replace(/[^\x00-\xFF]| /g, '');
-        let cssArray = (slideview.csvCSS) ? slideview.csvCSS.trim().replace(/,/gi, ';').split(';') : null;
+//        slideview.csvCSS = slideview.csvCSS.replace(/[^\x00-\xFF]| /g, '');
+//        let cssArray = (slideview.csvCSS) ? slideview.csvCSS.trim().replace(/,/gi, ';').split(';') : null;
+
+        slideview.csvCSS = slideview.csvCSS.trim().replace(/,/gi, ';').replace(/;+$/g,"");
+        let cssArray = (slideview.csvCSS) ? slideview.csvCSS.replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+
 
         for (let item = 0; item < cssArray.length; item++)
         {
