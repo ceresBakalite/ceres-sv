@@ -5,8 +5,8 @@ var ceres = {};
 {
     'use strict';
 
-    tabImage = function(el) { window.open(el.getAttribute('src'), 'image'); }; // public method reference
-    getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // public method reference
+    export slideview.tabImage = function(el) { window.open(el.getAttribute('src'), 'image'); }; // public method reference
+    export slideview.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // public method reference
 
     slideview.HTMLSlideViewElement = 'ceres-sv'; // required public element name
     slideview.HTMLImageListElement = 'ceres-csv'; // optional public markup noscript tag id when using embedded image lists
