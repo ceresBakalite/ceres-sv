@@ -108,6 +108,8 @@ var ceres = {};
             csv.attribute.trace = (csv.progenitor.getAttribute('trace')) ? getBoolean(csv.progenitor.getAttribute('trace')) : false;
             csv.attribute.delay = Number.isInteger(csv.progenitor.getAttribute('delay')) ? csv.progenitor.getAttribute('delay') : 500;
 
+console.log('csv.attribute.delay: ' + csv.attribute.delay);
+
             Object.freeze(csv.attribute);
 
             return (csv.callback || csv.listElement) ? true : false;
