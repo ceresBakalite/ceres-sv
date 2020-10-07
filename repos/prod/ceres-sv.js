@@ -198,8 +198,8 @@ var ceres = {};
             if (csv.attribute.sub) composeElement('div', elements.subName, 'subtitle', csv.slideContainer, getSubtitle(), null, null, null);
         }
 
-        composeElement('a', 'slideview-prev', 'prev', csv.imageContainer, '&#10094;', 'window.getSlide(-1, true)', getURL(), null);
-        composeElement('a', 'slideview-next', 'next', csv.imageContainer, '&#10095;', 'window.getSlide(1, true)', getURL(), null);
+        composeElement('a', 'slideview-prev', 'prev', csv.imageContainer, '&#10094;', 'ceres.getSlide(-1, true)', getURL(), null);
+        composeElement('a', 'slideview-next', 'next', csv.imageContainer, '&#10095;', 'ceres.getSlide(1, true)', getURL(), null);
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
