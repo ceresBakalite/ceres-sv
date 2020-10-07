@@ -258,22 +258,25 @@ var ceres = {};
 
     function importSlideViewStylesheets()
     {
-        //slideview.csvCSS = slideview.csvCSS.trim().replace(/,/gi, ';').replace(/;+$/g,"");
         let cssArray = (slideview.csvCSS) ? slideview.csvCSS.trim().replace(/,/gi, ';').replace(/;+$/g,"").replace(/[^\x00-\xFF]| /g, '').split(';') : null;
-
 
         for (let item = 0; item < cssArray.length; item++)
         {
-            console.log('cssArray: ' + cssArray[item]);
+            importStylesheet(cssArray[item]);
         }
 
+    }
 
+
+    function importStylesheet(url)
+    {
+        if (!url) return;
 
         const link = document.createElement('link');
 
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = slideview.defaultCSS;
+        link.href = url;
         link.as = 'style';
 
         onloadListener();
