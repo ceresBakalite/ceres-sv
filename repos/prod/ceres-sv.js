@@ -260,7 +260,12 @@ var ceres = {};
     {
         let cssArray = (slideview.csvCSS) ? slideview.csvCSS.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
-        console.log('cssArray: ' + cssArray.length);
+        for (let item = 0; item < cssArray.length; item++)
+        {
+            console.log('cssArray: ' + cssArray[item]);
+        }
+
+
 
         const link = document.createElement('link');
 
