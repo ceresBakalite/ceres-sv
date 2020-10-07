@@ -51,7 +51,6 @@ var ceres = {};
             this.attribute = function() { return attribute; },
             this.callback = false,
             this.activate = false;
-            this.renderDelay = 500;
             this.index = 1
         }
 
@@ -102,13 +101,12 @@ var ceres = {};
 
             csv.listElement = document.getElementById(slideview.HTMLImageListElement) ? document.getElementById(slideview.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
             csv.callback = csv.progenitor.getAttribute('src') ? true : false;
-            csv.renderDelay = csv.progenitor.getAttribute('delay') ? csv.progenitor.getAttribute('delay') : csv.renderDelay;
 
-            csv.attribute.trace = (csv.progenitor.getAttribute('trace')) ? getBoolean(csv.progenitor.getAttribute('trace')) : false;
             csv.attribute.ptr = (csv.progenitor.getAttribute('ptr')) ? getBoolean(csv.progenitor.getAttribute('ptr')) : true;
             csv.attribute.sur = (csv.progenitor.getAttribute('sur')) ? getBoolean(csv.progenitor.getAttribute('sur')) : true;
             csv.attribute.sub = (csv.progenitor.getAttribute('sub')) ? getBoolean(csv.progenitor.getAttribute('sub')) : true;
-
+            csv.attribute.trace = (csv.progenitor.getAttribute('trace')) ? getBoolean(csv.progenitor.getAttribute('trace')) : false;
+            csv.attribute.delay = csv.progenitor.getAttribute('delay') ? csv.progenitor.getAttribute('delay') : 500;
 
             Object.freeze(csv.attribute);
 
@@ -372,7 +370,7 @@ var ceres = {};
         getSlideView();
         getSlide();
 
-        setTimeout(function() { setSlideViewDisplay('block'); }, csv.renderDelay);
+        setTimeout(function() { setSlideViewDisplay('block'); }, csv.attribute.delay);
     }
 
 
