@@ -106,7 +106,7 @@ var ceres = {};
             csv.attribute.sur = (csv.progenitor.getAttribute('sur')) ? getBoolean(csv.progenitor.getAttribute('sur')) : true;
             csv.attribute.sub = (csv.progenitor.getAttribute('sub')) ? getBoolean(csv.progenitor.getAttribute('sub')) : true;
             csv.attribute.trace = (csv.progenitor.getAttribute('trace')) ? getBoolean(csv.progenitor.getAttribute('trace')) : false;
-            csv.attribute.delay = Number.isInteger(csv.progenitor.getAttribute('delay')) ? csv.progenitor.getAttribute('delay') : 500;
+            csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 500;
 
 console.log('csv.attribute.delay: ' + csv.attribute.delay);
 
