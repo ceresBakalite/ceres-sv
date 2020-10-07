@@ -258,7 +258,8 @@ var ceres = {};
 
     function importSlideViewStylesheets()
     {
-        let cssArray = (slideview.csvCSS) ? slideview.csvCSS.trim().replace(/\r\n|\r|\n|,/gi, ';').split(';') : null;
+        slideview.csvCSS = slideview.csvCSS.replace(/[^\x00-\xFF]/g, '');
+        let cssArray = (slideview.csvCSS) ? slideview.csvCSS.trim().replace(/,/gi, ';').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
