@@ -1,4 +1,4 @@
-export { ceres, ceres.tabImage, ceres.getSlide }
+export { ceres, tabImage, getSlide }
 
 var ceres = {};
 (function(slideview)
