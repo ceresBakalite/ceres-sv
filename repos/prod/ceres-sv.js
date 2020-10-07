@@ -58,6 +58,9 @@ var ceres = {};
     csv.tabImage = function(el) { window.open(el.getAttribute('src'), 'image'); }; // public method reference
     csv.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // public method reference
 
+    window.csv.tabImage;
+    window.csv.getSlide;
+
     function initiateSlideView()
     {
         csv.activate = getSlideviewAttributes();
