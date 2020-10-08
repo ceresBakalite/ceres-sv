@@ -14,12 +14,9 @@ var ceres = {};
         {
             this.progenitor = null;
             this.imageArray = null,
-            this.imageContainer = null,
-            this.slideContainer = null,
             this.listElement = null,
             this.attribute = function() { return attribute; },
             this.callback = false,
-            this.activate = false;
             this.index = 1
         }
 
@@ -60,8 +57,7 @@ var ceres = {};
 
     function initiateSlideView()
     {
-        csv.activate = getSlideviewAttributes();
-        if (csv.activate) activateSlideView();
+        if (getSlideviewAttributes()) activateSlideView();
     }
 
     function getSlideviewAttributes()
@@ -170,11 +166,11 @@ var ceres = {};
     {
         csv.progenitor.innerHTML = null;
 
-        csv.imageContainer = document.createElement('div');
-        csv.imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
-        csv.progenitor.appendChild(csv.imageContainer);
+        let imageContainer = document.createElement('div');
+        imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
+        csv.progenitor.appendChild(imageContainer);
 
-        composeAttribute(csv.imageContainer.id, 'class', 'slideview-image-container');
+        composeAttribute(imageContainer.id, 'class', 'slideview-image-container');
 
         for (let item = 0; item < csv.imageArray.length; item++)
         {
@@ -189,17 +185,17 @@ var ceres = {};
                 'subName': 'slideview-sub' + qualifier
             };
 
-            composeElement('div', id, 'slideview fade', csv.imageContainer, null, null, null, null);
+            composeElement('div', id, 'slideview fade', imageContainer, null, null, null, null);
 
-            csv.slideContainer = document.getElementById(id);
+            let slideContainer = document.getElementById(id);
 
-            if (csv.attribute.sur) composeElement('div', elements.surName, 'surtitle', csv.slideContainer, getSurtitle(qualifier), null, null, null);
-            composeElement('img', elements.imgName, 'slide', csv.slideContainer, null, 'window.tabImage(this);', getURL(), getAccessibilityText())
-            if (csv.attribute.sub) composeElement('div', elements.subName, 'subtitle', csv.slideContainer, getSubtitle(), null, null, null);
+            if (csv.attribute.sur) composeElement('div', elements.surName, 'surtitle', slideContainer, getSurtitle(qualifier), null, null, null);
+            composeElement('img', elements.imgName, 'slide', slideContainer, null, 'window.tabImage(this);', getURL(), getAccessibilityText())
+            if (csv.attribute.sub) composeElement('div', elements.subName, 'subtitle', slideContainer, getSubtitle(), null, null, null);
         }
 
-        composeElement('a', 'slideview-prev', 'prev', csv.imageContainer, '&#10094;', 'window.getSlide(-1, true)', getURL(), null);
-        composeElement('a', 'slideview-next', 'next', csv.imageContainer, '&#10095;', 'window.getSlide(1, true)', getURL(), null);
+        composeElement('a', 'slideview-prev', 'prev', imageContainer, '&#10094;', 'window.getSlide(-1, true)', getURL(), null);
+        composeElement('a', 'slideview-next', 'next', imageContainer, '&#10095;', 'window.getSlide(1, true)', getURL(), null);
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
