@@ -157,6 +157,16 @@ var ceres = {};
         return lookup[type]() || lookup['default'];
     }
 
+    function errorHandler(str)
+    {
+        const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+        console.log(err);
+
+        if (csv.attribute.trace) alert(err);
+
+        return false;
+    }
+
     function getSlideView()
     {
         csv.progenitor.innerHTML = null;
@@ -374,16 +384,6 @@ var ceres = {};
     {
         const nodelist = document.querySelectorAll('a.prev, a.next, div.subtitle, div.surtitle, img.slide, #' + csv.attribute.HTMLSlideViewElement);
         nodelist.forEach(node => { node.style.display = attribute; } );
-    }
-
-    function errorHandler(str)
-    {
-        const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-        console.log(err);
-
-        if (csv.attribute.trace) alert(err);
-
-        return false;
     }
 
     function getBoolean(symbol)
