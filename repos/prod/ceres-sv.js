@@ -1,6 +1,6 @@
-export { window.ceres }
+export { ceres }
 
-window.ceres = {};
+var ceres = {};
 (function(slideview)
 {
     'use strict';
@@ -146,7 +146,7 @@ window.ceres = {};
             function getAttributeProperties()
             {
                 let str = '';
-                for (let property in csv.attribute) str += property + ": " + csv.attribute[property] + ', ';
+                for (let property in csv.attribute) str += property + ': ' + csv.attribute[property] + ', ';
 
                 return str.replace(/, +$/g,'');
             }
@@ -319,8 +319,8 @@ window.ceres = {};
 
     function getSlide(targetIndex)
     {
-        const slides = document.querySelectorAll(".slideview");
-        const pointers = document.querySelectorAll(".ptr");
+        const slides = document.querySelectorAll('.slideview');
+        const pointers = document.querySelectorAll('.ptr');
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
@@ -407,4 +407,4 @@ window.ceres = {};
         return lookup[token] || false;
     }
 
-})(window.ceres);
+})(ceres);
