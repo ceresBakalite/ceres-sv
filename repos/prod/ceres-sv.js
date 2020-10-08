@@ -1,4 +1,4 @@
-export { ceres }
+export { window.ceres }
 
 window.ceres = {};
 (function(slideview)
@@ -407,4 +407,4 @@ window.ceres = {};
         return lookup[token] || false;
     }
 
-})(ceres);
+})(window.ceres);
