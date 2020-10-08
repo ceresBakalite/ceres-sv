@@ -9,8 +9,8 @@ var ceres = {};
     slideview.HTMLImageListElement = 'ceres-csv'; // optional public markup noscript tag id when using embedded image lists
     slideview.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv.css'; // the default slideview stylesheet
 
-    window.ceresTabImage = function(el) { window.open(el.getAttribute('src'), 'image'); }; // public method reference
-    window.ceresGetSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // public method reference
+    window.csvTabImage = function(el) { window.open(el.getAttribute('src'), 'image'); }; // public method reference
+    window.csvGetSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // public method reference
 
     window.customElements.get(slideview.HTMLSlideViewElement) || window.customElements.define(slideview.HTMLSlideViewElement, class extends HTMLElement
     {
@@ -194,12 +194,12 @@ var ceres = {};
             csv.slideContainer = document.getElementById(id);
 
             if (csv.attribute.sur) composeElement('div', elements.surName, 'surtitle', csv.slideContainer, getSurtitle(qualifier), null, null, null);
-            composeElement('img', elements.imgName, 'slide', csv.slideContainer, null, 'window.ceresTabImage(this);', getURL(), getAccessibilityText())
+            composeElement('img', elements.imgName, 'slide', csv.slideContainer, null, 'window.csvTabImage(this);', getURL(), getAccessibilityText())
             if (csv.attribute.sub) composeElement('div', elements.subName, 'subtitle', csv.slideContainer, getSubtitle(), null, null, null);
         }
 
-        composeElement('a', 'slideview-prev', 'prev', csv.imageContainer, '&#10094;', 'window.ceresGetSlide(-1, true)', getURL(), null);
-        composeElement('a', 'slideview-next', 'next', csv.imageContainer, '&#10095;', 'window.ceresGetSlide(1, true)', getURL(), null);
+        composeElement('a', 'slideview-prev', 'prev', csv.imageContainer, '&#10094;', 'window.csvGetSlide(-1, true)', getURL(), null);
+        composeElement('a', 'slideview-next', 'next', csv.imageContainer, '&#10095;', 'window.csvGetSlide(1, true)', getURL(), null);
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
@@ -230,7 +230,7 @@ var ceres = {};
 
             function getClickEventValue(indexItem)
             {
-                return 'window.ceresGetSlide(' + indexItem + ')';
+                return 'window.csvGetSlide(' + indexItem + ')';
             }
 
         }
