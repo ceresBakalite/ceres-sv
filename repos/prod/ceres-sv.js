@@ -57,6 +57,11 @@ var ceres = {};
 
     let csv = new Slideviewer();
 
+    function test()
+    {
+        console.log('hello from ceres');
+    }
+
     function initiateSlideView()
     {
         csv.activate = getSlideviewAttributes();
@@ -193,7 +198,7 @@ var ceres = {};
             csv.slideContainer = document.getElementById(id);
 
             if (csv.attribute.sur) composeElement('div', elements.surName, 'surtitle', csv.slideContainer, getSurtitle(qualifier), null, null, null);
-            composeElement('img', elements.imgName, 'slide', csv.slideContainer, null, 'window.tabImage(this);', getURL(), getAccessibilityText())
+            composeElement('img', elements.imgName, 'slide', csv.slideContainer, null, 'window.test();', getURL(), getAccessibilityText())
             if (csv.attribute.sub) composeElement('div', elements.subName, 'subtitle', csv.slideContainer, getSubtitle(), null, null, null);
         }
 
