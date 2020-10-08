@@ -8,6 +8,18 @@ var ceres = {};
     slideview.tabImage = function(el) { tabImage(el); }; // global scope method reference
     slideview.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
+    class Component
+    {
+        constructor()
+        {
+            this.type = function() { return type; },
+            this.attribute = function() { return attribute; }
+        }
+
+    }
+
+    let resource = new Component();
+
     class Slideviewer
     {
         constructor()
@@ -38,27 +50,10 @@ var ceres = {};
             let src = this.getAttribute('src');
             if (src) this.innerHTML =  await ( await fetch(src)).text();
 
-            initiateSlideView();
+            if (getSlideviewAttributes()) activateSlideView();
         }
 
     });
-
-    class Component
-    {
-        constructor()
-        {
-            this.type = function() { return type; },
-            this.attribute = function() { return attribute; }
-        }
-
-    }
-
-    let resource = new Component();
-
-    function initiateSlideView()
-    {
-        if (getSlideviewAttributes()) activateSlideView();
-    }
 
     function getSlideviewAttributes()
     {
