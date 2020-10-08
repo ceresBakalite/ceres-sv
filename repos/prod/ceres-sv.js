@@ -57,8 +57,6 @@ var ceres = {};
 
     function getSlideviewAttributes()
     {
-        const newline = '\n';
-
         if (!getProgenitor()) return inspect(resource.type.error, resource.attribute.ProgenitorNotFound);
         if (!getAttributePrecursors()) return inspect(resource.type.error, resource.attribute.ListContainerNotFound);
 
@@ -79,6 +77,8 @@ var ceres = {};
 
         function getAttributePrecursors()
         {
+            const newline = '\n';
+
             csv.progenitor.id = csv.attribute.HTMLSlideViewElement;
 
             csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
