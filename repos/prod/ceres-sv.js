@@ -1,6 +1,6 @@
 export { ceres }
 
-var ceres = {};
+window.ceres = {};
 (function(slideview)
 {
     'use strict';
@@ -259,7 +259,7 @@ var ceres = {};
 
     function importSlideViewStylesheets(str)
     {
-        let cssArray = (str) ? str.trim().replace(/,/gi, ';').replace(/;+$/g,"").replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        let cssArray = (str) ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
