@@ -44,10 +44,10 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            let css = (this.getAttribute('css')) ? this.getAttribute('css') : csv.attribute.defaultCSS;
+            const css = (this.getAttribute('css')) ? this.getAttribute('css') : csv.attribute.defaultCSS;
             if (css) await ( await importSlideViewStylesheets(css) );
 
-            let src = this.getAttribute('src');
+            const src = this.getAttribute('src');
             if (src) this.innerHTML =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
