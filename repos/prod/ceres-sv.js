@@ -32,7 +32,7 @@ var ceres = {};
     csv.property.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using embedded image lists
     csv.property.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv.css'; // the default slideview stylesheet
 
-    Object.property.freeze();
+    Object.freeze(csv.property);
 
     window.customElements.get(csv.property.HTMLSlideViewElement) || window.customElements.define(csv.property.HTMLSlideViewElement, class extends HTMLElement
     {
