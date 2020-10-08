@@ -161,7 +161,7 @@ var ceres = {};
     {
         csv.progenitor.innerHTML = null;
 
-        let imageContainer = document.createElement('div');
+        const imageContainer = document.createElement('div');
         imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
         csv.progenitor.appendChild(imageContainer);
 
@@ -250,7 +250,7 @@ var ceres = {};
 
     function importSlideViewStylesheets(str)
     {
-        let cssArray = (str) ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const cssArray = (str) ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
