@@ -5,8 +5,8 @@ var ceres = {};
 {
     'use strict';
 
-    window.csvTabImage = function(el) { slideview.tabImage(el); }; // global scope method reference
-    window.csvGetSlide = function(target, calc) { slideview.getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
+    window.csvTabImage = function(el) { tabImage(el); }; // global scope method reference
+    window.csvGetSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
     slideview.HTMLSlideViewElement = 'ceres-sv'; // required public element name
     slideview.HTMLImageListElement = 'ceres-csv'; // optional public markup noscript tag id when using embedded image lists
