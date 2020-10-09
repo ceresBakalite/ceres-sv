@@ -243,15 +243,10 @@ var ceres = {};
 
             if (!touch.act) touch.act = 10;
 
-            slideview.addEventListener('touchmove', e =>
-            {
-                e.preventDefault();
-                touch.move = e.changedTouches[0].screenX;
-            });
+            slideview.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
 
             slideview.addEventListener('touchend', e =>
             {
-                e.preventDefault();
                 touch.end = e.changedTouches[0].screenX;
 
                 if (Math.abs(touch.start - touch.end) > touch.act)
