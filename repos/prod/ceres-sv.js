@@ -243,10 +243,10 @@ var ceres = {};
 
             if (!touch.act) touch.act = 10;
 
-            slideview.addEventListener('touchstart', e =>
+            slideview.addEventListener('touchmove', e =>
             {
                 e.preventDefault();
-                touch.start = e.changedTouches[0].screenX;
+                touch.move = e.changedTouches[0].screenX;
             });
 
             slideview.addEventListener('touchend', e =>
