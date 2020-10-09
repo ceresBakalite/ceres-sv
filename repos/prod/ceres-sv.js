@@ -204,6 +204,8 @@ var ceres = {};
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
+        enableSlideViewSwipeSlide();
+
         setSlideViewDisplay('none');
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
@@ -233,6 +235,28 @@ var ceres = {};
             {
                 return 'window.getSlide(' + indexItem + ')';
             }
+
+        }
+
+        function enableSlideViewSwipeSlide()
+        {
+            const slideview = document.querySelector('div.slideview-image-container');
+
+            let touchstart = 0;
+
+            slideview.addEventListener('touchstart', e => { touchstart = e.changedTouches[0].screenX; } );
+
+            slideview.addEventListener('touchend', e =>
+            {
+                let touchend = e.changedTouches[0].screenX;
+
+                if ( Math.abs(touchstart - touchend) > 60)
+                {
+                    let target = (touchend < touchstart) ? 1 : -1;
+                    getSlide(csv.index = csv.index += target);
+                }
+
+            });
 
         }
 
@@ -341,28 +365,6 @@ var ceres = {};
 
     }
 
-    function swipeSlide()
-    {
-        const slideview = document.querySelector('div.slideview-image-container');
-
-        let touchstart = 0;
-
-        slideview.addEventListener('touchstart', e => { touchstart = e.changedTouches[0].screenX; } );
-
-        slideview.addEventListener('touchend', e =>
-        {
-            let touchend = e.changedTouches[0].screenX;
-
-            if ( Math.abs(touchstart - touchend) > 60)
-            {
-                let target = (touchend < touchstart) ? 1 : -1;
-                getSlide(csv.index = csv.index += target);
-            }
-
-        });
-
-    }
-
     function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
     {
         const el = document.createElement(element);
@@ -397,8 +399,6 @@ var ceres = {};
 
         getSlideView();
         getSlide();
-
-        swipeSlide();
 
         setTimeout(function() { setSlideViewDisplay('block'); }, csv.attribute.delay);
     }
