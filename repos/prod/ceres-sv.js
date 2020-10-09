@@ -346,7 +346,6 @@ var ceres = {};
         const slideview = document.querySelector('div.slideview-image-container');
 
         let touchstart = 0;
-        //let touchend = 0;
 
         slideview.addEventListener('touchstart', e => { touchstart = e.changedTouches[0].screenX; } );
 
@@ -354,9 +353,7 @@ var ceres = {};
         {
             let touchend = e.changedTouches[0].screenX;
 
-            alert('touchstart: ' + touchstart + ' touchend: ' + touchend + ' abs: ' + Math.abs(touchstart - touchend));
-
-            if ( Math.abs(touchstart - touchend) > 50)
+            if ( Math.abs(touchstart - touchend) > 60)
             {
                 let target = (touchend < touchstart) ? 1 : -1;
                 getSlide(csv.index = csv.index += target);
