@@ -247,7 +247,20 @@ var ceres = {};
 
             slideview.addEventListener('touchend', e =>
             {
-                touch.end = setTimeout(function() { e.changedTouches[0].screenX; }, 500);
+                touch.end = setTimeout(function() { swipeSlide(e); }, 500);
+
+/*
+                if (Math.abs(touch.start - touch.end) > touch.act)
+                {
+                    let offset = (touch.end < touch.start) ? 1 : -1;
+                    getSlide(csv.index = csv.index += offset);
+                }
+*/
+            });
+
+            function swipeSlide(evt)
+            {
+                evt.changedTouches[0].screenX;
 
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
@@ -255,8 +268,7 @@ var ceres = {};
                     getSlide(csv.index = csv.index += offset);
                 }
 
-            });
-
+            }
         }
 
         function getURL()
