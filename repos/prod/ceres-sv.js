@@ -204,7 +204,7 @@ var ceres = {};
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
-        setSlideViewSwipe({ start: 0, end: 0, difference: 60 });
+        setSlideViewSwipe({ start: 0, end: 0, act: 60 });
         setSlideViewDisplay('none');
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
@@ -247,7 +247,7 @@ var ceres = {};
             {
                 touch.end = e.changedTouches[0].screenX;
 
-                if (Math.abs(touch.start - touch.end) > touch.difference)
+                if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     let offset = (touch.end < touch.start) ? 1 : -1;
                     getSlide(csv.index = csv.index += offset);
