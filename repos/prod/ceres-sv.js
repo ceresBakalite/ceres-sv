@@ -345,18 +345,13 @@ var ceres = {};
     {
         const slideview = document.querySelector('div.slideview-image-container');
 
-        function detectMotion()
-        {
-          if (touchend < touchstart) getSlide(csv.index, true);
-          if (touchend > touchstart) getSlide(csv.index-1, true);
-        }
-
         slideview.addEventListener('touchstart', e => { var touchstart = e.changedTouches[0].screenX; } );
 
         slideview.addEventListener('touchend', e =>
         {
           var touchend = e.changedTouches[0].screenX;
-          detectMotion();
+          if (touchend < touchstart) getSlide(csv.index, true);
+          if (touchend > touchstart) getSlide(csv.index-1, true);
         });
 
     }
