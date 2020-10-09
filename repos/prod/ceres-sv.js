@@ -348,7 +348,7 @@ var ceres = {};
 
     function getSlide(targetIndex)
     {
-        const slides = document.querySelectorAll('.slideview');
+        const slides = document.querySelectorAll('div.slideview');
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
@@ -359,7 +359,7 @@ var ceres = {};
 
         function setPointer()
         {
-            const pointers = document.querySelectorAll('.ptr');
+            const pointers = document.querySelectorAll('span.ptr');
             const el = document.querySelector('span.active');
 
             if (el) el.className = 'ptr';
