@@ -241,18 +241,16 @@ var ceres = {};
         {
             const slideview = document.querySelector('div.slideview-image-container');
 
-alert('touch.start: ' + touch.start + 'touch.end: ' + touch.end + ' touch.difference: ' + touch.difference);
-
             slideview.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
 
             slideview.addEventListener('touchend', e =>
             {
                 touch.end = e.changedTouches[0].screenX;
 
-                if ( Math.abs(touchstart - touchend) > touch.difference)
+                if (Math.abs(touch.start - touch.end) > touch.difference)
                 {
-                    let target = (touchend < touchstart) ? 1 : -1;
-                    getSlide(csv.index = csv.index += target);
+                    let offset = (touch.end < touch.start) ? 1 : -1;
+                    getSlide(csv.index = csv.index += offset);
                 }
 
             });
