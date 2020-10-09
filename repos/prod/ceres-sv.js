@@ -330,6 +330,8 @@ var ceres = {};
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
+        alert('targetIndex: ' + targetIndex);
+
         slides.forEach(node => { node.style.display = 'none'; } );
         slides[csv.index-1].style.display = 'block';
 
@@ -357,7 +359,6 @@ var ceres = {};
             if (touchstart != touchend)
             {
                 let targetIndex = (touchend < touchstart) ? csv.index : csv.index-1;
-                alert('targetIndex: ' + targetIndex);
                 getSlide(targetIndex, true);
             }
 
