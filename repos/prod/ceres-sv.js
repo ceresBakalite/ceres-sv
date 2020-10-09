@@ -252,22 +252,11 @@ var ceres = {};
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     let offset = (touch.end < touch.start) ? 1 : -1;
-
-                    if (csv.attribute.ptr) setPointers();
                     getSlide(csv.index = csv.index += offset);
                 }
 
             });
 
-        }
-
-        function setPointers()
-        {
-            let el = document.querySelector('span.ptr');
-            let compStyles = window.getComputedStyle(el);
-
-            document.querySelector('span.active').style.backgroundColor = compStyles.getPropertyValue('background-color')
-            document.querySelector('span.active').className = 'ptr';
         }
 
         function getURL()
@@ -370,15 +359,7 @@ var ceres = {};
 
         if (csv.attribute.ptr)
         {
-            if (el)
-            {
-                let ptr = document.querySelector('span.ptr');
-
-                // el.style.backgroundColor = window.getComputedStyle(ptr).getPropertyValue('background-color');
-                el.style.backgroundColor = '#bbb';
-                el.className = 'ptr';
-            }
-
+            if (el) el.className = 'ptr';
             pointers[csv.index-1].className += ' active';
         }
 
