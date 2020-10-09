@@ -343,72 +343,24 @@ var ceres = {};
 
     function enableTouchSlide()
     {
-        const slides = document.querySelector('div.slideview');
+        let touchstartX = 0
+        let touchendX = 0
 
-        slides.addEventListener("touchstart", startTouch, false);
-        slides.addEventListener("touchmove", moveTouch, false);
+        const slides = document.querySelector('div.slideview-image-container');
 
-        // Swipe Up / Down / Left / Right
-        var initialX = null;
-        var initialY = null;
-
-        function startTouch(e)
-        {
-            initialX = e.touches[0].clientX;
-            initialY = e.touches[0].clientY;
+        function handleGesure() {
+          if (touchendX < touchstartX) alert('swiped left!')
+          if (touchendX > touchstartX) alert('swiped right!')
         }
 
-        function moveTouch(e)
-        {
-            if (initialX === null || initialY === null) return;
+        slides.addEventListener('touchstart', e => {
+          touchstartX = e.changedTouches[0].screenX
+        })
 
-            var currentX = e.touches[0].clientX;
-            var currentY = e.touches[0].clientY;
-
-            var diffX = initialX - currentX;
-            var diffY = initialY - currentY;
-
-            if (Math.abs(diffX) > Math.abs(diffY))
-            {
-                // sliding horizontally
-                if (diffX > 0)
-                {
-                    // swiped left
-                    getSlide(1, true);
-                    //console.log("swiped left");
-
-                } else {
-
-                    // swiped right
-                    getSlide(-1, true);
-                    //console.log("swiped right");
-                }
-
-            } else {
-
-                // sliding vertically
-                if (diffY > 0)
-                {
-                    // swiped up
-                    getSlide(1, true);
-                    //console.log("swiped up");
-
-                } else {
-
-                    // swiped down
-                    getSlide(-1, true);
-                    //console.log("swiped down");
-                }
-
-            }
-
-            initialX = null;
-            initialY = null;
-
-            e.preventDefault();
-
-        }
-
+        slides.addEventListener('touchend', e => {
+          touchendX = e.changedTouches[0].screenX
+          handleGesure()
+        })
     }
 
     function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
