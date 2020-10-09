@@ -253,7 +253,7 @@ var ceres = {};
                 {
                     let offset = (touch.end < touch.start) ? 1 : -1;
                     //getSlide(csv.index = csv.index += offset);
-                    let param =  = args += offset;
+                    let param = args += offset;
                     callback.apply(this, param);
                 }
 
