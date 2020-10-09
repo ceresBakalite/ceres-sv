@@ -357,21 +357,19 @@ var ceres = {};
     function getSlide(targetIndex)
     {
         const slides = document.querySelectorAll('.slideview');
+        const pointers = document.querySelectorAll('.ptr');
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
         slides.forEach(node => { node.style.display = 'none'; } );
         slides[csv.index-1].style.display = 'block';
 
-        if (csv.attribute.ptr) setPointers();
-    }
+        if (csv.attribute.ptr)
+        {
+            pointers.forEach(node => { node.className = node.className.replace(' active', ''); } );
+            setTimeout(function() { pointers[csv.index-1].className += ' active'; }, 500);
+        }
 
-    function setPointers()
-    {
-        const pointers = document.querySelectorAll('.ptr');
-
-        pointers.forEach(node => { node.className = node.className.replace(' active', ''); } );
-        pointers[csv.index-1].className += ' active';
     }
 
     function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
