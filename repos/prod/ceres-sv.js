@@ -263,6 +263,10 @@ var ceres = {};
 
         function setPointers()
         {
+            let el = document.querySelector('span.ptr');
+            let compStyles = window.getComputedStyle(el);
+
+            document.querySelector('span.active').style.backgroundColor = compStyles.getPropertyValue('background-color')
             document.querySelector('span.active').className = 'ptr';
         }
 
@@ -357,6 +361,7 @@ var ceres = {};
     {
         const slides = document.querySelectorAll('.slideview');
         const pointers = document.querySelectorAll('.ptr');
+        const el = document.querySelector('span.active');
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
@@ -365,8 +370,7 @@ var ceres = {};
 
         if (csv.attribute.ptr)
         {
-            if (document.querySelector('span.active')) document.querySelector('span.active').className = 'ptr';
-            //pointers.forEach(node => { node.className = 'ptr'; });
+            if (el) el.className = 'ptr';
             pointers[csv.index-1].className += ' active';
         }
 
