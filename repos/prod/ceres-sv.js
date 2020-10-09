@@ -345,14 +345,16 @@ var ceres = {};
     {
         const slideview = document.querySelector('div.slideview-image-container');
 
-        //let touchstart = 0;
+        let touchstart = 0;
         //let touchend = 0;
 
-        slideview.addEventListener('touchstart', e => { var touchstart = e.changedTouches[0].screenX; } );
+        slideview.addEventListener('touchstart', e => { touchstart = e.changedTouches[0].screenX; } );
 
         slideview.addEventListener('touchend', e =>
         {
             let touchend = e.changedTouches[0].screenX;
+
+            alert('touchstart: ' + touchstart + ' touchend: ' + touchend + ' abs: ' + Math.abs(touchstart - touchend));
 
             if ( Math.abs(touchstart - touchend) > 50)
             {
