@@ -260,10 +260,10 @@ var ceres = {};
 
         function enableTouchSlide()
         {
-            var container = document.querySelector(imageContainer);
+            const slides = document.querySelectorAll('.slideview');
 
-            container.addEventListener("touchstart", startTouch, false);
-            container.addEventListener("touchmove", moveTouch, false);
+            slides.addEventListener("touchstart", startTouch, false);
+            slides.addEventListener("touchmove", moveTouch, false);
 
             // Swipe Up / Down / Left / Right
             var initialX = null;
