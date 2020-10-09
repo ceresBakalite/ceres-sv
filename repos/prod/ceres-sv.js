@@ -248,7 +248,7 @@ var ceres = {};
             slideview.addEventListener('touchmove', e =>
             {
                 document.querySelector('span.active').className = 'ptr';
-            }
+            });
 
             slideview.addEventListener('touchend', e =>
             {
