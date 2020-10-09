@@ -241,7 +241,7 @@ var ceres = {};
         {
             const slideview = document.querySelector('div.slideview-image-container');
 
-            if (!touch.act) touch.act = 20;
+            if (!touch.act) touch.act = 10;
 
             slideview.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
 
