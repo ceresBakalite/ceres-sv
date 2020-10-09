@@ -330,7 +330,7 @@ var ceres = {};
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
-        alert('targetIndex: ' + targetIndex + ' csv.index: ' + csv.index);
+        alert('target: ' + targetIndex + ' csv.index: ' + csv.index);
 
         slides.forEach(node => { node.style.display = 'none'; } );
         slides[csv.index-1].style.display = 'block';
@@ -358,8 +358,8 @@ var ceres = {};
 
             if (touchstart != touchend)
             {
-                let targetIndex = (touchend < touchstart) ? 1 :  -1;
-                 slideview.getSlide(targetIndex, true);
+                let target = (touchend < touchstart) ? 1 : -1;
+                getSlide(csv.index = csv.index += target);
             }
 
         });
