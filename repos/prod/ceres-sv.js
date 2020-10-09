@@ -354,9 +354,9 @@ var ceres = {};
         {
             touchend = e.changedTouches[0].screenX;
 
-            alert('touchstart: ' + touchstart + ' touchend: ' + touchend);
+            alert('touchstart: ' + touchstart + ' touchend: ' + touchend + ' abs: ' + Math.abs(touchstart - touchend));
 
-            if (touchstart != touchend)
+            if ( Math.abs(touchstart - touchend) > 10)
             {
                 let target = (touchend < touchstart) ? 1 : -1;
                 getSlide(csv.index = csv.index += target);
