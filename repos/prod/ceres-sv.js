@@ -349,7 +349,8 @@ var ceres = {};
 
         slideview.addEventListener('touchend', e =>
         {
-          var touchend = e.changedTouches[0].screenX;
+          let touchend = e.changedTouches[0].screenX;
+          
           if (touchend < touchstart) getSlide(csv.index, true);
           if (touchend > touchstart) getSlide(csv.index-1, true);
         });
