@@ -359,7 +359,7 @@ var ceres = {};
             if (touchstart != touchend)
             {
                 let targetIndex = (touchend < touchstart) ? 1 :  -1;
-                getSlide(targetIndex, true);
+                 slideview.getSlide(targetIndex, true);
             }
 
         });
