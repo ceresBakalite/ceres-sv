@@ -352,10 +352,14 @@ var ceres = {};
 
         slideview.addEventListener('touchend', e =>
         {
-          touchend = e.changedTouches[0].screenX;
+            touchend = e.changedTouches[0].screenX;
 
-          if (touchend < touchstart) getSlide(csv.index, true);
-          if (touchend > touchstart) getSlide(csv.index-1, true);
+            if (touchend != touchstart)
+            {
+                let targetIndex = (touchend < touchstart) ? csv.index : csv.index-1;
+                getSlide(targetIndex, true);
+            }
+            
         });
 
     }
