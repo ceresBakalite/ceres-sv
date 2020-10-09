@@ -343,24 +343,28 @@ var ceres = {};
 
     function enableTouchSlide()
     {
-        let touchstartX = 0
-        let touchendX = 0
+        let touchstartX = 0;
+        let touchendX = 0;
 
         const slides = document.querySelector('div.slideview-image-container');
 
-        function handleGesure() {
-          if (touchendX < touchstartX) alert('swiped left!')
-          if (touchendX > touchstartX) alert('swiped right!')
+        function handleGesure()
+        {
+          if (touchendX < touchstartX) getSlide(1, true);
+          if (touchendX > touchstartX) getSlide(-1, true);
         }
 
-        slides.addEventListener('touchstart', e => {
-          touchstartX = e.changedTouches[0].screenX
-        })
+        slides.addEventListener('touchstart', e =>
+        {
+          touchstartX = e.changedTouches[0].screenX;
+        });
 
-        slides.addEventListener('touchend', e => {
-          touchendX = e.changedTouches[0].screenX
-          handleGesure()
-        })
+        slides.addEventListener('touchend', e =>
+        {
+          touchendX = e.changedTouches[0].screenX;
+          handleGesure();
+        });
+
     }
 
     function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
