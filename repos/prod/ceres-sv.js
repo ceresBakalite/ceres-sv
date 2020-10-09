@@ -330,7 +330,7 @@ var ceres = {};
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
-        alert('targetIndex: ' + targetIndex);
+        alert('targetIndex: ' + targetIndex + ' csv.index: ' + csv.index);
 
         slides.forEach(node => { node.style.display = 'none'; } );
         slides[csv.index-1].style.display = 'block';
