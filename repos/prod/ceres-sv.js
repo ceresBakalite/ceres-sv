@@ -346,7 +346,7 @@ var ceres = {};
         let touchstartX = 0;
         let touchendX = 0;
 
-        const slides = document.querySelector('div.slideview-image-container');
+        const slideview = document.querySelector('div.slideview-image-container');
 
         function handleGesure()
         {
@@ -354,12 +354,9 @@ var ceres = {};
           if (touchendX > touchstartX) getSlide(-1, true);
         }
 
-        slides.addEventListener('touchstart', e =>
-        {
-          touchstartX = e.changedTouches[0].screenX;
-        });
+        slideview.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; } );
 
-        slides.addEventListener('touchend', e =>
+        slideview.addEventListener('touchend', e =>
         {
           touchendX = e.changedTouches[0].screenX;
           handleGesure();
