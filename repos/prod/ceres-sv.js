@@ -204,7 +204,7 @@ var ceres = {};
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
-        setSlideViewSwipe({ start: 0 });
+        setSlideViewSwipe({ start: 0, end: 0, difference: 60 });
         setSlideViewDisplay('none');
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
@@ -241,15 +241,15 @@ var ceres = {};
         {
             const slideview = document.querySelector('div.slideview-image-container');
 
-alert('touch.start: ' + touch.start);
+alert('touch.start: ' + touch.start + 'touch.end: ' + touch.end + ' touch.difference: ' + touch.difference);
 
             slideview.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
 
             slideview.addEventListener('touchend', e =>
             {
-                let touchend = e.changedTouches[0].screenX;
+                touch.end = e.changedTouches[0].screenX;
 
-                if ( Math.abs(touchstart - touchend) > 60)
+                if ( Math.abs(touchstart - touchend) > touch.difference)
                 {
                     let target = (touchend < touchstart) ? 1 : -1;
                     getSlide(csv.index = csv.index += target);
