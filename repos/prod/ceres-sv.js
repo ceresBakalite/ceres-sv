@@ -245,11 +245,6 @@ var ceres = {};
 
             slideview.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
 
-            slideview.addEventListener('touchmove', e =>
-            {
-                document.querySelector('span.active').className = 'ptr';
-            });
-
             slideview.addEventListener('touchend', e =>
             {
                 touch.end = e.changedTouches[0].screenX;
