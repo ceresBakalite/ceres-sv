@@ -204,7 +204,7 @@ var ceres = {};
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
-        setSlideViewSwipeSlide({ start: 0 });
+        setSlideViewSwipe({ start: 0 });
         setSlideViewDisplay('none');
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
@@ -237,7 +237,7 @@ var ceres = {};
 
         }
 
-        function setSlideViewSwipeSlide(touch = {})
+        function setSlideViewSwipe(touch = {})
         {
             const slideview = document.querySelector('div.slideview-image-container');
 
