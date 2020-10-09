@@ -374,7 +374,8 @@ var ceres = {};
             {
                 let ptr = document.querySelector('span.ptr');
 
-                el.style.backgroundColor = window.getComputedStyle(ptr).getPropertyValue('background-color')
+                // el.style.backgroundColor = window.getComputedStyle(ptr).getPropertyValue('background-color');
+                el.style.backgroundColor = '#bbb';
                 el.className = 'ptr';
             }
 
