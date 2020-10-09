@@ -204,7 +204,7 @@ var ceres = {};
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
-        setSlideViewSwipe({ act: 60, el: 'div.slideview-image-container' });
+        setSlideViewSwipe( { act: 60, el: 'div.slideview-image-container' } );
         setSlideViewDisplay('none');
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
@@ -252,11 +252,19 @@ var ceres = {};
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     let offset = (touch.end < touch.start) ? 1 : -1;
+
+                    if (csv.attribute.ptr) setPointers();
                     getSlide(csv.index = csv.index += offset);
                 }
 
             });
 
+        }
+
+        function setPointers()
+        {
+            const pointers = document.querySelectorAll('.ptr');
+            pointers.forEach(node => { node.className = node.className.replace(' active', ''); } );
         }
 
         function getURL()
@@ -349,7 +357,6 @@ var ceres = {};
     function getSlide(targetIndex)
     {
         const slides = document.querySelectorAll('.slideview');
-        const pointers = document.querySelectorAll('.ptr');
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
