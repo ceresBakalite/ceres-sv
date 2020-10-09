@@ -363,12 +363,15 @@ var ceres = {};
         slides.forEach(node => { node.style.display = 'none'; } );
         slides[csv.index-1].style.display = 'block';
 
-        if (csv.attribute.ptr)
-        {
-            pointers.forEach(node => { node.className = node.className.replace(' active', ''); } );
-            pointers[csv.index-1].className += ' active';
-        }
+        if (csv.attribute.ptr) setPointers();
+    }
 
+    function setPointers()
+    {
+        const pointers = document.querySelectorAll('.ptr');
+
+        pointers.forEach(node => { node.className = node.className.replace(' active', ''); } );
+        pointers[csv.index-1].className += ' active';
     }
 
     function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
