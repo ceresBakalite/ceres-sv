@@ -341,25 +341,22 @@ var ceres = {};
 
     }
 
-    function enableTouchSlide()
+    function touchSlide()
     {
-        let touchstartX = 0;
-        let touchendX = 0;
-
         const slideview = document.querySelector('div.slideview-image-container');
 
-        function handleGesure()
+        function detectMotion()
         {
-          if (touchendX < touchstartX) getSlide(1, true);
-          if (touchendX > touchstartX) getSlide(-1, true);
+          if (touchend < touchstart) getSlide(csv.index, true);
+          if (touchend > touchstart) getSlide(csv.index-1, true);
         }
 
-        slideview.addEventListener('touchstart', e => { touchstartX = e.changedTouches[0].screenX; } );
+        slideview.addEventListener('touchstart', e => { var touchstart = e.changedTouches[0].screenX; } );
 
         slideview.addEventListener('touchend', e =>
         {
-          touchendX = e.changedTouches[0].screenX;
-          handleGesure();
+          var touchend = e.changedTouches[0].screenX;
+          detectMotion();
         });
 
     }
@@ -398,7 +395,7 @@ var ceres = {};
 
         getSlideView();
         getSlide();
-        enableTouchSlide();
+        touchSlide();
 
         setTimeout(function() { setSlideViewDisplay('block'); }, csv.attribute.delay);
     }
