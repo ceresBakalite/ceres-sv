@@ -361,19 +361,14 @@ var ceres = {};
 
         csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
-        slides.forEach(node => { node.style.display = 'none'; } );
-        slides[csv.index-1].style.display = 'block';
-
         if (csv.attribute.ptr)
         {
-            pointers.forEach(node =>
-            {
-                node.className = 'ptr'; // node.className.replace(' active', '');
-            });
-
+            pointers.forEach(node => { node.className = 'ptr'; });
             pointers[csv.index-1].className += ' active';
         }
 
+        slides.forEach(node => { node.style.display = 'none'; } );
+        slides[csv.index-1].style.display = 'block';
     }
 
     function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
