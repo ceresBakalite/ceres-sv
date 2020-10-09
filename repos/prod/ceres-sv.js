@@ -354,7 +354,7 @@ var ceres = {};
         {
             touchend = e.changedTouches[0].screenX;
 
-            if (touchend != touchstart)
+            if (touchstart != touchend)
             {
                 let targetIndex = (touchend < touchstart) ? csv.index : csv.index-1;
                 alert('targetIndex: ' + targetIndex);
