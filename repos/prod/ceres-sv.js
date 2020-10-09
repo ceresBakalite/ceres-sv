@@ -365,7 +365,7 @@ var ceres = {};
 
         if (csv.attribute.ptr)
         {
-            document.querySelector('span.active').className = 'ptr';
+            if (document.querySelector('span.active')) document.querySelector('span.active').className = 'ptr';
             //pointers.forEach(node => { node.className = 'ptr'; });
             pointers[csv.index-1].className += ' active';
         }
