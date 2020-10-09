@@ -370,7 +370,14 @@ var ceres = {};
 
         if (csv.attribute.ptr)
         {
-            if (el) el.className = 'ptr';
+            if (el)
+            {
+                let ptr = document.querySelector('span.ptr');
+
+                el.style.backgroundColor = window.getComputedStyle(ptr).getPropertyValue('background-color')
+                el.className = 'ptr';
+            }
+
             pointers[csv.index-1].className += ' active';
         }
 
