@@ -343,7 +343,7 @@ var ceres = {};
 
     function enableTouchSlide()
     {
-        const slides = document.querySelector('.slideview');
+        const slides = document.querySelector('img.slide');
 
         slides.addEventListener("touchstart", startTouch, false);
         slides.addEventListener("touchmove", moveTouch, false);
