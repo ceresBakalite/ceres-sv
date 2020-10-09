@@ -341,7 +341,7 @@ var ceres = {};
 
     }
 
-    function touchSlide()
+    function swipeSlideView()
     {
         const slideview = document.querySelector('div.slideview-image-container');
 
@@ -350,7 +350,7 @@ var ceres = {};
         slideview.addEventListener('touchend', e =>
         {
           let touchend = e.changedTouches[0].screenX;
-          
+
           if (touchend < touchstart) getSlide(csv.index, true);
           if (touchend > touchstart) getSlide(csv.index-1, true);
         });
@@ -390,8 +390,8 @@ var ceres = {};
         csv.progenitor.style.display = 'none';
 
         getSlideView();
+        swipeSlideView();
         getSlide();
-        touchSlide();
 
         setTimeout(function() { setSlideViewDisplay('block'); }, csv.attribute.delay);
     }
