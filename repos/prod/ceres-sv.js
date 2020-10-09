@@ -341,15 +341,18 @@ var ceres = {};
 
     }
 
-    function swipeSlideView()
+    function swipeSlide()
     {
         const slideview = document.querySelector('div.slideview-image-container');
 
-        slideview.addEventListener('touchstart', e => { var touchstart = e.changedTouches[0].screenX; } );
+        let touchstart = 0;
+        let touchend = 0;
+
+        slideview.addEventListener('touchstart', e => { touchstart = e.changedTouches[0].screenX; } );
 
         slideview.addEventListener('touchend', e =>
         {
-          let touchend = e.changedTouches[0].screenX;
+          touchend = e.changedTouches[0].screenX;
 
           if (touchend < touchstart) getSlide(csv.index, true);
           if (touchend > touchstart) getSlide(csv.index-1, true);
@@ -390,8 +393,9 @@ var ceres = {};
         csv.progenitor.style.display = 'none';
 
         getSlideView();
-        swipeSlideView();
         getSlide();
+
+        swipeSlide();
 
         setTimeout(function() { setSlideViewDisplay('block'); }, csv.attribute.delay);
     }
