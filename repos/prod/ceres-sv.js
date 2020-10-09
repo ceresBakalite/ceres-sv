@@ -263,8 +263,7 @@ var ceres = {};
 
         function setPointers()
         {
-            const pointers = document.querySelectorAll('.ptr');
-            pointers.forEach(node => { node.className = node.className.replace(' active', ''); } );
+            document.querySelector('span.active').className = 'ptr';
         }
 
         function getURL()
@@ -366,8 +365,8 @@ var ceres = {};
 
         if (csv.attribute.ptr)
         {
-            pointers.forEach(node => { node.className = 'ptr'; });
-            pointers.forEach(node => { node.className = 'ptr'; });
+            document.querySelector('span.active').className = 'ptr';
+            //pointers.forEach(node => { node.className = 'ptr'; });
             pointers[csv.index-1].className += ' active';
         }
 
