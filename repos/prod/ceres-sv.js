@@ -358,7 +358,7 @@ var ceres = {};
 
             if (touchstart != touchend)
             {
-                let targetIndex = (touchend < touchstart) ? csv.index : csv.index-1;
+                let targetIndex = (touchend < touchstart) ? csv.index + 1 : csv.index - 1;
                 getSlide(targetIndex, true);
             }
 
