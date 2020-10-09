@@ -356,15 +356,16 @@ var ceres = {};
         slides[csv.index-1].style.display = 'block';
 
         if (csv.attribute.ptr) setPointer();
-    }
 
-    function setPointer()
-    {
-        const pointers = document.querySelectorAll('.ptr');
-        const el = document.querySelector('span.active');
+        function setPointer()
+        {
+            const pointers = document.querySelectorAll('.ptr');
+            const el = document.querySelector('span.active');
 
-        if (el) el.className = 'ptr';
-        pointers[csv.index-1].className += ' active';
+            if (el) el.className = 'ptr';
+            pointers[csv.index-1].className += ' active';
+        }
+
     }
 
     function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
