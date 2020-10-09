@@ -357,9 +357,10 @@ var ceres = {};
             if (touchend != touchstart)
             {
                 let targetIndex = (touchend < touchstart) ? csv.index : csv.index-1;
+                alert('targetIndex: ' + targetIndex);
                 getSlide(targetIndex, true);
             }
-            
+
         });
 
     }
