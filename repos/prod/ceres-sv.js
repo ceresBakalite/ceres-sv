@@ -354,11 +354,11 @@ var ceres = {};
         {
             touchend = e.changedTouches[0].screenX;
 
-            alert('touchstart: ' + touchstart + ' touchsend: ' + touchend);
-            
+            alert('touchstart: ' + touchstart + ' touchend: ' + touchend);
+
             if (touchstart != touchend)
             {
-                let target = (touchend < touchstart) ? -1 : 1;
+                let target = (touchend < touchstart) ? 1 : -1;
                 getSlide(csv.index = csv.index += target);
             }
 
