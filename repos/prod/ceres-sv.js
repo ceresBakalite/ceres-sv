@@ -367,7 +367,8 @@ var ceres = {};
         if (csv.attribute.ptr)
         {
             pointers.forEach(node => { node.className = node.className.replace(' active', ''); } );
-            setTimeout(function() { pointers[csv.index-1].className += ' active'; }, 500);
+            pointers.focus();
+            pointers[csv.index-1].className += ' active';
         }
 
     }
