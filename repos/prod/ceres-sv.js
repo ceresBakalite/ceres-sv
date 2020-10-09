@@ -247,7 +247,7 @@ var ceres = {};
 
             slideview.addEventListener('touchend', e =>
             {
-                touch.end = e.changedTouches[0].screenX;
+                touch.end = setTimeout(function() { e.changedTouches[0].screenX; }, 500);
 
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
