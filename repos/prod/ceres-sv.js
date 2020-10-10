@@ -225,8 +225,8 @@ var ceres = {};
                 {
                     let offset = (touch.end < touch.start) ? 1 : -1;
                     //getSlide(csv.index = csv.index += offset);
-                    alert('arg: ' + args + ' offset: ' + offset + ' arg: ' + args + offset);
-                    callback.apply(this, args + offset);
+                    alert('arg: ' + args + ' offset: ' + offset + ' arg: ' + (args += offset));
+                    callback.apply(this, (args += offset));
                 }
 
             });
