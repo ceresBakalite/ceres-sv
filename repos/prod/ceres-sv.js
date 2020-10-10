@@ -241,7 +241,7 @@ var ceres = {};
             document.querySelector("span.active").className = 'ptr';
 
             let offset = (action) ? swipe.right : swipe.left;
-            setTimeout(function() { getSlide(csv.index = csv.index += offset); }, 500);
+            getSlide(csv.index = csv.index += offset);
         }
 
         function getSlideViewPointerContainer()
