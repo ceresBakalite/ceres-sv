@@ -238,10 +238,10 @@ var ceres = {};
             swipe.right = 1;
             swipe.left = -1;
 
-            document.querySelectorAll("span.ptr").forEach(node => { node.className = 'ptr'; } );
+            document.querySelector("span.active").className = 'ptr';
 
             let offset = (action) ? swipe.right : swipe.left;
-            getSlide(csv.index = csv.index += offset);
+            setTimeout(function() { getSlide(csv.index = csv.index += offset); }, 500);
         }
 
         function getSlideViewPointerContainer()
