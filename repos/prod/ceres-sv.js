@@ -230,6 +230,8 @@ alert('test arLength: ' + arLength + ' args.length: ' + args.length);
                     if (args.length > arLength) args.pop();
                     args.push(offset);
 
+                    alert('test offset: ' + offset);
+
                     callback.apply(this, args);
                 }
 
