@@ -225,7 +225,7 @@ var ceres = {};
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     let offset = (touchEnd < touchStart) ? 1 : -1;
-
+alert(' arLength: ' + arLength + ' args.length: ' + args.length);
                     if (args.length > arLength) args.pop();
                     callback.apply(this, args.push(offset));
                 }
