@@ -233,8 +233,8 @@ var ceres = {};
 
         function getHorizontalSwipe(swipe = {})
         {
-            swipe.right = 1;
-            swipe.left = -1;
+            if (!swipe.right) swipe.right = 1;
+            if (!swipe.left) swipe.left = -1;
 
             let offset = (swipe.action) ? swipe.right : swipe.left;
             getSlide(csv.index = csv.index += offset);
