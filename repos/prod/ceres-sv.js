@@ -225,7 +225,7 @@ var ceres = {};
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     if (args.length > arLength) args.pop();
-                    args.push((touch.end < touch.start) ? 1 : -1);
+                    args.push((touch.end < touch.start) ? true : false);
 
                     callback.apply(this, args);
                 }
@@ -234,8 +234,9 @@ var ceres = {};
 
         }
 
-        function getHorizontalSwipeAction(offset)
+        function getHorizontalSwipeAction(swipeLeft)
         {
+            let offset = (swipeLeft) ? 1 : -1;
             getSlide(csv.index = csv.index += offset);
         }
 
