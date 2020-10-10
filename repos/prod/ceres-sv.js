@@ -223,7 +223,7 @@ var ceres = {};
 
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
-                    args.push(touch.start, touch.end);
+                    args.pop().args.push((touchEnd < touchStart) ? 1 : -1);
                     callback.apply(this, args);
                 }
 
@@ -231,12 +231,10 @@ var ceres = {};
 
         }
 
-        function getHorizontalSwipeAction(touchStart, touchEnd)
+        function getHorizontalSwipeAction(offset)
         {
-            let offset = (touchEnd < touchStart) ? 1 : -1;
-
 alert('touchStart: ' + touchStart + ' touchEnd: ' + touchEnd + ' offset: ' + offset);
-            
+
             getSlide(csv.index = csv.index += offset);
         }
 
