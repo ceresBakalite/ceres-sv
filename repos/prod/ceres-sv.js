@@ -204,7 +204,7 @@ var ceres = {};
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
-        setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container'}, getHorizontalSwipe);
+        setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container'}, getHorizontalSwipe, { right: 1, left: -1 });
         setSlideViewDisplay('none');
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
@@ -214,8 +214,6 @@ var ceres = {};
             const el = document.querySelector(touch.el);
 
             if (!touch.act) touch.act = 10;
-            if (!args.right) args.right = 1;
-            if (!args.left) args.left = -1;
 
             el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
 
