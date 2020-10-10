@@ -234,6 +234,9 @@ var ceres = {};
         function getHorizontalSwipeAction(touchStart, touchEnd)
         {
             let offset = (touchEnd < touchStart) ? 1 : -1;
+
+alert('touchStart: ' + touchStart + ' touchEnd: ' + touchEnd + ' offset: ' + offset);
+            
             getSlide(csv.index = csv.index += offset);
         }
 
