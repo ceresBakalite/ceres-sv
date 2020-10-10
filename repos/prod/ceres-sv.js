@@ -214,6 +214,8 @@ var ceres = {};
             const el = document.querySelector(touch.el);
 
             if (!touch.act) touch.act = 10;
+            if (!args.right) args.right = 1;
+            if (!args.left) args.left = -1;
 
             el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
 
@@ -233,9 +235,6 @@ var ceres = {};
 
         function getHorizontalSwipe(swipe = {})
         {
-            if (!swipe.right) swipe.right = 1;
-            if (!swipe.left) swipe.left = -1;
-
             let offset = (swipe.action) ? swipe.right : swipe.left;
             getSlide(csv.index = csv.index += offset);
         }
