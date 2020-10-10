@@ -238,7 +238,10 @@ var ceres = {};
             swipe.right = 1;
             swipe.left = -1;
 
-            document.querySelector("span.active").className = 'ptr';
+            let el = document.querySelector("span.active");
+            
+            el.className = 'ptr';
+            el.style.backgroundColor = window.getComputedStyle(el, null).getPropertyValue("background-color");
 
             let offset = (action) ? swipe.right : swipe.left;
             getSlide(csv.index = csv.index += offset);
