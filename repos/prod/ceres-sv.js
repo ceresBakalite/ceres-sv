@@ -209,7 +209,7 @@ var ceres = {};
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
 
-        function setHorizontalSwipe(touch = {}, callback, args = [])
+        function setHorizontalSwipe(touch = {}, callback, args = {})
         {
             const el = document.querySelector(touch.el);
             const arLength = args.length;
@@ -227,7 +227,8 @@ var ceres = {};
                     //if (args.length > arLength) args.pop();
                     //args.push((touch.start > touch.end) ? true : false);
                     //callback.apply(this, args);
-                    callback.call(this, (touch.start > touch.end) ? true : false);
+                    args.action = (touch.start > touch.end) ? true : false;
+                    callback.call(this, args);
 
                 }
 
@@ -240,7 +241,7 @@ var ceres = {};
             swipe.right = 1;
             swipe.left = -1;
 
-            let offset = (action) ? swipe.right : swipe.left;
+            let offset = (swipe.action) ? swipe.right : swipe.left;
             getSlide(csv.index = csv.index += offset);
         }
 
