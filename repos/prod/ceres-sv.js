@@ -212,6 +212,7 @@ var ceres = {};
         function setHorizontalSwipe(touch = {}, callback, args = [])
         {
             const el = document.querySelector(touch.el);
+            const arLength = args.length;
 
             if (!touch.act) touch.act = 10;
 
@@ -223,10 +224,10 @@ var ceres = {};
 
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
-                    //args.pop();
                     let offset = (touchEnd < touchStart) ? 1 : -1;
 
-                    callback.apply(this, args.pop().args.push(offset));
+                    if (args.length > arLength) args.pop();
+                    callback.apply(this, args.push(offset));
                 }
 
             });
