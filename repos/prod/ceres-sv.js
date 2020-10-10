@@ -224,11 +224,10 @@ var ceres = {};
 
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
-                    let offset = (touch.end < touch.start) ? 1 : -1;
-alert('test arLength: ' + arLength + ' args.length: ' + args.length);
-
                     if (args.length > arLength) args.pop();
-                    callback.apply(this, args.push(offset));
+                    args.push((touch.end < touch.start) ? 1 : -1);
+
+                    callback.apply(this, args);
                 }
 
             });
