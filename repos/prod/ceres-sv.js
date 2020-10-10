@@ -225,7 +225,7 @@ var ceres = {};
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     if (args.length > arLength) args.pop();
-                    args.push((touch.end < touch.start) ? false : true);
+                    args.push((touch.start > touch.end) ? true : false);
                     callback.apply(this, args);
                 }
 
