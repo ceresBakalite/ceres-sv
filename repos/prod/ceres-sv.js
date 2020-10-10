@@ -236,7 +236,7 @@ var ceres = {};
 
         }
 
-        function getHorizontalSwipe(action, swipe = {})
+        function getHorizontalSwipe(swipe = {})
         {
             swipe.right = 1;
             swipe.left = -1;
