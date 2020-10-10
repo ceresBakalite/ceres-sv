@@ -214,6 +214,8 @@ var ceres = {};
             const el = document.querySelector(touch.el);
             const arLength = args.length;
 
+            alert(' arLength: ' + arLength);
+
             if (!touch.act) touch.act = 10;
 
             el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
