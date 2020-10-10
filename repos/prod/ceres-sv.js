@@ -223,7 +223,7 @@ var ceres = {};
 
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
-                    args = (touch.end < touch.start) ? 1 : -1;
+                    args.push((touch.end < touch.start) ? 1 : -1);
                     //getSlide(csv.index = csv.index += offset);
                     callback.apply(this, args);
                 }
