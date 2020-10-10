@@ -204,7 +204,7 @@ var ceres = {};
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
-        setHorizontalSwipe( { act: 200, el: 'div.slideview-image-container'}, getHorizontalSwipe);
+        setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container'}, getHorizontalSwipe);
         setSlideViewDisplay('none');
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
