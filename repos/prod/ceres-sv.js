@@ -225,16 +225,17 @@ var ceres = {};
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     if (args.length > arLength) args.pop();
-                    callback.apply(this, args.push((touch.end < touch.start) ? true : false));
+                    args.push((touch.end < touch.start) ? false : true);
+                    callback.apply(this, args);
                 }
 
             });
 
         }
 
-        function getHorizontalSwipeAction(swipeLeft)
+        function getHorizontalSwipeAction(swipeRight)
         {
-            let offset = (swipeLeft) ? 1 : -1;
+            let offset = (swipeRight) ? -1 : 1;
             getSlide(csv.index = csv.index += offset);
         }
 
