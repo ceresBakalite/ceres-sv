@@ -211,13 +211,13 @@ var ceres = {};
 
         function setHorizontalSwipe(touch = {}, callback, args = [])
         {
-            const slideview = document.querySelector(touch.el);
+            const el = document.querySelector(touch.el);
 
             if (!touch.act) touch.act = 10;
 
-            slideview.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
+            el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
 
-            slideview.addEventListener('touchend', e =>
+            el.addEventListener('touchend', e =>
             {
                 touch.end = e.changedTouches[0].screenX;
 
