@@ -226,8 +226,11 @@ var ceres = {};
                 {
                     let offset = (touchEnd < touchStart) ? 1 : -1;
 alert(' arLength: ' + arLength + ' args.length: ' + args.length);
+
                     if (args.length > arLength) args.pop();
-                    callback.apply(this, args.push(offset));
+                    args.push(offset);
+
+                    callback.apply(this, args);
                 }
 
             });
