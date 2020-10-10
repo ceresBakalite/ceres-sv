@@ -236,8 +236,6 @@ var ceres = {};
 
         function getHorizontalSwipeAction(offset)
         {
-alert(' offset: ' + offset);
-
             getSlide(csv.index = csv.index += offset);
         }
 
