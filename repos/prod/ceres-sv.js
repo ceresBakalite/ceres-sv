@@ -214,8 +214,6 @@ var ceres = {};
             const el = document.querySelector(touch.el);
             const arLength = args.length;
 
-            alert(' arLength: ' + arLength);
-
             if (!touch.act) touch.act = 10;
 
             el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; } );
@@ -227,7 +225,7 @@ var ceres = {};
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     let offset = (touch.end < touch.start) ? 1 : -1;
-alert(' arLength: ' + arLength + ' args.length: ' + args.length);
+alert('test arLength: ' + arLength + ' args.length: ' + args.length);
 
                     if (args.length > arLength) args.pop();
                     args.push(offset);
