@@ -233,7 +233,7 @@ var ceres = {};
 
         function swipeAction(touchEnd, touchStart)
         {
-            let offset = (touchEnd < touchStart) ? 1 : -1);
+            let offset = (touchEnd < touchStart) ? 1 : -1;
             getSlide(csv.index = csv.index += offset);
         }
 
