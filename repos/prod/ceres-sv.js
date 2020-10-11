@@ -176,7 +176,7 @@ var ceres = {};
         csv.progenitor.appendChild(imageContainer);
 
         //composeAttribute(imageContainer.id, 'class', 'slideview-image-container');
-        testAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
+        composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
         for (let item = 0; item < csv.imageArray.length; item++)
         {
@@ -382,16 +382,14 @@ var ceres = {};
         el.id = id;
         parent.appendChild(el);
 
-//        if (classValue) composeAttribute(el.id, 'class', classValue);
-        if (classValue) testAttribute({ id: el.id, type: 'class', value: classValue });
-
-        if (onClickEventValue) composeAttribute(el.id, 'onclick', onClickEventValue);
-        if (url) composeAttribute(el.id, 'src', url);
-        if (accessibility) composeAttribute(el.id, 'alt', accessibility);
+        if (classValue) composeAttribute({ id: el.id, type: 'class', value: classValue });
+        if (onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: onClickEventValue });
+        if (url) composeAttribute({ id: el.id, type: 'src', value: url });
+        if (accessibility) composeAttribute({ id: el.id, type: 'alt', value: accessibility });
         if (markup) document.getElementById(el.id).innerHTML = markup;
     }
 
-    function composeAttribute(id, type, value)
+    function testAttribute(id, type, value)
     {
         const el = document.getElementById(id);
 
@@ -405,7 +403,7 @@ var ceres = {};
 
     }
 
-    function testAttribute(property = {})
+    function composeAttribute(property = {})
     {
         const el = document.getElementById(property.id);
 
