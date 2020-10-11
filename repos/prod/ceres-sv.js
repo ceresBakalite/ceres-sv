@@ -175,7 +175,6 @@ var ceres = {};
         imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
         csv.progenitor.appendChild(imageContainer);
 
-        //composeAttribute(imageContainer.id, 'class', 'slideview-image-container');
         composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
         for (let item = 0; item < csv.imageArray.length; item++)
@@ -247,7 +246,6 @@ var ceres = {};
             pointerElement.id = csv.attribute.HTMLSlideViewElement + '-pointer-container';
             csv.progenitor.appendChild(pointerElement);
 
-            //composeAttribute(pointerElement.id, 'class', 'slideview-pointer-container');
             composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
             for (let item = 0; item < csv.imageArray.length; item++)
@@ -390,21 +388,7 @@ var ceres = {};
         if (markup) document.getElementById(el.id).innerHTML = markup;
     }
 
-    function testAttribute(id, type, value)
-    {
-        const el = document.getElementById(id);
-
-        if (el)
-        {
-            const attribute = document.createAttribute(type);
-            attribute.value = value;
-
-            el.setAttributeNode(attribute);
-        }
-
-    }
-
-    function composeAttribute(property = {})
+    function composeAttribute(property)
     {
         const el = document.getElementById(property.id);
 
