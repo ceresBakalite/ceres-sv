@@ -388,16 +388,16 @@ var ceres = {};
         if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
     }
 
-    function composeAttribute(property)
+    function composeAttribute(attribute)
     {
-        const el = document.getElementById(property.id);
+        const el = document.getElementById(attribute.id);
 
         if (el)
         {
-            const attribute = document.createAttribute(property.type);
-            attribute.value = property.value;
+            const attributeNode = document.createAttribute(attribute.type);
+            attributeNode.value = attribute.value;
 
-            el.setAttributeNode(attribute);
+            el.setAttributeNode(attributeNode);
         }
 
     }
