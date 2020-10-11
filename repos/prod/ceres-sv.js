@@ -209,7 +209,7 @@ var ceres = {};
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
 
-        function setHorizontalSwipe(touch = {}, callback, args = {})
+        function setHorizontalSwipe(touch, callback, args)
         {
             const el = document.querySelector(touch.el);
 
