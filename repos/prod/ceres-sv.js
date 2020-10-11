@@ -175,7 +175,7 @@ var ceres = {};
         imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
         csv.progenitor.appendChild(imageContainer);
 
-        composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
+        composeAttribute(imageContainer.id, 'class', 'slideview-image-container');
 
         for (let item = 0; item < csv.imageArray.length; item++)
         {
@@ -246,7 +246,7 @@ var ceres = {};
             pointerElement.id = csv.attribute.HTMLSlideViewElement + '-pointer-container';
             csv.progenitor.appendChild(pointerElement);
 
-            composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
+            composeAttribute(pointerElement.id, 'class', 'slideview-pointer-container');
 
             for (let item = 0; item < csv.imageArray.length; item++)
             {
@@ -381,28 +381,23 @@ var ceres = {};
         el.id = id;
         parent.appendChild(el);
 
-//        if (classValue) composeAttribute(el.id, 'class', classValue);
-        if (classValue) composeAttribute({ id: el.id, type: 'class', value: classValue });
-//        if (onClickEventValue) composeAttribute(el.id, 'onclick', onClickEventValue);
-        if (onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: onClickEventValue });
-//        if (url) composeAttribute(el.id, 'src', url);
-        if (url) composeAttribute({ id: el.id, type: 'src', value: url });
-//        if (accessibility) composeAttribute(el.id, 'alt', accessibility);
-        if (accessibility) composeAttribute({ id: el.id, type: 'alt', value: accessibility });
+        if (classValue) composeAttribute(el.id, 'class', classValue);
+        if (onClickEventValue) composeAttribute(el.id, 'onclick', onClickEventValue);
+        if (url) composeAttribute(el.id, 'src', url);
+        if (accessibility) composeAttribute(el.id, 'alt', accessibility);
         if (markup) document.getElementById(el.id).innerHTML = markup;
     }
 
-//    function composeAttribute(id, type, value)
-    function composeAttribute(attribute = {})
+    function composeAttribute(id, type, value)
     {
-        const el = document.getElementById(attribute.id);
+        const el = document.getElementById(id);
 
         if (el)
         {
-            const attributeType = document.createAttribute(attribute.type);
-            if (attributeType) attributeType.value = attribute.value;
+            const attribute = document.createAttribute(type);
+            attribute.value = value;
 
-            el.setAttributeNode(attributeType.value);
+            el.setAttributeNode(attribute);
         }
 
     }
