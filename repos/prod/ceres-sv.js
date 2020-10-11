@@ -400,7 +400,7 @@ var ceres = {};
         if (el)
         {
             const attributeType = document.createAttribute(attribute.type);
-            attributeType.value = attribute.value;
+            if (attributeType) attributeType.value = attribute.value;
 
             el.setAttributeNode(attributeType.value);
         }
