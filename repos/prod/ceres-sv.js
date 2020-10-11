@@ -193,13 +193,18 @@ var ceres = {};
             //composeElement('div', id, 'slideview fade', imageContainer, null, null, null, null);
             testElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
 
-            //function testElement(el, id, classValue, parent, markup, onClickEventValue, url, accessibility)
-
             let slideContainer = document.getElementById(id);
 
-            if (csv.attribute.sur) composeElement('div', elements.surName, 'surtitle', slideContainer, getSurtitle(qualifier), null, null, null);
-            composeElement('img', elements.imgName, 'slide', slideContainer, null, 'window.tabImage(this);', getURL(), getAccessibilityText())
-            if (csv.attribute.sub) composeElement('div', elements.subName, 'subtitle', slideContainer, getSubtitle(), null, null, null);
+            //if (csv.attribute.sur) composeElement('div', elements.surName, 'surtitle', slideContainer, getSurtitle(qualifier), null, null, null);
+            if (csv.attribute.sur) testElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(qualifier) });
+
+            //function testElement(el, id, classValue, parent, markup, onClickEventValue, url, accessibility)
+
+            //composeElement('img', elements.imgName, 'slide', slideContainer, null, 'window.tabImage(this);', getURL(), getAccessibilityText())
+            testElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEventValue: 'window.tabImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+
+            //if (csv.attribute.sub) composeElement('div', elements.subName, 'subtitle', slideContainer, getSubtitle(), null, null, null);
+            if (csv.attribute.sub) testElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
 
         composeElement('a', 'slideview-prev', 'prev', imageContainer, '&#10094;', 'window.getSlide(-1, true)', getURL(), null);
@@ -377,7 +382,7 @@ var ceres = {};
 
     }
 
-    function testElement(element = {})
+    function testElement(element)
     {
         const el = document.createElement(element.el);
 
