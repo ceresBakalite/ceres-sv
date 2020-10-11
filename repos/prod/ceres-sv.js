@@ -382,7 +382,7 @@ var ceres = {};
         const el = document.createElement(element.el);
 
         el.id = element.id;
-        parent.appendChild(el);
+        element.parent.appendChild(el);
 
         if (element.classValue) composeAttribute({ id: el.id, type: 'class', value: element.classValue });
         if (element.onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
