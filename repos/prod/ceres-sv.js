@@ -374,32 +374,18 @@ var ceres = {};
 
     }
 
-    function composeElement(element)
+    function composeElement(attribute)
     {
-        const el = document.createElement(element.el);
+        const el = document.createElement(attribute.el);
 
-        el.id = element.id;
-        element.parent.appendChild(el);
+        el.id = attribute.id;
+        attribute.parent.appendChild(el);
 
-        if (element.classValue) composeAttribute({ id: el.id, type: 'class', value: element.classValue });
-        if (element.onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
-        if (element.url) composeAttribute({ id: el.id, type: 'src', value: element.url });
-        if (element.accessibility) composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
-        if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
-    }
-
-    function xxxxcomposeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
-    {
-        const el = document.createElement(element);
-
-        el.id = id;
-        parent.appendChild(el);
-
-        if (classValue) composeAttribute({ id: el.id, type: 'class', value: classValue });
-        if (onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: onClickEventValue });
-        if (url) composeAttribute({ id: el.id, type: 'src', value: url });
-        if (accessibility) composeAttribute({ id: el.id, type: 'alt', value: accessibility });
-        if (markup) document.getElementById(el.id).innerHTML = markup;
+        if (attribute.classValue) composeAttribute({ id: el.id, type: 'class', value: attribute.classValue });
+        if (attribute.onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: attribute.onClickEventValue });
+        if (attribute.url) composeAttribute({ id: el.id, type: 'src', value: attribute.url });
+        if (attribute.accessibility) composeAttribute({ id: el.id, type: 'alt', value: attribute.accessibility });
+        if (attribute.markup) document.getElementById(el.id).innerHTML = attribute.markup;
     }
 
     function composeAttribute(property)
