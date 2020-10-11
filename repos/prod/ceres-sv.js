@@ -383,7 +383,7 @@ var ceres = {};
 
         if (classValue) composeAttribute(el.id, 'class', classValue);
         if (onClickEventValue) composeAttribute(el.id, 'onclick', onClickEventValue);
-        if (url) composeAttribute(el.id, 'data-src', url);
+        if (url) composeAttribute(el.id, 'src', url);
         if (accessibility) composeAttribute(el.id, 'alt', accessibility);
         if (markup) document.getElementById(el.id).innerHTML = markup;
     }
