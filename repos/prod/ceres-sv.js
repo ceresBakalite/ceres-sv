@@ -374,18 +374,18 @@ var ceres = {};
 
     }
 
-    function composeElement(attribute)
+    function composeElement(property)
     {
-        const el = document.createElement(attribute.el);
+        const el = document.createElement(property.el);
 
-        el.id = attribute.id;
-        attribute.parent.appendChild(el);
+        el.id = property.id;
+        property.parent.appendChild(el);
 
-        if (attribute.classValue) composeAttribute({ id: el.id, type: 'class', value: attribute.classValue });
-        if (attribute.onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: attribute.onClickEventValue });
-        if (attribute.url) composeAttribute({ id: el.id, type: 'src', value: attribute.url });
-        if (attribute.accessibility) composeAttribute({ id: el.id, type: 'alt', value: attribute.accessibility });
-        if (attribute.markup) document.getElementById(el.id).innerHTML = attribute.markup;
+        if (property.classValue) composeAttribute({ id: el.id, type: 'class', value: property.classValue });
+        if (property.onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: property.onClickEventValue });
+        if (property.url) composeAttribute({ id: el.id, type: 'src', value: property.url });
+        if (property.accessibility) composeAttribute({ id: el.id, type: 'alt', value: property.accessibility });
+        if (property.markup) document.getElementById(el.id).innerHTML = property.markup;
     }
 
     function composeAttribute(property)
