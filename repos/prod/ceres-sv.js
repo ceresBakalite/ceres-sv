@@ -382,7 +382,9 @@ var ceres = {};
         el.id = id;
         parent.appendChild(el);
 
-        if (classValue) composeAttribute(el.id, 'class', classValue);
+//        if (classValue) composeAttribute(el.id, 'class', classValue);
+        if (classValue) testAttribute({ id: el.id, type: 'class', value: classValue });
+
         if (onClickEventValue) composeAttribute(el.id, 'onclick', onClickEventValue);
         if (url) composeAttribute(el.id, 'src', url);
         if (accessibility) composeAttribute(el.id, 'alt', accessibility);
