@@ -247,7 +247,8 @@ var ceres = {};
             pointerElement.id = csv.attribute.HTMLSlideViewElement + '-pointer-container';
             csv.progenitor.appendChild(pointerElement);
 
-            composeAttribute(pointerElement.id, 'class', 'slideview-pointer-container');
+            //composeAttribute(pointerElement.id, 'class', 'slideview-pointer-container');
+            composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
             for (let item = 0; item < csv.imageArray.length; item++)
             {
