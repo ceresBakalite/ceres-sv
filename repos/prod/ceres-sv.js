@@ -190,20 +190,17 @@ var ceres = {};
                 'subName': 'slideview-sub' + qualifier
             };
 
-            testElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
+            composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
 
             let slideContainer = document.getElementById(id);
 
-            if (csv.attribute.sur) testElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(qualifier) });
-            testElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEventValue: 'window.tabImage(this);', url: getURL(), accessibility: getAccessibilityText() });
-            if (csv.attribute.sub) testElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+            if (csv.attribute.sur) composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(qualifier) });
+            composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEventValue: 'window.tabImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+            if (csv.attribute.sub) composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
 
-        //composeElement('a', 'slideview-prev', 'prev', imageContainer, '&#10094;', 'window.getSlide(-1, true)', getURL(), null);
-        testElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEventValue: 'window.getSlide(-1, true)', url: getURL() });
-
-        //composeElement('a', 'slideview-next', 'next', imageContainer, '&#10095;', 'window.getSlide(1, true)', getURL(), null);
-        testElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEventValue: 'window.getSlide(1, true)', url: getURL() });
+        composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEventValue: 'window.getSlide(-1, true)', url: getURL() });
+        composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEventValue: 'window.getSlide(1, true)', url: getURL() });
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
@@ -256,10 +253,7 @@ var ceres = {};
                 let qualifier = item + 1;
                 let svpname = 'slideview-ptr' + qualifier;
 
-                //function testElement(el, id, classValue, parent, markup, onClickEventValue, url, accessibility)
-
-                //composeElement('span', svpname, 'ptr', pointerElement, null, getClickEventValue(qualifier), null, null);
-                testElement({ el: 'span', id: svpname, classValue: 'ptr', parent: pointerElement, onClickEventValue: getClickEventValue(qualifier) });
+                composeElement({ el: 'span', id: svpname, classValue: 'ptr', parent: pointerElement, onClickEventValue: getClickEventValue(qualifier) });
             }
 
             csv.progenitor.appendChild(document.createElement('br'));
@@ -380,7 +374,7 @@ var ceres = {};
 
     }
 
-    function testElement(element)
+    function composeElement(element)
     {
         const el = document.createElement(element.el);
 
@@ -394,7 +388,7 @@ var ceres = {};
         if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
     }
 
-    function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
+    function xxxxcomposeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
     {
         const el = document.createElement(element);
 
