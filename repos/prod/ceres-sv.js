@@ -190,7 +190,10 @@ var ceres = {};
                 'subName': 'slideview-sub' + qualifier
             };
 
-            composeElement('div', id, 'slideview fade', imageContainer, null, null, null, null);
+            //composeElement('div', id, 'slideview fade', imageContainer, null, null, null, null);
+            testElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
+
+            //function testElement(el, id, classValue, parent, markup, onClickEventValue, url, accessibility)
 
             let slideContainer = document.getElementById(id);
 
@@ -372,6 +375,20 @@ var ceres = {};
             pointers[csv.index-1].className += ' active';
         }
 
+    }
+
+    function testElement(element = {})
+    {
+        const el = document.createElement(element.el);
+
+        el.id = element.id;
+        parent.appendChild(el);
+
+        if (element.classValue) composeAttribute({ id: el.id, type: 'class', value: element.classValue });
+        if (element.onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
+        if (element.url) composeAttribute({ id: el.id, type: 'src', value: element.url });
+        if (element.accessibility) composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
+        if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
     }
 
     function composeElement(element, id, classValue, parent, markup, onClickEventValue, url, accessibility)
