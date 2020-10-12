@@ -40,6 +40,28 @@ var ceres = {};
     csv.attribute.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using embedded image lists
     csv.attribute.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv.css'; // the default slideview stylesheet
 
+    String.prototype.isBoolean = function()
+    {
+        const token = this.trim().toUpperCase();
+
+        if (!token) return false;
+
+        const lookup = {
+            'TRUE': true,
+            'T':  true,
+            'YES': true,
+            'Y': true,
+            '1': true
+        };
+
+        return lookup[token] || false;
+    }
+
+    String.prototype.isEmpty = function()
+    {
+        return (this.length === 0 || !this.trim());
+    };
+
     window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
     {
         async connectedCallback()
@@ -436,27 +458,5 @@ var ceres = {};
 
         return lookup[token] || false;
     }
-
-    String.prototype.isBoolean = function()
-    {
-        const token = this.trim().toUpperCase();
-
-        if (!token) return false;
-
-        const lookup = {
-            'TRUE': true,
-            'T':  true,
-            'YES': true,
-            'Y': true,
-            '1': true
-        };
-
-        return lookup[token] || false;
-    }
-
-    String.prototype.isEmpty = function()
-    {
-        return (this.length === 0 || !this.trim());
-    };
 
 })(window);
