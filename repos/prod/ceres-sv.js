@@ -44,11 +44,11 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            const css = (!this.getAttribute('css').isEmpty()) ? this.getAttribute('css') : csv.attribute.defaultCSS;
-            if (css) await ( await importSlideViewStylesheets(css) );
+            const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
+            if (!css.isEmpty()) await ( await importSlideViewStylesheets(css) );
 
-            const src = (!this.getAttribute('src').isEmpty()) ? this.getAttribute('src') : null;
-            if (src) this.innerHTML =  await ( await fetch(src)).text();
+            const src = this.getAttribute('src') ? this.getAttribute('src') : null;
+            if (!src.isEmpty()) this.innerHTML =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
         }
