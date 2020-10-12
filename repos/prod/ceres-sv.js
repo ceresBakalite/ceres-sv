@@ -44,10 +44,10 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            const css = (this.getAttribute('css')) ? this.getAttribute('css') : csv.attribute.defaultCSS;
+            const css = (!this.getAttribute('css').isEmpty()) ? this.getAttribute('css') : csv.attribute.defaultCSS;
             if (css) await ( await importSlideViewStylesheets(css) );
 
-            const src = this.getAttribute('src');
+            const src = (!this.getAttribute('src').isEmpty()) ? this.getAttribute('src') : null;
             if (src) this.innerHTML =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
@@ -268,7 +268,7 @@ var ceres = {};
 
         function getURL()
         {
-            return (arrayItem[0]) ? arrayItem[0].trim() : null;
+            return (!arrayItem[0].isEmpty()) ? arrayItem[0].trim() : null;
         }
 
         function getSurtitle(indexItem)
@@ -283,7 +283,7 @@ var ceres = {};
 
         function getAccessibilityText()
         {
-            return (arrayItem[1]) ? arrayItem[1].trim() : null;
+            return (!arrayItem[1].isEmpty()) ? arrayItem[1].trim() : null;
         }
 
     }
@@ -436,5 +436,27 @@ var ceres = {};
 
         return lookup[token] || false;
     }
+
+    String.prototype.isBoolean function (symbol)
+    {
+        const token = symbol.trim().toUpperCase();
+
+        if (!token) return false;
+
+        const lookup = {
+            'TRUE': true,
+            'T':  true,
+            'YES': true,
+            'Y': true,
+            '1': true
+        };
+
+        return lookup[token] || false;
+    }
+
+    String.prototype.isEmpty = function()
+    {
+        return (this.length === 0 || !this.trim());
+    };
 
 })(window);
