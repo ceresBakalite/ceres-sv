@@ -437,9 +437,9 @@ var ceres = {};
         return lookup[token] || false;
     }
 
-    String.prototype.isBoolean = function (symbol)
+    String.prototype.isBoolean = function ()
     {
-        const token = symbol.trim().toUpperCase();
+        const token = this.trim().toUpperCase();
 
         if (!token) return false;
 
