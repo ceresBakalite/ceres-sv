@@ -60,23 +60,6 @@ var ceres = {};
 
     });
 
-    Object.prototype.isBoolean = function()
-    {
-        const token = this.trim().toUpperCase();
-
-        if (!token) return false;
-
-        const lookup = {
-            'TRUE': true,
-            'T':  true,
-            'YES': true,
-            'Y': true,
-            '1': true
-        };
-
-        return lookup[token] || false;
-    }
-
     function getSlideviewAttributes()
     {
         if (!getProgenitor()) return inspect(resource.type.error, resource.attribute.ProgenitorNotFound);
@@ -106,10 +89,10 @@ var ceres = {};
             csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
             csv.callback = csv.progenitor.getAttribute('src') ? true : false;
 
-            csv.attribute.ptr = csv.progenitor.getAttribute('ptr').isBoolean();
-            csv.attribute.sur = csv.progenitor.getAttribute('sur').isBoolean();
-            csv.attribute.sub = csv.progenitor.getAttribute('sub').isBoolean();
-            csv.attribute.trace = csv.progenitor.getAttribute('trace').isBoolean();
+            csv.attribute.ptr = (csv.progenitor.getAttribute('ptr')) ? getBoolean(csv.progenitor.getAttribute('ptr')) : true;
+            csv.attribute.sur = (csv.progenitor.getAttribute('sur')) ? getBoolean(csv.progenitor.getAttribute('sur')) : true;
+            csv.attribute.sub = (csv.progenitor.getAttribute('sub')) ? getBoolean(csv.progenitor.getAttribute('sub')) : true;
+            csv.attribute.trace = (csv.progenitor.getAttribute('trace')) ? getBoolean(csv.progenitor.getAttribute('trace')) : false;
             csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 500;
 
             Object.freeze(csv.attribute);
@@ -445,6 +428,23 @@ var ceres = {};
     function getBoolean(symbol)
     {
         const token = symbol.trim().toUpperCase();
+
+        if (!token) return false;
+
+        const lookup = {
+            'TRUE': true,
+            'T':  true,
+            'YES': true,
+            'Y': true,
+            '1': true
+        };
+
+        return lookup[token] || false;
+    }
+
+    String.prototype.isBoolean = function()
+    {
+        const token = this.trim().toUpperCase();
 
         if (!token) return false;
 
