@@ -40,6 +40,21 @@ var ceres = {};
     csv.attribute.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using embedded image lists
     csv.attribute.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv.css'; // the default slideview stylesheet
 
+    window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
+    {
+        async connectedCallback()
+        {
+            const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
+            if (!css.isEmpty()) await ( await importSlideViewStylesheets(css) );
+
+            const src = this.getAttribute('src') ? this.getAttribute('src') : null;
+            if (!src.isEmpty()) this.innerHTML =  await ( await fetch(src)).text();
+
+            if (getSlideviewAttributes()) activateSlideView();
+        }
+
+    });
+
     String.prototype.isBoolean = function()
     {
         const token = this.trim().toUpperCase();
@@ -56,26 +71,6 @@ var ceres = {};
 
         return lookup[token] || false;
     }
-
-    String.prototype.isEmpty = function()
-    {
-        return (this.length === 0 || !this.trim());
-    };
-
-    window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
-    {
-        async connectedCallback()
-        {
-            const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
-            if (!css.isEmpty()) await ( await importSlideViewStylesheets(css) );
-
-            const src = this.getAttribute('src') ? this.getAttribute('src') : null;
-            if (!src.isEmpty()) this.innerHTML =  await ( await fetch(src)).text();
-
-            if (getSlideviewAttributes()) activateSlideView();
-        }
-
-    });
 
     function getSlideviewAttributes()
     {
@@ -106,10 +101,10 @@ var ceres = {};
             csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
             csv.callback = csv.progenitor.getAttribute('src') ? true : false;
 
-            csv.attribute.ptr = (csv.progenitor.getAttribute('ptr')) ? getBoolean(csv.progenitor.getAttribute('ptr')) : true;
-            csv.attribute.sur = (csv.progenitor.getAttribute('sur')) ? getBoolean(csv.progenitor.getAttribute('sur')) : true;
-            csv.attribute.sub = (csv.progenitor.getAttribute('sub')) ? getBoolean(csv.progenitor.getAttribute('sub')) : true;
-            csv.attribute.trace = (csv.progenitor.getAttribute('trace')) ? getBoolean(csv.progenitor.getAttribute('trace')) : false;
+            csv.attribute.ptr = csv.progenitor.getAttribute('ptr').isBoolean();
+            csv.attribute.sur = csv.progenitor.getAttribute('sur').isBoolean();
+            csv.attribute.sub = csv.progenitor.getAttribute('sub').isBoolean();
+            csv.attribute.trace = csv.progenitor.getAttribute('trace').isBoolean();
             csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 500;
 
             Object.freeze(csv.attribute);
