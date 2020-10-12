@@ -60,7 +60,7 @@ var ceres = {};
 
     });
 
-    String.prototype.isBoolean = function()
+    Object.prototype.isBoolean = function()
     {
         const token = this.trim().toUpperCase();
 
