@@ -436,4 +436,4 @@ var ceres = {};
         return lookup[token] || false;
     }
 
-})(window);
+})(self);
