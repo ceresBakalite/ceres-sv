@@ -9,7 +9,7 @@ var cereslibrary = {};
     cereslib.importStylesheet = function(url) { importStylesheet(url); };
     cereslib.composeElement = function(el) { composeElement(el); };
     cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
-    cereslib.isEmpty = function() { isEmpty(this); };
+    cereslib.isEmpty = function() { this.isEmpty(); };
     cereslib.getBoolean = function(str) { getBoolean(str); };
     cereslib.errorHandler = function(str) { errorHandler(str); };
 
