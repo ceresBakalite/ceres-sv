@@ -8,7 +8,8 @@ var cereslibrary = {};
     this.reference = 1;
     this.notify = 2;
     this.error = 99;
-    this.newline = '\n';
+    this.isWindows = process.platform === 'win32';
+    this.newline = isWindows ? '\r\n' : '\n';
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
