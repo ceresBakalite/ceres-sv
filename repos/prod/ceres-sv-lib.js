@@ -111,7 +111,7 @@ var cereslibrary = {};
 
     }
 
-    String.prototype.isEmpty = function(this: string)
+    String.prototype.isEmpty = function()
     {
         return (this === null || this.length === 0 || !this.trim());
     };
