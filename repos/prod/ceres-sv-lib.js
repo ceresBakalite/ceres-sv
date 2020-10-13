@@ -107,7 +107,7 @@ var cereslibrary = {};
 
     }
 
-    function windowOpen(property)
+    this.windowOpen = function(property)
     {
         window.open(property.element.getAttribute('src'), property.type);
     }
