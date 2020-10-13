@@ -6,12 +6,12 @@ var cereslibrary = {};
     'use strict';
 
     //this.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
-    this.importStylesheet = function(url) { importStylesheet(url); };
-    this.composeElement = function(el) { composeElement(el); };
-    this.composeAttribute = function(attrib) { composeAttribute(attrib); };
-    this.isEmpty = function(str) { isEmpty(str); };
-    this.isBoolean = function(str) { isBoolean(str); };
-    this.errorHandler = function(str) { errorHandler(str); };
+    //this.importStylesheet = function(url) { importStylesheet(url); };
+    //this.composeElement = function(el) { composeElement(el); };
+    //this.composeAttribute = function(attrib) { composeAttribute(attrib); };
+    //this.isEmpty = function(str) { isEmpty(str); };
+    //this.isBoolean = function(str) { isBoolean(str); };
+    //this.errorHandler = function(str) { errorHandler(str); };
 
 
     String.prototype.test = function()
@@ -42,7 +42,7 @@ var cereslibrary = {};
 
     }
 
-    function importStylesheet(url)
+    this.importStylesheet = function(url)
     {
         if (!url) return;
 
@@ -90,7 +90,7 @@ var cereslibrary = {};
 
     }
 
-    function composeElement(element)
+    this.composeElement = function(element)
     {
         const el = document.createElement(element.el);
 
@@ -104,7 +104,7 @@ var cereslibrary = {};
         if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
     }
 
-    function composeAttribute(attribute)
+    this.composeAttribute = function(attribute)
     {
         const el = document.getElementById(attribute.id);
 
@@ -118,12 +118,12 @@ var cereslibrary = {};
 
     }
 
-    function isEmpty(str)
+    this.isEmpty = function(str)
     {
         return (str === null || str.length === 0 || !str.trim());
     };
 
-    function isBoolean(symbol)
+    this.isBoolean = function(symbol)
     {
         if (isEmpty(symbol)) return false;
 
@@ -140,7 +140,7 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
-    function errorHandler(error)
+    this.errorHandler = function(error)
     {
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
