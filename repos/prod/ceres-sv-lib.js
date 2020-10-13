@@ -13,9 +13,9 @@ var cereslibrary = {};
     cereslib.composeElement = function(el) { composeElement(el); };
     cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
 
-    function isEmpty()
+    function isEmpty(str)
     {
-        return (this.length === 0 || !this.trim());
+        return (str.length === 0 || !str.trim());
     };
 
 /*
