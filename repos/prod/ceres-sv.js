@@ -278,7 +278,7 @@ var ceres = {};
 
         function getURL()
         {
-            return (!arrayItem[0].clib.isEmpty()) ? arrayItem[0].trim() : null;
+            return (!clib.isEmpty(arrayItem[0]) ? arrayItem[0].trim() : null;
         }
 
         function getSurtitle(indexItem)
