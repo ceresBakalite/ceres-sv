@@ -133,12 +133,12 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
-    function errorHandler(str, display = false)
+    function errorHandler(error)
     {
-        const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+        const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
 
-        if (display) alert(err);
+        if (error.alert) alert(err);
 
         return false;
     }
