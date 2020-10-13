@@ -59,17 +59,13 @@ var ceres = {};
 
     function getSlideviewAttributes()
     {
-        if (!getProgenitor()) return csvlib.inspect({ type: resource.type.error, notification: resource.attribute.ProgenitorNotFound, logtrace: csv.attribute.trace });
-        if (!getAttributePrecursors()) return csvlib.inspect({ type: resource.type.error, notification: resource.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
+        if (!getProgenitor()) return csvlib.inspect({ type: csvlib.error, notification: resource.attribute.ProgenitorNotFound, logtrace: csv.attribute.trace });
+        if (!getAttributePrecursors()) return csvlib.inspect({ type: csvlib.error, notification: resource.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return getImageArray();
 
         function getProgenitor()
         {
-            resource.type.reference = 1;
-            resource.type.notify = 2;
-            resource.type.error = 99;
-
             resource.attribute.ProgenitorNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element';
 
             csv.progenitor = (document.getElementById(csv.attribute.HTMLSlideViewElement)) ? document.getElementById(csv.attribute.HTMLSlideViewElement) : document.getElementsByTagName(csv.attribute.HTMLSlideViewElement)[0];
@@ -108,10 +104,10 @@ var ceres = {};
 
         function getImageArray()
         {
-            csvlib.inspect({ type: resource.type.notify, notification: resource.attribute.CSVObjectAttributes + getAttributeProperties(), logtrace: csv.attribute.trace });
+            csvlib.inspect({ type: csvlib.notify, notification: resource.attribute.CSVObjectAttributes + getAttributeProperties(), logtrace: csv.attribute.trace });
 
             let imageList = getImageList();
-            if (imageList) csvlib.inspect({ type: resource.type.notify, notification: resource.attribute.ListContainerMarkup + imageList, logtrace: csv.attribute.trace });
+            if (imageList) csvlib.inspect({ type: csvlib.notify, notification: resource.attribute.ListContainerMarkup + imageList, logtrace: csv.attribute.trace });
 
             csv.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
@@ -128,10 +124,10 @@ var ceres = {};
 
                 function getBodyContentList()
                 {
-                    csvlib.inspect({ type: resource.type.notify, notification: resource.attribute.BodyContentList, logtrace: csv.attribute.trace });
+                    csvlib.inspect({ type: csvlib.notify, notification: resource.attribute.BodyContentList, logtrace: csv.attribute.trace });
 
                     const list = (csv.listElement) ? csv.listElement.textContent : null;
-                    return (list) ? list : csvlib.inspect({ type: resource.type.error, notification: resource.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
+                    return (list) ? list : csvlib.inspect({ type: csvlib.error, notification: resource.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
                 }
 
             }
@@ -195,7 +191,7 @@ var ceres = {};
             getSlide(csv.index = csv.index += offset);
         }
 
-        csvlib.inspect({ type: resource.type.notify, notification: resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML, logtrace: csv.attribute.trace });
+        csvlib.inspect({ type: csvlib.notify, notification: resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML, logtrace: csv.attribute.trace });
 
         function getSlideViewPointerContainer()
         {
