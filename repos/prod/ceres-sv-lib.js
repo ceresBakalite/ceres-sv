@@ -18,9 +18,9 @@ var cereslibrary = {};
         return (str.length === 0 || !str.trim());
     };
 
-    String.prototype.isBoolean = function()
+    function getBoolean(symbol)
     {
-        const token = this.trim().toUpperCase();
+        const token = symbol.trim().toUpperCase();
 
         if (!token) return false;
 
