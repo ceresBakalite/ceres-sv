@@ -26,10 +26,10 @@ var cereslibrary = {};
         console.log(str);
     }
 
-    //function isEmpty(str)
-    String.prototype.isEmpty = function()
+    //String.prototype.isEmpty = function()
+    function isEmpty(str)
     {
-        return (this.length === 0 || !this.trim());
+        return (str.length === 0 || !str.trim());
     };
 
     String.prototype.isBoolean = function()
