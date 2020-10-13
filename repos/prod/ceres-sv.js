@@ -60,6 +60,9 @@ var ceres = {};
     function getSlideviewAttributes()
     {
         if (!getProgenitor()) return inspect(resource.type.error, resource.attribute.ProgenitorNotFound);
+
+        inspect(resource.type.error, resource.attribute.ProgenitorNotFound);
+
         if (!getAttributePrecursors()) return inspect(resource.type.error, resource.attribute.ListContainerNotFound);
 
         return getImageArray();
