@@ -7,7 +7,7 @@ var cereslibrary = {};
 
     cereslib.test1 = function() { test1(); };
     cereslib.test2 = function(str) { test2(str); };
-    cereslib.test3 = function(this) { test3(this); };
+    cereslib.test3 = function(obj) { test3(obj); };
     cereslib.isEmpty = function() { isEmpty(); };
     cereslib.isBoolean = function() { isBoolean(); };
     cereslib.errorHandler = function() { errorHandler(); };
