@@ -15,7 +15,7 @@ var cereslibrary = {};
 
     function isEmpty(str)
     {
-        return (str.length === 0 || !str.trim());
+        return (str === null || str.length === 0 || !str.trim());
     };
 
     function getBoolean(symbol)
