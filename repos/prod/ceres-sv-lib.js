@@ -18,10 +18,17 @@ var cereslibrary = {};
         console.log('hello from cereslibrary');
     }
 
+    function isEmpty()
+    {
+        return (this.length === 0 || !this.trim());
+    };
+
+/*
     String.prototype.isEmpty = function()
     {
         return (this.length === 0 || !this.trim());
     };
+*/
 
     String.prototype.isBoolean = function()
     {
