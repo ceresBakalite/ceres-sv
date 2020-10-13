@@ -13,6 +13,7 @@ var cereslibrary = {};
     //this.isBoolean = function(str) { isBoolean(str); };
     //this.errorHandler = function(str) { errorHandler(str); };
 
+/*
     this.isEmpty = function(str)
     {
         return str.isEmpty();
@@ -22,7 +23,7 @@ var cereslibrary = {};
     {
         return symbol.isBoolean();
     }
-
+*/
     this.setHorizontalSwipe = function(touch, callback, args)
     {
         const el = document.querySelector(touch.el);
@@ -121,14 +122,14 @@ var cereslibrary = {};
 
     }
 
-    String.prototype.isEmpty = function()
+    this.isEmpty = function()
     {
         return (this === null || this.length === 0 || !this.trim());
     };
 
-    String.prototype.isBoolean = function()
+    function isBoolean(symbol)
     {
-        if (this.isEmpty()) return false;
+        if (symbol.isEmpty()) return false;
 
         const token = this.trim().toUpperCase();
 
