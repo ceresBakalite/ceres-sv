@@ -82,10 +82,10 @@ var ceres = {};
             csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
             csv.callback = csv.progenitor.getAttribute('src') ? true : false;
 
-            csv.attribute.ptr = !csvlib.isBoolean(csv.progenitor.getAttribute('ptr'));
-            csv.attribute.sur = !csvlib.isBoolean(csv.progenitor.getAttribute('sur'));
-            csv.attribute.sub = !csvlib.isBoolean(csv.progenitor.getAttribute('sub'));
-            csv.attribute.trace = csvlib.isBoolean(csv.progenitor.getAttribute('trace'));
+            csv.attribute.ptr = !csvlib.getBooleanAttribute(csv.progenitor.getAttribute('ptr'));
+            csv.attribute.sur = !csvlib.getBooleanAttribute(csv.progenitor.getAttribute('sur'));
+            csv.attribute.sub = !csvlib.getBooleanAttribute(csv.progenitor.getAttribute('sub'));
+            csv.attribute.trace = csvlib.getBooleanAttribute(csv.progenitor.getAttribute('trace'));
             csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 500;
 
             Object.freeze(csv.attribute);
