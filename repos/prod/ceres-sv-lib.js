@@ -5,46 +5,13 @@ var cereslibrary = {};
 {
     'use strict';
 
-    cereslib.isEmpty = function(str) { isEmpty(str); };
-    cereslib.getBoolean = function(str) { getBoolean(str); };
-    cereslib.errorHandler = function(str) { errorHandler(str); };
     cereslib.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
     cereslib.importStylesheet = function(url) { importStylesheet(url); };
     cereslib.composeElement = function(el) { composeElement(el); };
     cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
-
-    function isEmpty(str)
-    {
-        return (str === null || str.length === 0 || !str.trim());
-    };
-
-    function getBoolean(symbol)
-    {
-        if (isEmpty(symbol)) return false;
-
-        const token = symbol.trim().toUpperCase();
-
-        const lookup = {
-            'TRUE': true,
-            'T':  true,
-            'YES': true,
-            'Y': true,
-            '1': true
-        };
-
-        return lookup[token] || false;
-    }
-
-    function errorHandler(str, display = false)
-    {
-        const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-        console.log(err);
-
-        if (display) alert(err);
-
-        return false;
-    }
-
+    cereslib.isEmpty = function(str) { isEmpty(str); };
+    cereslib.getBoolean = function(str) { getBoolean(str); };
+    cereslib.errorHandler = function(str) { errorHandler(str); };
 
     function setHorizontalSwipe(touch, callback, args)
     {
@@ -142,6 +109,38 @@ var cereslibrary = {};
             el.setAttributeNode(attributeNode);
         }
 
+    }
+
+    function isEmpty(str)
+    {
+        return (str === null || str.length === 0 || !str.trim());
+    };
+
+    function getBoolean(symbol)
+    {
+        if (isEmpty(symbol)) return false;
+
+        const token = symbol.trim().toUpperCase();
+
+        const lookup = {
+            'TRUE': true,
+            'T':  true,
+            'YES': true,
+            'Y': true,
+            '1': true
+        };
+
+        return lookup[token] || false;
+    }
+
+    function errorHandler(str, display = false)
+    {
+        const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+        console.log(err);
+
+        if (display) alert(err);
+
+        return false;
     }
 
 })(cereslibrary);
