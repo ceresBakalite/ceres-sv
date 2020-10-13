@@ -125,7 +125,7 @@ var cereslibrary = {};
 
     this.isBoolean = function(symbol)
     {
-        if (isEmpty(symbol)) return false;
+        if (this.isEmpty(symbol)) return false;
 
         const token = symbol.trim().toUpperCase();
 
