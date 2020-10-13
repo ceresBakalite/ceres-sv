@@ -47,7 +47,8 @@ var ceres = {};
         async connectedCallback()
         {
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
-            if (!csvlib.isEmpty(css)) await ( await importSlideViewStylesheets(css) );
+            if (!css.csvlib.isEmpty()) await ( await importSlideViewStylesheets(css) );
+            //if (!csvlib.isEmpty(css)) await ( await importSlideViewStylesheets(css) );
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
             if (!csvlib.isEmpty(src)) this.innerHTML =  await ( await fetch(src)).text();
