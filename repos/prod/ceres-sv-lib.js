@@ -112,15 +112,14 @@ var cereslibrary = {};
         window.open(property.element.getAttribute('src'), property.type);
     }
 
-    this.isEmpty = function(str)
+    this.isEmptyOrNull = function(str)
     {
         return str.isEmpty();
+    };
 
-        String.prototype.isEmpty = function()
-        {
-            return (this === null || this.length === 0 || !this.trim());
-        };
-
+    String.prototype.isEmpty = function()
+    {
+        return (this === null || this.length === 0 || !this.trim());
     };
 
     this.isBoolean = function(symbol)
