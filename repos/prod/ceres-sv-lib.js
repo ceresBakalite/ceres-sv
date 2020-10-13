@@ -13,7 +13,12 @@ var cereslibrary = {};
     cereslib.composeElement = function(el) { composeElement(el); };
     cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
 
-    function test(str)
+    function test1()
+    {
+        console.log('hello from cereslibrary');
+    }
+
+    function test2(str)
     {
         console.log(str);
     }
