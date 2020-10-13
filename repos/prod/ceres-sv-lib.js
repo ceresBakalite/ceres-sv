@@ -180,4 +180,4 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
-})(window);
+})(cereslibrary);
