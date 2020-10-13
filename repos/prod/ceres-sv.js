@@ -264,7 +264,7 @@ var ceres = {};
 
         for (let item = 0; item < cssArray.length; item++)
         {
-            clib.importStylesheet(cssArray[item]);
+            lib.importStylesheet(cssArray[item]);
         }
 
     }
