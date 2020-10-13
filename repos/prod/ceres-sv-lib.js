@@ -144,22 +144,4 @@ var cereslibrary = {};
 
     }
 
-
-    function getBoolean(symbol)
-    {
-        const token = symbol.trim().toUpperCase();
-
-        if (!token) return false;
-
-        const lookup = {
-            'TRUE': true,
-            'T':  true,
-            'YES': true,
-            'Y': true,
-            '1': true
-        };
-
-        return lookup[token] || false;
-    }
-
 })(cereslibrary);
