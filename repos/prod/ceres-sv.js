@@ -1,6 +1,6 @@
 export { ceres }
 
-import { cereslibrary as clib } from 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv-lib.js';
+import { cereslibrary as lib } from 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv-lib.js';
 
 var ceres = {};
 (function(slideview)
@@ -47,10 +47,10 @@ var ceres = {};
         async connectedCallback()
         {
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
-            if (!clib.isEmpty(css)) await ( await importSlideViewStylesheets(css) );
+            if (!lib.isEmpty(css)) await ( await importSlideViewStylesheets(css) );
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
-            if (!clib.isEmpty(src)) this.innerHTML =  await ( await fetch(src)).text();
+            if (!lib.isEmpty(src)) this.innerHTML =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
         }
@@ -86,10 +86,10 @@ var ceres = {};
             csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
             csv.callback = csv.progenitor.getAttribute('src') ? true : false;
 
-            csv.attribute.ptr = clib.getBoolean(csv.progenitor.getAttribute('ptr'));
-            csv.attribute.sur = clib.getBoolean(csv.progenitor.getAttribute('sur'));
-            csv.attribute.sub = clib.getBoolean(csv.progenitor.getAttribute('sub'));
-            csv.attribute.trace = clib.getBoolean(csv.progenitor.getAttribute('trace'));
+            csv.attribute.ptr = lib.getBoolean(csv.progenitor.getAttribute('ptr'));
+            csv.attribute.sur = lib.getBoolean(csv.progenitor.getAttribute('sur'));
+            csv.attribute.sub = lib.getBoolean(csv.progenitor.getAttribute('sub'));
+            csv.attribute.trace = lib.getBoolean(csv.progenitor.getAttribute('trace'));
             csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 500;
 
             Object.freeze(csv.attribute);
@@ -152,7 +152,7 @@ var ceres = {};
     {
         const lookup = {
             [resource.type.notify]: function() { if (csv.attribute.trace) console.log(response); },
-            [resource.type.error]: function() { clib.errorHandler(response, csv.attribute.trace); },
+            [resource.type.error]: function() { lib.errorHandler(response, csv.attribute.trace); },
             'default': 'An unexpected error has occurred - ' + csv.attribute.HTMLSlideViewElement + ' is unresponsive'
         };
 
@@ -198,31 +198,9 @@ var ceres = {};
 
         setSlideViewDisplay('none');
 
-        clib.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
+        lib.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
-
-        function xxxsetHorizontalSwipe(touch, callback, args)
-        {
-            const el = document.querySelector(touch.el);
-
-            if (!touch.act) touch.act = 10;
-
-            el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; });
-
-            el.addEventListener('touchend', e =>
-            {
-                touch.end = e.changedTouches[0].screenX;
-
-                if (Math.abs(touch.start - touch.end) > touch.act)
-                {
-                    args.action = (touch.start > touch.end) ? true : false;
-                    callback.call(this, args);
-                }
-
-            });
-
-        }
 
         function getHorizontalSwipe(swipe)
         {
@@ -260,7 +238,7 @@ var ceres = {};
 
         function getURL()
         {
-            return (!clib.isEmpty(arrayItem[0])) ? arrayItem[0].trim() : null;
+            return (!lib.isEmpty(arrayItem[0])) ? arrayItem[0].trim() : null;
         }
 
         function getSurtitle(indexItem)
@@ -275,7 +253,7 @@ var ceres = {};
 
         function getAccessibilityText()
         {
-            return (!clib.isEmpty(arrayItem[1])) ? arrayItem[1].trim() : null;
+            return (!lib.isEmpty(arrayItem[1])) ? arrayItem[1].trim() : null;
         }
 
     }
@@ -286,13 +264,13 @@ var ceres = {};
 
         for (let item = 0; item < cssArray.length; item++)
         {
-            importStylesheet(cssArray[item]);
+            clib.importStylesheet(cssArray[item]);
         }
 
     }
 
 
-    function importStylesheet(url)
+    function xxximportStylesheet(url)
     {
         if (!url) return;
 
