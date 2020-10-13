@@ -6,7 +6,7 @@ var cereslibrary = {};
     'use strict';
 
     cereslib.test = function() { isEmpty(); };
-    cereslib.isEmpty = function() { isEmpty(); };
+    //cereslib.isEmpty = function() { isEmpty(); };
     cereslib.isBoolean = function() { isBoolean(); };
     cereslib.errorHandler = function() { errorHandler(); };
     cereslib.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
