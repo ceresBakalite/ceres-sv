@@ -155,19 +155,19 @@ var ceres = {};
     {
         const lookup = {
             [resource.type.notify]: function() { if (csv.attribute.trace) console.log(response); },
-            [resource.type.error]: function() { clib.errorHandler(response); },
+            [resource.type.error]: function() { clib.errorHandler(response, csv.attribute.trace); },
             'default': 'An unexpected error has occurred - ' + csv.attribute.HTMLSlideViewElement + ' is unresponsive'
         };
 
         return lookup[type]() || lookup['default'];
     }
 
-    function xxxerrorHandler(str)
+    function xxxerrorHandler(str, trace)
     {
         const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
 
-        if (csv.attribute.trace) alert(err);
+        if (trace) alert(err);
 
         return false;
     }
