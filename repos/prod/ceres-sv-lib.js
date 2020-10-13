@@ -1,7 +1,5 @@
 export { cereslibrary }
 
-import './String';
-
 var cereslibrary = {};
 (function(cereslib)
 {
