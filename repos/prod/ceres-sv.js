@@ -167,7 +167,7 @@ var ceres = {};
         imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
         csv.progenitor.appendChild(imageContainer);
 
-        composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
+        csvlib.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
         for (let item = 0; item < csv.imageArray.length; item++)
         {
@@ -182,17 +182,17 @@ var ceres = {};
                 'subName': 'slideview-sub' + qualifier
             };
 
-            composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
+            csvlib.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
 
             let slideContainer = document.getElementById(id);
 
-            if (csv.attribute.sur) composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(qualifier) });
-            composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEventValue: 'window.tabImage(this);', url: getURL(), accessibility: getAccessibilityText() });
-            if (csv.attribute.sub) composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+            if (csv.attribute.sur) csvlib.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(qualifier) });
+            csvlib.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEventValue: 'window.tabImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+            if (csv.attribute.sub) csvlib.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
 
-        composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEventValue: 'window.getSlide(-1, true)', url: getURL() });
-        composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEventValue: 'window.getSlide(1, true)', url: getURL() });
+        csvlib.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEventValue: 'window.getSlide(-1, true)', url: getURL() });
+        csvlib.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEventValue: 'window.getSlide(1, true)', url: getURL() });
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
@@ -217,14 +217,14 @@ var ceres = {};
             pointerElement.id = csv.attribute.HTMLSlideViewElement + '-pointer-container';
             csv.progenitor.appendChild(pointerElement);
 
-            composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
+            csvlib.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
             for (let item = 0; item < csv.imageArray.length; item++)
             {
                 let qualifier = item + 1;
                 let svpname = 'slideview-ptr' + qualifier;
 
-                composeElement({ el: 'span', id: svpname, classValue: 'ptr', parent: pointerElement, onClickEventValue: getClickEventValue(qualifier) });
+                csvlib.composeElement({ el: 'span', id: svpname, classValue: 'ptr', parent: pointerElement, onClickEventValue: getClickEventValue(qualifier) });
             }
 
             csv.progenitor.appendChild(document.createElement('br'));
@@ -269,55 +269,6 @@ var ceres = {};
 
     }
 
-
-    function xxximportStylesheet(url)
-    {
-        if (!url) return;
-
-        const link = document.createElement('link');
-
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = url;
-        link.as = 'style';
-
-        onloadListener();
-        addEventListener();
-        onReadyStateChangeListener();
-
-        document.head.appendChild(link);
-
-        function onloadListener()
-        {
-            link.onload = function () {}
-        }
-
-        function addEventListener()
-        {
-            if (link.addEventListener)
-            {
-                link.addEventListener('load', function() {}, false);
-            }
-
-        }
-
-        function onReadyStateChangeListener()
-        {
-            link.onreadystatechange = function()
-            {
-                const state = link.readyState;
-
-                if (state === 'loaded' || state === 'complete')
-                {
-                    link.onreadystatechange = null;
-                }
-
-            };
-
-        }
-
-    }
-
     function tabImage(el)
     {
         window.open(el.getAttribute('src'), 'image');
@@ -345,21 +296,21 @@ var ceres = {};
 
     }
 
-    function composeElement(element)
+    function xxxcomposeElement(element)
     {
         const el = document.createElement(element.el);
 
         el.id = element.id;
         element.parent.appendChild(el);
 
-        if (element.classValue) composeAttribute({ id: el.id, type: 'class', value: element.classValue });
-        if (element.onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
-        if (element.url) composeAttribute({ id: el.id, type: 'src', value: element.url });
-        if (element.accessibility) composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
+        if (element.classValue) csvlib.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
+        if (element.onClickEventValue) csvlib.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
+        if (element.url) csvlib.composeAttribute({ id: el.id, type: 'src', value: element.url });
+        if (element.accessibility) csvlib.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
         if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
     }
 
-    function composeAttribute(attribute)
+    function xxxcomposeAttribute(attribute)
     {
         const el = document.getElementById(attribute.id);
 
