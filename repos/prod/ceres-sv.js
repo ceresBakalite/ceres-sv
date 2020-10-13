@@ -60,9 +60,6 @@ var ceres = {};
     function getSlideviewAttributes()
     {
         if (!getProgenitor()) return inspect(resource.type.error, resource.attribute.ProgenitorNotFound);
-
-        inspect(resource.type.error, resource.attribute.ProgenitorNotFound);
-
         if (!getAttributePrecursors()) return inspect(resource.type.error, resource.attribute.ListContainerNotFound);
 
         return getImageArray();
@@ -162,16 +159,6 @@ var ceres = {};
         return lookup[type]() || lookup['default'];
     }
 
-    function xxxerrorHandler(str, trace)
-    {
-        const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-        console.log(err);
-
-        if (trace) alert(err);
-
-        return false;
-    }
-
     function getSlideView()
     {
         csv.progenitor.innerHTML = null;
@@ -211,11 +198,11 @@ var ceres = {};
 
         setSlideViewDisplay('none');
 
-        setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
+        clib.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
         inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
 
-        function setHorizontalSwipe(touch, callback, args)
+        function xxxsetHorizontalSwipe(touch, callback, args)
         {
             const el = document.querySelector(touch.el);
 
