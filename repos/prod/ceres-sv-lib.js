@@ -23,7 +23,7 @@ var cereslibrary = {};
                 callback.call(this, args);
             }
 
-        }, passive: true );
+        passive: true } );
 
     }
 
