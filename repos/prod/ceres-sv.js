@@ -12,7 +12,7 @@ var ceres = {};
 
     clib.test1();
     clib.test2('hello from ceres');
-    'hello from ceres'.clib.test3('hello from this');
+    'hello from this'.clib.test3();
 
     class Component
     {
