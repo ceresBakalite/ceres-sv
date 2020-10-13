@@ -7,7 +7,7 @@ var ceres = {};
 {
     'use strict';
 
-    slideview.tabImage = function(el) { tabImage(el); }; // global scope method reference
+    slideview.tabImage = function(el) { csvlib.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     slideview.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
     class Component
