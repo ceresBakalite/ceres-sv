@@ -1,4 +1,4 @@
-export { cereslibrary }
+export default { cereslibrary }
 
 var cereslibrary = {};
 (function(cereslib)
