@@ -47,10 +47,10 @@ var ceres = {};
         async connectedCallback()
         {
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
-            if (!csvlib.isEmpty(css)) await ( await importSlideViewStylesheets(css) );
+            if (!csvlib.isEmptyOrNull(css)) await ( await importSlideViewStylesheets(css) );
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
-            if (!csvlib.isEmpty(src)) this.innerHTML =  await ( await fetch(src)).text();
+            if (!csvlib.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
         }
@@ -223,7 +223,7 @@ var ceres = {};
 
         function getURL()
         {
-            return (!csvlib.isEmpty(arrayItem[0])) ? arrayItem[0].trim() : null;
+            return (!csvlib.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null;
         }
 
         function getSurtitle(indexItem)
@@ -238,7 +238,7 @@ var ceres = {};
 
         function getAccessibilityText()
         {
-            return (!csvlib.isEmpty(arrayItem[1])) ? arrayItem[1].trim() : null;
+            return (!csvlib.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null;
         }
 
     }
