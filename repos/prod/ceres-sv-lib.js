@@ -6,8 +6,8 @@ var cereslibrary = {};
     'use strict';
 
     cereslib.isEmpty = function(str) { isEmpty(str); };
-    cereslib.getBoolean = function(str) { getBoolean(str); };
-    cereslib.errorHandler = function() { errorHandler(); };
+    cereslib.getBoolean = function(str) { str.isBoolean(); };
+    cereslib.errorHandler = function(str) { errorHandler(str); };
     cereslib.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
     cereslib.importStylesheet = function(url) { importStylesheet(url); };
     cereslib.composeElement = function(el) { composeElement(el); };
@@ -18,7 +18,26 @@ var cereslibrary = {};
         return (str === null || str.length === 0 || !str.trim());
     };
 
-    function getBoolean(symbol)
+    String.prototype.isBoolean = function()
+    {
+        if (isEmpty(this)) return false;
+
+        const token = this.trim().toUpperCase();
+
+        if (!token) return false;
+
+        const lookup = {
+            'TRUE': true,
+            'T':  true,
+            'YES': true,
+            'Y': true,
+            '1': true
+        };
+
+        return lookup[token] || false;
+    }
+
+    function xxxgetBoolean(symbol)
     {
         if (isEmpty(symbol)) return false;
 
