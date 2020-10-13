@@ -43,7 +43,7 @@ var ceres = {};
     csv.attribute.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using embedded image lists
     csv.attribute.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv.css'; // the default slideview stylesheet
 
-    'hello from ceres'.csvlib.test();
+    'hello from ceres'.test();
 
     window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
     {
