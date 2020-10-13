@@ -13,7 +13,9 @@ var cereslibrary = {};
     cereslib.isBoolean = function(str) { isBoolean(str); };
     cereslib.errorHandler = function(str) { errorHandler(str); };
 
-    cereslib.String.prototype.test = function()
+    cereslib.test = function() { String.prototype.test(); };
+
+    String.prototype.test = function()
     {
         console.log(this);
     };
