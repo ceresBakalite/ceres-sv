@@ -5,9 +5,6 @@ var cereslibrary = {};
 {
     'use strict';
 
-    cereslib.test1 = function() { test1(); };
-    cereslib.test2 = function(str) { test2(str); };
-    cereslib.test3 = function() { test3(); };
     cereslib.isEmpty = function(str) { isEmpty(str); };
     cereslib.isBoolean = function() { isBoolean(); };
     cereslib.errorHandler = function() { errorHandler(); };
@@ -16,17 +13,6 @@ var cereslibrary = {};
     cereslib.composeElement = function(el) { composeElement(el); };
     cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
 
-    function test1()
-    {
-        console.log('hello from cereslibrary');
-    }
-
-    function test2(str)
-    {
-        console.log(str);
-    }
-
-    //String.prototype.isEmpty = function()
     function isEmpty(str)
     {
         return (str.length === 0 || !str.trim());
