@@ -13,8 +13,12 @@ var cereslibrary = {};
     //this.isBoolean = function(str) { isBoolean(str); };
     //this.errorHandler = function(str) { errorHandler(str); };
 
+    this.test = function(str)
+    {
+        return str.testing();
+    }
 
-    this.String.prototype.test = function()
+    String.prototype.testing = function()
     {
         console.log(this);
     };
