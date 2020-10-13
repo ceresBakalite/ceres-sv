@@ -7,7 +7,7 @@ var cereslibrary = {};
 
     cereslib.test1 = function() { test1(); };
     cereslib.test2 = function(str) { test2(str); };
-    cereslib.test3 = String.prototype.test3();
+    cereslib.test3 = function() { test3(); };
     cereslib.isEmpty = function() { isEmpty(); };
     cereslib.isBoolean = function() { isBoolean(); };
     cereslib.errorHandler = function() { errorHandler(); };
@@ -28,7 +28,7 @@ var cereslibrary = {};
 
     String.prototype.test3 = function()
     {
-        console.log(this);
+        return this.toUpperCase(this);
     };
 
     String.prototype.isEmpty = function()
