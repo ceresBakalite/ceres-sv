@@ -35,18 +35,6 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
-    class Component
-    {
-        constructor()
-        {
-            this.type = function() { return type; },
-            this.attribute = function() { return attribute; }
-        }
-
-    }
-
-    let resource = new Component();
-
     function errorHandler(str)
     {
         const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
