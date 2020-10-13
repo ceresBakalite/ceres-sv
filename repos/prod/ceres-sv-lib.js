@@ -5,7 +5,7 @@ var cereslibrary = {};
 {
     'use strict';
 
-    this.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
+    //this.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
     this.importStylesheet = function(url) { importStylesheet(url); };
     this.composeElement = function(el) { composeElement(el); };
     this.composeAttribute = function(attrib) { composeAttribute(attrib); };
@@ -20,7 +20,7 @@ var cereslibrary = {};
     };
 
 
-    function setHorizontalSwipe(touch, callback, args)
+    this.setHorizontalSwipe = function(touch, callback, args)
     {
         const el = document.querySelector(touch.el);
 
