@@ -200,13 +200,13 @@ var ceres = {};
 
         csvlib.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
-        inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
-
         function getHorizontalSwipe(swipe)
         {
             const offset = (swipe.action) ? swipe.right : swipe.left;
             getSlide(csv.index = csv.index += offset);
         }
+
+        inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
 
         function getSlideViewPointerContainer()
         {
