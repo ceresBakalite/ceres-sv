@@ -115,11 +115,12 @@ var cereslibrary = {};
     this.isEmpty = function(str)
     {
         return str.isEmpty();
-    };
 
-    String.prototype.isEmpty = function()
-    {
-        return (this === null || this.length === 0 || !this.trim());
+        String.prototype.isEmpty = function()
+        {
+            return (this === null || this.length === 0 || !this.trim());
+        };
+
     };
 
     this.isBoolean = function(symbol)
