@@ -1,20 +1,20 @@
 export { cereslibrary }
 
 var cereslibrary = {};
-(function(cereslib)
+(function()
 {
     'use strict';
 
-    cereslib.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
-    cereslib.importStylesheet = function(url) { importStylesheet(url); };
-    cereslib.composeElement = function(el) { composeElement(el); };
-    cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
-    cereslib.isEmpty = function(str) { isEmpty(str); };
-    cereslib.isBoolean = function(str) { isBoolean(str); };
-    cereslib.errorHandler = function(str) { errorHandler(str); };
+    this.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
+    this.importStylesheet = function(url) { importStylesheet(url); };
+    this.composeElement = function(el) { composeElement(el); };
+    this.composeAttribute = function(attrib) { composeAttribute(attrib); };
+    this.isEmpty = function(str) { isEmpty(str); };
+    this.isBoolean = function(str) { isBoolean(str); };
+    this.errorHandler = function(str) { errorHandler(str); };
 
 
-    String.prototype.test = function()
+    String.prototype.test = this.function()
     {
         console.log(this);
     };
@@ -150,4 +150,4 @@ var cereslibrary = {};
         return false;
     }
 
-})(cereslibrary);
+}).call(cereslibrary);
