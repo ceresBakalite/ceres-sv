@@ -20,9 +20,9 @@ var cereslibrary = {};
 
     function getBoolean(symbol)
     {
-        const token = symbol.trim().toUpperCase();
+        if (isEmpty(symbol)) return false;
 
-        if (!token) return false;
+        const token = symbol.trim().toUpperCase();
 
         const lookup = {
             'TRUE': true,
