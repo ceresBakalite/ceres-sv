@@ -10,8 +10,10 @@ var ceres = {};
     slideview.tabImage = function(el) { tabImage(el); }; // global scope method reference
     slideview.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    clib.test1();
-    clib.test2('hello from ceres');
+    String.prototype.isEmpty = function()
+    {
+        return (this.length === 0 || !this.trim());
+    };
 
     class Component
     {
@@ -44,11 +46,6 @@ var ceres = {};
     csv.attribute.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.attribute.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using embedded image lists
     csv.attribute.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv.css'; // the default slideview stylesheet
-
-    String.prototype.isEmpty = function()
-    {
-        return (this.length === 0 || !this.trim());
-    };
 
     window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
     {
