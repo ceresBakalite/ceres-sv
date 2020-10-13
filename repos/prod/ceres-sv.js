@@ -10,6 +10,8 @@ var ceres = {};
     slideview.tabImage = function(el) { tabImage(el); }; // global scope method reference
     slideview.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
+    clib.test('hello from ceres!');
+
     class Component
     {
         constructor()
@@ -42,15 +44,20 @@ var ceres = {};
     csv.attribute.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using embedded image lists
     csv.attribute.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv.css'; // the default slideview stylesheet
 
+    String.prototype.isEmpty = function()
+    {
+        return (this.length === 0 || !this.trim());
+    };
+
     window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
     {
         async connectedCallback()
         {
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
-            if (!clib.isEmpty(css)) await ( await importSlideViewStylesheets(css) );
+            if (!css.isEmpty()) await ( await importSlideViewStylesheets(css) );
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
-            if (!clib.isEmpty(src)) this.innerHTML =  await ( await fetch(src)).text();
+            if (!src.isEmpty()) this.innerHTML =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
         }
@@ -270,7 +277,7 @@ var ceres = {};
 
         function getURL()
         {
-            return (!arrayItem[0].clib.isEmpty()) ? arrayItem[0].trim() : null;
+            return (!arrayItem[0].isEmpty()) ? arrayItem[0].trim() : null;
         }
 
         function getSurtitle(indexItem)
@@ -285,7 +292,7 @@ var ceres = {};
 
         function getAccessibilityText()
         {
-            return (!arrayItem[1].clib.isEmpty()) ? arrayItem[1].trim() : null;
+            return (!arrayItem[1].isEmpty()) ? arrayItem[1].trim() : null;
         }
 
     }
