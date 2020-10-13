@@ -35,12 +35,12 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
-    function errorHandler(str, trace = false)
+    function errorHandler(str, display = false)
     {
         const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
 
-        if (trace) alert(err);
+        if (display) alert(err);
 
         return false;
     }
