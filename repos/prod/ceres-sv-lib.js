@@ -134,7 +134,7 @@ var cereslibrary = {};
         const lookup = {
             [notify]: function() { if (inspect.logtrace) console.log(inspect.notification); },
             [error]: function() { this.errorHandler({ notification: inspect.notification, alert: inspect.logtrace } ); },
-            'default': 'An unexpected error has occurred...'
+            'default': 'An unexpected error has occurred - slideview is unresponsive'
         };
 
         return lookup[inspect.type]() || lookup['default'];
