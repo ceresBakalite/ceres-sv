@@ -13,16 +13,15 @@ var cereslibrary = {};
     //this.isBoolean = function(str) { isBoolean(str); };
     //this.errorHandler = function(str) { errorHandler(str); };
 
-    this.test = function(str)
+    this.isEmpty = function(str)
     {
-        return str.testing();
-    }
-
-    String.prototype.testing = function()
-    {
-        console.log(this);
+        return str.isEmpty();
     };
 
+    this.isBoolean = function(symbol)
+    {
+        return symbol.isBoolean();
+    }
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
@@ -122,16 +121,16 @@ var cereslibrary = {};
 
     }
 
-    this.isEmpty = function(str)
+    String.prototype.isEmpty = function()
     {
-        return (str === null || str.length === 0 || !str.trim());
+        return (this === null || this.length === 0 || !this.trim());
     };
 
-    this.isBoolean = function(symbol)
+    String.prototype.isBoolean = function()
     {
-        if (this.isEmpty(symbol)) return false;
+        if (this.isEmpty(this)) return false;
 
-        const token = symbol.trim().toUpperCase();
+        const token = this.trim().toUpperCase();
 
         const lookup = {
             'TRUE': true,
