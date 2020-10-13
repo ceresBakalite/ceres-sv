@@ -1,5 +1,7 @@
 export { ceres }
 
+import {cereslib} from 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv-lib.js';
+
 var ceres = {};
 (function(slideview)
 {
