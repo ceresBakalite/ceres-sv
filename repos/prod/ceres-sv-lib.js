@@ -10,7 +10,7 @@ var cereslibrary = {};
     cereslib.composeElement = function(el) { composeElement(el); };
     cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
     cereslib.isEmpty = function(str) { isEmpty(str); };
-    cereslib.getBoolean = function(str) { getBoolean(str); };
+    cereslib.isBoolean = function(str) { isBoolean(str); };
     cereslib.errorHandler = function(str) { errorHandler(str); };
 
     function setHorizontalSwipe(touch, callback, args)
