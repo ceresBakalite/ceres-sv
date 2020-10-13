@@ -97,10 +97,10 @@ var cereslibrary = {};
         el.id = element.id;
         element.parent.appendChild(el);
 
-        if (element.classValue) composeAttribute({ id: el.id, type: 'class', value: element.classValue });
-        if (element.onClickEventValue) composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
-        if (element.url) composeAttribute({ id: el.id, type: 'src', value: element.url });
-        if (element.accessibility) composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
+        if (element.classValue) this.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
+        if (element.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
+        if (element.url) this.composeAttribute({ id: el.id, type: 'src', value: element.url });
+        if (element.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
         if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
     }
 
