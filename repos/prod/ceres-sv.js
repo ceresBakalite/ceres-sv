@@ -290,7 +290,7 @@ var ceres = {};
 
         function getAccessibilityText()
         {
-            return (!clib.isEmpty(arrayItem[1]) ? arrayItem[1].trim() : null;
+            return (!clib.isEmpty(arrayItem[1])) ? arrayItem[1].trim() : null;
         }
 
     }
