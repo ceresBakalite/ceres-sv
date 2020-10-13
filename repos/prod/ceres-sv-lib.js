@@ -117,7 +117,7 @@ var cereslibrary = {};
         return (str === null || str.length === 0 || !str.trim());
     };
 
-    this.isBoolean = function(symbol)
+    this.getBooleanAttribute = function(symbol)
     {
         if (this.isEmptyOrNull(symbol)) return false;
 
