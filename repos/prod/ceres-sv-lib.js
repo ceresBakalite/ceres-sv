@@ -13,17 +13,15 @@ var cereslibrary = {};
     cereslib.composeElement = function(el) { composeElement(el); };
     cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
 
-    function isEmpty(str)
+    function test(str)
     {
-        return (str.length === 0 || !str.trim());
-    };
+        console.log(str);
+    }
 
-/*
     String.prototype.isEmpty = function()
     {
         return (this.length === 0 || !this.trim());
     };
-*/
 
     String.prototype.isBoolean = function()
     {
