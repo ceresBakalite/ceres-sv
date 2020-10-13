@@ -55,7 +55,7 @@ var ceres = {};
         async connectedCallback()
         {
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
-            if (!css.clib.isEmpty()) await ( await importSlideViewStylesheets(css) );
+            if (!css.isEmpty()) await ( await importSlideViewStylesheets(css) );
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
             if (!src.isEmpty()) this.innerHTML =  await ( await fetch(src)).text();
@@ -278,7 +278,7 @@ var ceres = {};
 
         function getURL()
         {
-            return (!arrayItem[0].isEmpty()) ? arrayItem[0].trim() : null;
+            return (!arrayItem[0].clib.isEmpty()) ? arrayItem[0].trim() : null;
         }
 
         function getSurtitle(indexItem)
