@@ -254,11 +254,6 @@ var ceres = {};
 
     }
 
-    function tabImage(el)
-    {
-        window.open(el.getAttribute('src'), 'image');
-    }
-
     function getSlide(targetIndex)
     {
         const slides = document.querySelectorAll('div.slideview');
