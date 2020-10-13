@@ -1,6 +1,6 @@
 export { ceres }
 
-import { cereslibrary as lib } from 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv-lib.js';
+import { cereslibrary as clib } from 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv-lib.js';
 
 var ceres = {};
 (function(slideview)
@@ -9,6 +9,8 @@ var ceres = {};
 
     slideview.tabImage = function(el) { tabImage(el); }; // global scope method reference
     slideview.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
+
+    clib.test();
 
     class Component
     {
