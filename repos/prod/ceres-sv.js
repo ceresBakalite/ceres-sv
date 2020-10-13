@@ -152,7 +152,7 @@ var ceres = {};
     {
         const lookup = {
             [resource.type.notify]: function() { if (csv.attribute.trace) console.log(response); },
-            [resource.type.error]: function() { csvlib.errorHandler(response, csv.attribute.trace); },
+            [resource.type.error]: function() { csvlib.errorHandler({ notification: response, alert: csv.attribute.trace } ); },
             'default': 'An unexpected error has occurred - ' + csv.attribute.HTMLSlideViewElement + ' is unresponsive'
         };
 
