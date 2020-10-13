@@ -13,6 +13,12 @@ var cereslibrary = {};
     cereslib.isBoolean = function(str) { isBoolean(str); };
     cereslib.errorHandler = function(str) { errorHandler(str); };
 
+    cereslib.test = String.prototype.function()
+    {
+        console.log(this);
+    };
+
+
     function setHorizontalSwipe(touch, callback, args)
     {
         const el = document.querySelector(touch.el);
