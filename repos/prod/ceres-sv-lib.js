@@ -18,6 +18,11 @@ var cereslibrary = {};
         return str.isEmpty();
     };
 
+    String.prototype.isEmpty = function()
+    {
+        return (this === null || this.length === 0 || !this.trim());
+    };
+
     this.setHorizontalSwipe = function(touch, callback, args)
     {
         const el = document.querySelector(touch.el);
@@ -115,11 +120,6 @@ var cereslibrary = {};
         }
 
     }
-
-    String.prototype.isEmpty = function()
-    {
-        return (this === null || this.length === 0 || !this.trim());
-    };
 
     this.isBoolean = function(symbol)
     {
