@@ -11,7 +11,7 @@ var cereslibrary = {};
     this.isWindows = (navigator.appVersion.indexOf("Win") != -1);
     this.newline = this.isWindows ? '\r\n' : '\n';
 
-console.log('navigator.appVersion: ' + navigator.appVersion);
+console.log('navigator.appVersion: ' + this.newline + navigator.appVersion);
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
