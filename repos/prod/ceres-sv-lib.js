@@ -8,6 +8,7 @@ var cereslibrary = {};
     this.reference = 1;
     this.notify = 2;
     this.error = 99;
+    this.newline = '\n';
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
@@ -136,10 +137,8 @@ var cereslibrary = {};
 
     this.inspect = function(inspect)
     {
-        const newline = '\n';
-
         const lookup = {
-            [this.reference]: function() { if (inspect.logtrace) console.log('Reference: ' + newline + newline + inspect.reference); },
+            [this.reference]: function() { if (inspect.logtrace) console.log('Reference: ' + this.newline + this.newline + inspect.reference); },
             [this.notify]: function() { if (inspect.logtrace) console.log(inspect.notification); },
             [this.error]: function() { this.errorHandler({ notification: inspect.notification, alert: inspect.logtrace } ); },
             'default': 'An unexpected error has occurred...'
