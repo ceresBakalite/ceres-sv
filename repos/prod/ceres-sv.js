@@ -296,34 +296,6 @@ var ceres = {};
 
     }
 
-    function xxxcomposeElement(element)
-    {
-        const el = document.createElement(element.el);
-
-        el.id = element.id;
-        element.parent.appendChild(el);
-
-        if (element.classValue) csvlib.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
-        if (element.onClickEventValue) csvlib.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
-        if (element.url) csvlib.composeAttribute({ id: el.id, type: 'src', value: element.url });
-        if (element.accessibility) csvlib.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
-        if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
-    }
-
-    function xxxcomposeAttribute(attribute)
-    {
-        const el = document.getElementById(attribute.id);
-
-        if (el)
-        {
-            const attributeNode = document.createAttribute(attribute.type);
-            attributeNode.value = attribute.value;
-
-            el.setAttributeNode(attributeNode);
-        }
-
-    }
-
     function activateSlideView()
     {
         csv.progenitor.style.display = 'none';
