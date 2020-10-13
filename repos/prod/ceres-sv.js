@@ -10,7 +10,7 @@ var ceres = {};
     slideview.tabImage = function(el) { tabImage(el); }; // global scope method reference
     slideview.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    clib.test();
+    test();
 
     class Component
     {
