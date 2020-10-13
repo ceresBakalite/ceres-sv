@@ -12,7 +12,6 @@ var ceres = {};
 
     clib.test1();
     clib.test2('hello from ceres');
-    console.log(clib.'hello from this'.test3());
 
     class Component
     {
