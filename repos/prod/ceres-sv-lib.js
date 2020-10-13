@@ -5,6 +5,9 @@ var cereslibrary = {};
 {
     'use strict';
 
+    cereslib.test1 = function() { test1(); };
+    cereslib.test2 = function() { test2(); };
+    cereslib.test3 = function() { test3(); };
     cereslib.isEmpty = function() { isEmpty(); };
     cereslib.isBoolean = function() { isBoolean(); };
     cereslib.errorHandler = function() { errorHandler(); };
@@ -22,6 +25,11 @@ var cereslibrary = {};
     {
         console.log(str);
     }
+
+    String.prototype.test3 = function()
+    {
+        console.log(this);
+    };
 
     String.prototype.isEmpty = function()
     {
