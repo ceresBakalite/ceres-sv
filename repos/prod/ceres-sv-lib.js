@@ -5,6 +5,10 @@ var cereslibrary = {};
 {
     'use strict';
 
+    this.reference = 1;
+    this.notify = 2;
+    this.error = 99;
+
     this.setHorizontalSwipe = function(touch, callback, args)
     {
         const el = document.querySelector(touch.el);
@@ -127,13 +131,12 @@ var cereslibrary = {};
 
     this.inspect = function(inspect)
     {
-        const reference = 1;
-        const notify = 2;
-        const error = 99;
+        const newline = '\n';
 
         const lookup = {
-            [notify]: function() { if (inspect.logtrace) console.log(inspect.notification); },
-            [error]: function() { this.errorHandler({ notification: inspect.notification, alert: inspect.logtrace } ); },
+            [this.reference]: function() { if (inspect.logtrace) console.log('Reference: ' + newline + newline + inspect.reference); },
+            [this.notify]: function() { if (inspect.logtrace) console.log(inspect.notification); },
+            [this.error]: function() { this.errorHandler({ notification: inspect.notification, alert: inspect.logtrace } ); },
             'default': 'An unexpected error has occurred...'
         };
 
