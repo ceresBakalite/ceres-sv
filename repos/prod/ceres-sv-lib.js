@@ -26,14 +26,9 @@ var cereslibrary = {};
         console.log(str);
     }
 
-    String.prototype.test3 = function()
+    function isEmpty(str)
     {
-        return this.toUpperCase(this);
-    };
-
-    String.prototype.isEmpty = function()
-    {
-        return (this.length === 0 || !this.trim());
+        return (str.length === 0 || !str.trim());
     };
 
     String.prototype.isBoolean = function()
