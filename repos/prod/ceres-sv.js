@@ -152,14 +152,14 @@ var ceres = {};
     {
         const lookup = {
             [resource.type.notify]: function() { if (csv.attribute.trace) console.log(response); },
-            [resource.type.error]: function() { errorHandler(response); },
+            [resource.type.error]: function() { clib.errorHandler(response); },
             'default': 'An unexpected error has occurred - ' + csv.attribute.HTMLSlideViewElement + ' is unresponsive'
         };
 
         return lookup[type]() || lookup['default'];
     }
 
-    function errorHandler(str)
+    function xxxerrorHandler(str)
     {
         const err = str + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
@@ -420,40 +420,6 @@ var ceres = {};
     {
         const nodelist = document.querySelectorAll('a.prev, a.next, div.subtitle, div.surtitle, img.slide, #' + csv.attribute.HTMLSlideViewElement);
         nodelist.forEach(node => { node.style.display = attribute; } );
-    }
-
-    function getBoolean(symbol)
-    {
-        const token = symbol.trim().toUpperCase();
-
-        if (!token) return false;
-
-        const lookup = {
-            'TRUE': true,
-            'T':  true,
-            'YES': true,
-            'Y': true,
-            '1': true
-        };
-
-        return lookup[token] || false;
-    }
-
-    String.prototype.isBoolean = function()
-    {
-        const token = this.trim().toUpperCase();
-
-        if (!token) return false;
-
-        const lookup = {
-            'TRUE': true,
-            'T':  true,
-            'YES': true,
-            'Y': true,
-            '1': true
-        };
-
-        return lookup[token] || false;
     }
 
 })(window);
