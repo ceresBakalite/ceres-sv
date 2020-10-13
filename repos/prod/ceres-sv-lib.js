@@ -5,24 +5,6 @@ var cereslibrary = {};
 {
     'use strict';
 
-    //this.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
-    //this.importStylesheet = function(url) { importStylesheet(url); };
-    //this.composeElement = function(el) { composeElement(el); };
-    //this.composeAttribute = function(attrib) { composeAttribute(attrib); };
-    //this.isEmpty = function(str) { isEmpty(str); };
-    //this.isBoolean = function(str) { isBoolean(str); };
-    //this.errorHandler = function(str) { errorHandler(str); };
-
-    this.isEmpty = function(str)
-    {
-        return str.isEmpty();
-    };
-
-    String.prototype.isEmpty = function()
-    {
-        return (this === null || this.length === 0 || !this.trim());
-    };
-
     this.setHorizontalSwipe = function(touch, callback, args)
     {
         const el = document.querySelector(touch.el);
@@ -120,6 +102,11 @@ var cereslibrary = {};
         }
 
     }
+
+    this.isEmpty = function(str)
+    {
+        return (str === null || str.length === 0 || !str.trim());
+    };
 
     this.isBoolean = function(symbol)
     {
