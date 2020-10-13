@@ -5,7 +5,6 @@ var cereslibrary = {};
 {
     'use strict';
 
-    cereslib.test = function() { test(); };
     cereslib.isEmpty = function() { isEmpty(); };
     cereslib.isBoolean = function() { isBoolean(); };
     cereslib.errorHandler = function() { errorHandler(); };
