@@ -14,7 +14,7 @@ var cereslibrary = {};
     //this.errorHandler = function(str) { errorHandler(str); };
 
 
-    String.prototype.test = function()
+    this.String.prototype.test = function()
     {
         console.log(this);
     };
