@@ -59,8 +59,8 @@ var ceres = {};
 
     function getSlideviewAttributes()
     {
-        if (!getProgenitor()) return inspect(resource.type.error, resource.attribute.ProgenitorNotFound);
-        if (!getAttributePrecursors()) return inspect(resource.type.error, resource.attribute.ListContainerNotFound);
+        if (!getProgenitor()) return csvlib.inspect({ type: resource.type.error, notification: resource.attribute.ProgenitorNotFound, logtrace: csv.attribute.trace });
+        if (!getAttributePrecursors()) return csvlib.inspect({ type: resource.type.error, notification: resource.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return getImageArray();
 
@@ -108,10 +108,10 @@ var ceres = {};
 
         function getImageArray()
         {
-            inspect(resource.type.notify, resource.attribute.CSVObjectAttributes + getAttributeProperties());
+            csvlib.inspect({ type: resource.type.notify, notification: resource.attribute.CSVObjectAttributes + getAttributeProperties(), logtrace: csv.attribute.trace });
 
             let imageList = getImageList();
-            if (imageList) inspect(resource.type.notify, resource.attribute.ListContainerMarkup + imageList);
+            if (imageList) csvlib.inspect({ type: resource.type.notify, notification: resource.attribute.ListContainerMarkup + imageList, logtrace: csv.attribute.trace });
 
             csv.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
@@ -128,10 +128,10 @@ var ceres = {};
 
                 function getBodyContentList()
                 {
-                    inspect(resource.type.notify, resource.attribute.BodyContentList);
+                    csvlib.inspect({ type: resource.type.notify, notification: resource.attribute.BodyContentList, logtrace: csv.attribute.trace });
 
                     const list = (csv.listElement) ? csv.listElement.textContent : null;
-                    return (list) ? list : inspect(resource.type.error, resource.attribute.BodyContentListNotFound);
+                    return (list) ? list : csvlib.inspect({ type: resource.type.error, notification: resource.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
                 }
 
             }
@@ -146,17 +146,6 @@ var ceres = {};
 
         }
 
-    }
-
-    function inspect(type, response)
-    {
-        const lookup = {
-            [resource.type.notify]: function() { if (csv.attribute.trace) console.log(response); },
-            [resource.type.error]: function() { csvlib.errorHandler({ notification: response, alert: csv.attribute.trace } ); },
-            'default': 'An unexpected error has occurred - ' + csv.attribute.HTMLSlideViewElement + ' is unresponsive'
-        };
-
-        return lookup[type]() || lookup['default'];
     }
 
     function getSlideView()
@@ -206,7 +195,7 @@ var ceres = {};
             getSlide(csv.index = csv.index += offset);
         }
 
-        inspect(resource.type.notify, resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML);
+        csvlib.inspect({ type: resource.type.notify, notification: resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML, logtrace: csv.attribute.trace });
 
         function getSlideViewPointerContainer()
         {
