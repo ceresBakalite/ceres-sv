@@ -107,6 +107,11 @@ var cereslibrary = {};
 
     }
 
+    function windowOpen(property)
+    {
+        window.open(property.element.getAttribute('src'), property.type);
+    }
+
     this.isEmpty = function(str)
     {
         return (str === null || str.length === 0 || !str.trim());
