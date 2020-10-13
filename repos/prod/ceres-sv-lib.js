@@ -9,7 +9,7 @@ var cereslibrary = {};
     cereslib.importStylesheet = function(url) { importStylesheet(url); };
     cereslib.composeElement = function(el) { composeElement(el); };
     cereslib.composeAttribute = function(attrib) { composeAttribute(attrib); };
-    cereslib.isEmpty = function() { this.isEmpty(); };
+    cereslib.isEmpty = function(str) { isEmpty(str); };
     cereslib.getBoolean = function(str) { getBoolean(str); };
     cereslib.errorHandler = function(str) { errorHandler(str); };
 
@@ -111,12 +111,7 @@ var cereslibrary = {};
 
     }
 
-    String.prototype.isEmpty = function()
-    {
-        return (this === null || this.length === 0 || !this.trim());
-    };
-
-    function xxxisEmpty(str)
+    function isEmpty(str)
     {
         return (str === null || str.length === 0 || !str.trim());
     };
