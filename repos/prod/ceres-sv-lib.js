@@ -7,8 +7,8 @@ var cereslibrary = {};
 
     cereslib.test1 = function() { test1(); };
     cereslib.test2 = function(str) { test2(str); };
-    cereslib.test3 = function() { String.prototype.test3(); };
-    cereslib.isEmpty = function() { isEmpty(); };
+    cereslib.test3 = function() { test3(); };
+    cereslib.isEmpty = String.prototype.function() { isEmpty(); };
     cereslib.isBoolean = function() { isBoolean(); };
     cereslib.errorHandler = function() { errorHandler(); };
     cereslib.setHorizontalSwipe = function(touch, callback, args) { setHorizontalSwipe(touch, callback, args); };
