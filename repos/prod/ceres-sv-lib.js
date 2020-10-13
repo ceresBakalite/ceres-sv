@@ -1,5 +1,7 @@
 export { cereslibrary }
 
+import './String';
+
 var cereslibrary = {};
 (function(cereslib)
 {
@@ -13,7 +15,6 @@ var cereslibrary = {};
     cereslib.isBoolean = function(str) { isBoolean(str); };
     cereslib.errorHandler = function(str) { errorHandler(str); };
 
-    cereslib.test = function() { String.prototype.test(); };
 
     String.prototype.test = function()
     {
