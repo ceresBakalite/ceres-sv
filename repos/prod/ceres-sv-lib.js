@@ -109,6 +109,11 @@ var cereslibrary = {};
 
     }
 
+    this.isString = function(obj)
+    {
+        return Object.prototype.toString.call(obj) == '[object String]';
+    };
+
     this.windowOpen = function(property)
     {
         window.open(property.element.getAttribute('src'), property.type);
@@ -116,7 +121,7 @@ var cereslibrary = {};
 
     this.isEmptyOrNull = function(obj)
     {
-        if (Object.prototype.toString.call(obj) == '[object String]') return (obj === null || obj.length === 0 || !obj.trim());
+        if (this.isString(obj)) return (obj === null || obj.length === 0 || !obj.trim());
         return (obj === null || obj.length === 0);
     };
 
@@ -124,7 +129,7 @@ var cereslibrary = {};
     {
         if (obj === true || obj === false) return obj;
         if (this.isEmptyOrNull(obj)) return false;
-        if (Object.prototype.toString.call(obj) != '[object String]') return false;
+        if (!this.isString(obj)) return false;
 
         const token = obj.trim().toUpperCase();
 
