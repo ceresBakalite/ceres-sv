@@ -34,16 +34,18 @@ var cereslibrary = {};
 
     }
 
-    this.importStylesheet = function(url)
+    this.importLinkElement = function(obj)
     {
-        if (!url) return;
+        if (this.isEmptyOrNull(obj) return;
 
         const link = document.createElement('link');
 
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = url;
-        link.as = 'style';
+        if (obj.rel) link.rel = obj.rel;
+        if (obj.type) link.type = obj.type;
+        if (obj.href) link.href = obj.href;
+        if (obj.as) link.as = obj.as;
+        if (obj.crossorigin) link.crossorigin = obj.crossorigin;
+        if (obj.media) link.media = obj.media;
 
         onloadListener();
         addEventListener();
