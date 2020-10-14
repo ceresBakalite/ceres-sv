@@ -114,10 +114,12 @@ var cereslibrary = {};
         window.open(property.element.getAttribute('src'), property.type);
     }
 
-    this.isEmptyOrNull = function(str)
+    this.isEmptyOrNull = function(obj)
     {
-        if (Object.prototype.toString.call(str) == '[object String]') return (str === null || str.length === 0 || !str.trim());
-        return (str === null || str.length === 0);
+        console.log(Object.prototype.toString.call(obj));
+        
+        if (Object.prototype.toString.call(obj) == '[object String]') return (obj === null || obj.length === 0 || !obj.trim());
+        return (obj === null || obj.length === 0);
     };
 
     this.getBooleanAttribute = function(symbol)
