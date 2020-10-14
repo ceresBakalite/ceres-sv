@@ -122,7 +122,9 @@ var cereslibrary = {};
 
     this.getBooleanAttribute = function(symbol)
     {
+        if (symbol === true || symbol === false) return symbol;
         if (this.isEmptyOrNull(symbol)) return false;
+        if (Object.prototype.toString.call(symbol) != '[object String]') return false;
 
         const token = symbol.trim().toUpperCase();
 
