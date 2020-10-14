@@ -36,7 +36,7 @@ var cereslibrary = {};
 
     this.importLinkElement = function(obj)
     {
-        if (this.isEmptyOrNull(obj) return;
+        if (this.isEmptyOrNull(obj)) return;
 
         const link = document.createElement('link');
 
