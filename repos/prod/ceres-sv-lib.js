@@ -120,13 +120,13 @@ var cereslibrary = {};
         return (obj === null || obj.length === 0);
     };
 
-    this.getBooleanAttribute = function(symbol)
+    this.getBooleanAttribute = function(obj)
     {
-        if (symbol === true || symbol === false) return symbol;
-        if (this.isEmptyOrNull(symbol)) return false;
-        if (Object.prototype.toString.call(symbol) != '[object String]') return false;
+        if (obj === true || obj === false) return obj;
+        if (this.isEmptyOrNull(obj)) return false;
+        if (Object.prototype.toString.call(obj) != '[object String]') return false;
 
-        const token = symbol.trim().toUpperCase();
+        const token = obj.trim().toUpperCase();
 
         const lookup = {
             'TRUE': true,
