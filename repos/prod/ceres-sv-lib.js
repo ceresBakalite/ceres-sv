@@ -75,7 +75,7 @@ var cereslibrary = {};
                     link.onreadystatechange = null;
                 }
 
-            };
+            }
 
         }
 
@@ -112,7 +112,7 @@ var cereslibrary = {};
     this.isString = function(obj)
     {
         return Object.prototype.toString.call(obj) == '[object String]';
-    };
+    }
 
     this.windowOpen = function(property)
     {
@@ -123,7 +123,7 @@ var cereslibrary = {};
     {
         if (this.isString(obj)) return (obj === null || obj.length === 0 || !obj.trim());
         return (obj === null || obj.length === 0);
-    };
+    }
 
     this.getBooleanAttribute = function(obj)
     {
