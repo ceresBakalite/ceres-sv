@@ -156,7 +156,7 @@ var cereslibrary = {};
             'default': 'An unexpected error has occurred...'
         };
 
-        return lookup[inspect.type]() || lookup['default'];
+        return lookup[obj.type]() || lookup['default'];
     }
 
     this.errorHandler = function(obj)
