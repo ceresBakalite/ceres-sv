@@ -70,7 +70,7 @@ var ceres = {};
 
             csv.progenitor = (document.getElementById(csv.attribute.HTMLSlideViewElement)) ? document.getElementById(csv.attribute.HTMLSlideViewElement) : document.getElementsByTagName(csv.attribute.HTMLSlideViewElement)[0];
 
-            return (csv.progenitor) ? true : false;
+            return !csvlib.isEmptyOrNull(csv.progenitor);
         }
 
         function getAttributePrecursors()
@@ -78,7 +78,7 @@ var ceres = {};
             csv.progenitor.id = csv.attribute.HTMLSlideViewElement;
 
             csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
-            csv.callback = csv.progenitor.getAttribute('src') ? true : false;
+            csv.callback = !csvlib.isEmptyOrNull(csv.progenitor.getAttribute('src'));
 
             csv.attribute.ptr = !csvlib.getBooleanAttribute(csv.progenitor.getAttribute('ptr'));
             csv.attribute.sur = !csvlib.getBooleanAttribute(csv.progenitor.getAttribute('sur'));
@@ -109,7 +109,7 @@ var ceres = {};
 
             csv.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
-            return (csv.imageArray) ? true : false;
+            return !csvlib.isEmptyOrNull(csv.imageArray);
 
             function getImageList()
             {
@@ -117,15 +117,15 @@ var ceres = {};
 
                 function getConnectedCallbackList()
                 {
-                    return (csv.progenitor.textContent) ? csv.progenitor.textContent : null;
+                    return (!csvlib.isEmptyOrNull(csv.progenitor.textContent)) ? csv.progenitor.textContent : null;
                 }
 
                 function getBodyContentList()
                 {
                     csvlib.inspect({ type: csvlib.notify, notification: resource.attribute.BodyContentList, logtrace: csv.attribute.trace });
 
-                    const list = (csv.listElement) ? csv.listElement.textContent : null;
-                    return (list) ? list : csvlib.inspect({ type: csvlib.error, notification: resource.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
+                    const list = !csvlib.isEmptyOrNull(csv.listElement) ? csv.listElement.textContent : null;
+                    return !csvlib.isEmptyOrNull(list) ? list : csvlib.inspect({ type: csvlib.error, notification: resource.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
                 }
 
             }
@@ -243,7 +243,7 @@ var ceres = {};
 
     function importSlideViewStylesheets(str)
     {
-        const cssArray = (str) ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const cssArray = !csvlib.isEmptyOrNull(str) ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
