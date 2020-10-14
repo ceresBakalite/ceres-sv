@@ -116,8 +116,6 @@ var cereslibrary = {};
 
     this.isEmptyOrNull = function(obj)
     {
-        console.log(Object.prototype.toString.call(obj));
-        
         if (Object.prototype.toString.call(obj) == '[object String]') return (obj === null || obj.length === 0 || !obj.trim());
         return (obj === null || obj.length === 0);
     };
