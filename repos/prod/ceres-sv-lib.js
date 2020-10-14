@@ -17,7 +17,7 @@ var cereslibrary = {};
 
         if (!touch.act) touch.act = 10;
 
-        el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; e.preventDefault()});
+        el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; e.preventDefault(); });
 
         el.addEventListener('touchend', e =>
         {
@@ -28,8 +28,8 @@ var cereslibrary = {};
                 args.action = (touch.start > touch.end) ? true : false;
                 callback.call(this, args);
             }
-            
-            e.preventDefault()
+
+            e.preventDefault();
         });
 
     }
