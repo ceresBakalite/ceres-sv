@@ -3,12 +3,12 @@ export { ceres }
 import { cereslibrary as csvlib } from 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv-lib.js';
 
 var ceres = {};
-(function(slideview)
+(function()
 {
     'use strict';
 
-    slideview.tabImage = function(el) { csvlib.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    slideview.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
+    this.tabImage = function(el) { csvlib.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
     class Component
     {
@@ -291,4 +291,4 @@ var ceres = {};
         nodelist.forEach(node => { node.style.display = attribute; } );
     }
 
-})(window);
+}).call(window);
