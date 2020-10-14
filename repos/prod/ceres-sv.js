@@ -247,7 +247,7 @@ var ceres = {};
 
         for (let item = 0; item < cssArray.length; item++)
         {
-            csvlib.importStylesheet(cssArray[item]);
+            csvlib.importLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], as: 'style' });
         }
 
     }
