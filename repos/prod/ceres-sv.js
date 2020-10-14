@@ -8,7 +8,7 @@ var ceres = {};
     'use strict';
 
     this.tabImage = function(el) { csl.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { getSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
     class Component
     {
@@ -186,7 +186,7 @@ var ceres = {};
         function getHorizontalSwipe(swipe)
         {
             const offset = (swipe.action) ? swipe.right : swipe.left;
-            getSlide(csv.index = csv.index += offset);
+            setSlide(csv.index = csv.index += offset);
         }
 
         csl.inspect({ type: csl.notify, notification: resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML, logtrace: csv.attribute.trace });
@@ -252,7 +252,7 @@ var ceres = {};
 
     }
 
-    function getSlide(targetIndex)
+    function setSlide(targetIndex)
     {
         const slides = document.querySelectorAll('div.slideview');
 
@@ -279,7 +279,7 @@ var ceres = {};
         csv.progenitor.style.display = 'none';
 
         getSlideView();
-        getSlide();
+        setSlide();
 
         setTimeout(function() { setSlideViewDisplay('block'); }, csv.attribute.delay);
     }
