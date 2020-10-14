@@ -28,7 +28,8 @@ var cereslibrary = {};
                 args.action = (touch.start > touch.end) ? true : false;
                 callback.call(this, args);
             }
-
+            
+            e.preventDefault()
         });
 
     }
