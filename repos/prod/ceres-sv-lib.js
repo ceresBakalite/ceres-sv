@@ -84,28 +84,28 @@ var cereslibrary = {};
 
     }
 
-    this.composeElement = function(element)
+    this.composeElement = function(obj)
     {
-        const el = document.createElement(element.el);
+        const el = document.createElement(obj.el);
 
-        el.id = element.id;
-        element.parent.appendChild(el);
+        el.id = obj.id;
+        obj.parent.appendChild(el);
 
-        if (element.classValue) this.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
-        if (element.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
-        if (element.url) this.composeAttribute({ id: el.id, type: 'src', value: element.url });
-        if (element.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
-        if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
+        if (obj.classValue) this.composeAttribute({ id: el.id, type: 'class', value: obj.classValue });
+        if (obj.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: obj.onClickEventValue });
+        if (obj.url) this.composeAttribute({ id: el.id, type: 'src', value: obj.url });
+        if (obj.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: obj.accessibility });
+        if (obj.markup) document.getElementById(el.id).innerHTML = obj.markup;
     }
 
-    this.composeAttribute = function(attribute)
+    this.composeAttribute = function(obj)
     {
-        const el = document.getElementById(attribute.id);
+        const el = document.getElementById(obj.id);
 
         if (el)
         {
-            const attributeNode = document.createAttribute(attribute.type);
-            attributeNode.value = attribute.value;
+            const attributeNode = document.createAttribute(obj.type);
+            attributeNode.value = obj.value;
 
             el.setAttributeNode(attributeNode);
         }
@@ -117,9 +117,9 @@ var cereslibrary = {};
         return Object.prototype.toString.call(obj) == '[object String]';
     }
 
-    this.windowOpen = function(property)
+    this.windowOpen = function(obj)
     {
-        window.open(property.element.getAttribute('src'), property.type);
+        window.open(obj.element.getAttribute('src'), obj.type);
     }
 
     this.isEmptyOrNull = function(obj)
@@ -147,24 +147,24 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
-    this.inspect = function(inspect)
+    this.inspect = function(obj)
     {
         const lookup = {
-            [this.reference]: function() { if (inspect.logtrace) console.log('Reference: ' + this.newline + this.newline + inspect.reference); },
-            [this.notify]: function() { if (inspect.logtrace) console.log(inspect.notification); },
-            [this.error]: function() { this.errorHandler({ notification: inspect.notification, alert: inspect.logtrace } ); },
+            [this.reference]: function() { if (obj.logtrace) console.log('Reference: ' + this.newline + this.newline + obj.reference); },
+            [this.notify]: function() { if (obj.logtrace) console.log(obj.notification); },
+            [this.error]: function() { this.errorHandler({ notification: obj.notification, alert: obj.logtrace } ); },
             'default': 'An unexpected error has occurred...'
         };
 
         return lookup[inspect.type]() || lookup['default'];
     }
 
-    this.errorHandler = function(error)
+    this.errorHandler = function(obj)
     {
-        const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+        const err = obj.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
 
-        if (error.alert) alert(err);
+        if (obj.alert) alert(err);
 
         return false;
     }
