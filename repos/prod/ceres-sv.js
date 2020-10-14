@@ -7,7 +7,7 @@ var ceres = {};
 {
     'use strict';
 
-    this.tabImage = function(el) { csl.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getImage = function(el) { csl.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
     class Component
@@ -170,7 +170,7 @@ var ceres = {};
             let slideContainer = document.getElementById(id);
 
             if (csv.attribute.sur) csl.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(qualifier) });
-            csl.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEventValue: 'window.tabImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+            csl.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEventValue: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
             if (csv.attribute.sub) csl.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
 
