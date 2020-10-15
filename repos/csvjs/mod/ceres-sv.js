@@ -60,6 +60,7 @@ var ceres = {};
                 }
                 catch (ex)
                 {
+                    this.setAttribute('src', null);
                     console.log(ex.message);
                 }
 
