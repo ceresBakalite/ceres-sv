@@ -51,13 +51,9 @@ var ceres = {};
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
             if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text()
-            .then(response => response.json())
-            .then(result => {
-                console.log('Success:', result);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+              .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+              });
 
             if (getSlideviewAttributes()) activateSlideView();
         }
