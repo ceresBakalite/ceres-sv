@@ -135,7 +135,7 @@ var cereslibrary = {};
         if (Array.isArray(obj)) return (obj.length === 0);
         if (obj.constructor === Object) return (Object.keys(obj).length === 0);
 
-        return !!obj;
+        return !obj;
     }
 
     this.getBooleanAttribute = function(obj)
