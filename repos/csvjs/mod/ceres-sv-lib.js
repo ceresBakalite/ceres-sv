@@ -115,7 +115,6 @@ var cereslibrary = {};
 
     this.isObject = function(obj)
     {
-        console.log('obj: ' + obj);
         return Object.prototype.toString.call(obj) == '[object Object]';
     }
 
@@ -141,12 +140,9 @@ var cereslibrary = {};
 
     this.isEmptyOrNull = function(obj)
     {
-        if (obj === null) return true;
+        if (obj === null || obj === 'undefined') return true;
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
         if (this.isObject(obj)) return (this.isObjectEmpty());
-
-        console.log('this.isObject(obj): ' + this.isObject(obj) + ' - this.isObjectEmpty(): ' + this.isObjectEmpty());
-
 
         return (obj.length === 0);
     }
