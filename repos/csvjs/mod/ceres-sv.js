@@ -58,11 +58,11 @@ var ceres = {};
                 {
                     this.innerHTML =  await ( await fetch(src)).text();
                 }
-                catch(err)
+                catch(ex)
                 {
-                    document.getElementById("demo").innerHTML = err.message;
+                    console.log(ex.message);
                 }
-                
+
             }
 
             //if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
