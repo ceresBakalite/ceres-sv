@@ -51,15 +51,9 @@ var ceres = {};
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
 
-            if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text()
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-            })
-            .catch(error => {
-              console.error('There has been a problem with your fetch operation:', error);
-            });
+            if (!csl.urlExists(src)) condsole.log('url does not exist');
+
+            if (!csl.isEmptyOrNull(src) && csl.urlExists(src)) this.innerHTML =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
         }
