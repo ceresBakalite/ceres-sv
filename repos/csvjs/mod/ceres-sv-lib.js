@@ -123,12 +123,20 @@ var cereslibrary = {};
         window.open(obj.element.getAttribute('src'), obj.type);
     }
 
-    this.isEmptyOrNull = function(obj)
+    this.xxxisEmptyOrNull = function(obj)
     {
         if (Array.isArray(obj)) return (obj.length === 0);
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
-        
+
         return (!obj || (Object.keys(obj).length === 0));
+    }
+
+    this.isEmptyOrNull = function(obj)
+    {
+        if (obj === null || obj == 'undefined') return true;
+        if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+
+        return (obj.length === 0);
     }
 
     this.getBooleanAttribute = function(obj)
@@ -150,16 +158,6 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
-    this.errorHandler = function(obj)
-    {
-        const err = obj.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-        console.log(err);
-
-        if (obj.alert) alert(err);
-
-        return false;
-    }
-
     this.inspect = function(obj)
     {
         const lookup = {
@@ -170,6 +168,16 @@ var cereslibrary = {};
         };
 
         return lookup[obj.type]() || lookup['default'];
+    }
+
+    this.errorHandler = function(obj)
+    {
+        const err = obj.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+        console.log(err);
+
+        if (obj.alert) alert(err);
+
+        return false;
     }
 
 }).call(cereslibrary);
