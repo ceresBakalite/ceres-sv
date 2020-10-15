@@ -113,6 +113,11 @@ var cereslibrary = {};
 
     }
 
+    this.isObject = function(obj)
+    {
+        return Object.prototype.toString.call(obj) == '[object object]';
+    }
+
     this.isString = function(obj)
     {
         return Object.prototype.toString.call(obj) == '[object String]';
@@ -127,11 +132,14 @@ var cereslibrary = {};
     {
         if (obj === null) return true;
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+        if (this.isObject(obj)) return (obj.isObjectEmpty());
 
-        return obj.isEmpty();
+        return false;
 
-        Object.prototype.isEmpty = function()
+        Object.prototype.isObjectEmpty = function()
         {
+            if (!this.isObject(obj)) return false;
+
             for (let key in this)
             {
                 if (this.hasOwnProperty(key)) return false;
