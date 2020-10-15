@@ -48,6 +48,8 @@ var cereslibrary = {};
                 console.log('url not found');
                 return false;
             }
+
+            return true;
         }
 
         request.send();
