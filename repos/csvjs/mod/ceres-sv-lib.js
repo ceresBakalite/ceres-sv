@@ -149,6 +149,16 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
+    this.errorHandler = function(obj)
+    {
+        const err = obj.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+        console.log(err);
+
+        if (obj.alert) alert(err);
+
+        return false;
+    }
+
     this.inspect = function(obj)
     {
         const lookup = {
@@ -159,16 +169,6 @@ var cereslibrary = {};
         };
 
         return lookup[obj.type]() || lookup['default'];
-    }
-
-    this.errorHandler = function(obj)
-    {
-        const err = obj.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-        console.log(err);
-
-        if (obj.alert) alert(err);
-
-        return false;
     }
 
 }).call(cereslibrary);
