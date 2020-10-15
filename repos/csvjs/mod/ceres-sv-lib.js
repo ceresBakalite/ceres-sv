@@ -17,9 +17,9 @@ var cereslibrary = {};
 
         if (!touch.act) touch.act = 10;
 
-        el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; return true; });
+        el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, {  passive: true } );
 
-        el.addEventListener('touchmove', e => { e.preventDefault(); }, false);
+        el.addEventListener('touchmove', e => { e.preventDefault(); }, {  passive: true });
 
         el.addEventListener('touchend', e =>
         {
@@ -31,8 +31,8 @@ var cereslibrary = {};
                 callback.call(this, args);
             }
 
-            return true; 
-        });
+            return true;
+        }, {  passive: true });
 
     }
 
