@@ -58,7 +58,7 @@ var ceres = {};
                 {
                     this.innerHTML =  await ( await fetch(src)).text();
                 }
-                catch(ex)
+                catch (ex)
                 {
                     console.log(ex.message);
                 }
