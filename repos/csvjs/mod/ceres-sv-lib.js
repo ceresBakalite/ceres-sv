@@ -127,6 +127,7 @@ var cereslibrary = {};
     {
         if (Array.isArray(obj)) return (obj.length === 0);
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+        
         return (!obj || (Object.keys(obj).length === 0));
     }
 
