@@ -31,7 +31,6 @@ var cereslibrary = {};
                 callback.call(this, args);
             }
 
-            return true;
         }, {  passive: true });
 
     }
