@@ -51,7 +51,7 @@ var ceres = {};
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
 
-            if (!csl.urlExists(src)) condsole.log('url does not exist');
+            if (!csl.urlExists(src)) console.log('url does not exist');
 
             if (!csl.isEmptyOrNull(src) && csl.urlExists(src)) this.innerHTML =  await ( await fetch(src)).text();
 
