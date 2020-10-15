@@ -52,8 +52,20 @@ var ceres = {};
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
 
             //if (!csl.urlExists(src)) console.log('url does not exist');
+            if (!csl.isEmptyOrNull(src))
+            {
+                try
+                {
+                    this.innerHTML =  await ( await fetch(src)).text();
+                }
+                catch(err)
+                {
+                    document.getElementById("demo").innerHTML = err.message;
+                }
+                
+            }
 
-            if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
+            //if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
         }
