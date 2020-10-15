@@ -133,7 +133,7 @@ var cereslibrary = {};
         if (obj === null || obj == 'undefined') return true;
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
         if (Array.isArray(obj)) return (obj.length === 0);
-        if (obj.constructor === Object && Object.keys(obj).length === 0) return true;
+        if (obj.constructor === Object) return (Object.keys(obj).length === 0);
 
         return !!obj;
     }
