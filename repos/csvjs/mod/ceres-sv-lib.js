@@ -133,6 +133,7 @@ var cereslibrary = {};
 
     this.isEmptyOrNull = function(obj)
     {
+        if (Array.isArray(obj)) return (obj.length === 0);
         if (obj === null || obj == 'undefined') return true;
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
 
