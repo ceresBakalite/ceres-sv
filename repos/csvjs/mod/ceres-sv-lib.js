@@ -35,20 +35,6 @@ var cereslibrary = {};
 
     }
 
-    this.urlExists = function(url)
-    {
-            var xhr = new XMLHttpRequest();
-            xhr.open('HEAD', url, false);
-            xhr.send();
-
-            if (xhr.status == "404") {
-                return false;
-            } else {
-                return true;
-            }
-            
-    }
-
     this.importLinkElement = function(obj)
     {
         if (this.isEmptyOrNull(obj)) return;
