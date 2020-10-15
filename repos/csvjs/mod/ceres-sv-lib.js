@@ -128,26 +128,23 @@ var cereslibrary = {};
         window.open(obj.element.getAttribute('src'), obj.type);
     }
 
+    this.isObjectEmpty = function()
+    {
+        for (let key in this)
+        {
+            if (this.hasOwnProperty(key)) return false;
+        }
+
+        return true;
+    }
+
     this.isEmptyOrNull = function(obj)
     {
         if (obj === null) return true;
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
-        if (this.isObject(obj)) return (obj.isObjectEmpty());
+        if (this.isObject(obj)) return (this.isObjectEmpty());
 
         return false;
-
-        Object.prototype.isObjectEmpty = function()
-        {
-            if (!this.isObject(obj)) return false;
-
-            for (let key in this)
-            {
-                if (this.hasOwnProperty(key)) return false;
-            }
-
-            return true;
-        }
-
     }
 
     this.getBooleanAttribute = function(obj)
