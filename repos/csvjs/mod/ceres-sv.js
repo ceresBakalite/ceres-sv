@@ -50,10 +50,16 @@ var ceres = {};
             if (!csl.isEmptyOrNull(css)) await ( await importSlideViewStylesheets(css) );
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
+
             if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text()
-              .catch(error => {
-                console.error('There has been a problem with your fetch operation:', error);
-              });
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+            })
+            .catch(error => {
+              console.error('There has been a problem with your fetch operation:', error);
+            });
 
             if (getSlideviewAttributes()) activateSlideView();
         }
