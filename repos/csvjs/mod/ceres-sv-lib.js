@@ -134,7 +134,7 @@ var cereslibrary = {};
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
         if (Array.isArray(obj)) return (obj.length === 0);
 
-        return (!obj || !Object.keys(obj).length);
+        return !obj;
     }
 
     this.getBooleanAttribute = function(obj)
