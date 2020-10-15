@@ -35,7 +35,7 @@ var cereslibrary = {};
 
     }
 
-    this.hrefExists = function(url)
+    this.urlExists = function(url)
     {
         let request = new XMLHttpRequest();
 
@@ -43,15 +43,12 @@ var cereslibrary = {};
 
         request.onreadystatechange = function()
         {
-            if (request.readyState === 4)
+            if (request.readyState === 4) && (request.status === 404)
             {
-                if (request.status === 404)
-                {
-                    console.log('url not found');
-                    return false;
-                }
+                console.log('url not found');
+                return false;
             }
-        };
+        }
 
         request.send();
 
