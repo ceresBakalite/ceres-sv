@@ -115,6 +115,7 @@ var cereslibrary = {};
 
     this.isObject = function(obj)
     {
+        console.log('obj: ' + obj);
         return Object.prototype.toString.call(obj) == '[object object]';
     }
 
