@@ -128,24 +128,13 @@ var cereslibrary = {};
         window.open(obj.element.getAttribute('src'), obj.type);
     }
 
-    this.isEmptyObject = function(obj)
-    {
-        for(var key in obj)
-        {
-            if(obj.hasOwnProperty(key)) return false;
-        }
-
-        return true;
-    }
-
     this.isEmptyOrNull = function(obj)
     {
         if (obj === null || obj == 'undefined') return true;
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
         if (Array.isArray(obj)) return (obj.length === 0);
 
-        return (!obj)
-        //return (!obj || this.isEmptyObject(obj))
+        return (!obj || !Object.keys(obj).length);
     }
 
     this.getBooleanAttribute = function(obj)
