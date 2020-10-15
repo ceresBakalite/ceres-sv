@@ -125,8 +125,10 @@ var cereslibrary = {};
 
     this.isEmptyOrNull = function(obj)
     {
-        if (this.isString(obj)) return (obj === null || obj.length === 0 || !obj.trim());
-        return (obj === null || obj.length === 0);
+        if (obj === null) return true;
+        if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+
+        return (obj.length === 0);
     }
 
     this.getBooleanAttribute = function(obj)
