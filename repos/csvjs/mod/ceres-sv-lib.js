@@ -113,6 +113,11 @@ var cereslibrary = {};
 
     }
 
+    this.isObject = function(obj)
+    {
+        return Object.prototype.toString.call(obj) == '[object Object]';
+    }
+
     this.isString = function(obj)
     {
         return Object.prototype.toString.call(obj) == '[object String]';
@@ -133,13 +138,11 @@ var cereslibrary = {};
 
     this.isEmptyOrNull = function(obj)
     {
-        if (!obj) return (!obj)
-        //if (Object.keys(obj).length === 0) return (Object.keys(obj).length === 0);
-        if (Array.isArray(obj)) return (obj.length === 0);
         if (obj === null || obj == 'undefined') return true;
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+        if (Array.isArray(obj)) return (obj.length === 0);
 
-        return (obj.length === 0);
+        return (!obj || !Object.getOwnPropertyNames(obj).length)
     }
 
     this.getBooleanAttribute = function(obj)
