@@ -43,7 +43,7 @@ var cereslibrary = {};
 
         request.onreadystatechange = function()
         {
-            if (request.readyState === 4) && (request.status === 404)
+            if ((request.readyState === 4) && (request.status === 404))
             {
                 console.log('url not found');
                 return false;
