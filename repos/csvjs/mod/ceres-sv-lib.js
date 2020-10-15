@@ -35,6 +35,30 @@ var cereslibrary = {};
 
     }
 
+    this.hrefExists = function(url)
+    {
+        let request = new XMLHttpRequest();
+
+        request.open('GET', url, true);
+
+        request.onreadystatechange = function()
+        {
+            if (request.readyState === 4)
+            {
+                if (request.status === 404)
+                {
+                    console.log('url not found');
+                    return false;
+                }
+            }
+        };
+
+        request.send();
+
+        console.log('url found!');
+        return true;
+    }
+
     this.importLinkElement = function(obj)
     {
         if (this.isEmptyOrNull(obj)) return;
