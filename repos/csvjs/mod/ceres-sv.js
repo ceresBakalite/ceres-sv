@@ -1,6 +1,6 @@
 export { ceres }
 
-import { cereslibrary as csl } from 'https://ceresbakalite.github.io/ceres-sv/repos/prod/ceres-sv-lib.js';
+import { cereslibrary as csl } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/mod/ceres-sv-lib.js';
 
 var ceres = {};
 (function()
