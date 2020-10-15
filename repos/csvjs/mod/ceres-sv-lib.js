@@ -37,25 +37,16 @@ var cereslibrary = {};
 
     this.urlExists = function(url)
     {
-        let request = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
+            xhr.open('HEAD', url, false);
+            xhr.send();
 
-        request.open('GET', url, true);
-
-        request.onreadystatechange = function()
-        {
-            if ((request.readyState === 4) && (request.status === 404))
-            {
-                console.log('url not found');
+            if (xhr.status == "404") {
                 return false;
+            } else {
+                return true;
             }
-
-            return true;
-        }
-
-        request.send();
-
-        console.log('url found!');
-        return true;
+            
     }
 
     this.importLinkElement = function(obj)
