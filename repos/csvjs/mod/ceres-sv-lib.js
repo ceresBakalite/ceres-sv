@@ -5,7 +5,7 @@ var cereslibrary = {};
 {
     'use strict';
 
-    const libraryName = getMethodName();
+    const libraryName = this.getMethodName();
 
     this.reference = 1;
     this.notify = 2;
@@ -124,7 +124,7 @@ var cereslibrary = {};
     this.isEmptyOrNull = function(obj)
     {
         console.log(libraryName);
-        
+
         if (obj === null || obj == 'undefined') return true;
 
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
