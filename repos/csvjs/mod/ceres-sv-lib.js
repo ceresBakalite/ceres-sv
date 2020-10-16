@@ -35,7 +35,35 @@ var cereslibrary = {};
 
     }
 
-    this.importLinkElement = function(attribute)
+    this.composeElement = function(element)
+    {
+        const el = document.createElement(element.el);
+
+        el.id = element.id;
+        element.parent.appendChild(el);
+
+        if (element.classValue) this.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
+        if (element.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
+        if (element.url) this.composeAttribute({ id: el.id, type: 'src', value: element.url });
+        if (element.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
+        if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
+    }
+
+    this.composeAttribute = function(attribute)
+    {
+        const el = document.getElementById(attribute.id);
+
+        if (el)
+        {
+            const attributeNode = document.createAttribute(attribute.type);
+            attributeNode.value = attribute.value;
+
+            el.setAttributeNode(attributeNode);
+        }
+
+    }
+
+    this.composeLinkElement = function(attribute)
     {
         if (this.isEmptyOrNull(attribute)) return;
 
@@ -81,34 +109,6 @@ var cereslibrary = {};
 
             }
 
-        }
-
-    }
-
-    this.composeElement = function(element)
-    {
-        const el = document.createElement(element.el);
-
-        el.id = element.id;
-        element.parent.appendChild(el);
-
-        if (element.classValue) this.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
-        if (element.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
-        if (element.url) this.composeAttribute({ id: el.id, type: 'src', value: element.url });
-        if (element.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
-        if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
-    }
-
-    this.composeAttribute = function(attribute)
-    {
-        const el = document.getElementById(attribute.id);
-
-        if (el)
-        {
-            const attributeNode = document.createAttribute(attribute.type);
-            attributeNode.value = attribute.value;
-
-            el.setAttributeNode(attributeNode);
         }
 
     }
