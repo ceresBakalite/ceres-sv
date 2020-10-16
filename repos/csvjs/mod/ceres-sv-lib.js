@@ -3,9 +3,9 @@ export { cereslibrary }
 var cereslibrary = {};
 (function()
 {
-    'use strict';
-
     const libraryName = GFGs();
+
+    'use strict';
 
     this.reference = 1;
     this.notify = 2;
