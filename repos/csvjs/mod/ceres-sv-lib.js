@@ -23,9 +23,9 @@ var cereslibrary = {};
     }
 
     let resource = new Component();
-    let token = new Map();
+    let symbol = new Map();
 
-    setResourcePrecursors();
+    setPrecursors();
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
@@ -122,9 +122,9 @@ var cereslibrary = {};
         if (this.isEmptyOrNull(attribute)) return false;
         if (!this.isString(attribute)) return false;
 
-        const symbol = attribute.trim().toLowerCase();
+        const token = attribute.trim().toLowerCase();
 
-        return token.has(symbol) ? token.get(symbol) : false;
+        return symbol.has(token) ? symbol.get(token) : false;
     }
 
     this.inspect = function(diagnostic)
@@ -153,14 +153,14 @@ var cereslibrary = {};
         return false;
     }
 
-    function setResourcePrecursors()
+    function setPrecursors()
     {
-        token.set('true', true);
-        token.set('t', true);
-        token.set('yes', true);
-        token.set('y', true);
-        token.set('1', true);
-        token.set('default', false);
+        symbol.set('true', true);
+        symbol.set('t', true);
+        symbol.set('yes', true);
+        symbol.set('y', true);
+        symbol.set('1', true);
+        symbol.set('default', false);
 
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
