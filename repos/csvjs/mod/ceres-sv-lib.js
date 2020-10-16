@@ -37,7 +37,7 @@ var cereslibrary = {};
 
     this.importLinkElement = function(attribute)
     {
-        if (this.isEmptyOrNull(obj)) return;
+        if (this.isEmptyOrNull(attribute)) return;
 
         const link = document.createElement('link');
 
@@ -156,7 +156,7 @@ var cereslibrary = {};
     this.inspect = function(diagnostic)
     {
         const lookup = {
-                [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+            [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
             [this.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
             [this.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
             'default': 'An unexpected error has occurred...'
