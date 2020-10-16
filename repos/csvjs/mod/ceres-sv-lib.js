@@ -5,6 +5,18 @@ var cereslibrary = {};
 {
     const libraryName = GFGs();
 
+    function GFGs() {
+                var me = arguments.callee.toString();
+                me = me.substr('function '.length);
+                me = me.substr(0, me.indexOf('('));
+                alert(me);
+            }
+
+    this.getMethodName = function()
+    {
+        return this.getMethodName.caller.name;
+    }
+
     'use strict';
 
     this.reference = 1;
@@ -102,18 +114,6 @@ var cereslibrary = {};
         link.addEventListener('load', function() {}, false);
 
         document.head.appendChild(link);
-    }
-
-    function GFGs() {
-                var me = arguments.callee.toString();
-                me = me.substr('function '.length);
-                me = me.substr(0, me.indexOf('('));
-                alert(me);
-            }
-
-    this.getMethodName = function()
-    {
-        return this.getMethodName.caller.name;
     }
 
     this.windowOpen = function(obj)
