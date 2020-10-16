@@ -5,7 +5,7 @@ var cereslibrary = {};
 {
     'use strict';
 
-    const libraryName = this.getMethodName();
+    const libraryName = caller.name;
 
     this.reference = 1;
     this.notify = 2;
@@ -106,7 +106,7 @@ var cereslibrary = {};
 
     this.getMethodName = function()
     {
-        return this.caller.name;
+        return this.getMethodName.caller.name;
     }
 
     this.windowOpen = function(obj)
