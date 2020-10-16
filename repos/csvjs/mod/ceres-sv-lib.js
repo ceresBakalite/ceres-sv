@@ -35,18 +35,18 @@ var cereslibrary = {};
 
     }
 
-    this.importLinkElement = function(obj)
+    this.importLinkElement = function(attribute)
     {
         if (this.isEmptyOrNull(obj)) return;
 
         const link = document.createElement('link');
 
-        if (obj.rel) link.rel = obj.rel;
-        if (obj.type) link.type = obj.type;
-        if (obj.href) link.href = obj.href;
-        if (obj.as) link.as = obj.as;
-        if (obj.crossorigin) link.crossorigin = obj.crossorigin;
-        if (obj.media) link.media = obj.media;
+        if (attribute.rel) link.rel = attribute.rel;
+        if (attribute.type) link.type = attribute.type;
+        if (attribute.href) link.href = attribute.href;
+        if (attribute.as) link.as = attribute.as;
+        if (attribute.crossorigin) link.crossorigin = attribute.crossorigin;
+        if (attribute.media) link.media = attribute.media;
 
         onloadListener();
         addEventListener();
@@ -85,37 +85,32 @@ var cereslibrary = {};
 
     }
 
-    this.composeElement = function(obj)
+    this.composeElement = function(element)
     {
-        const el = document.createElement(obj.el);
+        const el = document.createElement(element.el);
 
-        el.id = obj.id;
-        obj.parent.appendChild(el);
+        el.id = element.id;
+        element.parent.appendChild(el);
 
-        if (obj.classValue) this.composeAttribute({ id: el.id, type: 'class', value: obj.classValue });
-        if (obj.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: obj.onClickEventValue });
-        if (obj.url) this.composeAttribute({ id: el.id, type: 'src', value: obj.url });
-        if (obj.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: obj.accessibility });
-        if (obj.markup) document.getElementById(el.id).innerHTML = obj.markup;
+        if (element.classValue) this.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
+        if (element.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
+        if (element.url) this.composeAttribute({ id: el.id, type: 'src', value: element.url });
+        if (element.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
+        if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
     }
 
-    this.composeAttribute = function(obj)
+    this.composeAttribute = function(attribute)
     {
-        const el = document.getElementById(obj.id);
+        const el = document.getElementById(attribute.id);
 
         if (el)
         {
-            const attributeNode = document.createAttribute(obj.type);
-            attributeNode.value = obj.value;
+            const attributeNode = document.createAttribute(attribute.type);
+            attributeNode.value = attribute.value;
 
             el.setAttributeNode(attributeNode);
         }
 
-    }
-
-    this.isObject = function(obj)
-    {
-        return Object.prototype.toString.call(obj) == '[object Object]';
     }
 
     this.isString = function(obj)
@@ -131,6 +126,7 @@ var cereslibrary = {};
     this.isEmptyOrNull = function(obj)
     {
         if (obj === null || obj == 'undefined') return true;
+
         if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
         if (Array.isArray(obj)) return (obj.length === 0);
         if (obj.constructor === Object) return (Object.keys(obj).length === 0);
@@ -138,13 +134,13 @@ var cereslibrary = {};
         return !obj;
     }
 
-    this.getBooleanAttribute = function(obj)
+    this.getBooleanAttribute = function(attribute)
     {
-        if (obj === true || obj === false) return obj;
-        if (this.isEmptyOrNull(obj)) return false;
-        if (!this.isString(obj)) return false;
+        if (attribute === true || attribute === false) return attribute;
+        if (this.isEmptyOrNull(attribute)) return false;
+        if (!this.isString(attribute)) return false;
 
-        const token = obj.trim().toUpperCase();
+        const token = attribute.trim().toUpperCase();
 
         const lookup = {
             'TRUE': true,
@@ -157,24 +153,24 @@ var cereslibrary = {};
         return lookup[token] || false;
     }
 
-    this.inspect = function(obj)
+    this.inspect = function(diagnostic)
     {
         const lookup = {
-            [this.reference]: function() { if (obj.logtrace) console.log('Reference: ' + this.newline + this.newline + obj.reference); },
-            [this.notify]: function() { if (obj.logtrace) console.log(obj.notification); },
-            [this.error]: function() { this.errorHandler({ notification: obj.notification, alert: obj.logtrace } ); },
+                [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+            [this.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
+            [this.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
             'default': 'An unexpected error has occurred...'
         };
 
-        return lookup[obj.type]() || lookup['default'];
+        return lookup[diagnostic.type]() || lookup['default'];
     }
 
-    this.errorHandler = function(obj)
+    this.errorHandler = function(error)
     {
-        const err = obj.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+        const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
 
-        if (obj.alert) alert(err);
+        if (error.alert) alert(err);
 
         return false;
     }
