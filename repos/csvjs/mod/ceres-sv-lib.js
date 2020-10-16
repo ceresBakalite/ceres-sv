@@ -76,43 +76,9 @@ var cereslibrary = {};
         if (attribute.crossorigin) link.crossorigin = attribute.crossorigin;
         if (attribute.media) link.media = attribute.media;
 
-        // onloadListener();
-        // addEventListener();
-        // onReadyStateChangeListener();
-
         link.addEventListener('load', function() {}, false);
 
         document.head.appendChild(link);
-
-/*
-        function onloadListener()
-        {
-            link.onload = function () {}
-        }
-
-        function addEventListener()
-        {
-            if (link.addEventListener)
-            {
-            }
-
-        }
-
-        function onReadyStateChangeListener()
-        {
-            link.onreadystatechange = function()
-            {
-                const state = link.readyState;
-
-                if (state === 'loaded' || state === 'complete')
-                {
-                    link.onreadystatechange = null;
-                }
-
-            }
-
-        }
-*/
     }
 
     this.isString = function(obj)
