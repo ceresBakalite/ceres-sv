@@ -8,7 +8,7 @@ var cereslibrary = {};
     this.reference = 1;
     this.notify = 2;
     this.error = 99;
-    this.isWindows = (navigator.appVersion.indexOf("Win") != -1);
+    this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
     this.newline = this.isWindows ? '\r\n' : '\n';
 
     this.setHorizontalSwipe = function(touch, callback, args)
@@ -17,9 +17,9 @@ var cereslibrary = {};
 
         if (!touch.act) touch.act = 10;
 
-        el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, {  passive: true } );
+        el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
 
-        el.addEventListener('touchmove', e => { e.preventDefault(); }, {  passive: true });
+        el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
 
         el.addEventListener('touchend', e =>
         {
@@ -31,7 +31,7 @@ var cereslibrary = {};
                 callback.call(this, args);
             }
 
-        }, {  passive: true });
+        }, { passive: true });
 
     }
 
