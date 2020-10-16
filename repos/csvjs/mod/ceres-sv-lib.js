@@ -5,6 +5,8 @@ var cereslibrary = {};
 {
     'use strict';
 
+    const library = 'cereslibrary';
+
     this.reference = 1;
     this.notify = 2;
     this.error = 99;
@@ -25,14 +27,6 @@ var cereslibrary = {};
     let resource = new Component();
 
     setResourcePrecursors();
-
-    this.logIt();
-
-    this.logIt = function()
-    {
-        const stack = new Error().stack, caller = stack.split(this.newline)[2].trim();
-        console.log(caller);
-    }
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
@@ -180,15 +174,13 @@ var cereslibrary = {};
 
     function setResourcePrecursors()
     {
-        const libraryName = 'cereslibrary';
-
-        resource.attribute.setHorizontalSwipe = libraryName + ' error: The setHorizontalSwipe method touch or callback arguments are empty or null';
-        resource.attribute.composeElement = libraryName + ' error: The composeElement method argument is empty or null';
-        resource.attribute.composeAttribute = libraryName + ' error: The composeAttribute method argument is empty or null';
-        resource.attribute.composeLinkElement = libraryName + ' error: The composeLink method argument is empty or null';
-        resource.attribute.windowOpen = libraryName + ' error: The windowOpen method argument is empty or null';
-        resource.attribute.inspect = libraryName + ' error: The inspect method argument is empty or null';
-        resource.attribute.errorhandler = libraryName + ' error: The errorhandler method argument is empty or null';
+        resource.attribute.setHorizontalSwipe = library + ' error: The setHorizontalSwipe method touch or callback arguments are empty or null';
+        resource.attribute.composeElement = library + ' error: The composeElement method argument is empty or null';
+        resource.attribute.composeAttribute = library + ' error: The composeAttribute method argument is empty or null';
+        resource.attribute.composeLinkElement = library + ' error: The composeLink method argument is empty or null';
+        resource.attribute.windowOpen = library + ' error: The windowOpen method argument is empty or null';
+        resource.attribute.inspect = library + ' error: The inspect method argument is empty or null';
+        resource.attribute.errorhandler = library + ' error: The errorhandler method argument is empty or null';
     }
 
 }).call(cereslibrary);
