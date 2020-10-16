@@ -13,6 +13,8 @@ var cereslibrary = {};
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
+        if (this.isEmptyOrNull(touch) || this.isEmptyOrNull(callback)) return;
+
         const el = document.querySelector(touch.el);
 
         if (!touch.act) touch.act = 10;
@@ -37,6 +39,8 @@ var cereslibrary = {};
 
     this.composeElement = function(element)
     {
+        if (this.isEmptyOrNull(element)) return;
+
         const el = document.createElement(element.el);
 
         el.id = element.id;
@@ -51,6 +55,8 @@ var cereslibrary = {};
 
     this.composeAttribute = function(attribute)
     {
+        if (this.isEmptyOrNull(attribute)) return;
+
         const el = document.getElementById(attribute.id);
 
         if (el)
@@ -88,7 +94,7 @@ var cereslibrary = {};
 
     this.windowOpen = function(obj)
     {
-        window.open(obj.element.getAttribute('src'), obj.type);
+        if (!this.isEmptyOrNull(obj)) window.open(obj.element.getAttribute('src'), obj.type);
     }
 
     this.isEmptyOrNull = function(obj)
@@ -123,6 +129,8 @@ var cereslibrary = {};
 
     this.inspect = function(diagnostic)
     {
+        if (this.isEmptyOrNull(diagnostic)) return;
+
         const lookup = {
             [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
             [this.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
@@ -135,6 +143,8 @@ var cereslibrary = {};
 
     this.errorHandler = function(error)
     {
+        if (this.isEmptyOrNull(error)) return;
+
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
 
