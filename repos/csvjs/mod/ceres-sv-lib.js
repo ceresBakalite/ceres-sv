@@ -8,12 +8,32 @@ var cereslibrary = {};
     this.reference = 1;
     this.notify = 2;
     this.error = 99;
+    this.logtrace = false;
     this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
     this.newline = this.isWindows ? '\r\n' : '\n';
 
+    class Component
+    {
+        constructor()
+        {
+            this.type = function() { return type; },
+            this.attribute = function() { return attribute; }
+        }
+
+    }
+
+    let resource = new Component();
+
+    getResourcePrecursors();
+
+    function getResourcePrecursors()
+    {
+        resource.attribute.SwipeArgument = 'Error: The setHorizontalSwipe() touch or callback arguments are empty or null';
+    }
+
     this.setHorizontalSwipe = function(touch, callback, args)
     {
-        if (this.isEmptyOrNull(touch) || this.isEmptyOrNull(callback)) return;
+        if (this.isEmptyOrNull(touch) || this.isEmptyOrNull(callback)) return this.inspect({ type: this.error, notification: resource.attribute.SwipeArgument, logtrace: this.logtrace });
 
         const el = document.querySelector(touch.el);
 
