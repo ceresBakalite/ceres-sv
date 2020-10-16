@@ -5,7 +5,7 @@ var cereslibrary = {};
 {
     'use strict';
 
-    const libraryName = caller.name;
+    const libraryName = GFGs();
 
     this.reference = 1;
     this.notify = 2;
@@ -103,6 +103,13 @@ var cereslibrary = {};
 
         document.head.appendChild(link);
     }
+
+    function GFGs() {
+                var me = arguments.callee.toString();
+                me = me.substr('function '.length);
+                me = me.substr(0, me.indexOf('('));
+                alert(me);
+            }
 
     this.getMethodName = function()
     {
