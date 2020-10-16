@@ -76,12 +76,15 @@ var cereslibrary = {};
         if (attribute.crossorigin) link.crossorigin = attribute.crossorigin;
         if (attribute.media) link.media = attribute.media;
 
-        onloadListener();
-        addEventListener();
-        onReadyStateChangeListener();
+        // onloadListener();
+        // addEventListener();
+        // onReadyStateChangeListener();
+
+        link.addEventListener('load', function() {}, false);
 
         document.head.appendChild(link);
 
+/*
         function onloadListener()
         {
             link.onload = function () {}
@@ -91,7 +94,6 @@ var cereslibrary = {};
         {
             if (link.addEventListener)
             {
-                link.addEventListener('load', function() {}, false);
             }
 
         }
@@ -110,7 +112,7 @@ var cereslibrary = {};
             }
 
         }
-
+*/
     }
 
     this.isString = function(obj)
