@@ -26,11 +26,11 @@ var cereslibrary = {};
 
     setResourcePrecursors();
 
-    logIt();
+    this.logIt();
 
-    function logIt()
+    this.logIt = function()
     {
-        var stack = new Error().stack, caller = stack.split('\n')[2].trim();
+        const stack = new Error().stack, caller = stack.split(this.newline)[2].trim();
         console.log(caller);
     }
 
