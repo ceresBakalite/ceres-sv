@@ -26,6 +26,14 @@ var cereslibrary = {};
 
     setResourcePrecursors();
 
+    logIt();
+    
+    function logIt()
+    {
+        var stack = new Error().stack, caller = stack.split(this.newline)[2].trim();
+        console.log(caller);
+    }
+
     this.setHorizontalSwipe = function(touch, callback, args)
     {
         if (this.isEmptyOrNull(touch) || this.isEmptyOrNull(callback)) return this.inspect({ type: this.error, notification: resource.attribute.setHorizontalSwipe, logtrace: this.logtrace });
