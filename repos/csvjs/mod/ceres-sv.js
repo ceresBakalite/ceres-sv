@@ -247,7 +247,7 @@ var ceres = {};
 
         for (let item = 0; item < cssArray.length; item++)
         {
-            csl.importLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], as: 'style' });
+            csl.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], as: 'style' });
         }
 
     }
