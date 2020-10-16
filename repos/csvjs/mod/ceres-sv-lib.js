@@ -106,7 +106,7 @@ var cereslibrary = {};
 
     this.getMethodName = function()
     {
-        return this.getMethodName.caller.name;
+        return this.caller.name;
     }
 
     this.windowOpen = function(obj)
