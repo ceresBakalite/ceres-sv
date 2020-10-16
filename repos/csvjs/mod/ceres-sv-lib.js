@@ -24,16 +24,11 @@ var cereslibrary = {};
 
     let resource = new Component();
 
-    getResourcePrecursors();
-
-    function getResourcePrecursors()
-    {
-        resource.attribute.SwipeArgument = 'Error: The setHorizontalSwipe() touch or callback arguments are empty or null';
-    }
+    setResourcePrecursors();
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
-        if (this.isEmptyOrNull(touch) || this.isEmptyOrNull(callback)) return this.inspect({ type: this.error, notification: resource.attribute.SwipeArgument, logtrace: this.logtrace });
+        if (this.isEmptyOrNull(touch) || this.isEmptyOrNull(callback)) return this.inspect({ type: this.error, notification: resource.attribute.setHorizontalSwipe, logtrace: this.logtrace });
 
         const el = document.querySelector(touch.el);
 
@@ -59,7 +54,7 @@ var cereslibrary = {};
 
     this.composeElement = function(element)
     {
-        if (this.isEmptyOrNull(element)) return;
+        if (this.isEmptyOrNull(element)) return this.inspect({ type: this.error, notification: resource.attribute.composeElement, logtrace: this.logtrace });
 
         const el = document.createElement(element.el);
 
@@ -75,7 +70,7 @@ var cereslibrary = {};
 
     this.composeAttribute = function(attribute)
     {
-        if (this.isEmptyOrNull(attribute)) return;
+        if (this.isEmptyOrNull(attribute)) return this.inspect({ type: this.error, notification: resource.attribute.composeAttribute, logtrace: this.logtrace });
 
         const el = document.getElementById(attribute.id);
 
@@ -91,7 +86,7 @@ var cereslibrary = {};
 
     this.composeLinkElement = function(attribute)
     {
-        if (this.isEmptyOrNull(attribute)) return;
+        if (this.isEmptyOrNull(attribute)) return this.inspect({ type: this.error, notification: resource.attribute.composeLinkElement, logtrace: this.logtrace });
 
         const link = document.createElement('link');
 
@@ -114,7 +109,9 @@ var cereslibrary = {};
 
     this.windowOpen = function(obj)
     {
-        if (!this.isEmptyOrNull(obj)) window.open(obj.element.getAttribute('src'), obj.type);
+        if (this.isEmptyOrNull(obj)) return this.inspect({ type: this.error, notification: resource.attribute.windowOpen, logtrace: this.logtrace });
+
+        window.open(obj.element.getAttribute('src'), obj.type);
     }
 
     this.isEmptyOrNull = function(obj)
@@ -149,7 +146,7 @@ var cereslibrary = {};
 
     this.inspect = function(diagnostic)
     {
-        if (this.isEmptyOrNull(diagnostic)) return;
+        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.error, notification: resource.attribute.inspect, logtrace: this.logtrace });
 
         const lookup = {
             [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
@@ -163,7 +160,7 @@ var cereslibrary = {};
 
     this.errorHandler = function(error)
     {
-        if (this.isEmptyOrNull(error)) return;
+        if (this.isEmptyOrNull(error)) return this.inspect({ type: this.error, notification: resource.attribute.errorHandler, logtrace: this.logtrace });
 
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
@@ -171,6 +168,17 @@ var cereslibrary = {};
         if (error.alert) alert(err);
 
         return false;
+    }
+
+    function setResourcePrecursors()
+    {
+        resource.attribute.setHorizontalSwipe = 'Error: The setHorizontalSwipe method touch or callback arguments are empty or null';
+        resource.attribute.composeElement = 'Error: The composeElement method argument is empty or null';
+        resource.attribute.composeAttribute = 'Error: The composeAttribute method argument is empty or null';
+        resource.attribute.composeLinkElement = 'Error: The composeLink method argument is empty or null';
+        resource.attribute.windowOpen = 'Error: The windowOpen method argument is empty or null';
+        resource.attribute.inspect = 'Error: The inspect method argument is empty or null';
+        resource.attribute.errorhandler = 'Error: The errorhandler method argument is empty or null';
     }
 
 }).call(cereslibrary);
