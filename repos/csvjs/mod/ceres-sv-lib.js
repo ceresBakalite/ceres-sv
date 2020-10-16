@@ -5,8 +5,6 @@ var cereslibrary = {};
 {
     'use strict';
 
-    const library = 'cereslibrary';
-
     this.reference = 1;
     this.notify = 2;
     this.error = 99;
@@ -30,8 +28,6 @@ var cereslibrary = {};
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
-        if (this.isEmptyOrNull(touch) || this.isEmptyOrNull(callback)) return this.inspect({ type: this.error, notification: resource.attribute.setHorizontalSwipe, logtrace: this.logtrace });
-
         const el = document.querySelector(touch.el);
 
         if (!touch.act) touch.act = 10;
@@ -56,8 +52,6 @@ var cereslibrary = {};
 
     this.composeElement = function(element)
     {
-        if (this.isEmptyOrNull(element)) return this.inspect({ type: this.error, notification: resource.attribute.composeElement, logtrace: this.logtrace });
-
         const el = document.createElement(element.el);
 
         el.id = element.id;
@@ -72,8 +66,6 @@ var cereslibrary = {};
 
     this.composeAttribute = function(attribute)
     {
-        if (this.isEmptyOrNull(attribute)) return this.inspect({ type: this.error, notification: resource.attribute.composeAttribute, logtrace: this.logtrace });
-
         const el = document.getElementById(attribute.id);
 
         if (el)
@@ -88,8 +80,6 @@ var cereslibrary = {};
 
     this.composeLinkElement = function(attribute)
     {
-        if (this.isEmptyOrNull(attribute)) return this.inspect({ type: this.error, notification: resource.attribute.composeLinkElement, logtrace: this.logtrace });
-
         const link = document.createElement('link');
 
         if (attribute.rel) link.rel = attribute.rel;
@@ -106,8 +96,6 @@ var cereslibrary = {};
 
     this.windowOpen = function(obj)
     {
-        if (this.isEmptyOrNull(obj)) return this.inspect({ type: this.error, notification: resource.attribute.windowOpen, logtrace: this.logtrace });
-
         window.open(obj.element.getAttribute('src'), obj.type);
     }
 
@@ -174,13 +162,8 @@ var cereslibrary = {};
 
     function setResourcePrecursors()
     {
-        resource.attribute.setHorizontalSwipe = library + ' error: The setHorizontalSwipe method touch or callback arguments are empty or null';
-        resource.attribute.composeElement = library + ' error: The composeElement method argument is empty or null';
-        resource.attribute.composeAttribute = library + ' error: The composeAttribute method argument is empty or null';
-        resource.attribute.composeLinkElement = library + ' error: The composeLink method argument is empty or null';
-        resource.attribute.windowOpen = library + ' error: The windowOpen method argument is empty or null';
-        resource.attribute.inspect = library + ' error: The inspect method argument is empty or null';
-        resource.attribute.errorhandler = library + ' error: The errorhandler method argument is empty or null';
+        resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
+        resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
     }
 
 }).call(cereslibrary);
