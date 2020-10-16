@@ -23,6 +23,7 @@ var cereslibrary = {};
     }
 
     let resource = new Component();
+    let token = new Map();
 
     setResourcePrecursors();
 
@@ -121,17 +122,9 @@ var cereslibrary = {};
         if (this.isEmptyOrNull(attribute)) return false;
         if (!this.isString(attribute)) return false;
 
-        const token = attribute.trim().toUpperCase();
+        const symbol = attribute.trim().toLowerCase();
 
-        const lookup = {
-            'TRUE': true,
-            'T':  true,
-            'YES': true,
-            'Y': true,
-            '1': true
-        };
-
-        return lookup[token] || false;
+        return token.has(symbol) ? token.get(symbol) : false;
     }
 
     this.inspect = function(diagnostic)
@@ -162,6 +155,13 @@ var cereslibrary = {};
 
     function setResourcePrecursors()
     {
+        token.set('true', true);
+        token.set('t', true);
+        token.set('yes', true);
+        token.set('y', true);
+        token.set('1', true);
+        token.set('default', false);
+
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
     }
