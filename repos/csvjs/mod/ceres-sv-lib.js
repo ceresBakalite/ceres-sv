@@ -3,20 +3,6 @@ export { cereslibrary }
 var cereslibrary = {};
 (function()
 {
-    const libraryName = GFGs();
-
-    function GFGs() {
-                var me = arguments.callee.toString();
-                me = me.substr('function '.length);
-                me = me.substr(0, me.indexOf('('));
-                alert(me);
-            }
-
-    this.getMethodName = function()
-    {
-        return this.getMethodName.caller.name;
-    }
-
     'use strict';
 
     this.reference = 1;
@@ -188,6 +174,8 @@ var cereslibrary = {};
 
     function setResourcePrecursors()
     {
+        const libraryName = 'cereslibrary';
+
         resource.attribute.setHorizontalSwipe = libraryName + ' error: The setHorizontalSwipe method touch or callback arguments are empty or null';
         resource.attribute.composeElement = libraryName + ' error: The composeElement method argument is empty or null';
         resource.attribute.composeAttribute = libraryName + ' error: The composeAttribute method argument is empty or null';
