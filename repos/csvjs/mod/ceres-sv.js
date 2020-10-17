@@ -50,7 +50,12 @@ var ceres = {};
             if (!csl.isEmptyOrNull(css)) await ( await importSlideViewStylesheets(css) );
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
-            if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
+            //if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
+            if (!csl.isEmptyOrNull(src))
+            {
+                let text =  await ( await fetch(src)).text();
+                this.appendChild(text);
+            }
 
             if (getSlideviewAttributes()) activateSlideView();
         }
