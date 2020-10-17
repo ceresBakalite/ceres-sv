@@ -127,7 +127,7 @@ var cereslibrary = {};
     this.parseHTML = function(html)
     {
         let parser = new DOMParser();
-        return parser.parseFromString(html, 'text/xml');
+        return parser.parseFromString(html, 'text/html');
     }
 
     this.inspect = function(diagnostic)
