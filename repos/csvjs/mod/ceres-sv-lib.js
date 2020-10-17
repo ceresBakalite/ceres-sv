@@ -5,13 +5,14 @@ var cereslibrary = {};
 {
     'use strict';
 
+/*
     this.reference = 1;
     this.notify = 2;
     this.error = 99;
     this.logtrace = false;
     this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
     this.newline = this.isWindows ? '\r\n' : '\n';
-
+*/
     class Component
     {
         constructor()
@@ -131,7 +132,7 @@ var cereslibrary = {};
 
     this.inspect = function(diagnostic)
     {
-        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.error, notification: resource.attribute.inspect, logtrace: this.logtrace });
+        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: resource.constant.error, notification: resource.attribute.inspect, logtrace: resource.constant.logtrace });
 
         const lookup = {
             [resource.constant.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + resource.constant.newline + resource.constant.newline + diagnostic.reference); },
@@ -145,7 +146,7 @@ var cereslibrary = {};
 
     this.errorHandler = function(error)
     {
-        if (this.isEmptyOrNull(error)) return this.inspect({ type: this.error, notification: resource.attribute.errorHandler, logtrace: this.logtrace });
+        if (this.isEmptyOrNull(error)) return this.inspect({ type: resource.constant.error, notification: resource.attribute.errorHandler, logtrace: resource.constant.logtrace });
 
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
