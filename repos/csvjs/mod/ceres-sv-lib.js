@@ -9,7 +9,7 @@ var cereslibrary = {};
     {
         constructor()
         {
-            this.constant = function() { return constant; },
+            this.protean = function() { return protean; },
             this.attribute = function() { return attribute; }
         }
 
@@ -20,7 +20,7 @@ var cereslibrary = {};
 
     setPrecursors();
 
-    this.constant = resource.constant;
+    this.constant = resource.protean;
 
     Object.freeze(this.constant);
 
@@ -126,12 +126,12 @@ var cereslibrary = {};
 
     this.inspect = function(diagnostic)
     {
-        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: resource.constant.error, notification: resource.attribute.inspect, logtrace: resource.constant.logtrace });
+        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.inspect, logtrace: resource.protean.logtrace });
 
         const lookup = {
-            [resource.constant.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + resource.constant.newline + resource.constant.newline + diagnostic.reference); },
-            [resource.constant.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
-            [resource.constant.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+            [resource.protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + resource.protean.newline + resource.protean.newline + diagnostic.reference); },
+            [resource.protean.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
+            [resource.protean.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
             'default': 'An unexpected error has occurred...'
         };
 
@@ -140,7 +140,7 @@ var cereslibrary = {};
 
     this.errorHandler = function(error)
     {
-        if (this.isEmptyOrNull(error)) return this.inspect({ type: resource.constant.error, notification: resource.attribute.errorHandler, logtrace: resource.constant.logtrace });
+        if (this.isEmptyOrNull(error)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.errorHandler, logtrace: resource.protean.logtrace });
 
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
@@ -159,12 +159,12 @@ var cereslibrary = {};
         symbol.set('1', true);
         symbol.set('default', false);
 
-        resource.constant.reference = 1;
-        resource.constant.notify = 2;
-        resource.constant.error = 99;
-        resource.constant.logtrace = false;
-        resource.constant.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        resource.constant.newline = resource.constant.isWindows ? '\r\n' : '\n';
+        resource.protean.reference = 1;
+        resource.protean.notify = 2;
+        resource.protean.error = 99;
+        resource.protean.logtrace = false;
+        resource.protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+        resource.protean.newline = resource.protean.isWindows ? '\r\n' : '\n';
 
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
