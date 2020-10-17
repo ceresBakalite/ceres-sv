@@ -189,7 +189,7 @@ var ceres = {};
             setSlide(csv.index = csv.index += offset);
         }
 
-        csl.inspect({ type: csl.constant.notify, notification: csl.parseHTML(resource.attribute.ProgenitorInnerHTML + csv.progenitor.innerHTML), logtrace: csv.attribute.trace });
+        csl.inspect({ type: csl.constant.notify, notification: resource.attribute.ProgenitorInnerHTML + csl.parseHTML(csv.progenitor.innerHTML), logtrace: csv.attribute.trace });
 
         function getSlideViewPointerContainer()
         {
