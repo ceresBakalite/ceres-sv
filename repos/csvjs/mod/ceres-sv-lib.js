@@ -12,6 +12,18 @@ var cereslibrary = {};
     this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
     this.newline = this.isWindows ? '\r\n' : '\n';
 
+    class GlobalConstant
+    {
+        constructor()
+        {
+            this.type = function() { return type; },
+            this.attribute = function() { return attribute; }
+        }
+
+    }
+
+    this.constant = new GlobalConstant{};
+
     class Component
     {
         constructor()
@@ -24,7 +36,6 @@ var cereslibrary = {};
 
     let resource = new Component();
     let symbol = new Map();
-    this.constant = {};
 
     setPrecursors();
 
