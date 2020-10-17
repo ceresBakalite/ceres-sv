@@ -124,6 +124,12 @@ var cereslibrary = {};
         return symbol.has(token) ? symbol.get(token) : false;
     }
 
+    this.parseHTML = function(html)
+    {
+        let parser = new DOMParser();
+        return parser.parseFromString(html, 'text/xml');
+    }
+
     this.inspect = function(diagnostic)
     {
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.inspect });
