@@ -97,7 +97,7 @@ var ceres = {};
 
             Object.freeze(resource.attribute);
 
-            return (csv.callback || csv.listElement) ? true : false;
+            return (csv.callback || csv.listElement);
         }
 
         function getImageArray()
