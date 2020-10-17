@@ -124,16 +124,15 @@ var cereslibrary = {};
         return symbol.has(token) ? symbol.get(token) : false;
     }
 
-    this.parseHTML = function(node)
+    this.stringToHTML = function (str)
     {
-        // const fragment = document.createRange().createContextualFragment(html);
-        // return fragment;
-        let parser = new DOMParser();
-        return parser.parseFromString(node, 'text/html');
-        //return (new XMLSerializer().serializeToString(html));
+    	let parser = new DOMParser();
+    	let html = parser.parseFromString(str, 'text/html');
+
+    	return html.body;
     }
 
-    this.clearElement = function(el) 
+    this.clearElement = function(el)
     {
       while (el.firstChild) el.removeChild(el.firstChild);
     }
