@@ -147,14 +147,14 @@ var ceres = {};
         for (let item = 0; item < csv.imageArray.length; item++)
         {
             var arrayItem = csv.imageArray[item].split(',');
-            var index = item + 1;
+            var imageIndex = item + 1;
 
-            let id = 'slideview' + index;
+            let id = 'slideview' + imageIndex;
 
             let elements = {
-                'surName': 'slideview-sur' + index,
-                'imgName': 'slideview-img' + index,
-                'subName': 'slideview-sub' + index
+                'surName': 'slideview-sur' + imageIndex,
+                'imgName': 'slideview-img' + imageIndex,
+                'subName': 'slideview-sub' + imageIndex
             };
 
             csl.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
@@ -196,17 +196,17 @@ var ceres = {};
 
             for (let item = 0; item < csv.imageArray.length; item++)
             {
-                var index = item + 1;
-                let svpname = 'slideview-ptr' + index;
+                var pointerIndex = item + 1;
+                let pointerName = 'slideview-ptr' + pointerIndex;
 
-                csl.composeElement({ el: 'span', id: svpname, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
+                csl.composeElement({ el: 'span', id: pointerName, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
             }
 
             csv.progenitor.appendChild(document.createElement('br'));
 
             function getClickEvent()
             {
-                return 'window.getSlide(' + index + ')';
+                return 'window.getSlide(' + pointerIndex + ')';
             }
 
         }
@@ -218,7 +218,7 @@ var ceres = {};
 
         function getSurtitle()
         {
-            return (csv.attribute.sur) ? index + ' / ' + csv.imageArray.length : null;
+            return (csv.attribute.sur) ? imageIndex + ' / ' + csv.imageArray.length : null;
         }
 
         function getSubtitle()
