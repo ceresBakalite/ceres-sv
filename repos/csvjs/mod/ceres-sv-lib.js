@@ -124,12 +124,12 @@ var cereslibrary = {};
         return symbol.has(token) ? symbol.get(token) : false;
     }
 
-    this.parseHTML = function(html)
+    this.parseHTML = function(node)
     {
         // const fragment = document.createRange().createContextualFragment(html);
         // return fragment;
         let parser = new DOMParser();
-        return parser.parseFromString(html, 'text/html').toString();
+        return parser.parseFromString(node, 'text/html');
         //return (new XMLSerializer().serializeToString(html));
     }
 
