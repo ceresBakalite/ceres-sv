@@ -148,26 +148,26 @@ var ceres = {};
         {
             var arrayItem = csv.imageArray[item].split(',');
 
-            let qualifier = item + 1;
-            let id = 'slideview' + qualifier;
+            let index = item + 1;
+            let id = 'slideview' + index;
 
             let elements = {
-                'surName': 'slideview-sur' + qualifier,
-                'imgName': 'slideview-img' + qualifier,
-                'subName': 'slideview-sub' + qualifier
+                'surName': 'slideview-sur' + index,
+                'imgName': 'slideview-img' + index,
+                'subName': 'slideview-sub' + index
             };
 
             csl.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
 
             let slideContainer = document.getElementById(id);
 
-            if (csv.attribute.sur) csl.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(qualifier) });
-            csl.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEventValue: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+            if (csv.attribute.sur) csl.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
+            csl.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
             if (csv.attribute.sub) csl.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
 
-        csl.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEventValue: 'window.getSlide(-1, true)' });
-        csl.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEventValue: 'window.getSlide(1, true)' });
+        csl.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
+        csl.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
@@ -196,17 +196,17 @@ var ceres = {};
 
             for (let item = 0; item < csv.imageArray.length; item++)
             {
-                let qualifier = item + 1;
-                let svpname = 'slideview-ptr' + qualifier;
+                var index = item + 1;
+                let svpname = 'slideview-ptr' + index;
 
-                csl.composeElement({ el: 'span', id: svpname, classValue: 'ptr', parent: pointerElement, onClickEventValue: getClickEventValue(qualifier) });
+                csl.composeElement({ el: 'span', id: svpname, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
             }
 
             csv.progenitor.appendChild(document.createElement('br'));
 
-            function getClickEventValue(indexItem)
+            function getClickEvent()
             {
-                return 'window.getSlide(' + indexItem + ')';
+                return 'window.getSlide(' + index + ')';
             }
 
         }
