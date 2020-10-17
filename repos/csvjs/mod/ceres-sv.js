@@ -53,8 +53,8 @@ var ceres = {};
             // if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
             if (!csl.isEmptyOrNull(src))
             {
-                let html = await ( await fetch(src) ).text();
-                this.insertAdjacentHTML('afterbegin', html);
+                //let html = await ( await fetch(src) ).text();
+                this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
                 //this.appendChild(html);
             }
 
