@@ -3,7 +3,7 @@ export { cereslibrary }
 var cereslibrary = {};
 (function()
 {
-    'use strict';
+    // 'use strict';
 
     this.reference = 1;
     this.notify = 2;
