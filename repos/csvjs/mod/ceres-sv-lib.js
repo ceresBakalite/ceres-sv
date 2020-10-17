@@ -133,7 +133,7 @@ var cereslibrary = {};
         //return (new XMLSerializer().serializeToString(html));
     }
 
-    this.innerHTMLClear = function(el) 
+    this.clearElement = function(el) 
     {
       while (el.firstChild) el.removeChild(el.firstChild);
     }
