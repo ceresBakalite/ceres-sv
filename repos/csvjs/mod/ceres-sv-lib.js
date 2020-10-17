@@ -159,6 +159,8 @@ var cereslibrary = {};
         symbol.set('1', true);
         symbol.set('default', false);
 
+        Object.freeze(symbol);
+
         resource.constant.reference = 1;
         resource.constant.notify = 2;
         resource.constant.error = 99;
