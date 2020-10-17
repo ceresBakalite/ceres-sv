@@ -11,7 +11,6 @@ var cereslibrary = {};
     this.logtrace = false;
     this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
     this.newline = this.isWindows ? '\r\n' : '\n';
-    this.global = null;
 
     class Component
     {
@@ -27,6 +26,8 @@ var cereslibrary = {};
     let symbol = new Map();
 
     setPrecursors();
+
+    this.global = resource.constant;
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
@@ -169,8 +170,6 @@ var cereslibrary = {};
         resource.constant.logtrace = false;
         resource.constant.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         resource.constant.newline = resource.constant.isWindows ? '\r\n' : '\n';
-
-        this.global = resource.constant;
 
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
