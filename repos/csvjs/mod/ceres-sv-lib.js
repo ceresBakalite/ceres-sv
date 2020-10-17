@@ -59,7 +59,7 @@ var cereslibrary = {};
         if (element.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
         if (element.url) this.composeAttribute({ id: el.id, type: 'src', value: element.url });
         if (element.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
-        if (element.markup) document.getElementById(el.id).innerHTML = element.markup;
+        if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
     }
 
     this.composeAttribute = function(attribute)
