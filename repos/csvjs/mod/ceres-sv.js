@@ -144,9 +144,7 @@ var ceres = {};
 
     function getSlideView()
     {
-
-        while (csv.progenitor.firstChild) csv.progenitor.removeChild(csv.progenitor.firstChild);
-        //csv.progenitor.innerHTML = null;
+        csv.progenitor.innerHTML = null;
 
         const imageContainer = document.createElement('div');
         imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
