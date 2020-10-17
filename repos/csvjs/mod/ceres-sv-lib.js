@@ -24,6 +24,7 @@ var cereslibrary = {};
 
     let resource = new Component();
     let symbol = new Map();
+    this.constant = {};
 
     setPrecursors();
 
@@ -132,9 +133,9 @@ var cereslibrary = {};
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.error, notification: resource.attribute.inspect, logtrace: this.logtrace });
 
         const lookup = {
-            [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
-            [this.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
-            [this.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+            [this.constant.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.constant.newline + this.constant.newline + diagnostic.reference); },
+            [this.constant.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
+            [this.constant.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
             'default': 'An unexpected error has occurred...'
         };
 
@@ -162,8 +163,19 @@ var cereslibrary = {};
         symbol.set('1', true);
         symbol.set('default', false);
 
+        this.constant.reference = 1;
+        this.constant.notify = 2;
+        this.constant.error = 99;
+        this.constant.logtrace = false;
+        this.constant.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+        this.constant.newline = this.isWindows ? '\r\n' : '\n';
+
+        Object.freeze(this.constant);
+
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
+
+        Object.freeze(resource.attribute);
     }
 
 }).call(cereslibrary);
