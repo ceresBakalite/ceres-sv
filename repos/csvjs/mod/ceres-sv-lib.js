@@ -126,7 +126,7 @@ var cereslibrary = {};
 
     this.inspect = function(diagnostic)
     {
-        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.inspect, logtrace: resource.protean.logtrace });
+        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.inspect, logtrace: resource.attribute.logtrace });
 
         const lookup = {
             [resource.protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + resource.protean.newline + resource.protean.newline + diagnostic.reference); },
@@ -140,7 +140,7 @@ var cereslibrary = {};
 
     this.errorHandler = function(error)
     {
-        if (this.isEmptyOrNull(error)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.errorHandler, logtrace: resource.protean.logtrace });
+        if (this.isEmptyOrNull(error)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.errorHandler, logtrace: resource.attribute.logtrace });
 
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
@@ -162,10 +162,10 @@ var cereslibrary = {};
         resource.protean.reference = 1;
         resource.protean.notify = 2;
         resource.protean.error = 99;
-        resource.protean.logtrace = false;
         resource.protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         resource.protean.newline = resource.protean.isWindows ? '\r\n' : '\n';
 
+        resource.attribute.logtrace = false;
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
     }
