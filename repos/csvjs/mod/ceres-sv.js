@@ -147,8 +147,8 @@ var ceres = {};
         for (let item = 0; item < csv.imageArray.length; item++)
         {
             var arrayItem = csv.imageArray[item].split(',');
+            var index = item + 1;
 
-            let index = item + 1;
             let id = 'slideview' + index;
 
             let elements = {
@@ -161,7 +161,7 @@ var ceres = {};
 
             let slideContainer = document.getElementById(id);
 
-            if (csv.attribute.sur) csl.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
+            if (csv.attribute.sur) csl.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
             csl.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
             if (csv.attribute.sub) csl.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
@@ -216,9 +216,9 @@ var ceres = {};
             return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null;
         }
 
-        function getSurtitle(indexItem)
+        function getSurtitle()
         {
-            return (csv.attribute.sur) ? indexItem + ' / ' + csv.imageArray.length : null;
+            return (csv.attribute.sur) ? index + ' / ' + csv.imageArray.length : null;
         }
 
         function getSubtitle()
