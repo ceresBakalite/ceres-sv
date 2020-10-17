@@ -20,7 +20,7 @@ var cereslibrary = {};
 
     setPrecursors();
 
-    this.constant = resource.protean; // expose some local scope literals
+    this.constant = resource.protean; // expose local scope literals
 
     Object.freeze(this.constant);
 
@@ -56,7 +56,7 @@ var cereslibrary = {};
         element.parent.appendChild(el);
 
         if (element.classValue) this.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
-        if (element.onClickEventValue) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEventValue });
+        if (element.onClickEvent) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEvent });
         if (element.url) this.composeAttribute({ id: el.id, type: 'src', value: element.url });
         if (element.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
         if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
