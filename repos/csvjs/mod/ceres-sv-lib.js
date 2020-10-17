@@ -127,9 +127,9 @@ var cereslibrary = {};
     this.parseHTML = function(html)
     {
         const fragment = document.createRange().createContextualFragment(html);
-
-        let parser = new DOMParser();
-        return parser.parseFromString(fragment, 'text/html');
+        return fragment;
+        //let parser = new DOMParser();
+        //return parser.parseFromString(fragment, 'text/html');
     }
 
     this.inspect = function(diagnostic)
