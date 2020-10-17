@@ -279,7 +279,7 @@ var ceres = {};
 
     function setSlideViewDisplay(attribute)
     {
-        const nodelist = document.querySelectorAll('a.prev, a.next, div.subtitle, div.surtitle, img.slide, #' + csv.attribute.HTMLSlideViewElement);
+        const nodelist = document.querySelectorAll('div.subtitle, div.surtitle, img.slide, #' + csv.attribute.HTMLSlideViewElement);
         nodelist.forEach(node => { node.style.display = attribute; } );
     }
 
