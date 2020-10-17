@@ -129,6 +129,13 @@ var cereslibrary = {};
       while (el.firstChild) el.removeChild(el.firstChild);
     }
 
+    this.getObjectProperties = function(object, str = '')
+    {
+        for (let property in object) str += property + ': ' + object[property] + ', ';
+
+        return str.replace(/, +$/g,'');
+    }
+
     this.inspect = function(diagnostic)
     {
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.inspect });
