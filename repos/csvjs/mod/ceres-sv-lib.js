@@ -11,24 +11,13 @@ var cereslibrary = {};
     this.logtrace = false;
     this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
     this.newline = this.isWindows ? '\r\n' : '\n';
-
-    class GlobalConstant
-    {
-        constructor()
-        {
-            this.type = function() { return type; },
-            this.attribute = function() { return attribute; }
-        }
-
-    }
-
-    this.constant = new GlobalConstant();
+    this.global = null;
 
     class Component
     {
         constructor()
         {
-            this.type = function() { return type; },
+            this.constant = function() { return constant; },
             this.attribute = function() { return attribute; }
         }
 
@@ -174,12 +163,14 @@ var cereslibrary = {};
         symbol.set('1', true);
         symbol.set('default', false);
 
-        this.constant.reference = 1;
-        this.constant.notify = 2;
-        this.constant.error = 99;
-        this.constant.logtrace = false;
-        this.constant.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        this.constant.newline = this.isWindows ? '\r\n' : '\n';
+        resource.constant.reference = 1;
+        resource.constant.notify = 2;
+        resource.constant.error = 99;
+        resource.constant.logtrace = false;
+        resource.constant.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+        resource.constant.newline = this.isWindows ? '\r\n' : '\n';
+
+        this.global = resource.constant;
 
         Object.freeze(this.constant);
 
