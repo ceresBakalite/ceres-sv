@@ -134,9 +134,9 @@ var cereslibrary = {};
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.error, notification: resource.attribute.inspect, logtrace: this.logtrace });
 
         const lookup = {
-            [this.global.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.global.newline + this.global.newline + diagnostic.reference); },
-            [this.global.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
-            [this.global.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+            [resource.constant.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + resource.constant.newline + resource.constant.newline + diagnostic.reference); },
+            [resource.constant.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
+            [resource.constant.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
             'default': 'An unexpected error has occurred...'
         };
 
@@ -170,6 +170,8 @@ var cereslibrary = {};
         resource.constant.logtrace = false;
         resource.constant.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         resource.constant.newline = resource.constant.isWindows ? '\r\n' : '\n';
+
+        Object.freeze(resource.constant);
 
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
