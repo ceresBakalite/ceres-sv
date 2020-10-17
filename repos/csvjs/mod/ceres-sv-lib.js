@@ -133,6 +133,11 @@ var cereslibrary = {};
         //return (new XMLSerializer().serializeToString(html));
     }
 
+    this.innerHTMLClear = function(el) 
+    {
+      while (el.firstChild) el.removeChild(el.firstChild);
+    }
+
     this.inspect = function(diagnostic)
     {
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: resource.protean.error, notification: resource.attribute.inspect });
