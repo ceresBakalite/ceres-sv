@@ -224,7 +224,7 @@ var ceres = {};
             return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null;
         }
 
-        function getSurtitle(indexItem)
+        let getSurtitle = function(indexItem)
         {
             return (csv.attribute.sur) ? indexItem + ' / ' + csv.imageArray.length : null;
         }
@@ -261,9 +261,9 @@ var ceres = {};
         slides.forEach(node => { node.style.display = 'none'; } );
         slides[csv.index-1].style.display = 'block';
 
-        if (csv.attribute.ptr) setPointer();
+        if (csv.attribute.ptr) setPointerStyle();
 
-        function setPointer()
+        function setPointerStyle()
         {
             const pointers = document.querySelectorAll('span.ptr');
             const el = document.querySelector('span.active');
