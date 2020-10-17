@@ -130,14 +130,6 @@ var ceres = {};
 
             }
 
-            function getAttributeProperties()
-            {
-                let str = '';
-                for (let property in csv.attribute) str += property + ': ' + csv.attribute[property] + ', ';
-
-                return str.replace(/, +$/g,'');
-            }
-
         }
 
     }
@@ -174,8 +166,8 @@ var ceres = {};
             if (csv.attribute.sub) csl.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
 
-        csl.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEventValue: 'window.getSlide(-1, true)', url: getURL() });
-        csl.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEventValue: 'window.getSlide(1, true)', url: getURL() });
+        csl.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEventValue: 'window.getSlide(-1, true)' });
+        csl.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEventValue: 'window.getSlide(1, true)' });
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
