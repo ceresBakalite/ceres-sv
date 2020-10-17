@@ -22,7 +22,7 @@ var cereslibrary = {};
 
     }
 
-    this.constant = new GlobalConstant{};
+    this.constant = new GlobalConstant();
 
     class Component
     {
