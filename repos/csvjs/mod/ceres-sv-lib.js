@@ -168,11 +168,9 @@ var cereslibrary = {};
         resource.constant.error = 99;
         resource.constant.logtrace = false;
         resource.constant.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        resource.constant.newline = this.isWindows ? '\r\n' : '\n';
+        resource.constant.newline = resource.constant.isWindows ? '\r\n' : '\n';
 
         this.global = resource.constant;
-
-        Object.freeze(this.constant);
 
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
