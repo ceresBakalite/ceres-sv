@@ -134,9 +134,9 @@ var cereslibrary = {};
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.error, notification: resource.attribute.inspect, logtrace: this.logtrace });
 
         const lookup = {
-            [this.constant.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.constant.newline + this.constant.newline + diagnostic.reference); },
-            [this.constant.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
-            [this.constant.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+            [this.global.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.global.newline + this.global.newline + diagnostic.reference); },
+            [this.global.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
+            [this.global.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
             'default': 'An unexpected error has occurred...'
         };
 
