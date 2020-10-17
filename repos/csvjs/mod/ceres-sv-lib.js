@@ -159,8 +159,6 @@ var cereslibrary = {};
         symbol.set('1', true);
         symbol.set('default', false);
 
-        Object.freeze(symbol);
-
         resource.constant.reference = 1;
         resource.constant.notify = 2;
         resource.constant.error = 99;
@@ -168,12 +166,8 @@ var cereslibrary = {};
         resource.constant.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         resource.constant.newline = resource.constant.isWindows ? '\r\n' : '\n';
 
-        Object.freeze(resource.constant);
-
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
-
-        Object.freeze(resource.attribute);
     }
 
 }).call(cereslibrary);
