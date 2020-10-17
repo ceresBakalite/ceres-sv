@@ -130,7 +130,15 @@ var cereslibrary = {};
         // return fragment;
         //let parser = new DOMParser();
         //return parser.parseFromString(html, 'text/html');
-        return (new XMLSerializer().serializeToString(html));
+        //return (new XMLSerializer().serializeToString(html));
+        let newHTMLDocument = document.implementation.createHTMLDocument();
+
+        newHTMLDocument.open();
+        newHTMLDocument.write( html );
+        newHTMLDocument.close();
+
+        return (new XMLSerializer().serializeToString(newHTMLDocument));
+
     }
 
     this.inspect = function(diagnostic)
