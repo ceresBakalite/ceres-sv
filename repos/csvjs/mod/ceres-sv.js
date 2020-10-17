@@ -54,11 +54,9 @@ var ceres = {};
             if (!csl.isEmptyOrNull(src))
             {
                 let html = await ( await fetch(src) ).text();
-                this.appendChild(html);
+                this.insertAdjacentHTML('afterbegin', html);
+                //this.appendChild(html);
             }
-
-
-
 
             if (getSlideviewAttributes()) activateSlideView();
         }
