@@ -50,7 +50,7 @@ var ceres = {};
             if (!csl.isEmptyOrNull(css)) await ( await importSlideViewStylesheets(css) );
 
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
-            if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
+            if (!csl.isEmptyOrNull(src)) this.textContent =  await ( await fetch(src)).text();
 
             if (getSlideviewAttributes()) activateSlideView();
         }
@@ -189,7 +189,7 @@ var ceres = {};
             setSlide(csv.index = csv.index += offset);
         }
 
-        csl.inspect({ type: csl.constant.notify, notification: resource.attribute.ProgenitorInnerHTML + new DOMParser().parseFromString(csv.progenitor.innerHTML, "text/xml"), logtrace: csv.attribute.trace });
+        csl.inspect({ type: csl.constant.notify, notification: resource.attribute.ProgenitorInnerHTML + new DOMParser().parseFromString(csv.progenitor.textContent, "text/xml"), logtrace: csv.attribute.trace });
 
         function getSlideViewPointerContainer()
         {
