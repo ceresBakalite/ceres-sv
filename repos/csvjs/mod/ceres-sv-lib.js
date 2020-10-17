@@ -40,7 +40,7 @@ var cereslibrary = {};
 
             if (Math.abs(touch.start - touch.end) > touch.act)
             {
-                args.action = (touch.start > touch.end) ? true : false;
+                args.action = (touch.start > touch.end);
                 callback.call(this, args);
             }
 
