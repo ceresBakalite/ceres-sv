@@ -54,7 +54,7 @@ var ceres = {};
             if (!csl.isEmptyOrNull(src))
             {
                 let html = await ( await fetch(src) ).text();
-                this.appendChild(csl.stringToHTML(html));
+                this.appendChild(html);
             }
 
 
