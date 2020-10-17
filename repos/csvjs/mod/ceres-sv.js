@@ -105,7 +105,7 @@ var ceres = {};
             csl.inspect({ type: csl.constant.notify, notification: resource.attribute.CSVObjectAttributes + csl.getObjectProperties(csv.attribute), logtrace: csv.attribute.trace });
 
             let imageList = getImageList();
-            if (imageList) csl.inspect({ type: csl.constant.notify, notification: resource.attribute.ListContainerMarkup + imageList, logtrace: csv.attribute.trace });
+            if (imageList) csl.inspect({ type: csl.constant.notify, notification: imageList, logtrace: csv.attribute.trace });
 
             csv.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
