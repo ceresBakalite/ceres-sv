@@ -224,7 +224,7 @@ var ceres = {};
             return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null;
         }
 
-        let getSurtitle = function(indexItem)
+        function getSurtitle(indexItem)
         {
             return (csv.attribute.sur) ? indexItem + ' / ' + csv.imageArray.length : null;
         }
