@@ -53,9 +53,11 @@ var ceres = {};
             // if (!csl.isEmptyOrNull(src)) this.innerHTML =  await ( await fetch(src)).text();
             if (!csl.isEmptyOrNull(src))
             {
-                let html = await ( await csl.stringToHTML(fetch(src)).text());
-                this.appendChild(html);
+                let html = await ( await fetch(src) ).text();
+                this.appendChild(csl.stringToHTML(html));
             }
+
+
 
 
             if (getSlideviewAttributes()) activateSlideView();
