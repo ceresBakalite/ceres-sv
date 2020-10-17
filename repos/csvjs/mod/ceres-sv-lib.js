@@ -5,14 +5,6 @@ var cereslibrary = {};
 {
     'use strict';
 
-/*
-    this.reference = 1;
-    this.notify = 2;
-    this.error = 99;
-    this.logtrace = false;
-    this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-    this.newline = this.isWindows ? '\r\n' : '\n';
-*/
     class Component
     {
         constructor()
@@ -28,7 +20,7 @@ var cereslibrary = {};
 
     setPrecursors();
 
-    this.global = resource.constant;
+    this.constant = resource.constant;
 
     this.setHorizontalSwipe = function(touch, callback, args)
     {
