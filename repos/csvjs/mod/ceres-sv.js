@@ -144,7 +144,7 @@ var ceres = {};
 
     function getSlideView()
     {
-        csv.progenitor.innerHTML = null;
+        csl.innerHTMLClear(csv.progenitor);
 
         const imageContainer = document.createElement('div');
         imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
