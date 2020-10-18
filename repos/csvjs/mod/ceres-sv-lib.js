@@ -18,6 +18,8 @@ var cereslibrary = {};
     let resource = new Component();
     let symbol = new Map();
 
+    Object.seal(resource);
+
     setPrecursors();
 
     this.constant = resource.protean; // expose local scope literals
