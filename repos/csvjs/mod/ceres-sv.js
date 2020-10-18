@@ -49,8 +49,10 @@ var ceres = {};
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
             if (!csl.isEmptyOrNull(css)) await ( await importSlideViewStylesheets(css) );
 
+            csv.callback = !csl.isEmptyOrNull(this.getAttribute('src'));
+
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
-            if (!csl.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (csv.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (getSlideviewAttributes()) activateSlideView();
         }
@@ -59,26 +61,21 @@ var ceres = {};
 
     function getSlideviewAttributes()
     {
-        if (!getProgenitor()) return csl.inspect({ type: csl.constant.error, notification: resource.attribute.ProgenitorNotFound, logtrace: csv.attribute.trace });
+        if (!getProgenitor()) return csl.inspect({ type: csl.constant.error, notification: 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element' });
         if (!getAttributePrecursors()) return csl.inspect({ type: csl.constant.error, notification: resource.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return getImageArray();
 
         function getProgenitor()
         {
-            resource.attribute.ProgenitorNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element';
-
             csv.progenitor = (document.getElementById(csv.attribute.HTMLSlideViewElement)) ? document.getElementById(csv.attribute.HTMLSlideViewElement) : document.getElementsByTagName(csv.attribute.HTMLSlideViewElement)[0];
-
             return !csl.isEmptyOrNull(csv.progenitor);
         }
 
         function getAttributePrecursors()
         {
             csv.progenitor.id = csv.attribute.HTMLSlideViewElement;
-
             csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
-            csv.callback = !csl.isEmptyOrNull(csv.progenitor.getAttribute('src'));
 
             csv.attribute.ptr = !csl.getBooleanAttribute(csv.progenitor.getAttribute('ptr'));
             csv.attribute.sur = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sur'));
