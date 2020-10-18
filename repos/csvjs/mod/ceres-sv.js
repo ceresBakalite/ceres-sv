@@ -47,11 +47,12 @@ var ceres = {};
         async connectedCallback()
         {
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
-            if (!csl.isEmptyOrNull(css)) await ( await importSlideViewStylesheets(css) );
-
-            csv.callback = !csl.isEmptyOrNull(this.getAttribute('src'));
-
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
+
+            csv.cssarray = !csl.isEmptyOrNull(css);
+            csv.callback = !csl.isEmptyOrNull(src);
+
+            if (csv.cssarray) await ( await importSlideViewStylesheets(css) );
             if (csv.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (getSlideviewAttributes()) activateSlideView();
@@ -230,9 +231,9 @@ var ceres = {};
 
     }
 
-    function importSlideViewStylesheets(str)
+    function importSlideViewStylesheets(arrayString)
     {
-        const cssArray = !csl.isEmptyOrNull(str) ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const cssArray = csv.cssarray ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
