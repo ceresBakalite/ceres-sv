@@ -26,13 +26,8 @@ var ceres = {};
     {
         constructor()
         {
-/*
-            this.progenitor = null;
-            this.imageArray = null,
-            this.listElement = null,
-*/
-            this.attribute = function() { return attribute; },
-            this.index = 1
+            this.index = 1,
+            this.attribute = function() { return attribute; }
         }
 
     }
