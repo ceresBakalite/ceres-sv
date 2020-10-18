@@ -26,7 +26,7 @@ var ceres = {};
     {
         constructor()
         {
-            this.progenitor = null;
+            //this.progenitor = null;
             this.imageArray = [],
             this.listElement = null,
             this.attribute = function() { return attribute; },
