@@ -98,23 +98,11 @@ var ceres = {};
     {
         csl.inspect({ type: csl.constant.notify, notification: resource.attribute.CSVObjectAttributes + csl.getObjectProperties(csv.attribute), logtrace: csv.attribute.trace });
 
-        let imageList = getImageList();
-        if (imageList) csl.inspect({ type: csl.constant.notify, notification: resource.attribute.ListContainerMarkup + imageList, logtrace: csv.attribute.trace });
-
-        csv.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
-
-        return !csl.isEmptyOrNull(csv.imageArray);
-
-        function getImageList()
+        let getImageList = function()
         {
-            return (csv.callback) ? getConnectedCallbackList() : getBodyContentList();
+            let getConnectedCallbackList = function() { return (!csl.isEmptyOrNull(csv.progenitor.textContent)) ? csv.progenitor.textContent : null; }
 
-            function getConnectedCallbackList()
-            {
-                return (!csl.isEmptyOrNull(csv.progenitor.textContent)) ? csv.progenitor.textContent : null;
-            }
-
-            function getBodyContentList()
+            let getBodyContentList = function()
             {
                 csl.inspect({ type: csl.constant.notify, notification: resource.attribute.BodyContentList, logtrace: csv.attribute.trace });
 
@@ -122,8 +110,15 @@ var ceres = {};
                 return !csl.isEmptyOrNull(list) ? list : csl.inspect({ type: csl.constant.error, notification: resource.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
             }
 
+            return (csv.callback) ? getConnectedCallbackList() : getBodyContentList();
         }
 
+        let imageList = getImageList();
+        if (imageList) csl.inspect({ type: csl.constant.notify, notification: resource.attribute.ListContainerMarkup + imageList, logtrace: csv.attribute.trace });
+
+        csv.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+
+        return !csl.isEmptyOrNull(csv.imageArray);
     }
 
     let slideviewHasAttributes = function()
@@ -136,25 +131,10 @@ var ceres = {};
 
     function getSlideView()
     {
-        let getURL = function()
-        {
-            return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null;
-        }
-
-        let getSurtitle = function()
-        {
-            return (csv.attribute.sur) ? imageIndex + ' / ' + csv.imageArray.length : null;
-        }
-
-        let getSubtitle = function()
-        {
-            return (csv.attribute.sub) ? getAccessibilityText() : null;
-        }
-
-        let getAccessibilityText = function()
-        {
-            return (!csl.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null;
-        }
+        let getURL = function() { return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
+        let getSurtitle = function() { return (csv.attribute.sur) ? imageIndex + ' / ' + csv.imageArray.length : null; }
+        let getSubtitle = function() { return (csv.attribute.sub) ? getAccessibilityText() : null; }
+        let getAccessibilityText = function() { return (!csl.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
         csl.clearElement(csv.progenitor);
 
@@ -205,16 +185,12 @@ var ceres = {};
 
         function getSlideViewPointerContainer()
         {
-            let getClickEvent = function()
-            {
-                return 'window.getSlide(' + pointerIndex + ')';
-            }
-
-            csv.progenitor.appendChild(document.createElement('br'));
-
             const pointerElement = document.createElement('div');
+            let getClickEvent = function() { return 'window.getSlide(' + pointerIndex + ')'; }
 
             pointerElement.id = csv.attribute.HTMLSlideViewElement + '-pointer-container';
+
+            csv.progenitor.appendChild(document.createElement('br'));
             csv.progenitor.appendChild(pointerElement);
 
             csl.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
