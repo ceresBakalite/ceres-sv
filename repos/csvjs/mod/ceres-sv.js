@@ -35,8 +35,8 @@ var ceres = {};
 
     }
 
-    let rsc = new Component();
-    let csv = new Slideviewer();
+    let rsc = new Component();  // local scope resources literals
+    let csv = new Slideviewer();  // local scope ceres slideviewer literals
 
     Object.seal(resource);
     Object.seal(csv);
