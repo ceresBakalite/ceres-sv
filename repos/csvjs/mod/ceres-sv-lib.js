@@ -22,7 +22,7 @@ var cereslibrary = {};
 
     this.constant = resource.protean; // expose local scope literals
 
-    Object.freeze(this.constant);
+    //Object.freeze(this.constant);
 
     this.constant.new = 'test';
 
