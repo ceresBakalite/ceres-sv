@@ -26,11 +26,12 @@ var ceres = {};
     {
         constructor()
         {
+/*
             this.progenitor = null;
             this.imageArray = null,
             this.listElement = null,
+*/
             this.attribute = function() { return attribute; },
-            this.callback = false,
             this.index = 1
         }
 
