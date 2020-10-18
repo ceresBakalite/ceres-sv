@@ -20,10 +20,6 @@ var ceres = {};
 
     }
 
-    let resource = new Component();
-
-    Object.seal(resource);
-
     class Slideviewer
     {
         constructor()
@@ -39,8 +35,10 @@ var ceres = {};
 
     }
 
+    let resource = new Component();
     let csv = new Slideviewer();
 
+    Object.seal(resource);
     Object.seal(csv);
 
     csv.attribute.HTMLSlideViewElement = 'ceres-sv'; // required element name
