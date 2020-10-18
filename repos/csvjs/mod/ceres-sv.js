@@ -141,11 +141,6 @@ var ceres = {};
             return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null;
         }
 
-        let getSurtitle = function()
-        {
-            return (csv.attribute.sur) ? imageIndex + ' / ' + csv.imageArray.length : null;
-        }
-
         let getSubtitle = function()
         {
             return (csv.attribute.sub) ? getAccessibilityText() : null;
@@ -228,6 +223,11 @@ var ceres = {};
             }
 
             csv.progenitor.appendChild(document.createElement('br'));
+        }
+
+        var getSurtitle = function()
+        {
+            return (csv.attribute.sur) ? imageIndex + ' / ' + csv.imageArray.length : null;
         }
 
     }
