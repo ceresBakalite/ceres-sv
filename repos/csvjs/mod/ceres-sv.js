@@ -22,13 +22,15 @@ var ceres = {};
 
     let resource = new Component();
 
+    Object.seal(resource);
+
     class Slideviewer
     {
         constructor()
         {
-            //this.progenitor = null;
-            this.imageArray = [],
+            this.progenitor = null,
             this.listElement = null,
+            this.imageArray = [],
             this.attribute = function() { return attribute; },
             this.cssarray = false,
             this.callback = false,
