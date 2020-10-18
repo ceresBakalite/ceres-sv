@@ -1,5 +1,10 @@
 /* * {box-sizing:border-box} */
 
+.slideview {
+  display: block;
+  cursor: zoom-in;
+}
+
 .slideview-image-container {
   max-width: 1000px;
   position: relative;
@@ -10,11 +15,6 @@
    text-align:center;
    cursor: default;
  }
-
-.slideview {
-  display: block;
-  cursor: zoom-in;
-}
 
 .slide {
   display: none;
