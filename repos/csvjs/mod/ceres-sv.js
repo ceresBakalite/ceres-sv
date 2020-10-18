@@ -26,8 +26,13 @@ var ceres = {};
     {
         constructor()
         {
-            this.index = 1,
-            this.attribute = function() { return attribute; }
+            this.progenitor = document.getElementById(csv.attribute.HTMLSlideViewElement) ? document.getElementById(csv.attribute.HTMLSlideViewElement) : document.getElementsByTagName(csv.attribute.HTMLSlideViewElement)[0];
+            this.imageArray = [],
+            this.listElement = null,
+            this.attribute = function() { return attribute; },
+            this.cssarray = false,
+            this.callback = false,
+            this.index = 1
         }
 
     }
@@ -37,6 +42,8 @@ var ceres = {};
     csv.attribute.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.attribute.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using embedded image lists
     csv.attribute.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/repos/stylesheets/ceres-sv.css'; // the default slideview stylesheet
+
+    if (csl.isEmptyOrNull(csv.progenitor)) return csl.inspect({ type: csl.constant.error, notification: 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element' });
 
     window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
     {
@@ -58,7 +65,6 @@ var ceres = {};
 
     function getSlideviewAttributes()
     {
-        if (!getProgenitor()) return csl.inspect({ type: csl.constant.error, notification: 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element' });
         if (!getAttributePrecursors()) return csl.inspect({ type: csl.constant.error, notification: resource.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return getImageArray();
