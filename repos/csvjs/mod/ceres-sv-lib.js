@@ -24,6 +24,8 @@ var cereslibrary = {};
 
     Object.freeze(this.constant);
 
+    this.constant.new = 'test';
+
     this.setHorizontalSwipe = function(touch, callback, args)
     {
         const el = document.querySelector(touch.el);
