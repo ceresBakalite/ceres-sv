@@ -136,6 +136,26 @@ var ceres = {};
 
     function getSlideView()
     {
+        let getURL = function()
+        {
+            return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null;
+        }
+
+        let getSurtitle = function()
+        {
+            return (csv.attribute.sur) ? imageIndex + ' / ' + csv.imageArray.length : null;
+        }
+
+        let getSubtitle = function()
+        {
+            return (csv.attribute.sub) ? getAccessibilityText() : null;
+        }
+
+        let getAccessibilityText = function()
+        {
+            return (!csl.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null;
+        }
+
         csl.clearElement(csv.progenitor);
 
         const imageContainer = document.createElement('div');
@@ -185,6 +205,11 @@ var ceres = {};
 
         function getSlideViewPointerContainer()
         {
+            let getClickEvent = function()
+            {
+                return 'window.getSlide(' + pointerIndex + ')';
+            }
+
             csv.progenitor.appendChild(document.createElement('br'));
 
             const pointerElement = document.createElement('div');
@@ -203,32 +228,6 @@ var ceres = {};
             }
 
             csv.progenitor.appendChild(document.createElement('br'));
-
-            function getClickEvent()
-            {
-                return 'window.getSlide(' + pointerIndex + ')';
-            }
-
-        }
-
-        function getURL()
-        {
-            return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null;
-        }
-
-        function getSurtitle()
-        {
-            return (csv.attribute.sur) ? imageIndex + ' / ' + csv.imageArray.length : null;
-        }
-
-        function getSubtitle()
-        {
-            return (csv.attribute.sub) ? getAccessibilityText() : null;
-        }
-
-        function getAccessibilityText()
-        {
-            return (!csl.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null;
         }
 
     }
