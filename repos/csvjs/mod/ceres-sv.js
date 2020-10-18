@@ -28,8 +28,8 @@ var ceres = {};
             this.listElement = null,
             this.imageArray = [],
             this.attribute = function() { return attribute; },
-            this.cssarray = false,
             this.callback = false,
+            this.csslist = false,
             this.index = 1
         }
 
@@ -52,10 +52,10 @@ var ceres = {};
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
 
-            csv.cssarray = !csl.isEmptyOrNull(css);
+            csv.csslist = !csl.isEmptyOrNull(css);
             csv.callback = !csl.isEmptyOrNull(src);
 
-            if (csv.cssarray) await ( await fetchStylesheets(css) );
+            if (csv.csslist) await ( await fetchStylesheets(css) );
             if (csv.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (slideviewHasAttributes()) activateSlideView();
@@ -210,7 +210,7 @@ var ceres = {};
 
     function fetchStylesheets(arrayString)
     {
-        const cssArray = csv.cssarray ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const cssArray = csv.csslist ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
