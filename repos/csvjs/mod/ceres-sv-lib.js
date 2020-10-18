@@ -20,7 +20,7 @@ var cereslibrary = {};
 
     setPrecursors();
 
-    this.constant = rsc.protean; // exposed local scope literals
+    this.constant = rsc.protean; // exposed local scope resources
 
     Object.freeze(this.constant);
 
