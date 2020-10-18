@@ -15,12 +15,12 @@ var cereslibrary = {};
 
     }
 
-    let resource = new Component();
-    let symbol = new Map();
+    let rsc = new Component(); // local scope resources
+    let sbl = new Map(); // local scope symbols
 
     setPrecursors();
 
-    this.constant = resource.protean; // expose local scope literals
+    this.constant = rsc.protean; // expose local scope literals
 
     Object.freeze(this.constant);
 
@@ -115,12 +115,12 @@ var cereslibrary = {};
 
         const token = attribute.trim().toLowerCase();
 
-        return symbol.has(token) ? symbol.get(token) : false;
+        return sbl.has(token) ? sbl.get(token) : false;
     }
 
     this.inspect = function(diagnostic)
     {
-        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.constant.error, notification: resource.attribute.inspect });
+        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.constant.error, notification: rsc.attribute.inspect });
 
         const lookup = {
             [this.constant.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.constant.newline + this.constant.newline + diagnostic.reference); },
@@ -134,7 +134,7 @@ var cereslibrary = {};
 
     this.errorHandler = function(error)
     {
-        if (this.isEmptyOrNull(error)) return this.inspect({ type: this.constant.error, notification: resource.attribute.errorHandler });
+        if (this.isEmptyOrNull(error)) return this.inspect({ type: this.constant.error, notification: rsc.attribute.errorHandler });
 
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
@@ -152,21 +152,21 @@ var cereslibrary = {};
 
     function setPrecursors()
     {
-        symbol.set('true', true);
-        symbol.set('t', true);
-        symbol.set('yes', true);
-        symbol.set('y', true);
-        symbol.set('1', true);
-        symbol.set('default', false);
+        sbl.set('true', true);
+        sbl.set('t', true);
+        sbl.set('yes', true);
+        sbl.set('y', true);
+        sbl.set('1', true);
+        sbl.set('default', false);
 
-        resource.protean.reference = 1;
-        resource.protean.notify = 2;
-        resource.protean.error = 99;
-        resource.protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        resource.protean.newline = resource.protean.isWindows ? '\r\n' : '\n';
+        rsc.protean.reference = 1;
+        rsc.protean.notify = 2;
+        rsc.protean.error = 99;
+        rsc.protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+        rsc.protean.newline = rsc.protean.isWindows ? '\r\n' : '\n';
 
-        resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
-        resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
+        rsc.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
+        rsc.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
 
         Object.freeze(resource);
     }
