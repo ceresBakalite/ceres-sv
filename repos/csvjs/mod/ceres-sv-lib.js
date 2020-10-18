@@ -24,6 +24,10 @@ var cereslibrary = {};
 
     Object.freeze(this.constant);
 
+    this.windowOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+    this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+    this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+
     this.setHorizontalSwipe = function(touch, callback, args)
     {
         const el = document.querySelector(touch.el);
@@ -92,16 +96,6 @@ var cereslibrary = {};
         document.head.appendChild(link);
     }
 
-    this.windowOpen = function(obj)
-    {
-        window.open(obj.element.getAttribute('src'), obj.type);
-    }
-
-    this.isString = function(obj)
-    {
-        return Object.prototype.toString.call(obj) == '[object String]';
-    }
-
     this.isEmptyOrNull = function(obj)
     {
         if (obj === null || obj == 'undefined') return true;
@@ -122,18 +116,6 @@ var cereslibrary = {};
         const token = attribute.trim().toLowerCase();
 
         return symbol.has(token) ? symbol.get(token) : false;
-    }
-
-    this.clearElement = function(el)
-    {
-      while (el.firstChild) el.removeChild(el.firstChild);
-    }
-
-    this.getObjectProperties = function(object, str = '')
-    {
-        for (let property in object) str += property + ': ' + object[property] + ', ';
-
-        return str.replace(/, +$/g,'');
     }
 
     this.inspect = function(diagnostic)
@@ -160,6 +142,12 @@ var cereslibrary = {};
         if (error.alert) alert(err);
 
         return false;
+    }
+
+    this.getObjectProperties = function(object, str = '')
+    {
+        for (let property in object) str += property + ': ' + object[property] + ', ';
+        return str.replace(/, +$/g,'');
     }
 
     function setPrecursors()
