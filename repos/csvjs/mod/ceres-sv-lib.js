@@ -18,8 +18,6 @@ var cereslibrary = {};
     let resource = new Component();
     let symbol = new Map();
 
-    Object.seal(resource);
-
     setPrecursors();
 
     this.constant = resource.protean; // expose local scope literals
@@ -181,6 +179,8 @@ var cereslibrary = {};
 
         resource.attribute.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.attribute.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
+
+        Object.freeze(resource);
     }
 
 }).call(cereslibrary);
