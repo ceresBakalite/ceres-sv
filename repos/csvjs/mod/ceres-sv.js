@@ -69,7 +69,7 @@ var ceres = {};
         return !csl.isEmptyOrNull(csv.progenitor);
     }
 
-    let isAttributes = function()
+    let isPrecursor = function()
     {
         csv.progenitor.id = csv.attribute.HTMLSlideViewElement;
         csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
@@ -129,7 +129,7 @@ var ceres = {};
     let slideviewHasAttributes = function()
     {
         if (!isProgenitor()) return csl.inspect({ type: csl.constant.error, notification: 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element' });
-        if (!isAttributes()) return csl.inspect({ type: csl.constant.error, notification: resource.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
+        if (!isPrecursor()) return csl.inspect({ type: csl.constant.error, notification: resource.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return isImageArray();
     }
