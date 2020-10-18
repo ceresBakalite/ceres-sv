@@ -38,7 +38,7 @@ var ceres = {};
     let rsc = new Component();  // local scope resources
     let csv = new Slideviewer();  // local scope ceres slideview
 
-    Object.seal(resource);
+    Object.seal(rsc);
     Object.seal(csv);
 
     csv.attribute.HTMLSlideViewElement = 'ceres-sv'; // required element name
