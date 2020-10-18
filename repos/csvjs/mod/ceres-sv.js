@@ -63,18 +63,18 @@ var ceres = {};
 
     });
 
+    let isProgenitor = function()
+    {
+        csv.progenitor = (document.getElementById(csv.attribute.HTMLSlideViewElement)) ? document.getElementById(csv.attribute.HTMLSlideViewElement) : document.getElementsByTagName(csv.attribute.HTMLSlideViewElement)[0];
+        return !csl.isEmptyOrNull(csv.progenitor);
+    }
+
     function getSlideviewAttributes()
     {
         if (!isProgenitor()) return csl.inspect({ type: csl.constant.error, notification: 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element' });
         if (!getAttributePrecursors()) return csl.inspect({ type: csl.constant.error, notification: resource.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return getImageArray();
-
-        let isProgenitor = function()
-        {
-            csv.progenitor = (document.getElementById(csv.attribute.HTMLSlideViewElement)) ? document.getElementById(csv.attribute.HTMLSlideViewElement) : document.getElementsByTagName(csv.attribute.HTMLSlideViewElement)[0];
-            return !csl.isEmptyOrNull(csv.progenitor);
-        }
 
         function getAttributePrecursors()
         {
