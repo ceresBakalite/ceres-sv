@@ -1,6 +1,8 @@
-##### Command line usage
+#### Command line usage
 
-1) terser -c -m -o C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\mod\ceres-sv.min.js -- C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js
-2) terser -c -m -o C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\mod\ceres-sv-lib.min.js -- C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv-lib.js
+**Example 1**
 
-3) Update the corresponding import reference in ceres-sv.js to point to the minified ceres-sv-lib.min.js
+    terser -c -m -o C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\mod\ceres-sv.min.js -- C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js
+    terser -c -m -o C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\mod\ceres-sv-lib.min.js -- C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv-lib.js
+
+    Update the corresponding import reference in ceres-sv.js to point to the minified ceres-sv-lib.min.js
