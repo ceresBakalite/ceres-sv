@@ -11,6 +11,9 @@ https://github.com/terser/terser
         terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m
         terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv-lib.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv-lib.min.js -c -m
 
+        terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m --source-map "root='C:\Users\Sandy\Documents\GitHub\ceres-sv\prod',url='ceres-sv.min.js.map'"
+        terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv-lib.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv-lib.min.js -c -m --source-map "root='C:\Users\Sandy\Documents\GitHub\ceres-sv\prod',url='ceres-sv-lib.min.js.map'"
+
 - [x] <sup>Update the corresponding import reference in ceres-sv.js to point to the minified ceres-sv-lib.min.js</sup>
 
 **Example 2**
