@@ -9,10 +9,10 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
+import { version } from '../package.json'
 
 export { ceres }
 
-import { version } from '../package.json'
 import { cereslibrary as csl } from 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv-lib.min.js'
 
 var ceres = {};
