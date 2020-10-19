@@ -49,7 +49,7 @@ https://github.com/jakubpawlowicz/clean-css-cli
 
 *Recommended usage*
 
-        cleancss C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\stylesheets\ceres-sv.min.css -o C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\stylesheets\prod\ceres-sv.min.css
+        cleancss C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\stylesheets\ceres-sv.css -o C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\stylesheets\prod\ceres-sv.min.css
 
 <br>
 
