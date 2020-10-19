@@ -1,0 +1,45 @@
+{
+  "name": "ceres-sv",
+  "version": "1.0.0-rc.1",
+  "description": "Very easy image slideview display module",
+  "author": "Alexander Munro <amunro@ceressolutions.com.au>",
+  "main": "prod/ceres-sv.js",
+  "type": "module",
+  "module": "prod/ceres-sv.js",
+  "scripts": {
+    "test": "",
+    "lint": "standard --verbose --plugin html '**/*.html' '**/*.js'",
+    "build": "",
+    "prepublishOnly": ""
+  },
+  "devDependencies": {},
+  "standard": {
+    "ignore": [],
+    "globals": [
+      "HTMLElement",
+      "customElements",
+      "CustomEvent",
+      "fetch"
+    ]
+  },
+  "files": [
+    "prod"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://https://github.com/ceresbakalite/ceres-sv"
+  },
+  "bugs": {
+    "url": "https://github.com/ceresbakalite/ceres-sv/issues"
+  },
+  "homepage": " https://ceresbakalite.github.io/ceres-sv/",
+  "keywords": [
+    "webcomponents",
+    "customelements",
+    "markdown-to-html",
+    "txt-to-html",
+    "csv-to-html",
+  ],
+  "dependencies": {}
+}
