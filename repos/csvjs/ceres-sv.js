@@ -1,3 +1,10 @@
+/**
+ * Minified using Terser v5.3.5.
+ * Original file: ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv.js   /gh/zerodevx/zero-md@1.4.0/src/zero-md.js
+ *
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+
 export { ceres }
 
 import { cereslibrary as csl } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/mod/ceres-sv-lib.min.js';
