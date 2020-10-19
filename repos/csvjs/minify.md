@@ -51,8 +51,6 @@ https://github.com/jakubpawlowicz/clean-css-cli
 
         cleancss C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\stylesheets\ceres-sv.css -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.css
 
-        cleancss --format 'breaks:afterBlockBegins=on;spaces:aroundSelectorRelation=on' one.css
-        # `breaks` controls where to insert breaks
 <br>
 
 ***        
