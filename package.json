@@ -1,6 +1,6 @@
 {
   "name": "ceres-sv",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0 rc1",
   "description": "Very easy image slideview display module",
   "author": "Alexander Munro <amunro@ceressolutions.com.au>",
   "main": "prod/ceres-sv.js",
