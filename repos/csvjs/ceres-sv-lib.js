@@ -17,7 +17,7 @@ var cereslibrary = {};
 {
     'use strict';
 
-    class Component
+    let rsc = new class
     {
         constructor()
         {
@@ -27,7 +27,6 @@ var cereslibrary = {};
 
     }
 
-    let rsc = new Component(); // local scope resources
     let sbl = new Map(); // local scope symbols
 
     setPrecursors();
