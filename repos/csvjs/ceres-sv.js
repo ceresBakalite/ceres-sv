@@ -13,7 +13,7 @@ import { version } from '../package.json'
 
 export { ceres }
 
-import { cereslibrary as csl } from 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv-lib.min.js'
+import { cereslibrary as csl } from 'ceres-sv-lib.min.js'
 
 var ceres = {};
 (function()
