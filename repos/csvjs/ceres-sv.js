@@ -22,7 +22,7 @@ var ceres = {};
     this.getImage = function(el) { csl.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    class Component
+    let rsc = new class // resource
     {
         constructor()
         {
@@ -32,7 +32,7 @@ var ceres = {};
 
     }
 
-    class Slideviewer
+    let csv = new class // ceres slideview
     {
         constructor()
         {
@@ -46,9 +46,6 @@ var ceres = {};
         }
 
     }
-
-    let rsc = new Component();  // local scope resources
-    let csv = new Slideviewer();  // local scope ceres slideview
 
     Object.seal(rsc);
     Object.seal(csv);
