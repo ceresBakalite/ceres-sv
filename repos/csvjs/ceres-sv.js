@@ -1,9 +1,14 @@
 /**
- * Minified using Terser v5.3.5.
- * Original file: ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv.js   /gh/zerodevx/zero-md@1.4.0/src/zero-md.js
+ * @license
+ * ceres-sv v1.0.0
  *
- * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
- */
+ * Minified using Terser v5.3.5
+ * Original file: ceresbakalite/ceres-sv/repos/csvjs/ceres-sv.js
+ *
+ * ceresBakalite/ceres-sv is licensed under the MIT License - http://opensource.org/licenses/MIT
+ *
+ * Copyright (c) 2020 Alexander Munro
+*/
 
 export { ceres }
 
