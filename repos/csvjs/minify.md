@@ -22,7 +22,7 @@ https://github.com/terser/terser
 
 - [x] <sup>Update the corresponding import reference in ceres-sv.js to point to the minified ceres-sv-lib.min.js</sup>
 
-**Example 2**
+**Example 3**
 
 *alternatively...*
 
@@ -31,7 +31,7 @@ https://github.com/terser/terser
 
 - [x] <sup>Update the corresponding import reference in ceres-sv.js to point to the minified ceres-sv-lib.min.js</sup>
 
-**Example 3**
+**Example 4**
 
 *combine two files into one*
 
@@ -39,7 +39,7 @@ https://github.com/terser/terser
 
 - [x] <sup>Remove the corresponding import reference in ceres-sv.js</sup>
 
-**Example 4**
+**Example 5**
 
 *reserve specific words*
 
