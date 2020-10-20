@@ -9,7 +9,7 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-import { version } from '../package.json'
+//import { version } from '../package.json'
 
 export { ceres }
 
@@ -62,11 +62,11 @@ var ceres = {};
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
 
-            csv.csslist = !csl.isEmptyOrNull(css);
-            csv.callback = !csl.isEmptyOrNull(src);
+            // csv.csslist = !csl.isEmptyOrNull(css);
+            // csv.callback = !csl.isEmptyOrNull(src);
 
-            if (csv.csslist) await ( await fetchStylesheets(css) );
-            if (csv.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (csv.csslist = !csl.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+            if (csv.callback = !csl.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (slideviewHasAttributes()) activateSlideView();
         }
