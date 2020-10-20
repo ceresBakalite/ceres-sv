@@ -28,12 +28,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://https://github.com/ceresbakalite/ceres-sv"
+    "url": "https://github.com/ceresbakalite/ceres-sv"
   },
   "bugs": {
     "url": "https://github.com/ceresbakalite/ceres-sv/issues"
   },
-  "homepage": " https://ceresbakalite.github.io/ceres-sv/",
+  "homepage": "https://ceresbakalite.github.io/ceres-sv/",
   "keywords": [
     "webcomponents",
     "customelements",
