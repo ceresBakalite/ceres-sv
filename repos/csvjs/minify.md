@@ -1,6 +1,6 @@
 #### Command line usage
 
-### terser
+### terser CLI
 
 https://github.com/terser/terser
 
@@ -54,7 +54,7 @@ https://github.com/terser/terser
 
 
 
-### clean-css
+### clean-css CLI
 
 https://github.com/jakubpawlowicz/clean-css-cli
 
