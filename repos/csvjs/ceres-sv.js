@@ -79,7 +79,7 @@ var ceres = {};
 
     let precursor = function()
     {
-        csv.progenitor.id = csv.attribute.HTMLSlideViewElement;
+        csv.progenitor.id = csv.attribute.HTMLSlideViewElementId;
         csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
 
         csv.attribute.ptr = !csl.getBooleanAttribute(csv.progenitor.getAttribute('ptr'));
