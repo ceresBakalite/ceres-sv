@@ -57,10 +57,19 @@ var ceres = {};
 
     let getUniqueElementId = function(str = null, range = 100)
     {
-        return str + Math.floor(Math.random() * range);
+        let el = str + Math.floor(Math.random() * range);
+
+        while (document.getElementById(el))
+        {
+            el = str + Math.floor(Math.random() * range);
+        }
+
+        return el;
     }
 
     csv.attribute.HTMLSlideViewElementId = getUniqueElementId(csv.attribute.HTMLSlideViewElement);
+
+    console.log(csv.attribute.HTMLSlideViewElementId);
 
     window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
     {
