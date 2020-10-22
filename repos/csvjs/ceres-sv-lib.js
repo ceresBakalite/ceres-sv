@@ -129,6 +129,18 @@ var cereslibrary = {};
         return sbl.has(token) ? sbl.get(token) : false;
     }
 
+    this.getUniqueElementId = function(str = null, range = 100)
+    {
+        let el = str + Math.floor(Math.random() * range);
+
+        while (document.getElementById(el))
+        {
+            el = str + Math.floor(Math.random() * range);
+        }
+
+        return el;
+    }
+
     this.inspect = function(diagnostic)
     {
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.constant.error, notification: rsc.attribute.inspect });
