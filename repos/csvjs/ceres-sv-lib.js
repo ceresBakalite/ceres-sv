@@ -131,13 +131,14 @@ var cereslibrary = {};
 
     this.getUniqueElementId = function(str = null, range = 100)
     {
-        let el = str + Math.floor(Math.random() * range);
+        let elName = function() { return str + Math.floor(Math.random() * range) };
+        let el = elName();
 
         while (document.getElementById(el))
         {
-            el = str + Math.floor(Math.random() * range);
+            el = elName();
         }
-
+        console.log(el);
         return el;
     }
 
