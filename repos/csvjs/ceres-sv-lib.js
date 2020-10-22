@@ -138,7 +138,7 @@ var cereslibrary = {};
         {
             el = elName();
         }
-        console.log(el);
+
         return el;
     }
 
