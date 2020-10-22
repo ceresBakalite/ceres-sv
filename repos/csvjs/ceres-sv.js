@@ -55,10 +55,12 @@ var ceres = {};
     csv.attribute.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.attribute.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
-    let csv.attribute.HTMLSlideViewElementId = function()
+    let setSlideViewElementId = function()
     {
         return csv.attribute.HTMLSlideViewElement + Math.floor(Math.random() * 100);
     }
+
+    csv.attribute.HTMLSlideViewElementId = setSlideViewElementId();
 
     window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
     {
