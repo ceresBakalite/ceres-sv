@@ -135,9 +135,7 @@ var cereslibrary = {};
         let el = elName();
 
         while (document.getElementById(el = elName())) {};
-
         console.log(el);
-
         return el;
     }
 
