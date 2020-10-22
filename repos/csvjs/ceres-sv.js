@@ -56,8 +56,6 @@ var ceres = {};
     csv.attribute.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
     csv.attribute.HTMLSlideViewElementId = csl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
 
-    console.log(csv.attribute.HTMLSlideViewElementId);
-
     window.customElements.get(csv.attribute.HTMLSlideViewElement) || window.customElements.define(csv.attribute.HTMLSlideViewElement, class extends HTMLElement
     {
         async connectedCallback()
