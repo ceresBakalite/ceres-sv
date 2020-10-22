@@ -134,10 +134,9 @@ var cereslibrary = {};
         let elName = function() { return str + Math.floor(Math.random() * range) };
         let el = elName();
 
-        while (document.getElementById(el))
-        {
-            el = elName();
-        }
+        while (document.getElementById(el = elName())) {};
+
+        console.log(el);
 
         return el;
     }
