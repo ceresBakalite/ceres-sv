@@ -202,9 +202,7 @@ var ceres = {};
             for (let item = 0; item < csv.imageArray.length; item++)
             {
                 var pointerIndex = item + 1;
-                let pointerName = 'slideview-ptr' + pointerIndex;
-
-                csl.composeElement({ el: 'span', id: pointerName, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
+                csl.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
             }
 
             csv.progenitor.appendChild(document.createElement('br'));
