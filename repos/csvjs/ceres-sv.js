@@ -80,7 +80,7 @@ var ceres = {};
             csv.attribute.sur = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sur'));
             csv.attribute.sub = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sub'));
             csv.attribute.trace = csl.getBooleanAttribute(csv.progenitor.getAttribute('trace'));
-            csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 500;
+            csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 250;
 
             Object.freeze(csv.attribute);
         }
