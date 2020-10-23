@@ -16,7 +16,7 @@ var cereslibrary = {};
 {
     'use strict';
 
-    let rsc = new class // resource
+    let rsc = new class // local scope resources
     {
         constructor()
         {
