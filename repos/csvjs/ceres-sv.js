@@ -39,8 +39,8 @@ var ceres = {};
             this.listElement = null,
             this.imageArray = [],
             this.attribute = function() { return attribute; },
-            this.callback = false,
-            this.csslist = false,
+            this.isSrcList = false,
+            this.isCssList = false,
             this.index = 1
         }
 
@@ -60,8 +60,8 @@ var ceres = {};
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
 
-            if (csv.csslist = !csl.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-            if (csv.callback = !csl.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (csv.isCssList = !csl.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+            if (csv.isSrcList = !csl.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (slideviewHasAttributes()) activateSlideView();
         }
@@ -91,7 +91,7 @@ var ceres = {};
     let precursor = function()
     {
         rsc.attribute.ProgenitorInnerHTML = 'Progenitor innerHTML [' + csv.attribute.HTMLSlideViewElement + ']: ' + csl.constant.newline + csl.constant.newline;
-        rsc.attribute.ListContainerMarkup = 'Image list markup ' + ((csv.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.attribute.HTMLSlideViewElement + ']:' + csl.constant.newline;
+        rsc.attribute.ListContainerMarkup = 'Image list markup ' + ((csv.isSrcList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.attribute.HTMLSlideViewElement + ']:' + csl.constant.newline;
         rsc.attribute.BodyContentList = 'The ' + csv.attribute.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
         rsc.attribute.BodyContentListNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
         rsc.attribute.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.attribute.HTMLSlideViewElement + ']: ';
@@ -103,7 +103,7 @@ var ceres = {};
         csv.progenitor.id = csl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
         csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
 
-        return (csv.callback || csv.listElement);
+        return (csv.isSrcList || csv.listElement);
     }
 
     let isImageArray = function()
@@ -122,7 +122,7 @@ var ceres = {};
                 return !csl.isEmptyOrNull(list) ? list : csl.inspect({ type: csl.constant.error, notification: rsc.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
             }
 
-            return (csv.callback) ? getConnectedCallbackList() : getBodyContentList();
+            return (csv.isSrcList) ? getConnectedCallbackList() : getBodyContentList();
         }
 
         let imageList = getImageList();
@@ -220,7 +220,7 @@ var ceres = {};
 
     function fetchStylesheets(arrayString)
     {
-        const cssArray = csv.csslist ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const cssArray = csv.isCssList ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
