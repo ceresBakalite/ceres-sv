@@ -95,7 +95,7 @@ var ceres = {};
         rsc.attribute.BodyContentList = 'The ' + csv.attribute.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
         rsc.attribute.BodyContentListNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
         rsc.attribute.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.attribute.HTMLSlideViewElement + ']: ';
-        rsc.attribute.ProgenitorElementNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element';
+        rsc.attribute.ProgenitorNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element';
         rsc.attribute.ListContainerNotFound = 'Error: Unable to find either the connectedCallback ' + csv.attribute.HTMLSlideViewElement + ' attribute source nor the fallback noscript image list container';
 
         Object.freeze(rsc.attribute);
@@ -135,7 +135,7 @@ var ceres = {};
 
     let slideviewHasAttributes = function()
     {
-        if (!progenitor()) return csl.inspect({ type: csl.constant.error, notification: rsc.attribute.ProgenitorElementNotFound, logtrace: csv.attribute.trace });
+        if (!progenitor()) return csl.inspect({ type: csl.constant.error, notification: rsc.attribute.ProgenitorNotFound, logtrace: csv.attribute.trace });
         if (!precursor()) return csl.inspect({ type: csl.constant.error, notification: rsc.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return isImageArray();
