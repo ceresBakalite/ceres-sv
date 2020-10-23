@@ -131,7 +131,7 @@ var cereslibrary = {};
     this.getUniqueElementId = function(str = null, range = 100)
     {
         let elName = function() { return str + Math.floor(Math.random() * range) };
-        let el = elName();
+        let el = null;
 
         while (document.getElementById(el = elName())) {};
 
