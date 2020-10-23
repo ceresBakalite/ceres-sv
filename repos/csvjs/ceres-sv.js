@@ -2,15 +2,13 @@
  * @license
  * ceres-sv v1.0.0
  *
- * Minified using Terser v5.3.5
+ * Minified using terser v5.3.5
  * Original file: ceresbakalite/ceres-sv/repos/csvjs/ceres-sv.js
  *
  * ceresBakalite/ceres-sv is licensed under the MIT License - http://opensource.org/licenses/MIT
  *
  * Copyright (c) 2020 Alexander Munro
 */
-//import { version } from '../package.json'
-
 export { ceres }
 
 import { cereslibrary as csl } from './ceres-sv-lib.min.js'
