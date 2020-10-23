@@ -71,29 +71,37 @@ var ceres = {};
     let progenitor = function()
     {
         csv.progenitor = (document.getElementById(csv.attribute.HTMLSlideViewElement)) ? document.getElementById(csv.attribute.HTMLSlideViewElement) : document.getElementsByTagName(csv.attribute.HTMLSlideViewElement)[0];
-        return !csl.isEmptyOrNull(csv.progenitor);
+
+        const progenitor = !csl.isEmptyOrNull(csv.progenitor);
+
+        if (progenitor)
+        {
+            csv.attribute.ptr = !csl.getBooleanAttribute(csv.progenitor.getAttribute('ptr'));
+            csv.attribute.sur = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sur'));
+            csv.attribute.sub = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sub'));
+            csv.attribute.trace = csl.getBooleanAttribute(csv.progenitor.getAttribute('trace'));
+            csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 500;
+
+            Object.freeze(csv.attribute);
+        }
+
+        return progenitor;
     }
 
     let precursor = function()
     {
-        csv.progenitor.id = csl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
-        csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
-
-        csv.attribute.ptr = !csl.getBooleanAttribute(csv.progenitor.getAttribute('ptr'));
-        csv.attribute.sur = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sur'));
-        csv.attribute.sub = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sub'));
-        csv.attribute.trace = csl.getBooleanAttribute(csv.progenitor.getAttribute('trace'));
-        csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 500;
-
         rsc.attribute.ProgenitorInnerHTML = 'Progenitor innerHTML [' + csv.attribute.HTMLSlideViewElement + ']: ' + csl.constant.newline + csl.constant.newline;
         rsc.attribute.ListContainerMarkup = 'Image list markup ' + ((csv.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.attribute.HTMLSlideViewElement + ']:' + csl.constant.newline;
         rsc.attribute.BodyContentList = 'The ' + csv.attribute.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
         rsc.attribute.BodyContentListNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
         rsc.attribute.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.attribute.HTMLSlideViewElement + ']: ';
+        rsc.attribute.ProgenitorElementNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element';
         rsc.attribute.ListContainerNotFound = 'Error: Unable to find either the connectedCallback ' + csv.attribute.HTMLSlideViewElement + ' attribute source nor the fallback noscript image list container';
 
         Object.freeze(rsc.attribute);
-        Object.freeze(csv.attribute);
+
+        csv.progenitor.id = csl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
+        csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
 
         return (csv.callback || csv.listElement);
     }
@@ -127,7 +135,7 @@ var ceres = {};
 
     let slideviewHasAttributes = function()
     {
-        if (!progenitor()) return csl.inspect({ type: csl.constant.error, notification: 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element' });
+        if (!progenitor()) return csl.inspect({ type: csl.constant.error, notification: rsc.attribute.ProgenitorElementNotFound, logtrace: csv.attribute.trace });
         if (!precursor()) return csl.inspect({ type: csl.constant.error, notification: rsc.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return isImageArray();
