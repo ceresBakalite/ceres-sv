@@ -9,16 +9,16 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-export { ceres }
+export { slideview }
 
-import { cereslibrary as csl } from './ceres-sv-lib.min.js'
+import { slideviewlibrary as svl } from './ceres-sv-lib.min.js'
 
-var ceres = {};
+var slideview = {};
 (function()
 {
     'use strict';
 
-    this.getImage = function(el) { csl.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getImage = function(el) { svl.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
     let rsc = new class // resource
@@ -60,8 +60,8 @@ var ceres = {};
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.attribute.defaultCSS;
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
 
-            if (csv.isCssList = !csl.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-            if (csv.isCallbackList = !csl.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (csv.isCssList = !svl.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+            if (csv.isCallbackList = !svl.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (slideviewHasAttributes()) activateSlideView();
         }
@@ -72,14 +72,14 @@ var ceres = {};
     {
         csv.progenitor = (document.getElementById(csv.attribute.HTMLSlideViewElement)) ? document.getElementById(csv.attribute.HTMLSlideViewElement) : document.getElementsByTagName(csv.attribute.HTMLSlideViewElement)[0];
 
-        const progenitor = !csl.isEmptyOrNull(csv.progenitor);
+        const progenitor = !svl.isEmptyOrNull(csv.progenitor);
 
         if (progenitor)
         {
-            csv.attribute.ptr = !csl.getBooleanAttribute(csv.progenitor.getAttribute('ptr'));
-            csv.attribute.sur = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sur'));
-            csv.attribute.sub = !csl.getBooleanAttribute(csv.progenitor.getAttribute('sub'));
-            csv.attribute.trace = csl.getBooleanAttribute(csv.progenitor.getAttribute('trace'));
+            csv.attribute.ptr = !svl.getBooleanAttribute(csv.progenitor.getAttribute('ptr'));
+            csv.attribute.sur = !svl.getBooleanAttribute(csv.progenitor.getAttribute('sur'));
+            csv.attribute.sub = !svl.getBooleanAttribute(csv.progenitor.getAttribute('sub'));
+            csv.attribute.trace = svl.getBooleanAttribute(csv.progenitor.getAttribute('trace'));
             csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 250;
 
             Object.freeze(csv.attribute);
@@ -90,8 +90,8 @@ var ceres = {};
 
     let precursor = function()
     {
-        rsc.attribute.ProgenitorInnerHTML = 'Progenitor innerHTML [' + csv.attribute.HTMLSlideViewElement + ']: ' + csl.constant.newline + csl.constant.newline;
-        rsc.attribute.ListContainerMarkup = 'Image list markup ' + ((csv.isCallbackList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.attribute.HTMLSlideViewElement + ']:' + csl.constant.newline;
+        rsc.attribute.ProgenitorInnerHTML = 'Progenitor innerHTML [' + csv.attribute.HTMLSlideViewElement + ']: ' + svl.constant.newline + svl.constant.newline;
+        rsc.attribute.ListContainerMarkup = 'Image list markup ' + ((csv.isCallbackList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.attribute.HTMLSlideViewElement + ']:' + svl.constant.newline;
         rsc.attribute.BodyContentList = 'The ' + csv.attribute.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
         rsc.attribute.BodyContentListNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
         rsc.attribute.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.attribute.HTMLSlideViewElement + ']: ';
@@ -100,7 +100,7 @@ var ceres = {};
 
         Object.freeze(rsc.attribute);
 
-        csv.progenitor.id = csl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
+        csv.progenitor.id = svl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
         csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
 
         return (csv.isCallbackList || csv.listElement);
@@ -108,53 +108,53 @@ var ceres = {};
 
     let isImageArray = function()
     {
-        csl.inspect({ type: csl.constant.notify, notification: rsc.attribute.CSVObjectAttributes + csl.getObjectProperties(csv.attribute), logtrace: csv.attribute.trace });
+        svl.inspect({ type: svl.constant.notify, notification: rsc.attribute.CSVObjectAttributes + svl.getObjectProperties(csv.attribute), logtrace: csv.attribute.trace });
 
         let getImageList = function()
         {
-            let getConnectedCallbackList = function() { return (!csl.isEmptyOrNull(csv.progenitor.textContent)) ? csv.progenitor.textContent : null; }
+            let getConnectedCallbackList = function() { return (!svl.isEmptyOrNull(csv.progenitor.textContent)) ? csv.progenitor.textContent : null; }
 
             let getBodyContentList = function()
             {
-                csl.inspect({ type: csl.constant.notify, notification: rsc.attribute.BodyContentList, logtrace: csv.attribute.trace });
+                svl.inspect({ type: svl.constant.notify, notification: rsc.attribute.BodyContentList, logtrace: csv.attribute.trace });
 
-                const list = !csl.isEmptyOrNull(csv.listElement) ? csv.listElement.textContent : null;
-                return !csl.isEmptyOrNull(list) ? list : csl.inspect({ type: csl.constant.error, notification: rsc.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
+                const list = !svl.isEmptyOrNull(csv.listElement) ? csv.listElement.textContent : null;
+                return !svl.isEmptyOrNull(list) ? list : svl.inspect({ type: svl.constant.error, notification: rsc.attribute.BodyContentListNotFound, logtrace: csv.attribute.trace });
             }
 
             return (csv.isCallbackList) ? getConnectedCallbackList() : getBodyContentList();
         }
 
         let imageList = getImageList();
-        if (imageList) csl.inspect({ type: csl.constant.notify, notification: rsc.attribute.ListContainerMarkup + imageList, logtrace: csv.attribute.trace });
+        if (imageList) svl.inspect({ type: svl.constant.notify, notification: rsc.attribute.ListContainerMarkup + imageList, logtrace: csv.attribute.trace });
 
         csv.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
-        return !csl.isEmptyOrNull(csv.imageArray);
+        return !svl.isEmptyOrNull(csv.imageArray);
     }
 
     let slideviewHasAttributes = function()
     {
-        if (!progenitor()) return csl.inspect({ type: csl.constant.error, notification: rsc.attribute.ProgenitorNotFound, logtrace: csv.attribute.trace });
-        if (!precursor()) return csl.inspect({ type: csl.constant.error, notification: rsc.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
+        if (!progenitor()) return svl.inspect({ type: svl.constant.error, notification: rsc.attribute.ProgenitorNotFound, logtrace: csv.attribute.trace });
+        if (!precursor()) return svl.inspect({ type: svl.constant.error, notification: rsc.attribute.ListContainerNotFound, logtrace: csv.attribute.trace });
 
         return isImageArray();
     }
 
     function getSlideView()
     {
-        let getURL = function() { return (!csl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
+        let getURL = function() { return (!svl.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
         let getSurtitle = function() { return (csv.attribute.sur) ? imageIndex + ' / ' + csv.imageArray.length : null; }
         let getSubtitle = function() { return (csv.attribute.sub) ? getAccessibilityText() : null; }
-        let getAccessibilityText = function() { return (!csl.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
+        let getAccessibilityText = function() { return (!svl.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
-        csl.clearElement(csv.progenitor);
+        svl.clearElement(csv.progenitor);
 
         const imageContainer = document.createElement('div');
         imageContainer.id = csv.attribute.HTMLSlideViewElement + '-image-container';
         csv.progenitor.appendChild(imageContainer);
 
-        csl.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
+        svl.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
         for (let item = 0; item < csv.imageArray.length; item++)
         {
@@ -169,23 +169,23 @@ var ceres = {};
                 'subName': 'slideview-sub' + imageIndex
             };
 
-            csl.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
+            svl.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
 
             let slideContainer = document.getElementById(id);
 
-            if (csv.attribute.sur) csl.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-            csl.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
-            if (csv.attribute.sub) csl.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+            if (csv.attribute.sur) svl.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+            svl.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+            if (csv.attribute.sub) svl.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
 
-        csl.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
-        csl.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
+        svl.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
+        svl.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
         if (csv.attribute.ptr) getSlideViewPointerContainer();
 
         setSlideViewDisplay('none');
 
-        csl.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
+        svl.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
         function getHorizontalSwipe(swipe)
         {
@@ -193,7 +193,7 @@ var ceres = {};
             setSlide(csv.index = csv.index += offset);
         }
 
-        csl.inspect({ type: csl.constant.notify, notification: csv.progenitor, logtrace: csv.attribute.trace });
+        svl.inspect({ type: svl.constant.notify, notification: csv.progenitor, logtrace: csv.attribute.trace });
 
         function getSlideViewPointerContainer()
         {
@@ -205,12 +205,12 @@ var ceres = {};
             csv.progenitor.appendChild(document.createElement('br'));
             csv.progenitor.appendChild(pointerElement);
 
-            csl.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
+            svl.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
             for (let item = 0; item < csv.imageArray.length; item++)
             {
                 var pointerIndex = item + 1;
-                csl.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
+                svl.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
             }
 
             csv.progenitor.appendChild(document.createElement('br'));
@@ -224,7 +224,7 @@ var ceres = {};
 
         for (let item = 0; item < cssArray.length; item++)
         {
-            csl.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], as: 'style' });
+            svl.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], as: 'style' });
         }
 
     }
