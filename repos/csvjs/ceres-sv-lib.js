@@ -9,9 +9,9 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-export { slideviewlibrary }
+export { resoure }
 
-var slideviewlibrary = {};
+var resoure = {};
 (function()
 {
     'use strict';
@@ -191,4 +191,4 @@ var slideviewlibrary = {};
         Object.freeze(rsc);
     }
 
-}).call(slideviewlibrary);
+}).call(resoure);

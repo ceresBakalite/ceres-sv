@@ -11,7 +11,7 @@
 */
 export { slideview }
 
-import { slideviewlibrary as svl } from './ceres-sv-lib.min.js'
+import { resoure as svl } from './ceres-sv-lib.min.js'
 
 var slideview = {};
 (function()
