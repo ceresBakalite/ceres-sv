@@ -264,8 +264,7 @@ var slideview = {};
 
     function setSlideViewDisplay(attribute)
     {
-        //const nodelist = document.querySelectorAll('img.slide, #' + csv.progenitor.id);
-        const nodelist = document.querySelectorAll('img.slide, #' + csv.attribute.HTMLSlideViewElement);
+        const nodelist = document.querySelectorAll('img.slide, #' + csv.progenitor.id);
         nodelist.forEach(node => { node.style.display = attribute; } );
     }
 
