@@ -21,7 +21,7 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    let csr = new class // ceres slideview resource notification attributes
+    let csr = new class // ceres slideview local resource attributes
     {
         constructor()
         {
@@ -33,7 +33,7 @@ var ceres = {};
 
     Object.seal(csr);
 
-    let csv = new class // ceres slideview configuration attributes
+    let csv = new class // ceres slideview global configuration attributes
     {
         constructor()
         {
@@ -56,8 +56,8 @@ var ceres = {};
             const css = this.getAttribute('css') ? this.getAttribute('css') : csv.config.defaultCSS;
             const src = this.getAttribute('src') ? this.getAttribute('src') : null;
 
-            if (csv.config.isCssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-            if (csv.config.isCallbackList = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (csv.config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+            if (csv.config.callbackList = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (slideviewHasAttributes()) activateSlideView();
         }
@@ -85,7 +85,7 @@ var ceres = {};
     let precursor = function()
     {
         csr.resource.ProgenitorInnerHTML = 'Progenitor innerHTML [' + csv.config.HTMLSlideViewElement + ']: ' + rsc.constant.newline + rsc.constant.newline;
-        csr.resource.ListContainerMarkup = 'Image list markup ' + ((csv.config.isCallbackList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.HTMLSlideViewElement + ']:' + rsc.constant.newline;
+        csr.resource.ListContainerMarkup = 'Image list markup ' + ((csv.config.callbackList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.HTMLSlideViewElement + ']:' + rsc.constant.newline;
         csr.resource.BodyContentList = 'The ' + csv.config.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
         csr.resource.BodyContentListNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
         csr.resource.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.config.HTMLSlideViewElement + ']: ';
@@ -95,7 +95,7 @@ var ceres = {};
         csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
         csv.config.listElement = document.getElementById(csv.config.HTMLImageListElement) ? document.getElementById(csv.config.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
 
-        return (csv.config.isCallbackList || csv.config.listElement);
+        return (csv.config.callbackList || csv.config.listElement);
     }
 
     let isImageArray = function()
@@ -114,7 +114,7 @@ var ceres = {};
                 return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.resource.BodyContentListNotFound, logtrace: csv.config.trace });
             }
 
-            return (csv.config.isCallbackList) ? getConnectedCallbackList() : getBodyContentList();
+            return (csv.config.callbackList) ? getConnectedCallbackList() : getBodyContentList();
         }
 
         let imageList = getImageList();
@@ -215,7 +215,7 @@ var ceres = {};
 
     function fetchStylesheets(arrayString)
     {
-        const cssArray = csv.config.isCssList ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const cssArray = csv.config.cssList ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         for (let item = 0; item < cssArray.length; item++)
         {
