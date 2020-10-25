@@ -100,7 +100,8 @@ var slideview = {};
 
         Object.freeze(rsc.attribute);
 
-        csv.progenitor.id = svl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
+//        csv.progenitor.id = svl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
+        csv.progenitor.id = csv.attribute.HTMLSlideViewElement;
         csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
 
         return (csv.isCallbackList || csv.listElement);
