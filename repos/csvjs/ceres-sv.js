@@ -76,7 +76,6 @@ var ceres = {};
 
     let precursor = function()
     {
-        csr.ProgenitorInnerHTML = 'Progenitor innerHTML [' + csv.config.HTMLSlideViewElement + ']: ' + rsc.constant.newline + rsc.constant.newline;
         csr.ListContainerMarkup = 'Image list markup ' + ((csv.config.callbackList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.HTMLSlideViewElement + ']:' + rsc.constant.newline;
         csr.BodyContentList = 'The ' + csv.config.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
         csr.BodyContentListNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
