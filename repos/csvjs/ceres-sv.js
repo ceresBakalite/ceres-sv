@@ -19,7 +19,7 @@ var ceres = {};
     'use strict';
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { setSlide(csv.config.index = (calc) ? csv.config.index += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
     let csr = new class // ceres slideview resource notification attributes
     {
@@ -37,6 +37,7 @@ var ceres = {};
     {
         constructor()
         {
+            this.index = 1,
             this.config = function() { return attribute; }
         }
 
@@ -184,7 +185,7 @@ var ceres = {};
         function getHorizontalSwipe(swipe)
         {
             const offset = (swipe.action) ? swipe.right : swipe.left;
-            setSlide(csv.config.index = csv.config.index += offset);
+            setSlide(csv.index = csv.index += offset);
         }
 
         rsc.inspect({ type: rsc.constant.notify, notification: csv.config.progenitor, logtrace: csv.config.trace });
@@ -227,10 +228,10 @@ var ceres = {};
     {
         const slides = document.querySelectorAll('div.slideview');
 
-        csv.config.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.config.index;
+        csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
 
         slides.forEach(node => { node.style.display = 'none'; } );
-        slides[csv.config.index-1].style.display = 'block';
+        slides[csv.index-1].style.display = 'block';
 
         if (csv.config.ptr) setPointerStyle();
 
@@ -240,7 +241,7 @@ var ceres = {};
             const el = document.querySelector('span.active');
 
             if (el) el.className = 'ptr';
-            pointers[csv.config.index-1].className += ' active';
+            pointers[csv.index-1].className += ' active';
         }
 
     }
