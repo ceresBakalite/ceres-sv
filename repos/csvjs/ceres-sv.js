@@ -217,14 +217,7 @@ var ceres = {};
     {
         const slides = document.querySelectorAll('div.slideview');
 
-        csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
-
-        slides.forEach(node => { node.style.display = 'none'; } );
-        slides[csv.index-1].style.display = 'block';
-
-        if (csv.config.ptr) setPointerStyle();
-
-        function setPointerStyle()
+        let setPointerStyle = function()
         {
             const pointers = document.querySelectorAll('span.ptr');
             const el = document.querySelector('span.active');
@@ -233,6 +226,12 @@ var ceres = {};
             pointers[csv.index-1].className += ' active';
         }
 
+        csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
+
+        slides.forEach(node => { node.style.display = 'none'; } );
+        slides[csv.index-1].style.display = 'block';
+
+        if (csv.config.ptr) setPointerStyle();
     }
 
     function activateSlideView()
