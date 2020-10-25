@@ -21,9 +21,9 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    let csr = function() { return attribute; } // ceres slideview local resource attributes
+    let csr = function() { return attribute; } // ceres slideview resource attributes
 
-    let csv = new class // ceres slideview global configuration attributes
+    let csv = new class // ceres slideview configuration attributes
     {
         constructor()
         {
@@ -62,6 +62,8 @@ var ceres = {};
 
         if (progenitor)
         {
+            csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
+            csv.config.listElement = document.getElementById(csv.config.HTMLImageListElement) ? document.getElementById(csv.config.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
             csv.config.ptr = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('ptr'));
             csv.config.sur = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sur'));
             csv.config.sub = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sub'));
@@ -82,8 +84,7 @@ var ceres = {};
         csr.ProgenitorNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' document element';
         csr.ListContainerNotFound = 'Error: Unable to find either the connectedCallback ' + csv.config.HTMLSlideViewElement + ' attribute source nor the fallback noscript image list container';
 
-        csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
-        csv.config.listElement = document.getElementById(csv.config.HTMLImageListElement) ? document.getElementById(csv.config.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
+        Object.freeze(csr);
 
         return (csv.config.callbackList || csv.config.listElement);
     }
@@ -112,7 +113,6 @@ var ceres = {};
 
         csv.config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
-        Object.freeze(csr);
         Object.freeze(csv.config);
 
         return !rsc.isEmptyOrNull(csv.config.imageArray);
