@@ -46,7 +46,7 @@ var ceres = {};
 
     }
 
-    Object.seal(rsc);
+    Object.seal(csr);
     Object.seal(csv);
 
     csv.attribute.HTMLSlideViewElement = 'ceres-sv'; // required element name
