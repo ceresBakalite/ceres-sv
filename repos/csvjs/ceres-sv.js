@@ -82,7 +82,7 @@ var slideview = {};
             csv.attribute.trace = svl.getBooleanAttribute(csv.progenitor.getAttribute('trace'));
             csv.attribute.delay = Number.isInteger(parseInt(csv.progenitor.getAttribute('delay'))) ? parseInt(csv.progenitor.getAttribute('delay')) : 250;
 
-//            Object.freeze(csv.attribute);
+            Object.freeze(csv.attribute);
         }
 
         return progenitor;
@@ -98,10 +98,9 @@ var slideview = {};
         rsc.attribute.ProgenitorNotFound = 'Error: Unable to find the ' + csv.attribute.HTMLSlideViewElement + ' document element';
         rsc.attribute.ListContainerNotFound = 'Error: Unable to find either the connectedCallback ' + csv.attribute.HTMLSlideViewElement + ' attribute source nor the fallback noscript image list container';
 
-//        Object.freeze(rsc.attribute);
+        Object.freeze(rsc.attribute);
 
-//        csv.progenitor.id = svl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
-        csv.progenitor.id = csv.attribute.HTMLSlideViewElement;
+        csv.progenitor.id = svl.getUniqueElementId(csv.attribute.HTMLSlideViewElement);
         csv.listElement = document.getElementById(csv.attribute.HTMLImageListElement) ? document.getElementById(csv.attribute.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
 
         return (csv.isCallbackList || csv.listElement);
