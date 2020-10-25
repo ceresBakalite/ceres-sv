@@ -9,9 +9,9 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-export { resoure }
+export { resource }
 
-var resoure = {};
+var resource = {};
 (function()
 {
     'use strict';
@@ -191,4 +191,4 @@ var resoure = {};
         Object.freeze(rsc);
     }
 
-}).call(resoure);
+}).call(resource);
