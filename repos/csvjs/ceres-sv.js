@@ -112,7 +112,7 @@ var ceres = {};
 
         csv.config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
-        Object.freeze(resource);
+        Object.freeze(csr);
         Object.freeze(csv.config);
 
         return !rsc.isEmptyOrNull(csv.config.imageArray);
