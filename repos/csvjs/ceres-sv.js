@@ -21,17 +21,7 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    let csr = new class // ceres slideview local resource attributes
-    {
-        constructor()
-        {
-            this.type = function() { return type; },
-            this.resource = function() { return attribute; }
-        }
-
-    }
-
-    Object.seal(csr);
+    let csr = function() { return attribute; } // ceres slideview local resource attributes
 
     let csv = new class // ceres slideview global configuration attributes
     {
@@ -84,13 +74,13 @@ var ceres = {};
 
     let precursor = function()
     {
-        csr.resource.ProgenitorInnerHTML = 'Progenitor innerHTML [' + csv.config.HTMLSlideViewElement + ']: ' + rsc.constant.newline + rsc.constant.newline;
-        csr.resource.ListContainerMarkup = 'Image list markup ' + ((csv.config.callbackList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.HTMLSlideViewElement + ']:' + rsc.constant.newline;
-        csr.resource.BodyContentList = 'The ' + csv.config.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
-        csr.resource.BodyContentListNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
-        csr.resource.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.config.HTMLSlideViewElement + ']: ';
-        csr.resource.ProgenitorNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' document element';
-        csr.resource.ListContainerNotFound = 'Error: Unable to find either the connectedCallback ' + csv.config.HTMLSlideViewElement + ' attribute source nor the fallback noscript image list container';
+        csr.ProgenitorInnerHTML = 'Progenitor innerHTML [' + csv.config.HTMLSlideViewElement + ']: ' + rsc.constant.newline + rsc.constant.newline;
+        csr.ListContainerMarkup = 'Image list markup ' + ((csv.config.callbackList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.HTMLSlideViewElement + ']:' + rsc.constant.newline;
+        csr.BodyContentList = 'The ' + csv.config.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
+        csr.BodyContentListNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
+        csr.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.config.HTMLSlideViewElement + ']: ';
+        csr.ProgenitorNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' document element';
+        csr.ListContainerNotFound = 'Error: Unable to find either the connectedCallback ' + csv.config.HTMLSlideViewElement + ' attribute source nor the fallback noscript image list container';
 
         csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
         csv.config.listElement = document.getElementById(csv.config.HTMLImageListElement) ? document.getElementById(csv.config.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
@@ -100,7 +90,7 @@ var ceres = {};
 
     let isImageArray = function()
     {
-        rsc.inspect({ type: rsc.constant.notify, notification: csr.resource.CSVObjectAttributes + rsc.getObjectProperties(csv.config), logtrace: csv.config.trace });
+        rsc.inspect({ type: rsc.constant.notify, notification: csr.CSVObjectAttributes + rsc.getObjectProperties(csv.config), logtrace: csv.config.trace });
 
         let getImageList = function()
         {
@@ -108,21 +98,21 @@ var ceres = {};
 
             let getBodyContentList = function()
             {
-                rsc.inspect({ type: rsc.constant.notify, notification: csr.resource.BodyContentList, logtrace: csv.config.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: csr.BodyContentList, logtrace: csv.config.trace });
 
                 const list = !rsc.isEmptyOrNull(csv.config.listElement) ? csv.config.listElement.textContent : null;
-                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.resource.BodyContentListNotFound, logtrace: csv.config.trace });
+                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.BodyContentListNotFound, logtrace: csv.config.trace });
             }
 
             return (csv.config.callbackList) ? getConnectedCallbackList() : getBodyContentList();
         }
 
         let imageList = getImageList();
-        if (imageList) rsc.inspect({ type: rsc.constant.notify, notification: csr.resource.ListContainerMarkup + imageList, logtrace: csv.config.trace });
+        if (imageList) rsc.inspect({ type: rsc.constant.notify, notification: csr.ListContainerMarkup + imageList, logtrace: csv.config.trace });
 
         csv.config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
-        Object.freeze(csr.resource);
+        Object.freeze(resource);
         Object.freeze(csv.config);
 
         return !rsc.isEmptyOrNull(csv.config.imageArray);
@@ -130,8 +120,8 @@ var ceres = {};
 
     let slideviewHasAttributes = function()
     {
-        if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.resource.ProgenitorNotFound, logtrace: csv.config.trace });
-        if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.resource.ListContainerNotFound, logtrace: csv.config.trace });
+        if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ProgenitorNotFound, logtrace: csv.config.trace });
+        if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ListContainerNotFound, logtrace: csv.config.trace });
 
         return isImageArray();
     }
