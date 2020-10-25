@@ -31,6 +31,8 @@ var ceres = {};
 
     }
 
+    Object.seal(csr);
+
     let csv = new class // ceres slideview configuration attributes
     {
         constructor()
@@ -40,7 +42,6 @@ var ceres = {};
 
     }
 
-    Object.seal(csr);
     Object.seal(csv);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
