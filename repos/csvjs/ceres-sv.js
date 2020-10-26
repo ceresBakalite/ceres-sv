@@ -56,14 +56,14 @@ var ceres = {};
 
     let progenitor = function()
     {
-        csv.config.progenitor = (document.getElementById(csv.config.HTMLSlideViewElement)) ? document.getElementById(csv.config.HTMLSlideViewElement) : document.getElementsByTagName(csv.config.HTMLSlideViewElement)[0];
+        csv.config.progenitor = document.getElementById(csv.config.HTMLSlideViewElement) || document.getElementsByTagName(csv.config.HTMLSlideViewElement)[0];
 
         const progenitor = !rsc.isEmptyOrNull(csv.config.progenitor);
 
         if (progenitor)
         {
             csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
-            csv.config.listElement = document.getElementById(csv.config.HTMLImageListElement) ? document.getElementById(csv.config.HTMLImageListElement) : document.getElementsByTagName('noscript')[0];
+            csv.config.listElement = document.getElementById(csv.config.HTMLImageListElement) || document.getElementsByTagName('noscript')[0];
             csv.config.ptr = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('ptr'));
             csv.config.sur = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sur'));
             csv.config.sub = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sub'));
