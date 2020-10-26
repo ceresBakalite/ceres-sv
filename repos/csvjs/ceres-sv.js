@@ -39,24 +39,28 @@ var ceres = {};
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
-    const svElement = document.querySelectorAll(csv.config.HTMLSlideViewElement);
+    const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
-    console.log('svElement.length: ' + svElement.length);
+    el.forEach(node => { slideView(); } );
 
-    window.customElements.get(csv.config.HTMLSlideViewElement) || window.customElements.define(csv.config.HTMLSlideViewElement, class extends HTMLElement
+    function slideView()
     {
-        async connectedCallback()
+        window.customElements.get(csv.config.HTMLSlideViewElement) || window.customElements.define(csv.config.HTMLSlideViewElement, class extends HTMLElement
         {
-            const css = this.getAttribute('css') || csv.config.defaultCSS;
-            const src = this.getAttribute('src') || null;
+            async connectedCallback()
+            {
+                const css = this.getAttribute('css') || csv.config.defaultCSS;
+                const src = this.getAttribute('src') || null;
 
-            if (csv.config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-            if (csv.config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+                if (csv.config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+                if (csv.config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-            if (slideviewHasAttributes()) activateSlideView();
-        }
+                if (slideviewHasAttributes()) activateSlideView();
+            }
 
-    });
+        });
+
+    }
 
     let progenitor = function()
     {
