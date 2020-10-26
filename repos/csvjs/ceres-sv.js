@@ -39,11 +39,13 @@ var ceres = {};
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
-    const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
+    const elements = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
-    el.forEach(node => { slideView(); } );
+    if (!rsc.isEmptyOrNull(elements)) elements.forEach(node => { csv.config.node = node; slideView(); } );
 
-    function slideView()
+    console.log('csv.config.node: ' + csv.config.node);
+
+    function slideView(el)
     {
         window.customElements.get(csv.config.HTMLSlideViewElement) || window.customElements.define(csv.config.HTMLSlideViewElement, class extends HTMLElement
         {
@@ -71,7 +73,7 @@ var ceres = {};
         if (protean)
         {
             csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
-            csv.config.HTMLScriptElement = document.getElementById(csv.config.HTMLScriptElementId) || document.getElementsByTagName('noscript')[0];
+            csv.config.HTMLScriptElement = document.getElementById(csv.config.HTMLScriptElementId) || document.getElementsByTagName('noscript')[csv.config.node];
             csv.config.ptr = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('ptr'));
             csv.config.sur = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sur'));
             csv.config.sub = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sub'));
