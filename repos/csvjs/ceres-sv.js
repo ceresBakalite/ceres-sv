@@ -43,8 +43,11 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            const css = this.getAttribute('css') ? this.getAttribute('css') : csv.config.defaultCSS;
-            const src = this.getAttribute('src') ? this.getAttribute('src') : null;
+            //const css = this.getAttribute('css') ? this.getAttribute('css') : csv.config.defaultCSS;
+            //const src = this.getAttribute('src') ? this.getAttribute('src') : null;
+
+            const css = this.getAttribute('css') || csv.config.defaultCSS;
+            const src = this.getAttribute('src') || null;
 
             if (csv.config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
             if (csv.config.callbackList = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());

@@ -18,11 +18,11 @@ var resource = {};
 
     let protean = function() { return attribute; }
     let resource = function() { return attribute; }
-    let sbl = new Map(); // local scope symbols
+    let sbl = new Map();
 
     setPrecursors();
 
-    this.constant = protean; // exposed local scope resources
+    this.constant = protean; // exposed local scope attributes
 
     Object.freeze(this.constant);
 
@@ -132,12 +132,12 @@ var resource = {};
 
     this.inspect = function(diagnostic)
     {
-        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: this.constant.error, notification: resource.inspect });
+        if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: protean.error, notification: resource.inspect });
 
         const lookup = {
-            [this.constant.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.constant.newline + this.constant.newline + diagnostic.reference); },
-            [this.constant.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
-            [this.constant.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+            [protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + protean.newline + protean.newline + diagnostic.reference); },
+            [protean.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
+            [protean.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
             'default': 'An unexpected error has occurred...'
         };
 
@@ -146,7 +146,7 @@ var resource = {};
 
     this.errorHandler = function(error)
     {
-        if (this.isEmptyOrNull(error)) return this.inspect({ type: this.constant.error, notification: resource.errorHandler });
+        if (this.isEmptyOrNull(error)) return this.inspect({ type: protean.error, notification: resource.errorHandler });
 
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
         console.log(err);
