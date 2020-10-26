@@ -247,7 +247,8 @@ var ceres = {};
 
     function setSlideViewDisplay(attribute)
     {
-        const nodelist = document.querySelectorAll('img.slide, #' + csv.config.progenitor.id);
+        //const nodelist = document.querySelectorAll('img.slide, #' + csv.config.progenitor.id);
+        const nodelist = document.querySelectorAll('#' + csv.config.progenitor.id);
         nodelist.forEach(node => { node.style.display = attribute; } );
     }
 
