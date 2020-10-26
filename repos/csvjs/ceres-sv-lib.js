@@ -117,7 +117,7 @@ var resource = {};
 
         const token = attribute.trim().toLowerCase();
 
-        return sbl.get(token) || false;
+        return (sbl.get(token) || false);
     }
 
     this.getUniqueElementId = function(str = null, range = 100)
@@ -141,7 +141,7 @@ var resource = {};
             'default': 'An unexpected error has occurred...'
         };
 
-        return lookup[diagnostic.type]() || lookup['default'];
+        return (lookup[diagnostic.type]() || lookup['default']);
     }
 
     this.errorHandler = function(error)
