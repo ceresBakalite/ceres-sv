@@ -33,7 +33,7 @@ var ceres = {};
 
     }
 
-    //Object.seal(csv);
+    Object.seal(csv);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
@@ -93,7 +93,7 @@ var ceres = {};
         csr.ProgenitorNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' document element';
         csr.ListContainerNotFound = 'Error: Unable to find either the connectedCallback ' + csv.config.HTMLSlideViewElement + ' attribute source nor the fallback noscript image list container';
 
-        //Object.freeze(csr);
+        Object.freeze(csr);
 
         return (csv.config.callback || csv.config.HTMLScriptElement);
     }
@@ -122,7 +122,7 @@ var ceres = {};
 
         csv.config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
 
-        //Object.freeze(csv.config);
+        Object.freeze(csv.config);
 
         return !rsc.isEmptyOrNull(csv.config.imageArray);
     }
