@@ -117,7 +117,7 @@ var resource = {};
 
         const token = attribute.trim().toLowerCase();
 
-        return sbl.has(token) ? sbl.get(token) : false;
+        return sbl.get(token) || false;
     }
 
     this.getUniqueElementId = function(str = null, range = 100)
