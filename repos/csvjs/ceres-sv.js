@@ -167,7 +167,7 @@ var ceres = {};
 
         if (csv.config.ptr) getSlideViewPointerContainer();
 
-        setSlideViewDisplay('none');
+        //setSlideViewDisplay('none');
 
         rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
@@ -236,12 +236,12 @@ var ceres = {};
 
     function activateSlideView()
     {
-        csv.config.progenitor.style.display = 'none';
+        //csv.config.progenitor.style.display = 'none';
 
         getSlideView();
         setSlide();
 
-        setTimeout(function() { setSlideViewDisplay('block'); }, csv.config.delay);
+        //setTimeout(function() { setSlideViewDisplay('block'); }, csv.config.delay);
     }
 
 
