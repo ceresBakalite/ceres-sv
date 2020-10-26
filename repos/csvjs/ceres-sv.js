@@ -47,8 +47,6 @@ var ceres = {};
     {
         csv.config.node = index;
 
-        console.log('csv.config.node: ' + csv.config.node);
-
         window.customElements.get(csv.config.HTMLSlideViewElement) || window.customElements.define(csv.config.HTMLSlideViewElement, class extends HTMLElement
         {
             async connectedCallback()
