@@ -36,7 +36,7 @@ var ceres = {};
     Object.seal(csv);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
-    csv.config.HTMLNoscriptElement = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+    csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
     window.customElements.get(csv.config.HTMLSlideViewElement) || window.customElements.define(csv.config.HTMLSlideViewElement, class extends HTMLElement
@@ -63,7 +63,7 @@ var ceres = {};
         if (protean)
         {
             csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
-            csv.config.noscript = document.getElementById(csv.config.HTMLNoscriptElement) || document.getElementsByTagName('noscript')[0];
+            csv.config.HTMLScriptElement = document.getElementById(csv.config.HTMLScriptElementId) || document.getElementsByTagName('noscript')[0];
             csv.config.ptr = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('ptr'));
             csv.config.sur = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sur'));
             csv.config.sub = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sub'));
@@ -85,7 +85,7 @@ var ceres = {};
 
         Object.freeze(csr);
 
-        return (csv.config.callback || csv.config.noscript);
+        return (csv.config.callback || csv.config.HTMLScriptElement);
     }
 
     let isImageArray = function()
@@ -100,7 +100,7 @@ var ceres = {};
             {
                 rsc.inspect({ type: rsc.constant.notify, notification: csr.BodyContentList, logtrace: csv.config.trace });
 
-                const list = !rsc.isEmptyOrNull(csv.config.noscript) ? csv.config.noscript.textContent : null;
+                const list = !rsc.isEmptyOrNull(csv.config.HTMLScriptElement) ? csv.config.HTMLScriptElement.textContent : null;
                 return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.BodyContentListNotFound, logtrace: csv.config.trace });
             }
 
