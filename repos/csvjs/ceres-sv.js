@@ -36,7 +36,7 @@ var ceres = {};
     Object.seal(csv);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
-    csv.config.HTMLImageListElement = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+    csv.config.HTMLNoscriptElement = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
     window.customElements.get(csv.config.HTMLSlideViewElement) || window.customElements.define(csv.config.HTMLSlideViewElement, class extends HTMLElement
@@ -47,7 +47,7 @@ var ceres = {};
             const src = this.getAttribute('src') || null;
 
             if (csv.config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-            if (csv.config.callbackList = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (csv.config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (slideviewHasAttributes()) activateSlideView();
         }
@@ -63,7 +63,7 @@ var ceres = {};
         if (protean)
         {
             csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
-            csv.config.listElement = document.getElementById(csv.config.HTMLImageListElement) || document.getElementsByTagName('noscript')[0];
+            csv.config.noscript = document.getElementById(csv.config.HTMLNoscriptElement) || document.getElementsByTagName('noscript')[0];
             csv.config.ptr = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('ptr'));
             csv.config.sur = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sur'));
             csv.config.sub = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sub'));
@@ -76,7 +76,7 @@ var ceres = {};
 
     let precursor = function()
     {
-        csr.ListContainerMarkup = 'Image list markup ' + ((csv.config.callbackList) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.HTMLSlideViewElement + ']:' + rsc.constant.newline;
+        csr.ListContainerMarkup = 'Image list markup ' + ((csv.config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.HTMLSlideViewElement + ']:' + rsc.constant.newline;
         csr.BodyContentList = 'The ' + csv.config.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
         csr.BodyContentListNotFound = 'Error: Unable to find the ' + csv.config.HTMLSlideViewElement + ' fallback noscript image list when searching the document body';
         csr.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.config.HTMLSlideViewElement + ']: ';
@@ -85,7 +85,7 @@ var ceres = {};
 
         Object.freeze(csr);
 
-        return (csv.config.callbackList || csv.config.listElement);
+        return (csv.config.callback || csv.config.noscript);
     }
 
     let isImageArray = function()
@@ -100,11 +100,11 @@ var ceres = {};
             {
                 rsc.inspect({ type: rsc.constant.notify, notification: csr.BodyContentList, logtrace: csv.config.trace });
 
-                const list = !rsc.isEmptyOrNull(csv.config.listElement) ? csv.config.listElement.textContent : null;
+                const list = !rsc.isEmptyOrNull(csv.config.noscript) ? csv.config.noscript.textContent : null;
                 return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.BodyContentListNotFound, logtrace: csv.config.trace });
             }
 
-            return (csv.config.callbackList) ? getConnectedCallbackList() : getBodyContentList();
+            return (csv.config.callback) ? getConnectedCallbackList() : getBodyContentList();
         }
 
         let imageList = getImageList();
