@@ -58,9 +58,9 @@ var ceres = {};
     {
         csv.config.progenitor = document.getElementById(csv.config.HTMLSlideViewElement) || document.getElementsByTagName(csv.config.HTMLSlideViewElement)[0];
 
-        const progenitor = !rsc.isEmptyOrNull(csv.config.progenitor);
+        const protean = !rsc.isEmptyOrNull(csv.config.progenitor);
 
-        if (progenitor)
+        if (protean)
         {
             csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
             csv.config.listElement = document.getElementById(csv.config.HTMLImageListElement) || document.getElementsByTagName('noscript')[0];
@@ -71,7 +71,7 @@ var ceres = {};
             csv.config.delay = Number.isInteger(parseInt(csv.config.progenitor.getAttribute('delay'))) ? parseInt(csv.config.progenitor.getAttribute('delay')) : 250;
         }
 
-        return progenitor;
+        return protean;
     }
 
     let precursor = function()
