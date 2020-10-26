@@ -38,16 +38,18 @@ var ceres = {};
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-    csv.config.node = -1;
+    csv.config.node = 0;
 
     const elements = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
-    if (!rsc.isEmptyOrNull(elements)) elements.forEach(node => { ++csv.config.node; slideView(); } );
+    if (!rsc.isEmptyOrNull(elements)) elements.forEach(slideView);
 
-    console.log('csv.config.node: ' + csv.config.node);
-
-    function slideView(el)
+    function slideView(el, index)
     {
+        csv.config.node = index;
+
+        console.log('csv.config.node: ' + csv.config.node);
+        
         window.customElements.get(csv.config.HTMLSlideViewElement) || window.customElements.define(csv.config.HTMLSlideViewElement, class extends HTMLElement
         {
             async connectedCallback()
