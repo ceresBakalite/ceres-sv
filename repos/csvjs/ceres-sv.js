@@ -234,8 +234,7 @@ var ceres = {};
 
     function activateSlideView()
     {
-        setSlideViewDisplay('none');
-        //csv.config.progenitor.style.display = 'none';
+        csv.config.progenitor.style.display = 'none';
 
         getSlideView();
         setSlide();
