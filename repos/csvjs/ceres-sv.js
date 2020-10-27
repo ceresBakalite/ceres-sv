@@ -11,7 +11,7 @@
 */
 export { ceres }
 
-import { resource as rsc } from './ceres-sv-lib.min.js'
+import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js'
 
 var ceres = {};
 (function()
@@ -50,11 +50,11 @@ var ceres = {};
         {
             async connectedCallback()
             {
-                const css = this.getAttribute('css') || csv.config.defaultCSS;
-                const src = this.getAttribute('src') || null;
+                csv.config.css = this.getAttribute('css') || csv.config.defaultCSS;
+                csv.config.src = this.getAttribute('src') || null;
 
-                if (csv.config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-                if (csv.config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+                if (csv.config.cssList = !rsc.isEmptyOrNull(csv.config.css)) await ( await fetchStylesheets(csv.config.css) );
+                if (csv.config.callback = !rsc.isEmptyOrNull(csv.config.src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(csv.config.src) ).text());
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -262,6 +262,7 @@ var ceres = {};
 
         getSlideView();
         setSlide();
+        setCache();
 
         setTimeout(function() { setSlideViewDisplay('block'); }, csv.config.delay);
     }
@@ -272,5 +273,18 @@ var ceres = {};
         const nodelist = document.querySelectorAll('img.slide, #' + csv.config.progenitor.id);
         nodelist.forEach(node => { node.style.display = attribute; } );
     }
+
+    function setCache()
+    {
+        const namedCache = csv.config.HTMLSlideViewElement + '-cache';
+
+        const urlArray = [
+            'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
+            'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
+        ];
+
+        if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray), JSON.stringify));
+    }
+
 
 }).call(window);

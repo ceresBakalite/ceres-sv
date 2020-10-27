@@ -193,3 +193,49 @@ var resource = {};
     }
 
 }).call(resource);
+
+var caching = {};
+(function(cache) {
+
+    'use strict';
+
+    this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+    {
+        window.addEventListener('install', function(e)
+        {
+            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
+        });
+
+        window.addEventListener('fetch', function(e)
+        {
+            e.respondWith(caches.match(e.request).then(function(response)
+            {
+                if (response !== undefined)
+                {
+                    return response;
+
+                } else {
+
+                    return fetch(e.request).then(function (response)
+                    {
+                        let responseClone = response.clone();
+
+                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+
+                        return response;
+
+                    }).catch(function () {
+
+                        return caches.match(urlImage);
+
+                    });
+
+                }
+
+            }));
+
+        });
+
+    }
+
+}).call(caching);
