@@ -21,7 +21,7 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    let csr = function() { return attribute; } // ceres slideview resource attributes
+    const csr = function() { return attribute; } // ceres slideview resource attributes
 
     let csv = new class // ceres slideview configuration attributes
     {
@@ -42,7 +42,7 @@ var ceres = {};
 
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
-    const slideView = function(el, index)
+    let slideView = function(el, index)
     {
         csv.config.node = index;
 
@@ -103,11 +103,11 @@ var ceres = {};
     {
         rsc.inspect({ type: rsc.constant.notify, notification: csr.CSVObjectAttributes + rsc.getObjectProperties(csv.config), logtrace: csv.config.trace });
 
-        let getImageList = function()
+        const getImageList = function()
         {
-            let getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(csv.config.progenitor.textContent)) ? csv.config.progenitor.textContent : null; }
+            const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(csv.config.progenitor.textContent)) ? csv.config.progenitor.textContent : null; }
 
-            let getBodyContentList = function()
+            const getBodyContentList = function()
             {
                 rsc.inspect({ type: rsc.constant.notify, notification: csr.BodyContentList, logtrace: csv.config.trace });
 
@@ -128,7 +128,7 @@ var ceres = {};
         return !rsc.isEmptyOrNull(csv.config.imageArray);
     }
 
-    let slideviewHasAttributes = function()
+    const slideviewHasAttributes = function()
     {
         if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ProgenitorNotFound, logtrace: csv.config.trace });
         if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ListContainerNotFound, logtrace: csv.config.trace });
