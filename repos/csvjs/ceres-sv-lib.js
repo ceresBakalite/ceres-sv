@@ -137,7 +137,8 @@ var resource = {};
 
     this.testDuplcates = function(obj, key)
     {
-        return [ar = new Map (obj.map(node => [key(node), node])).values()];
+        let ar = new Map;
+        return [ar = (obj.map(node => [key(node), node])).values()];
     }
 
     this.inspect = function(diagnostic)
