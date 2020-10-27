@@ -40,11 +40,9 @@ var ceres = {};
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
     csv.config.enabledCSS = [];
 
-    const elements = document.querySelectorAll(csv.config.HTMLSlideViewElement);
+    const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
-    if (!rsc.isEmptyOrNull(elements)) elements.forEach(slideView);
-
-    function slideView(el, index)
+    const slideView = function(el, index)
     {
         csv.config.node = index;
 
@@ -64,6 +62,8 @@ var ceres = {};
         });
 
     }
+
+    if (!rsc.isEmptyOrNull(el)) el.forEach(slideView);
 
     let progenitor = function()
     {
@@ -211,16 +211,18 @@ var ceres = {};
 
     }
 
-    function fetchStylesheets(arrayString)
+    function fetchStylesheets(str)
     {
-        const cssArray = csv.config.cssList ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const ar = csv.config.cssList ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
-        for (let item = 0; item < cssArray.length; item++)
+        const link = function(url, index)
         {
-            if (!csv.config.enabledCSS.includes(cssArray[item])) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], media: 'screen' });
+            if (!csv.config.enabledCSS.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
         }
 
-        csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(cssArray), JSON.stringify);
+        if (!rsc.isEmptyOrNull(ar)) ar.forEach(link);
+
+        csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(ar), JSON.stringify);
     }
 
     function setSlide(targetIndex)
