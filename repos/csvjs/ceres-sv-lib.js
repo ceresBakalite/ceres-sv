@@ -16,9 +16,9 @@ var resource = {};
 {
     'use strict';
 
-    let protean = function() { return attribute; }
-    let resource = function() { return attribute; }
-    let sbl = new Map();
+    const protean = function() { return attribute; }
+    const resource = function() { return attribute; }
+    const sbl = new Map();
 
     setPrecursors();
 
