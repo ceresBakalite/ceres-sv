@@ -225,12 +225,12 @@ var ceres = {};
     {
         const ar = csv.config.cssList ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
-        const link = function(url, index)
+        const setlink = function(url, index)
         {
             if (!csv.config.enabledCSS.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
         }
 
-        if (!rsc.isEmptyOrNull(ar)) ar.forEach(link);
+        if (!rsc.isEmptyOrNull(ar)) ar.forEach(setlink);
 
         csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(ar), JSON.stringify);
     }
