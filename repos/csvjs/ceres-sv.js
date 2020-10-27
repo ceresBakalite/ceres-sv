@@ -101,27 +101,27 @@ var ceres = {};
 
     const attributesExist = function()
     {
+        csv.config.imageArray = null;
+
         rsc.inspect({ type: rsc.constant.notify, notification: csr.CSVObjectAttributes + rsc.getObjectProperties(csv.config), logtrace: csv.config.trace });
+
+        const getImageList = function()
+        {
+            const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(csv.config.progenitor.textContent)) ? csv.config.progenitor.textContent : null; }
+
+            const getBodyContentList = function()
+            {
+                rsc.inspect({ type: rsc.constant.notify, notification: csr.BodyContentList, logtrace: csv.config.trace });
+
+                const list = !rsc.isEmptyOrNull(csv.config.HTMLScriptElement) ? csv.config.HTMLScriptElement.textContent : null;
+                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.BodyContentListNotFound, logtrace: csv.config.trace });
+            }
+
+            return (csv.config.callback) ? getConnectedCallbackList() : getBodyContentList();
+        }
 
         const isImageArray = function()
         {
-            csv.config.imageArray = null;
-
-            const getImageList = function()
-            {
-                const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(csv.config.progenitor.textContent)) ? csv.config.progenitor.textContent : null; }
-
-                const getBodyContentList = function()
-                {
-                    rsc.inspect({ type: rsc.constant.notify, notification: csr.BodyContentList, logtrace: csv.config.trace });
-
-                    const list = !rsc.isEmptyOrNull(csv.config.HTMLScriptElement) ? csv.config.HTMLScriptElement.textContent : null;
-                    return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.BodyContentListNotFound, logtrace: csv.config.trace });
-                }
-
-                return (csv.config.callback) ? getConnectedCallbackList() : getBodyContentList();
-            }
-
             let imageList = getImageList();
 
             if (!rsc.isEmptyOrNull(imageList))
