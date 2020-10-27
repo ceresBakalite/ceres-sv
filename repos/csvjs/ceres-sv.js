@@ -214,7 +214,7 @@ var ceres = {};
     {
         const cssArray = csv.config.cssList ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
-        csv.config.enabledCSS = rsc.removeArrayDuplcates(csv.config.enabledCSS.concat(cssArray));
+        csv.config.enabledCSS = rsc.removeArrayDuplcates(csv.config.enabledCSS.concat(cssArray), JSON.stringify);
 
         console.log('csv.config.enabledCSS: ' + csv.config.enabledCSS);
 
