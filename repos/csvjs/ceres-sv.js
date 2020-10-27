@@ -217,8 +217,6 @@ var ceres = {};
 
         csv.config.enabledCSS = rsc.removeArrayDuplcates(csv.config.enabledCSS.concat(cssArray), JSON.stringify);
 
-        console.log('csv.config.enabledCSS: ' + csv.config.enabledCSS);
-
         for (let item = 0; item < cssArray.length; item++)
         {
             rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], media: 'screen' });
