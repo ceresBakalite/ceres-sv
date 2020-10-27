@@ -99,14 +99,14 @@ var ceres = {};
         return (csv.config.callback || csv.config.HTMLScriptElement);
     }
 
-    const isImageArray = function()
+    const attributesExist = function()
     {
         rsc.inspect({ type: rsc.constant.notify, notification: csr.CSVObjectAttributes + rsc.getObjectProperties(csv.config), logtrace: csv.config.trace });
 
-        const getImageArray = function()
+        const isImageArray = function()
         {
             csv.config.imageArray = null;
-            
+
             const getImageList = function()
             {
                 const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(csv.config.progenitor.textContent)) ? csv.config.progenitor.textContent : null; }
@@ -135,7 +135,7 @@ var ceres = {};
             return !rsc.isEmptyOrNull(csv.config.imageArray);
         }
 
-        return getImageArray();
+        return isImageArray();
     }
 
     const slideviewHasAttributes = function()
@@ -143,7 +143,7 @@ var ceres = {};
         if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ProgenitorNotFound, logtrace: csv.config.trace });
         if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ListContainerNotFound, logtrace: csv.config.trace });
 
-        return isImageArray();
+        return attributesExist();
     }
 
     function getSlideView()
