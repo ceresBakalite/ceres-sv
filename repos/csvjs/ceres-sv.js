@@ -216,7 +216,7 @@ var ceres = {};
 
         for (let item = 0; item < cssArray.length; item++)
         {
-            rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], as: 'style' });
+            rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], media: 'screen' });
         }
 
     }
