@@ -234,8 +234,8 @@ var ceres = {};
 
         csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(ar), JSON.stringify);
 
-        let ar1 = [1, 2, 3];
-        let ar2 = [2, 6, 5, 3, 4, 5];
+        let ar1 = [1, '2', 3];
+        let ar2 = [2, '6', 5, '3', 4, '5'];
 
         console.log(rsc.removeDuplcates(ar1.concat(ar2), JSON.stringify));
         console.log(rsc.removeDuplcates(ar1.concat(ar2), JSON.stringify, true));
