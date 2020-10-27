@@ -144,10 +144,10 @@ var resource = {};
             [protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + protean.newline + protean.newline + diagnostic.reference); },
             [protean.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
             [protean.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-            [protean.default]: resource.errordefault
+            [protean.default]: function() { if (diagnostic.logtrace) console.log(resource.errordefault); }
         };
 
-        return (lookup[diagnostic.type]() || lookup[protean.default]);
+        return (lookup[diagnostic.type]() || lookup[protean.default])();
     }
 
     this.errorHandler = function(error)
