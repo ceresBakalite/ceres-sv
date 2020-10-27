@@ -130,6 +130,16 @@ var resource = {};
         return el;
     }
 
+    this.removeArrayDuplcates = function(obj, key) 
+    {
+        return [
+            ...new Map
+            (
+                obj.map(x => [key(x), x])
+            ).values()
+        ]
+    }
+
     this.inspect = function(diagnostic)
     {
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: protean.error, notification: resource.inspect });

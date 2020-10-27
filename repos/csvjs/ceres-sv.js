@@ -214,6 +214,10 @@ var ceres = {};
     {
         const cssArray = csv.config.cssList ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
+        csv.config.enabledCSS = rsc.removeArrayDuplcates(csv.config.enabledCSS.concat(cssArray));
+
+        console.log('csv.config.enabledCSS: ' + csv.config.enabledCSS);
+
         for (let item = 0; item < cssArray.length; item++)
         {
             rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], media: 'screen' });
