@@ -144,10 +144,10 @@ var resource = {};
             [protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + protean.newline + protean.newline + diagnostic.reference); },
             [protean.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
             [protean.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-            'default': 'An unexpected error has occurred...'
+            [protean.default]: resource.errordefault
         };
 
-        return (lookup[diagnostic.type]() || lookup['default']);
+        return (lookup[diagnostic.type]() || lookup[protean.default]);
     }
 
     this.errorHandler = function(error)
@@ -175,10 +175,10 @@ var resource = {};
         sbl.set('yes', true);
         sbl.set('y', true);
         sbl.set('1', true);
-        sbl.set('default', false);
 
         protean.reference = 1;
         protean.notify = 2;
+        protean.default = 98;
         protean.error = 99;
         protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         protean.newline = protean.isWindows ? '\r\n' : '\n';
@@ -187,6 +187,7 @@ var resource = {};
 
         resource.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
+        resource.errordefault = 'An unexpected error has occurred...';
 
         Object.freeze(resource);
     }
