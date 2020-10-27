@@ -215,13 +215,12 @@ var ceres = {};
     {
         const cssArray = csv.config.cssList ? arrayString.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
-        csv.config.enabledCSS = rsc.removeArrayDuplcates(csv.config.enabledCSS.concat(cssArray), JSON.stringify);
-
         for (let item = 0; item < cssArray.length; item++)
         {
-            rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], media: 'screen' });
+            if (!csv.config.enabledCSS.includes(cssArray[item])) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], media: 'screen' });
         }
 
+        csv.config.enabledCSS = rsc.removeArrayDuplcates(csv.config.enabledCSS.concat(cssArray), JSON.stringify);
     }
 
     function setSlide(targetIndex)
