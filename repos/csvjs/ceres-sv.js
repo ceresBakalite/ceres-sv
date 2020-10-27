@@ -233,6 +233,13 @@ var ceres = {};
         if (!rsc.isEmptyOrNull(ar)) ar.forEach(link);
 
         csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(ar), JSON.stringify);
+
+        let ar1 = [1, 2, 3];
+        let ar2 = [2, 4, 5, 6];
+
+        console.log(rsc.removeDuplcates(ar1.concat(ar2), JSON.stringify));
+        console.log(rsc.testDuplcates(ar1.concat(ar2), JSON.stringify));
+
     }
 
     function setSlide(targetIndex)

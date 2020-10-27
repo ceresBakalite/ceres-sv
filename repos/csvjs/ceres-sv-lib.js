@@ -135,6 +135,11 @@ var resource = {};
         return [...new Map (obj.map(node => [key(node), node])).values()];
     }
 
+    this.testDuplcates = function(obj, key)
+    {
+        return [ar = new Map (obj.map(node => [key(node), node])).values()];
+    }
+
     this.inspect = function(diagnostic)
     {
         if (this.isEmptyOrNull(diagnostic)) return this.inspect({ type: protean.error, notification: resource.inspect });
