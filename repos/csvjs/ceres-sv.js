@@ -23,7 +23,7 @@ var ceres = {};
 
     const csr = function() { return attribute; } // ceres slideview resource attributes
 
-    let csv = new class // ceres slideview configuration attributes
+    const csv = new class // ceres slideview configuration attributes
     {
         constructor()
         {
