@@ -38,6 +38,7 @@ var ceres = {};
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+    csv.config.enabledCSS = [];
 
     const elements = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
