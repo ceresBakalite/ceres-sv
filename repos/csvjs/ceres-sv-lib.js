@@ -132,12 +132,7 @@ var resource = {};
 
     this.removeDuplcates = function(obj, key)
     {
-        return [
-            ...new Map
-            (
-                obj.map(x => [key(x), x])
-            ).values()
-        ]
+        return [...new Map (obj.map(x => [key(x), x])).values()]
     }
 
     this.inspect = function(diagnostic)
