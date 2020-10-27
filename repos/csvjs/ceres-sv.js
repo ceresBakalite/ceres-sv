@@ -220,7 +220,7 @@ var ceres = {};
             if (!csv.config.enabledCSS.includes(cssArray[item])) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: cssArray[item], media: 'screen' });
         }
 
-        csv.config.enabledCSS = rsc.removeArrayDuplcates(csv.config.enabledCSS.concat(cssArray), JSON.stringify);
+        csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(cssArray), JSON.stringify);
     }
 
     function setSlide(targetIndex)

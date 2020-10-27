@@ -130,7 +130,7 @@ var resource = {};
         return el;
     }
 
-    this.removeArrayDuplcates = function(obj, key) 
+    this.removeDuplcates = function(obj, key)
     {
         return [
             ...new Map
