@@ -238,6 +238,7 @@ var ceres = {};
         let ar2 = [2, 6, 5, 3, 4, 5];
 
         console.log(rsc.removeDuplcates(ar1.concat(ar2), JSON.stringify));
+        console.log(rsc.removeDuplcates(ar1.concat(ar2), JSON.stringify, true));
     }
 
     function setSlide(targetIndex)

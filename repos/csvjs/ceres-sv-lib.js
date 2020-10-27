@@ -130,9 +130,10 @@ var resource = {};
         return el;
     }
 
-    this.removeDuplcates = function(obj, key)
+    this.removeDuplcates = function(obj, key, sort)
     {
-        return [...new Map (obj.map(node => [key(node), node])).values()];
+        let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+        return sort ? ar.sort((a, b) => a - b) : ar;
     }
 
     this.inspect = function(diagnostic)
