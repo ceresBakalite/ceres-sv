@@ -18,7 +18,7 @@ var resource = {};
 
     const protean = function() { return attribute; }
     const resource = function() { return attribute; }
-    const sbl = new Map();
+    const symbol = new Map();
 
     setPrecursors();
 
@@ -117,7 +117,7 @@ var resource = {};
 
         const token = attribute.trim().toLocaleLowerCase(locale);
 
-        return sbl.get(token) || false;
+        return symbol.get(token) || false;
     }
 
     this.getUniqueElementId = function(str = null, range = 100)
@@ -170,11 +170,11 @@ var resource = {};
 
     function setPrecursors()
     {
-        sbl.set('true', true);
-        sbl.set('t', true);
-        sbl.set('yes', true);
-        sbl.set('y', true);
-        sbl.set('1', true);
+        symbol.set('true', true);
+        symbol.set('t', true);
+        symbol.set('yes', true);
+        symbol.set('y', true);
+        symbol.set('1', true);
 
         protean.reference = 1;
         protean.notify = 2;
