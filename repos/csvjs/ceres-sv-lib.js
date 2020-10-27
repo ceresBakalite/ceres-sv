@@ -144,7 +144,7 @@ var resource = {};
             [protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + protean.newline + protean.newline + diagnostic.reference); },
             [protean.notify]: function() { if (diagnostic.logtrace) console.log(diagnostic.notification); },
             [protean.error]: function() { this.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-            [protean.default]: function() { if (diagnostic.logtrace) console.log(resource.errordefault); }
+            [protean.default]: function() { this.errorHandler({ notification: resource.errordefault, alert: diagnostic.logtrace } ); }
         };
 
         return (lookup[diagnostic.type]() || lookup[protean.default])();
@@ -187,7 +187,7 @@ var resource = {};
 
         resource.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
         resource.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
-        resource.errordefault = 'An unexpected error has occurred...';
+        resource.errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
 
         Object.freeze(resource);
     }
