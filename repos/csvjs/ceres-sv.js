@@ -287,10 +287,9 @@ var ceres = {};
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
 
         const script = document.getElementsByTagName("script"), src = script[script.length-1].src;
-        
+
         console.log('scriptsrc: ' + src);
         console.log('scriptSource: ' + scriptSource());
-        console.log('rsc scriptSource: ' + rsc.scriptSource());
 
         const urlArray = [
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
