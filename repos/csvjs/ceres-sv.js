@@ -286,15 +286,11 @@ var ceres = {};
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
         ];
 
-        csv.config.enabledCSS.forEach(url => console.log(url));
-
-        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray));
+        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray)));
 
         ar.forEach(url => console.log(url));
 
-        csv.config.enabledSRC.forEach(url => console.log(url));
-
-        if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray)));
+        if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray))));
     }
 
 
