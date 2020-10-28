@@ -286,10 +286,11 @@ var ceres = {};
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
         ];
 
-        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(rsc.removeDuplcates(csv.config.enabledSRC.concat(urlArray))));
+        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray));
 
         ar.forEach(url => console.log(url));
 
+        console.log(csv.config.enabledSRC);
 
         if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(ar, JSON.stringify));
     }
