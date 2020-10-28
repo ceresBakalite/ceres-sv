@@ -33,7 +33,7 @@ var ceres = {};
 
     }
 
-    //Object.seal(csv);
+    Object.seal(csv);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
