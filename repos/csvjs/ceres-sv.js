@@ -41,6 +41,10 @@ var ceres = {};
     csv.config.enabledCSS = [];
     csv.config.enabledSRC = [];
 
+    csv.config.importScript = import.meta;
+
+    console.log('csv.config.importScript: ' + csv.config.importScript);
+
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
     const slideView = function(el, index)
@@ -286,7 +290,7 @@ var ceres = {};
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
         ];
 
-        const ar = document.querySelectorAll('script.src');
+        const ar = document.querySelectorAll('script');
 
         //let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray)));
 
