@@ -184,6 +184,7 @@ var resource = {};
         protean.error = 99;
         protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         protean.newline = protean.isWindows ? '\r\n' : '\n';
+        protean.libraryName = import.meta.url;
 
         Object.freeze(protean);
 

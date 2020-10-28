@@ -12,7 +12,6 @@
 export { ceres };
 
 import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js';
-console.log(import.meta);
 
 var ceres = {};
 (function()
@@ -33,9 +32,6 @@ var ceres = {};
         }
 
     }
-
-    console.log('url: ' + import.meta.url);
-    console.log(import.meta);
 
     Object.seal(csv);
 
@@ -285,7 +281,7 @@ var ceres = {};
     {
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
 
-        const urlArray = [ import.meta.url ];
+        const urlArray = [ import.meta.url, rsc.constant.libraryName ];
 
         //'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
 
