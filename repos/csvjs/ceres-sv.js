@@ -287,6 +287,8 @@ var ceres = {};
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
         ];
 
+        console.log(import.meta);
+
         //const ar = document.querySelectorAll('script');
 
         //let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray)));
