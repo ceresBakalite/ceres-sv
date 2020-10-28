@@ -281,18 +281,15 @@ var ceres = {};
     {
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
 
-        const urlArray = [
-            'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
-            'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
-        ];
+        const urlArray = [ import.meta.url ];
 
-        console.log(import.meta.url);
+        //'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
 
         //const ar = document.querySelectorAll('script');
 
-        //let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray)));
+        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray)));
 
-        //ar.forEach(url => console.log(url));
+        ar.forEach(url => console.log(url));
 
         if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray))));
     }
