@@ -39,7 +39,7 @@ var ceres = {};
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
     csv.config.enabledCSS = [];
-    csv.config.enabledSRC = [];
+//    csv.config.enabledSRC = [];
 
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
@@ -57,7 +57,7 @@ var ceres = {};
                 if (csv.config.cssList = !rsc.isEmptyOrNull(csv.config.css)) await ( await fetchStylesheets(csv.config.css) );
                 if (csv.config.callback = !rsc.isEmptyOrNull(csv.config.src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(csv.config.src) ).text());
 
-                csv.config.enabledSRC = rsc.removeDuplcates(csv.config.enabledSRC.concat(csv.config.src), JSON.stringify);
+//                csv.config.enabledSRC = rsc.removeDuplcates(csv.config.enabledSRC.concat(csv.config.src), JSON.stringify);
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -286,11 +286,13 @@ var ceres = {};
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
         ];
 
+        csv.config.enabledCSS.forEach(url => console.log(url));
+
         let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray));
 
         ar.forEach(url => console.log(url));
 
-        console.log('csv.config.enabledSRC: ' + csv.config.enabledSRC);
+//        csv.config.enabledSRC.forEach(url => console.log(url));
 
         if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray), JSON.stringify));
     }
