@@ -26,6 +26,7 @@ var resource = {};
 
     Object.freeze(this.constant);
 
+    this.importMetaUrl = function() { return import.meta.url; }
     this.windowOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
     this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
     this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
@@ -184,7 +185,6 @@ var resource = {};
         protean.error = 99;
         protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         protean.newline = protean.isWindows ? '\r\n' : '\n';
-        protean.libraryName = import.meta.url;
 
         Object.freeze(protean);
 

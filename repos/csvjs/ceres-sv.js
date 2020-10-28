@@ -282,7 +282,9 @@ var ceres = {};
     function setCache()
     {
         const cacheName = csv.config.HTMLSlideViewElement + '-cache';
-        const scriptCache = [ import.meta.url, rsc.constant.libraryName ];
+        const scriptCache = [ import.meta.url, rsc.importMetaUrl ];
+
+        console.log('rsc.importMetaUrl: ' + rsc.importMetaUrl);
 
         ca.installCache(cacheName, rsc.removeDuplcates(csv.config.cssCache.concat(csv.config.srcCache.concat(scriptCache))));
     }
