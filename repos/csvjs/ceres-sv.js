@@ -42,7 +42,7 @@ var ceres = {};
     csv.config.enabledCSS = [];
     csv.config.enabledSRC = [];
 
-    console.log(import.meta.url);
+    console.log(import.meta);
 
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
@@ -289,11 +289,11 @@ var ceres = {};
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
         ];
 
-        const ar = document.querySelectorAll('script');
+        //const ar = document.querySelectorAll('script');
 
         //let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray)));
 
-        ar.forEach(url => console.log(url));
+        //ar.forEach(url => console.log(url));
 
         if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray))));
     }
