@@ -9,9 +9,9 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-export { ceres }
+export { ceres };
 
-import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js'
+import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js';
 import { cookies } from 'https://ceresbakalite.github.io/similarity/repos/mods/cereslibrary.min.js';
 
 var ceres = {};
@@ -41,8 +41,6 @@ var ceres = {};
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
     csv.config.enabledCSS = [];
     csv.config.enabledSRC = [];
-
-    console.log(import.meta);
 
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
