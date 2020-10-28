@@ -274,14 +274,6 @@ var ceres = {};
         nodelist.forEach(node => { node.style.display = attribute; } );
     }
 
-    const scriptSource = (function(scripts)
-    {
-        scripts = document.getElementsByTagName('script'), script = scripts[scripts.length - 1];
-        if (!rsc.isEmptyOrNull(script.getAttribute.length)) return script.src;
-
-        return script.getAttribute('src', -1)
-    }());
-
     function setCache()
     {
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
@@ -289,7 +281,7 @@ var ceres = {};
         const script = document.getElementsByTagName("script"), src = script[script.length-1].src;
 
         console.log('scriptsrc: ' + src);
-        console.log('scriptSource: ' + scriptSource());
+        console.log('document.currentScript: ' + document.currentScript);
 
         const urlArray = [
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
