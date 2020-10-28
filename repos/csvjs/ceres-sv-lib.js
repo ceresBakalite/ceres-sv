@@ -132,8 +132,13 @@ var resource = {};
 
     this.removeDuplcates = function(obj, key, sort)
     {
-        let ar = [...new Map (obj.map(node => [key(node), node])).values()];
-        return sort ? ar.sort((a, b) => a - b) : ar;
+        if (!this.isEmptyOrNull(obj))
+        {
+            let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+            return sort ? ar.sort((a, b) => a - b) : ar;
+        }
+
+        return null;
     }
 
     this.inspect = function(diagnostic)
