@@ -41,9 +41,7 @@ var ceres = {};
     csv.config.enabledCSS = [];
     csv.config.enabledSRC = [];
 
-    csv.config.importScript = import.meta;
-
-    console.log('csv.config.importScript: ' + csv.config.importScript);
+    console.log('csv.config.importScript: ' + import.meta);
 
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
