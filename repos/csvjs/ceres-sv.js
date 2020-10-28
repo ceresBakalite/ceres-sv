@@ -9,7 +9,7 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-const script = document.getElementsByTagName("script"), src = script[script.length-1].src;
+const script = document.getElementsByTagName("script"), xxx = script[script.length-1].src;
 
 export { ceres }
 
@@ -37,9 +37,9 @@ var ceres = {};
 
     Object.seal(csv);
 
-    csv.config.src = src;
+    csv.config.src = xxx;
 
-    console.log('src: ' + src);
+    console.log('xxx: ' + xxx);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
