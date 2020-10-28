@@ -280,18 +280,9 @@ var ceres = {};
     function setCache()
     {
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
-
         const urlArray = [ import.meta.url, rsc.constant.libraryName ];
 
-        //'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
-
-        //const ar = document.querySelectorAll('script');
-
-        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray)));
-
-        ar.forEach(url => console.log(url));
-
-        if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray))));
+        ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(urlArray))));
     }
 
 

@@ -204,40 +204,44 @@ var caching = {};
 
     this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
     {
-        window.addEventListener('install', function(e)
+        if ('caches' in window)
         {
-            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
-        });
-
-        window.addEventListener('fetch', function(e)
-        {
-            e.respondWith(caches.match(e.request).then(function(response)
+            window.addEventListener('install', function(e)
             {
-                if (response !== undefined)
+                e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
+            });
+
+            window.addEventListener('fetch', function(e)
+            {
+                e.respondWith(caches.match(e.request).then(function(response)
                 {
-                    return response;
-
-                } else {
-
-                    return fetch(e.request).then(function (response)
+                    if (response !== undefined)
                     {
-                        let responseClone = response.clone();
-
-                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-
                         return response;
 
-                    }).catch(function () {
+                    } else {
 
-                        return caches.match(urlImage);
+                        return fetch(e.request).then(function (response)
+                        {
+                            let responseClone = response.clone();
 
-                    });
+                            caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
 
-                }
+                            return response;
 
-            }));
+                        }).catch(function () {
 
-        });
+                            return caches.match(urlImage);
+
+                        });
+
+                    }
+
+                }));
+
+            });
+
+        }
 
     }
 
