@@ -11,7 +11,7 @@
 */
 export { ceres }
 
-import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js'
+import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js';
 
 var ceres = {};
 (function()
