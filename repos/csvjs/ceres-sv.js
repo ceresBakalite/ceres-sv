@@ -33,6 +33,9 @@ var ceres = {};
 
     }
 
+    console.log('url: ' + import.meta.url);
+    console.log(import.meta);
+
     Object.seal(csv);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
