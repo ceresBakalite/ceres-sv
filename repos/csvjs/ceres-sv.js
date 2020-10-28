@@ -281,6 +281,8 @@ var ceres = {};
 
     function setCache()
     {
+        const XXXX = csv.config.HTMLSlideViewElement + '-cache';
+
         const cacheName = csv.config.HTMLSlideViewElement + '-cache';
         const scriptCache = [ import.meta.url, rsc.getImportMetaUrl() ];
 

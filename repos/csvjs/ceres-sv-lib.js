@@ -16,6 +16,7 @@ var resource = {};
 {
     'use strict';
 
+    const XXXX = function() { return attribute; }
     const protean = function() { return attribute; }
     const resource = function() { return attribute; }
     const symbol = new Map();
