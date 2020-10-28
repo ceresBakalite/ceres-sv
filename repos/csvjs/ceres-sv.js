@@ -12,6 +12,7 @@
 export { ceres }
 
 import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js'
+import { cookies } from 'https://ceresbakalite.github.io/similarity/repos/mods/cereslibrary.min.js';
 
 var ceres = {};
 (function()
@@ -41,7 +42,7 @@ var ceres = {};
     csv.config.enabledCSS = [];
     csv.config.enabledSRC = [];
 
-    console.log(import.meta);
+    console.log(import.meta.url);
 
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
