@@ -57,7 +57,7 @@ var ceres = {};
                 if (csv.config.cssList = !rsc.isEmptyOrNull(csv.config.css)) await ( await fetchStylesheets(csv.config.css) );
                 if (csv.config.callback = !rsc.isEmptyOrNull(csv.config.src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(csv.config.src) ).text());
 
-                csv.config.enabledSRC = rsc.removeDuplcates(csv.config.enabledSRC.concat(csv.config.src), JSON.stringify);
+                csv.config.enabledSRC = rsc.removeDuplcates(csv.config.enabledSRC.concat(csv.config.src));
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -235,7 +235,7 @@ var ceres = {};
 
         if (!rsc.isEmptyOrNull(ar)) ar.forEach(setlink);
 
-        csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(ar), JSON.stringify);
+        csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(ar));
     }
 
     function setSlide(targetIndex)
@@ -288,13 +288,13 @@ var ceres = {};
 
         csv.config.enabledCSS.forEach(url => console.log(url));
 
-        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray), JSON.stringify);
+        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray));
 
         ar.forEach(url => console.log(url));
 
         csv.config.enabledSRC.forEach(url => console.log(url));
 
-        if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray), JSON.stringify));
+        if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray)));
     }
 
 

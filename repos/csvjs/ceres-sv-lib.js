@@ -130,9 +130,11 @@ var resource = {};
         return el;
     }
 
-    this.removeDuplcates = function(obj, key, sort)
+    this.removeDuplcates = function(obj, sort)
     {
+        const key = JSON.stringify;
         let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+
         return sort ? ar.sort((a, b) => a - b) : ar;
     }
 
