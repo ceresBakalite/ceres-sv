@@ -35,6 +35,12 @@ var ceres = {};
 
     Object.seal(csv);
 
+    let script = document.getElementsByTagName("script"), src = script[script.length-1].src;
+    csv.config.src = src;
+
+    console.log('src: ' + src);
+    console.log('document.currentScript: ' + document.currentScript);
+
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
@@ -278,9 +284,7 @@ var ceres = {};
     {
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
 
-        const script = document.getElementsByTagName("script"), src = script[script.length-1].src;
-
-        console.log('scriptsrc: ' + src);
+        console.log('csv.config.src: ' + csv.config.src);
         console.log('document.currentScript: ' + document.currentScript);
 
         const urlArray = [
