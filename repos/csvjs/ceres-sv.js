@@ -9,10 +9,6 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-var scripts = document.getElementsByTagName('script');
-var lastScript = scripts[scripts.length-1];
-var scriptName = lastScript.src;
-
 export { ceres }
 
 import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js'
@@ -38,10 +34,6 @@ var ceres = {};
     }
 
     Object.seal(csv);
-
-    csv.config.scripturl = scriptName;
-
-    console.log('scriptName: ' + scriptName);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
@@ -289,14 +281,17 @@ var ceres = {};
     {
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
 
-        console.log('csv.config.scripturl: ' + csv.config.scripturl);
-
         const urlArray = [
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.lib.min.js'
         ];
 
-        if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(urlArray), JSON.stringify));
+        let ar = rsc.removeDuplcates(csv.config.enabledCSS.concat(rsc.removeDuplcates(csv.config.enabledRSC.concat(urlArray))));
+
+        ar.forEach(url => console.log(url));
+
+
+        if ('caches' in window) ca.installCache(namedCache, rsc.removeDuplcates(ar, JSON.stringify));
     }
 
 
