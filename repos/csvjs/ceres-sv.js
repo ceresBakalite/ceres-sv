@@ -39,7 +39,7 @@ var ceres = {};
 
     Object.seal(csv);
 
-    csv.config.src = scriptName;
+    csv.config.scripturl = scriptName;
 
     console.log('scriptName: ' + scriptName);
 
@@ -286,7 +286,7 @@ var ceres = {};
     {
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
 
-        console.log('csv.config.src: ' + csv.config.src);
+        console.log('csv.config.scripturl: ' + csv.config.scripturl);
 
         const urlArray = [
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
