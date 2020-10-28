@@ -18,7 +18,6 @@ var ceres = {};
 {
     'use strict';
 
-    this.XXXX = 3;
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
