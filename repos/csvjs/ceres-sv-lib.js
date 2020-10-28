@@ -206,6 +206,8 @@ var caching = {};
     {
         if (!'caches' in window) return;
 
+        console.log('hello from cache');
+
         window.addEventListener('install', function(e)
         {
             e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
