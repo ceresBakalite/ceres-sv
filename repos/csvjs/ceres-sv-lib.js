@@ -168,6 +168,14 @@ var resource = {};
         return str.replace(/, +$/g,'');
     }
 
+    this.scriptSource = (function(scripts)
+    {
+        scripts = document.getElementsByTagName('script'), script = scripts[scripts.length - 1];
+        if (!rsc.isEmptyOrNull(script.getAttribute.length)) return script.src;
+
+        return script.getAttribute('src', -1)
+    }());
+
     function setPrecursors()
     {
         symbol.set('true', true);
