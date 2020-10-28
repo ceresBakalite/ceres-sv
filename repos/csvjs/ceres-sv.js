@@ -266,9 +266,10 @@ var ceres = {};
 
         getSlideView();
         setSlide();
-        setCache();
 
         setTimeout(function() { setSlideViewDisplay('block'); }, csv.config.delay);
+
+        if (csv.config.cache) setCache();
     }
 
 
@@ -280,13 +281,9 @@ var ceres = {};
 
     function setCache()
     {
-        if (!csv.config.cache) return;
-
         const cacheName = csv.config.HTMLSlideViewElement + '-cache';
         const scriptCache = [ import.meta.url, rsc.constant.libraryName ];
 
-        scriptCache.forEach(node => console.log(node));
-        
         ca.installCache(cacheName, rsc.removeDuplcates(csv.config.cssCache.concat(csv.config.srcCache.concat(scriptCache))));
     }
 
