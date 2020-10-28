@@ -9,7 +9,7 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-export { ceres }
+export { ceres };
 
 import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js';
 
@@ -21,9 +21,9 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    const csr = function() { return attribute; } // ceres slideview resource attributes
+    let csr = function() { return attribute; } // ceres slideview resource attributes
 
-    const csv = new class // ceres slideview configuration attributes
+    let csv = new class // ceres slideview configuration attributes
     {
         constructor()
         {
@@ -43,7 +43,7 @@ var ceres = {};
 
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
-    const slideView = function(el, index)
+    let slideView = function(el, index)
     {
         csv.config.node = index;
 
@@ -68,7 +68,7 @@ var ceres = {};
 
     if (!rsc.isEmptyOrNull(el)) el.forEach(slideView);
 
-    const progenitor = function()
+    let progenitor = function()
     {
         csv.config.progenitor = document.getElementById(csv.config.HTMLSlideViewElement) || document.getElementsByTagName(csv.config.HTMLSlideViewElement)[csv.config.node];
 
@@ -89,7 +89,7 @@ var ceres = {};
         return protean;
     }
 
-    const precursor = function()
+    let precursor = function()
     {
         csr.ListContainerMarkup = 'Image list markup ' + ((csv.config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.HTMLSlideViewElement + ']:' + rsc.constant.newline;
         csr.BodyContentList = 'The ' + csv.config.HTMLSlideViewElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
@@ -100,10 +100,10 @@ var ceres = {};
 
         Object.freeze(csr);
 
-        return (csv.config.callback || csv.config.HTMLScriptElement);
+        return csv.config.callback || csv.config.HTMLScriptElement;
     }
 
-    const attributesExist = function()
+    let attributesExist = function()
     {
         csv.config.imageArray = null;
 
@@ -121,7 +121,7 @@ var ceres = {};
                 return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.BodyContentListNotFound, logtrace: csv.config.trace });
             }
 
-            return (csv.config.callback) ? getConnectedCallbackList() : getBodyContentList();
+            return csv.config.callback ? getConnectedCallbackList() : getBodyContentList();
         }
 
         const isImageArray = function()
@@ -142,7 +142,7 @@ var ceres = {};
         return isImageArray();
     }
 
-    const slideviewHasAttributes = function()
+    let slideviewHasAttributes = function()
     {
         if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ProgenitorNotFound, logtrace: csv.config.trace });
         if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ListContainerNotFound, logtrace: csv.config.trace });
@@ -152,10 +152,10 @@ var ceres = {};
 
     function getSlideView()
     {
-        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-        const getSurtitle = function() { return (csv.config.sur) ? imageIndex + ' / ' + csv.config.imageArray.length : null; }
-        const getSubtitle = function() { return (csv.config.sub) ? getAccessibilityText() : null; }
-        const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
+        let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
+        let getSurtitle = function() { return (csv.config.sur) ? imageIndex + ' / ' + csv.config.imageArray.length : null; }
+        let getSubtitle = function() { return (csv.config.sub) ? getAccessibilityText() : null; }
+        let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
         rsc.clearElement(csv.config.progenitor);
 
