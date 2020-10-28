@@ -204,44 +204,42 @@ var caching = {};
 
     this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
     {
-        if ('caches' in window)
-        {
-            window.addEventListener('install', function(e)
-            {
-                e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
-            });
+        if (!'caches' in window) return;
 
-            window.addEventListener('fetch', function(e)
+        window.addEventListener('install', function(e)
+        {
+            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
+        });
+
+        window.addEventListener('fetch', function(e)
+        {
+            e.respondWith(caches.match(e.request).then(function(response)
             {
-                e.respondWith(caches.match(e.request).then(function(response)
+                if (response !== undefined)
                 {
-                    if (response !== undefined)
+                    return response;
+
+                } else {
+
+                    return fetch(e.request).then(function (response)
                     {
+                        let responseClone = response.clone();
+
+                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+
                         return response;
 
-                    } else {
+                    }).catch(function () {
 
-                        return fetch(e.request).then(function (response)
-                        {
-                            let responseClone = response.clone();
+                        return caches.match(urlImage);
 
-                            caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+                    });
 
-                            return response;
+                }
 
-                        }).catch(function () {
+            }));
 
-                            return caches.match(urlImage);
-
-                        });
-
-                    }
-
-                }));
-
-            });
-
-        }
+        });
 
     }
 
