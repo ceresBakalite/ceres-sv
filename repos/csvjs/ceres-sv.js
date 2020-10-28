@@ -9,6 +9,8 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
+const script = document.getElementsByTagName("script"), src = script[script.length-1].src;
+
 export { ceres }
 
 import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js'
@@ -35,11 +37,9 @@ var ceres = {};
 
     Object.seal(csv);
 
-    let script = document.getElementsByTagName("script"), src = script[script.length-1].src;
     csv.config.src = src;
 
     console.log('src: ' + src);
-    console.log('document.currentScript: ' + document.currentScript);
 
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
@@ -285,7 +285,6 @@ var ceres = {};
         const namedCache = csv.config.HTMLSlideViewElement + '-cache';
 
         console.log('csv.config.src: ' + csv.config.src);
-        console.log('document.currentScript: ' + document.currentScript);
 
         const urlArray = [
             'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js',
