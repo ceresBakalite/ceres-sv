@@ -26,7 +26,7 @@ var resource = {};
 
     Object.freeze(this.constant);
 
-    this.importMetaUrl = function() { return import.meta.url; }
+    this.metaUrl = function() { return import.meta.url; }
     this.windowOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
     this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
     this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
