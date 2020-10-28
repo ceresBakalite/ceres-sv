@@ -38,8 +38,8 @@ var ceres = {};
     csv.config.HTMLSlideViewElement = 'ceres-sv'; // required element name
     csv.config.HTMLScriptElementId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-    csv.config.enabledCSS = [];
-    csv.config.enabledSRC = [];
+    csv.config.cssCache = [];
+    csv.config.srcCache = [];
 
     const el = document.querySelectorAll(csv.config.HTMLSlideViewElement);
 
@@ -57,7 +57,7 @@ var ceres = {};
                 if (csv.config.cssList = !rsc.isEmptyOrNull(csv.config.css)) await ( await fetchStylesheets(csv.config.css) );
                 if (csv.config.callback = !rsc.isEmptyOrNull(csv.config.src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(csv.config.src) ).text());
 
-                csv.config.enabledSRC = rsc.removeDuplcates(csv.config.enabledSRC.concat(csv.config.src));
+                csv.config.srcCache = rsc.removeDuplcates(csv.config.srcCache.concat(csv.config.src));
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -81,6 +81,7 @@ var ceres = {};
             csv.config.ptr = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('ptr'));
             csv.config.sur = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sur'));
             csv.config.sub = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sub'));
+            csv.config.cache = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('cache'));
             csv.config.trace = rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('trace'));
             csv.config.delay = Number.isInteger(parseInt(csv.config.progenitor.getAttribute('delay'))) ? parseInt(csv.config.progenitor.getAttribute('delay')) : 250;
         }
@@ -230,12 +231,12 @@ var ceres = {};
 
         const setlink = function(url, index)
         {
-            if (!csv.config.enabledCSS.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
+            if (!csv.config.cssCache.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
         }
 
         if (!rsc.isEmptyOrNull(ar)) ar.forEach(setlink);
 
-        csv.config.enabledCSS = rsc.removeDuplcates(csv.config.enabledCSS.concat(ar));
+        csv.config.cssCache = rsc.removeDuplcates(csv.config.cssCache.concat(ar));
     }
 
     function setSlide(targetIndex)
@@ -279,10 +280,14 @@ var ceres = {};
 
     function setCache()
     {
-        const namedCache = csv.config.HTMLSlideViewElement + '-cache';
+        if (!csv.config.cache) return;
+
+        const cacheName = csv.config.HTMLSlideViewElement + '-cache';
         const scriptCache = [ import.meta.url, rsc.constant.libraryName ];
 
-        ca.installCache(namedCache, rsc.removeDuplcates(csv.config.enabledCSS.concat(csv.config.enabledSRC.concat(scriptCache))));
+        scriptCache.forEach(node => console.log(node));
+        
+        ca.installCache(cacheName, rsc.removeDuplcates(csv.config.cssCache.concat(csv.config.srcCache.concat(scriptCache))));
     }
 
 
