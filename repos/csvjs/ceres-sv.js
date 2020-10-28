@@ -9,7 +9,7 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-export { ceres };
+export { ceres }
 
 import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js';
 
