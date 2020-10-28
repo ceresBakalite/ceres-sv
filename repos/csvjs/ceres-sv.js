@@ -18,6 +18,7 @@ var ceres = {};
 {
     'use strict';
 
+    this.XXXX = 3;
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
@@ -281,8 +282,6 @@ var ceres = {};
 
     function setCache()
     {
-        const XXXX = csv.config.HTMLSlideViewElement + '-cache';
-
         const cacheName = csv.config.HTMLSlideViewElement + '-cache';
         const scriptCache = [ import.meta.url, rsc.getImportMetaUrl() ];
 
