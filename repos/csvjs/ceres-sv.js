@@ -14,7 +14,7 @@ export { ceres };
 import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js';
 
 var ceres = {};
-(function()
+(function(csv = 'ceres-sv')
 {
     'use strict';
 
@@ -35,7 +35,8 @@ var ceres = {};
             this.imageArray = null;
             this.callback = false;
             this.cssList = false;
-            this.csvElement = 'ceres-sv'; // required element name
+//            this.csvElement = 'ceres-sv'; // required element name
+            this.csvElement = csv; // required element name
             this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
             this.cssCache = [];
