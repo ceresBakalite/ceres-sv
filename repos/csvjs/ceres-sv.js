@@ -16,7 +16,7 @@ import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js';
 var ceres = {};
 (function(csv = 'ceres-sv')
 {
-    'use strict';
+    //'use strict';
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
