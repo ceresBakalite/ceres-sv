@@ -284,7 +284,7 @@ var ceres = {};
         const cacheName = csv.config.HTMLSlideViewElement + '-cache';
         const scriptCache = [ import.meta.url, rsc.getImportMetaUrl() ];
 
-        ca.installCache(cacheName, rsc.removeDuplcates(csv.config.cssCache.concat(csv.config.srcCache.concat(scriptCache))));
+        if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(csv.config.cssCache.concat(csv.config.srcCache.concat(scriptCache))));
     }
 
 
