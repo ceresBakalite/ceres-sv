@@ -247,7 +247,7 @@ var ceres = {};
         config.cssCache = config.cssCache.concat(ar);
     }
 
-    function setSlide(targetIndex)
+    function setSlide(target)
     {
         const slides = document.querySelectorAll('div.slideview');
 
@@ -260,7 +260,7 @@ var ceres = {};
             pointers[config.slide-1].className += ' active';
         }
 
-        config.slide = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : config.slide;
+        config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
 
         slides.forEach(node => { node.style.display = 'none'; } );
         slides[config.slide-1].style.display = 'block';
