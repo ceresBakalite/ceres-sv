@@ -56,7 +56,7 @@ var ceres = {};
                 if (csv.config.cssList = !rsc.isEmptyOrNull(csv.config.css)) await ( await fetchStylesheets(csv.config.css) );
                 if (csv.config.callback = !rsc.isEmptyOrNull(csv.config.src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(csv.config.src) ).text());
 
-                csv.config.srcCache = rsc.removeDuplcates(csv.config.srcCache.concat(csv.config.src));
+                csv.config.srcCache = csv.config.srcCache.concat(csv.config.src);
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -236,7 +236,7 @@ var ceres = {};
 
         if (!rsc.isEmptyOrNull(ar)) ar.forEach(setlink);
 
-        csv.config.cssCache = rsc.removeDuplcates(csv.config.cssCache.concat(ar));
+        csv.config.cssCache = csv.config.cssCache.concat(ar);
     }
 
     function setSlide(targetIndex)
