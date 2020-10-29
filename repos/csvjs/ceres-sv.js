@@ -41,7 +41,7 @@ var ceres = {};
     csv.config.srcCache = [];
 
     const csvarray = document.querySelectorAll(csv.config.csvElement);
-    if (csvarray.length === 0) return rsc.inspect({ type: rsc.constant.error, notification: 'The ' + csv.config.csvElement + ' document element was not found', false });
+    if (csvarray.length === 0) return rsc.inspect({ type: rsc.constant.error, notification: 'The ' + csv.config.csvElement + ' document element was not found' });
 
     csvarray.forEach(slideView);
 
