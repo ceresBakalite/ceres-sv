@@ -155,6 +155,8 @@ var resource = {};
 
     this.errorHandler = function(error)
     {
+        console.log('error: ' + error);
+        
         if (this.isEmptyOrNull(error)) return this.inspect({ type: protean.error, notification: resource.errorHandler });
 
         const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
