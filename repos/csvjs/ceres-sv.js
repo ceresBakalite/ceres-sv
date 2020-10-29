@@ -21,7 +21,8 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    let csr = function() { return attribute; } // ceres slideview resource attributes
+    //let csr = function() { return attribute; } // ceres slideview resource attributes
+    let csr = csr || {} // ceres slideview resource attributes
 
     let csv = new class // ceres slideview configuration attributes
     {
