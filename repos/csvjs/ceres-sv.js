@@ -19,47 +19,54 @@ var ceres = {};
     'use strict';
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+
+    let elIndex = 0;
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
-    let csv = new class // ceres slideview configuration attributes
+    let config = new class // ceres slideview configuration attributes
     {
         constructor()
         {
-            this.index = 1,
-            this.config = function() { return attribute; }
+            this.index = 0,
+            this.slide = 1,
+            this.progenitor = null;
+            this.noscript = null;
+            this.imageArray = null;
+            this.callback = false;
+            this.cssList = false;
+            this.csvElement = 'ceres-sv'; // required element name
+            this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+            this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+            this.cssCache = [];
+            this.srcCache = [];
+            this.attribute = function() { return attribute; }
         }
 
     }
 
-    Object.seal(csv);
+    Object.seal(config);
 
-    csv.config.csvElement = 'ceres-sv'; // required element name
-    csv.config.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
-    csv.config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-    csv.config.cssCache = [];
-    csv.config.srcCache = [];
-
-    const csvarray = document.querySelectorAll(csv.config.csvElement);
-    if (csvarray.length === 0) return rsc.inspect({ type: rsc.constant.error, notification: 'The ' + csv.config.csvElement + ' document element was not found' });
+    const csvarray = document.querySelectorAll(config.csvElement);
+    if (csvarray.length === 0) return rsc.inspect({ type: rsc.constant.error, notification: 'The ' + config.csvElement + ' document element was not found' });
 
     csvarray.forEach(slideView);
 
     function slideView(el, index)
     {
-        csv.config.node = index;
+        config.index = index;
 
-        window.customElements.get(csv.config.csvElement) || window.customElements.define(csv.config.csvElement, class extends HTMLElement
+        window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
         {
             async connectedCallback()
             {
-                csv.config.css = this.getAttribute('css') || csv.config.defaultCSS;
-                csv.config.src = this.getAttribute('src') || null;
+                let css = this.getAttribute('css') || config.defaultCSS;
+                let src = this.getAttribute('src') || null;
 
-                if (csv.config.cssList = !rsc.isEmptyOrNull(csv.config.css)) await ( await fetchStylesheets(csv.config.css) );
-                if (csv.config.callback = !rsc.isEmptyOrNull(csv.config.src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(csv.config.src) ).text());
+                if (config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+                if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-                csv.config.srcCache = csv.config.srcCache.concat(csv.config.src);
+                config.srcCache = config.srcCache.concat(src);
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -70,20 +77,20 @@ var ceres = {};
 
     let progenitor = function()
     {
-        csv.config.progenitor = document.getElementById(csv.config.csvElement) || document.getElementsByTagName(csv.config.csvElement)[csv.config.node];
+        config.progenitor = document.getElementById(config.csvElement) || document.getElementsByTagName(config.csvElement)[config.index];
 
-        const exists = !rsc.isEmptyOrNull(csv.config.progenitor);
+        const exists = !rsc.isEmptyOrNull(config.progenitor);
 
         if (exists)
         {
-            csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.csvElement);
-            csv.config.noscript = document.getElementById(csv.config.noscriptId) || document.getElementsByTagName('noscript')[csv.config.node];
-            csv.config.ptr = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('ptr'));
-            csv.config.sur = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sur'));
-            csv.config.sub = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('sub'));
-            csv.config.cache = !rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('cache'));
-            csv.config.trace = rsc.getBooleanAttribute(csv.config.progenitor.getAttribute('trace'));
-            csv.config.delay = Number.isInteger(parseInt(csv.config.progenitor.getAttribute('delay'))) ? parseInt(csv.config.progenitor.getAttribute('delay')) : 250;
+            config.progenitor.id = rsc.getUniqueElementId(config.csvElement);
+            config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[config.index];
+            config.attribute.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
+            config.attribute.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
+            config.attribute.sub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
+            config.attribute.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
+            config.attribute.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
+            config.attribute.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
         }
 
         return exists;
@@ -91,37 +98,37 @@ var ceres = {};
 
     let precursor = function()
     {
-        csr.ListContainerMarkup = 'Image list markup ' + ((csv.config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv.config.csvElement + ']:' + rsc.constant.newline;
-        csr.BodyContentList = 'The ' + csv.config.csvElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
-        csr.BodyContentListNotFound = 'Error: Unable to find the ' + csv.config.csvElement + ' fallback noscript image list when searching the document body';
-        csr.CSVObjectAttributes = 'The csv object attribute properties after initialisation [' + csv.config.csvElement + ']: ';
-        csr.ProgenitorNotFound = 'Error: Unable to find the ' + csv.config.csvElement + ' document element';
-        csr.ListContainerNotFound = 'Error: Unable to find either the connectedCallback ' + csv.config.csvElement + ' attribute source nor the fallback noscript image list container';
+        csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + config.csvElement + ']:' + rsc.constant.newline;
+        csr.bodyContentList = 'The ' + config.csvElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
+        csr.bodyContentListNotFound = 'Error: Unable to find the ' + config.csvElement + ' fallback noscript image list when searching the document body';
+        csr.configAttributes = 'The csv object attribute properties after initialisation [' + config.csvElement + ']: ';
+        csr.progenitorNotFound = 'Error: Unable to find the ' + config.csvElement + ' document element';
+        csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + config.csvElement + ' attribute source nor the fallback noscript image list container';
 
         Object.freeze(csr);
 
-        return csv.config.callback || csv.config.noscript;
+        return config.callback || config.noscript;
     }
 
     let attributesExist = function()
     {
-        csv.config.imageArray = null;
+        config.imageArray = null;
 
-        rsc.inspect({ type: rsc.constant.notify, notification: csr.CSVObjectAttributes + rsc.getObjectProperties(csv.config), logtrace: csv.config.trace });
+        rsc.inspect({ type: rsc.constant.notify, notification: csr.configAttributes + rsc.getObjectProperties(config.config), logtrace: config.attribute.trace });
 
         const getImageList = function()
         {
-            const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(csv.config.progenitor.textContent)) ? csv.config.progenitor.textContent : null; }
+            const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(config.progenitor.textContent)) ? config.progenitor.textContent : null; }
 
             const getBodyContentList = function()
             {
-                rsc.inspect({ type: rsc.constant.notify, notification: csr.BodyContentList, logtrace: csv.config.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: csr.bodyContentList, logtrace: config.attribute.trace });
 
-                const list = !rsc.isEmptyOrNull(csv.config.noscript) ? csv.config.noscript.textContent : null;
-                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.BodyContentListNotFound, logtrace: csv.config.trace });
+                const list = !rsc.isEmptyOrNull(config.noscript) ? config.noscript.textContent : null;
+                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.bodyContentListNotFound, logtrace: config.attribute.trace });
             }
 
-            return csv.config.callback ? getConnectedCallbackList() : getBodyContentList();
+            return config.callback ? getConnectedCallbackList() : getBodyContentList();
         }
 
         const isImageArray = function()
@@ -130,13 +137,13 @@ var ceres = {};
 
             if (!rsc.isEmptyOrNull(imageList))
             {
-                rsc.inspect({ type: rsc.constant.notify, notification: csr.ListContainerMarkup + imageList, logtrace: csv.config.trace });
-                csv.config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+                rsc.inspect({ type: rsc.constant.notify, notification: csr.listContainerMarkup + imageList, logtrace: config.attribute.trace });
+                config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
             }
 
-            Object.freeze(csv.config);
+            Object.freeze(config.attibute);
 
-            return !rsc.isEmptyOrNull(csv.config.imageArray);
+            return !rsc.isEmptyOrNull(config.imageArray);
         }
 
         return isImageArray();
@@ -144,8 +151,8 @@ var ceres = {};
 
     let slideviewHasAttributes = function()
     {
-        if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ProgenitorNotFound, logtrace: csv.config.trace });
-        if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.ListContainerNotFound, logtrace: csv.config.trace });
+        if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorNotFound, logtrace: config.attribute.trace });
+        if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListNotFound, logtrace: config.attribute.trace });
 
         return attributesExist();
     }
@@ -153,21 +160,21 @@ var ceres = {};
     function getSlideView()
     {
         let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-        let getSurtitle = function() { return (csv.config.sur) ? imageIndex + ' / ' + csv.config.imageArray.length : null; }
-        let getSubtitle = function() { return (csv.config.sub) ? getAccessibilityText() : null; }
+        let getSurtitle = function() { return (config.attribute.sur) ? imageIndex + ' / ' + config.imageArray.length : null; }
+        let getSubtitle = function() { return (config.attribute.sub) ? getAccessibilityText() : null; }
         let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
-        rsc.clearElement(csv.config.progenitor);
+        rsc.clearElement(config.progenitor);
 
         const imageContainer = document.createElement('div');
-        imageContainer.id = csv.config.csvElement + '-image-container';
-        csv.config.progenitor.appendChild(imageContainer);
+        imageContainer.id = config.csvElement + '-image-container';
+        config.progenitor.appendChild(imageContainer);
 
         rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
-        for (let item = 0; item < csv.config.imageArray.length; item++)
+        for (let item = 0; item < config.imageArray.length; item++)
         {
-            var arrayItem = csv.config.imageArray[item].split(',');
+            var arrayItem = config.imageArray[item].split(',');
             var imageIndex = item + 1;
 
             let id = 'slideview' + imageIndex;
@@ -182,61 +189,61 @@ var ceres = {};
 
             let slideContainer = document.getElementById(id);
 
-            if (csv.config.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+            if (config.attribute.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
             rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
-            if (csv.config.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+            if (config.attribute.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
         }
 
         rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
         rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
-        if (csv.config.ptr) getSlideViewPointerContainer();
+        if (config.attribute.ptr) getSlideViewPointerContainer();
 
         rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
         function getHorizontalSwipe(swipe)
         {
             const offset = (swipe.action) ? swipe.right : swipe.left;
-            setSlide(csv.index = csv.index += offset);
+            setSlide(config.slide = config.slide += offset);
         }
 
-        rsc.inspect({ type: rsc.constant.notify, notification: csv.config.progenitor, logtrace: csv.config.trace });
+        rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attribute.trace });
 
         function getSlideViewPointerContainer()
         {
             const pointerElement = document.createElement('div');
             const getClickEvent = function() { return 'window.getSlide(' + pointerIndex + ')'; }
 
-            pointerElement.id = csv.config.csvElement + '-pointer-container';
+            pointerElement.id = config.csvElement + '-pointer-container';
 
-            csv.config.progenitor.appendChild(document.createElement('br'));
-            csv.config.progenitor.appendChild(pointerElement);
+            config.progenitor.appendChild(document.createElement('br'));
+            config.progenitor.appendChild(pointerElement);
 
             rsc.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
-            for (let item = 0; item < csv.config.imageArray.length; item++)
+            for (let item = 0; item < config.imageArray.length; item++)
             {
                 var pointerIndex = item + 1;
                 rsc.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
             }
 
-            csv.config.progenitor.appendChild(document.createElement('br'));
+            config.progenitor.appendChild(document.createElement('br'));
         }
 
     }
 
     function fetchStylesheets(str)
     {
-        const ar = csv.config.cssList ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const ar = config.cssList ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         const setlink = function(url, index)
         {
-            if (!csv.config.cssCache.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
+            if (!config.cssCache.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
         }
 
         if (!rsc.isEmptyOrNull(ar)) ar.forEach(setlink);
 
-        csv.config.cssCache = csv.config.cssCache.concat(ar);
+        config.cssCache = config.cssCache.concat(ar);
     }
 
     function setSlide(targetIndex)
@@ -249,42 +256,42 @@ var ceres = {};
             const el = document.querySelector('span.active');
 
             if (el) el.className = 'ptr';
-            pointers[csv.index-1].className += ' active';
+            pointers[config.slide-1].className += ' active';
         }
 
-        csv.index = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : csv.index;
+        config.slide = (targetIndex < 1) ? slides.length : (targetIndex > slides.length) ? 1 : config.slide;
 
         slides.forEach(node => { node.style.display = 'none'; } );
-        slides[csv.index-1].style.display = 'block';
+        slides[config.slide-1].style.display = 'block';
 
-        if (csv.config.ptr) setPointerStyle();
+        if (config.attribute.ptr) setPointerStyle();
     }
 
     function activateSlideView()
     {
-        csv.config.progenitor.style.display = 'none';
+        config.progenitor.style.display = 'none';
 
         getSlideView();
         setSlide();
 
-        setTimeout(function() { setSlideViewDisplay('block'); }, csv.config.delay);
+        setTimeout(function() { setSlideViewDisplay('block'); }, config.attribute.delay);
 
-        if (csv.config.cache) setCache();
+        if (config.attribute.cache) setCache();
     }
 
 
     function setSlideViewDisplay(attribute)
     {
-        const nodelist = document.querySelectorAll('img.slide, #' + csv.config.progenitor.id);
+        const nodelist = document.querySelectorAll('img.slide, #' + config.progenitor.id);
         nodelist.forEach(node => { node.style.display = attribute; } );
     }
 
     function setCache()
     {
-        const cacheName = csv.config.csvElement + '-cache';
+        const cacheName = config.csvElement + '-cache';
         const scriptCache = [ import.meta.url, rsc.getImportMetaUrl() ];
 
-        if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(csv.config.cssCache.concat(csv.config.srcCache.concat(scriptCache))));
+        if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cssCache.concat(config.srcCache.concat(scriptCache))));
     }
 
 
