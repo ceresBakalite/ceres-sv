@@ -115,7 +115,7 @@ var ceres = {};
     {
         config.imageArray = null;
 
-        rsc.inspect({ type: rsc.constant.notify, notification: csr.configAttributes + rsc.getObjectProperties(config.config), logtrace: config.attribute.trace });
+        rsc.inspect({ type: rsc.constant.notify, notification: csr.configAttributes + rsc.getObjectProperties(config.attributes), logtrace: config.attribute.trace });
 
         const getImageList = function()
         {
