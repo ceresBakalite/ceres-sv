@@ -21,9 +21,7 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { setSlide(csv.index = (calc) ? csv.index += target : target); };  // global scope method reference
 
-    //let csr = function() { return attribute; } // ceres slideview resource attributes
-    let csr = csr || {} // ceres slideview resource attributes
-
+    let csr = function() { return attribute; } // ceres slideview resource attributes
     let csv = new class // ceres slideview configuration attributes
     {
         constructor()
@@ -43,7 +41,10 @@ var ceres = {};
     csv.config.cssCache = [];
     csv.config.srcCache = [];
 
-    let slideView = function(el, index)
+    const csvarray = document.querySelectorAll(csv.config.HTMLSlideViewElement);
+    if (!rsc.isEmptyOrNull(csvarray)) csvarray.forEach(slideView);
+
+    function slideView(el, index)
     {
         csv.config.node = index;
 
@@ -66,16 +67,13 @@ var ceres = {};
 
     }
 
-    let csvArray = document.querySelectorAll(csv.config.HTMLSlideViewElement);
-    if (!rsc.isEmptyOrNull(csvArray)) csvArray.forEach(slideView);
-
     let progenitor = function()
     {
         csv.config.progenitor = document.getElementById(csv.config.HTMLSlideViewElement) || document.getElementsByTagName(csv.config.HTMLSlideViewElement)[csv.config.node];
 
-        const protean = !rsc.isEmptyOrNull(csv.config.progenitor);
+        const exists = !rsc.isEmptyOrNull(csv.config.progenitor);
 
-        if (protean)
+        if (exists)
         {
             csv.config.progenitor.id = rsc.getUniqueElementId(csv.config.HTMLSlideViewElement);
             csv.config.HTMLScriptElement = document.getElementById(csv.config.HTMLScriptElementId) || document.getElementsByTagName('noscript')[csv.config.node];
@@ -87,7 +85,7 @@ var ceres = {};
             csv.config.delay = Number.isInteger(parseInt(csv.config.progenitor.getAttribute('delay'))) ? parseInt(csv.config.progenitor.getAttribute('delay')) : 250;
         }
 
-        return protean;
+        return exists;
     }
 
     let precursor = function()
