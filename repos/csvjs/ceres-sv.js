@@ -41,6 +41,10 @@ var ceres = {};
     csv.config.srcCache = [];
 
     const csvarray = document.querySelectorAll(csv.config.csvElement);
+
+    csvarray.forEach(node => consol.log('csvarray: ' + node));
+
+
     if (rsc.isEmptyOrNull(csvarray)) return rsc.inspect({ type: rsc.constant.error, notification: 'The ' + csv.config.csvElement + ' document element was not found' });
 
     csvarray.forEach(slideView);
