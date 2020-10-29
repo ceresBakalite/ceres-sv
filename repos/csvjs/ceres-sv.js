@@ -85,6 +85,7 @@ var ceres = {};
         {
             config.progenitor.id = rsc.getUniqueElementId(config.csvElement);
             config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[config.index];
+
             config.attribute.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
             config.attribute.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
             config.attribute.sub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
