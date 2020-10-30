@@ -26,9 +26,9 @@ var ceres = {};
     {
         constructor() { super(); }
 
-        getSlide(target, calc) { setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
+        getSlide(target, calc) { setThisSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
-        setSlide(target)
+        setThisSlide(target)
         {
             const slides = document.querySelectorAll('div.slideview');
 
@@ -263,7 +263,7 @@ var ceres = {};
                 config.cache.css = config.cache.css.concat(css);
             }
 
-            function xxxsetSlide(target)
+            function setSlide(target)
             {
                 const slides = document.querySelectorAll('div.slideview');
 
