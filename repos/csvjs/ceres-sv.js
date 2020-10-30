@@ -46,14 +46,24 @@ var ceres = {};
 
     Object.seal(config);
 
-    config.progenitor = this;
-    config.cache.css = [];
-    config.cache.src = [];
-
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
+            config.index = 0,
+            config.slide = 1,
+            config.progenitor = null;
+            config.noscript = null;
+            config.imageArray = null;
+            config.callback = false;
+
+            config.attributes = null;
+            config.cache = null;
+
+            config.progenitor = this;
+            config.cache.css = [];
+            config.cache.src = [];
+
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
 
