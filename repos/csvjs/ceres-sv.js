@@ -61,44 +61,44 @@ var ceres = {};
 
             config.cache.src = config.cache.src.concat(src);
 
+            let progenitor = function()
+            {
+                const exists = !rsc.isEmptyOrNull(config.progenitor);
+
+                if (exists)
+                {
+                    config.progenitor.id = rsc.getUniqueElementId(csv);
+                    config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[0];
+
+                    config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
+                    config.attributes.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
+                    config.attributes.sub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
+                    config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
+                    config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
+                    config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
+                }
+
+                return exists;
+            }
+
+            let precursor = function()
+            {
+                csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
+                csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
+                csr.bodyContentListNotFound = 'Error: Unable to find the ' + csv + ' fallback noscript image list when searching the document body';
+                csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
+                csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
+                csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + csv + ' attribute source nor the fallback noscript image list container';
+
+                Object.freeze(csr);
+
+                return config.callback || config.noscript;
+            }
+
             if (slideviewHasAttributes()) activateSlideView();
         }
 
     });
-
-    let progenitor = function()
-    {
-        const exists = !rsc.isEmptyOrNull(config.progenitor);
-
-        if (exists)
-        {
-            config.progenitor.id = rsc.getUniqueElementId(csv);
-            config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[0];
-
-            config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
-            config.attributes.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
-            config.attributes.sub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
-            config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
-            config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
-            config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
-        }
-
-        return exists;
-    }
-
-    let precursor = function()
-    {
-        csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
-        csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
-        csr.bodyContentListNotFound = 'Error: Unable to find the ' + csv + ' fallback noscript image list when searching the document body';
-        csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
-        csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
-        csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + csv + ' attribute source nor the fallback noscript image list container';
-
-        Object.freeze(csr);
-
-        return config.callback || config.noscript;
-    }
 
     let attributesExist = function()
     {
