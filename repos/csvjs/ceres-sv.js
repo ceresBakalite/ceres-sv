@@ -21,7 +21,7 @@ var ceres = {};
     const csv = 'ceres-sv'; // required element name
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { this.setSlide.call(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -53,6 +53,8 @@ var ceres = {};
             config.progenitor = this;
             config.cache.css = [];
             config.cache.src = [];
+
+            this.setSlide.bind();
 
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
