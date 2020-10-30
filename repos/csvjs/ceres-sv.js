@@ -136,7 +136,7 @@ var ceres = {};
                 return isImageArray();
             }
 
-            let slideviewHasAttributes = function()
+            function slideviewHasAttributes()
             {
                 if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorNotFound, logtrace: config.attributes.trace });
                 if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListNotFound, logtrace: config.attributes.trace });
