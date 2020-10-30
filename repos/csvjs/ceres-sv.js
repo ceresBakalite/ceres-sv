@@ -200,7 +200,7 @@ var ceres = {};
                 function getSlideViewPointerContainer()
                 {
                     const pointerElement = document.createElement('div');
-                    const getClickEvent = function() { return 'ceres.config.getSlide(' + pointerIndex + ')'; }
+                    const getClickEvent = function() { return 'window.config.getSlide(' + pointerIndex + ')'; }
 
                     pointerElement.id = csv + '-pointer-container';
 
