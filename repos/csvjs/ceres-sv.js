@@ -55,6 +55,9 @@ var ceres = {};
 
     function slideView(el, index)
     {
+        this.cache.css = [];
+        this.cache.src = [];
+
         config.index = index;
 
         window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
