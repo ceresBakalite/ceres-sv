@@ -47,36 +47,26 @@ var ceres = {};
 
     Object.seal(config);
 
-//    const csvarray = document.querySelectorAll(config.csvElement);
-//    if (csvarray.length === 0) return rsc.inspect({ type: rsc.constant.error, notification: 'The ' + config.csvElement + ' document element was not found' });
+    config.cache.css = [];
+    config.cache.src = [];
 
-//    csvarray.forEach(slideView);
-
-//    function slideView(el, index)
-//    {
-        config.cache.css = [];
-        config.cache.src = [];
-//        config.index = index;
-
-        window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
+    window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
+    {
+        async connectedCallback()
         {
-            async connectedCallback()
-            {
-                let css = this.getAttribute('css') || config.defaultCSS;
-                let src = this.getAttribute('src') || null;
+            let css = this.getAttribute('css') || config.defaultCSS;
+            let src = this.getAttribute('src') || null;
 
-                if (!rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-                if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (!rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+            if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-                config.cache.src = config.cache.src.concat(src);
-                config.progenitor = this;
+            config.cache.src = config.cache.src.concat(src);
+            config.progenitor = this;
 
-                if (slideviewHasAttributes()) activateSlideView();
-            }
+            if (slideviewHasAttributes()) activateSlideView();
+        }
 
-        });
-
-//    }
+//    });
 
     let progenitor = function()
     {
@@ -298,6 +288,8 @@ var ceres = {};
 
         if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
     }
+
+  });
 
 
 }).call(window);
