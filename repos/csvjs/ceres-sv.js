@@ -161,7 +161,7 @@ var ceres = {};
 
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image-container';
-                config.progenitor.appendChild(imageContainer);
+                shadow.appendChild(imageContainer);
 
                 rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
@@ -209,8 +209,8 @@ var ceres = {};
 
                     pointerElement.id = csv + '-pointer-container';
 
-                    config.progenitor.appendChild(document.createElement('br'));
-                    config.progenitor.appendChild(pointerElement);
+                    shadow.appendChild(document.createElement('br'));
+                    shadow.appendChild(pointerElement);
 
                     rsc.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
@@ -220,7 +220,7 @@ var ceres = {};
                         rsc.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
                     }
 
-                    config.progenitor.appendChild(document.createElement('br'));
+                    shadow.appendChild(document.createElement('br'));
                 }
 
             }
