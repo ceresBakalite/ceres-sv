@@ -157,11 +157,9 @@ var ceres = {};
 
                 rsc.clearElement(config.progenitor);
 
-                const shadow = config.progenitor.attachShadow({mode: 'open'});
-
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image-container';
-                shadow.appendChild(imageContainer);
+                config.progenitor.appendChild(imageContainer);
 
                 rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
@@ -178,17 +176,17 @@ var ceres = {};
                         'subName': 'slideview-sub' + imageIndex
                     };
 
-                    rsc.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: shadow.imageContainer });
+                    rsc.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
 
                     let slideContainer = document.getElementById(id);
 
-                    if (config.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: shadow.slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: shadow.slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
-                    if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: shadow.slideContainer, markup: getSubtitle() });
+                    if (config.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+                    rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+                    if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: shadow.imageContainer, markup: '&#10094;', onClickEvent: 'this.parentElement.getSlide(-1, true)' });
-                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: shadow.imageContainer, markup: '&#10095;', onClickEvent: 'ceres.getSlide(1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'this.parentElement.getSlide(-1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'ceres.getSlide(1, true)' });
 
                 if (config.attributes.ptr) getSlideViewPointerContainer();
 
@@ -209,18 +207,18 @@ var ceres = {};
 
                     pointerElement.id = csv + '-pointer-container';
 
-                    shadow.appendChild(document.createElement('br'));
-                    shadow.appendChild(pointerElement);
+                    config.progenitor.appendChild(document.createElement('br'));
+                    config.progenitor.appendChild(pointerElement);
 
                     rsc.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
                         var pointerIndex = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: shadow.pointerElement, onClickEvent: getClickEvent() });
+                        rsc.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
                     }
 
-                    shadow.appendChild(document.createElement('br'));
+                    config.progenitor.appendChild(document.createElement('br'));
                 }
 
             }
