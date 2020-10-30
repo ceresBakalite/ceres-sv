@@ -237,10 +237,8 @@ var ceres = {};
                 config.cache.css = config.cache.css.concat(css);
             }
 
-            function setSlide(target = 1)
+            function setSlide(target)
             {
-                console.log('target: ' + target);
-
                 const slides = document.querySelectorAll('div.slideview');
 
                 const setPointerStyle = function()
