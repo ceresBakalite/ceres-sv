@@ -19,10 +19,10 @@ var ceres = {};
     'use strict';
 
     const csv = 'ceres-sv'; // required ceres slideview element name
-    var self = null;
+    const boundSlide = setSlide.bind(ceres);
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { self.setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { boundSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
     let config = new class // ceres slideview configuration attributes
@@ -236,7 +236,7 @@ var ceres = {};
                 config.cache.css = config.cache.css.concat(css);
             }
 
-            function setSlide(target)
+            function setSlide(target = 1)
             {
                 console.log('target: ' + target);
 
@@ -264,7 +264,7 @@ var ceres = {};
                 config.progenitor.style.display = 'none';
 
                 getSlideView();
-                setSlide(config.slide);
+                setSlide();
 
                 setTimeout(function() { setSlideViewDisplay('block'); }, config.attributes.delay);
 
