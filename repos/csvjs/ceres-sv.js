@@ -18,42 +18,38 @@ var ceres = {};
 {
     'use strict';
 
-    const csvElement = 'ceres-sv'; // required element name
-    const prg = function() { return attribute; } // ceres slideview resource attributes
+    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
-    window.customElements.get(csvElement) || window.customElements.define(csvElement, class extends HTMLElement
+    let csr = function() { return attribute; } // ceres slideview resource attributes
+    let config = new class // ceres slideview configuration attributes
+    {
+        constructor()
+        {
+            this.csvElement = csvElement;
+            this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+            this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+
+            this.attributes = function() { return attribute; }
+            this.cache = function() { return attribute; }
+
+            this.index = 0,
+            this.slide = 1,
+            this.progenitor = null;
+            this.noscript = null;
+            this.imageArray = null;
+            this.callback = false;
+        }
+
+    }
+
+    Object.seal(config);
+
+    window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
     {
         async connectedCallback()
         {
-            prg.progenitor = this;
-
-            this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-            this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
-
-            let csr = function() { return attribute; } // ceres slideview resource attributes
-            let config = new class // ceres slideview configuration attributes
-            {
-                constructor()
-                {
-                    this.csvElement = csvElement;
-                    this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
-                    this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-
-                    this.attributes = function() { return attribute; }
-                    this.cache = function() { return attribute; }
-
-                    this.index = 0,
-                    this.slide = 1,
-                    //this.progenitor = csv;
-                    this.noscript = null;
-                    this.imageArray = null;
-                    this.callback = false;
-                }
-
-            }
-
-            Object.seal(config);
-
+            config.progenitor = this;
             config.cache.css = [];
             config.cache.src = [];
 
@@ -70,19 +66,19 @@ var ceres = {};
 
         let progenitor = function()
         {
-            const exists = !rsc.isEmptyOrNull(prg.progenitor);
+            const exists = !rsc.isEmptyOrNull(config.progenitor);
 
             if (exists)
             {
-                prg.progenitor.id = rsc.getUniqueElementId(config.csvElement);
+                config.progenitor.id = rsc.getUniqueElementId(config.csvElement);
                 config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[config.index];
 
-                config.attributes.ptr = !rsc.getBooleanAttribute(prg.progenitor.getAttribute('ptr'));
-                config.attributes.sur = !rsc.getBooleanAttribute(prg.progenitor.getAttribute('sur'));
-                config.attributes.sub = !rsc.getBooleanAttribute(prg.progenitor.getAttribute('sub'));
-                config.attributes.cache = !rsc.getBooleanAttribute(prg.progenitor.getAttribute('cache'));
-                config.attributes.trace = rsc.getBooleanAttribute(prg.progenitor.getAttribute('trace'));
-                config.attributes.delay = Number.isInteger(parseInt(prg.progenitor.getAttribute('delay'))) ? parseInt(prg.progenitor.getAttribute('delay')) : 250;
+                config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
+                config.attributes.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
+                config.attributes.sub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
+                config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
+                config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
+                config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
             }
 
             return exists;
@@ -110,7 +106,7 @@ var ceres = {};
 
             const getImageList = function()
             {
-                const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(prg.progenitor.textContent)) ? prg.progenitor.textContent : null; }
+                const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(config.progenitor.textContent)) ? config.progenitor.textContent : null; }
 
                 const getBodyContentList = function()
                 {
@@ -156,12 +152,12 @@ var ceres = {};
             let getSubtitle = function() { return (config.attributes.sub) ? getAccessibilityText() : null; }
             let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
-            rsc.clearElement(prg.progenitor);
-            rsc.clearElement(prg.progenitor);
+            rsc.clearElement(config.progenitor);
+            rsc.clearElement(config.progenitor);
 
             const imageContainer = document.createElement('div');
             imageContainer.id = config.csvElement + '-image-container';
-            prg.progenitor.appendChild(imageContainer);
+            config.progenitor.appendChild(imageContainer);
 
             rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
@@ -200,7 +196,7 @@ var ceres = {};
                 setSlide(config.slide = config.slide += offset);
             }
 
-            rsc.inspect({ type: rsc.constant.notify, notification: prg.progenitor, logtrace: config.attributes.trace });
+            rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attributes.trace });
 
             function getSlideViewPointerContainer()
             {
@@ -209,8 +205,8 @@ var ceres = {};
 
                 pointerElement.id = config.csvElement + '-pointer-container';
 
-                prg.progenitor.appendChild(document.createElement('br'));
-                prg.progenitor.appendChild(pointerElement);
+                config.progenitor.appendChild(document.createElement('br'));
+                config.progenitor.appendChild(pointerElement);
 
                 rsc.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
@@ -220,7 +216,7 @@ var ceres = {};
                     rsc.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
                 }
 
-                prg.progenitor.appendChild(document.createElement('br'));
+                config.progenitor.appendChild(document.createElement('br'));
             }
 
         }
@@ -262,7 +258,7 @@ var ceres = {};
 
         function activateSlideView()
         {
-            prg.progenitor.style.display = 'none';
+            config.progenitor.style.display = 'none';
 
             getSlideView();
             setSlide();
@@ -275,7 +271,7 @@ var ceres = {};
 
         function setSlideViewDisplay(attribute)
         {
-            const nodelist = document.querySelectorAll('img.slide, #' + prg.progenitor.id);
+            const nodelist = document.querySelectorAll('img.slide, #' + config.progenitor.id);
             nodelist.forEach(node => { node.style.display = attribute; } );
         }
 
