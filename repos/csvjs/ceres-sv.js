@@ -55,8 +55,8 @@ var ceres = {};
 
     function slideView(el, index)
     {
-        this.cache.css = [];
-        this.cache.src = [];
+        config.cache.css = [];
+        config.cache.src = [];
 
         config.index = index;
 
