@@ -65,7 +65,7 @@ var ceres = {};
                 if (config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
                 if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-                config.cache.src = (config.cache.src.length === 0) ? src : config.cache.src.concat(src);
+                config.cache.src = Array.isArray(config.cache.src) ? config.cache.src.concat(src) : src;
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -234,16 +234,16 @@ var ceres = {};
 
     function fetchStylesheets(str)
     {
-        const ar = config.cssList ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const css = config.cssList ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
 
         const setlink = function(url, index)
         {
             if (!config.cache.css.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
         }
 
-        if (!rsc.isEmptyOrNull(ar)) ar.forEach(setlink);
+        if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
 
-        config.cache.css = (config.cache.css.length === 0) ? ar : config.cache.css.concat(ar);
+        config.cache.css = Array.isArray(config.cache.css) ? config.cache.css.concat(css) : css;
     }
 
     function setSlide(target)
