@@ -28,17 +28,19 @@ var ceres = {};
     {
         constructor()
         {
+            this.csvElement = 'ceres-sv'; // required element name
+            this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+            this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+
+            this.attributes = function() { return attribute; }
+            this.cache = function() { return attribute; }
+
             this.index = 0,
             this.slide = 1,
             this.progenitor = null;
             this.noscript = null;
             this.imageArray = null;
             this.callback = false;
-            this.csvElement = 'ceres-sv'; // required element name
-            this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
-            this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-            this.cache = function() { return attribute; }
-            this.attributes = function() { return attribute; }
         }
 
     }
@@ -60,6 +62,8 @@ var ceres = {};
         {
             async connectedCallback()
             {
+                config.progenitor = this;
+
                 let css = this.getAttribute('css') || config.defaultCSS;
                 let src = this.getAttribute('src') || null;
 
@@ -77,7 +81,8 @@ var ceres = {};
 
     let progenitor = function()
     {
-        config.progenitor = document.getElementById(config.csvElement) || document.getElementsByTagName(config.csvElement)[config.index];
+        //config.progenitor = document.getElementById(config.csvElement) || document.getElementsByTagName(config.csvElement)[config.index];
+        //config.progenitor = document.querySelector(config.csvElement);
 
         const exists = !rsc.isEmptyOrNull(config.progenitor);
 
