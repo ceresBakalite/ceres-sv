@@ -157,8 +157,8 @@ var ceres = {};
 
                 rsc.clearElement(config.progenitor);
 
-                const shadow = this.attachShadow({mode: 'open'});
-                
+                const shadow = config.progenitor.attachShadow({mode: 'open'});
+
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image-container';
                 config.progenitor.appendChild(imageContainer);
