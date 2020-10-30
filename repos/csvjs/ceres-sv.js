@@ -18,36 +18,38 @@ var ceres = {};
 {
     'use strict';
 
-    let csr = function() { return attribute; } // ceres slideview resource attributes
-    let config = new class // ceres slideview configuration attributes
-    {
-        constructor()
-        {
-            this.csvElement = 'ceres-sv'; // required element name;
-            this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
-            this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+    const csvElement = 'ceres-sv'; // required element name
 
-            this.attributes = function() { return attribute; }
-            this.cache = function() { return attribute; }
-
-            this.index = 0,
-            this.slide = 1,
-            this.progenitor = null;
-            this.noscript = null;
-            this.imageArray = null;
-            this.callback = false;
-        }
-
-    }
-
-    Object.seal(config);
-
-    window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
+    window.customElements.get(csvElement) || window.customElements.define(csvElement, class extends HTMLElement
     {
         async connectedCallback()
         {
             this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+
+            let csr = function() { return attribute; } // ceres slideview resource attributes
+            let config = new class // ceres slideview configuration attributes
+            {
+                constructor()
+                {
+                    this.csvElement = csvElement;
+                    this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+                    this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+
+                    this.attributes = function() { return attribute; }
+                    this.cache = function() { return attribute; }
+
+                    this.index = 0,
+                    this.slide = 1,
+                    this.progenitor = null;
+                    this.noscript = null;
+                    this.imageArray = null;
+                    this.callback = false;
+                }
+
+            }
+
+            Object.seal(config);
 
             config.cache.css = [];
             config.cache.src = [];
@@ -59,10 +61,10 @@ var ceres = {};
             if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             config.cache.src = config.cache.src.concat(src);
-            this.progenitor = this;
+            config.progenitor = this;
 
-            if (this.slideviewHasAttributes()) this.activateSlideView();
-        }
+            if (slideviewHasAttributes()) activateSlideView();
+
 
         let progenitor = function()
         {
@@ -282,6 +284,7 @@ var ceres = {};
 
             if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
         }
+    }
 
     });
 
