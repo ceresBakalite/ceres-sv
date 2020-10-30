@@ -53,6 +53,8 @@ var ceres = {};
 
     function slideView(el, index)
     {
+        config.cache.css = [];
+        config.cache.src = [];
         config.index = index;
 
         window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
@@ -65,7 +67,7 @@ var ceres = {};
                 if (config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
                 if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-                config.cache.src = Array.isArray(config.cache.src) ? config.cache.src.concat(src) : src;
+                config.cache.src = config.cache.src.concat(src);
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -243,7 +245,7 @@ var ceres = {};
 
         if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
 
-        config.cache.css = Array.isArray(config.cache.css) ? config.cache.css.concat(css) : css;
+        config.cache.css = config.cache.css.concat(css);
     }
 
     function setSlide(target)
