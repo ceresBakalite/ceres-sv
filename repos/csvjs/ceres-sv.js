@@ -11,7 +11,7 @@
 */
 export { ceres };
 
-import { resource as rsc, caching as ca } from './ceres-sv-lib.min.js';
+import { resource as rsc, caching } from './ceres-sv-lib.min.js';
 
 var ceres = {};
 (function()
@@ -280,7 +280,7 @@ var ceres = {};
                 const cacheName = csv + '-cache';
                 config.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
 
-                if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
+                if (caching.available) caching.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
             }
 
         }
