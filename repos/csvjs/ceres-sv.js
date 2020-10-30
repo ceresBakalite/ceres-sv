@@ -26,7 +26,7 @@ var ceres = {};
     {
         constructor()
         {
-            this.csvElement = csvElement;
+            this.csvElement = 'ceres-sv'; // required element name
             this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
