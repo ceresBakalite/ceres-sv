@@ -20,8 +20,10 @@ var ceres = {};
 
     const csv = 'ceres-sv'; // required element name
 
+    var bindSetSlide = null;
+
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { self.setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { bindSetSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -236,7 +238,7 @@ var ceres = {};
 
             function setSlide(target)
             {
-                var self = this;
+                bindSetSlide = this;
 
                 console.log('hello from getSlide');
 
