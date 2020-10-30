@@ -38,6 +38,7 @@ var ceres = {};
             this.csvElement = 'ceres-sv'; // required element name
             this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+            this.cache = function() { return ar = []; }
             this.cssCache = [];
             this.srcCache = [];
             this.attributes = function() { return attribute; }
@@ -291,6 +292,14 @@ var ceres = {};
     {
         const cacheName = config.csvElement + '-cache';
         const scriptCache = [ import.meta.url, rsc.getImportMetaUrl() ];
+
+        config.cache.test1 = config.cssCache;
+        config.cache.test2 = config.srcCache;
+        config.cache.test3 = scriptCache;
+
+        config.cache.test4 = rsc.removeDuplcates(config.cache.test1.concat(config.cache.test2.concat(config.cache.test3)));
+
+        config.cache.test4.forEach(node => console.log(node));
 
         if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cssCache.concat(config.srcCache.concat(scriptCache))));
     }
