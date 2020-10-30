@@ -18,9 +18,9 @@ var ceres = {};
 {
     'use strict';
 
-    let csvElement = 'ceres-sv'; // required element name
+    const csv = 'ceres-sv'; // required element name
 
-    window.customElements.get(csvElement) || window.customElements.define(csvElement, class extends HTMLElement
+    window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
@@ -29,8 +29,6 @@ var ceres = {};
             {
                 constructor()
                 {
-                    //this.csvElement = 'ceres-sv'; // required element name
-                    this.csvElement = csvElement; // required element name
                     this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
                     this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
@@ -61,7 +59,7 @@ var ceres = {};
 
                 if (exists)
                 {
-                    config.progenitor.id = rsc.getUniqueElementId(config.csvElement);
+                    config.progenitor.id = rsc.getUniqueElementId(csv);
                     config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[config.index];
 
                     config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
@@ -77,12 +75,12 @@ var ceres = {};
 
             let precursor = function()
             {
-                csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + config.csvElement + ']:' + rsc.constant.newline;
-                csr.bodyContentList = 'The ' + config.csvElement + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
-                csr.bodyContentListNotFound = 'Error: Unable to find the ' + config.csvElement + ' fallback noscript image list when searching the document body';
-                csr.configAttributes = 'The ' + config.csvElement + ' element attributes after initialisation: ';
-                csr.progenitorNotFound = 'Error: Unable to find the ' + config.csvElement + ' document element';
-                csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + config.csvElement + ' attribute source nor the fallback noscript image list container';
+                csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
+                csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
+                csr.bodyContentListNotFound = 'Error: Unable to find the ' + csv + ' fallback noscript image list when searching the document body';
+                csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
+                csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
+                csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + csv + ' attribute source nor the fallback noscript image list container';
 
                 Object.freeze(csr);
 
@@ -157,7 +155,7 @@ var ceres = {};
                 rsc.clearElement(config.progenitor);
 
                 const imageContainer = document.createElement('div');
-                imageContainer.id = config.csvElement + '-image-container';
+                imageContainer.id = csv + '-image-container';
                 config.progenitor.appendChild(imageContainer);
 
                 rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
@@ -204,7 +202,7 @@ var ceres = {};
                     const pointerElement = document.createElement('div');
                     const getClickEvent = function() { return 'window.getSlide(' + pointerIndex + ')'; }
 
-                    pointerElement.id = config.csvElement + '-pointer-container';
+                    pointerElement.id = csv + '-pointer-container';
 
                     config.progenitor.appendChild(document.createElement('br'));
                     config.progenitor.appendChild(pointerElement);
@@ -278,7 +276,7 @@ var ceres = {};
 
             function setCache()
             {
-                const cacheName = config.csvElement + '-cache';
+                const cacheName = csv + '-cache';
                 config.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
 
                 if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
