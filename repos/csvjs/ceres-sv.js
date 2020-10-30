@@ -35,8 +35,6 @@ var ceres = {};
             {
                 constructor()
                 {
-                    super();
-                    
                     this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
                     this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
@@ -158,8 +156,9 @@ var ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
                 rsc.clearElement(config.progenitor);
-                rsc.clearElement(config.progenitor);
 
+                const shadow = this.attachShadow({mode: 'open'});
+                
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image-container';
                 config.progenitor.appendChild(imageContainer);
