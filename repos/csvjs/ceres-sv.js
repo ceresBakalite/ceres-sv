@@ -27,8 +27,8 @@ var ceres = {};
             this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
-            this.csr = function() { return attribute; } // ceres slideview resource attributes
-            this.config = new class // ceres slideview configuration attributes
+            let csr = function() { return attribute; } // ceres slideview resource attributes
+            var config = new class // ceres slideview configuration attributes
             {
                 constructor()
                 {
