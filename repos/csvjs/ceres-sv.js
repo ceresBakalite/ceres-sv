@@ -178,7 +178,7 @@ var ceres = {};
                         'subName': 'slideview-sub' + imageIndex
                     };
 
-                    rsc.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
+                    rsc.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: shadow.imageContainer });
 
                     let slideContainer = document.getElementById(id);
 
