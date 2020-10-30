@@ -24,6 +24,8 @@ var ceres = {};
     {
         async connectedCallback()
         {
+            let csv = this;
+
             this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
@@ -41,7 +43,7 @@ var ceres = {};
 
                     this.index = 0,
                     this.slide = 1,
-                    this.progenitor = null;
+                    this.progenitor = csv;
                     this.noscript = null;
                     this.imageArray = null;
                     this.callback = false;
@@ -51,7 +53,6 @@ var ceres = {};
 
             Object.seal(config);
 
-            config.progenitor = this;
             config.cache.css = [];
             config.cache.src = [];
 
