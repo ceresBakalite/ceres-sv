@@ -24,16 +24,6 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            let css = this.getAttribute('css') || config.defaultCSS;
-            let src = this.getAttribute('src') || null;
-
-            if (!rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-            if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
-
-            config.cache.src = config.cache.src.concat(src);
-
-            if (slideviewHasAttributes()) activateSlideView();
-
             let csr = function() { return attribute; } // ceres slideview resource attributes
             let config = new class // ceres slideview configuration attributes
             {
@@ -62,6 +52,16 @@ var ceres = {};
             config.progenitor = this;
             config.cache.css = [];
             config.cache.src = [];
+
+            let css = this.getAttribute('css') || config.defaultCSS;
+            let src = this.getAttribute('src') || null;
+
+            if (!rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+            if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+
+            config.cache.src = config.cache.src.concat(src);
+
+            if (slideviewHasAttributes()) activateSlideView();
 
             let progenitor = function()
             {
