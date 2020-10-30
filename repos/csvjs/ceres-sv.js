@@ -32,8 +32,7 @@ var ceres = {};
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
             this.attributes = function() { return attribute; }
             this.cache = function() { return attribute; }
-            this.index = 0,
-            this.slide = 1,
+            this.slide = 1;
             this.progenitor = null;
             this.noscript = null;
             this.imageArray = null;
@@ -52,12 +51,7 @@ var ceres = {};
         async connectedCallback()
         {
             config.progenitor = this;
-            config.index = 0,
-            config.slide = 1,
-            config.progenitor = null;
-            config.noscript = null;
-            config.imageArray = null;
-            config.callback = false;
+            config.slide = 1;
 
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
@@ -79,7 +73,7 @@ var ceres = {};
         if (exists)
         {
             config.progenitor.id = rsc.getUniqueElementId(csv);
-            config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[config.index];
+            config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[0];
 
             config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
             config.attributes.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
