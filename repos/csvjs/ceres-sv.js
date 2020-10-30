@@ -19,7 +19,6 @@ var ceres = {};
     'use strict';
 
     const csv = 'ceres-sv'; // required ceres slideview element name
-    const boundSlide = setSlide.bind(ceres);
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { config.progenitor.setSlide.bind(ceres, config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
