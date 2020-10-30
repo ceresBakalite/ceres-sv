@@ -18,7 +18,9 @@ var ceres = {};
 {
     'use strict';
 
-    window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
+    const csvElement = 'ceres-sv'; // required element name
+
+    window.customElements.get(csvElement) || window.customElements.define(csvElement, class extends HTMLElement
     {
         async connectedCallback()
         {
@@ -32,7 +34,7 @@ var ceres = {};
             {
                 constructor()
                 {
-                    this.csvElement = 'ceres-sv'; // required element name
+                    this.csvElement = csvElement;
                     this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
                     this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
