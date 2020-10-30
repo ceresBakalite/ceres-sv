@@ -23,7 +23,7 @@ var ceres = {};
     let boundSetSlide = null;
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { boundSetSlide(target, calc); };  // global scope method reference
+    this.getSlide = function(target, calc) { boundSetSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -52,7 +52,7 @@ var ceres = {};
 
             Object.seal(config);
 
-            boundSetSlide = setSlide.bind(ceres, this.slide = (calc) ? this.slide += target : target);
+            boundSetSlide = setSlide.bind(ceres, this.slide);
 
             config.progenitor = this;
             config.cache.css = [];
