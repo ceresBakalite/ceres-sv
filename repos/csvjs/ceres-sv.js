@@ -19,12 +19,13 @@ var ceres = {};
     'use strict';
 
     const csvElement = 'ceres-sv'; // required element name
+    const prg = function() { return attribute; } // ceres slideview resource attributes
 
     window.customElements.get(csvElement) || window.customElements.define(csvElement, class extends HTMLElement
     {
         async connectedCallback()
         {
-            let csv = this;
+            prg.progenitor = this;
 
             this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
@@ -69,19 +70,19 @@ var ceres = {};
 
         let progenitor = function()
         {
-            const exists = !rsc.isEmptyOrNull(config.progenitor);
+            const exists = !rsc.isEmptyOrNull(prg.progenitor);
 
             if (exists)
             {
-                config.progenitor.id = rsc.getUniqueElementId(config.csvElement);
+                prg.progenitor.id = rsc.getUniqueElementId(config.csvElement);
                 config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[config.index];
 
-                config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
-                config.attributes.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
-                config.attributes.sub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
-                config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
-                config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
-                config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
+                config.attributes.ptr = !rsc.getBooleanAttribute(prg.progenitor.getAttribute('ptr'));
+                config.attributes.sur = !rsc.getBooleanAttribute(prg.progenitor.getAttribute('sur'));
+                config.attributes.sub = !rsc.getBooleanAttribute(prg.progenitor.getAttribute('sub'));
+                config.attributes.cache = !rsc.getBooleanAttribute(prg.progenitor.getAttribute('cache'));
+                config.attributes.trace = rsc.getBooleanAttribute(prg.progenitor.getAttribute('trace'));
+                config.attributes.delay = Number.isInteger(parseInt(prg.progenitor.getAttribute('delay'))) ? parseInt(prg.progenitor.getAttribute('delay')) : 250;
             }
 
             return exists;
@@ -109,7 +110,7 @@ var ceres = {};
 
             const getImageList = function()
             {
-                const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(config.progenitor.textContent)) ? config.progenitor.textContent : null; }
+                const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(prg.progenitor.textContent)) ? prg.progenitor.textContent : null; }
 
                 const getBodyContentList = function()
                 {
@@ -155,12 +156,12 @@ var ceres = {};
             let getSubtitle = function() { return (config.attributes.sub) ? getAccessibilityText() : null; }
             let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
-            rsc.clearElement(config.progenitor);
-            rsc.clearElement(config.progenitor);
+            rsc.clearElement(prg.progenitor);
+            rsc.clearElement(prg.progenitor);
 
             const imageContainer = document.createElement('div');
             imageContainer.id = config.csvElement + '-image-container';
-            config.progenitor.appendChild(imageContainer);
+            prg.progenitor.appendChild(imageContainer);
 
             rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
@@ -199,7 +200,7 @@ var ceres = {};
                 setSlide(config.slide = config.slide += offset);
             }
 
-            rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attributes.trace });
+            rsc.inspect({ type: rsc.constant.notify, notification: prg.progenitor, logtrace: config.attributes.trace });
 
             function getSlideViewPointerContainer()
             {
@@ -208,8 +209,8 @@ var ceres = {};
 
                 pointerElement.id = config.csvElement + '-pointer-container';
 
-                config.progenitor.appendChild(document.createElement('br'));
-                config.progenitor.appendChild(pointerElement);
+                prg.progenitor.appendChild(document.createElement('br'));
+                prg.progenitor.appendChild(pointerElement);
 
                 rsc.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
@@ -219,7 +220,7 @@ var ceres = {};
                     rsc.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
                 }
 
-                config.progenitor.appendChild(document.createElement('br'));
+                prg.progenitor.appendChild(document.createElement('br'));
             }
 
         }
@@ -261,7 +262,7 @@ var ceres = {};
 
         function activateSlideView()
         {
-            config.progenitor.style.display = 'none';
+            prg.progenitor.style.display = 'none';
 
             getSlideView();
             setSlide();
@@ -274,7 +275,7 @@ var ceres = {};
 
         function setSlideViewDisplay(attribute)
         {
-            const nodelist = document.querySelectorAll('img.slide, #' + config.progenitor.id);
+            const nodelist = document.querySelectorAll('img.slide, #' + prg.progenitor.id);
             nodelist.forEach(node => { node.style.display = attribute; } );
         }
 
