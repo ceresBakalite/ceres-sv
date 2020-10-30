@@ -264,7 +264,7 @@ var ceres = {};
                 config.progenitor.style.display = 'none';
 
                 getSlideView();
-                setSlide();
+                setSlide(config.slide);
 
                 setTimeout(function() { setSlideViewDisplay('block'); }, config.attributes.delay);
 
