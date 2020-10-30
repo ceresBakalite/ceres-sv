@@ -54,7 +54,7 @@ var ceres = {};
             config.cache.css = [];
             config.cache.src = [];
 
-            this.setSlide.bind();
+            config.progenitor.setSlide.bind(ceres);
 
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
