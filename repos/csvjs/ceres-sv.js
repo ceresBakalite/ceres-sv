@@ -20,8 +20,10 @@ var ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview element name
 
+    var boundSetSlide = null;
+
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { boundSetSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
     let config = new class // ceres slideview configuration attributes
@@ -50,6 +52,8 @@ var ceres = {};
     {
         async connectedCallback()
         {
+            boundSetSlide = setSlide.bind(ceres);
+
             config.progenitor = this;
             config.slide = 1;
 
@@ -233,7 +237,7 @@ var ceres = {};
                 config.cache.css = config.cache.css.concat(css);
             }
 
-            this.setSlide = function(target = 1)
+            function setSlide(target = 1)
             {
                 console.log('target: ' + target);
 
