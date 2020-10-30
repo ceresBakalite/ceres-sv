@@ -182,8 +182,8 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'getSlide(-1, true)' });
-                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'getSlide(1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'config.getSlide(-1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'config.getSlide(1, true)' });
 
                 if (config.attributes.ptr) getSlideViewPointerContainer();
 
@@ -200,7 +200,7 @@ var ceres = {};
                 function getSlideViewPointerContainer()
                 {
                     const pointerElement = document.createElement('div');
-                    const getClickEvent = function() { return 'getSlide(' + pointerIndex + ')'; }
+                    const getClickEvent = function() { return 'config.getSlide(' + pointerIndex + ')'; }
 
                     pointerElement.id = csv + '-pointer-container';
 
