@@ -65,6 +65,27 @@ var ceres = {};
 
             config.cache.src = config.cache.src.concat(src);
 
+            this.setSlide = function(target)
+            {
+                const slides = document.querySelectorAll('div.slideview');
+
+                const setPointerStyle = function()
+                {
+                    const pointers = document.querySelectorAll('span.ptr');
+                    const el = document.querySelector('span.active');
+
+                    if (el) el.className = 'ptr';
+                    pointers[config.slide-1].className += ' active';
+                }
+
+                config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
+
+                slides.forEach(node => { node.style.display = 'none'; } );
+                slides[config.slide-1].style.display = 'block';
+
+                if (config.attributes.ptr) setPointerStyle();
+            }
+
             if (slideviewHasAttributes()) activateSlideView();
 
             let progenitor = function()
@@ -240,27 +261,6 @@ var ceres = {};
                 if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
 
                 config.cache.css = config.cache.css.concat(css);
-            }
-
-            this.setSlide = function(target)
-            {
-                const slides = document.querySelectorAll('div.slideview');
-
-                const setPointerStyle = function()
-                {
-                    const pointers = document.querySelectorAll('span.ptr');
-                    const el = document.querySelector('span.active');
-
-                    if (el) el.className = 'ptr';
-                    pointers[config.slide-1].className += ' active';
-                }
-
-                config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
-
-                slides.forEach(node => { node.style.display = 'none'; } );
-                slides[config.slide-1].style.display = 'block';
-
-                if (config.attributes.ptr) setPointerStyle();
             }
 
             function activateSlideView()
