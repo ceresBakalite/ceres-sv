@@ -20,6 +20,9 @@ var ceres = {};
 
     const csv = 'ceres-sv'; // required element name
 
+    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getSlide = function(target, calc) { setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
+
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -41,8 +44,6 @@ var ceres = {};
 
                     this.attributes = function() { return attribute; }
                     this.cache = function() { return attribute; }
-                    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-                    this.getSlide = function(target, calc) { setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
                 }
 
             }
@@ -182,8 +183,8 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'ceres.getSlide(-1, true)' });
-                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'ceres.getSlide(1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
                 if (config.attributes.ptr) getSlideViewPointerContainer();
 
@@ -200,7 +201,7 @@ var ceres = {};
                 function getSlideViewPointerContainer()
                 {
                     const pointerElement = document.createElement('div');
-                    const getClickEvent = function() { return 'window.config.getSlide(' + pointerIndex + ')'; }
+                    const getClickEvent = function() { return 'window.getSlide(' + pointerIndex + ')'; }
 
                     pointerElement.id = csv + '-pointer-container';
 
