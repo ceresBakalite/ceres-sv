@@ -239,10 +239,6 @@ var ceres = {};
 
     function setSlide(target)
     {
-        bindSetSlide = this;
-
-        console.log('hello from getSlide');
-
         const slides = document.querySelectorAll('div.slideview');
 
         const setPointerStyle = function()
