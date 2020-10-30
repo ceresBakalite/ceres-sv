@@ -18,9 +18,6 @@ var ceres = {};
 {
     'use strict';
 
-    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { setSlide(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
-
     window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
     {
         async connectedCallback()
@@ -34,15 +31,17 @@ var ceres = {};
                     this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
                     this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
 
-                    this.attributes = function() { return attribute; }
-                    this.cache = function() { return attribute; }
-
                     this.index = 0,
                     this.slide = 1,
                     this.progenitor = null;
                     this.noscript = null;
                     this.imageArray = null;
                     this.callback = false;
+
+                    this.attributes = function() { return attribute; }
+                    this.cache = function() { return attribute; }
+                    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+                    this.getSlide = function(target, calc) { setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
                 }
 
             }
