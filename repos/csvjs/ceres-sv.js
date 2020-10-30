@@ -21,12 +21,11 @@ var ceres = {};
     const csv = 'ceres-sv'; // required element name
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getSlide = function(target, calc) { setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         constructor() { super(); }
-
-        getSlide(target, calc) { this.setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
         async connectedCallback()
         {
@@ -64,27 +63,6 @@ var ceres = {};
             if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             config.cache.src = config.cache.src.concat(src);
-
-            this.setSlide = function(target)
-            {
-                const slides = document.querySelectorAll('div.slideview');
-
-                const setPointerStyle = function()
-                {
-                    const pointers = document.querySelectorAll('span.ptr');
-                    const el = document.querySelector('span.active');
-
-                    if (el) el.className = 'ptr';
-                    pointers[config.slide-1].className += ' active';
-                }
-
-                config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
-
-                slides.forEach(node => { node.style.display = 'none'; } );
-                slides[config.slide-1].style.display = 'block';
-
-                if (config.attributes.ptr) setPointerStyle();
-            }
 
             if (slideviewHasAttributes()) activateSlideView();
 
@@ -206,13 +184,8 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                //rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'this.parentElement.getSlide(-1, true)' });
-                //rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'ceres.getSlide(1, true)' });
-                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;' });
-                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;' });
-
-                document.getElementById('slideview-prev').addEventListener('click', () => config.progenitor.getSlide(-1, true));
-                document.getElementById('slideview-next').addEventListener('click', () => config.progenitor.getSlide(1, true));
+                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'this.parentElement.getSlide(-1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'ceres.getSlide(1, true)' });
 
                 if (config.attributes.ptr) getSlideViewPointerContainer();
 
@@ -261,6 +234,27 @@ var ceres = {};
                 if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
 
                 config.cache.css = config.cache.css.concat(css);
+            }
+
+            function setSlide(target)
+            {
+                const slides = document.querySelectorAll('div.slideview');
+
+                const setPointerStyle = function()
+                {
+                    const pointers = document.querySelectorAll('span.ptr');
+                    const el = document.querySelector('span.active');
+
+                    if (el) el.className = 'ptr';
+                    pointers[config.slide-1].className += ' active';
+                }
+
+                config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
+
+                slides.forEach(node => { node.style.display = 'none'; } );
+                slides[config.slide-1].style.display = 'block';
+
+                if (config.attributes.ptr) setPointerStyle();
             }
 
             function activateSlideView()
