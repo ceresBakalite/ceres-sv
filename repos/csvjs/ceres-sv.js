@@ -26,7 +26,7 @@ var ceres = {};
     {
         constructor() { super(); }
 
-        getSlide(target, calc) { this.setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
+        getSlide(target, calc) { setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
         async connectedCallback()
         {
