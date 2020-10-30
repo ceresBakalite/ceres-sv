@@ -61,7 +61,7 @@ var ceres = {};
             config.cache.src = config.cache.src.concat(src);
             config.progenitor = this;
 
-            if (slideviewHasAttributes()) activateSlideView();
+            if (this.slideviewHasAttributes()) this.activateSlideView();
         }
 
         let progenitor = function()
