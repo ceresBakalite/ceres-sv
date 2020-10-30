@@ -21,10 +21,13 @@ var ceres = {};
     const csv = 'ceres-sv'; // required element name
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { this.setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
+        constructor() { super(); }
+        
+        getSlide(target, calc) { this.setSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
+
         async connectedCallback()
         {
             let csr = function() { return attribute; } // ceres slideview resource attributes
