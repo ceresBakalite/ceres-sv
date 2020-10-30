@@ -47,23 +47,21 @@ var ceres = {};
 
     Object.seal(config);
 
-    const csvarray = document.querySelectorAll(config.csvElement);
-    if (csvarray.length === 0) return rsc.inspect({ type: rsc.constant.error, notification: 'The ' + config.csvElement + ' document element was not found' });
+//    const csvarray = document.querySelectorAll(config.csvElement);
+//    if (csvarray.length === 0) return rsc.inspect({ type: rsc.constant.error, notification: 'The ' + config.csvElement + ' document element was not found' });
 
-    csvarray.forEach(slideView);
+//    csvarray.forEach(slideView);
 
-    function slideView(el, index)
-    {
+//    function slideView(el, index)
+//    {
         config.cache.css = [];
         config.cache.src = [];
-        config.index = index;
+//        config.index = index;
 
         window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
         {
             async connectedCallback()
             {
-                config.progenitor = this;
-
                 let css = this.getAttribute('css') || config.defaultCSS;
                 let src = this.getAttribute('src') || null;
 
@@ -71,13 +69,14 @@ var ceres = {};
                 if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
                 config.cache.src = config.cache.src.concat(src);
+                config.progenitor = this;
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
 
         });
 
-    }
+//    }
 
     let progenitor = function()
     {
