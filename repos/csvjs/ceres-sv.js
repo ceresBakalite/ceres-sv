@@ -286,4 +286,4 @@ var ceres = {};
 
     });
 
-}).call(window);
+}).call(ceres);
