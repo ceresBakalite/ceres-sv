@@ -34,7 +34,6 @@ var ceres = {};
             this.noscript = null;
             this.imageArray = null;
             this.callback = false;
-            this.cssList = false;
             this.csvElement = 'ceres-sv'; // required element name
             this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
@@ -64,7 +63,7 @@ var ceres = {};
                 let css = this.getAttribute('css') || config.defaultCSS;
                 let src = this.getAttribute('src') || null;
 
-                if (config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+                if (!rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
                 if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
                 config.cache.src = config.cache.src.concat(src);
@@ -236,7 +235,7 @@ var ceres = {};
 
     function fetchStylesheets(str)
     {
-        const css = config.cssList ? str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';') : null;
+        const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
 
         const setlink = function(url, index)
         {
@@ -292,10 +291,6 @@ var ceres = {};
     {
         const cacheName = config.csvElement + '-cache';
         config.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
-
-        config.cache.test4 = rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script)));
-
-        config.cache.test4.forEach(node => console.log(node));
 
         if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
     }
