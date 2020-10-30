@@ -38,9 +38,7 @@ var ceres = {};
             this.csvElement = 'ceres-sv'; // required element name
             this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-            this.cache = function() { return ar = []; }
-            this.cssCache = [];
-            this.srcCache = [];
+            this.cache = function() { return attribute; }
             this.attributes = function() { return attribute; }
         }
 
@@ -55,9 +53,6 @@ var ceres = {};
 
     function slideView(el, index)
     {
-        config.cache.css = [];
-        config.cache.src = [];
-
         config.index = index;
 
         window.customElements.get(config.csvElement) || window.customElements.define(config.csvElement, class extends HTMLElement
@@ -70,7 +65,7 @@ var ceres = {};
                 if (config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
                 if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-                config.cache.src = config.cache.src.concat(src);
+                config.cache.src = config.cache.src ? config.cache.src.concat(src) : src;
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -248,7 +243,7 @@ var ceres = {};
 
         if (!rsc.isEmptyOrNull(ar)) ar.forEach(setlink);
 
-        config.cache.css = config.cache.css.concat(ar);
+        config.cache.css = config.cache.css ? config.cache.css.concat(ar) : ar;
     }
 
     function setSlide(target)
