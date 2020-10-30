@@ -59,7 +59,7 @@ var ceres = {};
             if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             config.cache.src = config.cache.src.concat(src);
-            config.progenitor = this;
+            this.progenitor = this;
 
             if (this.slideviewHasAttributes()) this.activateSlideView();
         }
