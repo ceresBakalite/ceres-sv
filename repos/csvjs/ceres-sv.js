@@ -52,7 +52,7 @@ var ceres = {};
 
             Object.seal(config);
 
-            boundSetSlide = setSlide.bind(ceres, this.slide);
+            boundSetSlide = setSlide.bind(this.slide);
 
             config.progenitor = this;
             config.cache.css = [];
