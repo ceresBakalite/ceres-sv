@@ -44,7 +44,7 @@ var ceres = {};
 
                     this.index = 0,
                     this.slide = 1,
-                    this.progenitor = csv;
+                    //this.progenitor = csv;
                     this.noscript = null;
                     this.imageArray = null;
                     this.callback = false;
