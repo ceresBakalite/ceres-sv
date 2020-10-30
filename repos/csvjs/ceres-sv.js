@@ -20,16 +20,16 @@ var ceres = {};
 
     const csv = 'ceres-sv'; // required element name
 
-    let boundSetSlide = null;
+    //let boundSetSlide = null;
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { boundSetSlide(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { setSlide.bind(ceres, this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
-            boundSetSlide = setSlide.bind(ceres);
+            //boundSetSlide = setSlide.bind(ceres);
 
             let csr = function() { return attribute; } // ceres slideview resource attributes
             let config = new class // ceres slideview configuration attributes
@@ -241,7 +241,7 @@ var ceres = {};
             function setSlide(target)
             {
                 console.log('hello from getSlide');
-                
+
                 const slides = document.querySelectorAll('div.slideview');
 
                 const setPointerStyle = function()
