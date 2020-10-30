@@ -67,7 +67,7 @@ var ceres = {};
                 if (config.cssList = !rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
                 if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-                config.srcCache = config.srcCache.concat(src);
+                config.cache.src = config.cache.src.concat(src);
 
                 if (slideviewHasAttributes()) activateSlideView();
             }
@@ -240,12 +240,12 @@ var ceres = {};
 
         const setlink = function(url, index)
         {
-            if (!config.cssCache.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
+            if (!config.cache.css.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
         }
 
         if (!rsc.isEmptyOrNull(ar)) ar.forEach(setlink);
 
-        config.cssCache = config.cssCache.concat(ar);
+        config.cache.css = config.cache.css.concat(ar);
     }
 
     function setSlide(target)
@@ -291,17 +291,13 @@ var ceres = {};
     function setCache()
     {
         const cacheName = config.csvElement + '-cache';
-        const scriptCache = [ import.meta.url, rsc.getImportMetaUrl() ];
+        config.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
 
-        config.cache.test1 = config.cssCache;
-        config.cache.test2 = config.srcCache;
-        config.cache.test3 = scriptCache;
-
-        config.cache.test4 = rsc.removeDuplcates(config.cache.test1.concat(config.cache.test2.concat(config.cache.test3)));
+        config.cache.test4 = rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script)));
 
         config.cache.test4.forEach(node => console.log(node));
 
-        if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cssCache.concat(config.srcCache.concat(scriptCache))));
+        if (ca.available) ca.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
     }
 
 
