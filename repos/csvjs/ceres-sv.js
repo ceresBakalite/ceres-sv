@@ -190,8 +190,8 @@ var ceres = {};
                 rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;' });
                 rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;' });
 
-                document.getElementById('slideview-prev').addEventListener('click', () => this.getSlide(-1, true));
-                document.getElementById('slideview-next').addEventListener('click', () => this.getSlide(1, true));
+                document.getElementById('slideview-prev').addEventListener('click', () => config.progenitor.getSlide(-1, true));
+                document.getElementById('slideview-next').addEventListener('click', () => config.progenitor.getSlide(1, true));
 
                 if (config.attributes.ptr) getSlideViewPointerContainer();
 
