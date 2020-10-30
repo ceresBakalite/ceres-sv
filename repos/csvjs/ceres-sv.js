@@ -59,7 +59,7 @@ var ceres = {};
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
 
-            if (!rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
+            if (!rsc.isEmptyOrNull(css)) await ( await this.fetchStylesheets(css) );
             if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             config.cache.src = config.cache.src.concat(src);
