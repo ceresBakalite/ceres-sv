@@ -30,29 +30,26 @@ var ceres = {};
         {
             this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-
-            this.index = 0,
-            this.slide = 1,
-            this.progenitor = null;
-            this.noscript = null;
-            this.imageArray = null;
-            this.callback = false;
-
             this.attributes = function() { return attribute; }
             this.cache = function() { return attribute; }
         }
 
     }
 
-    Object.seal(config);
+    config.cache.css = [];
+    config.cache.src = [];
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
             config.progenitor = this;
-            config.cache.css = [];
-            config.cache.src = [];
+            config.index = 0,
+            config.slide = 1,
+            config.progenitor = null;
+            config.noscript = null;
+            config.imageArray = null;
+            config.callback = false;
 
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
@@ -66,6 +63,8 @@ var ceres = {};
         }
 
     });
+
+    Object.seal(config);
 
     let progenitor = function()
     {
