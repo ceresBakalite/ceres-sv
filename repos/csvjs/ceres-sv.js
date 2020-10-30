@@ -25,7 +25,11 @@ var ceres = {};
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
-        constructor() { super(); }
+        constructor()
+        {
+            super();
+            let self = this;
+        }
 
         async connectedCallback()
         {
@@ -52,7 +56,7 @@ var ceres = {};
 
             Object.seal(config);
 
-            config.progenitor = this;
+            config.progenitor = self;
             config.cache.css = [];
             config.cache.src = [];
 
