@@ -51,6 +51,7 @@ var ceres = {};
 
             Object.seal(config);
 
+            config.progenitor = this;
             config.cache.css = [];
             config.cache.src = [];
 
@@ -61,7 +62,6 @@ var ceres = {};
             if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             config.cache.src = config.cache.src.concat(src);
-            config.progenitor = this;
 
             if (slideviewHasAttributes()) activateSlideView();
 
