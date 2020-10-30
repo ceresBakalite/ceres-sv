@@ -87,6 +87,53 @@ var ceres = {};
                 return config.callback || config.noscript;
             }
 
+            let attributesExist = function()
+            {
+                config.imageArray = null;
+
+                rsc.inspect({ type: rsc.constant.notify, notification: csr.configAttributes + rsc.getObjectProperties(config.attributes), logtrace: config.attributes.trace });
+
+                const getImageList = function()
+                {
+                    const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(config.progenitor.textContent)) ? config.progenitor.textContent : null; }
+
+                    const getBodyContentList = function()
+                    {
+                        rsc.inspect({ type: rsc.constant.notify, notification: csr.bodyContentList, logtrace: config.attributes.trace });
+
+                        const list = !rsc.isEmptyOrNull(config.noscript) ? config.noscript.textContent : null;
+                        return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.bodyContentListNotFound, logtrace: config.attributes.trace });
+                    }
+
+                    return config.callback ? getConnectedCallbackList() : getBodyContentList();
+                }
+
+                const isImageArray = function()
+                {
+                    let imageList = getImageList();
+
+                    if (!rsc.isEmptyOrNull(imageList))
+                    {
+                        rsc.inspect({ type: rsc.constant.notify, notification: csr.listContainerMarkup + imageList, logtrace: config.attributes.trace });
+                        config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+                    }
+
+                    Object.freeze(config.attributes);
+
+                    return !rsc.isEmptyOrNull(config.imageArray);
+                }
+
+                return isImageArray();
+            }
+
+            let slideviewHasAttributes = function()
+            {
+                if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorNotFound, logtrace: config.attributes.trace });
+                if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListNotFound, logtrace: config.attributes.trace });
+
+                return attributesExist();
+            }
+
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
 
@@ -99,53 +146,6 @@ var ceres = {};
         }
 
     });
-
-    let attributesExist = function()
-    {
-        config.imageArray = null;
-
-        rsc.inspect({ type: rsc.constant.notify, notification: csr.configAttributes + rsc.getObjectProperties(config.attributes), logtrace: config.attributes.trace });
-
-        const getImageList = function()
-        {
-            const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(config.progenitor.textContent)) ? config.progenitor.textContent : null; }
-
-            const getBodyContentList = function()
-            {
-                rsc.inspect({ type: rsc.constant.notify, notification: csr.bodyContentList, logtrace: config.attributes.trace });
-
-                const list = !rsc.isEmptyOrNull(config.noscript) ? config.noscript.textContent : null;
-                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.bodyContentListNotFound, logtrace: config.attributes.trace });
-            }
-
-            return config.callback ? getConnectedCallbackList() : getBodyContentList();
-        }
-
-        const isImageArray = function()
-        {
-            let imageList = getImageList();
-
-            if (!rsc.isEmptyOrNull(imageList))
-            {
-                rsc.inspect({ type: rsc.constant.notify, notification: csr.listContainerMarkup + imageList, logtrace: config.attributes.trace });
-                config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
-            }
-
-            Object.freeze(config.attributes);
-
-            return !rsc.isEmptyOrNull(config.imageArray);
-        }
-
-        return isImageArray();
-    }
-
-    let slideviewHasAttributes = function()
-    {
-        if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorNotFound, logtrace: config.attributes.trace });
-        if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListNotFound, logtrace: config.attributes.trace });
-
-        return attributesExist();
-    }
 
     function getSlideView()
     {
