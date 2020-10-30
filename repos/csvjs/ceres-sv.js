@@ -23,7 +23,7 @@ var ceres = {};
     let boundSetSlide = null;
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { boundSetSlide.call(ceres, this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { boundSetSlide.call(this.slide = (calc) ? this.slide += target : target); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
