@@ -77,6 +77,7 @@ var ceres = {};
             config.fetchcss = !rsc.isEmptyOrNull(css);
             config.callback = !isEmpty(src);
 
+            console.log('1st try isEmpty(src): ' + isEmpty(src));
             console.log('1st try config.callBack: ' + config.callBack);
 
             config.slide = 1;
