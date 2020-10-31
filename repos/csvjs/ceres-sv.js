@@ -81,15 +81,18 @@ var ceres = {};
 
             let precursor = function()
             {
-                csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
-                csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
-                csr.bodyContentListNotFound = 'Error: Unable to find the ' + csv + ' fallback noscript image list when searching the document body';
-                csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
-                csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
-                csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + csv + ' attribute source nor the fallback noscript image list container';
+                if (rsc.isEmptyOrNull(csr))
+                {
+                    csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
+                    csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
+                    csr.bodyContentListNotFound = 'Error: Unable to find the ' + csv + ' fallback noscript image list when searching the document body';
+                    csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
+                    csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
+                    csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + csv + ' attribute source nor the fallback noscript image list container';
 
-                Object.freeze(csr);
-
+                    Object.freeze(csr);
+                }
+                
                 return config.callback || config.noscript;
             }
 
