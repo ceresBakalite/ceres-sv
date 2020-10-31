@@ -252,6 +252,8 @@ var ceres = {};
 
                 config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
 
+                console.log('target: ' + target + ' slides.length: ' + slides.length);
+
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
 
