@@ -88,8 +88,6 @@ var ceres = {};
                     config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
                     config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
                     config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
-
-                    Object.seal(config.attributes);
                 }
 
                 return exists;
@@ -125,6 +123,8 @@ var ceres = {};
                         rsc.inspect({ type: rsc.constant.notify, notification: csr.imageMarkup + ' [' + (config.callback ? csv + ' - callback' : cnv + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: config.attributes.trace });
                         config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                     }
+
+                    Object.seal(config);
 
                     return !rsc.isEmptyOrNull(config.imageArray);
                 }
