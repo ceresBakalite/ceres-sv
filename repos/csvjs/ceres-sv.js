@@ -28,11 +28,11 @@ var ceres = {};
     let csr = function() { return attribute; } // ceres slideview resource attributes
 
     csr.listContainerMarkup = 'Image list markup';
-    csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
-    csr.bodyContentListNotFound = 'Error: Unable to find the ' + cnv + ' fallback noscript image list when searching the document body';
+    csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+    csr.bodyContentListNotFound = 'Error: Unable to find the ' + cnv + ' fallback noscript element when searching the document body';
     csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
     csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
-    csr.imageListNotFound = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cnv + ' attributes';
+    csr.imageListNotFound = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cnv + ' elements';
 
     Object.freeze(csr);
 
