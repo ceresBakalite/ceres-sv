@@ -53,15 +53,17 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            config.progenitor = this;
-            config.bindSlide = setSlide.bind(ceres);
-            config.slide = 1;
-
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
 
-            if (!rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
-            if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            config.progenitor = this;
+            config.bindSlide = setSlide.bind(ceres);
+            config.fetchcss = !rsc.isEmptyOrNull(css);
+            config.callback = !rsc.isEmptyOrNull(src);
+            config.slide = 1;
+
+            if (config.fetchcss) await ( await fetchStylesheets(css) );
+            if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             console.log('xxx config.callBack: ' + config.callBack);
 
