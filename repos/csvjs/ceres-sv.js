@@ -22,10 +22,8 @@ var ceres = {};
 
     var boundSetSlide = null;
 
-    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    //this.getSlide = function(target, calc) { boundSetSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
-
-    this.getSlide = function(target, calc) { boundSetSlide.call(this.getIndex(target, calc)); };  // global scope method reference
+    //this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getSlide = function(target, calc) { boundSetSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
     let config = new class // ceres slideview configuration attributes
@@ -54,9 +52,11 @@ var ceres = {};
     {
         async connectedCallback()
         {
+            this.getImage = function(el) { boundOpenImage({ element: el, type: 'image' }); }; // global scope method reference
+
             //boundWindowOpen = openImage.bind(ceres);
             boundSetSlide = setSlide.bind(ceres);
-            let boundGetIndex = getIndex.bind(ceres);
+            var boundOpenImage = openImage.bind(ceres);
 
             config.progenitor = this;
             config.slide = 1;
@@ -230,11 +230,6 @@ var ceres = {};
             function openImage(el)
             {
                 rsc.windowOpen({ element: el, type: 'image' });
-            }
-
-            function getIndex(target, calc)
-            {
-                config.slide = (calc) ? config.slide += target : target;
             }
 
             function fetchStylesheets(str)
