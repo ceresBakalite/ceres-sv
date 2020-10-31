@@ -32,7 +32,7 @@ var ceres = {};
     csr.bodyContentListNotFound = 'Error: Unable to find the ' + cnv + ' fallback noscript image list when searching the document body';
     csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
     csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
-    csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + csv + ' attribute source nor the fallback ' + cnv + ' noscript image list container';
+    csr.imageListNotFound = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cnv + ' attributes';
 
     Object.freeze(csr);
 
