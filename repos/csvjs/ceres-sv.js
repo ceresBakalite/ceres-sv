@@ -52,7 +52,7 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            boundSetSlide = setSlide.bind(ceres);
+            boundSetSlide = setSlide.bind(ceres, config.slide = (calc) ? config.slide += target : target);
 
             config.progenitor = this;
             config.slide = 1;
@@ -250,8 +250,12 @@ var ceres = {};
                     pointers[config.slide-1].className += ' active';
                 }
 
-                //config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
-                config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
+                config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
+                //config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
+
+                //const offset = (swipe.action) ? swipe.right : swipe.left;
+                //setSlide(config.slide = config.slide += offset);
+
 
                 console.log('target: ' + target + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
 
