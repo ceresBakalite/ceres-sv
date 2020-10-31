@@ -254,7 +254,7 @@ var ceres = {};
                     pointers[config.slide-1].className += ' active';
                 }
 
-                config.slide = (config.current < 1) ? slides.length : (config.current > slides.length) ? 1 : config.current;
+                config.slide = (config.current < 1) ? slides.length : (config.current > slides.length) ? 1 : config.slide + 1;
                 config.current = config.slide;
                 //config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
 
@@ -262,7 +262,7 @@ var ceres = {};
 
 
                 //console.log('offset: ' + offset + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
-                console.log('config.current: ' + config.current + 'slides.length: ' + slides.length + ' config.slide: ' + config.slide);
+                console.log('config.current: ' + config.current + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
 
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
