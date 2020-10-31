@@ -24,7 +24,7 @@ var ceres = {};
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     //    this.getSlide = function(target, calc) { boundSetSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
-    this.getSlide = function(target) { boundSetSlide.call(config.slide = target); };  // global scope method reference
+    this.getSlide = function(target) { config.slide = config.slide += target; boundSetSlide.call(); };  // global scope method reference
 //    this.getSlide = function(target, calc) { boundSetSlide.call(target, calc); };  // global scope method reference
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
