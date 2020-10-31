@@ -250,7 +250,8 @@ var ceres = {};
                     pointers[config.slide-1].className += ' active';
                 }
 
-                config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
+                //config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
+                config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
 
                 console.log('target: ' + target + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
 
