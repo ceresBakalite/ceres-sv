@@ -124,7 +124,7 @@ var ceres = {};
                         config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                     }
 
-                    Object.seal(config);
+                    if (!Object.isSealed(config)) Object.seal(config);
 
                     return !rsc.isEmptyOrNull(config.imageArray);
                 }
