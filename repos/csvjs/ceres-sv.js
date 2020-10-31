@@ -11,7 +11,10 @@
 */
 export { ceres };
 
-import { resource as rsc, caching } from './ceres-sv-lib.min.js';
+//import { resource as rsc, caching } from './ceres-sv-lib.min.js';
+import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.min.js';
+
+
 
 var ceres = {};
 (function()
