@@ -49,11 +49,13 @@ var ceres = {};
     config.cache.css = [];
     config.cache.src = [];
 
+    let isStr = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+
     let isEmpty = function(obj)
     {
         if (obj === null || obj == 'undefined') return true;
 
-        if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+        if (isStr(obj)) return (obj.length === 0 || !obj.trim());
         if (Array.isArray(obj)) return (obj.length === 0);
         if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
 
