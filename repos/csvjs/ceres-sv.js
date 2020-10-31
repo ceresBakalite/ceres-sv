@@ -81,7 +81,7 @@ var ceres = {};
 
             let precursor = function()
             {
-                console.log('csr before: ' + rsc.isEmptyOrNull(csr));
+                console.log('csr before: ' + rsc.isEmptyOrNull(csr) + ' csr:' + csr);
 
                 if (rsc.isEmptyOrNull(csr))
                 {
@@ -95,7 +95,7 @@ var ceres = {};
                     Object.freeze(csr);
                 }
 
-                console.log('csr after: ' + rsc.isEmptyOrNull(csr));
+                console.log('csr after: ' + rsc.isEmptyOrNull(csr) + ' csr:' + csr);
 
                 return config.callback || config.noscript;
             }
