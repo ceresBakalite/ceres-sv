@@ -32,11 +32,11 @@ var ceres = {};
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
             this.attributes = function() { return attribute; }
             this.cache = function() { return attribute; }
-            this.progenitor = null;
-            this.noscript = null;
-            this.imageArray = null;
-            this.callback = false;
-            this.slide = 1;
+            //this.progenitor = null;
+            //this.noscript = null;
+            //this.imageArray = null;
+            //this.callback = false;
+            //this.slide = 1;
         }
 
     }
