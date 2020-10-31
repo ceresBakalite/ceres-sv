@@ -63,6 +63,8 @@ var ceres = {};
             if (!rsc.isEmptyOrNull(css)) await ( await fetchStylesheets(css) );
             if (config.callback = !rsc.isEmptyOrNull(src)) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
+            console.log('xxx config.callBack: ' + config.callBack);
+
             config.cache.src = config.cache.src.concat(src);
 
             if (slideviewHasAttributes()) activateSlideView();
