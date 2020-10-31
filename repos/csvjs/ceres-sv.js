@@ -26,38 +26,18 @@ var ceres = {};
     const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     const csr = function() { return attribute; } // ceres slideview resource attributes
 
-    csr.imageMarkup = 'Image list markup';
-    csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
-    csr.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
-    csr.progenitorError = 'Error: Unable to find the ' + csv + ' document element';
-    csr.imageListError = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cnv + ' elements';
-    csr.noscriptError = 'Error: Unable to find the ' + cnv + ' fallback noscript element when searching the document body';
-
-    Object.freeze(csr);
-
-    let config = new class // ceres slideview configuration attributes
-    {
-        constructor()
-        {
-            this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-            this.attributes = function() { return attribute; }
-            this.cache = function() { return attribute; }
-        }
-
-    }
-
-    config.cache.css = [];
-    config.cache.src = [];
+    let config = new class { constructor() {} } // ceres slideview configuration attributes
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
+            if (!Object.isFrozen(csr)) initialiseResources();
+
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
 
             config.progenitor = this;
-            config.bindSlide = setSlide.bind(ceres);
             config.fetchcss = !rsc.isEmptyOrNull(css);
             config.callback = !rsc.isEmptyOrNull(src);
 
@@ -129,6 +109,25 @@ var ceres = {};
                 }
 
                 return isImageArray();
+            }
+
+            function initialiseResources()
+            {
+                csr.imageMarkup = 'Image list markup';
+                csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
+                csr.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+                csr.progenitorError = 'Error: Unable to find the ' + csv + ' document element';
+                csr.imageListError = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cnv + ' elements';
+                csr.noscriptError = 'Error: Unable to find the ' + cnv + ' fallback noscript element when searching the document body';
+
+                Object.freeze(csr);
+
+                config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+                config.attributes = function() { return attribute; }
+                config.cache = function() { return attribute; }
+                config.cache.css = [];
+                config.cache.src = [];
+                config.bindSlide = setSlide.bind(ceres);
             }
 
             function slideviewHasAttributes()
