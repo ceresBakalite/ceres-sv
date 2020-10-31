@@ -19,12 +19,11 @@ var ceres = {};
 {
     'use strict';
 
-    const csv = 'ceres-sv'; // required ceres slideview element name
-    const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
-
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
+    const csv = 'ceres-sv'; // required ceres slideview element name
+    const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     const csr = function() { return attribute; } // ceres slideview resource attributes
 
     csr.imageMarkup = 'Image list markup';
