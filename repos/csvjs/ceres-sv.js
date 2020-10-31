@@ -258,7 +258,8 @@ var ceres = {};
                 //config.slide = config.slide += offset;
 
 
-                console.log('offset: ' + offset + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
+                //console.log('offset: ' + offset + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
+                console.log('slides.length: ' + slides.length + ' config.slide: ' + config.slide);
 
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
