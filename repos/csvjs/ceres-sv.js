@@ -254,7 +254,7 @@ var ceres = {};
                     pointers[config.slide-1].className += ' active';
                 }
 
-                config.slide = (config.current < 1) ? slides.length : (config.current > slides.length) ? 1 : config.slide + 1;
+                config.slide = (config.current == 1) ? slides.length : (config.current == slides.length) ? 1 : config.slide + 1;
                 config.current = config.slide;
                 //config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
 
