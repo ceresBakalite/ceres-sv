@@ -25,7 +25,7 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
-    let csr = function() { return attribute; } // ceres slideview resource attributes
+    const csr = function() { return attribute; } // ceres slideview resource attributes
 
     csr.imageMarkup = 'Image list markup';
     csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
