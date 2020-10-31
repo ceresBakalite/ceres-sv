@@ -56,7 +56,7 @@ var ceres = {};
         {
             //boundWindowOpen = openImage.bind(ceres);
             boundSetSlide = setSlide.bind(ceres);
-            boundGetIndex = getIndex.bind(ceres);
+            let boundGetIndex = getIndex.bind(ceres);
 
             config.progenitor = this;
             config.slide = 1;
