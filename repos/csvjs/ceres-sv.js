@@ -64,7 +64,7 @@ var ceres = {};
                     config.attributes.sub = rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
                     config.attributes.ptr = rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
                     config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
-                    config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
+                    config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache')); // cache by default
                     config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
                 }
 
