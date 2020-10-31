@@ -255,7 +255,7 @@ var ceres = {};
                 }
 
                 config.slide = (config.current == 1) ? slides.length : (config.current == slides.length) ? 1 : config.slide + 1;
-                config.current = config.slide;
+                //config.current = config.slide;
                 //config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
 
                 //config.slide = config.slide += offset;
