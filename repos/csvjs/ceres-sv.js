@@ -20,7 +20,7 @@ var ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview element name
 
-    let boundSlide = null;
+    //let boundSlide = null;
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { boundSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
@@ -52,7 +52,7 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            boundSlide = setSlide.bind(ceres);
+            //boundSlide = setSlide.bind(ceres);
 
             config.progenitor = this;
             config.slide = 1;
@@ -239,6 +239,8 @@ var ceres = {};
 
             function setSlide()
             {
+                var boundSlide = setSlide.bind(ceres);
+
                 const slides = document.querySelectorAll('div.slideview');
 
                 const setPointerStyle = function()
