@@ -23,7 +23,7 @@ var ceres = {};
     var boundSetSlide = null;
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target) { boundSetSlide.call(config.slide = target > 1 ? config.slide += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { boundSetSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 //    this.getSlide = function(target, calc) { boundSetSlide.call(target, calc); };  // global scope method reference
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
@@ -187,8 +187,8 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1)' });
-                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
                 if (config.attributes.ptr) getSlideViewPointerContainer();
 
