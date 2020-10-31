@@ -81,11 +81,8 @@ var ceres = {};
 
             let precursor = function()
             {
-                console.log('csr before: ' + rsc.isEmptyOrNull(csr) + ' Object.isFrozen(csr): ' + Object.isFrozen(csr) + ' csr:' + csr);
-
                 if (!Object.isFrozen(csr))
                 {
-
                     csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
                     csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
                     csr.bodyContentListNotFound = 'Error: Unable to find the ' + csv + ' fallback noscript image list when searching the document body';
@@ -95,8 +92,6 @@ var ceres = {};
 
                     Object.freeze(csr);
                 }
-
-                console.log('csr after: ' + rsc.isEmptyOrNull(csr) + ' Object.isFrozen(csr): ' + Object.isFrozen(csr) + ' csr:' + csr);
 
                 return config.callback || config.noscript;
             }
