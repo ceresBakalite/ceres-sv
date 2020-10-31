@@ -25,8 +25,7 @@ var ceres = {};
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
     const csr = function() { return attribute; } // ceres slideview resource attributes
-
-    let config = new class { constructor() {} } // ceres slideview configuration attributes
+    const config = new class { constructor(){} } // ceres slideview configuration attributes
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
