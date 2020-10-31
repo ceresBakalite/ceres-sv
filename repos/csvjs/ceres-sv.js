@@ -36,7 +36,6 @@ var ceres = {};
             this.noscript = null;
             this.imageArray = null;
             this.callback = false;
-            this.bindSlide = function() { setSlide.bind(ceres); };
             this.slide = 1;
         }
 
@@ -45,14 +44,14 @@ var ceres = {};
     config.cache.css = [];
     config.cache.src = [];
 
-    Object.seal(config);
+    //Object.seal(config);
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
             config.progenitor = this;
-            //config.bindSlide = setSlide.bind(ceres);
+            config.bindSlide = setSlide.bind(ceres);
             config.slide = 1;
 
             let css = this.getAttribute('css') || config.defaultCSS;
