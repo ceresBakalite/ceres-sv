@@ -82,11 +82,11 @@ var ceres = {};
                     config.progenitor.id = rsc.getUniqueElementId(csv);
                     config.noscript = document.getElementById(cnv) || document.getElementsByTagName('noscript')[0];
 
-                    config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
-                    config.attributes.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
-                    config.attributes.sub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
-                    config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
+                    config.attributes.sur = rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
+                    config.attributes.sub = rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
+                    config.attributes.ptr = rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
                     config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
+                    config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache'));
                     config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
 
                     Object.seal(config.attributes);
@@ -103,9 +103,9 @@ var ceres = {};
 
                 const getImageList = function()
                 {
-                    const getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(config.progenitor.textContent)) ? config.progenitor.textContent : null; }
+                    let getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(config.progenitor.textContent)) ? config.progenitor.textContent : null; }
 
-                    const getBodyContentList = function()
+                    let getBodyContentList = function()
                     {
                         rsc.inspect({ type: rsc.constant.notify, notification: csr.noscriptSearch, logtrace: config.attributes.trace });
 
