@@ -118,7 +118,8 @@ var ceres = {};
 
                     if (!rsc.isEmptyOrNull(imageList))
                     {
-                        rsc.inspect({ type: rsc.constant.notify, notification: csr.listContainerMarkup + ' [' + (config.callBack ? csv + ' callback' : cnv + ' noscript') + ']:' + rsc.constant.newline + imageList, logtrace: config.attributes.trace });
+                        console.log('config.callBack: ' + config.callBack);
+                        rsc.inspect({ type: rsc.constant.notify, notification: csr.listContainerMarkup + ' [' + (config.callBack ? csv + ' - callback' : cnv + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: config.attributes.trace });
                         config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                     }
 
