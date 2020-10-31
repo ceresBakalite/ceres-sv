@@ -31,7 +31,7 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            if (!Object.isFrozen(csr)) initialiseResources();
+            if (!Object.isFrozen(csr)) getResources();
 
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
@@ -110,7 +110,7 @@ var ceres = {};
                 return isImageArray();
             }
 
-            function initialiseResources()
+            function getResources()
             {
                 csr.imageMarkup = 'Image list markup';
                 csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
