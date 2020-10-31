@@ -22,7 +22,7 @@ var ceres = {};
 
     var boundSetSlide = null;
 
-    //this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { boundSetSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
@@ -54,9 +54,7 @@ var ceres = {};
         {
             this.getImage = function(el) { boundOpenImage({ element: el, type: 'image' }); }; // global scope method reference
 
-            //boundWindowOpen = openImage.bind(ceres);
             boundSetSlide = setSlide.bind(ceres);
-            var boundOpenImage = openImage.bind(ceres);
 
             config.progenitor = this;
             config.slide = 1;
@@ -185,7 +183,7 @@ var ceres = {};
                     let slideContainer = document.getElementById(id);
 
                     if (config.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'ceres.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+                    rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
@@ -227,11 +225,6 @@ var ceres = {};
 
             }
 
-            function openImage(el)
-            {
-                rsc.windowOpen({ element: el, type: 'image' });
-            }
-
             function fetchStylesheets(str)
             {
                 const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
@@ -260,14 +253,6 @@ var ceres = {};
                 }
 
                 config.slide = (config.slide < 1) ? slides.length : (config.slide > slides.length) ? 1 : config.slide;
-                //config.current = config.slide;
-                //config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
-
-                //config.slide = config.slide += offset;
-
-
-                //console.log('offset: ' + offset + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
-                console.log('slides.length: ' + slides.length + ' config.slide: ' + config.slide);
 
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
