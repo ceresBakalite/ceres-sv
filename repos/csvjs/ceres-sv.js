@@ -25,7 +25,8 @@ var ceres = {};
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
 
-    csr.listContainerMarkup = 'Image list markup ' + ((config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
+    csr.listContainerMarkup = 'Image list markup delivered as promised by connectedCallback';
+//    csr.listContainerMarkup = 'Image list markup ' + (config.callback) ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
     csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
     csr.bodyContentListNotFound = 'Error: Unable to find the ' + csv + ' fallback noscript image list when searching the document body';
     csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
@@ -76,7 +77,7 @@ var ceres = {};
                 if (exists)
                 {
                     config.progenitor.id = rsc.getUniqueElementId(csv);
-                    config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[0];
+                    config.noscript = $(config.noscriptId) || document.getElementsByTagName('noscript')[0];
 
                     config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
                     config.attributes.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
@@ -166,7 +167,7 @@ var ceres = {};
 
                     rsc.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
 
-                    let slideContainer = document.getElementById(id);
+                    let slideContainer = $(id);
 
                     if (config.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
                     rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
