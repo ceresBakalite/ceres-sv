@@ -66,6 +66,7 @@ var ceres = {};
             if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             console.log('this.getAttribute(src): ' + this.getAttribute('src'));
+            console.log('src: ' + src);
             console.log('xxx config.fetchcss: ' + config.fetchcss);
             console.log('xxx config.callBack: ' + config.callBack);
 
