@@ -55,7 +55,7 @@ var ceres = {};
     {
         async connectedCallback()
         {
-            boundSetSlide = setSlide.bind(ceres);
+            boundSetSlide = setSlide.bind(ceres, target);
 
             config.progenitor = this;
             config.slide = 1;
