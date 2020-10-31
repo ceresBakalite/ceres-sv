@@ -73,7 +73,7 @@ var ceres = {};
 
             let precursor = function() { return config.callback || config.noscript; }
 
-            let progenitor = function()
+            let protean = function()
             {
                 const exists = !rsc.isEmptyOrNull(config.progenitor);
 
@@ -134,7 +134,7 @@ var ceres = {};
 
             function slideviewHasAttributes()
             {
-                if (!progenitor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorNotFound, logtrace: config.attributes.trace });
+                if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorNotFound, logtrace: config.attributes.trace });
                 if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListNotFound, logtrace: config.attributes.trace });
 
                 return attributesExist();
