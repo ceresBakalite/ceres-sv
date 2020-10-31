@@ -49,6 +49,17 @@ var ceres = {};
     config.cache.css = [];
     config.cache.src = [];
 
+    let isEmpty = function(obj)
+    {
+        if (obj === null || obj == 'undefined') return true;
+
+        if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+        if (Array.isArray(obj)) return (obj.length === 0);
+        if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
+
+        return !obj;
+    }
+
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -59,7 +70,7 @@ var ceres = {};
             config.progenitor = this;
             config.bindSlide = setSlide.bind(ceres);
             config.fetchcss = !rsc.isEmptyOrNull(css);
-            config.callback = !rsc.isEmptyOrNull(src);
+            config.callback = !isEmpty(src);
             config.slide = 1;
 
             if (config.fetchcss) await ( await fetchStylesheets(css) );
