@@ -11,10 +11,8 @@
 */
 export { ceres };
 
-//import { resource as rsc, caching } from './ceres-sv-lib.min.js';
-import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.js';
-
-
+import { resource as rsc, caching } from './ceres-sv-lib.min.js';
+//import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.js';
 
 var ceres = {};
 (function()
@@ -52,19 +50,6 @@ var ceres = {};
     config.cache.css = [];
     config.cache.src = [];
 
-    let isStr = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
-
-    let isEmpty = function(obj)
-    {
-        if (obj === null || obj == 'undefined') return true;
-
-        if (isStr(obj)) return (obj.length === 0 || !obj.trim());
-        if (Array.isArray(obj)) return (obj.length === 0);
-        if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
-
-        return !obj;
-    }
-
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -75,20 +60,12 @@ var ceres = {};
             config.progenitor = this;
             config.bindSlide = setSlide.bind(ceres);
             config.fetchcss = !rsc.isEmptyOrNull(css);
-            config.callback = !isEmpty(src);
-
-            console.log('1st try isEmpty(src): ' + isEmpty(src));
-            console.log('1st try config.callBack: ' + config.callBack);
+            config.callback = !rsc.isEmptyOrNull(src);
 
             config.slide = 1;
 
             if (config.fetchcss) await ( await fetchStylesheets(css) );
             if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
-
-            console.log('this.getAttribute(src): ' + this.getAttribute('src'));
-            console.log('src: ' + src);
-            console.log('xxx config.fetchcss: ' + config.fetchcss);
-            console.log('xxx config.callBack: ' + config.callBack);
 
             config.cache.src = config.cache.src.concat(src);
 
@@ -145,8 +122,7 @@ var ceres = {};
 
                     if (!rsc.isEmptyOrNull(imageList))
                     {
-                        console.log('config.callBack: ' + config.callBack);
-                        rsc.inspect({ type: rsc.constant.notify, notification: csr.listContainerMarkup + ' [' + (config.callBack ? csv + ' - callback' : cnv + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: config.attributes.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: csr.listContainerMarkup + ' [' + (config.callback ? csv + ' - callback' : cnv + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: config.attributes.trace });
                         config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                     }
 
