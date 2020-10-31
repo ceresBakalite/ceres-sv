@@ -239,7 +239,7 @@ var ceres = {};
                 config.cache.css = config.cache.css.concat(css);
             }
 
-            function setSlide(offset = 1)
+            function setSlide()
             {
                 const slides = document.querySelectorAll('div.slideview');
 
@@ -255,7 +255,7 @@ var ceres = {};
                 //config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
                 //config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
 
-                config.slide = config.slide += offset;
+                //config.slide = config.slide += offset;
 
 
                 console.log('offset: ' + offset + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
