@@ -24,7 +24,7 @@ var ceres = {};
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     //    this.getSlide = function(target, calc) { boundSetSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
-    this.getSlide = function(target) { config.current = target; boundSetSlide.call(target); };  // global scope method reference
+    this.getSlide = function(target) { boundSetSlide.call(config.slide = target); };  // global scope method reference
 //    this.getSlide = function(target, calc) { boundSetSlide.call(target, calc); };  // global scope method reference
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
@@ -37,7 +37,6 @@ var ceres = {};
             this.attributes = function() { return attribute; }
             this.cache = function() { return attribute; }
             this.slide = 1;
-            this.current = 1;
             this.progenitor = null;
             this.noscript = null;
             this.imageArray = null;
@@ -59,7 +58,6 @@ var ceres = {};
 
             config.progenitor = this;
             config.slide = 1;
-            config.current = 1;
 
             let css = this.getAttribute('css') || config.defaultCSS;
             let src = this.getAttribute('src') || null;
@@ -241,7 +239,7 @@ var ceres = {};
                 config.cache.css = config.cache.css.concat(css);
             }
 
-            function setSlide(target)
+            function setSlide()
             {
                 const slides = document.querySelectorAll('div.slideview');
 
@@ -254,7 +252,7 @@ var ceres = {};
                     pointers[config.slide-1].className += ' active';
                 }
 
-                config.slide = (config.current == 1) ? slides.length : (config.current == slides.length) ? 1 : config.slide + 1;
+                config.slide = (config.slide < 1) ? slides.length : (config.slide > slides.length) ? 1 : config.slide;
                 //config.current = config.slide;
                 //config.slide = (config.slide == slides.length) ? 1 : (config.slide == 1) ? slides.length : config.slide;
 
@@ -262,7 +260,7 @@ var ceres = {};
 
 
                 //console.log('offset: ' + offset + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
-                console.log('target: ' + target + ' config.current: ' + config.current + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
+                console.log('slides.length: ' + slides.length + ' config.slide: ' + config.slide);
 
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
