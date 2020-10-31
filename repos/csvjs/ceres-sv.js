@@ -252,7 +252,7 @@ var ceres = {};
 
                 config.slide = (target < 1) ? slides.length : (target > slides.length) ? 1 : config.slide;
 
-                console.log('target: ' + target + ' slides.length: ' + slides.length);
+                console.log('target: ' + target + ' slides.length: ' + slides.length + ' config.slide: ' + config.slide);
 
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
