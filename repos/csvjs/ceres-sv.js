@@ -19,18 +19,28 @@ var ceres = {};
     'use strict';
 
     const csv = 'ceres-sv'; // required ceres slideview element name
+    const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+
+    let csr = function() { return attribute; } // ceres slideview resource attributes
+
+    csr.listContainerMarkup = 'Image list markup ' + (config.bindCall.call() ? 'delivered as promised by connectedCallback [' + csv + ']:' : 'sourced from the document body [' + cnv + ']:') + rsc.constant.newline;
+    csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
+    csr.bodyContentListNotFound = 'Error: Unable to find the ' + cnv + ' fallback noscript image list when searching the document body';
+    csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
+    csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
+    csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + csv + ' attribute source nor the fallback ' + cnv + ' noscript image list container';
+
+    Object.freeze(csr);
 
     let config = new class // ceres slideview configuration attributes
     {
         constructor()
         {
-            this.noscriptId = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             this.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
             this.attributes = function() { return attribute; }
-            this.callback = false;
             this.cache = function() { return attribute; }
         }
 
@@ -39,23 +49,13 @@ var ceres = {};
     config.cache.css = [];
     config.cache.src = [];
 
-    let csr = function() { return attribute; } // ceres slideview resource attributes
-
-    csr.listContainerMarkup = 'Image list markup ' + (config.callback ? 'delivered as promised by connectedCallback' : 'sourced from the document body') + ' [' + csv + ']:' + rsc.constant.newline;
-    csr.bodyContentList = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript image list content in the document body';
-    csr.bodyContentListNotFound = 'Error: Unable to find the ' + csv + ' fallback noscript image list when searching the document body';
-    csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
-    csr.progenitorNotFound = 'Error: Unable to find the ' + csv + ' document element';
-    csr.imageListNotFound = 'Error: Unable to find either the connectedCallback ' + csv + ' attribute source nor the fallback noscript image list container';
-
-    Object.freeze(csr);
-
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
             config.progenitor = this;
             config.bindSlide = setSlide.bind(ceres);
+            config.bindCall = config.callback.bind(ceres);
             config.slide = 1;
 
             let css = this.getAttribute('css') || config.defaultCSS;
@@ -77,7 +77,7 @@ var ceres = {};
                 if (exists)
                 {
                     config.progenitor.id = rsc.getUniqueElementId(csv);
-                    config.noscript = document.getElementById(config.noscriptId) || document.getElementsByTagName('noscript')[0];
+                    config.noscript = document.getElementById(cnv) || document.getElementsByTagName('noscript')[0];
 
                     config.attributes.ptr = !rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
                     config.attributes.sur = !rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
