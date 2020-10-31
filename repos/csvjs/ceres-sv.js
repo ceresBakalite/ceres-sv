@@ -196,8 +196,6 @@ var ceres = {};
                     const getClickEvent = function() { return 'window.getSlide(' + pointerIndex + ')'; }
 
                     pointerElement.id = csv + '-pointer-container';
-
-                    //config.progenitor.appendChild(document.createElement('br'));
                     config.progenitor.appendChild(pointerElement);
 
                     rsc.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
