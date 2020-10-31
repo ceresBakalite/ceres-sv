@@ -23,8 +23,7 @@ var ceres = {};
     var boundSetSlide = null;
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    //    this.getSlide = function(target, calc) { boundSetSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
-    this.getSlide = function(target) { config.slide = config.slide += target; boundSetSlide.call(); };  // global scope method reference
+    this.getSlide = function(target) { boundSetSlide.call(config.slide = config.slide += target); };  // global scope method reference
 //    this.getSlide = function(target, calc) { boundSetSlide.call(target, calc); };  // global scope method reference
 
     let csr = function() { return attribute; } // ceres slideview resource attributes
@@ -54,6 +53,7 @@ var ceres = {};
     {
         async connectedCallback()
         {
+            //boundWindowOpen = openImage.bind(ceres);
             boundSetSlide = setSlide.bind(ceres);
 
             config.progenitor = this;
@@ -223,6 +223,11 @@ var ceres = {};
                     config.progenitor.appendChild(document.createElement('br'));
                 }
 
+            }
+
+            function openImage(el)
+            {
+                rsc.windowOpen({ element: el, type: 'image' });
             }
 
             function fetchStylesheets(str)
