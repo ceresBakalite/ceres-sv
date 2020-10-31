@@ -239,7 +239,7 @@ var ceres = {};
                 config.cache.css = config.cache.css.concat(css);
             }
 
-            function setSlide(offset)
+            function setSlide(offset = 1)
             {
                 const slides = document.querySelectorAll('div.slideview');
 
