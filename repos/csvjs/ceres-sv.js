@@ -149,6 +149,11 @@ var ceres = {};
 
                 config.progenitor.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
+                const styleContainer = document.createElement('style');
+                styleContainer.id = csv + '-style-container';
+                config.progenitor.appendChild(styleContainer);
+                rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
+
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
                 config.progenitor.appendChild(bodyContainer);
@@ -191,10 +196,6 @@ var ceres = {};
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 config.progenitor.shadowRoot.append(bodyContainer);
-
-                let css = new CSSStyleSheet();
-                css.replaceSync( '@import url( ' + config.defaultCSS + ' )' );
-                config.progenitor.shadowRoot.adoptedStyleSheets = [css];
 
                 function getHorizontalSwipe(swipe)
                 {
