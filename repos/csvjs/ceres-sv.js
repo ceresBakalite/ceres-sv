@@ -144,6 +144,8 @@ var ceres = {};
 
                 config.cache.css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
+                console.log('config.cache.css: ' + config.cache.css);
+
                 const getStyles = function(url, index)
                 {
                     console.log('getStyles: ' + url);
