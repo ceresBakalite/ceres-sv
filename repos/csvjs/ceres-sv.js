@@ -187,14 +187,9 @@ var ceres = {};
                     };
 
                     let slideContainer = document.createElement('div');
-                    //slideContainer.id = id;
                     slideContainer.className = 'slideview fade';
 
                     imageContainer.appendChild(slideContainer);
-
-                    //rsc.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
-
-                    //let slideContainer = document.getElementById(id);
 
                     if (config.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
                     rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
