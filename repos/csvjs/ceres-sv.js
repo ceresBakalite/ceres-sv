@@ -19,16 +19,16 @@ var ceres = {};
 {
     'use strict';
 
-    const csv = 'ceres-sv'; // required ceres slideview element name
-    const config = new class { constructor(){} } // ceres slideview configuration attributes
-
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+
+    const config = new class { constructor(){} } // ceres slideview configuration attributes
 
     window.customElements.get('ceres-sv') || window.customElements.define('ceres-sv', class extends HTMLElement
     {
         async connectedCallback()
         {
+            const csv = 'ceres-sv'; // required ceres slideview element name
             const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             const csr = function() { return attribute; } // ceres slideview resource attributes
 
@@ -147,6 +147,8 @@ var ceres = {};
 
                 rsc.clearElement(config.progenitor);
 
+                config.progenitor.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
+
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
                 config.progenitor.appendChild(bodyContainer);
@@ -185,6 +187,8 @@ var ceres = {};
                 rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
                 if (config.attributes.ptr) getSlideViewPointerContainer();
+
+                config.progenitor.shadowRoot.append(bodyContainer);
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
