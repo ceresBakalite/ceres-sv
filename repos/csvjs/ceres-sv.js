@@ -200,7 +200,7 @@ var ceres = {};
                 rsc.composeElement({ el: 'a', id: 'slideview-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
                 rsc.composeElement({ el: 'a', id: 'slideview-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
-                if (config.attributes.nub) getSlideViewNubContainer();
+                if (config.attributes.nub) getSlideViewTrackContainer();
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
@@ -215,20 +215,20 @@ var ceres = {};
 
                 rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attributes.trace });
 
-                function getSlideViewNubContainer()
+                function getSlideViewTrackContainer()
                 {
-                    const nubElement = document.createElement('div');
-                    const getClickEvent = function() { return 'window.getSlide(' + nubIndex + ')'; }
+                    const el = document.createElement('div');
+                    const getClickEvent = function() { return 'window.getSlide(' + index + ')'; }
 
-                    nubElement.id = csv + '-nub-container';
-                    bodyContainer.appendChild(nubElement);
+                    el.id = csv + '-nub-container';
+                    bodyContainer.appendChild(el);
 
-                    rsc.composeAttribute({ id: nubElement.id, type: 'class', value: 'slideview-nub-container' });
+                    rsc.composeAttribute({ id: el.id, type: 'class', value: 'slideview-nub-container' });
 
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
-                        var nubIndex = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'slideview-nub' + nubIndex, classValue: 'nub', parent: nubElement, onClickEvent: getClickEvent() });
+                        var index = item + 1;
+                        rsc.composeElement({ el: 'span', id: 'slideview-nub' + index, classValue: 'nub', parent: nubElement, onClickEvent: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
