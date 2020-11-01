@@ -151,11 +151,9 @@ var ceres = {};
 
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style-container';
-                config.progenitor.appendChild(styleContainer);
+                styleContainer.className = 'slideview-style';
 
-                let el = document.getElementById(styleContainer.id);
-                el.className = 'slideview-style';
-                //rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
+                config.progenitor.appendChild(styleContainer);
 
                 fetch(config.defaultCSS).then(response => response.text()).then(data =>
                 {
@@ -169,21 +167,11 @@ var ceres = {};
 
                 config.progenitor.appendChild(bodyContainer);
 
-                //el = document.getElementById(bodyContainer.id);
-                //el.className = 'slideview-body';
-                //el.style.display  = 'none';
-                //rsc.composeAttribute({ id: bodyContainer.id, type: 'style', value: 'display: none;' });
-                //rsc.composeAttribute({ id: bodyContainer.id, type: 'class', value: 'slideview-body' });
-
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image-container';
                 imageContainer.className = 'slideview-image-container';
 
                 bodyContainer.appendChild(imageContainer);
-
-                //el = document.getElementById(imageContainer.id);
-                //el.className = 'slideview-image-container';
-                //rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
                 for (let item = 0; item < config.imageArray.length; item++)
                 {
@@ -234,10 +222,6 @@ var ceres = {};
                     trackContainer.className = 'slideview-nub-container';
 
                     bodyContainer.appendChild(trackContainer);
-
-                    //let el = document.getElementById(trackContainer.id);
-                    //el.className = 'slideview-nub-container';
-                    //rsc.composeAttribute({ id: el.id, type: 'class', value: 'slideview-nub-container' });
 
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
