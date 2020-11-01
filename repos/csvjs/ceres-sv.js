@@ -153,9 +153,9 @@ var ceres = {};
                 styleContainer.id = csv + '-style-container';
                 config.progenitor.appendChild(styleContainer);
 
-                rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
-
                 let el = document.getElementById(styleContainer.id);
+                el.className = 'slideview-style';
+                //rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
                 fetch(config.defaultCSS).then(response => response.text()).then(data =>
                 {
@@ -164,16 +164,26 @@ var ceres = {};
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
+                bodyContainer.className = 'slideview-body';
+                bodyContainer.style.display  = 'none';
+
                 config.progenitor.appendChild(bodyContainer);
 
-                rsc.composeAttribute({ id: bodyContainer.id, type: 'style', value: 'display: none;' });
-                rsc.composeAttribute({ id: bodyContainer.id, type: 'class', value: 'slideview-body' });
+                //el = document.getElementById(bodyContainer.id);
+                //el.className = 'slideview-body';
+                //el.style.display  = 'none';
+                //rsc.composeAttribute({ id: bodyContainer.id, type: 'style', value: 'display: none;' });
+                //rsc.composeAttribute({ id: bodyContainer.id, type: 'class', value: 'slideview-body' });
 
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image-container';
+                imageContainer.className = 'slideview-image-container';
+
                 bodyContainer.appendChild(imageContainer);
 
-                rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
+                //el = document.getElementById(imageContainer.id);
+                //el.className = 'slideview-image-container';
+                //rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
                 for (let item = 0; item < config.imageArray.length; item++)
                 {
@@ -217,18 +227,22 @@ var ceres = {};
 
                 function getSlideViewTrackContainer()
                 {
-                    const el = document.createElement('div');
                     const getClickEvent = function() { return 'window.getSlide(' + index + ')'; }
 
-                    el.id = csv + '-nub-container';
-                    bodyContainer.appendChild(el);
+                    const trackContainer = document.createElement('div');
+                    trackContainer.id = csv + '-nub-container';
+                    trackContainer.className = 'slideview-nub-container';
 
-                    rsc.composeAttribute({ id: el.id, type: 'class', value: 'slideview-nub-container' });
+                    bodyContainer.appendChild(trackContainer);
+
+                    //let el = document.getElementById(trackContainer.id);
+                    //el.className = 'slideview-nub-container';
+                    //rsc.composeAttribute({ id: el.id, type: 'class', value: 'slideview-nub-container' });
 
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
                         var index = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'slideview-nub' + index, classValue: 'nub', parent: el, onClickEvent: getClickEvent() });
+                        rsc.composeElement({ el: 'span', id: 'slideview-nub' + index, classValue: 'nub', parent: trackContainer, onClickEvent: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
