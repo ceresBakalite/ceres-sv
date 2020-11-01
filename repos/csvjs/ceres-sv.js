@@ -155,7 +155,7 @@ var ceres = {};
 
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
-                fetch(config.defaultCSS).then(response => response.json()).then(data =>
+                fetch(config.defaultCSS).then(response => response.text()).then(data =>
                 {
                     console.log(data)
                     //let el = document.getElementById(styleContainer.id);
