@@ -140,10 +140,11 @@ var ceres = {};
 
             let fetchStyles = function()
             {
-                let styles = null;
+                var styles = null;
 
                 const getStyles = function(url, index)
                 {
+                    console.log(url);
                     fetch(url).then(response => response.text()).then(css => { styles += css; });
                 }
 
