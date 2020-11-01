@@ -292,7 +292,7 @@ var ceres = {};
                 const shadow = config.progenitor.shadowRoot;
                 const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + config.progenitor.id);
 
-                nodelist.forEach(node => { node.style.display = attribute; } );
+                nodelist.forEach(node => { node.style.display = attribute + ' !important'; } );
             }
 
             function setCache()
