@@ -155,9 +155,9 @@ var ceres = {};
 
                 config.progenitor.appendChild(styleContainer);
 
-                fetch(config.defaultCSS).then(response => response.text()).then(data =>
+                fetch(config.defaultCSS).then(response => response.text()).then(css =>
                 {
-                    styleContainer.insertAdjacentHTML('afterbegin', data)
+                    styleContainer.insertAdjacentHTML('afterbegin', css)
                 });
 
                 const bodyContainer = document.createElement('div');
