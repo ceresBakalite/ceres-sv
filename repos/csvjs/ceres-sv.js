@@ -188,9 +188,9 @@ var ceres = {};
 
                 if (config.attributes.ptr) getSlideViewPointerContainer();
 
-                config.progenitor.shadowRoot.append(bodyContainer);
-
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
+
+                config.progenitor.shadowRoot.append(bodyContainer);
 
                 function getHorizontalSwipe(swipe)
                 {
