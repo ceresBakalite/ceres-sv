@@ -63,7 +63,7 @@ var ceres = {};
 
                     config.attributes.sur = rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
                     config.attributes.sub = rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
-                    config.attributes.ptr = rsc.getBooleanAttribute(config.progenitor.getAttribute('ptr'));
+                    config.attributes.track = rsc.getBooleanAttribute(config.progenitor.getAttribute('track'));
                     config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
                     config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache')); // cache by default
                     config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
@@ -196,10 +196,10 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: 'slideview-prev', classValue: 'prev', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
-                rsc.composeElement({ el: 'a', id: 'slideview-next', classValue: 'next', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
+                rsc.composeElement({ el: 'a', id: 'slideview-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
-                if (config.attributes.ptr) getSlideViewPointerContainer();
+                if (config.attributes.track) getSlideViewPointerContainer();
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
@@ -227,7 +227,7 @@ var ceres = {};
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
                         var pointerIndex = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
+                        rsc.composeElement({ el: 'span', id: 'slideview-track' + pointerIndex, classValue: 'track', parent: pointerElement, onClickEvent: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
@@ -256,11 +256,11 @@ var ceres = {};
 
                 const setPointerStyle = function()
                 {
-                    const pointers = shadow.querySelectorAll('span.ptr');
-                    const el = shadow.querySelector('span.active');
+                    const pointers = shadow.querySelectorAll('span.track');
+                    const el = shadow.querySelector('span.enabled');
 
-                    if (el) el.className = 'ptr';
-                    pointers[config.slide-1].className += ' active';
+                    if (el) el.className = 'track';
+                    pointers[config.slide-1].className += ' enabled';
                 }
 
                 config.slide = (config.slide < 1) ? slides.length : (config.slide > slides.length) ? 1 : config.slide;
@@ -268,7 +268,7 @@ var ceres = {};
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
 
-                if (config.attributes.ptr) setPointerStyle();
+                if (config.attributes.track) setPointerStyle();
             }
 
             function activateSlideView()

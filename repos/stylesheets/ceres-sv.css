@@ -41,7 +41,7 @@
   display: none;
 }
 
-.prev, .next {
+.left, .right {
   cursor: pointer;
   position: absolute;
   top: 45%;
@@ -56,12 +56,12 @@
   user-select: none;
 }
 
-.next {
+.right {
   right: 0;
   border-radius: 3px 0 0 3px;
 }
 
-.prev:hover, .next:hover {
+.left:hover, .right:hover {
   background-color: rgba(0,0,0,0.3);
   text-decoration: none;
 }
@@ -84,7 +84,7 @@
   top: 0;
 }
 
-.ptr {
+.track {
   cursor: pointer;
   height: 10px;
   width: 10px;
@@ -95,7 +95,7 @@
   transition: background-color 0.6s ease;
 }
 
-.active, .ptr:hover {
+.enabled, .track:hover {
   background-color: #717171;
 }
 
