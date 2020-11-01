@@ -52,7 +52,7 @@
 .slideview-image-container {
   max-width: 100%;
   position: relative;
-  margin: 0px;
+  margin: 0 0;
 }
 
 .slideview-pointer-container {
