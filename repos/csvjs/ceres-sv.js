@@ -43,7 +43,7 @@ var ceres = {};
 
             config.slide = 1;
 
-            if (config.fetchcss) await ( await fetchStylesheets(css) );
+            //if (config.fetchcss) await ( await fetchStylesheets(css) );
             if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             config.cache.src = config.cache.src.concat(src);
@@ -244,7 +244,7 @@ var ceres = {};
                     if (!config.cache.css.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
                 }
 
-                if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
+                //if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
 
                 config.cache.css = config.cache.css.concat(css);
             }
@@ -287,7 +287,7 @@ var ceres = {};
             function setSlideViewDisplay(attribute)
             {
                 config.progenitor.style.display = 'block';
-                
+
                 const shadow = config.progenitor.shadowRoot;
                 const nodelist = shadow.querySelectorAll('img.slide, #' + config.progenitor.id);
 
