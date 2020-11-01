@@ -19,6 +19,7 @@
 .slideview-body img {
     max-width: 100%;
     margin: 0px;
+    display: none;
 }
 
  .slideview {
