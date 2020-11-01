@@ -228,7 +228,7 @@ var ceres = {};
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
                         var index = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'slideview-nub' + index, classValue: 'nub', parent: nubElement, onClickEvent: getClickEvent() });
+                        rsc.composeElement({ el: 'span', id: 'slideview-nub' + index, classValue: 'nub', parent: el, onClickEvent: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
