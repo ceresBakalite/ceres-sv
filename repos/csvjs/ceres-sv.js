@@ -142,15 +142,15 @@ var ceres = {};
             {
                 var styles = null;
 
-                const css = config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
+                config.cache.css = config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
 
                 const getStyles = function(url, index)
                 {
                     console.log('getStyles: ' + url);
-                    fetch(url).then(response => response.text()).then(str => { styles += str; });
+                    if (!config.cache.css.includes(url)) fetch(url).then(response => response.text()).then(str => { styles += str; });
                 }
 
-                if (!rsc.isEmptyOrNull(css)) css.forEach(getStyles);
+                if (!rsc.isEmptyOrNull(config.cache.css)) config.cache.css.forEach(getStyles);
 
                 return styles;
             }
