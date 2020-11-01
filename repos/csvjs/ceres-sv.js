@@ -286,6 +286,8 @@ var ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
+                config.progenitor.style.display = 'block';
+                
                 const shadow = config.progenitor.shadowRoot;
                 const nodelist = shadow.querySelectorAll('img.slide, #' + config.progenitor.id);
 
