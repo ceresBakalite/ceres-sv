@@ -138,13 +138,13 @@ var ceres = {};
                 return attributesExist();
             }
 
-            let fetchStyles = function()
+            function fetchStyles()
             {
-                let styles = null;
+                let styles = '';
 
                 config.cache.css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                const getStyles = function(url, index)
+                let getStyles = function(url, index)
                 {
                     console.log('getStyles: ' + url);
                     fetch(url).then(response => response.text()).then(str => { return str; });
