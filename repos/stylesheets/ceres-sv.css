@@ -21,30 +21,7 @@
     margin: 0px;
 }
 
- @media screen and (min-width: 64em) {
-    .slideview-body {
-         max-width: 64rem;
-         padding: 0px;
-         margin: 0px;
-         font-size: 1.1rem;
-    }
-}
-
-@media screen and (min-width: 42em) and (max-width: 64em) {
-    .slideview-body {
-        font-size: 1.1rem;
-        padding: 0px;
-    }
-}
-
-@media screen and (max-width: 42em) {
-    .slideview-body {
-        font-size: 1rem;
-        padding: 0px;
-    }
-}
-
-.slideview {
+ .slideview {
   display: block;
   cursor: zoom-in;
 }
@@ -127,6 +104,29 @@
   -webkit-animation-duration: 1.5s;
   animation-name: fade;
   animation-duration: 1.5s;
+}
+
+@media screen and (min-width: 64em) {
+   .slideview-body {
+        max-width: 64rem;
+        padding: 0px;
+        margin: 0px;
+        font-size: 1.1rem;
+   }
+}
+
+@media screen and (min-width: 42em) and (max-width: 64em) {
+   .slideview-body {
+       font-size: 1.1rem;
+       padding: 0px;
+   }
+}
+
+@media screen and (max-width: 42em) {
+   .slideview-body {
+       font-size: 1rem;
+       padding: 0px;
+   }
 }
 
 @-webkit-keyframes fade {
