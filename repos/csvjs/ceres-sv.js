@@ -194,7 +194,7 @@ var ceres = {};
                     setSlide(config.slide = config.slide += offset);
                 }
 
-                rsc.inspect({ type: rsc.constant.notify, notification: bodyContainer, logtrace: config.attributes.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attributes.trace });
 
                 function getSlideViewPointerContainer()
                 {
