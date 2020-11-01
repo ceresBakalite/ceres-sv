@@ -156,7 +156,7 @@ var ceres = {};
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
                 let el = document.getElementById(styleContainer.id);
-                el.insertAdjacentHTML('afterbegin', fetch(config.defaultCSS).text());
+                el.insertAdjacentHTML('afterbegin', fetch(config.defaultCSS), { credentials: 'omit' });
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
