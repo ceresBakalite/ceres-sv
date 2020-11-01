@@ -152,7 +152,7 @@ var ceres = {};
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style-container';;
                 styleContainer.class = 'slideview-style';
-                config.progenitor.shadowRoot.append(styleContainer);
+                config.progenitor.shadowRoot.appendChild(styleContainer);
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
