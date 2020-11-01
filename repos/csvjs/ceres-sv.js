@@ -34,19 +34,19 @@ var ceres = {};
 
             if (!Object.isFrozen(csr)) getResources();
 
-            config.cssStr = this.getAttribute('css') || config.defaultCSS;
-            config.srcStr = this.getAttribute('src') || null;
+            let css = this.getAttribute('css') || config.defaultCSS;
+            let src = this.getAttribute('src') || null;
 
             config.progenitor = this;
-            config.fetchcss = !rsc.isEmptyOrNull(config.cssStr);
-            config.callback = !rsc.isEmptyOrNull(config.srcStr);
+            config.fetchcss = !rsc.isEmptyOrNull(css);
+            config.callback = !rsc.isEmptyOrNull(src);
 
             config.slide = 1;
 
-            if (config.fetchcss) await ( await fetchStylesheets(config.cssStr) );
-            if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(config.srcStr) ).text());
+            if (config.fetchcss) await ( await fetchStylesheets(css) );
+            if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-            config.cache.src = config.cache.src.concat(config.srcStr);
+            config.cache.src = config.cache.src.concat(src);
 
             if (slideviewHasAttributes()) activateSlideView();
 
@@ -138,13 +138,22 @@ var ceres = {};
                 return attributesExist();
             }
 
-            function fetchStyles()
+            let fetchStyles = function(url)
+            {
+                fetch(url).then(response => response.text()).then(css =>
+                {
+                    return css;
+                });
+
+            }
+
+            function zzzzzfetchStyles()
             {
                 let styles = '';
 
                 const css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                let getStyles = function(url, index)
+                const getStyles = function(url, index)
                 {
                     fetch(url).then(response => response.text()).then(str => { return str; });
                 }
@@ -174,7 +183,7 @@ var ceres = {};
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
                 let el = document.getElementById(styleContainer.id);
-                el.insertAdjacentHTML('afterbegin', fetchStyles())
+                el.insertAdjacentHTML('afterbegin', fetchStyles(config.defaultCSS))
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
