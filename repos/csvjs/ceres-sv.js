@@ -20,6 +20,7 @@ var ceres = {};
     'use strict';
 
     const csv = 'ceres-sv'; // required ceres slideview element name
+    const config = new class { constructor(){} } // ceres slideview configuration attributes
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
@@ -30,7 +31,6 @@ var ceres = {};
         {
             const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             const csr = function() { return attribute; } // ceres slideview resource attributes
-            const config = new class { constructor(){} } // ceres slideview configuration attributes
 
             if (!Object.isFrozen(csr)) getResources();
 
