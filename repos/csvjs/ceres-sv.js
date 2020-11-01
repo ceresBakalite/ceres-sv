@@ -138,6 +138,15 @@ var ceres = {};
                 return attributesExist();
             }
 
+            let fetchStyles = function(el)
+            {
+                fetch(config.defaultCSS).then(response => response.text()).then(css =>
+                {
+                    return css;
+                });
+
+            }
+
             function getSlideView()
             {
                 let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
@@ -156,6 +165,7 @@ var ceres = {};
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
                 let el = document.getElementById(styleContainer.id);
+                el.insertAdjacentHTML('afterbegin', fetchStyles(el))
 
                 fetch(config.defaultCSS).then(response => response.text()).then(css =>
                 {
