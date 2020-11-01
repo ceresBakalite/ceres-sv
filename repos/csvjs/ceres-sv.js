@@ -63,7 +63,7 @@ var ceres = {};
 
                     config.attributes.sur = rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
                     config.attributes.sub = rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
-                    config.attributes.track = rsc.getBooleanAttribute(config.progenitor.getAttribute('track'));
+                    config.attributes.nub = rsc.getBooleanAttribute(config.progenitor.getAttribute('nub'));
                     config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
                     config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache')); // cache by default
                     config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
@@ -200,7 +200,7 @@ var ceres = {};
                 rsc.composeElement({ el: 'a', id: 'slideview-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
                 rsc.composeElement({ el: 'a', id: 'slideview-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
-                if (config.attributes.track) getSlideViewTrackContainer();
+                if (config.attributes.nub) getSlideViewNubContainer();
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
@@ -215,20 +215,20 @@ var ceres = {};
 
                 rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attributes.trace });
 
-                function getSlideViewTrackContainer()
+                function getSlideViewNubContainer()
                 {
-                    const trackElement = document.createElement('div');
-                    const getClickEvent = function() { return 'window.getSlide(' + trackIndex + ')'; }
+                    const nubElement = document.createElement('div');
+                    const getClickEvent = function() { return 'window.getSlide(' + nubIndex + ')'; }
 
-                    trackElement.id = csv + '-track-container';
-                    bodyContainer.appendChild(trackElement);
+                    nubElement.id = csv + '-nub-container';
+                    bodyContainer.appendChild(nubElement);
 
-                    rsc.composeAttribute({ id: trackElement.id, type: 'class', value: 'slideview-track-container' });
+                    rsc.composeAttribute({ id: nubElement.id, type: 'class', value: 'slideview-nub-container' });
 
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
-                        var trackIndex = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'slideview-track' + trackIndex, classValue: 'track', parent: trackElement, onClickEvent: getClickEvent() });
+                        var nubIndex = item + 1;
+                        rsc.composeElement({ el: 'span', id: 'slideview-nub' + nubIndex, classValue: 'nub', parent: nubElement, onClickEvent: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
@@ -255,12 +255,12 @@ var ceres = {};
                 const shadow = config.progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.slideview');
 
-                const setTrackStyle = function()
+                const setNubStyle = function()
                 {
-                    const elements = shadow.querySelectorAll('span.track');
+                    const elements = shadow.querySelectorAll('span.nub');
                     const el = shadow.querySelector('span.enabled');
 
-                    if (el) el.className = 'track';
+                    if (el) el.className = 'nub';
                     elements[config.slide-1].className += ' enabled';
                 }
 
@@ -269,7 +269,7 @@ var ceres = {};
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
 
-                if (config.attributes.track) setTrackStyle();
+                if (config.attributes.nub) setNubStyle();
             }
 
             function activateSlideView()
