@@ -99,18 +99,6 @@ var resource = {};
         document.head.appendChild(link);
     }
 
-    this.composeStyleElement = function(attribute)
-    {
-        const style = document.createElement('style');
-
-        if (attribute.id) style.id = attribute.id;
-        if (attribute.class) style.class = attribute.class;
-
-        style.addEventListener('load', function() {}, false);
-
-        document.head.appendChild(style);
-    }
-
     this.isEmptyOrNull = function(obj)
     {
         if (obj === null || obj == 'undefined') return true;
