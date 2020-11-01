@@ -140,7 +140,7 @@ var ceres = {};
 
             let fetchStyles = function()
             {
-                var styles = null;
+                let styles = '';
 
                 config.cache.css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
