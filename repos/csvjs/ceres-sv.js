@@ -138,13 +138,18 @@ var ceres = {};
                 return attributesExist();
             }
 
-            let fetchStyles = function(el)
+            let fetchStyles = function()
             {
-                fetch(config.defaultCSS).then(response => response.text()).then(css =>
-                {
-                    return css;
-                });
+                let styles = null;
 
+                const getStyles = function(url, index)
+                {
+                    fetch(url).then(response => response.text()).then(css => { styles += css; });
+                }
+
+                if (!rsc.isEmptyOrNull(config.cache.css)) config.cache.css.forEach(getStyles);
+
+                return styles;
             }
 
             function getSlideView()
@@ -165,12 +170,7 @@ var ceres = {};
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
                 let el = document.getElementById(styleContainer.id);
-                el.insertAdjacentHTML('afterbegin', fetchStyles(el))
-
-                fetch(config.defaultCSS).then(response => response.text()).then(css =>
-                {
-                    el.insertAdjacentHTML('afterbegin', css)
-                });
+                el.insertAdjacentHTML('afterbegin', fetchStyles())
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
