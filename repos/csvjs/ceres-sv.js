@@ -34,8 +34,8 @@ var ceres = {};
 
             if (!Object.isFrozen(csr)) getResources();
 
-            let css = this.getAttribute('css') || config.defaultCSS;
-            let src = this.getAttribute('src') || null;
+            config.cssStr = this.getAttribute('css') || config.defaultCSS;
+            config.srcStr = this.getAttribute('src') || null;
 
             config.progenitor = this;
             config.fetchcss = !rsc.isEmptyOrNull(css);
@@ -43,8 +43,8 @@ var ceres = {};
 
             config.slide = 1;
 
-            if (config.fetchcss) await ( await fetchStylesheets(css) );
-            if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (config.fetchcss) await ( await fetchStylesheets(config.cssStr) );
+            if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(config.srcStr) ).text());
 
             config.cache.src = config.cache.src.concat(src);
 
@@ -142,15 +142,15 @@ var ceres = {};
             {
                 var styles = null;
 
-                console.log(config.cache.css);
+                const css = config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
 
                 const getStyles = function(url, index)
                 {
-                    console.log(url);
+                    console.log('getStyles: ' + url);
                     fetch(url).then(response => response.text()).then(css => { styles += css; });
                 }
 
-                if (!rsc.isEmptyOrNull(config.cache.css)) config.cache.css.forEach(getStyles);
+                if (!rsc.isEmptyOrNull(css)) css.forEach(getStyles);
 
                 return styles;
             }
