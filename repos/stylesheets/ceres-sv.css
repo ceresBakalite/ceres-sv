@@ -12,6 +12,10 @@
 
 * {box-sizing:border-box}
 
+.slideview-body::before {
+    display: table;
+    content: "";
+}
 .slideview {
   display: block;
   cursor: zoom-in;

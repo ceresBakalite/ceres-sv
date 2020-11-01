@@ -147,9 +147,15 @@ var ceres = {};
 
                 rsc.clearElement(config.progenitor);
 
+                const bodyContainer = document.createElement('div');
+                bodyContainer.id = csv + '-body-container';
+                config.progenitor.appendChild(bodyContainer);
+
+                rsc.composeAttribute({ id: bodyContainer.id, type: 'class', value: 'slideview-body' });
+
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image-container';
-                config.progenitor.appendChild(imageContainer);
+                bodyContainer.appendChild(imageContainer);
 
                 rsc.composeAttribute({ id: imageContainer.id, type: 'class', value: 'slideview-image-container' });
 
@@ -188,7 +194,7 @@ var ceres = {};
                     setSlide(config.slide = config.slide += offset);
                 }
 
-                rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attributes.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: bodyContainer, logtrace: config.attributes.trace });
 
                 function getSlideViewPointerContainer()
                 {
@@ -196,7 +202,7 @@ var ceres = {};
                     const getClickEvent = function() { return 'window.getSlide(' + pointerIndex + ')'; }
 
                     pointerElement.id = csv + '-pointer-container';
-                    config.progenitor.appendChild(pointerElement);
+                    bodyContainer.appendChild(pointerElement);
 
                     rsc.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
 
@@ -206,7 +212,7 @@ var ceres = {};
                         rsc.composeElement({ el: 'span', id: 'slideview-ptr' + pointerIndex, classValue: 'ptr', parent: pointerElement, onClickEvent: getClickEvent() });
                     }
 
-                    config.progenitor.appendChild(document.createElement('br'));
+                    bodyContainer.appendChild(document.createElement('br'));
                 }
 
             }
