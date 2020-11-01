@@ -157,7 +157,7 @@ var ceres = {};
 
                 fetch(config.defaultCSS).then(response => response.text()).then(data =>
                 {
-                    el.insertAdjacentHTML('afterbegin', data)
+                    styleContainer.insertAdjacentHTML('afterbegin', data)
                 });
 
                 const bodyContainer = document.createElement('div');
