@@ -142,16 +142,16 @@ var ceres = {};
             {
                 let styles = '';
 
-                config.cache.css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                const css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                 let getStyles = function(url, index)
                 {
                     fetch(url).then(response => response.text()).then(str => { return str; });
                 }
 
-                console.log(config.cache.css.forEach(getStyles));
+                console.log(css.forEach(getStyles));
 
-                if (!rsc.isEmptyOrNull(config.cache.css)) styles += config.cache.css.forEach(getStyles);
+                if (!rsc.isEmptyOrNull(css)) styles += css.forEach(getStyles);
 
                 return styles;
             }
