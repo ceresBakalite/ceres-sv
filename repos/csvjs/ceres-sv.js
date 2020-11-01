@@ -22,13 +22,13 @@ var ceres = {};
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
 
-    const config = new class { constructor(){} } // ceres slideview configuration attributes
+    const csv = 'ceres-sv'; // required ceres slideview element name
+    const config = new class { constructor() {} } // ceres slideview configuration attributes
 
-    window.customElements.get('ceres-sv') || window.customElements.define('ceres-sv', class extends HTMLElement
+    window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
-            const csv = 'ceres-sv'; // required ceres slideview element name
             const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             const csr = function() { return attribute; } // ceres slideview resource attributes
 
@@ -155,13 +155,11 @@ var ceres = {};
 
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
-                fetch(config.defaultCSS).then((response) => {
-                    console.log('good to go');
-                }).then((result) => {
-                    let el = document.getElementById(styleContainer.id);
-                    el.insertAdjacentHTML('afterbegin', result)
-                }).catch((error) => {
-                    console.log('Fetch problem: ' + error.message);
+                fetch(config.defaultCSS).then(response => response.json()).then(data =>
+                {
+                    console.log(data)
+                    //let el = document.getElementById(styleContainer.id);
+                    //el.insertAdjacentHTML('afterbegin', data)
                 });
 
                 const bodyContainer = document.createElement('div');
