@@ -289,7 +289,7 @@ var ceres = {};
                 config.progenitor.style.display = 'block';
 
                 const shadow = config.progenitor.shadowRoot;
-                const nodelist = shadow.querySelectorAll('img.slide, #' + config.progenitor.id);
+                const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + config.progenitor.id);
 
                 nodelist.forEach(node => { node.style.display = attribute; } );
             }
