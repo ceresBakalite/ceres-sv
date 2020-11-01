@@ -17,8 +17,9 @@
 }
 
 .slideview-body img {
-    max-width: 110%;
+    max-width: 100%;
     margin: 0px;
+    padding: 0px;
 }
 
  @media screen and (min-width: 64em) {
