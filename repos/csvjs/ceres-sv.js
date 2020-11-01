@@ -237,12 +237,13 @@ var ceres = {};
 
             function setSlide()
             {
-                const slides = document.querySelectorAll('div.slideview');
+                const shadow = config.progenitor.shadowRoot;
+                const slides = shadow.document.querySelectorAll('div.slideview');
 
                 const setPointerStyle = function()
                 {
-                    const pointers = document.querySelectorAll('span.ptr');
-                    const el = document.querySelector('span.active');
+                    const pointers = shadow.document.querySelectorAll('span.ptr');
+                    const el = shadow.document.querySelector('span.active');
 
                     if (el) el.className = 'ptr';
                     pointers[config.slide-1].className += ' active';
@@ -271,7 +272,8 @@ var ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                const nodelist = document.querySelectorAll('img.slide, #' + config.progenitor.id);
+                const shadow = config.progenitor.shadowRoot;
+                const nodelist = shadow.document.querySelectorAll('img.slide, #' + config.progenitor.id);
                 nodelist.forEach(node => { node.style.display = attribute; } );
             }
 
