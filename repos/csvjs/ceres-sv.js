@@ -178,7 +178,7 @@ var ceres = {};
                     var arrayItem = config.imageArray[item].split(',');
                     var imageIndex = item + 1;
 
-                    let id = 'slideview' + imageIndex;
+                    let id = csv + '-' + imageIndex;
 
                     let elements = {
                         'surName': csv + '-sur' + imageIndex,
