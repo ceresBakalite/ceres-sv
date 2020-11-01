@@ -200,7 +200,7 @@ var ceres = {};
                 rsc.composeElement({ el: 'a', id: 'slideview-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
                 rsc.composeElement({ el: 'a', id: 'slideview-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
-                if (config.attributes.track) getSlideViewPointerContainer();
+                if (config.attributes.track) getSlideViewTrackContainer();
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
@@ -215,20 +215,20 @@ var ceres = {};
 
                 rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attributes.trace });
 
-                function getSlideViewPointerContainer()
+                function getSlideViewTrackContainer()
                 {
-                    const pointerElement = document.createElement('div');
-                    const getClickEvent = function() { return 'window.getSlide(' + pointerIndex + ')'; }
+                    const trackElement = document.createElement('div');
+                    const getClickEvent = function() { return 'window.getSlide(' + trackIndex + ')'; }
 
-                    pointerElement.id = csv + '-pointer-container';
-                    bodyContainer.appendChild(pointerElement);
+                    trackElement.id = csv + '-track-container';
+                    bodyContainer.appendChild(trackElement);
 
-                    rsc.composeAttribute({ id: pointerElement.id, type: 'class', value: 'slideview-pointer-container' });
+                    rsc.composeAttribute({ id: trackElement.id, type: 'class', value: 'slideview-track-container' });
 
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
-                        var pointerIndex = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'slideview-track' + pointerIndex, classValue: 'track', parent: pointerElement, onClickEvent: getClickEvent() });
+                        var trackIndex = item + 1;
+                        rsc.composeElement({ el: 'span', id: 'slideview-track' + trackIndex, classValue: 'track', parent: trackElement, onClickEvent: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
