@@ -140,14 +140,14 @@ var ceres = {};
 
             let fetchStyles = function()
             {
-                let styles = '';
+                let styles = null;
 
                 config.cache.css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                 const getStyles = function(url, index)
                 {
                     console.log('getStyles: ' + url);
-                    if (!config.cache.css.includes(url)) fetch(url).then(response => response.text()).then(str => { return str; });
+                    fetch(url).then(response => response.text()).then(str => { return str; });
                 }
 
                 if (!rsc.isEmptyOrNull(config.cache.css)) styles += config.cache.css.forEach(getStyles);
