@@ -39,7 +39,7 @@ var ceres = {};
 
             config.progenitor = this;
             config.fetchcss = !rsc.isEmptyOrNull(config.cssStr);
-            config.callback = !rsc.isEmptyOrNull(config.cssSrc);
+            config.callback = !rsc.isEmptyOrNull(config.srcStr);
 
             config.slide = 1;
 
