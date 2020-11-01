@@ -238,12 +238,12 @@ var ceres = {};
             function setSlide()
             {
                 const shadow = config.progenitor.shadowRoot;
-                const slides = shadow.document.querySelectorAll('div.slideview');
+                const slides = document.querySelectorAll('div.slideview');
 
                 const setPointerStyle = function()
                 {
-                    const pointers = shadow.document.querySelectorAll('span.ptr');
-                    const el = shadow.document.querySelector('span.active');
+                    const pointers = document.querySelectorAll('span.ptr');
+                    const el = document.querySelector('span.active');
 
                     if (el) el.className = 'ptr';
                     pointers[config.slide-1].className += ' active';
@@ -251,8 +251,8 @@ var ceres = {};
 
                 config.slide = (config.slide < 1) ? slides.length : (config.slide > slides.length) ? 1 : config.slide;
 
-                slides.forEach(node => { node.style.display = 'none'; } );
-                slides[config.slide-1].style.display = 'block';
+                shadow.slides.forEach(node => { node.style.display = 'none'; } );
+                shadow.slides[config.slide-1].style.display = 'block';
 
                 if (config.attributes.ptr) setPointerStyle();
             }
