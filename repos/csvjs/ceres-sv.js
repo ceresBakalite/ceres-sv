@@ -244,7 +244,7 @@ var ceres = {};
                     if (!config.cache.css.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
                 }
 
-                //if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
+                if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
 
                 config.cache.css = config.cache.css.concat(css);
             }
