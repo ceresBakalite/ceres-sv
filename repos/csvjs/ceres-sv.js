@@ -142,6 +142,8 @@ var ceres = {};
             {
                 var styles = null;
 
+                console.log(config.cache.css);
+
                 const getStyles = function(url, index)
                 {
                     console.log(url);
