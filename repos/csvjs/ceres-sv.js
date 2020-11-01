@@ -44,7 +44,9 @@ var ceres = {};
             config.slide = 1;
 
             //if (config.fetchcss) await ( await fetchStylesheets(css) );
-            if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            //if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+
+            if (config.callback) fetch(src).then(response => response.text()).then(data => { this.insertAdjacentHTML('afterbegin', data) });
 
             config.cache.src = config.cache.src.concat(src);
 
