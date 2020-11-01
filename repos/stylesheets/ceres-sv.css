@@ -40,7 +40,7 @@
  }
 
 .slide {
-  display: none;
+  display: none !important;
 }
 
 .left, .right {
