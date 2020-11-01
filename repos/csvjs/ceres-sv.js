@@ -279,7 +279,7 @@ var ceres = {};
                 getSlideView();
                 setSlide();
 
-                setTimeout(function() { setSlideViewDisplay('block'); }, config.attributes.delay);
+                setTimeout(function() { setSlideViewDisplay('block !important'); }, config.attributes.delay);
 
                 if (config.attributes.cache) setCache();
             }
@@ -292,7 +292,7 @@ var ceres = {};
                 const shadow = config.progenitor.shadowRoot;
                 const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + config.progenitor.id);
 
-                nodelist.forEach(node => { node.style.display = attribute + ' !important'; } );
+                nodelist.forEach(node => { node.style.display = attribute; } );
             }
 
             function setCache()
