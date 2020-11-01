@@ -274,7 +274,7 @@ var ceres = {};
 
             function activateSlideView()
             {
-                config.progenitor.style.display = 'none !important';
+                config.progenitor.style.display = 'none';
 
                 getSlideView();
                 setSlide();
@@ -287,7 +287,7 @@ var ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                config.progenitor.style.display = 'block !important';
+                config.progenitor.style.display = 'block';
 
                 const shadow = config.progenitor.shadowRoot;
                 const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + config.progenitor.id);
