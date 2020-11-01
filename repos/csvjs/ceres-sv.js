@@ -150,7 +150,7 @@ var ceres = {};
                 config.progenitor.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
                 const styleContainer = document.createElement('style');
-                styleContainer.id = csv + '-style-container';;
+                styleContainer.id = csv + '-style-container';
                 styleContainer.class = 'slideview-style';
                 config.progenitor.shadowRoot.appendChild(styleContainer);
 
