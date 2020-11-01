@@ -192,6 +192,10 @@ var ceres = {};
 
                 config.progenitor.shadowRoot.append(bodyContainer);
 
+                let css = new CSSStyleSheet();
+                css.replaceSync( '@import url( ' + config.defaultCSS + ' )' );
+                config.progenitor.shadowRoot.adoptedStyleSheets = [css];
+
                 function getHorizontalSwipe(swipe)
                 {
                     const offset = (swipe.action) ? swipe.right : swipe.left;
@@ -237,7 +241,6 @@ var ceres = {};
 
             function setSlide()
             {
-                const shadow = config.progenitor.shadowRoot;
                 const slides = document.querySelectorAll('div.slideview');
 
                 const setPointerStyle = function()
@@ -272,8 +275,7 @@ var ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                const shadow = config.progenitor.shadowRoot;
-                const nodelist = shadow.document.querySelectorAll('img.slide, #' + config.progenitor.id);
+                const nodelist = document.querySelectorAll('img.slide, #' + config.progenitor.id);
                 nodelist.forEach(node => { node.style.display = attribute; } );
             }
 
