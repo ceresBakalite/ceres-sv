@@ -181,9 +181,9 @@ var ceres = {};
                     let id = 'slideview' + imageIndex;
 
                     let elements = {
-                        'surName': 'slideview-sur' + imageIndex,
-                        'imgName': 'slideview-img' + imageIndex,
-                        'subName': 'slideview-sub' + imageIndex
+                        'surName': csv + '-sur' + imageIndex,
+                        'imgName': csv + '-img' + imageIndex,
+                        'subName': csv + '-sub' + imageIndex
                     };
 
                     rsc.composeElement({ el: 'div', id: id, classValue: 'slideview fade', parent: imageContainer });
@@ -195,8 +195,8 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: 'slideview-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
-                rsc.composeElement({ el: 'a', id: 'slideview-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
+                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true)' });
+                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true)' });
 
                 if (config.attributes.nub) getSlideViewTrackContainer();
 
@@ -226,7 +226,7 @@ var ceres = {};
                     for (let item = 0; item < config.imageArray.length; item++)
                     {
                         var index = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'slideview-nub' + index, classValue: 'nub', parent: trackContainer, onClickEvent: getClickEvent() });
+                        rsc.composeElement({ el: 'span', id: csv + '-nub' + index, classValue: 'nub', parent: trackContainer, onClickEvent: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
