@@ -155,8 +155,14 @@ var ceres = {};
 
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
-                let el = document.getElementById(styleContainer.id);
-                el.insertAdjacentHTML('afterbegin', fetch(config.defaultCSS), { credentials: 'omit' });
+                fetch(config.defaultCSS).then((response) => {
+                    console.log('good to go');
+                }).then((result) => {
+                    let el = document.getElementById(styleContainer.id);
+                    el.insertAdjacentHTML('afterbegin', result)
+                }).catch((error) => {
+                    console.log('Fetch problem: ' + error.message);
+                });
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
