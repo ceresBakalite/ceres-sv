@@ -13,12 +13,12 @@
 * {box-sizing:border-box}
 
 .slideview-body :first-child {
-      margin-top: 0;
-  }
+    margin-top: 0;
+}
 
-  .slideview-body img {
-      max-width: 100%;
-  }
+.XXXslideview-body img {
+    max-width: 100%;
+}
 
  @media screen and (min-width: 64em) {
     .slideview-body {
