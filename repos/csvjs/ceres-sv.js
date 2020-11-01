@@ -38,8 +38,8 @@ var ceres = {};
             config.srcStr = this.getAttribute('src') || null;
 
             config.progenitor = this;
-            config.fetchcss = !rsc.isEmptyOrNull(css);
-            config.callback = !rsc.isEmptyOrNull(src);
+            config.fetchcss = !rsc.isEmptyOrNull(config.cssStr);
+            config.callback = !rsc.isEmptyOrNull(config.cssSrc);
 
             config.slide = 1;
 
@@ -147,7 +147,7 @@ var ceres = {};
                 const getStyles = function(url, index)
                 {
                     console.log('getStyles: ' + url);
-                    fetch(url).then(response => response.text()).then(css => { styles += css; });
+                    fetch(url).then(response => response.text()).then(str => { styles += str; });
                 }
 
                 if (!rsc.isEmptyOrNull(css)) css.forEach(getStyles);
