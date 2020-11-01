@@ -142,7 +142,7 @@ var ceres = {};
             {
                 var styles = null;
 
-                config.cache.css = config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
+                config.cache.css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                 const getStyles = function(url, index)
                 {
