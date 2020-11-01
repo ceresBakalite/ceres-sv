@@ -15,11 +15,11 @@ import { resource as rsc, caching } from './ceres-sv-lib.min.js';
 //import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.js';
 
 var ceres = {};
-(function()
+(function(csv = 'ceres-sv')
 {
     'use strict';
 
-    const csv = 'ceres-sv'; // required ceres slideview element name
+//    const csv = 'ceres-sv'; // required ceres slideview element name
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
