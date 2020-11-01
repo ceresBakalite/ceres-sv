@@ -138,33 +138,6 @@ var ceres = {};
                 return attributesExist();
             }
 
-            let fetchStyles = function(url)
-            {
-                fetch(url).then(response => response.text()).then(str =>
-                {
-                    return str;
-                });
-
-            }
-
-            function zzzzzfetchStyles()
-            {
-                let styles = '';
-
-                const css = rsc.removeDuplcates(config.cssStr.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                const getStyles = function(url, index)
-                {
-                    fetch(url).then(response => response.text()).then(str => { return str; });
-                }
-
-                console.log(css.forEach(getStyles));
-
-                if (!rsc.isEmptyOrNull(css)) styles += css.forEach(getStyles);
-
-                return styles;
-            }
-
             function getSlideView()
             {
                 let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
@@ -278,12 +251,14 @@ var ceres = {};
 
             function setSlide()
             {
-                const slides = document.querySelectorAll('div.slideview');
+                let shadow = config.progenitor.shadowRoot;
+
+                const slides = shadow.querySelectorAll('div.slideview');
 
                 const setPointerStyle = function()
                 {
-                    const pointers = document.querySelectorAll('span.ptr');
-                    const el = document.querySelector('span.active');
+                    const pointers = shadow.querySelectorAll('span.ptr');
+                    const el = shadow.querySelector('span.active');
 
                     if (el) el.className = 'ptr';
                     pointers[config.slide-1].className += ' active';
