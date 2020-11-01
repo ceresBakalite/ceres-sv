@@ -254,13 +254,13 @@ var ceres = {};
                 const shadow = config.progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.slideview');
 
-                const setPointerStyle = function()
+                const setTrackStyle = function()
                 {
-                    const pointers = shadow.querySelectorAll('span.track');
+                    const elements = shadow.querySelectorAll('span.track');
                     const el = shadow.querySelector('span.enabled');
 
                     if (el) el.className = 'track';
-                    pointers[config.slide-1].className += ' enabled';
+                    elements[config.slide-1].className += ' enabled';
                 }
 
                 config.slide = (config.slide < 1) ? slides.length : (config.slide > slides.length) ? 1 : config.slide;
@@ -268,7 +268,7 @@ var ceres = {};
                 slides.forEach(node => { node.style.display = 'none'; } );
                 slides[config.slide-1].style.display = 'block';
 
-                if (config.attributes.track) setPointerStyle();
+                if (config.attributes.track) setTrackStyle();
             }
 
             function activateSlideView()
