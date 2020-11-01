@@ -11,7 +11,7 @@
 */
 
 .slideview-body {
-    display: none;
+    display: none !important;
 }
 
 .slideview-body :first-child {
@@ -40,7 +40,7 @@
  }
 
 .slide {
-  display: none !important;
+  display: none;
 }
 
 .left, .right {
