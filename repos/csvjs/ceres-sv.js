@@ -152,6 +152,7 @@ var ceres = {};
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style-container';
                 config.progenitor.appendChild(styleContainer);
+
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
                 const bodyContainer = document.createElement('div');
