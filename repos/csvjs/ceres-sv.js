@@ -251,8 +251,7 @@ var ceres = {};
 
             function setSlide()
             {
-                let shadow = config.progenitor.shadowRoot;
-
+                const shadow = config.progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.slideview');
 
                 const setPointerStyle = function()
@@ -287,7 +286,9 @@ var ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                const nodelist = document.querySelectorAll('img.slide, #' + config.progenitor.id);
+                const shadow = config.progenitor.shadowRoot;
+                const nodelist = shadow.querySelectorAll('img.slide, #' + config.progenitor.id);
+
                 nodelist.forEach(node => { node.style.display = attribute; } );
             }
 
