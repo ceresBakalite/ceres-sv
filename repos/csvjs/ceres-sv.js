@@ -140,9 +140,9 @@ var ceres = {};
 
             let fetchStyles = function(url)
             {
-                fetch(url).then(response => response.text()).then(css =>
+                fetch(url).then(response => response.text()).then(str =>
                 {
-                    return css;
+                    return str;
                 });
 
             }
@@ -183,7 +183,10 @@ var ceres = {};
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
                 let el = document.getElementById(styleContainer.id);
-                el.insertAdjacentHTML('afterbegin', fetchStyles(config.defaultCSS))
+
+                console.log(fetch(config.defaultCSS).then(response => response.text()).then(str => { return str; }));
+
+                //el.insertAdjacentHTML('afterbegin', fetch(config.defaultCSS).then(response => response.text()).then(str => { return str; }))
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
