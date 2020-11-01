@@ -166,7 +166,7 @@ var ceres = {};
                 bodyContainer.id = csv + '-body-container';
                 config.progenitor.appendChild(bodyContainer);
 
-                //rsc.composeAttribute({ id: bodyContainer.id, type: 'style', value: 'display: none;' });
+                rsc.composeAttribute({ id: bodyContainer.id, type: 'style', value: 'display: none;' });
                 rsc.composeAttribute({ id: bodyContainer.id, type: 'class', value: 'slideview-body' });
 
                 const imageContainer = document.createElement('div');
