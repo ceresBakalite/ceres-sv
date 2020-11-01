@@ -28,13 +28,13 @@
   cursor: zoom-in;
 }
 
-.slideview-image-container {
+.slideview-image {
   max-width: 100%;
   position: relative;
   margin: 0px;
 }
 
-.slideview-nub-container {
+.slideview-nub {
    text-align:center;
    cursor: default;
  }

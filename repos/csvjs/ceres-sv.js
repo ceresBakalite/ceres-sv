@@ -150,7 +150,7 @@ var ceres = {};
                 config.progenitor.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
                 const styleContainer = document.createElement('style');
-                styleContainer.id = csv + '-style-container';
+                styleContainer.id = csv + '-style';
                 styleContainer.className = 'slideview-style';
 
                 config.progenitor.appendChild(styleContainer);
@@ -161,15 +161,15 @@ var ceres = {};
                 });
 
                 const bodyContainer = document.createElement('div');
-                bodyContainer.id = csv + '-body-container';
+                bodyContainer.id = csv + '-body';
                 bodyContainer.className = 'slideview-body';
                 bodyContainer.style.display  = 'none';
 
                 config.progenitor.appendChild(bodyContainer);
 
                 const imageContainer = document.createElement('div');
-                imageContainer.id = csv + '-image-container';
-                imageContainer.className = 'slideview-image-container';
+                imageContainer.id = csv + '-image';
+                imageContainer.className = 'slideview-image';
 
                 bodyContainer.appendChild(imageContainer);
 
@@ -200,7 +200,7 @@ var ceres = {};
 
                 if (config.attributes.nub) getSlideViewTrackContainer();
 
-                rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image-container' }, getHorizontalSwipe, { left: -1, right: 1 } );
+                rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 config.progenitor.shadowRoot.append(styleContainer);
                 config.progenitor.shadowRoot.append(bodyContainer);
@@ -218,8 +218,8 @@ var ceres = {};
                     const getClickEvent = function() { return 'window.getSlide(' + index + ')'; }
 
                     const trackContainer = document.createElement('div');
-                    trackContainer.id = csv + '-nub-container';
-                    trackContainer.className = 'slideview-nub-container';
+                    trackContainer.id = csv + '-nub';
+                    trackContainer.className = 'slideview-nub';
 
                     bodyContainer.appendChild(trackContainer);
 
