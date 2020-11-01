@@ -25,7 +25,7 @@
     .slideview-body {
          max-width: 64rem;
          padding: 2rem 6rem;
-         margin: 0 auto;
+         margin: 0px;
          font-size: 1.1rem;
     }
 }
