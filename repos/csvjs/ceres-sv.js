@@ -251,7 +251,7 @@ var ceres = {};
 
                 config.slide = (config.slide < 1) ? slides.length : (config.slide > slides.length) ? 1 : config.slide;
 
-                shadow.slides.forEach(node => { node.style.display = 'none'; } );
+                slides.forEach(node => { node.style.display = 'none'; } );
                 shadow.slides[config.slide-1].style.display = 'block';
 
                 if (config.attributes.ptr) setPointerStyle();
