@@ -155,13 +155,19 @@ var ceres = {};
 
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
+                fetch(config.defaultCSS).then(response =>
+                {
+                    console.log(response);
+                    let el = document.getElementById(styleContainer.id);
+                    el.insertAdjacentHTML('afterbegin', response)
+                });
+/*
                 fetch(config.defaultCSS).then(response => response.text()).then(data =>
                 {
-                    console.log(data)
                     let el = document.getElementById(styleContainer.id);
                     el.insertAdjacentHTML('afterbegin', data)
                 });
-
+*/
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body-container';
                 config.progenitor.appendChild(bodyContainer);
