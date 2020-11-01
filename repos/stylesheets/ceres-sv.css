@@ -24,7 +24,6 @@
  @media screen and (min-width: 64em) {
     .slideview-body {
          max-width: 64rem;
-         /* padding: 2rem 6rem; */
          padding: 0px;
          margin: 0px;
          font-size: 1.1rem;
@@ -33,17 +32,15 @@
 
 @media screen and (min-width: 42em) and (max-width: 64em) {
     .slideview-body {
-        /* padding: 2rem 4rem; */
-        padding: 0px;
         font-size: 1.1rem;
+        padding: 0px;
     }
 }
 
 @media screen and (max-width: 42em) {
     .slideview-body {
-        /* padding: 2rem 1rem; */
-        padding: 0px;
         font-size: 1rem;
+        padding: 0px;
     }
 }
 
