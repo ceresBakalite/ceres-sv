@@ -182,12 +182,11 @@ var ceres = {};
 
                 rsc.composeAttribute({ id: styleContainer.id, type: 'class', value: 'slideview-style' });
 
-                //let el = document.getElementById(styleContainer.id);
-                //el.insertAdjacentHTML('afterbegin', fetch(config.defaultCSS).then(response => response.text()).then(str => { return str; }))
+                let el = document.getElementById(styleContainer.id);
 
                 fetch(config.defaultCSS).then(response => response.text()).then(data =>
                 {
-                    console.log(data);
+                    el.insertAdjacentHTML('afterbegin', data)
                 });
 
                 const bodyContainer = document.createElement('div');
