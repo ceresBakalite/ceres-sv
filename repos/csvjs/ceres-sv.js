@@ -61,12 +61,12 @@ var ceres = {};
                     config.progenitor.id = rsc.getUniqueElementId(csv);
                     config.noscript = document.getElementById(cnv) || document.getElementsByTagName('noscript')[0];
 
-                    config.attributes.sur = rsc.getBooleanAttribute(config.progenitor.getAttribute('sur'));
-                    config.attributes.sub = rsc.getBooleanAttribute(config.progenitor.getAttribute('sub'));
-                    config.attributes.nub = rsc.getBooleanAttribute(config.progenitor.getAttribute('nub'));
-                    config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace'));
-                    config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache')); // cache by default
+                    config.attributes.sur = rsc.getBooleanAttribute(config.progenitor.getAttribute('sur')); // disabled
+                    config.attributes.sub = rsc.getBooleanAttribute(config.progenitor.getAttribute('sub')); // disabled
+                    config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace')); // disabled
                     config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
+                    config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache')); // enabled
+                    config.attributes.nub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('nub')); // enabled
                 }
 
                 return exists;
