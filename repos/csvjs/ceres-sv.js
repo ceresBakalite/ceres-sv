@@ -46,7 +46,7 @@ var ceres = {};
             if (config.fetchcss) await ( await fetchStylesheets(config.cssStr) );
             if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(config.srcStr) ).text());
 
-            config.cache.src = config.cache.src.concat(src);
+            config.cache.src = config.cache.src.concat(config.srcStr);
 
             if (slideviewHasAttributes()) activateSlideView();
 
