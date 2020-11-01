@@ -17,10 +17,8 @@
 }
 
 .slideview-body img {
-    /* max-width: 1000px; */
-    position: relative;
-    margin: 0 auto;
     max-width: 100%;
+    margin: 0 auto;
 }
 
  @media screen and (min-width: 64em) {
@@ -52,7 +50,7 @@
 }
 
 .slideview-image-container {
-  max-width: 1000px;
+  max-width: 100%;
   position: relative;
   margin: 0 auto;
 }
