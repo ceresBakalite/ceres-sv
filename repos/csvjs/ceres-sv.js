@@ -146,9 +146,10 @@ var ceres = {};
 
                 let getStyles = function(url, index)
                 {
-                    console.log('getStyles: ' + url);
                     fetch(url).then(response => response.text()).then(str => { return str; });
                 }
+
+                console.log(config.cache.css.forEach(getStyles));
 
                 if (!rsc.isEmptyOrNull(config.cache.css)) styles += config.cache.css.forEach(getStyles);
 
