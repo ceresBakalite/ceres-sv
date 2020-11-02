@@ -137,7 +137,7 @@ var ceres = {};
                 config.cache = function() { return attribute; }
                 config.cache.css = [];
                 config.cache.src = [];
-                config.bindSlide = setSlide.bind(ceres, test);
+                config.bindSlide = setSlide.bind(ceres);
             }
 
             function slideviewHasAttributes()
@@ -259,10 +259,8 @@ var ceres = {};
                 config.cache.css = config.cache.css.concat(css);
             }
 
-            function setSlide(test)
+            function setSlide()
             {
-                console.log('test: ' + test);
-
                 const shadow = config.progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.slideview');
 
