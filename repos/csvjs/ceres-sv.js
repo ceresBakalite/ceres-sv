@@ -20,7 +20,7 @@ var ceres = {};
     'use strict';
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+    //this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
     this.getSlide = function(el) { console.log(e.id + ' - ' + el.className); };  // global scope method reference
 
     const csv = 'ceres-sv'; // required ceres slideview element name
