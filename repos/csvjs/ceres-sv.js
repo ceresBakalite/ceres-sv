@@ -26,6 +26,8 @@ window.ceres = {};
     {
         async connectedCallback()
         {
+            const progenitor = this;
+
             const config = new class { constructor() {} } // ceres slideview configuration attributes
             const csr = function() { return attribute; } // ceres slideview resource attributes
             const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
@@ -36,17 +38,16 @@ window.ceres = {};
 
             if (!Object.isFrozen(csr)) getResources();
 
-            let css = this.getAttribute('css') || config.defaultCSS;
-            let src = this.getAttribute('src') || null;
+            let css = progenitor.getAttribute('css') || config.defaultCSS;
+            let src = progenitor.getAttribute('src') || null;
 
-            config.progenitor = this;
             config.fetchcss = !rsc.isEmptyOrNull(css);
             config.callback = !rsc.isEmptyOrNull(src);
 
             config.slide = 1;
 
             //if (config.fetchcss) await ( await fetchStylesheets(css) );
-            if (config.callback) this.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (config.callback) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             config.cache.src = config.cache.src.concat(src);
 
@@ -56,19 +57,19 @@ window.ceres = {};
 
             let protean = function()
             {
-                const exists = !rsc.isEmptyOrNull(this);
+                const exists = !rsc.isEmptyOrNull(config.progenitor);
 
                 if (exists)
                 {
-                    this.id = rsc.getUniqueElementId(csv);
+                    progenitor.id = rsc.getUniqueElementId(csv);
                     config.noscript = document.getElementById(cnv) || document.getElementsByTagName('noscript')[0];
 
-                    config.attributes.sur = rsc.getBooleanAttribute(this.getAttribute('sur')); // disabled
-                    config.attributes.sub = rsc.getBooleanAttribute(this.getAttribute('sub')); // disabled
-                    config.attributes.trace = rsc.getBooleanAttribute(this.getAttribute('trace')); // disabled
-                    config.attributes.delay = Number.isInteger(parseInt(this.getAttribute('delay'))) ? parseInt(this.getAttribute('delay')) : 250;
-                    config.attributes.cache = !rsc.getBooleanAttribute(this.getAttribute('cache')); // enabled
-                    config.attributes.nub = !rsc.getBooleanAttribute(this.getAttribute('nub')); // enabled
+                    config.attributes.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
+                    config.attributes.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
+                    config.attributes.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
+                    config.attributes.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
+                    config.attributes.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
+                    config.attributes.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
                 }
 
                 return exists;
@@ -82,7 +83,7 @@ window.ceres = {};
 
                 const getImageList = function()
                 {
-                    let getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(this.textContent)) ? this.textContent : null; }
+                    let getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
 
                     let getBodyContentList = function()
                     {
@@ -148,13 +149,13 @@ window.ceres = {};
 
                 rsc.clearElement(config.progenitor);
 
-                this.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
+                progenitor.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style';
                 styleContainer.className = 'slideview-style';
 
-                this.appendChild(styleContainer);
+                progenitor.appendChild(styleContainer);
 
                 fetch(config.defaultCSS).then(response => response.text()).then(str =>
                 {
@@ -166,7 +167,7 @@ window.ceres = {};
                 bodyContainer.className = 'slideview-body';
                 bodyContainer.style.display  = 'none';
 
-                this.appendChild(bodyContainer);
+                progenitor.appendChild(bodyContainer);
 
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image';
@@ -204,8 +205,8 @@ window.ceres = {};
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
-                this.shadowRoot.append(styleContainer);
-                this.shadowRoot.append(bodyContainer);
+                progenitor.shadowRoot.append(styleContainer);
+                progenitor.shadowRoot.append(bodyContainer);
 
                 function getHorizontalSwipe(swipe)
                 {
@@ -261,7 +262,7 @@ window.ceres = {};
 
             function setSlide()
             {
-                const shadow = this.shadowRoot;
+                const shadow = progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
@@ -283,7 +284,7 @@ window.ceres = {};
 
             function activateSlideView()
             {
-                this.style.display = 'none';
+                progenitor.style.display = 'none';
 
                 getSlideView();
                 setSlide();
@@ -296,10 +297,10 @@ window.ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                this.style.display = 'block';
+                progenitor.style.display = 'block';
 
-                const shadow = this.shadowRoot;
-                const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + this.id);
+                const shadow = progenitor.shadowRoot;
+                const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + progenitor.id);
 
                 nodelist.forEach(node => { node.style.display = attribute; } );
             }
