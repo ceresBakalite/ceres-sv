@@ -15,7 +15,7 @@
 import { resource as rsc, caching } from './ceres-sv-lib.min.js';
 //import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.js';
 
-var ceres = {};
+window.ceres = {};
 (function()
 {
     'use strict';
@@ -316,4 +316,4 @@ var ceres = {};
 
     }); // end HTMLElement extension
 
-}).call(ceres);
+}).call();
