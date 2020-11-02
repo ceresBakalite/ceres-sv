@@ -32,8 +32,8 @@ var ceres = {};
         config.slide = cls.get(el.className);
     }
 
-    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(el) { config.bindSlide.call(setSlide(el)); };  // global scope method reference
+    ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    ceres.getSlide = function(el) { config.bindSlide.call(setSlide(el)); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -316,4 +316,4 @@ var ceres = {};
 
     }); // end HTMLElement extension
 
-}).call(window);
+}).call(ceres);
