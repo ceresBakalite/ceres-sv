@@ -316,7 +316,7 @@ window.ceres = {};
 
     }); // end HTMLElement extension
 
-}).call();
+})();
 
 window.caching = {};
 (function(cache) {
@@ -364,4 +364,4 @@ window.caching = {};
 
     }
 
-}).call();
+})();
