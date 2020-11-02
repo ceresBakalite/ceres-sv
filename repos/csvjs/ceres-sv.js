@@ -202,12 +202,12 @@ var ceres = {};
                     imageContainer.appendChild(slideContainer);
 
                     if (config.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'window.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
+                    rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'ceres.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(this)' });
-                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'ceres.getSlide(this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'ceres.getSlide(this)' });
 
                 if (config.attributes.nub) getSlideViewTrackContainer();
 
@@ -226,7 +226,7 @@ var ceres = {};
 
                 function getSlideViewTrackContainer()
                 {
-                    const getClickEvent = function() { return 'window.getSlide(this)'; }
+                    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
