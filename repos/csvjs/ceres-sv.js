@@ -24,15 +24,15 @@ var ceres = {};
     const csv = 'ceres-sv'; // required ceres slideview element name
     const config = new class { constructor() {} } // ceres slideview configuration attributes
 
-    let slideIndex = function (el)
+    const slideIndex = function (el)
     {
-        const symbol = new Map();
+        const className = new Map();
 
-        symbol.set('left', config.slide - 1);
-        symbol.set('right', config.slide + 1);
-        symbol.set('nub', Number.parseInt(el.id.replace(csv + '-nub', ''), 10));
+        className.set('left', config.slide - 1);
+        className.set('right', config.slide + 1);
+        className.set('nub', Number.parseInt(el.id.replace(csv + '-nub', ''), 10));
 
-        config.slide = symbol.get(el.className);
+        config.slide = className.get(el.className);
     }
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
