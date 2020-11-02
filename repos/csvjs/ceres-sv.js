@@ -10,7 +10,7 @@
  * Copyright (c) 2020 Alexander Munro
 */
 
-import { resource as rsc } from './ceres-sv-lib.min.js';
+//import { resource as rsc } from './ceres-sv-lib.min.js';
 //import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.js';
 
 window.ceres = {};
@@ -381,22 +381,7 @@ window.rsc = {};
     const symbol = new Map();
 
     setPrecursors();
-/*
-    symbol.set('true', true);
-    symbol.set('t', true);
-    symbol.set('yes', true);
-    symbol.set('y', true);
-    symbol.set('1', true);
 
-    protean.reference = 1;
-    protean.notify = 2;
-    protean.default = 98;
-    protean.error = 99;
-    protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-    protean.newline = protean.isWindows ? '\r\n' : '\n';
-
-    Object.freeze(protean);
-*/
     rsc.constant = protean; // exposed local scope attributes
 
     Object.freeze(rsc.constant);
