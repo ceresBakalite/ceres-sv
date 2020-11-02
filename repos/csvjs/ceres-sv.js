@@ -27,21 +27,12 @@ window.ceres = {};
         async connectedCallback()
         {
             const config = new class { constructor() {} } // ceres slideview configuration attributes
-            const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             const csr = function() { return attribute; } // ceres slideview resource attributes
+            const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             const cls = new Map();
 
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(slideIndex(el)); };  // global scope method reference
-
-            const slideIndex = function (el)
-            {
-                cls.set('left', config.slide - 1);
-                cls.set('right', config.slide + 1);
-                cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
-
-                config.slide = cls.get(el.className);
-            }
 
             if (!Object.isFrozen(csr)) getResources();
 
@@ -138,7 +129,6 @@ window.ceres = {};
                 config.cache = function() { return attribute; }
                 config.cache.css = [];
                 config.cache.src = [];
-                //config.bindSlide = setSlide.bind(ceres);
             }
 
             function slideviewHasAttributes()
@@ -258,6 +248,15 @@ window.ceres = {};
                 if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
 
                 config.cache.css = config.cache.css.concat(css);
+            }
+
+            const slideIndex = function (el)
+            {
+                cls.set('left', config.slide - 1);
+                cls.set('right', config.slide + 1);
+                cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
+
+                config.slide = cls.get(el.className);
             }
 
             function setSlide()
