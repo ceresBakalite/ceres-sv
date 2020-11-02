@@ -28,6 +28,8 @@ var ceres = {};
 
     function slideIndex(el)
     {
+        config.slide = null;
+        
         const symbol = new Map();
 
         symbol.set('left', -1);
