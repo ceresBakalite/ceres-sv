@@ -36,7 +36,7 @@ var ceres = {};
     }
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc) { config.bindSlide.call(slideIndex(el)); };  // global scope method reference
+    this.getSlide = function(el) { config.bindSlide.call(slideIndex(el)); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
