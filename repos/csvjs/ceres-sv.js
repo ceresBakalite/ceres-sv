@@ -28,7 +28,15 @@ var ceres = {};
 
     function slideIndex(el)
     {
-        console.log('slide says: ' + el.id + ' - ' + el.className)
+        const symbol = new Map();
+
+        symbol.set('left', -1);
+        symbol.set('right', 1);
+
+        let index = symbol.get(el.className) || el.id.replace(csv + '-nub', '');
+        //return config.slide += symbol.get(el.className) || config.slide = el.id.replace(csv + '-nub', '');
+
+        console.log('slide says: ' + index)
     }
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
