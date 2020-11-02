@@ -32,13 +32,14 @@ window.ceres = {};
         config.slide = cls.get(el.className);
     }
 
-    ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
     ceres.getSlide = function(el) { config.bindSlide.call(setSlide(el)); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
+            ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+
             const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             const csr = function() { return attribute; } // ceres slideview resource attributes
 
