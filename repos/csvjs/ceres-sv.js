@@ -18,8 +18,6 @@ window.rsc = {};
 {
     'use strict';
 
-    console.log('hello from rsc');
-
     const protean = function() { return attribute; }
     const resource = function() { return attribute; }
     const symbol = new Map();
@@ -178,8 +176,6 @@ window.rsc = {};
 
     function setPrecursors()
     {
-        console.log('setPrecursors says hello');
-
         symbol.set('true', true);
         symbol.set('t', true);
         symbol.set('yes', true);
@@ -513,14 +509,10 @@ window.caching = {};
 
     'use strict';
 
-    console.log('hello from caching');
-
     caching.available = ('caches' in window);
 
     caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
     {
-        console.log('installCache says hello');
-
         window.addEventListener('install', function(e)
         {
             e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
