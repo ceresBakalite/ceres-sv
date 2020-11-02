@@ -10,7 +10,8 @@
  * Copyright (c) 2020 Alexander Munro
 */
 
-//import { resource as rsc, caching } from './ceres-sv-lib.min.js';
+import { resource as rsc } from './ceres-sv-lib.min.js';
+//import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.js';
 
 window.ceres = {};
 (function()
@@ -146,7 +147,7 @@ window.ceres = {};
 
                 rsc.clearElement(progenitor);
 
-                progenitor.attachShadow({mode: 'open'});
+                progenitor.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style';
@@ -360,193 +361,6 @@ window.caching = {};
 
         });
 
-    }
-
-})();
-
-window.rsc = {};
-(function()
-{
-    'use strict';
-
-    const protean = function() { return attribute; }
-    const resource = function() { return attribute; }
-    const symbol = new Map();
-
-    setPrecursors();
-
-    rsc.constant = protean; // exposed local scope attributes
-
-    Object.freeze(rsc.constant);
-
-    rsc.windowOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-    rsc.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
-    rsc.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-    rsc.getImportMetaUrl = function() { return import.meta.url; }
-
-    rsc.setHorizontalSwipe = function(touch, callback, args)
-    {
-        const el = document.querySelector(touch.el);
-
-        if (!touch.act) touch.act = 10;
-
-        el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-
-        el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-
-        el.addEventListener('touchend', e =>
-        {
-            touch.end = e.changedTouches[0].screenX;
-
-            if (Math.abs(touch.start - touch.end) > touch.act)
-            {
-                args.action = (touch.start > touch.end);
-                callback.call(this, args);
-            }
-
-        }, { passive: true });
-
-    }
-
-    rsc.composeElement = function(element)
-    {
-        const el = document.createElement(element.el);
-
-        el.id = element.id;
-        element.parent.appendChild(el);
-
-        if (element.classValue) rsc.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
-        if (element.onClickEvent) rsc.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEvent });
-        if (element.csv) rsc.composeAttribute({ id: el.id, type: 'csv', value: element.csv });
-        if (element.url) rsc.composeAttribute({ id: el.id, type: 'src', value: element.url });
-        if (element.accessibility) rsc.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
-        if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
-    }
-
-    rsc.composeAttribute = function(attribute)
-    {
-        const el = document.getElementById(attribute.id);
-
-        if (el)
-        {
-            const attributeNode = document.createAttribute(attribute.type);
-            attributeNode.value = attribute.value;
-
-            el.setAttributeNode(attributeNode);
-        }
-
-    }
-
-    rsc.composeLinkElement = function(attribute)
-    {
-        const link = document.createElement('link');
-
-        if (attribute.rel) link.rel = attribute.rel;
-        if (attribute.type) link.type = attribute.type;
-        if (attribute.href) link.href = attribute.href;
-        if (attribute.as) link.as = attribute.as;
-        if (attribute.crossorigin) link.crossorigin = attribute.crossorigin;
-        if (attribute.media) link.media = attribute.media;
-
-        link.addEventListener('load', function() {}, false);
-
-        document.head.appendChild(link);
-    }
-
-    rsc.isEmptyOrNull = function(obj)
-    {
-        if (obj === null || obj == 'undefined') return true;
-
-        if (rsc.isString(obj)) return (obj.length === 0 || !obj.trim());
-        if (Array.isArray(obj)) return (obj.length === 0);
-        if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
-
-        return !obj;
-    }
-
-    rsc.getBooleanAttribute = function(attribute, locale = 'en')
-    {
-        if (attribute === true || attribute === false) return attribute;
-        if (rsc.isEmptyOrNull(attribute)) return false;
-        if (!rsc.isString(attribute)) return false;
-
-        const token = attribute.trim().toLocaleLowerCase(locale);
-
-        return symbol.get(token) || false;
-    }
-
-    rsc.getUniqueElementId = function(str = null, range = 100)
-    {
-        let elName = function() { return str + Math.floor(Math.random() * range) };
-        let el = null;
-
-        while (document.getElementById(el = elName())) {};
-
-        return el;
-    }
-
-    rsc.removeDuplcates = function(obj, sort)
-    {
-        const key = JSON.stringify;
-        let ar = [...new Map (obj.map(node => [key(node), node])).values()];
-
-        return sort ? ar.sort((a, b) => a - b) : ar;
-    }
-
-    rsc.inspect = function(diagnostic)
-    {
-        if (rsc.isEmptyOrNull(diagnostic)) return rsc.inspect({ type: protean.error, notification: resource.inspect });
-
-        const lookup = {
-            [protean.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-            [protean.error]: function() { rsc.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-            [protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + protean.newline + protean.newline + diagnostic.reference); },
-            [protean.default]: function() { rsc.errorHandler({ notification: resource.errordefault, alert: diagnostic.logtrace } ); }
-        };
-
-        return lookup[diagnostic.type]() || lookup[protean.default];
-    }
-
-    rsc.errorHandler = function(error)
-    {
-        if (rsc.isEmptyOrNull(error)) return rsc.inspect({ type: protean.error, notification: resource.errorHandler });
-
-        const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-        console.error(err);
-
-        if (error.alert) alert(err);
-
-        return false;
-    }
-
-    rsc.getObjectProperties = function(object, str = '')
-    {
-        for (let property in object) str += property + ': ' + object[property] + ', ';
-        return str.replace(/, +$/g,'');
-    }
-
-    function setPrecursors()
-    {
-        symbol.set('true', true);
-        symbol.set('t', true);
-        symbol.set('yes', true);
-        symbol.set('y', true);
-        symbol.set('1', true);
-
-        protean.reference = 1;
-        protean.notify = 2;
-        protean.default = 98;
-        protean.error = 99;
-        protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        protean.newline = protean.isWindows ? '\r\n' : '\n';
-
-        Object.freeze(protean);
-
-        resource.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
-        resource.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
-        resource.errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
-
-        Object.freeze(resource);
     }
 
 })();
