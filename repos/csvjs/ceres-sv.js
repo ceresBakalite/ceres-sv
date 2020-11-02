@@ -20,7 +20,8 @@ var ceres = {};
     'use strict';
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(target, calc, el) { console.log(e.id + ' - ' + el.className); config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+    this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
+    this.getSlide = function(el) { console.log(e.id + ' - ' + el.className); };  // global scope method reference
 
     const csv = 'ceres-sv'; // required ceres slideview element name
     const config = new class { constructor() {} } // ceres slideview configuration attributes
@@ -196,8 +197,8 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(-1, true, this)' });
-                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(1, true, this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(this)' });
 
                 if (config.attributes.nub) getSlideViewTrackContainer();
 
