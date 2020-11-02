@@ -380,7 +380,8 @@ window.rsc = {};
     const resource = function() { return attribute; }
     const symbol = new Map();
 
-    //setPrecursors();
+    setPrecursors();
+/*
     symbol.set('true', true);
     symbol.set('t', true);
     symbol.set('yes', true);
@@ -395,7 +396,7 @@ window.rsc = {};
     protean.newline = protean.isWindows ? '\r\n' : '\n';
 
     Object.freeze(protean);
-
+*/
     resource.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
     resource.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
     resource.errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
@@ -555,6 +556,8 @@ window.rsc = {};
 
     function setPrecursors()
     {
+        console.log('setPrecursors says hello');
+
         symbol.set('true', true);
         symbol.set('t', true);
         symbol.set('yes', true);
