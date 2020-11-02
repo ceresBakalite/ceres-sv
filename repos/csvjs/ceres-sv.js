@@ -57,7 +57,7 @@ window.ceres = {};
 
             let protean = function()
             {
-                const exists = !rsc.isEmptyOrNull(config.progenitor);
+                const exists = !rsc.isEmptyOrNull(progenitor);
 
                 if (exists)
                 {
@@ -147,7 +147,7 @@ window.ceres = {};
                 let getSubtitle = function() { return (config.attributes.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
-                rsc.clearElement(config.progenitor);
+                rsc.clearElement(progenitor);
 
                 progenitor.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
@@ -214,7 +214,7 @@ window.ceres = {};
                     setSlide(config.slide = config.slide += offset);
                 }
 
-                rsc.inspect({ type: rsc.constant.notify, notification: config.progenitor, logtrace: config.attributes.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: progenitor, logtrace: config.attributes.trace });
 
                 function getSlideViewTrackContainer()
                 {
