@@ -322,11 +322,13 @@ window.caching = {};
 
     'use strict';
 
+    console.log('hello from caching');
+
     caching.available = ('caches' in window);
 
     caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
     {
-        console.log('hello from caching');
+        console.log('installCache says hello');
 
         window.addEventListener('install', function(e)
         {
