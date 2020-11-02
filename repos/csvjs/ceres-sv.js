@@ -208,8 +208,8 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.testSlide(' + item + ')' });
-                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.testSlide(' + (imageIndex + 1) + ')' });
+                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.testSlide(' + (config.slide - 1) + ')' });
+                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.testSlide(' + (config.slide + 1) + ')' });
 
                 if (config.attributes.nub) getSlideViewTrackContainer();
 
