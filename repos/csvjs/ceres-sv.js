@@ -33,7 +33,7 @@ var ceres = {};
         symbol.set('left', -1);
         symbol.set('right', 1);
 
-        let index = symbol.get(el.className) || Number.parseInt(el.id.replace(csv + '-nub', ''), 10);
+        let index = (config.slide += symbol.get(el.className)) || Number.parseInt(el.id.replace(csv + '-nub', ''), 10);
         //return config.slide += symbol.get(el.className) || config.slide = el.id.replace(csv + '-nub', '');
 
         console.log('slide says: ' + index)
