@@ -56,19 +56,19 @@ window.ceres = {};
 
             let protean = function()
             {
-                const exists = !rsc.isEmptyOrNull(config.progenitor);
+                const exists = !rsc.isEmptyOrNull(this);
 
                 if (exists)
                 {
-                    config.progenitor.id = rsc.getUniqueElementId(csv);
+                    this.id = rsc.getUniqueElementId(csv);
                     config.noscript = document.getElementById(cnv) || document.getElementsByTagName('noscript')[0];
 
-                    config.attributes.sur = rsc.getBooleanAttribute(config.progenitor.getAttribute('sur')); // disabled
-                    config.attributes.sub = rsc.getBooleanAttribute(config.progenitor.getAttribute('sub')); // disabled
-                    config.attributes.trace = rsc.getBooleanAttribute(config.progenitor.getAttribute('trace')); // disabled
-                    config.attributes.delay = Number.isInteger(parseInt(config.progenitor.getAttribute('delay'))) ? parseInt(config.progenitor.getAttribute('delay')) : 250;
-                    config.attributes.cache = !rsc.getBooleanAttribute(config.progenitor.getAttribute('cache')); // enabled
-                    config.attributes.nub = !rsc.getBooleanAttribute(config.progenitor.getAttribute('nub')); // enabled
+                    config.attributes.sur = rsc.getBooleanAttribute(this.getAttribute('sur')); // disabled
+                    config.attributes.sub = rsc.getBooleanAttribute(this.getAttribute('sub')); // disabled
+                    config.attributes.trace = rsc.getBooleanAttribute(this.getAttribute('trace')); // disabled
+                    config.attributes.delay = Number.isInteger(parseInt(this.getAttribute('delay'))) ? parseInt(this.getAttribute('delay')) : 250;
+                    config.attributes.cache = !rsc.getBooleanAttribute(this.getAttribute('cache')); // enabled
+                    config.attributes.nub = !rsc.getBooleanAttribute(this.getAttribute('nub')); // enabled
                 }
 
                 return exists;
@@ -82,7 +82,7 @@ window.ceres = {};
 
                 const getImageList = function()
                 {
-                    let getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(config.progenitor.textContent)) ? config.progenitor.textContent : null; }
+                    let getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(this.textContent)) ? this.textContent : null; }
 
                     let getBodyContentList = function()
                     {
@@ -148,13 +148,13 @@ window.ceres = {};
 
                 rsc.clearElement(config.progenitor);
 
-                config.progenitor.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
+                this.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style';
                 styleContainer.className = 'slideview-style';
 
-                config.progenitor.appendChild(styleContainer);
+                this.appendChild(styleContainer);
 
                 fetch(config.defaultCSS).then(response => response.text()).then(str =>
                 {
@@ -166,7 +166,7 @@ window.ceres = {};
                 bodyContainer.className = 'slideview-body';
                 bodyContainer.style.display  = 'none';
 
-                config.progenitor.appendChild(bodyContainer);
+                this.appendChild(bodyContainer);
 
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image';
@@ -204,8 +204,8 @@ window.ceres = {};
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
-                config.progenitor.shadowRoot.append(styleContainer);
-                config.progenitor.shadowRoot.append(bodyContainer);
+                this.shadowRoot.append(styleContainer);
+                this.shadowRoot.append(bodyContainer);
 
                 function getHorizontalSwipe(swipe)
                 {
@@ -261,7 +261,7 @@ window.ceres = {};
 
             function setSlide()
             {
-                const shadow = config.progenitor.shadowRoot;
+                const shadow = this.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
@@ -283,7 +283,7 @@ window.ceres = {};
 
             function activateSlideView()
             {
-                config.progenitor.style.display = 'none';
+                this.style.display = 'none';
 
                 getSlideView();
                 setSlide();
@@ -296,10 +296,10 @@ window.ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                config.progenitor.style.display = 'block';
+                this.style.display = 'block';
 
-                const shadow = config.progenitor.shadowRoot;
-                const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + config.progenitor.id);
+                const shadow = this.shadowRoot;
+                const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + this.id);
 
                 nodelist.forEach(node => { node.style.display = attribute; } );
             }
