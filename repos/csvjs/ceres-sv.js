@@ -9,10 +9,6 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-
-//import { resource as rsc } from './ceres-sv-lib.min.js';
-//import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.js';
-
 window.rsc = {};
 (function()
 {
