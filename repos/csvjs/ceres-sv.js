@@ -397,13 +397,6 @@ window.rsc = {};
 
     Object.freeze(protean);
 */
-    resource.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
-    resource.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
-    resource.errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
-
-    Object.freeze(resource);
-
-
     rsc.constant = protean; // exposed local scope attributes
 
     Object.freeze(rsc.constant);
