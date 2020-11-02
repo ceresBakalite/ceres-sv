@@ -308,7 +308,7 @@ window.ceres = {};
                 const cacheName = csv + '-cache';
                 config.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
 
-                if (!caching.available) caching.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
+                if (caching.available) caching.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
             }
 
         }

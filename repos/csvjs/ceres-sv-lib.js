@@ -9,7 +9,8 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-export { resource, caching };
+//export { resource, caching };
+export { resource };
 
 var resource = {};
 (function()
@@ -198,7 +199,7 @@ var resource = {};
 
 }).call(resource);
 
-var caching = {};
+var xxxcaching = {};
 (function(cache) {
 
     'use strict';
@@ -244,4 +245,4 @@ var caching = {};
 
     }
 
-}).call(caching);
+}).call(xxxcaching);
