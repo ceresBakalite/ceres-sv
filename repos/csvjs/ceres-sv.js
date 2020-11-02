@@ -52,7 +52,7 @@ window.customElements.get(csv) || window.customElements.define(csv, class extend
     //const csv = 'ceres-sv'; // required ceres slideview element name
     const cls = new Map();
 
-    const setSlide = function (el)
+    const slideIndex = function (el)
     {
         cls.set('left', config.slide - 1);
         cls.set('right', config.slide + 1);
@@ -62,7 +62,7 @@ window.customElements.get(csv) || window.customElements.define(csv, class extend
     }
 
     getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    getSlide = function(el) { config.bindSlide.call(setSlide(el)); };  // global scope method reference
+    getSlide = function(el) { setSlide(slideIndex(el)); };  // global scope method reference
 
         async connectedCallback()
         {
@@ -164,7 +164,7 @@ window.customElements.get(csv) || window.customElements.define(csv, class extend
                 config.cache = function() { return attribute; }
                 config.cache.css = [];
                 config.cache.src = [];
-                config.bindSlide = setSlide.bind(ceres);
+                //config.bindSlide = setSlide.bind(ceres);
             }
 
             function slideviewHasAttributes()
