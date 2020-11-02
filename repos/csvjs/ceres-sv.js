@@ -21,15 +21,14 @@ var ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview element name
     const config = new class { constructor() {} } // ceres slideview configuration attributes
+    const className = new Map();
+
+    className.set('left', config.slide - 1);
+    className.set('right', config.slide + 1);
+    className.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
 
     const setSlide = function (el)
     {
-        const className = new Map();
-
-        className.set('left', config.slide - 1);
-        className.set('right', config.slide + 1);
-        className.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
-
         config.slide = className.get(el.className);
     }
 
