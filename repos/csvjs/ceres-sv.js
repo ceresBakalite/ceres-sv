@@ -41,6 +41,7 @@ var ceres = {};
     {
 */
 const csv = 'ceres-sv'; // required ceres slideview element name
+const config = new class { constructor() {} } // ceres slideview configuration attributes
 
 window,
 document,
@@ -48,7 +49,6 @@ window.customElements.get(csv) || window.customElements.define(csv, class extend
 {
     'use strict';
 
-    const config = new class { constructor() {} } // ceres slideview configuration attributes
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cls = new Map();
 
