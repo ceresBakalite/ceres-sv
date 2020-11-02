@@ -30,7 +30,7 @@ var ceres = {};
         className.set('right', config.slide + 1);
         className.set('nub', Number.parseInt(el.id.replace(csv + '-nub', ''), 10));
 
-        console.log('el.value: ' + parseInt(el.value));
+        console.log('el.value: ' + Number.parseInt(el.value, 10));
         config.slide = className.get(el.className);
     }
 
