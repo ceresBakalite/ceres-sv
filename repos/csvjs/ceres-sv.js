@@ -197,7 +197,7 @@ var ceres = {};
                     };
 
                     let slideContainer = document.createElement('div');
-                    slideContainer.className = 'csv fade';
+                    slideContainer.className = 'view fade';
 
                     imageContainer.appendChild(slideContainer);
 
@@ -262,7 +262,7 @@ var ceres = {};
             function setSlide()
             {
                 const shadow = config.progenitor.shadowRoot;
-                const slides = shadow.querySelectorAll('div.csv');
+                const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
                 {
