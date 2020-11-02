@@ -19,7 +19,7 @@ window.ceres = {};
     'use strict';
 
     const csv = 'ceres-sv'; // required ceres slideview element name
-    const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+    const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -60,7 +60,7 @@ window.ceres = {};
                 if (exists)
                 {
                     progenitor.id = rsc.getUniqueElementId(csv);
-                    config.noscript = document.getElementById(cnv) || document.getElementsByTagName('noscript')[0];
+                    config.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
                     config.attributes.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
                     config.attributes.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
@@ -100,7 +100,7 @@ window.ceres = {};
 
                     if (!rsc.isEmptyOrNull(imageList))
                     {
-                        rsc.inspect({ type: rsc.constant.notify, notification: csr.imageMarkup + ' [' + (config.callback ? csv + ' - callback' : cnv + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: config.attributes.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: csr.imageMarkup + ' [' + (config.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: config.attributes.trace });
                         config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                     }
 
@@ -118,8 +118,8 @@ window.ceres = {};
                 csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
                 csr.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
                 csr.progenitorError = 'Error: Unable to find the ' + csv + ' document element';
-                csr.imageListError = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cnv + ' elements';
-                csr.noscriptError = 'Error: Unable to find the ' + cnv + ' fallback noscript element when searching the document body';
+                csr.imageListError = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+                csr.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
 
                 Object.freeze(csr);
 
