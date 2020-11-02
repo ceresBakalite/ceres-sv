@@ -498,7 +498,7 @@ var ceres = {};
                     Object.freeze(resource);
                 }
 
-            }).call(rsc);
+            }).call(this);
 
             var caching = {};
             (function(cache) {
@@ -546,7 +546,7 @@ var ceres = {};
 
                 }
 
-            }).call(caching);
+            }).call(this);
 
         }
 
