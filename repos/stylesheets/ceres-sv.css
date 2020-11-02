@@ -23,11 +23,6 @@
     margin: 0px;
 }
 
- .slideview {
-  display: block;
-  cursor: zoom-in;
-}
-
 .slideview-image {
   max-width: 100%;
   position: relative;
@@ -38,6 +33,11 @@
    text-align:center;
    cursor: default;
  }
+
+ .csv {
+  display: block;
+  cursor: zoom-in;
+}
 
 .slide {
   display: none;
