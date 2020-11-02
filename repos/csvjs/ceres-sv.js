@@ -33,7 +33,7 @@ var ceres = {};
         symbol.set('left', -1);
         symbol.set('right', 1);
 
-        let index = symbol.get(el.className) || el.id.replace(csv + '-nub', '');
+        let index = config.slide += symbol.get(el.className) || el.id.replace(csv + '-nub', '');
         //return config.slide += symbol.get(el.className) || config.slide = el.id.replace(csv + '-nub', '');
 
         console.log('slide says: ' + index)
@@ -230,7 +230,7 @@ var ceres = {};
 
                 function getSlideViewTrackContainer()
                 {
-                    const getClickEvent = function() { return 'window.getSlide(' + index + ')'; }
+                    const getClickEvent = function() { return 'window.getSlide(this)'; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
