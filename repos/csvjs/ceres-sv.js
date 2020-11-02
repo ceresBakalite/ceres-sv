@@ -31,11 +31,10 @@ var ceres = {};
         className.set('nub', Number.parseInt(el.id.replace(csv + '-nub', ''), 10));
 
         config.slide = className.get(el.className);
-        config.slide = className.get(el.className);
     }
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    this.getSlide = function(index) { config.bindSlide.call(config.slide = index); };  // global scope method reference
+    this.getSlide = function(el) { config.bindSlide.call(setSlide(el)); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -208,8 +207,8 @@ var ceres = {};
                     if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(' + (config.slide - 1) + ')' });
-                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(' + (config.slide + 1) + ')' });
+                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'window.getSlide(this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'window.getSlide(this)' });
 
                 if (config.attributes.nub) getSlideViewTrackContainer();
 
@@ -228,7 +227,7 @@ var ceres = {};
 
                 function getSlideViewTrackContainer()
                 {
-                    const getClickEvent = function() { return 'window.getSlide(' + index + ')'; }
+                    const getClickEvent = function() { return 'window.getSlide(this)'; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
