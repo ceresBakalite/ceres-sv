@@ -19,14 +19,12 @@ var ceres = {};
 {
     'use strict';
 
-    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-    //this.getSlide = function(target, calc) { config.bindSlide.call(config.slide = (calc) ? config.slide += target : target); };  // global scope method reference
-    this.getSlide = function(el) { slideIndex(el); };  // global scope method reference
+    //this.getSlide = function(el) { slideIndex(el); };  // global scope method reference
 
     const csv = 'ceres-sv'; // required ceres slideview element name
     const config = new class { constructor() {} } // ceres slideview configuration attributes
 
-    function slideIndex(el)
+    let slideIndex = function (el)
     {
         const symbol = new Map();
 
@@ -34,11 +32,11 @@ var ceres = {};
         symbol.set('right', config.slide + 1);
         symbol.set('nub', Number.parseInt(el.id.replace(csv + '-nub', ''), 10));
 
-        let index = symbol.get(el.className);
-        //return config.slide += symbol.get(el.className) || config.slide = el.id.replace(csv + '-nub', '');
-
-        console.log('slide says: ' + index)
+        config.slide = symbol.get(el.className);
     }
+
+    this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+    this.getSlide = function(target, calc) { config.bindSlide.call(slideIndex(el)); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
