@@ -30,10 +30,11 @@ var ceres = {};
     {
         const symbol = new Map();
 
-        symbol.set('left', -1);
-        symbol.set('right', 1);
+        symbol.set('left', config.slide - 1);
+        symbol.set('right', config.slide + 1);
+        symbol.set('nub', Number.parseInt(el.id.replace(csv + '-nub', ''), 10));
 
-        let index = (config.slide += symbol.get(el.className)) || Number.parseInt(el.id.replace(csv + '-nub', ''), 10);
+        let index = symbol.get(el.className);
         //return config.slide += symbol.get(el.className) || config.slide = el.id.replace(csv + '-nub', '');
 
         console.log('slide says: ' + index)
