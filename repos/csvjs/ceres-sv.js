@@ -504,7 +504,7 @@ var resource = {};
         Object.freeze(resource);
     }
 
-}).call(resource);
+}).call(window);
 
 var caching = {};
 (function(cache) {
@@ -552,4 +552,4 @@ var caching = {};
 
     }
 
-}).call(caching);
+}).call(window);
