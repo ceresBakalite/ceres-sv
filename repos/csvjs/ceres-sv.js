@@ -19,29 +19,28 @@ window.ceres = {};
 (function()
 {
     'use strict';
-    const config = new class { constructor() {} } // ceres slideview configuration attributes
-    const csv = 'ceres-sv'; // required ceres slideview element name
-    const cls = new Map();
-
-    const setSlide = function (el)
-    {
-        cls.set('left', config.slide - 1);
-        cls.set('right', config.slide + 1);
-        cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
-
-        config.slide = cls.get(el.className);
-    }
-
-    ceres.getSlide = function(el) { config.bindSlide.call(setSlide(el)); };  // global scope method reference
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
         {
-            ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-
+            const config = new class { constructor() {} } // ceres slideview configuration attributes
+            const csv = 'ceres-sv'; // required ceres slideview element name
             const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             const csr = function() { return attribute; } // ceres slideview resource attributes
+            const cls = new Map();
+
+            ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+            ceres.getSlide = function(el) { setSlide(slideIndex(el)); };  // global scope method reference
+
+            const slideIndex = function (el)
+            {
+                cls.set('left', config.slide - 1);
+                cls.set('right', config.slide + 1);
+                cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
+
+                config.slide = cls.get(el.className);
+            }
 
             if (!Object.isFrozen(csr)) getResources();
 
@@ -138,7 +137,7 @@ window.ceres = {};
                 config.cache = function() { return attribute; }
                 config.cache.css = [];
                 config.cache.src = [];
-                config.bindSlide = setSlide.bind(ceres);
+                //config.bindSlide = setSlide.bind(ceres);
             }
 
             function slideviewHasAttributes()
