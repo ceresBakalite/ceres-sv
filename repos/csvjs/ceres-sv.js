@@ -10,8 +10,6 @@
  * Copyright (c) 2020 Alexander Munro
 */
 
-//export { ceres };
-
 import { resource as rsc } from './ceres-sv-lib.min.js';
 //import { resource as rsc, caching } from 'https://ceresbakalite.github.io/ceres-sv/repos/csvjs/ceres-sv-lib.js';
 
@@ -21,6 +19,7 @@ window.ceres = {};
     'use strict';
 
     const csv = 'ceres-sv'; // required ceres slideview element name
+    const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -30,7 +29,6 @@ window.ceres = {};
 
             const config = new class { constructor() {} } // ceres slideview configuration attributes
             const csr = function() { return attribute; } // ceres slideview resource attributes
-            const cnv = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
             const cls = new Map();
 
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
