@@ -64,7 +64,7 @@ var resource = {};
 
         if (element.classValue) this.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
         if (element.onClickEvent) this.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEvent });
-        if (element.value) this.composeAttribute({ id: el.id, type: 'value', value: element.value });
+        if (element.csv) this.composeAttribute({ id: el.id, type: 'csv', value: element.csv });
         if (element.url) this.composeAttribute({ id: el.id, type: 'src', value: element.url });
         if (element.accessibility) this.composeAttribute({ id: el.id, type: 'alt', value: element.accessibility });
         if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
