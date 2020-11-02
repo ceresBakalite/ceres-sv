@@ -323,9 +323,9 @@ window.caching = {};
 
     'use strict';
 
-    this.available = ('caches' in window);
+    caching.available = ('caches' in window);
 
-    this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+    caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
     {
         window.addEventListener('install', function(e)
         {
