@@ -19,17 +19,17 @@ var ceres = {};
 {
     'use strict';
 
-    const csv = 'ceres-sv'; // required ceres slideview element name
     const config = new class { constructor() {} } // ceres slideview configuration attributes
-    const className = new Map();
+    const csv = 'ceres-sv'; // required ceres slideview element name
+    const cls = new Map();
 
     const setSlide = function (el)
     {
-        className.set('left', config.slide - 1);
-        className.set('right', config.slide + 1);
-        className.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
+        cls.set('left', config.slide - 1);
+        cls.set('right', config.slide + 1);
+        cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
 
-        config.slide = className.get(el.className);
+        config.slide = cls.get(el.className);
     }
 
     this.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
