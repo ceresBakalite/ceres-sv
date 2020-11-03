@@ -226,8 +226,9 @@ window.ceres = {};
         {
             const progenitor = this;
 
-            const config = new class { constructor() {} } // ceres slideview configuration attributes
+//            const config = new class { constructor() {} } // ceres slideview configuration attributes
 //            const csr = function() { return attribute; } // ceres slideview resource attributes
+            const config = new Object(); // ceres slideview configuration attributes
             const csr = new Object(); // ceres slideview resource attributes
             const cls = new Map();
 
