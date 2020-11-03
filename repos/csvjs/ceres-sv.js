@@ -451,10 +451,10 @@ window.ceres = {};
 
             function setSlide(el)
             {
-                console.log('el.id: ' + el.id);
+                if (!rsc.isEmptyOrNull(el)) console.log('el.id: ' + el.id);
 
                 //const shadow = rsc.isEmptyOrNull(el) ? progenitor.shadowRoot : el.shadowRoot;
-                
+
                 const shadow = progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
