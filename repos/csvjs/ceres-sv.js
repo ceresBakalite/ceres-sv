@@ -22,7 +22,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { setSlide(slideIndex(el)); };  // global scope method reference
+            ceres.getSlide = function(el) { setSlide(slideIndex(this.shadowRoot.el)); };  // global scope method reference
 
             const progenitor = this;
 
@@ -438,7 +438,7 @@ window.ceres = {};
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
 
-            const slideIndex = function (el)
+            const slideIndex = function (root)
             {
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
@@ -446,16 +446,16 @@ window.ceres = {};
 
                 cfg.slide = cls.get(el.className);
 
-                return el;
+                return root;
             }
 
-            function setSlide(el)
+            function setSlide(root)
             {
-                if (!rsc.isEmptyOrNull(el)) console.log('el.id: ' + el.id);
+                if (!rsc.isEmptyOrNull(shadow)) console.log('root.id: ' + root.id);
 
-                //const shadow = rsc.isEmptyOrNull(el) ? progenitor.shadowRoot : el.shadowRoot;
+                //const shadow = rsc.isEmptyOrNull(root) ? progenitor.shadowRoot : root.shadowRoot;
 
-                const shadow = progenitor.shadowRoot;
+                //const shadow = progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
