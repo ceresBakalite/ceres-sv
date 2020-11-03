@@ -265,8 +265,6 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            test.one('what again you');
-
             if (slideviewHasAttributes()) activateSlideView();
 
             let precursor = function() { return cfg.callback || cfg.noscript; }
