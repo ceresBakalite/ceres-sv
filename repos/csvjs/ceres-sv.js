@@ -215,7 +215,7 @@ window.ceres = {};
 
             cfg.slide = 1;
 
-            //if (cfg.fetchcss) await ( await fetchStylesheets(css) );
+            if (cfg.fetchcss) await ( await fetchStylesheets(css) );
             if (cfg.callback) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             cfg.cache.src = cfg.cache.src.concat(src);
@@ -326,7 +326,7 @@ window.ceres = {};
 
                 progenitor.appendChild(styleContainer);
 
-                fetch(cfg.defaultCSS).then(response => response.text()).then(str =>
+                fetch(cfg.cache.css).then(response => response.text()).then(str =>
                 {
                     styleContainer.insertAdjacentHTML('afterbegin', str)
                 });
@@ -407,15 +407,7 @@ window.ceres = {};
             function fetchStylesheets(str)
             {
                 const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
-
-                const setlink = function(url, index)
-                {
-                    if (!cfg.cache.css.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
-                }
-
-                if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
-
-                cfg.cache.css = cfg.cache.css.concat(css);
+                cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
 
             const slideIndex = function (el)
