@@ -57,17 +57,16 @@ let rsc = {};
     rsc.composeElement = function(element)
     {
         const el = document.createElement(element.el);
+        const precursor = element.parent;
 
         el.id = element.id;
-        element.parent.appendChild(el);
+        precursor.appendChild(el);
 
         //        if (element.className) container.className = element.className;
         //        if (element.onClick) container.onClick = element.onClick;
         //        if (element.src) container.src = element.src;
         //        if (element.alt) container.alt = element.alt;
         //        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
-
-
 
         if (element.classValue) rsc.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
         if (element.onClickEvent) rsc.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEvent });
@@ -393,7 +392,7 @@ window.ceres = {};
 
                 if (cfg.attributes.nub) getSlideViewTrackContainer();
 
-                rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
+                rsc.setHorizontalSwipe( { act: 80, element: 'div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 progenitor.shadowRoot.append(styleContainer);
                 progenitor.shadowRoot.append(bodyContainer);
