@@ -39,7 +39,7 @@ window.ceres = {};
                 const resource = new Object();
                 const symbol = new Map();
 
-                setPrecursors();
+                initialise();
 
                 rsc.constant = protean; // exposed local scope attributes
 
@@ -160,7 +160,7 @@ window.ceres = {};
                     return str.replace(/, +$/g,'');
                 }
 
-                function setPrecursors()
+                function initialise()
                 {
                     symbol.set('true', true);
                     symbol.set('t', true);
