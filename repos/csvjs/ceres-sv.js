@@ -226,7 +226,7 @@ window.ceres = {};
     //var t1 = envokeTest1();
     let obj = new test1();
 
-    obj.test('ceres obj say hi');
+    obj.test('ceres obj says hi');
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
