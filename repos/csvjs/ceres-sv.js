@@ -26,7 +26,7 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(slideIndex(el)); };  // global scope method reference
 
-            if (typeof csr === 'undefined' || csr === null) initialise();
+            if (typeof csr === null) initialise();
 
             let css = progenitor.getAttribute('css') || cfg.defaultCSS;
             let src = progenitor.getAttribute('src') || null;
