@@ -30,14 +30,14 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(slideIndex(el)); };  // global scope method reference
 
-            if (!Object.isFrozen(csr)) getResources();
+            if (!Object.isFrozen(csr)) initialise();
 
             let css = progenitor.getAttribute('css') || cfg.defaultCSS;
             let src = progenitor.getAttribute('src') || null;
 
             cfg.slide = 1;
 
-            let rsc = {};
+            let rsc = {}; // generic resource method allocation
             (function() {
 
                 const protean = new Object();
@@ -308,7 +308,7 @@ window.ceres = {};
                 return isImageArray();
             }
 
-            function getResources()
+            function initialise()
             {
                 csr.imageMarkup = 'Image list markup';
                 csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
