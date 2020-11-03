@@ -60,6 +60,7 @@ let rsc = {};
         const precursor = document.getElementById(element.precursor);
 
         container.id = element.id;
+
         if (element.className) container.className = element.className;
         if (element.onClick) container.onClick = element.onClick;
         if (element.src) container.src = element.src;
@@ -67,6 +68,21 @@ let rsc = {};
         if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
 
         precursor.appendChild(element);
+
+//        if (element.className) rsc.composeAttribute({ type: 'class', value: element.className });
+//        if (element.onClick) rsc.composeAttribute({ type: 'onclick', value: element.onClick });
+//        if (element.src) rsc.composeAttribute({ type: 'src', value: element.src });
+//        if (element.alt) rsc.composeAttribute({ type: 'alt', value: element.alt });
+//        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
+
+
+        function xxxxcomposeAttribute(attribute)
+        {
+            const attributeNode = document.createAttribute(attribute.type);
+            attributeNode.value = attribute.value;
+            container.setAttributeNode(attributeNode);
+        }
+
 
         //if (element.classValue) rsc.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
         //if (element.onClickEvent) rsc.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEvent });
@@ -76,21 +92,6 @@ let rsc = {};
         //if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
     }
 
-/*
-    rsc.composeAttribute = function(attribute)
-    {
-        const el = document.getElementById(attribute.id);
-
-        if (el)
-        {
-            const attributeNode = document.createAttribute(attribute.type);
-            attributeNode.value = attribute.value;
-
-            el.setAttributeNode(attributeNode);
-        }
-
-    }
-*/
     rsc.composeLinkElement = function(attribute)
     {
         const link = document.createElement('link');
@@ -384,7 +385,7 @@ window.ceres = {};
                     imageContainer.appendChild(slideContainer);
 
                     if (cfg.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, className: 'surtitle', precursor: slideContainer.id, markup: getSurtitle() });
-                    rsc.composeElement({ el: 'img', id: elements.imgName, className: 'slide', precursor: slideContainer.id, onClick: 'ceres.getImage(this);', src: getURL(), accessibility: getAccessibilityText() });
+                    rsc.composeElement({ el: 'img', id: elements.imgName, className: 'slide', precursor: slideContainer.id, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
                     if (cfg.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, className: 'subtitle', precursor: slideContainer.id, markup: getSubtitle() });
                 }
 
