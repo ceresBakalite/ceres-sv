@@ -420,15 +420,6 @@ window.ceres = {};
 
             const slideIndex = function (el)
             {
-                let cls = {
-                    'left': cfg.slide - 1,
-                    'right': cfg.slide + 1,
-                    'nub': Number.parseInt(el.id.replace('nub', ''), 10)
-                };
-
-                let obj = 'cls.' + el.className;
-                console.log(obj);
-
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
                 cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
