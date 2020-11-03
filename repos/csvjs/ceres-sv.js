@@ -207,7 +207,7 @@ window.test1 = {};
         console.log('This is a test: ' + str);
     }
 
-})();
+}).call(test1);
 
 function envokeTest1()
 {
