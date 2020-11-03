@@ -207,7 +207,7 @@ window.ceres = {};
 
     test1.test('ceres test1 from ceres says hi');
 
-    var test1 = function() {
+    function test() {
 
         'use strict';
 
