@@ -90,12 +90,6 @@ window.ceres = {};
                     if (el.onClick) node.setAttribute("onclick", el.onClick);
                     if (el.src) node.setAttribute("src", el.src);
                     if (el.alt) node.setAttribute("alt", el.alt);
-                    if (el.rel) node.setAttribute('rel', el.rel);
-                    if (el.type) node.setAttribute('type', el.type);
-                    if (el.href) node.setAttribute('href', el.href);
-                    if (el.as) node.setAttribute('as', el.as);
-                    if (el.crossorigin) node.setAttribute('crossorigin', el.crossorigin);
-                    if (el.media) node.setAttribute('media', el.media);
                     if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
                     precursor.appendChild(node);
