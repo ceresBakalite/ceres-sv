@@ -197,14 +197,14 @@ window.rsc = {};
 
 })();
 
-window.test1 = {};
+var test1 = {};
 (function()
 {
     'use strict';
 
     test1.test = function(str)
     {
-        console.log('This is test1 calling: ' + str);
+        console.log('This is test1 var calling: ' + str);
     }
 
 })();
