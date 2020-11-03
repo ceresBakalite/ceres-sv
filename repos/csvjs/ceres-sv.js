@@ -62,16 +62,17 @@ let rsc = {};
         el.id = element.id;
         if (element.className) el.className = element.className;
         if (element.onClick) el.onClick = element.onClick;
+        if (element.src) el.src = element.src;
         precursor.appendChild(el);
 
 
-        //        if (element.src) container.src = element.src;
+
         //        if (element.alt) container.alt = element.alt;
         //        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
 
         //if (element.className) rsc.composeAttribute({ id: el.id, type: 'class', value: element.className });
         //if (element.onClick) rsc.composeAttribute({ id: el.id, type: 'onclick', value: element.onClick });
-        if (element.src) rsc.composeAttribute({ id: el.id, type: 'src', value: element.src });
+        //if (element.src) rsc.composeAttribute({ id: el.id, type: 'src', value: element.src });
         if (element.alt) rsc.composeAttribute({ id: el.id, type: 'alt', value: element.alt });
         if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
     }
