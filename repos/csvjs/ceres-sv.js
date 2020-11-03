@@ -335,6 +335,15 @@ window.ceres = {};
 
                 });
 
+                cfg.cache.css.forEach(item =>
+                {
+                    fetch(item).then(response => response.text()).then(str =>
+                    {
+                        styleContainer.insertAdjacentHTML('beforeend', str)
+                    });
+
+                });
+
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body';
                 bodyContainer.className = 'slideview-body';
