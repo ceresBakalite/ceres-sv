@@ -445,12 +445,14 @@ window.ceres = {};
                 cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
 
                 cfg.slide = cls.get(el.className);
+
+                return el;
             }
 
-            function setSlide()
+            function setSlide(el)
             {
-                const shadow = progenitor.shadowRoot;
-                const slides = shadow.querySelectorAll('div.view');
+                //const shadow = progenitor.shadowRoot;
+                const slides = el.querySelectorAll('div.view');
 
                 const setNubStyle = function()
                 {
