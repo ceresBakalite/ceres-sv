@@ -38,9 +38,7 @@ window.ceres = {};
             cfg.slide = 1;
 
             let rsc = {};
-            (function()
-            {
-                'use strict';
+            (function() {
 
                 const protean = new Object();
                 const resource = new Object();
@@ -191,12 +189,10 @@ window.ceres = {};
                     Object.freeze(resource);
                 }
 
-            })();
+            })(); // end resource allocation
 
             let caching = {};
             (function(cache) {
-
-                'use strict';
 
                 caching.available = ('caches' in window);
 
@@ -239,7 +235,7 @@ window.ceres = {};
 
                 }
 
-            })();
+            })(); // end caching
 
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.callback = !rsc.isEmptyOrNull(src);
