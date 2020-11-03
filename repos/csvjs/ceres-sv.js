@@ -303,7 +303,7 @@ window.ceres = {};
                         cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                     }
 
-                    if (!Object.isSealed(config)) Object.seal(config);
+                    if (!Object.isSealed(cfg)) Object.seal(cfg);
 
                     return !rsc.isEmptyOrNull(cfg.imageArray);
                 }
