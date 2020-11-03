@@ -202,7 +202,7 @@ window.test1 = {};
 
     'use strict';
 
-    test1.test = function(str)
+    this.test = function(str)
     {
         console.log('This is a test: ' + str);
     }
@@ -223,10 +223,9 @@ window.ceres = {};
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
-    //var t1 = envokeTest1();
-    let obj = new test1();
+    //let obj = new test1();
 
-    obj.test('ceres obj says hi');
+    test1.test('ceres obj says hi');
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
