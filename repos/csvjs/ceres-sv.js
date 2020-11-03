@@ -326,9 +326,13 @@ window.ceres = {};
 
                 progenitor.appendChild(styleContainer);
 
-                fetch(cfg.cache.css).then(response => response.text()).then(str =>
+                cfg.cache.css.forEach(item =>
                 {
-                    styleContainer.insertAdjacentHTML('afterbegin', str)
+                    fetch(item).then(response => response.text()).then(str =>
+                    {
+                        styleContainer.insertAdjacentHTML('afterbegin', str)
+                    });
+                    
                 });
 
                 const bodyContainer = document.createElement('div');
