@@ -37,9 +37,7 @@ let rsc = {};
         if (!touch.act) touch.act = 10;
 
         el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-
         el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-
         el.addEventListener('touchend', e =>
         {
             touch.end = e.changedTouches[0].screenX;
@@ -56,7 +54,7 @@ let rsc = {};
 
     rsc.composeElement = function(el)
     {
-        const precursor = el.precursor;
+        const precursor = el.parent;
         const node = document.createElement(el.node);
 
         node.id = el.id;
@@ -70,16 +68,16 @@ let rsc = {};
         precursor.appendChild(node);
     }
 
-    rsc.composeLinkElement = function(attribute)
+    rsc.composeLinkElement = function(el)
     {
         const link = document.createElement('link');
 
-        if (attribute.rel) link.rel = attribute.rel;
-        if (attribute.type) link.type = attribute.type;
-        if (attribute.href) link.href = attribute.href;
-        if (attribute.as) link.as = attribute.as;
-        if (attribute.crossorigin) link.crossorigin = attribute.crossorigin;
-        if (attribute.media) link.media = attribute.media;
+        if (el.rel) link.rel = el.rel;
+        if (el.type) link.type = el.type;
+        if (el.href) link.href = el.href;
+        if (el.as) link.as = el.as;
+        if (el.crossorigin) link.crossorigin = el.crossorigin;
+        if (el.media) link.media = el.media;
 
         link.addEventListener('load', function() {}, false);
 
@@ -364,13 +362,13 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attrib.sur) rsc.composeElement({ node: 'div', id: el.surName, className: 'surtitle', precursor: slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ node: 'img', id: el.imgName, className: 'slide', precursor: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
-                    if (cfg.attrib.sub) rsc.composeElement({ node: 'div', id: el.subName, className: 'subtitle', precursor: slideContainer, markup: getSubtitle() });
+                    if (cfg.attrib.sur) rsc.composeElement({ node: 'div', id: el.surName, className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+                    rsc.composeElement({ node: 'img', id: el.imgName, className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
+                    if (cfg.attrib.sub) rsc.composeElement({ node: 'div', id: el.subName, className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ node: 'a', id: csv + '-left', className: 'left', precursor: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
-                rsc.composeElement({ node: 'a', id: csv + '-right', className: 'right', precursor: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ node: 'a', id: csv + '-left', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ node: 'a', id: csv + '-right', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
 
                 if (cfg.attrib.nub) getSlideViewTrackContainer();
 
@@ -400,7 +398,7 @@ window.ceres = {};
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         var index = item + 1;
-                        rsc.composeElement({ node: 'span', id: 'nub' + index, className: 'nub', precursor: trackContainer, onClick: getClickEvent() });
+                        rsc.composeElement({ node: 'span', id: 'nub' + index, className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
