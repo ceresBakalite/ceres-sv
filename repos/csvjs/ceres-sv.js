@@ -10,8 +10,6 @@
  * Copyright (c) 2020 Alexander Munro
 */
 
-var t1 = envokeTest1();
-
 window.rsc = {};
 (function()
 {
@@ -199,6 +197,24 @@ window.rsc = {};
 
 })();
 
+window.test1 = {};
+(function() {
+
+    'use strict';
+
+    test1.test = function(str)
+    {
+        console.log('This is a test: ' + str);
+    }
+
+})();
+
+function envokeTest1()
+{
+    let obj = new test1();
+    return obj;
+}
+
 window.ceres = {};
 (function()
 {
@@ -206,6 +222,8 @@ window.ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+
+    var t1 = envokeTest1();
 
     t1.test('ceres say hi');
 
@@ -552,20 +570,3 @@ window.caching = {};
     }
 
 })();
-
-window.test1 = {};
-(function() {
-
-    'use strict';
-
-    test1.test = function(str)
-    {
-        console.log('This is a test: ' + str);
-    }
-
-})();
-
-function envokeTest1()
-{
-    return new test1();;
-}
