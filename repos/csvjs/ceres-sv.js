@@ -226,9 +226,7 @@ window.ceres = {};
         {
             const progenitor = this;
 
-//            const config = new class { constructor() {} } // ceres slideview configuration attributes
-//            const csr = function() { return attribute; } // ceres slideview resource attributes
-            const config = new Object(); // ceres slideview configuration attributes
+            const cfg = new Object(); // ceres slideview configuration attributes
             const csr = new Object(); // ceres slideview resource attributes
             const cls = new Map();
 
@@ -237,22 +235,22 @@ window.ceres = {};
 
             if (!Object.isFrozen(csr)) getResources();
 
-            let css = progenitor.getAttribute('css') || config.defaultCSS;
+            let css = progenitor.getAttribute('css') || cfg.defaultCSS;
             let src = progenitor.getAttribute('src') || null;
 
-            config.fetchcss = !rsc.isEmptyOrNull(css);
-            config.callback = !rsc.isEmptyOrNull(src);
+            cfg.fetchcss = !rsc.isEmptyOrNull(css);
+            cfg.callback = !rsc.isEmptyOrNull(src);
 
-            config.slide = 1;
+            cfg.slide = 1;
 
-            //if (config.fetchcss) await ( await fetchStylesheets(css) );
-            if (config.callback) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            //if (cfg.fetchcss) await ( await fetchStylesheets(css) );
+            if (cfg.callback) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-            config.cache.src = config.cache.src.concat(src);
+            cfg.cache.src = cfg.cache.src.concat(src);
 
             if (slideviewHasAttributes()) activateSlideView();
 
-            let precursor = function() { return config.callback || config.noscript; }
+            let precursor = function() { return cfg.callback || cfg.noscript; }
 
             let protean = function()
             {
@@ -261,14 +259,14 @@ window.ceres = {};
                 if (exists)
                 {
                     progenitor.id = rsc.getUniqueElementId(csv);
-                    config.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
+                    cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
-                    config.attributes.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
-                    config.attributes.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
-                    config.attributes.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
-                    config.attributes.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
-                    config.attributes.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                    config.attributes.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+                    cfg.attributes.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
+                    cfg.attributes.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
+                    cfg.attributes.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
+                    cfg.attributes.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
+                    cfg.attributes.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
+                    cfg.attributes.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
                 }
 
                 return exists;
@@ -276,9 +274,9 @@ window.ceres = {};
 
             let attributesExist = function()
             {
-                config.imageArray = null;
+                cfg.imageArray = null;
 
-                rsc.inspect({ type: rsc.constant.notify, notification: csr.configAttributes + rsc.getObjectProperties(config.attributes), logtrace: config.attributes.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: csr.configAttributes + rsc.getObjectProperties(cfg.attributes), logtrace: cfg.attributes.trace });
 
                 const getImageList = function()
                 {
@@ -286,13 +284,13 @@ window.ceres = {};
 
                     let getBodyContentList = function()
                     {
-                        rsc.inspect({ type: rsc.constant.notify, notification: csr.noscriptSearch, logtrace: config.attributes.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: csr.noscriptSearch, logtrace: cfg.attributes.trace });
 
-                        const list = !rsc.isEmptyOrNull(config.noscript) ? config.noscript.textContent : null;
-                        return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.noscriptError, logtrace: config.attributes.trace });
+                        const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
+                        return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.noscriptError, logtrace: cfg.attributes.trace });
                     }
 
-                    return config.callback ? getConnectedCallbackList() : getBodyContentList();
+                    return cfg.callback ? getConnectedCallbackList() : getBodyContentList();
                 }
 
                 const isImageArray = function()
@@ -301,13 +299,13 @@ window.ceres = {};
 
                     if (!rsc.isEmptyOrNull(imageList))
                     {
-                        rsc.inspect({ type: rsc.constant.notify, notification: csr.imageMarkup + ' [' + (config.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: config.attributes.trace });
-                        config.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+                        rsc.inspect({ type: rsc.constant.notify, notification: csr.imageMarkup + ' [' + (cfg.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attributes.trace });
+                        cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                     }
 
                     if (!Object.isSealed(config)) Object.seal(config);
 
-                    return !rsc.isEmptyOrNull(config.imageArray);
+                    return !rsc.isEmptyOrNull(cfg.imageArray);
                 }
 
                 return isImageArray();
@@ -324,17 +322,17 @@ window.ceres = {};
 
                 Object.freeze(csr);
 
-                config.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                config.attributes = function() { return attribute; }
-                config.cache = function() { return attribute; }
-                config.cache.css = [];
-                config.cache.src = [];
+                cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+                cfg.attributes = function() { return attribute; }
+                cfg.cache = function() { return attribute; }
+                cfg.cache.css = [];
+                cfg.cache.src = [];
             }
 
             function slideviewHasAttributes()
             {
-                if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorError, logtrace: config.attributes.trace });
-                if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListError, logtrace: config.attributes.trace });
+                if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorError, logtrace: cfg.attributes.trace });
+                if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListError, logtrace: cfg.attributes.trace });
 
                 return attributesExist();
             }
@@ -342,8 +340,8 @@ window.ceres = {};
             function getSlideView()
             {
                 let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-                let getSurtitle = function() { return (config.attributes.sur) ? imageIndex + ' / ' + config.imageArray.length : null; }
-                let getSubtitle = function() { return (config.attributes.sub) ? getAccessibilityText() : null; }
+                let getSurtitle = function() { return (cfg.attributes.sur) ? imageIndex + ' / ' + cfg.imageArray.length : null; }
+                let getSubtitle = function() { return (cfg.attributes.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
                 rsc.clearElement(progenitor);
@@ -356,7 +354,7 @@ window.ceres = {};
 
                 progenitor.appendChild(styleContainer);
 
-                fetch(config.defaultCSS).then(response => response.text()).then(str =>
+                fetch(cfg.defaultCSS).then(response => response.text()).then(str =>
                 {
                     styleContainer.insertAdjacentHTML('afterbegin', str)
                 });
@@ -374,9 +372,9 @@ window.ceres = {};
 
                 bodyContainer.appendChild(imageContainer);
 
-                for (let item = 0; item < config.imageArray.length; item++)
+                for (let item = 0; item < cfg.imageArray.length; item++)
                 {
-                    var arrayItem = config.imageArray[item].split(',');
+                    var arrayItem = cfg.imageArray[item].split(',');
                     var imageIndex = item + 1;
 
                     let id = csv + imageIndex;
@@ -392,15 +390,15 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (config.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+                    if (cfg.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
                     rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'ceres.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
-                    if (config.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                    if (cfg.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
                 rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'ceres.getSlide(this)' });
                 rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'ceres.getSlide(this)' });
 
-                if (config.attributes.nub) getSlideViewTrackContainer();
+                if (cfg.attributes.nub) getSlideViewTrackContainer();
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
@@ -410,10 +408,10 @@ window.ceres = {};
                 function getHorizontalSwipe(swipe)
                 {
                     const offset = (swipe.action) ? swipe.right : swipe.left;
-                    setSlide(config.slide = config.slide += offset);
+                    setSlide(cfg.slide = cfg.slide += offset);
                 }
 
-                rsc.inspect({ type: rsc.constant.notify, notification: progenitor, logtrace: config.attributes.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: progenitor, logtrace: cfg.attributes.trace });
 
                 function getSlideViewTrackContainer()
                 {
@@ -425,7 +423,7 @@ window.ceres = {};
 
                     bodyContainer.appendChild(trackContainer);
 
-                    for (let item = 0; item < config.imageArray.length; item++)
+                    for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         var index = item + 1;
                         rsc.composeElement({ el: 'span', id: 'nub' + index, classValue: 'nub', parent: trackContainer, onClickEvent: getClickEvent() });
@@ -442,21 +440,21 @@ window.ceres = {};
 
                 const setlink = function(url, index)
                 {
-                    if (!config.cache.css.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
+                    if (!cfg.cache.css.includes(url)) rsc.composeLinkElement({ rel: 'stylesheet', type: 'text/css', href: url, media: 'screen' });
                 }
 
                 if (!rsc.isEmptyOrNull(css)) css.forEach(setlink);
 
-                config.cache.css = config.cache.css.concat(css);
+                cfg.cache.css = cfg.cache.css.concat(css);
             }
 
             const slideIndex = function (el)
             {
-                cls.set('left', config.slide - 1);
-                cls.set('right', config.slide + 1);
+                cls.set('left', cfg.slide - 1);
+                cls.set('right', cfg.slide + 1);
                 cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
 
-                config.slide = cls.get(el.className);
+                cfg.slide = cls.get(el.className);
             }
 
             function setSlide()
@@ -470,15 +468,15 @@ window.ceres = {};
                     const el = shadow.querySelector('span.enabled');
 
                     if (el) el.className = 'nub';
-                    elements[config.slide-1].className += ' enabled';
+                    elements[cfg.slide-1].className += ' enabled';
                 }
 
-                config.slide = (config.slide < 1) ? slides.length : (config.slide > slides.length) ? 1 : config.slide;
+                cfg.slide = (cfg.slide < 1) ? slides.length : (cfg.slide > slides.length) ? 1 : cfg.slide;
 
                 slides.forEach(node => { node.style.display = 'none'; } );
-                slides[config.slide-1].style.display = 'block';
+                slides[cfg.slide-1].style.display = 'block';
 
-                if (config.attributes.nub) setNubStyle();
+                if (cfg.attributes.nub) setNubStyle();
             }
 
             function activateSlideView()
@@ -488,9 +486,9 @@ window.ceres = {};
                 getSlideView();
                 setSlide();
 
-                setTimeout(function() { setSlideViewDisplay('block'); }, config.attributes.delay);
+                setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attributes.delay);
 
-                if (config.attributes.cache) setCache();
+                if (cfg.attributes.cache) setCache();
             }
 
 
@@ -507,9 +505,9 @@ window.ceres = {};
             function setCache()
             {
                 const cacheName = csv + '-cache';
-                config.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
+                cfg.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
 
-                if (caching.available) caching.installCache(cacheName, rsc.removeDuplcates(config.cache.css.concat(config.cache.src.concat(config.cache.script))));
+                if (caching.available) caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
             }
 
         }
