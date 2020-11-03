@@ -203,8 +203,6 @@ window.ceres = {};
 
     })();
 
-    test.one('hi you');
-
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -232,6 +230,8 @@ window.ceres = {};
             if (cfg.callback) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             cfg.cache.src = cfg.cache.src.concat(src);
+
+            test.one('hi again you');
 
             if (slideviewHasAttributes()) activateSlideView();
 
