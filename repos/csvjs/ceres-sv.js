@@ -35,9 +35,6 @@ window.ceres = {};
             let css = progenitor.getAttribute('css') || cfg.defaultCSS;
             let src = progenitor.getAttribute('src') || null;
 
-            cfg.fetchcss = !rsc.isEmptyOrNull(css);
-            cfg.callback = !rsc.isEmptyOrNull(src);
-
             cfg.slide = 1;
 
             let rsc = {};
@@ -259,6 +256,9 @@ window.ceres = {};
                 }
 
             })();
+
+            cfg.fetchcss = !rsc.isEmptyOrNull(css);
+            cfg.callback = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) await ( await fetchStylesheets(css) );
             if (cfg.callback) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
