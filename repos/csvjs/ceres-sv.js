@@ -207,6 +207,18 @@ window.ceres = {};
 
     test1.test('ceres test1 from ceres says hi');
 
+    var test1 = {};
+    (function() {
+
+        'use strict';
+
+        this.test = function(str)
+        {
+            console.log('This is a test: ' + str);
+        }
+
+    }).call(test1);
+
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -500,18 +512,6 @@ window.ceres = {};
         }
 
     }); // end HTMLElement extension
-
-    var test1 = {};
-    (function() {
-
-        'use strict';
-
-        this.test = function(str)
-        {
-            console.log('This is a test: ' + str);
-        }
-
-    }).call(test1);
 
 })();
 
