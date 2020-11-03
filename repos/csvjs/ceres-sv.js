@@ -451,9 +451,9 @@ window.ceres = {};
 
             function setSlide(root)
             {
-                if (!rsc.isEmptyOrNull(shadow)) console.log('root.id: ' + root.id);
+                if (!rsc.isEmptyOrNull(root)) console.log('root.id: ' + root.id);
 
-                //const shadow = rsc.isEmptyOrNull(root) ? progenitor.shadowRoot : root.shadowRoot;
+                const shadow = rsc.isEmptyOrNull(root) ? progenitor.shadowRoot : root.shadowRoot;
 
                 //const shadow = progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
