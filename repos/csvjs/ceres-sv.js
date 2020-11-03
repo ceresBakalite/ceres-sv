@@ -67,7 +67,7 @@ let rsc = {};
         if (element.alt) container.alt = element.alt;
         if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
 
-        precursor.appendChild(element);
+        precursor.appendChild(container);
 
 //        if (element.className) rsc.composeAttribute({ type: 'class', value: element.className });
 //        if (element.onClick) rsc.composeAttribute({ type: 'onclick', value: element.onClick });
