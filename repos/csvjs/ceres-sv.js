@@ -22,7 +22,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { setSlide(slideIndex(el.shadowRoot, el)); };  // global scope method reference
+            ceres.getSlide = function(el) { setSlide(slideIndex(this.shadowRoot, el)); };  // global scope method reference
 
             const progenitor = this;
 
