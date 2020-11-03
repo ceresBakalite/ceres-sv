@@ -57,7 +57,7 @@ let rsc = {};
     rsc.composeElement = function(element)
     {
         const container = document.createElement(element.el);
-        const precursor = document.querySelector(element.parent);
+        const precursor = document.getElementById(container).parentElement.nodeName;
 
         container.id = element.id;
         if (element.className) container.className = element.className;
