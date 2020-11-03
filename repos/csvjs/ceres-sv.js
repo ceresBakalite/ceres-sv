@@ -197,6 +197,8 @@ window.rsc = {};
 
 })();
 
+//var obj = new object();
+
 window.ceres = {};
 (function()
 {
@@ -204,7 +206,7 @@ window.ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
-
+/*
     test1.test('ceres test1 from ceres says hi');
 
     function test1() {
@@ -217,7 +219,7 @@ window.ceres = {};
         }
 
     }
-
+*/
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -225,7 +227,8 @@ window.ceres = {};
             const progenitor = this;
 
             const config = new class { constructor() {} } // ceres slideview configuration attributes
-            const csr = function() { return attribute; } // ceres slideview resource attributes
+//            const csr = function() { return attribute; } // ceres slideview resource attributes
+            const csr = new Object(); // ceres slideview resource attributes
             const cls = new Map();
 
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
