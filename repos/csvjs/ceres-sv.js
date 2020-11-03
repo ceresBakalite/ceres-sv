@@ -197,7 +197,7 @@ window.rsc = {};
 
 })();
 
-var test1 = (function()
+window.test1 = (function()
 {
     'use strict';
 
