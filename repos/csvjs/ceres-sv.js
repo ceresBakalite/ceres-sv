@@ -61,7 +61,7 @@ let rsc = {};
 
         el.id = element.id;
         if (element.className) el.className = element.className;
-        if (element.onClick) el.onClick = element.onClick;
+        if (element.onClick) el.onclick = element.onClick;
         if (element.src) el.src = element.src;
         precursor.appendChild(el);
 
