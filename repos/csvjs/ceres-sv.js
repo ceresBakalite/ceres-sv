@@ -190,6 +190,20 @@ window.ceres = {};
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
+    const obj = new Object();
+
+    obj.test = {};
+    (function() {
+
+        'use strict';
+
+        test.one = function(str)
+        {
+            console.log('Hello from test: ' + str);
+        }
+
+    })();
+
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -408,10 +422,6 @@ window.ceres = {};
 
             function fetchStylesheets(str)
             {
-
-                rsc.inspect({ type: rsc.constant.error, notification: 'TESTING...', logtrace: cfg.attrib.trace });
-
-
                 const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
