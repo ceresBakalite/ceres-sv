@@ -451,11 +451,11 @@ window.ceres = {};
 
             function setSlide(el)
             {
-                if (!rsc.isEmptyOrNull(this.shadowRoot)) console.log('el.id: ' + el.id);
+                //if (!rsc.isEmptyOrNull(this.shadowRoot)) console.log('el.id: ' + el.id);
 
-                const shadow = rsc.isEmptyOrNull(this.shadowRoot) ? progenitor.shadowRoot : this.shadowRoot;
+                //const shadow = rsc.isEmptyOrNull(this.shadowRoot) ? progenitor.shadowRoot : this.shadowRoot;
 
-                //const shadow = progenitor.shadowRoot;
+                const shadow = progenitor.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
