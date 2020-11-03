@@ -57,7 +57,7 @@ let rsc = {};
     rsc.composeElement = function(element)
     {
         const container = document.createElement(element.el);
-        const precursor = element.precursor;
+        const precursor = document.getElementById(element.precursor);
 
         container.id = element.id;
         if (element.className) container.className = element.className;
@@ -383,13 +383,13 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, className: 'surtitle', precursor: slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ el: 'img', id: elements.imgName, className: 'slide', precursor: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), accessibility: getAccessibilityText() });
-                    if (cfg.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, className: 'subtitle', precursor: slideContainer, markup: getSubtitle() });
+                    if (cfg.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, className: 'surtitle', precursor: slideContainer.id, markup: getSurtitle() });
+                    rsc.composeElement({ el: 'img', id: elements.imgName, className: 'slide', precursor: slideContainer.id, onClick: 'ceres.getImage(this);', src: getURL(), accessibility: getAccessibilityText() });
+                    if (cfg.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, className: 'subtitle', precursor: slideContainer.id, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: csv + '-left', className: 'left', precursor: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
-                rsc.composeElement({ el: 'a', id: csv + '-right', className: 'right', precursor: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-left', className: 'left', precursor: imageContainer.id, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-right', className: 'right', precursor: imageContainer.id, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
 
                 if (cfg.attributes.nub) getSlideViewTrackContainer();
 
@@ -419,7 +419,7 @@ window.ceres = {};
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         var index = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'nub' + index, className: 'nub', precursor: trackContainer, onClick: getClickEvent() });
+                        rsc.composeElement({ el: 'span', id: 'nub' + index, className: 'nub', precursor: trackContainer.id, onClick: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
