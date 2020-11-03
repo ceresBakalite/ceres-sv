@@ -197,17 +197,7 @@ let rsc = {};
 
 })();
 
-let test1 = {};
-(function()
-{
-    'use strict';
-
-    test1.test = function(str)
-    {
-        console.log('This is test1 let calling: ' + str);
-    }
-
-})();
+import { test1 as xxx } from 'test1';
 
 window.ceres = {};
 (function()
@@ -217,7 +207,7 @@ window.ceres = {};
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
-    test1.test('and this is the test1 callback from ceres saying hi');
+    xxx.test('and this is the test1 callback from ceres saying hi');
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -559,6 +549,20 @@ let caching = {};
 
         });
 
+    }
+
+})();
+
+export { test1 };
+
+let test1 = {};
+(function()
+{
+    'use strict';
+
+    test1.test = function(str)
+    {
+        console.log('This is test1 let calling: ' + str);
     }
 
 })();
