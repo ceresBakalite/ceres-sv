@@ -91,24 +91,14 @@ window.ceres = {};
                     if (el.src) node.setAttribute("src", el.src);
                     if (el.alt) node.setAttribute("alt", el.alt);
                     if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+                    if (el.rel) node.setAttribute('rel', el.rel);
+                    if (el.type) node.setAttribute('type', el.type);
+                    if (el.href) node.setAttribute('href', el.href);
+                    if (el.as) node.setAttribute('as', el.as);
+                    if (el.crossorigin) node.setAttribute('crossorigin', el.crossorigin);
+                    if (el.media) node.setAttribute('media', el.media);
 
                     precursor.appendChild(node);
-                }
-
-                rsc.composeLinkElement = function(el)
-                {
-                    const link = document.createElement('link');
-
-                    if (el.rel) link.rel = el.rel;
-                    if (el.type) link.type = el.type;
-                    if (el.href) link.href = el.href;
-                    if (el.as) link.as = el.as;
-                    if (el.crossorigin) link.crossorigin = el.crossorigin;
-                    if (el.media) link.media = el.media;
-
-                    link.addEventListener('load', function() {}, false);
-
-                    document.head.appendChild(link);
                 }
 
                 rsc.isEmptyOrNull = function(obj)
