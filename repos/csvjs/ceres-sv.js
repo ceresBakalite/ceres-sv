@@ -9,6 +9,9 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
+
+var t1 = new test1();
+
 window.rsc = {};
 (function()
 {
@@ -203,8 +206,6 @@ window.ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
-
-    let t1 = new test1();
 
     t1.test('ceres say hi');
 
