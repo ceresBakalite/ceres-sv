@@ -68,12 +68,9 @@ let rsc = {};
         //        if (element.alt) container.alt = element.alt;
         //        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
 
-
-
         if (element.className) rsc.composeAttribute({ id: el.id, type: 'class', value: element.className });
         if (element.onClick) rsc.composeAttribute({ id: el.id, type: 'onclick', value: element.onClick });
-        //if (element.csv) rsc.composeAttribute({ id: el.id, type: 'csv', value: element.csv });
-        if (element.url) rsc.composeAttribute({ id: el.id, type: 'src', value: element.url });
+        if (element.src) rsc.composeAttribute({ id: el.id, type: 'src', value: element.src });
         if (element.alt) rsc.composeAttribute({ id: el.id, type: 'alt', value: element.alt });
         if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
     }
@@ -385,7 +382,7 @@ window.ceres = {};
                     imageContainer.appendChild(slideContainer);
 
                     if (cfg.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ el: 'img', id: elements.imgName, className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', url: getURL(), alt: getAccessibilityText() });
+                    rsc.composeElement({ el: 'img', id: elements.imgName, className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
                     if (cfg.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
