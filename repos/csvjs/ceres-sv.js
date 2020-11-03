@@ -61,22 +61,22 @@ let rsc = {};
 
         container.id = element.id;
 
-        if (element.className) container.className = element.className;
-        if (element.onClick) container.onClick = element.onClick;
-        if (element.src) container.src = element.src;
-        if (element.alt) container.alt = element.alt;
-        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
+//        if (element.className) container.className = element.className;
+//        if (element.onClick) container.onClick = element.onClick;
+//        if (element.src) container.src = element.src;
+//        if (element.alt) container.alt = element.alt;
+//        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
 
         precursor.appendChild(container);
 
-//        if (element.className) rsc.composeAttribute({ type: 'class', value: element.className });
-//        if (element.onClick) rsc.composeAttribute({ type: 'onclick', value: element.onClick });
-//        if (element.src) rsc.composeAttribute({ type: 'src', value: element.src });
-//        if (element.alt) rsc.composeAttribute({ type: 'alt', value: element.alt });
-//        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
+        if (element.className) rsc.composeAttribute({ type: 'class', value: element.className });
+        if (element.onClick) rsc.composeAttribute({ type: 'onclick', value: element.onClick });
+        if (element.src) rsc.composeAttribute({ type: 'src', value: element.src });
+        if (element.alt) rsc.composeAttribute({ type: 'alt', value: element.alt });
+        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
 
 
-        function xxxxcomposeAttribute(attribute)
+        function composeAttribute(attribute)
         {
             const attributeNode = document.createAttribute(attribute.type);
             attributeNode.value = attribute.value;
