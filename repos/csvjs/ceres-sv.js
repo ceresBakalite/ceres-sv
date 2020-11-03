@@ -330,9 +330,9 @@ window.ceres = {};
                 {
                     fetch(item).then(response => response.text()).then(str =>
                     {
-                        styleContainer.insertAdjacentHTML('afterbegin', str)
+                        styleContainer.insertAdjacentHTML('beforeend', str)
                     });
-                    
+
                 });
 
                 const bodyContainer = document.createElement('div');
