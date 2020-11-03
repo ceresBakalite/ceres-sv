@@ -24,18 +24,7 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(slideIndex(el)); };  // global scope method reference
 
-            const progenitor = this;
-
-            const cfg = new Object(); // ceres slideview configuration attributes
-            const csr = new Object(); // ceres slideview resource attributes
-            const cls = new Map();
-
-            if (!Object.isFrozen(csr)) initialise();
-
-            let css = progenitor.getAttribute('css') || cfg.defaultCSS;
-            let src = progenitor.getAttribute('src') || null;
-
-            cfg.slide = 1;
+            initialise();
 
             let rsc = {}; // generic resource method allocation
             (function() {
@@ -237,6 +226,9 @@ window.ceres = {};
 
             })(); // end caching
 
+            let css = progenitor.getAttribute('css') || cfg.defaultCSS;
+            let src = progenitor.getAttribute('src') || null;
+
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.callback = !rsc.isEmptyOrNull(src);
 
@@ -310,6 +302,12 @@ window.ceres = {};
 
             function initialise()
             {
+                const progenitor = this;
+
+                const cfg = new Object(); // ceres slideview configuration attributes
+                const csr = new Object(); // ceres slideview resource attributes
+                const cls = new Map();
+
                 csr.imageMarkup = 'Image list markup';
                 csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
                 csr.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
@@ -324,6 +322,7 @@ window.ceres = {};
                 cfg.cache = new Object();
                 cfg.cache.css = [];
                 cfg.cache.src = [];
+                cfg.slide = 1;
             }
 
             function slideviewHasAttributes()
