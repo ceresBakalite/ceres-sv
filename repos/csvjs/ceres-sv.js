@@ -57,6 +57,7 @@ let rsc = {};
     rsc.composeElement = function(element)
     {
         const container = document.createElement(element.el);
+        const precursor = document.querySelector(element.parent);
 
         container.id = element.id;
         if (element.className) container.className = element.className;
@@ -65,7 +66,7 @@ let rsc = {};
         if (element.alt) container.alt = element.alt;
         if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
 
-        element.parent.appendChild(element);
+        precursor.appendChild(element);
 
         //if (element.classValue) rsc.composeAttribute({ id: el.id, type: 'class', value: element.classValue });
         //if (element.onClickEvent) rsc.composeAttribute({ id: el.id, type: 'onclick', value: element.onClickEvent });
@@ -75,6 +76,7 @@ let rsc = {};
         //if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
     }
 
+/*
     rsc.composeAttribute = function(attribute)
     {
         const el = document.getElementById(attribute.id);
@@ -88,7 +90,7 @@ let rsc = {};
         }
 
     }
-
+*/
     rsc.composeLinkElement = function(attribute)
     {
         const link = document.createElement('link');
