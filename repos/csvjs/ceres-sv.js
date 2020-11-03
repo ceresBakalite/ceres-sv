@@ -56,11 +56,11 @@ let rsc = {};
 
     rsc.composeElement = function(element)
     {
-        const container = document.createElement(element.el);
+        const el = document.createElement(element.el);
         const precursor = element.parent;
 
-        container.id = element.id;
-        precursor.appendChild(container);
+        el.id = element.id;
+        precursor.appendChild(el);
 
         //        if (element.className) container.className = element.className;
         //        if (element.onClick) container.onClick = element.onClick;
@@ -70,12 +70,12 @@ let rsc = {};
 
 
 
-        if (element.classValue) rsc.composeAttribute({ id: container.id, type: 'class', value: element.classValue });
-        if (element.onClickEvent) rsc.composeAttribute({ id: container.id, type: 'onclick', value: element.onClickEvent });
-        if (element.csv) rsc.composeAttribute({ id: container.id, type: 'csv', value: element.csv });
-        if (element.url) rsc.composeAttribute({ id: container.id, type: 'src', value: element.url });
-        if (element.accessibility) rsc.composeAttribute({ id: container.id, type: 'alt', value: element.accessibility });
-        if (element.markup) document.getElementById(container.id).insertAdjacentHTML('afterbegin', element.markup);
+        if (element.className) rsc.composeAttribute({ id: el.id, type: 'class', value: element.className });
+        if (element.onClick) rsc.composeAttribute({ id: el.id, type: 'onclick', value: element.onClick });
+        //if (element.csv) rsc.composeAttribute({ id: el.id, type: 'csv', value: element.csv });
+        if (element.url) rsc.composeAttribute({ id: el.id, type: 'src', value: element.url });
+        if (element.alt) rsc.composeAttribute({ id: el.id, type: 'alt', value: element.alt });
+        if (element.markup) document.getElementById(el.id).insertAdjacentHTML('afterbegin', element.markup);
     }
 
     rsc.composeAttribute = function(attribute)
@@ -384,13 +384,13 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, classValue: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ el: 'img', id: elements.imgName, classValue: 'slide', parent: slideContainer, onClickEvent: 'ceres.getImage(this);', url: getURL(), accessibility: getAccessibilityText() });
-                    if (cfg.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, classValue: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                    if (cfg.attributes.sur) rsc.composeElement({ el: 'div', id: elements.surName, className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+                    rsc.composeElement({ el: 'img', id: elements.imgName, className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', url: getURL(), alt: getAccessibilityText() });
+                    if (cfg.attributes.sub) rsc.composeElement({ el: 'div', id: elements.subName, className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ el: 'a', id: csv + '-left', classValue: 'left', parent: imageContainer, markup: '&#10094;', onClickEvent: 'ceres.getSlide(this)' });
-                rsc.composeElement({ el: 'a', id: csv + '-right', classValue: 'right', parent: imageContainer, markup: '&#10095;', onClickEvent: 'ceres.getSlide(this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-left', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ el: 'a', id: csv + '-right', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
 
                 if (cfg.attributes.nub) getSlideViewTrackContainer();
 
@@ -420,7 +420,7 @@ window.ceres = {};
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         var index = item + 1;
-                        rsc.composeElement({ el: 'span', id: 'nub' + index, classValue: 'nub', parent: trackContainer, onClickEvent: getClickEvent() });
+                        rsc.composeElement({ el: 'span', id: 'nub' + index, className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
