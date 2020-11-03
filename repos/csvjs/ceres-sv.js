@@ -56,10 +56,11 @@ let rsc = {};
 
     rsc.composeElement = function(el)
     {
+        const precursor = el.precursor;
         const node = document.createElement(el.node);
-        const precursor = el.parent;
 
         node.id = el.id;
+
         if (el.className) node.setAttribute("class", el.className);
         if (el.onClick) node.setAttribute("onclick", el.onClick);
         if (el.src) node.setAttribute("src", el.src);
@@ -67,31 +68,6 @@ let rsc = {};
         if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
         precursor.appendChild(node);
-
-
-
-        //        if (element.alt) container.alt = element.alt;
-        //        if (element.markup) container.insertAdjacentHTML('afterbegin', element.markup);
-
-        //if (element.className) rsc.composeAttribute({ id: el.id, type: 'class', value: element.className });
-        //if (element.onClick) rsc.composeAttribute({ id: el.id, type: 'onclick', value: element.onClick });
-        //if (element.src) rsc.composeAttribute({ id: el.id, type: 'src', value: element.src });
-        //if (el.alt) rsc.composeAttribute({ id: node.id, type: 'alt', value: el.alt });
-        //if (el.markup) document.getElementById(node.id).insertAdjacentHTML('afterbegin', el.markup);
-    }
-
-    rsc.composeAttribute = function(attribute)
-    {
-        const el = document.getElementById(attribute.id);
-
-        if (el)
-        {
-            const attributeNode = document.createAttribute(attribute.type);
-            attributeNode.value = attribute.value;
-
-            el.setAttributeNode(attributeNode);
-        }
-
     }
 
     rsc.composeLinkElement = function(attribute)
@@ -386,13 +362,13 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attributes.sur) rsc.composeElement({ node: 'div', id: elements.surName, className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ node: 'img', id: elements.imgName, className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
-                    if (cfg.attributes.sub) rsc.composeElement({ node: 'div', id: elements.subName, className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                    if (cfg.attributes.sur) rsc.composeElement({ node: 'div', id: elements.surName, className: 'surtitle', precursor: slideContainer, markup: getSurtitle() });
+                    rsc.composeElement({ node: 'img', id: elements.imgName, className: 'slide', precursor: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
+                    if (cfg.attributes.sub) rsc.composeElement({ node: 'div', id: elements.subName, className: 'subtitle', precursor: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ node: 'a', id: csv + '-left', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
-                rsc.composeElement({ node: 'a', id: csv + '-right', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ node: 'a', id: csv + '-left', className: 'left', precursor: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ node: 'a', id: csv + '-right', className: 'right', precursor: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
 
                 if (cfg.attributes.nub) getSlideViewTrackContainer();
 
@@ -422,7 +398,7 @@ window.ceres = {};
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         var index = item + 1;
-                        rsc.composeElement({ node: 'span', id: 'nub' + index, className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        rsc.composeElement({ node: 'span', id: 'nub' + index, className: 'nub', precursor: trackContainer, onClick: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
