@@ -197,14 +197,14 @@ let rsc = {};
 
 })();
 
-var test1 = {};
+let test1 = {};
 (function()
 {
     'use strict';
 
     test1.test = function(str)
     {
-        console.log('This is test1 var calling: ' + str);
+        console.log('This is test1 let calling: ' + str);
     }
 
 })();
