@@ -408,6 +408,10 @@ window.ceres = {};
 
             function fetchStylesheets(str)
             {
+
+                rsc.inspect({ type: rsc.constant.error, notification: 'TESTING...', logtrace: cfg.attrib.trace });
+
+
                 const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
