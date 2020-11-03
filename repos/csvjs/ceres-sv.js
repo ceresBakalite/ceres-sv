@@ -10,7 +10,7 @@
  * Copyright (c) 2020 Alexander Munro
 */
 
-window.rsc = {};
+let rsc = {};
 (function()
 {
     'use strict';
@@ -515,7 +515,7 @@ window.ceres = {};
 
 })();
 
-window.caching = {};
+let caching = {};
 (function(cache) {
 
     'use strict';
