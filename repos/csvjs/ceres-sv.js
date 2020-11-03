@@ -295,8 +295,6 @@ window.ceres = {};
                 Object.freeze(csr);
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                //cfg.assign = function() { return attribute; }
-                //cfg.cache = function() { return attribute; }
                 cfg.assign = new Object();
                 cfg.cache = new Object();
                 cfg.cache.css = [];
