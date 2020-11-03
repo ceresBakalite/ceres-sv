@@ -197,24 +197,6 @@ window.rsc = {};
 
 })();
 
-window.test1 = {};
-(function() {
-
-    'use strict';
-
-    this.test = function(str)
-    {
-        console.log('This is a test: ' + str);
-    }
-
-}).call(test1);
-
-function envokeTest1()
-{
-    let obj = new test1();
-    return obj;
-}
-
 window.ceres = {};
 (function()
 {
@@ -223,9 +205,19 @@ window.ceres = {};
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
-    //let obj = new test1();
-
     test1.test('ceres obj says hi');
+
+    window.test1 = {};
+    (function() {
+
+        'use strict';
+
+        this.test = function(str)
+        {
+            console.log('This is a test: ' + str);
+        }
+
+    }).call(test1);
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
