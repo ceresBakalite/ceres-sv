@@ -15,8 +15,8 @@ window.rsc = {};
 {
     'use strict';
 
-    const protean = function() { return attribute; }
-    const resource = function() { return attribute; }
+    const protean = new Object();
+    const resource = new Object();
     const symbol = new Map();
 
     setPrecursors();
