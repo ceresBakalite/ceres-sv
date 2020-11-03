@@ -211,7 +211,7 @@ window.ceres = {};
 
         'use strict';
 
-        this.test = function(str)
+        test1.test = function(str)
         {
             console.log('This is a test: ' + str);
         }
