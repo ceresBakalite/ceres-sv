@@ -190,19 +190,6 @@ window.ceres = {};
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
-    let test = {};
-    (function()
-    {
-
-        'use strict';
-
-        test.one = function(str)
-        {
-            console.log('Hello from test: ' + str);
-        }
-
-    })();
-
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -226,12 +213,25 @@ window.ceres = {};
 
             cfg.slide = 1;
 
+            let test = {};
+            (function()
+            {
+
+                'use strict';
+
+                test.one = function(str)
+                {
+                    console.log('Hello from test: ' + str);
+                }
+
+            })();
+
             if (cfg.fetchcss) await ( await fetchStylesheets(css) );
             if (cfg.callback) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            test.one('hi again you');
+            test.one('what again you');
 
             if (slideviewHasAttributes()) activateSlideView();
 
