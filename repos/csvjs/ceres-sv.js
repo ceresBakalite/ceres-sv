@@ -224,8 +224,9 @@ window.ceres = {};
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
     //var t1 = envokeTest1();
+    let obj = new test1();
 
-    test1.test('ceres say hi');
+    obj.test('ceres obj say hi');
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
