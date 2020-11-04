@@ -323,7 +323,6 @@ window.ceres = {};
                 cfg.cache.css = [];
                 cfg.cache.src = [];
                 cfg.slide = 1;
-                cfg.shade = 0;
             }
 
             function slideviewHasAttributes()
@@ -341,17 +340,17 @@ window.ceres = {};
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
 
-                cfg.shade = document.querySelector('#' + progenitor.id);
+                cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
-                rsc.clearElement(cfg.shade);
+                rsc.clearElement(cfg.attrib.shade);
 
-                cfg.shade.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
+                cfg.attrib.shade.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style';
                 styleContainer.className = 'slideview-style';
 
-                cfg.shade.appendChild(styleContainer);
+                cfg.attrib.shade.appendChild(styleContainer);
 
                 cfg.cache.css.forEach(item =>
                 {
@@ -367,7 +366,7 @@ window.ceres = {};
                 bodyContainer.className = 'slideview-body';
                 bodyContainer.style.display  = 'none';
 
-                cfg.shade.appendChild(bodyContainer);
+                cfg.attrib.shade.appendChild(bodyContainer);
 
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image';
@@ -403,8 +402,8 @@ window.ceres = {};
 
                 rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
-                cfg.shade.shadowRoot.append(styleContainer);
-                cfg.shade.shadowRoot.append(bodyContainer);
+                cfg.attrib.shade.shadowRoot.append(styleContainer);
+                cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
                 function getHorizontalSwipe(swipe)
                 {
@@ -412,7 +411,7 @@ window.ceres = {};
                     setSlide(cfg.slide = cfg.slide += offset);
                 }
 
-                rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
                 function getSlideViewTrackContainer()
                 {
@@ -458,7 +457,7 @@ window.ceres = {};
 
                 //const shadow = rsc.isEmptyOrNull(this.shadowRoot) ? progenitor.shadowRoot : this.shadowRoot;
 
-                const shadow = cfg.shade.shadowRoot;
+                const shadow = cfg.attrib.shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
@@ -493,9 +492,9 @@ window.ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                cfg.shade.style.display = 'block';
+                cfg.attrib.shade.style.display = 'block';
 
-                const shadow = cfg.shade.shadowRoot;
+                const shadow = cfg.attrib.shade.shadowRoot;
                 const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + progenitor.id);
 
                 nodelist.forEach(node => { node.style.display = attribute; } );
