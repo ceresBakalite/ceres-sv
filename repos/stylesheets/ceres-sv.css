@@ -47,6 +47,10 @@
     user-select: none;
 }
 
+.block {
+    display: block;
+}
+
 .none {
     display: none;
 }

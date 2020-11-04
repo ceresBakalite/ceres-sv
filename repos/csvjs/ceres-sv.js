@@ -513,7 +513,7 @@ window.ceres = {};
 
                 const shadow = cfg.attrib.shade.shadowRoot;
                 const node = shadow.querySelector('div.slideview-body');
-                node.className = 'slideview-body'
+                node.className = 'slideview-body block'
 
                 //const nodelist = shadow.querySelectorAll('div.slideview-body');
 
