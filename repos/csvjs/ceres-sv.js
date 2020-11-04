@@ -456,7 +456,8 @@ window.ceres = {};
 
             function setSlide(id)
             {
-                const shadow = rsc.isEmptyOrNull(id) ? cfg.attrib.shade.shadowRoot : document.querySelector('#' + id);
+                const shade = rsc.isEmptyOrNull(id) ? cfg.attrib.shade : document.querySelector('#' + id);
+                const shadow = shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
