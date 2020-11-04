@@ -430,6 +430,13 @@ window.ceres = {};
                 function getHorizontalSwipe(swipe)
                 {
                     const offset = (swipe.action) ? swipe.right : swipe.left;
+                    cfg.slide = cfg.slide += offset;
+
+                    //const shadowId = csv + ar[1];
+                    //const shade = document.querySelector('#' + shadowId);
+                    //const shadow = shade.shadowRoot;
+                    //const slide = shadow.querySelector('div.pointer');
+
                     setSlide(cfg.slide = cfg.slide += offset);
                 }
 
@@ -451,7 +458,6 @@ window.ceres = {};
                         rsc.composeElement({ node: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
-                    bodyContainer.appendChild(document.createElement('br'));
                 }
 
             }
