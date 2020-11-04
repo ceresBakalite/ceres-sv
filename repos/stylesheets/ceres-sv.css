@@ -44,7 +44,7 @@
 }
 
 .pointer {
-    display: block;
+    user-select: none;
 }
 
 .none {
