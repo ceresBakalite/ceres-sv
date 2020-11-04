@@ -249,7 +249,9 @@ window.ceres = {};
 
             let shadowSlide = function (el)
             {
-                console.log('host: ' + el.getRootNode().host);
+                let root = el.getRootNode().host;
+
+                console.log('root.id: ' + root.id);
 
                 let ar = el.id.split('-');
 
