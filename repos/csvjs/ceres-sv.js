@@ -464,7 +464,7 @@ window.ceres = {};
 
             function setSlide(obj)
             {
-                const shade = rsc.isEmptyOrNull(shadowId) ? cfg.attrib.shade : document.querySelector('#' + shadowSlide(obj));
+                const shade = rsc.isEmptyOrNull(obj) ? cfg.attrib.shade : document.querySelector('#' + shadowSlide(obj));
                 const shadow = shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
