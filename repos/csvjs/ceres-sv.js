@@ -383,7 +383,7 @@ window.ceres = {};
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body';
                 bodyContainer.className = 'slideview-body';
-                bodyContainer.style.display  = 'none';
+                //bodyContainer.style.display  = 'none';
 
                 cfg.attrib.shade.appendChild(bodyContainer);
 
