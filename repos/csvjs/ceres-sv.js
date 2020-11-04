@@ -413,6 +413,11 @@ window.ceres = {};
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
+                let setTrackId = function(index)
+                {
+                    return 'nub-' + index + '-' + cfg.attrib.shade.id.replace(csv, '');
+                }
+
                 function getSlideViewTrackContainer()
                 {
                     const getClickEvent = function() { return 'ceres.getSlide(this,"' + cfg.attrib.shade.id + '")'; }
@@ -426,7 +431,7 @@ window.ceres = {};
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         var index = item + 1;
-                        rsc.composeElement({ node: 'span', id: 'nub' + index, className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        rsc.composeElement({ node: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                     bodyContainer.appendChild(document.createElement('br'));
