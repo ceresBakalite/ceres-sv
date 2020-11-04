@@ -445,8 +445,6 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
-                console.log('el.id: ' + el.id + ' nub.id: ' + ar[0] + ' shade.id: ' + ar[1]);
-
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
                 cls.set('nub', Number.parseInt(ar[0].replace('nub', ''), 10));
@@ -458,9 +456,7 @@ window.ceres = {};
 
             function setSlide(id)
             {
-                console.log('shadow id: ' + id);
-
-                const shadow = cfg.attrib.shade.shadowRoot;
+                const shadow = rsc.isEmptyOrNull(id) ? cfg.attrib.shade.shadowRoot : document.querySelector('#' + id);
                 const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
