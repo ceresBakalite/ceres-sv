@@ -249,6 +249,8 @@ window.ceres = {};
 
             let shadowSlide = function (el)
             {
+                console.log('host: ' + el.id.getRootNode().host);
+
                 let ar = el.id.split('-');
 
                 const shadowId = csv + ar[1];
