@@ -512,7 +512,7 @@ window.ceres = {};
                 const node = shadow.querySelector('div.slideview-body');
 
                 //cfg.attrib.shade.className = 'pointer';
-                node.className = 'pointer';
+                node.className = 'slideview-body pointer';
 
                 //node.style.display = attribute;
             }
