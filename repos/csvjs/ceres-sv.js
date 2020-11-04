@@ -382,7 +382,7 @@ window.ceres = {};
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body';
-                bodyContainer.className = 'slideview-body';
+                bodyContainer.className = 'slideview-body none';
                 //bodyContainer.style.display  = 'none';
 
                 cfg.attrib.shade.appendChild(bodyContainer);
@@ -508,9 +508,11 @@ window.ceres = {};
             {
                 //cfg.attrib.shade.style.display = 'block';
 
-                cfg.attrib.shade.className = 'pointer';
-                //const shadow = cfg.attrib.shade.shadowRoot;
-                //const node = shadow.querySelector('div.slideview-body');
+                const shadow = cfg.attrib.shade.shadowRoot;
+                const node = shadow.querySelector('div.slideview-body');
+
+                //cfg.attrib.shade.className = 'pointer';
+                node.className = 'pointer';
 
                 //node.style.display = attribute;
             }
