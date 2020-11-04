@@ -47,6 +47,14 @@
     user-select: none;
 }
 
+.block {
+    display: block;
+}
+
+.none {
+    display: none;
+}
+
 .left, .right {
   cursor: pointer;
   position: absolute;

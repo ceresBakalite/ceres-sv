@@ -123,7 +123,6 @@ window.ceres = {};
                     const precursor = el.parent;
                     const node = document.createElement(el.node);
 
-                    //if (el.id) node.id = el.id;
                     if (el.id) node.setAttribute("id", el.id);
                     if (el.className) node.setAttribute("class", el.className);
                     if (el.onClick) node.setAttribute("onclick", el.onClick);
@@ -388,7 +387,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + imageIndex;
-                    slideContainer.className = 'view fade';
+                    slideContainer.className = 'view fade none';
 
                     imageContainer.appendChild(slideContainer);
 
@@ -488,7 +487,7 @@ window.ceres = {};
                 slides[enable].style.display = 'block';
 
                 const el = shadow.querySelector('div.pointer');
-                if (el) el.className = 'view fade';
+                if (el) el.className = 'view fade none';
                 slides[enable].className += ' pointer'
 
                 if (cfg.attrib.nub) setNubStyle();
