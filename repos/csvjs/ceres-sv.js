@@ -508,7 +508,7 @@ window.ceres = {};
                 cfg.attrib.shade.style.display = 'block';
 
                 const shadow = cfg.attrib.shade.shadowRoot;
-                const nodelist = shadow.querySelectorAll('div.slideview-body, img.slide, #' + progenitor.id);
+                const nodelist = shadow.querySelectorAll('div.slideview-body, #' + progenitor.id);
 
                 nodelist.forEach(node => { node.style.display = attribute; } );
             }
