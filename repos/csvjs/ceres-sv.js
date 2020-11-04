@@ -498,7 +498,7 @@ window.ceres = {};
                 getSlideView();
                 setSlide();
 
-                //setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attrib.delay);
+                setTimeout(function() { setSlideViewDisplay(); }, cfg.attrib.delay);
 
                 if (cfg.attrib.cache) setCache();
             }
@@ -508,10 +508,11 @@ window.ceres = {};
             {
                 //cfg.attrib.shade.style.display = 'block';
 
-                const shadow = cfg.attrib.shade.shadowRoot;
-                const node = shadow.querySelector('div.slideview-body');
+                cfg.attrib.shade.setAttribute("class", 'pointer');
+                //const shadow = cfg.attrib.shade.shadowRoot;
+                //const node = shadow.querySelector('div.slideview-body');
 
-                node.style.display = attribute;
+                //node.style.display = attribute;
             }
 
             function setCache()
