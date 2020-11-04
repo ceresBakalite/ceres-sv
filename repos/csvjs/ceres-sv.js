@@ -446,11 +446,11 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
-                //const shade = document.querySelector('#' + ar[1]);
-                //const shadow = shade.shadowRoot;
-                //const slide = shadow.querySelector('div.block');
-                //const slide = shadow.querySelector('div.view [style*="display:block"])');
+                const shade = document.querySelector('#' + ar[1]);
+                const shadow = shade.shadowRoot;
+                const slide = shadow.querySelector('div.pointer');
 
+                console.log('slide: ' + Number.parseInt(slide.id.replace('img', ''), 10));
 
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
