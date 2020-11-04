@@ -446,7 +446,7 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
-                const shade = document.querySelector('#' + ar[1]);
+                const shade = document.querySelector('#' + csv + ar[1]);
                 const shadow = shade.shadowRoot;
                 const slide = shadow.querySelector('div.pointer');
 
