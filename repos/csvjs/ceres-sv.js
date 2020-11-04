@@ -440,8 +440,10 @@ window.ceres = {};
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
 
-            const slideIndex = function (el, id)
+            let slideIndex = function (el, id)
             {
+                console.log('index id: ' + id);
+
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
                 cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
@@ -453,7 +455,7 @@ window.ceres = {};
 
             function setSlide(id)
             {
-                console.log('id: ' + id);
+                console.log('slide id: ' + id);
 
                 const shadow = cfg.attrib.shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
