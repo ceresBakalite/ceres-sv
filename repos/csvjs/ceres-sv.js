@@ -251,7 +251,9 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
-                console.log('el.shadowRoot.id: ' + el.shadowRoot.id);
+                let test = document.querySelector('#' + progenitor.id);
+
+                console.log('test: ' + test.id);
 
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
