@@ -446,7 +446,8 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
-                const shade = document.querySelector('#' + csv + ar[1]);
+                const shady = csv + ar[1];
+                const shade = document.querySelector('#' + shady);
                 const shadow = shade.shadowRoot;
                 const slide = shadow.querySelector('div.pointer');
 
@@ -458,7 +459,7 @@ window.ceres = {};
 
                 cfg.slide = cls.get(el.className);
 
-                return csv + ar[1];
+                return shady;
             }
 
             function setSlide(id)
