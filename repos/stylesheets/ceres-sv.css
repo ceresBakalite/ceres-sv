@@ -39,8 +39,8 @@
   cursor: zoom-in;
 }
 
-.slide {
-  display: none;
+.xxxxslide {
+  display: block;
 }
 
 .pointer {
