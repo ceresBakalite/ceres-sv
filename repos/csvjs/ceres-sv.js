@@ -508,7 +508,7 @@ window.ceres = {};
             {
                 //cfg.attrib.shade.style.display = 'block';
 
-                cfg.attrib.shade.setAttribute("class", 'pointer');
+                progenitor.setAttribute("class", 'pointer');
                 //const shadow = cfg.attrib.shade.shadowRoot;
                 //const node = shadow.querySelector('div.slideview-body');
 
