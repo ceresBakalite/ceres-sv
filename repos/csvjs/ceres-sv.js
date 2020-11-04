@@ -502,20 +502,20 @@ window.ceres = {};
                     node.style.display = attribute;
                 }
 
+                let setCache = function()
+                {
+                    const cacheName = csv + '-cache';
+                    cfg.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
+
+                    if (caching.available) caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+                }
+
                 getSlideView();
                 setSlide();
 
                 setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attrib.delay);
 
                 if (cfg.attrib.cache) setCache();
-            }
-
-            function setCache()
-            {
-                const cacheName = csv + '-cache';
-                cfg.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
-
-                if (caching.available) caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
             }
 
         }
