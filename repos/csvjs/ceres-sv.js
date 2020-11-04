@@ -483,8 +483,8 @@ window.ceres = {};
 
                 const enable = cfg.slide-1;
 
-                slides.forEach(node => { node.style.display = 'none'; } );
-                slides[enable].style.display = 'block';
+                //slides.forEach(node => { node.style.display = 'none'; } );
+                //slides[enable].style.display = 'block';
 
                 const el = shadow.querySelector('div.pointer');
                 if (el) el.className = 'view fade none';
