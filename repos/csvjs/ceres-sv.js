@@ -123,8 +123,8 @@ window.ceres = {};
                     const precursor = el.parent;
                     const node = document.createElement(el.node);
 
-                    node.id = el.id;
-
+                    //if (el.id) node.id = el.id;
+                    if (el.id) node.setAttribute("id", el.id);
                     if (el.className) node.setAttribute("class", el.className);
                     if (el.onClick) node.setAttribute("onclick", el.onClick);
                     if (el.src) node.setAttribute("src", el.src);
