@@ -493,7 +493,7 @@ window.ceres = {};
 
             function activateSlideView()
             {
-                progenitor.style.display = 'none';
+                //progenitor.style.display = 'none';
 
                 getSlideView();
                 setSlide();
@@ -506,12 +506,12 @@ window.ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                cfg.attrib.shade.style.display = 'block';
+                //cfg.attrib.shade.style.display = 'block';
 
                 const shadow = cfg.attrib.shade.shadowRoot;
-                const nodelist = shadow.querySelectorAll('div.slideview-body, #' + progenitor.id);
+                const node = shadow.querySelector('div.slideview-body');
 
-                nodelist.forEach(node => { node.style.display = attribute; } );
+                node.style.display = attribute;
             }
 
             function setCache()
