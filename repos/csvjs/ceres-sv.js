@@ -381,7 +381,7 @@ window.ceres = {};
 
                 const bodyContainer = document.createElement('div');
                 bodyContainer.id = csv + '-body';
-                bodyContainer.className = 'slideview-body';
+                bodyContainer.className = 'slideview-body none';
                 bodyContainer.style.display  = 'none';
 
                 cfg.attrib.shade.appendChild(bodyContainer);
@@ -492,25 +492,32 @@ window.ceres = {};
 
             function activateSlideView()
             {
-                progenitor.style.display = 'none';
+                //progenitor.style.display = 'none';
+
+                //if (el) progenitor.className = 'view fade none';
+                //slides[enable].className = 'view fade pointer'
 
                 getSlideView();
                 setSlide();
 
-                setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attrib.delay);
+                setTimeout(function() { setSlideViewDisplay(); }, cfg.attrib.delay);
 
                 if (cfg.attrib.cache) setCache();
             }
 
 
-            function setSlideViewDisplay(attribute)
+            function setSlideViewDisplay()
             {
-                cfg.attrib.shade.style.display = 'block';
+
+                //cfg.attrib.shade.style.display = 'block';
 
                 const shadow = cfg.attrib.shade.shadowRoot;
-                const nodelist = shadow.querySelectorAll('div.slideview-body, #' + progenitor.id);
+                const node = shadow.querySelector('div.slideview-body');
+                node.className = 'slideview-body'
 
-                nodelist.forEach(node => { node.style.display = attribute; } );
+                //const nodelist = shadow.querySelectorAll('div.slideview-body');
+
+                //nodelist.forEach(node => { node.style.display = attribute; } );
             }
 
             function setCache()
