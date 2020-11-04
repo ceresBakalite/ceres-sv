@@ -22,7 +22,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { setSlide(shadeIndex(el)); };  // global scope method reference
+            ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
             const progenitor = this;
 
@@ -247,7 +247,7 @@ window.ceres = {};
 
             let precursor = function() { return cfg.callback || cfg.noscript; }
 
-            let shadeIndex = function (el)
+            let shadowSlide = function (el)
             {
                 let ar = el.id.split('-');
 
@@ -462,9 +462,9 @@ window.ceres = {};
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
 
-            function setSlide(shadowId)
+            function setSlide(obj)
             {
-                const shade = rsc.isEmptyOrNull(shadowId) ? cfg.attrib.shade : document.querySelector('#' + shadowId);
+                const shade = rsc.isEmptyOrNull(shadowId) ? cfg.attrib.shade : document.querySelector('#' + shadowSlide(obj));
                 const shadow = shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
