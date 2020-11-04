@@ -445,9 +445,9 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
-                //const shade = rsc.isEmptyOrNull(el) ? cfg.attrib.shade : document.querySelector('#' + ar[1]);
+                //const shade = document.querySelector('#' + ar[1]);
                 //const shadow = shade.shadowRoot;
-                //const el = shadow.querySelector('div.view [style*="display:block"])');
+                //const slide = shadow.querySelector('div.block');
 
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
@@ -465,6 +465,7 @@ window.ceres = {};
                 const shade = rsc.isEmptyOrNull(id) ? cfg.attrib.shade : document.querySelector('#' + id);
                 const shadow = shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
+                const slide = shadow.querySelector('div.block');
 
                 const setNubStyle = function()
                 {
@@ -477,8 +478,11 @@ window.ceres = {};
 
                 cfg.slide = (cfg.slide < 1) ? slides.length : (cfg.slide > slides.length) ? 1 : cfg.slide;
 
-                slides.forEach(node => { node.style.display = 'none'; } );
-                slides[cfg.slide-1].style.display = 'block';
+                if (slide) slide.className = 'view fade';
+                slides[cfg.slide-1].className += ' block';
+
+                //slides.forEach(node => { node.style.display = 'none'; } );
+                //slides[cfg.slide-1].style.display = 'block';
 
                 if (cfg.attrib.nub) setNubStyle();
             }

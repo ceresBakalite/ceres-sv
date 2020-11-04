@@ -43,6 +43,10 @@
   display: none;
 }
 
+.block {
+  disply: block;
+}
+
 .left, .right {
   cursor: pointer;
   position: absolute;
