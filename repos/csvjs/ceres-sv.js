@@ -246,6 +246,24 @@ window.ceres = {};
 
             let precursor = function() { return cfg.callback || cfg.noscript; }
 
+            let shadowSlide = function (node)
+            {
+                const root = node.getRootNode().host;
+                const shade = document.querySelector('#' + root.id);
+                const shadow = shade.shadowRoot;
+                const slide = shadow.querySelector('div.pointer');
+
+                cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+
+                cls.set('left', cfg.slide - 1);
+                cls.set('right', cfg.slide + 1);
+                cls.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+
+                cfg.slide = cls.get(node.className);
+
+                return shadow;
+            }
+
             let protean = function()
             {
                 const exists = !rsc.isEmptyOrNull(progenitor);
@@ -445,24 +463,6 @@ window.ceres = {};
             {
                 const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
-            }
-
-            let shadowSlide = function (node)
-            {
-                const root = node.getRootNode().host;
-                const shade = document.querySelector('#' + root.id);
-                const shadow = shade.shadowRoot;
-                const slide = shadow.querySelector('div.pointer');
-
-                cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
-
-                cls.set('left', cfg.slide - 1);
-                cls.set('right', cfg.slide + 1);
-                cls.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
-
-                cfg.slide = cls.get(node.className);
-
-                return shadow;
             }
 
             function setSlide(node)
