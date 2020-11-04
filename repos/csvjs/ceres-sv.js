@@ -271,6 +271,9 @@ window.ceres = {};
                 if (exists)
                 {
                     progenitor.id = rsc.getUniqueElementId(csv, 1000);
+
+                    progenitor.setAttribute("class", 'none');
+
                     cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
                     cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
@@ -359,7 +362,6 @@ window.ceres = {};
                 let setTrackId = function(index) { return 'nub' + index; }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
-                cfg.attrib.shade.setAttribute("class", 'none');
 
                 rsc.clearElement(cfg.attrib.shade);
 
@@ -493,8 +495,6 @@ window.ceres = {};
 
             function activateSlideView()
             {
-                progenitor.style.display = 'none';
-
                 getSlideView();
                 setSlide();
 
@@ -506,8 +506,6 @@ window.ceres = {};
 
             function setSlideViewDisplay(attribute)
             {
-                cfg.attrib.shade.style.display = 'block';
-
                 const shadow = cfg.attrib.shade.shadowRoot;
                 const node = shadow.querySelector('div.slideview-body');
 
