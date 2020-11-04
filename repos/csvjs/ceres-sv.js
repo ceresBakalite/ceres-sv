@@ -466,11 +466,10 @@ window.ceres = {};
 
                 const shade = rsc.isEmptyOrNull(id) ? cfg.attrib.shade : document.querySelector('#' + id);
                 const shadow = shade.shadowRoot;
+                const slides = shadow.querySelectorAll('div.view');
 
                 const setViewStyle = function()
                 {
-                    const slides = shadow.querySelectorAll('div.view');
-
                     slides.forEach(node => { node.style.display = 'none'; } );
                     slides[slide].style.display = 'block';
 
