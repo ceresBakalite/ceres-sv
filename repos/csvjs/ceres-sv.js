@@ -247,6 +247,26 @@ window.ceres = {};
 
             let precursor = function() { return cfg.callback || cfg.noscript; }
 
+            let shadeIndex = function (el)
+            {
+                let ar = el.id.split('-');
+
+                const shadowId = csv + ar[1];
+                const shade = document.querySelector('#' + shadowId);
+                const shadow = shade.shadowRoot;
+                const slide = shadow.querySelector('div.pointer');
+
+                cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+
+                cls.set('left', cfg.slide - 1);
+                cls.set('right', cfg.slide + 1);
+                cls.set('nub', Number.parseInt(ar[0].replace('nub', ''), 10));
+
+                cfg.slide = cls.get(el.className);
+
+                return shadowId;
+            }
+
             let protean = function()
             {
                 const exists = !rsc.isEmptyOrNull(progenitor);
@@ -442,31 +462,9 @@ window.ceres = {};
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
 
-            let shadeIndex = function (el)
+            function setSlide(shadowId)
             {
-                let ar = el.id.split('-');
-
-                const shade = csv + ar[1];
-                const shadow = document.querySelector('#' + shade).shadowRoot;
-                const slide = shadow.querySelector('div.pointer');
-
-                cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
-                //console.log('slide: ' + Number.parseInt(slide.id.replace('img', ''), 10));
-
-                cls.set('left', cfg.slide - 1);
-                cls.set('right', cfg.slide + 1);
-                cls.set('nub', Number.parseInt(ar[0].replace('nub', ''), 10));
-
-                cfg.slide = cls.get(el.className);
-
-                return shade;
-            }
-
-            function setSlide(id)
-            {
-                console.log('id: ' + id);
-
-                const shade = rsc.isEmptyOrNull(id) ? cfg.attrib.shade : document.querySelector('#' + id);
+                const shade = rsc.isEmptyOrNull(shadowId) ? cfg.attrib.shade : document.querySelector('#' + shadowId);
                 const shadow = shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
 
