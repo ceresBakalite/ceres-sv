@@ -266,7 +266,7 @@ window.ceres = {};
 
                 if (exists)
                 {
-                    progenitor.id = rsc.getUniqueElementId(csv);
+                    progenitor.id = rsc.getUniqueElementId(csv, 1000);
                     cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
                     cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
