@@ -359,6 +359,7 @@ window.ceres = {};
                 let setTrackId = function(index) { return 'nub' + index; }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
+                cfg.attrib.shade.setAttribute("class", 'none');
 
                 rsc.clearElement(cfg.attrib.shade);
 
