@@ -44,10 +44,6 @@
 }
 
 .pointer {
-    user-select: none;
-}
-
-.block {
     display: block;
 }
 
