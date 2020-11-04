@@ -415,7 +415,7 @@ window.ceres = {};
 
                 let setTrackId = function(index)
                 {
-                    return 'nub-' + index + '-' + cfg.attrib.shade.id.replace(csv, '');
+                    return 'nub' + index + '-' + cfg.attrib.shade.id.replace(csv, '');
                 }
 
                 function getSlideViewTrackContainer()
@@ -451,7 +451,7 @@ window.ceres = {};
 
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
-                cls.set('nub', Number.parseInt(el.id.replace('nub', ''), 10));
+                cls.set('nub', Number.parseInt(el.id.split('-')[0].replace('nub', ''), 10));
 
                 cfg.slide = cls.get(el.className);
 
