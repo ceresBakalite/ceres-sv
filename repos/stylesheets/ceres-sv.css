@@ -43,6 +43,10 @@
   display: none;
 }
 
+.pointer {
+    user-select: none;
+}
+
 .left, .right {
   cursor: pointer;
   position: absolute;

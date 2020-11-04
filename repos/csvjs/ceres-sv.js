@@ -466,7 +466,19 @@ window.ceres = {};
 
                 const shade = rsc.isEmptyOrNull(id) ? cfg.attrib.shade : document.querySelector('#' + id);
                 const shadow = shade.shadowRoot;
-                const slides = shadow.querySelectorAll('div.view');
+
+                const setViewStyle = function()
+                {
+                    const slides = shadow.querySelectorAll('div.view');
+
+                    slides.forEach(node => { node.style.display = 'none'; } );
+                    slides[slide].style.display = 'block';
+
+                    const el = shadow.querySelector('div.pointer');
+                    if (el) el.className = 'view fade';
+
+                    slides[slide].className += ' pointer'
+                }
 
                 const setNubStyle = function()
                 {
@@ -474,14 +486,14 @@ window.ceres = {};
                     const el = shadow.querySelector('span.enabled');
 
                     if (el) el.className = 'nub';
-                    elements[cfg.slide-1].className += ' enabled';
+                    elements[slide].className += ' enabled';
                 }
 
                 cfg.slide = (cfg.slide < 1) ? slides.length : (cfg.slide > slides.length) ? 1 : cfg.slide;
 
-                slides.forEach(node => { node.style.display = 'none'; } );
-                slides[cfg.slide-1].style.display = 'block';
+                const slide = cfg.slide-1;
 
+                if (slide) setViewStyle();
                 if (cfg.attrib.nub) setNubStyle();
             }
 
