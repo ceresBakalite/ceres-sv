@@ -476,7 +476,7 @@ window.ceres = {};
                     const el = shadow.querySelector('span.enabled');
 
                     if (el) el.className = 'nub';
-                    elements[enable].className += ' enabled';
+                    elements[enable].className = 'nub enabled';
                 }
 
                 cfg.slide = (cfg.slide < 1) ? slides.length : (cfg.slide > slides.length) ? 1 : cfg.slide;
@@ -488,7 +488,7 @@ window.ceres = {};
 
                 const el = shadow.querySelector('div.pointer');
                 if (el) el.className = 'view fade none';
-                slides[enable].className += ' pointer'
+                slides[enable].className = 'view fade pointer'
 
                 if (cfg.attrib.nub) setNubStyle();
             }
