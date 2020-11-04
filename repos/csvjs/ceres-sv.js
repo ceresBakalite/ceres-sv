@@ -339,6 +339,7 @@ window.ceres = {};
                 let getSurtitle = function() { return (cfg.attrib.sur) ? imageIndex + ' / ' + cfg.imageArray.length : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
+                let setTrackId = function(index) { return 'nub' + index + '-' + cfg.attrib.shade.id.replace(csv, ''); }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
@@ -412,11 +413,6 @@ window.ceres = {};
                 }
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
-
-                let setTrackId = function(index)
-                {
-                    return 'nub' + index + '-' + cfg.attrib.shade.id.replace(csv, '');
-                }
 
                 function getSlideViewTrackContainer()
                 {
