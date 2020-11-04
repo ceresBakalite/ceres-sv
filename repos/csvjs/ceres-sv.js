@@ -343,7 +343,7 @@ window.ceres = {};
 
                 cfg.shade = document.querySelector('#' + progenitor.id);
 
-                rsc.clearElement(shade);
+                rsc.clearElement(cfg.shade);
 
                 cfg.shade.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
