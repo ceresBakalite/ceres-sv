@@ -397,8 +397,8 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ node: 'div', id: el.subName, className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ node: 'a', id: 'left-' + cfg.attrib.shade.id.replace(csv, ''), className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
-                rsc.composeElement({ node: 'a', id: 'right-' + cfg.attrib.shade.id.replace(csv, ''), className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ node: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ node: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
 
                 if (cfg.attrib.nub) getSlideViewTrackContainer();
 
@@ -451,9 +451,6 @@ window.ceres = {};
             let shadowSlide = function (node)
             {
                 const root = node.getRootNode().host;
-
-                console.log('root: ' + root.id)
-
                 const shade = document.querySelector('#' + root.id);
                 const shadow = shade.shadowRoot;
                 const slide = shadow.querySelector('div.pointer');
@@ -466,13 +463,12 @@ window.ceres = {};
 
                 cfg.slide = cls.get(node.className);
 
-                return root.id;
+                return shadow;
             }
 
-            function setSlide(obj)
+            function setSlide(node)
             {
-                const shade = rsc.isEmptyOrNull(obj) ? cfg.attrib.shade : document.querySelector('#' + shadowSlide(obj));
-                const shadow = shade.shadowRoot;
+                const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.view');
 
                 const setNubStyle = function()
