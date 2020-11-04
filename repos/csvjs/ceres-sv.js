@@ -251,6 +251,8 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
+                console.log('el.shadowRoot.id: ' + el.shadowRoot.id);
+
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
                 cls.set('nub', Number.parseInt(ar[0].replace('nub', ''), 10));
