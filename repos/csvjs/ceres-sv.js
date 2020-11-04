@@ -460,6 +460,8 @@ window.ceres = {};
 
             function setSlide(id)
             {
+                console.log('id: ' + id);
+
                 const shade = rsc.isEmptyOrNull(id) ? cfg.attrib.shade : document.querySelector('#' + id);
                 const shadow = shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
