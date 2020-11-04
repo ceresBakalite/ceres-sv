@@ -474,18 +474,19 @@ window.ceres = {};
                     const el = shadow.querySelector('span.enabled');
 
                     if (el) el.className = 'nub';
-                    elements[cfg.slide-1].className += ' enabled';
+                    elements[enable].className += ' enabled';
                 }
 
                 cfg.slide = (cfg.slide < 1) ? slides.length : (cfg.slide > slides.length) ? 1 : cfg.slide;
 
+                const enable = cfg.slide-1;
+
                 slides.forEach(node => { node.style.display = 'none'; } );
-                slides[cfg.slide-1].style.display = 'block';
+                slides[enable].style.display = 'block';
 
                 const el = shadow.querySelector('div.pointer');
                 if (el) el.className = 'view fade';
-
-                slides[cfg.slide-1].className += ' pointer'
+                slides[enable].className += ' pointer'
 
                 if (cfg.attrib.nub) setNubStyle();
             }
