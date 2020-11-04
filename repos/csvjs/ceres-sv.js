@@ -446,12 +446,12 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
-                const shady = csv + ar[1];
-                const shade = document.querySelector('#' + shady);
-                const shadow = shade.shadowRoot;
+                const shade = csv + ar[1];
+                const shadow = document.querySelector('#' + shade).shadowRoot;
                 const slide = shadow.querySelector('div.pointer');
 
-                console.log('slide: ' + Number.parseInt(slide.id.replace('img', ''), 10));
+                cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+                //console.log('slide: ' + Number.parseInt(slide.id.replace('img', ''), 10));
 
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
@@ -459,7 +459,7 @@ window.ceres = {};
 
                 cfg.slide = cls.get(el.className);
 
-                return shady;
+                return shade;
             }
 
             function setSlide(id)
