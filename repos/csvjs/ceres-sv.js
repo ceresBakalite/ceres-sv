@@ -251,10 +251,10 @@ window.ceres = {};
             {
                 const root = node.getRootNode().host;
 
-                console.log('root: ' + root)
+                console.log('root: ' + root.id)
                 //let ar = el.id.split('-');
 
-                const shade = document.querySelector('#' + root);
+                const shade = document.querySelector('#' + root.id);
                 const shadow = shade.shadowRoot;
                 const slide = shadow.querySelector('div.pointer');
 
