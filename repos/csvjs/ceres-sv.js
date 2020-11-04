@@ -498,7 +498,7 @@ window.ceres = {};
                 getSlideView();
                 setSlide();
 
-                setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attrib.delay);
+                //setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attrib.delay);
 
                 if (cfg.attrib.cache) setCache();
             }
