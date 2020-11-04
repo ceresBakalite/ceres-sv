@@ -395,8 +395,8 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ node: 'div', id: el.subName, className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ node: 'a', id: csv + '-left', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this,' + cfg.attrib.shade.id + ')' });
-                rsc.composeElement({ node: 'a', id: csv + '-right', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this,' + cfg.attrib.shade.id + ')' });
+                rsc.composeElement({ node: 'a', id: csv + '-left', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this, "' + cfg.attrib.shade.id + '")' });
+                rsc.composeElement({ node: 'a', id: csv + '-right', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this,"' + cfg.attrib.shade.id + '")' });
 
                 if (cfg.attrib.nub) getSlideViewTrackContainer();
 
@@ -415,7 +415,7 @@ window.ceres = {};
 
                 function getSlideViewTrackContainer()
                 {
-                    const getClickEvent = function() { return 'ceres.getSlide(this,' + cfg.attrib.shade.id + ')'; }
+                    const getClickEvent = function() { return 'ceres.getSlide(this,"' + cfg.attrib.shade.id + '")'; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
