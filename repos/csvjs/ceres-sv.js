@@ -445,7 +445,7 @@ window.ceres = {};
             {
                 let ar = el.id.split('-');
 
-                console.log('nub id: ' + ar[0] + ' shade id: ' + ar[1]);
+                console.log('el.id: ' + el.id + ' nub.id: ' + ar[0] + ' shade.id: ' + ar[1]);
 
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
