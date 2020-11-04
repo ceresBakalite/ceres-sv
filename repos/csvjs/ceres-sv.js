@@ -247,16 +247,13 @@ window.ceres = {};
 
             let precursor = function() { return cfg.callback || cfg.noscript; }
 
-            let shadowSlide = function (el)
+            let shadowSlide = function (node)
             {
-                let root = el.getRootNode().host;
+                let root = node.getRootNode().host;
 
-                console.log('root.id: ' + root.id);
+                //let ar = el.id.split('-');
 
-                let ar = el.id.split('-');
-
-                const shadowId = csv + ar[1];
-                const shade = document.querySelector('#' + shadowId);
+                const shade = document.querySelector('#' + root);
                 const shadow = shade.shadowRoot;
                 const slide = shadow.querySelector('div.pointer');
 
@@ -264,11 +261,11 @@ window.ceres = {};
 
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
-                cls.set('nub', Number.parseInt(ar[0].replace('nub', ''), 10));
+                cls.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
 
-                cfg.slide = cls.get(el.className);
+                cfg.slide = cls.get(node.className);
 
-                return shadowId;
+                return root;
             }
 
             let protean = function()
@@ -363,7 +360,7 @@ window.ceres = {};
                 let getSurtitle = function() { return (cfg.attrib.sur) ? imageIndex + ' / ' + cfg.imageArray.length : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
-                let setTrackId = function(index) { return 'nub' + index + '-' + cfg.attrib.shade.id.replace(csv, ''); }
+                let setTrackId = function(index) { return 'nub' + index; }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
