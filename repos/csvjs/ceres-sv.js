@@ -387,6 +387,7 @@ window.ceres = {};
                     };
 
                     let slideContainer = document.createElement('div');
+                    slideContainer.id = 'img' + imageIndex;
                     slideContainer.className = 'view fade';
 
                     imageContainer.appendChild(slideContainer);
