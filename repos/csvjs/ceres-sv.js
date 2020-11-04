@@ -22,7 +22,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { setSlide(slideIndex(el)); };  // global scope method reference
+            ceres.getSlide = function(el, id) { setSlide(slideIndex(el, id)); };  // global scope method reference
 
             const progenitor = this;
 
@@ -395,8 +395,8 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ node: 'div', id: el.subName, className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ node: 'a', id: csv + '-left', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
-                rsc.composeElement({ node: 'a', id: csv + '-right', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ node: 'a', id: csv + '-left', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this,' + cfg.attrib.shade.id + ')' });
+                rsc.composeElement({ node: 'a', id: csv + '-right', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this,' + cfg.attrib.shade.id + ')' });
 
                 if (cfg.attrib.nub) getSlideViewTrackContainer();
 
@@ -415,7 +415,7 @@ window.ceres = {};
 
                 function getSlideViewTrackContainer()
                 {
-                    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                    const getClickEvent = function() { return 'ceres.getSlide(this,' + cfg.attrib.shade.id + ')'; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
@@ -440,7 +440,7 @@ window.ceres = {};
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
 
-            const slideIndex = function (el)
+            const slideIndex = function (el, id)
             {
                 cls.set('left', cfg.slide - 1);
                 cls.set('right', cfg.slide + 1);
@@ -448,14 +448,12 @@ window.ceres = {};
 
                 cfg.slide = cls.get(el.className);
 
-                return el;
+                return id;
             }
 
-            function setSlide(el)
+            function setSlide(id)
             {
-                //if (!rsc.isEmptyOrNull(this.shadowRoot)) console.log('el.id: ' + el.id);
-
-                //const shadow = rsc.isEmptyOrNull(this.shadowRoot) ? progenitor.shadowRoot : this.shadowRoot;
+                console.log('id: ' + id);
 
                 const shadow = cfg.attrib.shade.shadowRoot;
                 const slides = shadow.querySelectorAll('div.view');
