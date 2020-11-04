@@ -504,7 +504,7 @@ window.ceres = {};
             }
 
 
-            function setSlideViewDisplay(attribute)
+            function setSlideViewDisplay()
             {
                 //cfg.attrib.shade.style.display = 'block';
 
