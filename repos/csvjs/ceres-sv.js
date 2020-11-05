@@ -234,6 +234,100 @@ window.ceres = {};
 
             })(); // end resource allocation
 
+            let naa = {}; // node attribute allocation
+            (function() {
+
+                naa.precursor = function() { return cfg.callback || cfg.noscript; }
+
+                naa.shadowSlide = function(node)
+                {
+                    const root = node.getRootNode().host;
+                    const shade = document.querySelector('#' + root.id);
+                    const shadow = shade.shadowRoot;
+                    const slide = shadow.querySelector('div.slideview-image > div.pointer');
+
+                    cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+
+                    srm.set('left', cfg.slide - 1);
+                    srm.set('right', cfg.slide + 1);
+                    srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+
+                    cfg.slide = srm.get(node.className);
+
+                    return shadow;
+                }
+
+                naa.protean = function()
+                {
+                    const exists = !rsc.isEmptyOrNull(progenitor);
+
+                    if (exists)
+                    {
+                        progenitor.id = rsc.getUniqueElementId(csv, 1000);
+                        progenitor.setAttribute("class", 'delay');
+
+                        cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
+
+                        cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
+                        cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
+                        cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
+                        cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
+                        cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
+                        cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+                    }
+
+                    return exists;
+                }
+
+                naa.attributesExist = function()
+                {
+                    cfg.imageArray = null;
+
+                    rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+
+                    const getImageList = function()
+                    {
+                        let getCallbackList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+
+                        let getContentList = function()
+                        {
+                            rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
+
+                            const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
+                            return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
+                        }
+
+                        return cfg.callback ? getCallbackList() : getContentList();
+                    }
+
+                    const isImageArray = function()
+                    {
+                        let imageList = getImageList();
+
+                        if (!rsc.isEmptyOrNull(imageList))
+                        {
+                            rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
+                            cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+                        }
+
+                        if (!Object.isSealed(cfg)) Object.seal(cfg);
+
+                        return !rsc.isEmptyOrNull(cfg.imageArray);
+                    }
+
+                    return isImageArray();
+                }
+
+                naa.nodeAttributes = function()
+                {
+                    if (!naa.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
+                    if (!naa.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
+
+                    return naa.attributesExist();
+                }
+
+            })(); // node attribute allocation
+
             let css = progenitor.getAttribute('css') || cfg.defaultCSS;
             let src = progenitor.getAttribute('src') || null;
 
@@ -245,96 +339,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (nodeAttributes()) activateNode();
-
-            let precursor = function() { return cfg.callback || cfg.noscript; }
-
-            let shadowSlide = function(node)
-            {
-                const root = node.getRootNode().host;
-                const shade = document.querySelector('#' + root.id);
-                const shadow = shade.shadowRoot;
-                const slide = shadow.querySelector('div.slideview-image > div.pointer');
-
-                cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
-
-                srm.set('left', cfg.slide - 1);
-                srm.set('right', cfg.slide + 1);
-                srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
-
-                cfg.slide = srm.get(node.className);
-
-                return shadow;
-            }
-
-            let protean = function()
-            {
-                const exists = !rsc.isEmptyOrNull(progenitor);
-
-                if (exists)
-                {
-                    progenitor.id = rsc.getUniqueElementId(csv, 1000);
-                    progenitor.setAttribute("class", 'delay');
-
-                    cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
-
-                    cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
-                    cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
-                    cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
-                    cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
-                    cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                    cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
-                }
-
-                return exists;
-            }
-
-            let attributesExist = function()
-            {
-                cfg.imageArray = null;
-
-                rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
-
-                const getImageList = function()
-                {
-                    let getCallbackList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
-
-                    let getContentList = function()
-                    {
-                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
-
-                        const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                        return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
-                    }
-
-                    return cfg.callback ? getCallbackList() : getContentList();
-                }
-
-                const isImageArray = function()
-                {
-                    let imageList = getImageList();
-
-                    if (!rsc.isEmptyOrNull(imageList))
-                    {
-                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
-                        cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
-                    }
-
-                    if (!Object.isSealed(cfg)) Object.seal(cfg);
-
-                    return !rsc.isEmptyOrNull(cfg.imageArray);
-                }
-
-                return isImageArray();
-            }
-
-            function nodeAttributes()
-            {
-                if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
-                if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
-
-                return attributesExist();
-            }
+            if (naa.nodeAttributes()) activateNode();
 
             function initialise()
             {
@@ -467,7 +472,7 @@ window.ceres = {};
 
             function setSlide(node, shadow)
             {
-                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
+                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : naa.shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 const setNubStyle = function()
