@@ -374,7 +374,7 @@ window.ceres = {};
                 let getSurtitle = function() { return (cfg.attrib.sur) ? imageIndex + ' / ' + cfg.imageArray.length : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
-                let setTrackId = function(index) { return 'nub' + index; }
+                let setTrackId = function() { return 'nub' + trackIndex; }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
@@ -448,8 +448,8 @@ window.ceres = {};
 
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
-                        var index = item + 1;
-                        rsc.composeElement({ node: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        var trackIndex = item + 1;
+                        rsc.composeElement({ node: 'span', id: setTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                 }
