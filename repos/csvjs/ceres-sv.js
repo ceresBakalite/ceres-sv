@@ -425,6 +425,9 @@ window.ceres = {};
 
                 if (cfg.attrib.nub) getTrackContainer();
 
+                cfg.attrib.shade.shadowRoot.append(styleContainer);
+                cfg.attrib.shade.shadowRoot.append(bodyContainer);
+
                 rsc.setHorizontalSwipe( { act: 80, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 function getHorizontalSwipe(swipe)
@@ -434,10 +437,6 @@ window.ceres = {};
 
                     getSwipe(swipe.shadow);
                 }
-
-
-                cfg.attrib.shade.shadowRoot.append(styleContainer);
-                cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
