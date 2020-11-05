@@ -418,6 +418,7 @@ window.ceres = {};
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + index;
                     slideContainer.className = 'view fade none';
+
                     imageContainer.appendChild(slideContainer);
 
                     if (cfg.attrib.sur) rsc.composeElement({ node: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
