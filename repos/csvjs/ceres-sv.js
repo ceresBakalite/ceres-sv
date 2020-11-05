@@ -271,7 +271,7 @@ window.ceres = {};
                 if (exists)
                 {
                     progenitor.id = rsc.getUniqueElementId(csv, 1000);
-                    progenitor.setAttribute("class", 'hide');
+                    progenitor.setAttribute("class", 'delay');
 
                     cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 

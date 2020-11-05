@@ -53,12 +53,8 @@
     contain: content;
 }
 
-.hide {
+.delay {
     opacity: 0;
-}
-
-.show {
-    opacity: 1;
 }
 
 .left, .right {
