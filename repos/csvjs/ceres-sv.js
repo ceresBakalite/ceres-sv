@@ -409,7 +409,8 @@ window.ceres = {};
 
                 let setHorizontalSwipe = function(touch, callback, args)
                 {
-                    const shadow = cfg.attrib.shade.shadowRoot;
+                    const shade = document.querySelector('#' + touch.host);
+                    const shadow = shade.shadowRoot;
                     const el = shadow.querySelector(touch.selector);
 
                     if (!touch.act) touch.act = 10;
@@ -434,7 +435,7 @@ window.ceres = {};
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
-                setHorizontalSwipe( { act: 80, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
+                setHorizontalSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
