@@ -98,13 +98,15 @@ window.ceres = {};
 
                 rsc.setHorizontalSwipe = function(touch, callback, args)
                 {
+                    let shadow = document;
+
                     if (touch.host)
                     {
                         const shade = document.querySelector('#' + touch.host);
-                        const shadow = shade.shadowRoot;
+                        shadow = shade.shadowRoot;
                     }
 
-                    const el = touch.host ? shadow.querySelector(touch.selector) : document.querySelector(touch.selector);
+                    const el = shadow.querySelector(touch.selector);
 
                     if (!touch.act) touch.act = 10;
 
