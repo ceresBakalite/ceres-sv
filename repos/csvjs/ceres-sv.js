@@ -409,9 +409,15 @@ window.ceres = {};
 
                 let setHorizontalSwipe = function(touch, callback, args)
                 {
-                    const shade = document.querySelector('#' + touch.host);
-                    const shadow = shade.shadowRoot;
-                    const el = shadow.querySelector(touch.selector);
+                    let swipeDOM = document;
+
+                    if (touch.host)
+                    {
+                        const shade = document.querySelector('#' + touch.host);
+                        swipeDOM = shade.shadowRoot;
+                    }
+
+                    const el = swipeDOM.querySelector(touch.selector);
 
                     if (!touch.act) touch.act = 10;
 
@@ -463,33 +469,6 @@ window.ceres = {};
             {
                 const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
-            }
-
-            function getSwipe(shadow)
-            {
-                //const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
-                const slides = shadow.querySelectorAll('div.slideview-image > div.view');
-
-                const setNubStyle = function()
-                {
-                    const el = shadow.querySelector('div.slideview-nub > span.enabled');
-                    if (el) el.className = 'nub';
-
-                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
-                    elements[enable].className = 'nub enabled';
-                }
-
-                cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
-
-                const enable = cfg.slide-1;
-
-                if (rsc.isEmptyOrNull(slides[enable])) return;
-
-                const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = 'view fade none';
-                slides[enable].className = 'view fade pointer'
-
-                if (cfg.attrib.nub) setNubStyle();
             }
 
             function setSlide(node, shadow)
