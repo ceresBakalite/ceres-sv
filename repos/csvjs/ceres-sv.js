@@ -404,7 +404,7 @@ window.ceres = {};
                     const offset = (swipe.action) ? swipe.right : swipe.left;
                     cfg.slide = cfg.slide += offset;
 
-                    getSwipe(swipe.shadow);
+                    setSlide(null, swipe.shadow);
                 }
 
                 let setHorizontalSwipe = function(touch, callback, args)
@@ -492,9 +492,9 @@ window.ceres = {};
                 if (cfg.attrib.nub) setNubStyle();
             }
 
-            function setSlide(node)
+            function setSlide(node, shadow)
             {
-                const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
+                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 const setNubStyle = function()
