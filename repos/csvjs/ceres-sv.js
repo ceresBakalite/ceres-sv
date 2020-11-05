@@ -28,7 +28,7 @@ window.ceres = {};
 
             const cfg = new Object(); // ceres slideview configuration attributes
             const csr = new Object(); // ceres slideview resource attributes
-            const cls = new Map();
+            const csm = new Map(); // ceres slideview shadowroot slide manager
 
             initialise();
 
@@ -255,11 +255,11 @@ window.ceres = {};
 
                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
-                cls.set('left', cfg.slide - 1);
-                cls.set('right', cfg.slide + 1);
-                cls.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+                csm.set('left', cfg.slide - 1);
+                csm.set('right', cfg.slide + 1);
+                csm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
 
-                cfg.slide = cls.get(node.className);
+                cfg.slide = csm.get(node.className);
 
                 return shadow;
             }
