@@ -472,7 +472,7 @@ window.ceres = {};
 
             function setSlide(node, shadow)
             {
-                if (!shadow) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
+                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
 
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
