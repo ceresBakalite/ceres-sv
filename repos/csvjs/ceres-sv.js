@@ -96,6 +96,35 @@ window.ceres = {};
                 rsc.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
                 rsc.getImportMetaUrl = function() { return import.meta.url; }
 
+                rsc.setHorizontalSwipe = function(touch, callback, args)
+                {
+                    if (touch.host)
+                    {
+                        const shade = document.querySelector('#' + touch.host);
+                        const shadow = shade.shadowRoot;
+                    }
+
+                    const el = touch.host ? shadow.querySelector(touch.selector) : document.querySelector(touch.selector);
+
+                    if (!touch.act) touch.act = 10;
+
+                    el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
+                    el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+                    el.addEventListener('touchend', e =>
+                    {
+                        touch.end = e.changedTouches[0].screenX;
+
+                        if (Math.abs(touch.start - touch.end) > touch.act)
+                        {
+                            args.shadow = shadow;
+                            args.action = (touch.start > touch.end);
+                            callback.call(this, args);
+                        }
+
+                    }, { passive: true });
+
+                }
+
                 rsc.composeElement = function(el)
                 {
                     const precursor = el.parent;
@@ -407,35 +436,10 @@ window.ceres = {};
                     getSwipe(swipe.shadow);
                 }
 
-                let setHorizontalSwipe = function(touch, callback, args)
-                {
-                    const shade = document.querySelector('#' + touch.host);
-                    const shadow = shade.shadowRoot;
-                    const el = shadow.querySelector(touch.selector);
-
-                    if (!touch.act) touch.act = 10;
-
-                    el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-                    el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                    el.addEventListener('touchend', e =>
-                    {
-                        touch.end = e.changedTouches[0].screenX;
-
-                        if (Math.abs(touch.start - touch.end) > touch.act)
-                        {
-                            args.shadow = shadow;
-                            args.action = (touch.start > touch.end);
-                            callback.call(this, args);
-                        }
-
-                    }, { passive: true });
-
-                }
-
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
-                setHorizontalSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
+                rsc.setHorizontalSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
