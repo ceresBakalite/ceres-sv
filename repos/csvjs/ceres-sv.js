@@ -474,20 +474,27 @@ window.ceres = {};
 
                 const setNubStyle = function()
                 {
-                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
-                    const el = shadow.querySelector('div.slideview-nub > span.enabled');
+                    if (elements[enable])
+                    {
+                        const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
+                        const el = shadow.querySelector('div.slideview-nub > span.enabled');
 
-                    if (el) el.className = 'nub';
-                    if (elements[enable]) elements[enable].className = 'nub enabled';
+                        if (el) el.className = 'nub';
+                        elements[enable].className = 'nub enabled';
+                    }
+
                 }
 
                 cfg.slide = (cfg.slide < 1) ? slides.length : (cfg.slide > slides.length) ? 1 : cfg.slide;
 
                 const enable = cfg.slide-1;
 
-                const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = 'view fade none';
-                if (slides[enable]) slides[enable].className = 'view fade pointer'
+                if (slides[enable])
+                {
+                    const el = shadow.querySelector('div.slideview-image > div.pointer');
+                    if (el) el.className = 'view fade none';
+                    slides[enable].className = 'view fade pointer'
+                }
 
                 if (cfg.attrib.nub) setNubStyle();
             }
