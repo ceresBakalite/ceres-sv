@@ -416,6 +416,7 @@ window.ceres = {};
                     let index = item + 1;
 
                     let slideContainer = document.createElement('div');
+                    slideContainer.id = 'img' + index;
                     slideContainer.className = 'view fade none';
                     imageContainer.appendChild(slideContainer);
 
