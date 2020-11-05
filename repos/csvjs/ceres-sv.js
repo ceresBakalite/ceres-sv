@@ -472,6 +472,8 @@ window.ceres = {};
                 const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
+                if (rsc.isEmptyOrNull(slides)) return;
+
                 const setNubStyle = function()
                 {
                     const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
@@ -486,17 +488,17 @@ window.ceres = {};
 
                 }
 
-                cfg.slide = (cfg.slide < 1) ? slides.length : (cfg.slide > slides.length) ? 1 : cfg.slide;
+                cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
 
                 const enable = cfg.slide-1;
 
-                if (slides[enable])
-                {
+                //if (slides[enable])
+                //{
                     const el = shadow.querySelector('div.slideview-image > div.pointer');
 
                     if (el) el.className = 'view fade none';
                     slides[enable].className = 'view fade pointer'
-                }
+                //}
 
                 if (cfg.attrib.nub) setNubStyle();
             }
