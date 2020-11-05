@@ -407,14 +407,22 @@ window.ceres = {};
                     setSlide(null, swipe.shadow);
                 }
 
-                let setHorizontalSwipe = function(touch, callback, args)
+                let setShadowSwipe = function(touch, host, callback, args)
                 {
-                    if (!touch.act) touch.act = 10;
-                    if (!touch.host) touch.host = 'document';
+                    let el = '';
 
-                    const shade = document.querySelector('#' + touch.host);
-                    const shadow = shade.shadowRoot;
-                    const el = shadow.querySelector(touch.selector);
+                    if (host)
+                    {
+                        const shade = document.querySelector('#' + host);
+                        const shadow = shade.shadowRoot;
+                        el = shadow.querySelector(touch.selector);
+
+                    } else {
+
+                        el = document.querySelector(touch.selector);
+                    }
+
+                    if (!touch.act) touch.act = 10;
 
                     el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
                     el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
@@ -436,7 +444,7 @@ window.ceres = {};
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
-                setHorizontalSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
+                setShadowSwipe( { act: 80, selector: 'div.slideview-body > div.slideview-image' }, progenitor.id, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
@@ -512,14 +520,6 @@ window.ceres = {};
                 }
 
                 getSlideView();
-
-                const test1 = 'document';
-                const test2 = document.querySelector('#' + test1);
-                const test3 = test2.shadowRoot;
-                const test4 = test3.querySelector('div.none');
-
-                test4.forEach(node => console.log(node));
-
                 setSlide();
 
                 setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attrib.delay);
