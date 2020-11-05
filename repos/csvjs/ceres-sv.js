@@ -251,7 +251,7 @@ window.ceres = {};
                 const root = node.getRootNode().host;
                 const shade = document.querySelector('#' + root.id);
                 const shadow = shade.shadowRoot;
-                const slide = shadow.querySelector('div.slideview-body > div.pointer');
+                const slide = shadow.querySelectorAll('div.slideview-body > div.pointer');
 
                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
