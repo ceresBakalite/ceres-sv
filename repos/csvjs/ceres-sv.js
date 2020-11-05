@@ -407,7 +407,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + imageIndex;
-                    slideContainer.className = 'view fade none';
+                    slideContainer.className = 'view fade suspend';
 
                     imageContainer.appendChild(slideContainer);
 
@@ -486,7 +486,7 @@ window.ceres = {};
                 const enable = cfg.slide-1;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = 'view fade none';
+                if (el) el.className = 'view fade suspend';
                 slides[enable].className = 'view fade pointer'
 
                 if (cfg.attrib.nub) setNubStyle();

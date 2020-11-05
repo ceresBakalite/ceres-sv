@@ -48,7 +48,7 @@
     user-select: none;
 }
 
-.none {
+.suspend {
     display: none;
     contain: content;
 }
