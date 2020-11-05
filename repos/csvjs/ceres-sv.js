@@ -242,7 +242,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (slideviewHasAttributes()) activateSlideView();
+            if (nodeHasAttributes()) activateNode();
 
             let precursor = function() { return cfg.callback || cfg.noscript; }
 
@@ -294,9 +294,9 @@ window.ceres = {};
 
                 const getImageList = function()
                 {
-                    let getConnectedCallbackList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+                    let getCallbackList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
 
-                    let getBodyContentList = function()
+                    let getContentList = function()
                     {
                         rsc.inspect({ type: rsc.constant.notify, notification: csr.noscriptSearch, logtrace: cfg.attrib.trace });
 
@@ -304,7 +304,7 @@ window.ceres = {};
                         return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.noscriptError, logtrace: cfg.attrib.trace });
                     }
 
-                    return cfg.callback ? getConnectedCallbackList() : getBodyContentList();
+                    return cfg.callback ? getCallbackList() : getContentList();
                 }
 
                 const isImageArray = function()
@@ -344,7 +344,7 @@ window.ceres = {};
                 cfg.slide = 1;
             }
 
-            function slideviewHasAttributes()
+            function nodeHasAttributes()
             {
                 if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorError, logtrace: cfg.attrib.trace });
                 if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListError, logtrace: cfg.attrib.trace });
@@ -419,7 +419,7 @@ window.ceres = {};
                 rsc.composeElement({ node: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
                 rsc.composeElement({ node: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
 
-                if (cfg.attrib.nub) getSlideViewTrackContainer();
+                if (cfg.attrib.nub) getTrackContainer();
 
                 rsc.setHorizontalSwipe( { act: 80, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
@@ -441,7 +441,7 @@ window.ceres = {};
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
-                function getSlideViewTrackContainer()
+                function getTrackContainer()
                 {
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
@@ -494,7 +494,7 @@ window.ceres = {};
                 if (cfg.attrib.nub) setNubStyle();
             }
 
-            function activateSlideView()
+            function activateNode()
             {
                 let setSlideViewDisplay = function(attribute)
                 {
