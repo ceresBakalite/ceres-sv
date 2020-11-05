@@ -268,14 +268,6 @@ window.ceres = {};
                 return shadow;
             }
 
-            let getHorizontalSwipe = function(swipe)
-            {
-                const offset = (swipe.action) ? swipe.right : swipe.left;
-                cfg.slide = cfg.slide += offset;
-
-                getSwipe(swipe.shadow);
-            }
-
             let protean = function()
             {
                 const exists = !rsc.isEmptyOrNull(progenitor);
@@ -434,6 +426,15 @@ window.ceres = {};
                 if (cfg.attrib.nub) getTrackContainer();
 
                 rsc.setHorizontalSwipe( { act: 80, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
+
+                function getHorizontalSwipe(swipe)
+                {
+                    const offset = (swipe.action) ? swipe.right : swipe.left;
+                    cfg.slide = cfg.slide += offset;
+
+                    getSwipe(swipe.shadow);
+                }
+
 
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
