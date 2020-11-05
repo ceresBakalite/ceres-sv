@@ -472,33 +472,25 @@ window.ceres = {};
                 const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
-                if (rsc.isEmptyOrNull(slides)) return;
-
                 const setNubStyle = function()
                 {
                     const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
+                    const el = shadow.querySelector('div.slideview-nub > span.enabled');
 
-                    if (elements[enable])
-                    {
-                        const el = shadow.querySelector('div.slideview-nub > span.enabled');
-
-                        if (el) el.className = 'nub';
-                        elements[enable].className = 'nub enabled';
-                    }
-
+                    if (el) el.className = 'nub';
+                    elements[enable].className = 'nub enabled';
                 }
 
                 cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
 
                 const enable = cfg.slide-1;
 
-                //if (slides[enable])
-                //{
-                    const el = shadow.querySelector('div.slideview-image > div.pointer');
+                if (rsc.isEmptyOrNull(slides[enable])) return;
 
-                    if (el) el.className = 'view fade none';
-                    slides[enable].className = 'view fade pointer'
-                //}
+                const el = shadow.querySelector('div.slideview-image > div.pointer');
+
+                if (el) el.className = 'view fade none';
+                slides[enable].className = 'view fade pointer'
 
                 if (cfg.attrib.nub) setNubStyle();
             }
