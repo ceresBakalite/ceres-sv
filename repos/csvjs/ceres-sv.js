@@ -98,7 +98,10 @@ window.ceres = {};
 
                 rsc.setHorizontalSwipe = function(touch, callback, args)
                 {
-                    const el = document.querySelector(touch.selector);
+                    const root = node.getRootNode().host;
+                    const shade = document.querySelector('#' + root.id);
+                    const shadow = shade.shadowRoot;
+                    const el = shadow.querySelector(touch.selector);
 
                     if (!touch.act) touch.act = 10;
 
@@ -110,6 +113,7 @@ window.ceres = {};
 
                         if (Math.abs(touch.start - touch.end) > touch.act)
                         {
+                            args.shadow = shadow;
                             args.action = (touch.start > touch.end);
                             callback.call(this, args);
                         }
@@ -246,7 +250,7 @@ window.ceres = {};
 
             let precursor = function() { return cfg.callback || cfg.noscript; }
 
-            let shadowSlide = function (node)
+            let shadowSlide = function(node)
             {
                 const root = node.getRootNode().host;
                 const shade = document.querySelector('#' + root.id);
@@ -262,6 +266,14 @@ window.ceres = {};
                 cfg.slide = srm.get(node.className);
 
                 return shadow;
+            }
+
+            let getHorizontalSwipe = function(swipe)
+            {
+                const offset = (swipe.action) ? swipe.right : swipe.left;
+                cfg.slide = cfg.slide += offset;
+
+                getSwipe(swipe.shadow);
             }
 
             let protean = function()
@@ -426,19 +438,6 @@ window.ceres = {};
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
-                function getHorizontalSwipe(swipe)
-                {
-                    const offset = (swipe.action) ? swipe.right : swipe.left;
-                    cfg.slide = cfg.slide += offset;
-
-                    //const shadowId = csv + ar[1];
-                    //const shade = document.querySelector('#' + shadowId);
-                    //const shadow = shade.shadowRoot;
-                    //const slide = shadow.querySelector('div.pointer');
-
-                    setSlide(cfg.slide = cfg.slide += offset);
-                }
-
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
                 function getTrackContainer()
@@ -465,6 +464,33 @@ window.ceres = {};
             {
                 const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
+            }
+
+            function getSwipe(shadow)
+            {
+                //const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
+                const slides = shadow.querySelectorAll('div.slideview-image > div.view');
+
+                const setNubStyle = function()
+                {
+                    const el = shadow.querySelector('div.slideview-nub > span.enabled');
+                    if (el) el.className = 'nub';
+
+                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
+                    elements[enable].className = 'nub enabled';
+                }
+
+                cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
+
+                const enable = cfg.slide-1;
+
+                if (rsc.isEmptyOrNull(slides[enable])) return;
+
+                const el = shadow.querySelector('div.slideview-image > div.pointer');
+                if (el) el.className = 'view fade none';
+                slides[enable].className = 'view fade pointer'
+
+                if (cfg.attrib.nub) setNubStyle();
             }
 
             function setSlide(node)
