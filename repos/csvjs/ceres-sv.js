@@ -363,7 +363,7 @@ window.ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let setTrackId = function(index) { return 'nub' + index; }
 
-                let getHorizontalSwipe = function(swipe)
+                let getShadowSwipe = function(swipe)
                 {
                     const offset = (swipe.action) ? swipe.right : swipe.left;
                     cfg.slide = cfg.slide += offset;
@@ -435,7 +435,7 @@ window.ceres = {};
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
-                rsc.setShadowSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
+                rsc.setShadowSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getShadowSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
