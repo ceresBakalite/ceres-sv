@@ -373,7 +373,7 @@ window.ceres = {};
                 {
                     const offset = (swipe.action) ? swipe.right : swipe.left;
                     cfg.slide = cfg.slide += offset;
-                    setSlide(null, swipe.shadow)
+                    getSwipe(swipe.shadow);
                 }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
@@ -470,9 +470,35 @@ window.ceres = {};
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
 
+            function getSwipe(shadow)
+            {
+                const slides = shadow.querySelectorAll('div.slideview-image > div.view');
+
+                const setNubStyle = function()
+                {
+                    const el = shadow.querySelector('div.slideview-nub > span.enabled');
+                    if (el) el.className = 'nub';
+
+                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
+                    elements[enable].className = 'nub enabled';
+                }
+
+                cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
+
+                const enable = cfg.slide-1;
+
+                if (rsc.isEmptyOrNull(slides[enable])) return;
+
+                const el = shadow.querySelector('div.slideview-image > div.pointer');
+                if (el) el.className = 'view fade none';
+                slides[enable].className = 'view fade pointer'
+
+                if (cfg.attrib.nub) setNubStyle();
+            }
+
             function setSlide(node, shadow)
             {
-                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
+                if (!shadow) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
 
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
