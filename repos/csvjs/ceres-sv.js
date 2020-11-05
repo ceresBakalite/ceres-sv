@@ -242,7 +242,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (nodeHasAttributes()) activateNode();
+            if (nodeAttributes()) activateNode();
 
             let precursor = function() { return cfg.callback || cfg.noscript; }
 
@@ -344,7 +344,7 @@ window.ceres = {};
                 cfg.slide = 1;
             }
 
-            function nodeHasAttributes()
+            function nodeAttributes()
             {
                 if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorError, logtrace: cfg.attrib.trace });
                 if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListError, logtrace: cfg.attrib.trace });
