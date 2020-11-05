@@ -48,13 +48,13 @@
     user-select: none;
 }
 
-.suspend {
-    display: none;
-    contain: content;
-}
-
 .delay {
     opacity: 0;
+}
+
+.none {
+    display: none;
+    contain: content;
 }
 
 .left, .right {
