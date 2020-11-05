@@ -512,6 +512,14 @@ window.ceres = {};
                 }
 
                 getSlideView();
+
+                const test1 = 'document';
+                const test2 = document.querySelector('#' + test1);
+                const test3 = test2.shadowRoot;
+                const test4 = test3.querySelector('div.none');
+
+                test4.forEach(node => console.log(node));
+
                 setSlide();
 
                 setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attrib.delay);
