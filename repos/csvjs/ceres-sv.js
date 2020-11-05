@@ -470,12 +470,12 @@ window.ceres = {};
             function setSlide(node)
             {
                 const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
-                const slides = shadow.querySelectorAll('div.view');
+                const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 const setNubStyle = function()
                 {
-                    const elements = shadow.querySelectorAll('span.nub');
-                    const el = shadow.querySelector('span.enabled');
+                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
+                    const el = shadow.querySelector('div.slideview-nub > span.enabled');
 
                     if (el) el.className = 'nub';
                     elements[enable].className = 'nub enabled';
@@ -485,7 +485,7 @@ window.ceres = {};
 
                 const enable = cfg.slide-1;
 
-                const el = shadow.querySelector('div.pointer');
+                const el = shadow.querySelector('div.slideview-image > div.pointer');
                 if (el) el.className = 'view fade none';
                 slides[enable].className = 'view fade pointer'
 
