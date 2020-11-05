@@ -96,37 +96,6 @@ window.ceres = {};
                 rsc.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
                 rsc.getImportMetaUrl = function() { return import.meta.url; }
 
-                rsc.setHorizontalSwipe = function(touch, callback, args)
-                {
-                    let targetDOM = document;
-
-                    if (touch.host)
-                    {
-                        const shade = document.querySelector('#' + touch.host);
-                        targetDOM = shade.shadowRoot;
-                    }
-
-                    const el = targetDOM.querySelector(touch.selector);
-
-                    if (!touch.act) touch.act = 10;
-
-                    el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-                    el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                    el.addEventListener('touchend', e =>
-                    {
-                        touch.end = e.changedTouches[0].screenX;
-
-                        if (Math.abs(touch.start - touch.end) > touch.act)
-                        {
-                            args.shadow = shadow;
-                            args.action = (touch.start > touch.end);
-                            callback.call(this, args);
-                        }
-
-                    }, { passive: true });
-
-                }
-
                 rsc.composeElement = function(el)
                 {
                     const precursor = el.parent;
@@ -369,13 +338,6 @@ window.ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let setTrackId = function(index) { return 'nub' + index; }
 
-                let getHorizontalSwipe = function(swipe)
-                {
-                    const offset = (swipe.action) ? swipe.right : swipe.left;
-                    cfg.slide = cfg.slide += offset;
-                    getSwipe(swipe.shadow);
-                }
-
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
                 rsc.clearElement(cfg.attrib.shade);
@@ -437,10 +399,43 @@ window.ceres = {};
 
                 if (cfg.attrib.nub) getTrackContainer();
 
+                let getHorizontalSwipe = function(swipe)
+                {
+                    const offset = (swipe.action) ? swipe.right : swipe.left;
+                    cfg.slide = cfg.slide += offset;
+
+                    getSwipe(swipe.shadow);
+                }
+
+                let setHorizontalSwipe = function(touch, callback, args)
+                {
+                    const shade = document.querySelector('#' + touch.host);
+                    const shadow = shade.shadowRoot;
+                    const el = shadow.querySelector(touch.selector);
+
+                    if (!touch.act) touch.act = 10;
+
+                    el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
+                    el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+                    el.addEventListener('touchend', e =>
+                    {
+                        touch.end = e.changedTouches[0].screenX;
+
+                        if (Math.abs(touch.start - touch.end) > touch.act)
+                        {
+                            args.shadow = shadow;
+                            args.action = (touch.start > touch.end);
+                            callback.call(this, args);
+                        }
+
+                    }, { passive: true });
+
+                }
+
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
-                rsc.setHorizontalSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
+                setHorizontalSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
@@ -472,6 +467,7 @@ window.ceres = {};
 
             function getSwipe(shadow)
             {
+                //const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 const setNubStyle = function()
@@ -496,10 +492,9 @@ window.ceres = {};
                 if (cfg.attrib.nub) setNubStyle();
             }
 
-            function setSlide(node, shadow)
+            function setSlide(node)
             {
-                if (!shadow) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
-
+                const shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 const setNubStyle = function()
