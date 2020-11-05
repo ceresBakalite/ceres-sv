@@ -96,31 +96,6 @@ window.ceres = {};
                 rsc.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
                 rsc.getImportMetaUrl = function() { return import.meta.url; }
 
-                rsc.setShadowSwipe = function(touch, callback, args)
-                {
-                    const shade = document.querySelector('#' + touch.host);
-                    const shadow = shade.shadowRoot;
-                    const el = shadow.querySelector(touch.selector);
-
-                    if (!touch.act) touch.act = 10;
-
-                    el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-                    el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                    el.addEventListener('touchend', e =>
-                    {
-                        touch.end = e.changedTouches[0].screenX;
-
-                        if (Math.abs(touch.start - touch.end) > touch.act)
-                        {
-                            args.shadow = shadow;
-                            args.action = (touch.start > touch.end);
-                            callback.call(this, args);
-                        }
-
-                    }, { passive: true });
-
-                }
-
                 rsc.composeElement = function(el)
                 {
                     const precursor = el.parent;
@@ -326,7 +301,7 @@ window.ceres = {};
                     return atr.attributesExist();
                 }
 
-            })(); // node attribute allocation
+            })(); // end attribute allocation
 
             let css = progenitor.getAttribute('css') || cfg.defaultCSS;
             let src = progenitor.getAttribute('src') || null;
@@ -340,6 +315,31 @@ window.ceres = {};
             cfg.cache.src = cfg.cache.src.concat(src);
 
             if (atr.nodeAttributes()) activateNode();
+
+            function setSwipe(touch, callback, args)
+            {
+                const shade = document.querySelector('#' + touch.host);
+                const shadow = shade.shadowRoot;
+                const el = shadow.querySelector(touch.selector);
+
+                if (!touch.act) touch.act = 10;
+
+                el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
+                el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+                el.addEventListener('touchend', e =>
+                {
+                    touch.end = e.changedTouches[0].screenX;
+
+                    if (Math.abs(touch.start - touch.end) > touch.act)
+                    {
+                        args.shadow = shadow;
+                        args.action = (touch.start > touch.end);
+                        callback.call(this, args);
+                    }
+
+                }, { passive: true });
+
+            }
 
             function initialise()
             {
@@ -367,14 +367,6 @@ window.ceres = {};
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let setTrackId = function(index) { return 'nub' + index; }
-
-                let getShadowSwipe = function(swipe)
-                {
-                    const offset = (swipe.action) ? swipe.right : swipe.left;
-                    cfg.slide = cfg.slide += offset;
-
-                    setSlide(null, swipe.shadow);
-                }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
@@ -435,16 +427,24 @@ window.ceres = {};
                 rsc.composeElement({ node: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
                 rsc.composeElement({ node: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
 
-                if (cfg.attrib.nub) getTrackContainer();
+                if (cfg.attrib.nub) getTrack();
 
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
 
-                rsc.setShadowSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getShadowSwipe, { left: -1, right: 1 } );
+                setSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
-                function getTrackContainer()
+                function getSwipe(swipe)
+                {
+                    const offset = (swipe.action) ? swipe.right : swipe.left;
+                    cfg.slide = cfg.slide += offset;
+
+                    setSlide(null, swipe.shadow);
+                }
+
+                function getTrack()
                 {
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
