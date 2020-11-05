@@ -409,17 +409,12 @@ window.ceres = {};
 
                 let setHorizontalSwipe = function(touch, callback, args)
                 {
-                    let swipeDOM = document;
-
-                    if (touch.host)
-                    {
-                        const shade = document.querySelector('#' + touch.host);
-                        swipeDOM = shade.shadowRoot;
-                    }
-
-                    const el = swipeDOM.querySelector(touch.selector);
-
                     if (!touch.act) touch.act = 10;
+                    if (!touch.host) touch.host = 'document';
+
+                    const shade = document.querySelector('#' + touch.host);
+                    const shadow = shade.shadowRoot;
+                    el = shadow.querySelector(touch.selector);
 
                     el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
                     el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
