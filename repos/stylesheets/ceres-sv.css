@@ -48,8 +48,8 @@
 }
 
 .none {
-    /* display: none; */
-    opacity: 0;
+    display: none;
+    contain: content;
 }
 
 .left, .right {
