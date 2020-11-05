@@ -78,7 +78,7 @@ window.ceres = {};
 
             })(); // end caching
 
-            let rsc = {}; // generic resource method allocation
+            let rsc = {}; // generic resource allocation
             (function() {
 
                 const protean = new Object();
@@ -234,12 +234,12 @@ window.ceres = {};
 
             })(); // end resource allocation
 
-            let naa = {}; // node attribute allocation
+            let atr = {}; // attribute allocation
             (function() {
 
-                naa.precursor = function() { return cfg.callback || cfg.noscript; }
+                atr.precursor = function() { return cfg.callback || cfg.noscript; }
 
-                naa.shadowSlide = function(node)
+                atr.shadowSlide = function(node)
                 {
                     const root = node.getRootNode().host;
                     const shade = document.querySelector('#' + root.id);
@@ -257,7 +257,7 @@ window.ceres = {};
                     return shadow;
                 }
 
-                naa.protean = function()
+                atr.protean = function()
                 {
                     const exists = !rsc.isEmptyOrNull(progenitor);
 
@@ -279,7 +279,7 @@ window.ceres = {};
                     return exists;
                 }
 
-                naa.attributesExist = function()
+                atr.attributesExist = function()
                 {
                     cfg.imageArray = null;
 
@@ -318,12 +318,12 @@ window.ceres = {};
                     return isImageArray();
                 }
 
-                naa.nodeAttributes = function()
+                atr.nodeAttributes = function()
                 {
-                    if (!naa.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
-                    if (!naa.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
+                    if (!atr.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
+                    if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
 
-                    return naa.attributesExist();
+                    return atr.attributesExist();
                 }
 
             })(); // node attribute allocation
@@ -339,7 +339,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (naa.nodeAttributes()) activateNode();
+            if (atr.nodeAttributes()) activateNode();
 
             function initialise()
             {
@@ -472,7 +472,7 @@ window.ceres = {};
 
             function setSlide(node, shadow)
             {
-                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : naa.shadowSlide(node);
+                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : atr.shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 const setNubStyle = function()
@@ -499,7 +499,7 @@ window.ceres = {};
 
             function activateNode()
             {
-                let setSlideViewDisplay = function(attribute)
+                let setDisplay = function(attribute)
                 {
                     const shadow = cfg.attrib.shade.shadowRoot;
                     const node = shadow.querySelector('div.slideview-body');
@@ -518,7 +518,7 @@ window.ceres = {};
                 getSlideView();
                 setSlide();
 
-                setTimeout(function() { setSlideViewDisplay('block'); }, cfg.attrib.delay);
+                setTimeout(function() { setDisplay('block'); }, cfg.attrib.delay);
 
                 if (cfg.attrib.cache) setCache();
             }
