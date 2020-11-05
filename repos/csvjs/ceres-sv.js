@@ -98,9 +98,22 @@ window.ceres = {};
 
                 rsc.setShadowSwipe = function(touch, callback, args)
                 {
+                    let getQuerySelection = function()
+                    {
+                        if (touch.host)
+                        {
+                            const shade = document.querySelector('#' + touch.host);
+                            const shadow = shade.shadowRoot;
+                            return shadow.querySelector(touch.selector);
+                        }
+
+                        return document.querySelector(touch.selector);
+                    }
+
                     const shade = document.querySelector('#' + touch.host);
                     const shadow = shade.shadowRoot;
-                    const el = shadow.querySelector(touch.selector);
+                    //const el = shadow.querySelector(touch.selector);
+                    const el = getQuerySelection();
 
                     if (!touch.act) touch.act = 10;
 
