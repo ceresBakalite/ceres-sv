@@ -328,6 +328,14 @@ window.ceres = {};
                 return isImageArray();
             }
 
+            let nodeAttributes = function()
+            {
+                if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
+                if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
+
+                return attributesExist();
+            }
+
             function initialise()
             {
                 rsa.imageMarkup = 'Image list markup';
@@ -345,14 +353,6 @@ window.ceres = {};
                 cfg.cache.css = [];
                 cfg.cache.src = [];
                 cfg.slide = 1;
-            }
-
-            function nodeAttributes()
-            {
-                if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
-                if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
-
-                return attributesExist();
             }
 
             function getSlideView()
