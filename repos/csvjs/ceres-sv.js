@@ -478,7 +478,7 @@ window.ceres = {};
                     const el = shadow.querySelector('div.slideview-nub > span.enabled');
 
                     if (el) el.className = 'nub';
-                    if (elements) elements[enable].className = 'nub enabled';
+                    if (elements[enable]) elements[enable].className = 'nub enabled';
                 }
 
                 cfg.slide = (cfg.slide < 1) ? slides.length : (cfg.slide > slides.length) ? 1 : cfg.slide;
@@ -487,7 +487,7 @@ window.ceres = {};
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
                 if (el) el.className = 'view fade none';
-                if (slides) slides[enable].className = 'view fade pointer'
+                if (slides[enable]) slides[enable].className = 'view fade pointer'
 
                 if (cfg.attrib.nub) setNubStyle();
             }
