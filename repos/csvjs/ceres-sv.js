@@ -427,9 +427,9 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attrib.sur) rsc.composeElement({ node: 'div', id: el.surName, className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                    rsc.composeElement({ node: 'img', id: el.imgName, className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
-                    if (cfg.attrib.sub) rsc.composeElement({ node: 'div', id: el.subName, className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                    if (cfg.attrib.sur) rsc.composeElement({ node: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+                    rsc.composeElement({ node: 'img', className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
+                    if (cfg.attrib.sub) rsc.composeElement({ node: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
                 rsc.composeElement({ node: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
