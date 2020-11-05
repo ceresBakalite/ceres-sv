@@ -474,9 +474,10 @@ window.ceres = {};
 
                 const setNubStyle = function()
                 {
+                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
+
                     if (elements[enable])
                     {
-                        const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
                         const el = shadow.querySelector('div.slideview-nub > span.enabled');
 
                         if (el) el.className = 'nub';
@@ -492,6 +493,7 @@ window.ceres = {};
                 if (slides[enable])
                 {
                     const el = shadow.querySelector('div.slideview-image > div.pointer');
+
                     if (el) el.className = 'view fade none';
                     slides[enable].className = 'view fade pointer'
                 }
