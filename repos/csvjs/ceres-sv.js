@@ -110,8 +110,8 @@ window.ceres = {};
                         return document.querySelector(touch.selector);
                     }
 
-                    const shade = document.querySelector('#' + touch.host);
-                    const shadow = shade.shadowRoot;
+                    //const shade = document.querySelector('#' + touch.host);
+                    //const shadow = shade.shadowRoot;
                     //const el = shadow.querySelector(touch.selector);
                     const el = getQuerySelection();
 
