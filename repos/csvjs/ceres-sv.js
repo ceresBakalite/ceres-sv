@@ -371,10 +371,10 @@ window.ceres = {};
             function getSlideView()
             {
                 let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-                let getSurtitle = function() { return (cfg.attrib.sur) ? imageIndex + ' / ' + cfg.imageArray.length : null; }
+                let getSurtitle = function(i) { return (cfg.attrib.sur) ? i + ' / ' + cfg.imageArray.length : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
-                let setTrackId = function() { return 'nub' + trackIndex; }
+                let setTrackId = function(i) { return 'nub' + i; }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
@@ -413,13 +413,13 @@ window.ceres = {};
                 for (let item = 0; item < cfg.imageArray.length; item++)
                 {
                     var arrayItem = cfg.imageArray[item].split(',');
-                    var imageIndex = item + 1;
+                    let index = item + 1;
 
                     let slideContainer = document.createElement('div');
                     slideContainer.className = 'view fade none';
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attrib.sur) rsc.composeElement({ node: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+                    if (cfg.attrib.sur) rsc.composeElement({ node: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
                     rsc.composeElement({ node: 'img', className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
                     if (cfg.attrib.sub) rsc.composeElement({ node: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
@@ -448,8 +448,8 @@ window.ceres = {};
 
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
-                        var trackIndex = item + 1;
-                        rsc.composeElement({ node: 'span', id: setTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        let index = item + 1;
+                        rsc.composeElement({ node: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                 }
