@@ -413,10 +413,10 @@ window.ceres = {};
                 for (let item = 0; item < cfg.imageArray.length; item++)
                 {
                     var arrayItem = cfg.imageArray[item].split(',');
+                    var imageIndex = item + 1;
 
                     let slideContainer = document.createElement('div');
                     slideContainer.className = 'view fade none';
-
                     imageContainer.appendChild(slideContainer);
 
                     if (cfg.attrib.sur) rsc.composeElement({ node: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
