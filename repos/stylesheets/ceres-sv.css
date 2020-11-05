@@ -50,6 +50,8 @@
 
 .delay {
     opacity: 0;
+    display: none;
+    contain: content;
 }
 
 .none {
