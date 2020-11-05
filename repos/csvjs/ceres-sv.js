@@ -341,6 +341,14 @@ window.ceres = {};
 
             }
 
+            function getSwipe(swipe)
+            {
+                const offset = (swipe.action) ? swipe.right : swipe.left;
+                cfg.slide = cfg.slide += offset;
+
+                setSlide(null, swipe.shadow);
+            }
+
             function initialise()
             {
                 rsa.imageMarkup = 'Image list markup';
@@ -435,14 +443,6 @@ window.ceres = {};
                 setSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
-
-                function getSwipe(swipe)
-                {
-                    const offset = (swipe.action) ? swipe.right : swipe.left;
-                    cfg.slide = cfg.slide += offset;
-
-                    setSlide(null, swipe.shadow);
-                }
 
                 function getTrack()
                 {
