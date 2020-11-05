@@ -414,7 +414,7 @@ window.ceres = {};
 
                     const shade = document.querySelector('#' + touch.host);
                     const shadow = shade.shadowRoot;
-                    el = shadow.querySelector(touch.selector);
+                    const el = shadow.querySelector(touch.selector);
 
                     el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
                     el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
