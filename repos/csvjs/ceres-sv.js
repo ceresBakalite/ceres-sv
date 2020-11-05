@@ -26,9 +26,9 @@ window.ceres = {};
 
             const progenitor = this;
 
-            const cfg = new Object(); // ceres slideview configuration attributes
-            const csr = new Object(); // ceres slideview resource attributes
-            const csm = new Map(); // ceres slideview shadowroot slide manager
+            const cfg = new Object(); // configuration attributes
+            const rsa = new Object(); // resource attributes
+            const srm = new Map(); // shadowroot manager
 
             initialise();
 
@@ -255,11 +255,11 @@ window.ceres = {};
 
                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
-                csm.set('left', cfg.slide - 1);
-                csm.set('right', cfg.slide + 1);
-                csm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+                srm.set('left', cfg.slide - 1);
+                srm.set('right', cfg.slide + 1);
+                srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
 
-                cfg.slide = csm.get(node.className);
+                cfg.slide = srm.get(node.className);
 
                 return shadow;
             }
@@ -290,7 +290,7 @@ window.ceres = {};
             {
                 cfg.imageArray = null;
 
-                rsc.inspect({ type: rsc.constant.notify, notification: csr.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                 const getImageList = function()
                 {
@@ -298,10 +298,10 @@ window.ceres = {};
 
                     let getContentList = function()
                     {
-                        rsc.inspect({ type: rsc.constant.notify, notification: csr.noscriptSearch, logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
 
                         const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                        return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: csr.noscriptError, logtrace: cfg.attrib.trace });
+                        return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
                     }
 
                     return cfg.callback ? getCallbackList() : getContentList();
@@ -313,7 +313,7 @@ window.ceres = {};
 
                     if (!rsc.isEmptyOrNull(imageList))
                     {
-                        rsc.inspect({ type: rsc.constant.notify, notification: csr.imageMarkup + ' [' + (cfg.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
                         cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                     }
 
@@ -327,14 +327,14 @@ window.ceres = {};
 
             function initialise()
             {
-                csr.imageMarkup = 'Image list markup';
-                csr.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
-                csr.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
-                csr.progenitorError = 'Error: Unable to find the ' + csv + ' document element';
-                csr.imageListError = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cns + ' elements';
-                csr.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
+                rsa.imageMarkup = 'Image list markup';
+                rsa.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
+                rsa.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+                rsa.progenitorError = 'Error: Unable to find the ' + csv + ' document element';
+                rsa.imageListError = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+                rsa.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
 
-                Object.freeze(csr);
+                Object.freeze(rsa);
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.attrib = new Object();
@@ -346,8 +346,8 @@ window.ceres = {};
 
             function nodeAttributes()
             {
-                if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: csr.progenitorError, logtrace: cfg.attrib.trace });
-                if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: csr.imageListError, logtrace: cfg.attrib.trace });
+                if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
+                if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
 
                 return attributesExist();
             }
