@@ -271,7 +271,7 @@ window.ceres = {};
                 if (exists)
                 {
                     progenitor.id = rsc.getUniqueElementId(csv, 1000);
-                    progenitor.setAttribute("class", 'content');
+                    progenitor.setAttribute("class", 'hide');
 
                     cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
@@ -407,7 +407,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + imageIndex;
-                    slideContainer.className = 'view fade content';
+                    slideContainer.className = 'view fade none';
 
                     imageContainer.appendChild(slideContainer);
 
@@ -486,7 +486,7 @@ window.ceres = {};
                 const enable = cfg.slide-1;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = 'view fade content';
+                if (el) el.className = 'view fade none';
                 slides[enable].className = 'view fade pointer'
 
                 if (cfg.attrib.nub) setNubStyle();

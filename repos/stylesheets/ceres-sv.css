@@ -48,9 +48,17 @@
     user-select: none;
 }
 
-.content {
+.none {
     display: none;
     contain: content;
+}
+
+.hide {
+    opacity: 0;
+}
+
+.show {
+    opacity: 1;
 }
 
 .left, .right {
