@@ -474,10 +474,10 @@ window.ceres = {};
 
                 const setNubStyle = function()
                 {
-                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
                     const el = shadow.querySelector('div.slideview-nub > span.enabled');
-
                     if (el) el.className = 'nub';
+
+                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
                     elements[enable].className = 'nub enabled';
                 }
 
@@ -488,7 +488,6 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(slides[enable])) return;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-
                 if (el) el.className = 'view fade none';
                 slides[enable].className = 'view fade pointer'
 
