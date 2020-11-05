@@ -98,7 +98,7 @@ window.ceres = {};
 
                 rsc.setHorizontalSwipe = function(touch, callback, args)
                 {
-                    const el = document.querySelector(touch.el);
+                    const el = document.querySelector(touch.selector);
 
                     if (!touch.act) touch.act = 10;
 
@@ -421,7 +421,7 @@ window.ceres = {};
 
                 if (cfg.attrib.nub) getSlideViewTrackContainer();
 
-                rsc.setHorizontalSwipe( { act: 80, el: 'div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
+                rsc.setHorizontalSwipe( { act: 80, selector: 'div.slideview-body > div.slideview-image' }, getHorizontalSwipe, { left: -1, right: 1 } );
 
                 cfg.attrib.shade.shadowRoot.append(styleContainer);
                 cfg.attrib.shade.shadowRoot.append(bodyContainer);
