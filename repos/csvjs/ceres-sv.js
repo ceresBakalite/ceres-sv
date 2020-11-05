@@ -328,7 +328,7 @@ window.ceres = {};
                 return isImageArray();
             }
 
-            let nodeAttributes = function()
+            function nodeAttributes()
             {
                 if (!protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
                 if (!precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
