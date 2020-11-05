@@ -371,10 +371,10 @@ window.ceres = {};
             function getSlideView()
             {
                 let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-                let getSurtitle = function(i) { return (cfg.attrib.sur) ? i + ' / ' + cfg.imageArray.length : null; }
+                let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
-                let setTrackId = function(i) { return 'nub' + i; }
+                let setTrackId = function(index) { return 'nub' + index; }
 
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
