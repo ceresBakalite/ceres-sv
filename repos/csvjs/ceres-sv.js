@@ -331,7 +331,7 @@ window.ceres = {};
                         return shadow.querySelector(touch.selector);
                     //}
 
-                //    return document.querySelector(touch.selector);
+                //    return document.querySelectorl(touch.selector);
                 }
 
 
@@ -458,7 +458,7 @@ window.ceres = {};
 
                 //setSwipe( { act: 80, node: shadow.querySelector('div.slideview-body > div.slideview-image'), getSwipe, { left: -1, right: 1 } );
 
-                setSwipe( { act: 80, host: cfg.attrib.shade, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
+                setSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
