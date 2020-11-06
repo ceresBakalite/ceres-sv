@@ -328,7 +328,7 @@ window.ceres = {};
                     //{
                         const shade = document.querySelector('#' + touch.host);
                         const shadow = shade.shadowRoot;
-                        return shadow.querySelectorAll(touch.selector);
+                        return shadow.querySelector(touch.selector);
                     //}
 
                 //    return document.querySelectorAll(touch.selector);
