@@ -324,21 +324,22 @@ window.ceres = {};
 
                 let querySwipe = function()
                 {
-                    if (touch.host)
-                    {
+                    //if (touch.host)
+                    //{
                         const shade = document.querySelector('#' + touch.host);
                         const shadow = shade.shadowRoot;
                         return shadow.querySelectorAll(touch.selector);
-                    }
+                    //}
 
-                    return document.querySelectorAll(touch.selector);
+                //    return document.querySelectorAll(touch.selector);
                 }
+
 
                 const el = querySwipe();
 
                 console.log(el);
-                
-                el.forEach(node => console.log(node));
+
+                //el.forEach(node => console.log(node));
 
 
                 if (!touch.act) touch.act = 10;
