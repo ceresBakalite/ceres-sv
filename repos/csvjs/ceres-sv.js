@@ -330,7 +330,6 @@ window.ceres = {};
 
                     if (Math.abs(touch.start - touch.end) > touch.act)
                     {
-                        if (touch.shadow) args.shadow = touch.shadow;
                         args.action = (touch.start > touch.end);
                         callback.call(this, args);
                     }
@@ -461,7 +460,7 @@ window.ceres = {};
                 shadow.append(styleContainer);
                 shadow.append(bodyContainer);
 
-                setSwipe( { act: 80, shadow: shadow, node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
+                setSwipe( { act: 80, node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1, shadow: shadow } );
 
                 //setSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
 
