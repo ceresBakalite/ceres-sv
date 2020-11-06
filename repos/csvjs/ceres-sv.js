@@ -328,10 +328,10 @@ window.ceres = {};
                     {
                         const shade = document.querySelector('#' + touch.host);
                         const shadow = shade.shadowRoot;
-                        return shadow.querySelector(touch.selector);
+                        return shadow.querySelectorAll(touch.selector);
                     }
 
-                    return document.querySelector(touch.selector);
+                    return document.querySelectorAll(touch.selector);
                 }
 
                 const el = querySwipe();
