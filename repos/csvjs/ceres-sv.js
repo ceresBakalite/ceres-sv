@@ -363,6 +363,24 @@ window.ceres = {};
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                 let setTrackId = function(index) { return 'nub' + index; }
 
+                const getTrack = function()
+                {
+                    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+
+                    const trackContainer = document.createElement('div');
+                    trackContainer.id = csv + '-nub';
+                    trackContainer.className = 'slideview-nub';
+
+                    bodyContainer.appendChild(trackContainer);
+
+                    for (let item = 0; item < cfg.imageArray.length; item++)
+                    {
+                        let index = item + 1;
+                        rsc.composeElement({ node: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                    }
+
+                }
+
                 cfg.attrib.shade = document.querySelector('#' + progenitor.id);
 
                 rsc.clearElement(cfg.attrib.shade);
@@ -426,25 +444,6 @@ window.ceres = {};
                 rsc.setHorizontalSwipe( { node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1, shadow: shadow } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
-
-                function getTrack()
-                {
-                    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-
-                    const trackContainer = document.createElement('div');
-                    trackContainer.id = csv + '-nub';
-                    trackContainer.className = 'slideview-nub';
-
-                    bodyContainer.appendChild(trackContainer);
-
-                    for (let item = 0; item < cfg.imageArray.length; item++)
-                    {
-                        let index = item + 1;
-                        rsc.composeElement({ node: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
-                    }
-
-                }
-
             }
 
             function fetchStylesheets(str)
