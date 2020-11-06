@@ -111,6 +111,26 @@ window.ceres = {};
                     precursor.appendChild(node);
                 }
 
+                rsc.setHorizontalSwipe = function(touch, callback, args)
+                {
+                    if (!touch.act) touch.act = 10;
+
+                    touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
+                    touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+                    touch.node.addEventListener('touchend', e =>
+                    {
+                        touch.end = e.changedTouches[0].screenX;
+
+                        if (Math.abs(touch.start - touch.end) > touch.act)
+                        {
+                            args.action = (touch.start > touch.end);
+                            callback.call(this, args);
+                        }
+
+                    }, { passive: true });
+
+                }
+
                 rsc.isEmptyOrNull = function(obj)
                 {
                     if (obj === null || obj == 'undefined') return true;
@@ -316,63 +336,6 @@ window.ceres = {};
 
             if (atr.nodeAttributes()) activateNode();
 
-            function setSwipe(touch, callback, args)
-            {
-                console.log(touch.node);
-
-                if (!touch.act) touch.act = 10;
-
-                touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-                touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                touch.node.addEventListener('touchend', e =>
-                {
-                    touch.end = e.changedTouches[0].screenX;
-
-                    if (Math.abs(touch.start - touch.end) > touch.act)
-                    {
-                        args.action = (touch.start > touch.end);
-                        callback.call(this, args);
-                    }
-
-                }, { passive: true });
-
-            }
-
-            /*
-            function setSwipe(touch, callback, args)
-            {
-                const shade = document.querySelector('#' + touch.host);
-                const shadow = shade.shadowRoot;
-                const el = shadow.querySelector(touch.selector);
-
-                if (!touch.act) touch.act = 10;
-
-                el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-                el.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                el.addEventListener('touchend', e =>
-                {
-                    touch.end = e.changedTouches[0].screenX;
-
-                    if (Math.abs(touch.start - touch.end) > touch.act)
-                    {
-                        args.shadow = shadow;
-                        args.action = (touch.start > touch.end);
-                        callback.call(this, args);
-                    }
-
-                }, { passive: true });
-
-            }
-            */
-
-            function getSwipe(swipe)
-            {
-                const offset = (swipe.action) ? swipe.right : swipe.left;
-                cfg.slide = cfg.slide += offset;
-
-                setSlide(null, swipe.shadow);
-            }
-
             function initialise()
             {
                 rsa.imageMarkup = 'Image list markup';
@@ -460,9 +423,7 @@ window.ceres = {};
                 shadow.append(styleContainer);
                 shadow.append(bodyContainer);
 
-                setSwipe( { act: 80, node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1, shadow: shadow } );
-
-                //setSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
+                rsc.setHorizontalSwipe( { act: 80, node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1, shadow: shadow } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
@@ -490,6 +451,14 @@ window.ceres = {};
             {
                 const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                 cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
+            }
+
+            function getSwipe(swipe)
+            {
+                const offset = (swipe.action) ? swipe.right : swipe.left;
+                cfg.slide = cfg.slide += offset;
+
+                setSlide(null, swipe.shadow);
             }
 
             function setSlide(node, shadow)
