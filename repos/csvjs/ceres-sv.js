@@ -497,10 +497,12 @@ window.ceres = {};
 
                 let setCache = function()
                 {
-                    const cacheName = csv + '-cache';
-                    cfg.cache.script = [ import.meta.url, rsc.getImportMetaUrl() ];
+                    if (!caching.available) return;
 
-                    if (caching.available) caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+                    const cacheName = csv + '-cache';
+                    cfg.cache.script = [ rsc.getImportMetaUrl() ];
+
+                    caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
                 }
 
                 getSlideView();
