@@ -39,10 +39,10 @@ window.ceres = {};
             let src = progenitor.getAttribute('src') || null;
 
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
-            cfg.callback = !rsc.isEmptyOrNull(src);
+            cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) await ( await fetchStylesheets(css) );
-            if (cfg.callback) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
@@ -84,7 +84,7 @@ window.ceres = {};
 
                 rsc.clearElement(cfg.shade);
 
-                cfg.shade.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
+                cfg.shade.attachShadow({mode: 'open'});
 
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style';
@@ -212,7 +212,7 @@ window.ceres = {};
                 rsa.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
                 rsa.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
                 rsa.progenitorError = 'Error: Unable to find the ' + csv + ' document element';
-                rsa.imageListError = 'Error: Unable to find either the callback ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+                rsa.imageListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
                 rsa.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
 
                 Object.freeze(rsa);
@@ -424,7 +424,7 @@ window.ceres = {};
                 atr = {}; // attribute allocation
                 (function() {
 
-                    atr.precursor = function() { return cfg.callback || cfg.noscript; }
+                    atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
                     atr.shadowSlide = function(node)
                     {
@@ -476,7 +476,7 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            let getCallbackList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+                            let getfetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
 
                             let getContentList = function()
                             {
@@ -486,7 +486,7 @@ window.ceres = {};
                                 return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
                             }
 
-                            return cfg.callback ? getCallbackList() : getContentList();
+                            return cfg.fetchsrc ? getFetchList() : getContentList();
                         }
 
                         const isImageArray = function()
@@ -495,7 +495,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
