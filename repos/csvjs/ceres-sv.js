@@ -26,6 +26,8 @@ window.ceres = {};
 
             const progenitor = this;
 
+            const rsc = new Object(); // generic resource allocation
+
             const cfg = new Object(); // configuration attributes
             const rsa = new Object(); // resource attributes
             const srm = new Map(); // shadowroot manager
@@ -93,7 +95,7 @@ window.ceres = {};
 
                 })(); // end caching
 
-                let rsc = {}; // generic resource allocation
+                rsc = {}; // generic resource allocation
                 (function() {
 
                     const protean = new Object();
