@@ -26,7 +26,9 @@ window.ceres = {};
 
             const progenitor = this;
 
-            const rsc = new Object(); // generic resource allocation
+            let caching = new Object(); // http cache allocation
+            let rsc = new Object(); // generic resource allocation
+            let atr = new Object(); // attribute allocation
 
             const cfg = new Object(); // configuration attributes
             const rsa = new Object(); // resource attributes
@@ -49,7 +51,7 @@ window.ceres = {};
 
             function initialise()
             {
-                let caching = {};
+                caching = {};
                 (function(cache) {
 
                     caching.available = ('caches' in window);
@@ -246,7 +248,7 @@ window.ceres = {};
 
                 })(); // end resource allocation
 
-                let atr = {}; // attribute allocation
+                atr = {}; // attribute allocation
                 (function() {
 
                     atr.precursor = function() { return cfg.callback || cfg.noscript; }
