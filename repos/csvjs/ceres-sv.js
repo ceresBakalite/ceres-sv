@@ -436,12 +436,12 @@ window.ceres = {};
 
                 if (cfg.attrib.nub) getTrack();
 
-                const shadow = cfg.shade.shadowRoot;
+                cfg.shadow = cfg.shade.shadowRoot;
 
-                shadow.append(styleContainer);
-                shadow.append(bodyContainer);
+                cfg.shadow.append(styleContainer);
+                cfg.shadow.append(bodyContainer);
 
-                rsc.setHorizontalSwipe( { node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1, shadow: shadow } );
+                rsc.setHorizontalSwipe( { node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
             }
@@ -457,12 +457,12 @@ window.ceres = {};
                 const offset = (swipe.action) ? swipe.right : swipe.left;
                 cfg.slide = cfg.slide += offset;
 
-                setSlide(null, swipe.shadow);
+                setSlide(null, cfg.shadow);
             }
 
             function setSlide(node, shadow)
             {
-                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shade.shadowRoot : atr.shadowSlide(node);
+                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 const setNubStyle = function()
@@ -491,9 +491,7 @@ window.ceres = {};
             {
                 let setDisplay = function(attribute)
                 {
-                    const shadow = cfg.shade.shadowRoot;
-                    const node = shadow.querySelector('div.slideview-body');
-
+                    const node = cfg.shadow.querySelector('div.slideview-body');
                     node.style.display = attribute;
                 }
 
