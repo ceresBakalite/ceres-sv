@@ -336,6 +336,8 @@ window.ceres = {};
 
                 const el = querySwipe();
 
+                console.log(el);
+                
                 el.forEach(node => console.log(node));
 
 
