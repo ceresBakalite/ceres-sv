@@ -318,29 +318,34 @@ window.ceres = {};
 
             function setSwipe(touch, callback, args)
             {
+                console.log(touch.node);
+
+                if (!touch.act) touch.act = 10;
+                if (!touch.shadow) touch.shadow = window.document;
+
+                touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
+                touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+                touch.node.addEventListener('touchend', e =>
+                {
+                    touch.end = e.changedTouches[0].screenX;
+
+                    if (Math.abs(touch.start - touch.end) > touch.act)
+                    {
+                        args.shadow = touch.shadow;
+                        args.action = (touch.start > touch.end);
+                        callback.call(this, args);
+                    }
+
+                }, { passive: true });
+
+            }
+
+            /*
+            function setSwipe(touch, callback, args)
+            {
                 const shade = document.querySelector('#' + touch.host);
                 const shadow = shade.shadowRoot;
                 const el = shadow.querySelector(touch.selector);
-/*
-                let querySwipe = function()
-                {
-                    //if (touch.host)
-                    //{
-                        const shade = document.querySelector('#' + touch.host);
-                        const shadow = shade.shadowRoot;
-                        return shadow.querySelector(touch.selector);
-                    //}
-
-                //    return document.querySelectorl(touch.selector);
-                }
-
-
-                const el = querySwipe();
-*/
-                console.log(el);
-
-                //el.forEach(node => console.log(node));
-
 
                 if (!touch.act) touch.act = 10;
 
@@ -360,6 +365,7 @@ window.ceres = {};
                 }, { passive: true });
 
             }
+            */
 
             function getSwipe(swipe)
             {
@@ -456,9 +462,9 @@ window.ceres = {};
                 shadow.append(styleContainer);
                 shadow.append(bodyContainer);
 
-                //setSwipe( { act: 80, node: shadow.querySelector('div.slideview-body > div.slideview-image'), getSwipe, { left: -1, right: 1 } );
+                setSwipe( { act: 80, shadow: shadow, node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
 
-                setSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
+                //setSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
