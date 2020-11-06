@@ -441,7 +441,7 @@ window.ceres = {};
                 cfg.shadow.append(styleContainer);
                 cfg.shadow.append(bodyContainer);
 
-                rsc.setHorizontalSwipe( { node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
+                rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
             }
