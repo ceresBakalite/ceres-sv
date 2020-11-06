@@ -336,6 +336,9 @@ window.ceres = {};
 
                 const el = querySwipe();
 
+                el.forEach(node => console.log(node));
+
+
                 if (!touch.act) touch.act = 10;
 
                 el.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
