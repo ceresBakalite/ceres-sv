@@ -355,6 +355,12 @@ window.ceres = {};
                 cfg.slide = 1;
             }
 
+            function fetchStylesheets(str)
+            {
+                const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
+                cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
+            }
+
             function getSlideView()
             {
                 let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
@@ -444,12 +450,6 @@ window.ceres = {};
                 rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
-            }
-
-            function fetchStylesheets(str)
-            {
-                const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
-                cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
             }
 
             function getSwipe(swipe)
