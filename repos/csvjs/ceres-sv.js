@@ -476,7 +476,7 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            let getfetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+                            let getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
 
                             let getContentList = function()
                             {
