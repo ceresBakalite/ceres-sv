@@ -113,7 +113,7 @@ window.ceres = {};
 
                 rsc.setHorizontalSwipe = function(touch, callback, args)
                 {
-                    if (!touch.act) touch.act = 10;
+                    if (!touch.act) touch.act = 80;
 
                     touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
                     touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
@@ -423,7 +423,7 @@ window.ceres = {};
                 shadow.append(styleContainer);
                 shadow.append(bodyContainer);
 
-                rsc.setHorizontalSwipe( { act: 80, node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1, shadow: shadow } );
+                rsc.setHorizontalSwipe( { node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1, shadow: shadow } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
