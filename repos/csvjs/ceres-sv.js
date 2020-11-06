@@ -318,10 +318,10 @@ window.ceres = {};
 
             function setSwipe(touch, callback, args)
             {
-                //const shade = document.querySelector('#' + touch.host);
-                //const shadow = shade.shadowRoot;
-                //const el = shadow.querySelector(touch.selector);
-
+                const shade = document.querySelector('#' + touch.host);
+                const shadow = shade.shadowRoot;
+                const el = shadow.querySelector(touch.selector);
+/*
                 let querySwipe = function()
                 {
                     //if (touch.host)
@@ -336,7 +336,7 @@ window.ceres = {};
 
 
                 const el = querySwipe();
-
+*/
                 console.log(el);
 
                 //el.forEach(node => console.log(node));
