@@ -321,7 +321,6 @@ window.ceres = {};
                 console.log(touch.node);
 
                 if (!touch.act) touch.act = 10;
-                if (!touch.shadow) touch.shadow = window.document;
 
                 touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
                 touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
@@ -331,7 +330,7 @@ window.ceres = {};
 
                     if (Math.abs(touch.start - touch.end) > touch.act)
                     {
-                        args.shadow = touch.shadow;
+                        if (touch.shadow) args.shadow = touch.shadow;
                         args.action = (touch.start > touch.end);
                         callback.call(this, args);
                     }
