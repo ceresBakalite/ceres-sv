@@ -318,9 +318,23 @@ window.ceres = {};
 
             function setSwipe(touch, callback, args)
             {
-                const shade = document.querySelector('#' + touch.host);
-                const shadow = shade.shadowRoot;
-                const el = shadow.querySelector(touch.selector);
+                //const shade = document.querySelector('#' + touch.host);
+                //const shadow = shade.shadowRoot;
+                //const el = shadow.querySelector(touch.selector);
+
+                let querySwipe = function()
+                {
+                    if (touch.host)
+                    {
+                        const shade = document.querySelector('#' + touch.host);
+                        const shadow = shade.shadowRoot;
+                        return shadow.querySelector(touch.selector);
+                    }
+
+                    return document.querySelector(touch.selector);
+                }
+
+                const el = querySwipe();
 
                 if (!touch.act) touch.act = 10;
 
