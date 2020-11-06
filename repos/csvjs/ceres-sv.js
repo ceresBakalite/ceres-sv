@@ -331,7 +331,7 @@ window.ceres = {};
                         return shadow.querySelector(touch.selector);
                     //}
 
-                //    return document.querySelectorAll(touch.selector);
+                //    return document.querySelector(touch.selector);
                 }
 
 
@@ -451,10 +451,14 @@ window.ceres = {};
 
                 if (cfg.attrib.nub) getTrack();
 
-                cfg.attrib.shade.shadowRoot.append(styleContainer);
-                cfg.attrib.shade.shadowRoot.append(bodyContainer);
+                const shadow = cfg.attrib.shade.shadowRoot;
 
-                setSwipe( { act: 80, host: progenitor.id, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
+                shadow.append(styleContainer);
+                shadow.append(bodyContainer);
+
+                //setSwipe( { act: 80, node: shadow.querySelector('div.slideview-body > div.slideview-image'), getSwipe, { left: -1, right: 1 } );
+
+                setSwipe( { act: 80, host: cfg.attrib.shade, selector: 'div.slideview-body > div.slideview-image' }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
 
