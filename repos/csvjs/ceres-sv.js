@@ -75,7 +75,7 @@ window.ceres = {};
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         let index = item + 1;
-                        rsc.composeElement({ type: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        rsc.composeElement({ typeof: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                 }
@@ -125,13 +125,13 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attrib.sur) rsc.composeElement({ type: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
-                    rsc.composeElement({ type: 'img', className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
-                    if (cfg.attrib.sub) rsc.composeElement({ type: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                    if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
+                    rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
+                    if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ type: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
-                rsc.composeElement({ type: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
+                rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
 
                 if (cfg.attrib.nub) getTrack();
 
@@ -291,7 +291,7 @@ window.ceres = {};
                     rsc.composeElement = function(el)
                     {
                         const precursor = el.parent;
-                        const node = document.createElement(el.type);
+                        const node = document.createElement(el.typeof);
 
                         if (el.id) node.setAttribute("id", el.id);
                         if (el.className) node.setAttribute("class", el.className);
