@@ -269,6 +269,8 @@ window.ceres = {};
                         cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
                         cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
                         cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+
+                        Object.seal(cfg.attrib);
                     }
 
                     return exists;
@@ -304,8 +306,6 @@ window.ceres = {};
                             rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.callback ? csv + ' - callback' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
                             cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                         }
-
-                        if (!Object.isSealed(cfg)) Object.seal(cfg);
 
                         return !rsc.isEmptyOrNull(cfg.imageArray);
                     }
@@ -381,17 +381,17 @@ window.ceres = {};
 
                 }
 
-                cfg.attrib.shade = document.querySelector('#' + progenitor.id);
+                cfg.shade = document.querySelector('#' + progenitor.id);
 
-                rsc.clearElement(cfg.attrib.shade);
+                rsc.clearElement(cfg.shade);
 
-                cfg.attrib.shade.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
+                cfg.shade.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style';
                 styleContainer.className = 'slideview-style';
 
-                cfg.attrib.shade.appendChild(styleContainer);
+                cfg.shade.appendChild(styleContainer);
 
                 cfg.cache.css.forEach(item =>
                 {
@@ -407,7 +407,7 @@ window.ceres = {};
                 bodyContainer.className = 'slideview-body';
                 bodyContainer.style.display  = 'none';
 
-                cfg.attrib.shade.appendChild(bodyContainer);
+                cfg.shade.appendChild(bodyContainer);
 
                 const imageContainer = document.createElement('div');
                 imageContainer.id = csv + '-image';
@@ -436,14 +436,14 @@ window.ceres = {};
 
                 if (cfg.attrib.nub) getTrack();
 
-                const shadow = cfg.attrib.shade.shadowRoot;
+                const shadow = cfg.shade.shadowRoot;
 
                 shadow.append(styleContainer);
                 shadow.append(bodyContainer);
 
                 rsc.setHorizontalSwipe( { node: shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1, shadow: shadow } );
 
-                rsc.inspect({ type: rsc.constant.notify, notification: cfg.attrib.shade, logtrace: cfg.attrib.trace });
+                rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
             }
 
             function fetchStylesheets(str)
@@ -462,7 +462,7 @@ window.ceres = {};
 
             function setSlide(node, shadow)
             {
-                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.attrib.shade.shadowRoot : atr.shadowSlide(node);
+                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shade.shadowRoot : atr.shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 const setNubStyle = function()
@@ -491,7 +491,7 @@ window.ceres = {};
             {
                 let setDisplay = function(attribute)
                 {
-                    const shadow = cfg.attrib.shade.shadowRoot;
+                    const shadow = cfg.shade.shadowRoot;
                     const node = shadow.querySelector('div.slideview-body');
 
                     node.style.display = attribute;
