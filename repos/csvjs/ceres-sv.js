@@ -14,6 +14,8 @@ window.ceres = {};
 {
     'use strict';
 
+    const test = this;
+
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
@@ -349,7 +351,7 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
-                progenitor.caching = {};
+                test.caching = {};
                 (function(cache) {
 
                     caching.available = ('caches' in window);
