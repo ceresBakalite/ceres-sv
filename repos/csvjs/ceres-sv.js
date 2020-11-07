@@ -260,10 +260,19 @@ window.ceres = {};
 
                             let ar1 = str1.split(',');
 
+                            let isBoolean = function(obj) {
+                                return obj === true || obj === false || toString.call(obj) === '[object Boolean]';
+                            };
+
+                            if (isBoolean(ar1[0])) console.log(ar1[0] + ': ' + rsc.getBooleanAttribute(ar1[0]));
+                            if (isBoolean(ar1[1])) console.log(ar1[1] + ': ' + rsc.getBooleanAttribute(ar1[1]));
+                            if (isBoolean(ar1[2])) console.log(ar1[2] + ': ' + rsc.getBooleanAttribute(ar1[2]));
+                            if (isBoolean(ar1[3])) console.log(ar1[3] + ': ' + rsc.getBooleanAttribute(ar1[3]));
+
                             console.log(ar1[0] + ': ' + Boolean(ar1[0]) + ' - ' + ar1[1] + ': ' + Boolean(ar1[1]) + ' - ' + ar1[2] + ': ' + Boolean(ar1[2]) + ' - ' + ar1[3] + ': ' + Boolean(ar1[3]));
 
                             return;
-                            
+
                             const ar = cfg.attrib.auto.split(',');
 
                             if (Boolean(ar[0])) return;
