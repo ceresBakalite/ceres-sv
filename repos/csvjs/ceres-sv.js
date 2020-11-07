@@ -265,8 +265,6 @@ window.ceres = {};
                             if (rsc.getBooleanAttribute(ar1[2])) console.log(ar1[2] + ': ' + rsc.getBooleanAttribute(ar1[2]) + ', ');
                             if (rsc.getBooleanAttribute(ar1[3])) console.log(ar1[3] + ': ' + rsc.getBooleanAttribute(ar1[3]) + ', ');
 
-                            console.log(ar1[0] + ': ' + Boolean(ar1[0]) + ' - ' + ar1[1] + ': ' + Boolean(ar1[1]) + ' - ' + ar1[2] + ': ' + Boolean(ar1[2]) + ' - ' + ar1[3] + ': ' + Boolean(ar1[3]));
-
                             return;
 
                             const ar = cfg.attrib.auto.split(',');
