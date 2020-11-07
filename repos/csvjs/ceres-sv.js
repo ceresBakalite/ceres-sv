@@ -255,6 +255,8 @@ window.ceres = {};
                         {
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
+                            cfg.attrib.auto.forEach( key => { delete cfg.attrib.auto[key]; });
+
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
                             cfg.attrib.auto.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
