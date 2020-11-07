@@ -14,8 +14,6 @@ window.ceres = {};
 {
     'use strict';
 
-    const mod = this;
-
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
@@ -32,8 +30,8 @@ window.ceres = {};
             const srm = new Map(); // shadowroot manager
 
             //let caching = new Object(); // http cache allocation
-            //let rsc = new Object(); // generic resource allocation
-            //let atr = new Object(); // attribute allocation
+            let rsc = new Object(); // generic resource allocation
+            let atr = new Object(); // attribute allocation
 
             initialise();
 
@@ -226,7 +224,7 @@ window.ceres = {};
                 cfg.cache.src = [];
                 cfg.slide = 1;
 
-                mod.atr = {}; // attribute allocation
+                atr = {}; // attribute allocation
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
@@ -351,7 +349,7 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
-                progenitor.caching = {};  // http cache allocation
+                this.caching = {};
                 (function(cache) {
 
                     caching.available = ('caches' in window);
@@ -397,7 +395,7 @@ window.ceres = {};
 
                 })(); // end caching
 
-                progenitor.rsc = {}; // generic resource allocation
+                rsc = {}; // generic resource allocation
                 (function() {
 
                     const protean = new Object();
