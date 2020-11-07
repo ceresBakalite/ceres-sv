@@ -29,9 +29,9 @@ window.ceres = {};
             const rsa = new Object(); // notification strings
             const srm = new Map(); // shadowroot manager
 
-            let caching = new Object(); // http cache allocation
-            let rsc = new Object(); // generic resource allocation
-            let atr = new Object(); // attribute allocation
+            //let caching = new Object(); // http cache allocation
+            //let rsc = new Object(); // generic resource allocation
+            //let atr = new Object(); // attribute allocation
 
             initialise();
 
@@ -224,7 +224,7 @@ window.ceres = {};
                 cfg.cache.src = [];
                 cfg.slide = 1;
 
-                atr = {}; // attribute allocation
+                progenitor.atr = {}; // attribute allocation
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
@@ -349,7 +349,7 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
-                caching = {};
+                progenitor.caching = {};  // http cache allocation
                 (function(cache) {
 
                     caching.available = ('caches' in window);
@@ -395,7 +395,7 @@ window.ceres = {};
 
                 })(); // end caching
 
-                rsc = {}; // generic resource allocation
+                progenitor.rsc = {}; // generic resource allocation
                 (function() {
 
                     const protean = new Object();
