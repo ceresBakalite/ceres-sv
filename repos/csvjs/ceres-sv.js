@@ -259,7 +259,7 @@ window.ceres = {};
                             let str4 = '22';
                             let str5 = null;
 
-                            let ar1 = str5.replace(rsc.constant.whitespace,'').split(',');
+                            let ar1 = str4.replace(rsc.constant.whitespace,'').split(',');
 
                             if (rsc.isEmptyOrNull(ar1[0]) || ar1[0].toLocaleLowerCase(locale).trim() == 'false') console.log('str5 is empty');
 
