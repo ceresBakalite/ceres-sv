@@ -14,7 +14,7 @@ window.ceres = {};
 {
     'use strict';
 
-    const test = this;
+    const test = new Object();
 
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
