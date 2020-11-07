@@ -262,6 +262,7 @@ window.ceres = {};
                             cfg.attrib.nub = false;
                             cfg.attrib.auto.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
                             cfg.attrib.auto.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
+                            cfg.attrib.auto.reset = cfg.attrib.auto.cycle > 0;
                         }
 
                         if (exists)
