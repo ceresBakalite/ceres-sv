@@ -206,7 +206,7 @@ window.ceres = {};
                 if (cfg.attrib.cache) setCache();
             }
 
-            function initialise(locale = 'en')
+            function initialise()
             {
                 rsa.imageMarkup = 'Image list markup';
                 rsa.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
@@ -225,7 +225,7 @@ window.ceres = {};
                 cfg.slide = 1;
 
                 atr = {}; // attribute allocation
-                (function() {
+                (function(locale = 'en') {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
@@ -255,7 +255,7 @@ window.ceres = {};
                         {
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
-                            cfg.attrib.auto.forEach( key => { delete cfg.attrib.auto[key]; });
+                            cfg.attrib.auto.forEach(key => { delete cfg.attrib.auto[key]; });
 
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
@@ -454,7 +454,7 @@ window.ceres = {};
                         return !obj;
                     }
 
-                    rsc.getBooleanAttribute = function(attribute)
+                    rsc.getBooleanAttribute = function(attribute, locale = 'en')
                     {
                         if (attribute === true || attribute === false) return attribute;
                         if (rsc.isEmptyOrNull(attribute)) return false;
