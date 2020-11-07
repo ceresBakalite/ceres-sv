@@ -540,7 +540,7 @@ window.ceres = {};
                         protean.error = 99;
                         protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
                         protean.newline = protean.isWindows ? '\r\n' : '\n';
-                        protean.whitespace = '/\s/g';
+                        protean.whitespace = /\s/g;
 
                         Object.freeze(protean);
 
