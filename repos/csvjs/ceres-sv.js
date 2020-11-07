@@ -253,23 +253,6 @@ window.ceres = {};
 
                         let getAutoProperties = function()
                         {
-                            let str1 = '1, true, false, 22, 2000';
-                            let str2 = cfg.attrib.sur;
-                            let str3 = '"true", "false", "22", "2000"';
-                            let str4 = '22, 11';
-                            let str5 = 'test test';
-                            let str6 = '';
-
-                            let ar1 = str6.replace(rsc.constant.whitespace,'').split(',');
-
-                            console.log('ar1[0]: ' + ar1[0])
-
-                            if (ar1[0].toLocaleLowerCase(locale) == 'false') console.log('str is empty');
-
-                            //console.log('ar1[2]: [' + ar1[2].toLocaleLowerCase(locale).trim() + '] [' + ar1[2] + '] '  );
-
-                            return;
-
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
@@ -296,8 +279,7 @@ window.ceres = {};
                             cfg.attrib.auto = progenitor.getAttribute('auto'); // enabled if properties exist
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
 
-                            getAutoProperties();
-                            //if (!rsc.isEmptyOrNull(cfg.attrib.auto)) getAutoProperties();
+                            if (!rsc.isEmptyOrNull(cfg.attrib.auto)) getAutoProperties();
 
                             Object.seal(cfg.attrib);
                         }
