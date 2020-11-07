@@ -130,8 +130,11 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
-                rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                if (cfg.auto.arrow)
+                {
+                    rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
+                    rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                }
 
                 if (cfg.attrib.nub) getTrack();
 
@@ -222,6 +225,8 @@ window.ceres = {};
                 cfg.cache = new Object();
                 cfg.cache.css = [];
                 cfg.cache.src = [];
+                cfg.auto = new Object();
+                cfg.auto.arrow = true;
                 cfg.slide = 1;
 
                 atr = {}; // attribute allocation
@@ -257,8 +262,7 @@ window.ceres = {};
 
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
-                            cfg.auto = new Object();
-
+                            cfg.auto.arrow = false;
                             cfg.auto.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
                             cfg.auto.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
                             cfg.auto.reset = cfg.auto.cycle > 0 ? { sur: cfg.attrib.sur, sub: cfg.attrib.sub, nub: cfg.attrib.nub } : null;
@@ -288,7 +292,7 @@ window.ceres = {};
                             Object.seal(cfg.attrib);
 
                             rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
-                            rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.auto), logtrace: cfg.attrib.trace });
+                            if (!rsc.isEmptyOrNull(cfg.auto)) rsc.inspect({ type: rsc.constant.notify, notification: rsc.getObjectProperties(cfg.auto), logtrace: cfg.attrib.trace });
                         }
 
                         return exists;
