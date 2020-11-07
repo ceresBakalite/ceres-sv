@@ -14,6 +14,8 @@ window.ceres = {};
 {
     'use strict';
 
+    const mod = this;
+
     const csv = 'ceres-sv'; // required ceres slideview element name
     const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
 
@@ -224,7 +226,7 @@ window.ceres = {};
                 cfg.cache.src = [];
                 cfg.slide = 1;
 
-                ceres.atr = {}; // attribute allocation
+                mod.atr = {}; // attribute allocation
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
