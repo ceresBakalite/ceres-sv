@@ -258,7 +258,7 @@ window.ceres = {};
                             let str3 = '"true", "false", "22", "2000"';
                             let str4 = '22';
 
-                            let ar1 = str1.replace(rsc.constants.whitespace,'').split(',');
+                            let ar1 = str1.replace(rsc.constant.whitespace,'').split(',');
 
                             console.log('ar1[2]: [' + ar1[2].toLocaleLowerCase(locale).trim() + '] [' + ar1[2] + '] '  );
 
