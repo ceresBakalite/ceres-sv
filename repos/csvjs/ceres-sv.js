@@ -349,7 +349,7 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
-                this.caching = {};
+                progenitor.caching = {};
                 (function(cache) {
 
                     caching.available = ('caches' in window);
