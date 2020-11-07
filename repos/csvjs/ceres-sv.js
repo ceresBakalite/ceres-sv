@@ -256,7 +256,7 @@ window.ceres = {};
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
                             //cfg.attrib.auto.forEach(key => { delete cfg.attrib.auto[key]; });
-                            cfg.attrib.auto = {};
+                            cfg.attrib.auto = null;
 
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
