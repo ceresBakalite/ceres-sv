@@ -261,7 +261,9 @@ window.ceres = {};
 
                             let ar1 = str4.replace(rsc.constant.whitespace,'').split(',');
 
-                            if (rsc.isEmptyOrNull(ar1[0]) || ar1[0].toLocaleLowerCase(locale).trim() == 'false') console.log('str5 is empty');
+                            console.log('ar1[0]: ' + ar1[0])
+
+                            if (ar1[0].toLocaleLowerCase(locale).trim() == 'false') console.log('str5 is empty');
 
                             console.log('ar1[2]: [' + ar1[2].toLocaleLowerCase(locale).trim() + '] [' + ar1[2] + '] '  );
 
@@ -274,7 +276,7 @@ window.ceres = {};
 
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
-                            if (rsc.isEmptyOrNull(ar[0]) || ar[0].toLocaleLowerCase(locale).trim() == 'false') return;
+                            if (ar[0].toLocaleLowerCase(locale).trim() == 'false') return;
 
                             cfg.attrib.sur = false;
                             cfg.attrib.sub = false;
