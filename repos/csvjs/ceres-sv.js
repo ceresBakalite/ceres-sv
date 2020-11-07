@@ -224,6 +224,128 @@ window.ceres = {};
                 cfg.cache.src = [];
                 cfg.slide = 1;
 
+                atr = {}; // attribute allocation
+                (function() {
+
+                    atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
+
+                    atr.shadowSlide = function(node)
+                    {
+                        const root = node.getRootNode().host;
+                        const shade = document.querySelector('#' + root.id);
+                        const shadow = shade.shadowRoot;
+                        const slide = shadow.querySelector('div.slideview-image > div.pointer');
+
+                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+
+                        srm.set('left', cfg.slide - 1);
+                        srm.set('right', cfg.slide + 1);
+                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+
+                        cfg.slide = srm.get(node.className);
+
+                        return shadow;
+                    }
+
+                    atr.protean = function()
+                    {
+                        const exists = !rsc.isEmptyOrNull(progenitor);
+
+                        let getAutoProperties = function()
+                        {
+                            let str1 = 'true, false, 22, 2000';
+                            let str2 = cfg.attrib.sur;
+                            let str3 = '"true", "false", "22", "2000"';
+                            let str4 = '22';
+
+                            let ar1 = str1.split(',');
+
+                            console.log(ar1[0] + ': ' + Boolean(ar1[0]) + ' - ' + ar1[1] + ': ' + Boolean(ar1[1]) + ' - ' + ar1[2] + ': ' + Boolean(ar1[2]) + ' - ' + ar1[3] + ': ' + Boolean(ar1[3]));
+
+                            return;
+                            
+                            const ar = cfg.attrib.auto.split(',');
+
+                            if (Boolean(ar[0])) return;
+
+                            cfg.attrib.sur = false;
+                            cfg.attrib.sub = false;
+                            cfg.attrib.nub = false;
+                            cfg.attrib.auto.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
+                            cfg.attrib.auto.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
+                        }
+
+                        if (exists)
+                        {
+                            progenitor.id = rsc.getUniqueElementId(csv, 1000);
+                            progenitor.setAttribute("class", 'delay');
+
+                            cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
+
+                            cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
+                            cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
+                            cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
+                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
+                            cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
+                            cfg.attrib.auto = progenitor.getAttribute('auto'); // enabled if properties exist
+                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+
+                            getAutoProperties();
+                            //if (!rsc.isEmptyOrNull(cfg.attrib.auto)) getAutoProperties();
+
+                            Object.seal(cfg.attrib);
+                        }
+
+                        return exists;
+                    }
+
+                    atr.attributesExist = function()
+                    {
+                        cfg.imageArray = null;
+
+                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+
+                        const getImageList = function()
+                        {
+                            let getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+
+                            let getContentList = function()
+                            {
+                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
+
+                                const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
+                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
+                            }
+
+                            return cfg.fetchsrc ? getFetchList() : getContentList();
+                        }
+
+                        const isImageArray = function()
+                        {
+                            let imageList = getImageList();
+
+                            if (!rsc.isEmptyOrNull(imageList))
+                            {
+                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
+                                cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+                            }
+
+                            return !rsc.isEmptyOrNull(cfg.imageArray);
+                        }
+
+                        return isImageArray();
+                    }
+
+                    atr.nodeAttributes = function()
+                    {
+                        if (!atr.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
+                        if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
+
+                        return atr.attributesExist();
+                    }
+
+                })(); // end attribute allocation
+
                 caching = {};
                 (function(cache) {
 
@@ -420,100 +542,6 @@ window.ceres = {};
                     }
 
                 })(); // end resource allocation
-
-                atr = {}; // attribute allocation
-                (function() {
-
-                    atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
-
-                    atr.shadowSlide = function(node)
-                    {
-                        const root = node.getRootNode().host;
-                        const shade = document.querySelector('#' + root.id);
-                        const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.pointer');
-
-                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
-
-                        srm.set('left', cfg.slide - 1);
-                        srm.set('right', cfg.slide + 1);
-                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
-
-                        cfg.slide = srm.get(node.className);
-
-                        return shadow;
-                    }
-
-                    atr.protean = function()
-                    {
-                        const exists = !rsc.isEmptyOrNull(progenitor);
-
-                        if (exists)
-                        {
-                            progenitor.id = rsc.getUniqueElementId(csv, 1000);
-                            progenitor.setAttribute("class", 'delay');
-
-                            cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
-
-                            cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
-                            cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
-                            cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
-                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
-                            cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
-
-                            Object.seal(cfg.attrib);
-                        }
-
-                        return exists;
-                    }
-
-                    atr.attributesExist = function()
-                    {
-                        cfg.imageArray = null;
-
-                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
-
-                        const getImageList = function()
-                        {
-                            let getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
-
-                            let getContentList = function()
-                            {
-                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
-
-                                const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
-                            }
-
-                            return cfg.fetchsrc ? getFetchList() : getContentList();
-                        }
-
-                        const isImageArray = function()
-                        {
-                            let imageList = getImageList();
-
-                            if (!rsc.isEmptyOrNull(imageList))
-                            {
-                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
-                                cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
-                            }
-
-                            return !rsc.isEmptyOrNull(cfg.imageArray);
-                        }
-
-                        return isImageArray();
-                    }
-
-                    atr.nodeAttributes = function()
-                    {
-                        if (!atr.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
-                        if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
-
-                        return atr.attributesExist();
-                    }
-
-                })(); // end attribute allocation
 
             }
 
