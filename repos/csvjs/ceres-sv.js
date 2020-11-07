@@ -256,14 +256,15 @@ window.ceres = {};
                             let str1 = '1, true, false, 22, 2000';
                             let str2 = cfg.attrib.sur;
                             let str3 = '"true", "false", "22", "2000"';
-                            let str4 = '22';
-                            let str5 = null;
+                            let str4 = '22, 11';
+                            let str5 = 'test test';
+                            let str6 = null;
 
                             let ar1 = str4.replace(rsc.constant.whitespace,'').split(',');
 
                             console.log('ar1[0]: ' + ar1[0])
 
-                            if (ar1[0].toLocaleLowerCase(locale).trim() == 'false') console.log('str5 is empty');
+                            if (ar1[0].toLocaleLowerCase(locale) == 'false') console.log('str5 is empty');
 
                             console.log('ar1[2]: [' + ar1[2].toLocaleLowerCase(locale).trim() + '] [' + ar1[2] + '] '  );
 
@@ -276,7 +277,7 @@ window.ceres = {};
 
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
-                            if (ar[0].toLocaleLowerCase(locale).trim() == 'false') return;
+                            if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
                             cfg.attrib.sur = false;
                             cfg.attrib.sub = false;
