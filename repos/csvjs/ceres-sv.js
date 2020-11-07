@@ -258,7 +258,7 @@ window.ceres = {};
                             let str3 = '"true", "false", "22", "2000"';
                             let str4 = '22, 11';
                             let str5 = 'test test';
-                            let str6 = '33';
+                            let str6 = '';
 
                             let ar1 = str6.replace(rsc.constant.whitespace,'').split(',');
 
