@@ -253,17 +253,17 @@ window.ceres = {};
 
                         let getAutoProperties = function()
                         {
-                            let str1 = 'true, false, 22, 2000';
+                            let str1 = '1, true, false, 22, 2000';
                             let str2 = cfg.attrib.sur;
                             let str3 = '"true", "false", "22", "2000"';
                             let str4 = '22';
 
                             let ar1 = str1.split(',');
 
-                            if (rsc.getBooleanAttribute(ar1[0])) console.log(ar1[0] + ': ' + rsc.getBooleanAttribute(ar1[0]));
-                            if (rsc.getBooleanAttribute(ar1[1])) console.log(ar1[1] + ': ' + rsc.getBooleanAttribute(ar1[1]));
-                            if (rsc.getBooleanAttribute(ar1[2])) console.log(ar1[2] + ': ' + rsc.getBooleanAttribute(ar1[2]));
-                            if (rsc.getBooleanAttribute(ar1[3])) console.log(ar1[3] + ': ' + rsc.getBooleanAttribute(ar1[3]));
+                            if (rsc.getBooleanAttribute(ar1[0])) console.log(ar1[0] + ': ' + rsc.getBooleanAttribute(ar1[0]) + ', ');
+                            if (rsc.getBooleanAttribute(ar1[1])) console.log(ar1[1] + ': ' + rsc.getBooleanAttribute(ar1[1]) + ', ');
+                            if (rsc.getBooleanAttribute(ar1[2])) console.log(ar1[2] + ': ' + rsc.getBooleanAttribute(ar1[2]) + ', ');
+                            if (rsc.getBooleanAttribute(ar1[3])) console.log(ar1[3] + ': ' + rsc.getBooleanAttribute(ar1[3]) + ', ');
 
                             console.log(ar1[0] + ': ' + Boolean(ar1[0]) + ' - ' + ar1[1] + ': ' + Boolean(ar1[1]) + ' - ' + ar1[2] + ': ' + Boolean(ar1[2]) + ' - ' + ar1[3] + ': ' + Boolean(ar1[3]));
 
