@@ -257,7 +257,7 @@ window.ceres = {};
 
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
-                            cfg.attrib.auto = { sur: cfg.attrib.sur, sub: cfg.attrib.sub, nub: cfg.attrib.nub};
+                            cfg.attrib.auto = { sur: cfg.attrib.sur, sub: cfg.attrib.sub, nub: cfg.attrib.nub };
 
                             cfg.attrib.sur = false;
                             cfg.attrib.sub = false;
