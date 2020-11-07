@@ -255,14 +255,13 @@ window.ceres = {};
                         {
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
-                            //cfg.attrib.auto.forEach(key => { delete cfg.attrib.auto[key]; });
-                            cfg.attrib.auto = null;
-
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
-                            cfg.attrib.auto.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
-                            cfg.attrib.auto.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
-                            cfg.attrib.auto.reset = cfg.attrib.auto.cycle > 0 ? { sur: cfg.attrib.sur, sub: cfg.attrib.sub, nub: cfg.attrib.nub } : null;
+                            cfg.auto = new Object();
+
+                            cfg.auto.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
+                            cfg.auto.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
+                            cfg.auto.reset = cfg.auto.cycle > 0 ? { sur: cfg.attrib.sur, sub: cfg.attrib.sub, nub: cfg.attrib.nub } : null;
 
                             cfg.attrib.sur = false;
                             cfg.attrib.sub = false;
