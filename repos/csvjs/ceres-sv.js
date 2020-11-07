@@ -225,7 +225,7 @@ window.ceres = {};
                 cfg.slide = 1;
 
                 atr = {}; // attribute allocation
-                (function(locale = 'en') {
+                (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
@@ -251,7 +251,7 @@ window.ceres = {};
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
-                        let getAutoProperties = function()
+                        let getAutoProperties = function(locale = 'en')
                         {
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
