@@ -206,7 +206,7 @@ window.ceres = {};
                 if (cfg.attrib.cache) setCache();
             }
 
-            function initialise()
+            function initialise(locale = 'en')
             {
                 rsa.imageMarkup = 'Image list markup';
                 rsa.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
@@ -260,10 +260,7 @@ window.ceres = {};
 
                             let ar1 = str1.split(',');
 
-                            if (!rsc.getBooleanAttribute(ar1[0])) console.log(ar1[0] + ': ' + rsc.getBooleanAttribute(ar1[0]) + ', ');
-                            if (!rsc.getBooleanAttribute(ar1[1])) console.log(ar1[1] + ': ' + rsc.getBooleanAttribute(ar1[1]) + ', ');
-                            if (!rsc.getBooleanAttribute(ar1[2])) console.log(ar1[2] + ': ' + rsc.getBooleanAttribute(ar1[2]) + ', ');
-                            if (!rsc.getBooleanAttribute(ar1[3])) console.log(ar1[3] + ': ' + rsc.getBooleanAttribute(ar1[3]) + ', ');
+                            if (!rsc.isEmptyOrNull(ar1[0]) && ar1[0].toLocaleLowerCase(locale) == 'false') console.log(ar1[0] + ': ' + rsc.getBooleanAttribute(ar1[0]));
 
                             return;
 
@@ -463,7 +460,7 @@ window.ceres = {};
                         return !obj;
                     }
 
-                    rsc.getBooleanAttribute = function(attribute, locale = 'en')
+                    rsc.getBooleanAttribute = function(attribute)
                     {
                         if (attribute === true || attribute === false) return attribute;
                         if (rsc.isEmptyOrNull(attribute)) return false;
