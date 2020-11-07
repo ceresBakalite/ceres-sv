@@ -260,6 +260,8 @@ window.ceres = {};
 
                             let ar1 = str1.split(',');
 
+                            console.log('ar1[0]: ' + ar1[0]);
+
                             if (!rsc.isEmptyOrNull(ar1[0]) && ar1[0].toLocaleLowerCase(locale) == 'false') console.log(ar1[0] + ': ' + rsc.getBooleanAttribute(ar1[0]));
                             if (!rsc.isEmptyOrNull(ar1[1]) && ar1[1].toLocaleLowerCase(locale) == 'false') console.log(ar1[1] + ': ' + rsc.getBooleanAttribute(ar1[1]));
                             if (!rsc.isEmptyOrNull(ar1[2]) && ar1[2].toLocaleLowerCase(locale) == 'false') console.log(ar1[2] + ': ' + rsc.getBooleanAttribute(ar1[2]));
