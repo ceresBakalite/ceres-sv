@@ -257,12 +257,13 @@ window.ceres = {};
 
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
-                            cfg.attrib.sur = false;
-                            cfg.attrib.sub = false;
-                            cfg.attrib.nub = false;
                             cfg.attrib.auto.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
                             cfg.attrib.auto.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
                             cfg.attrib.auto.reset = cfg.attrib.auto.cycle > 0 ? { sur: cfg.attrib.sur, sub: cfg.attrib.sub, nub: cfg.attrib.nub } : null;
+
+                            cfg.attrib.sur = false;
+                            cfg.attrib.sub = false;
+                            cfg.attrib.nub = false;
                         }
 
                         if (exists)
@@ -283,6 +284,8 @@ window.ceres = {};
                             if (!rsc.isEmptyOrNull(cfg.attrib.auto)) getAutoProperties();
 
                             Object.seal(cfg.attrib);
+
+                            rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
                         }
 
                         return exists;
