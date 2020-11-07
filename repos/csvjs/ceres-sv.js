@@ -224,7 +224,7 @@ window.ceres = {};
                 cfg.cache.src = [];
                 cfg.slide = 1;
 
-                progenitor.atr = {}; // attribute allocation
+                ceres.atr = {}; // attribute allocation
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
