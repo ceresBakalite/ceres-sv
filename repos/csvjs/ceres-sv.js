@@ -260,10 +260,10 @@ window.ceres = {};
 
                             let ar1 = str1.split(',');
 
-                            if (rsc.getBooleanAttribute(ar1[0])) console.log(ar1[0] + ': ' + rsc.getBooleanAttribute(ar1[0]) + ', ');
-                            if (rsc.getBooleanAttribute(ar1[1])) console.log(ar1[1] + ': ' + rsc.getBooleanAttribute(ar1[1]) + ', ');
-                            if (rsc.getBooleanAttribute(ar1[2])) console.log(ar1[2] + ': ' + rsc.getBooleanAttribute(ar1[2]) + ', ');
-                            if (rsc.getBooleanAttribute(ar1[3])) console.log(ar1[3] + ': ' + rsc.getBooleanAttribute(ar1[3]) + ', ');
+                            if (!rsc.getBooleanAttribute(ar1[0])) console.log(ar1[0] + ': ' + rsc.getBooleanAttribute(ar1[0]) + ', ');
+                            if (!rsc.getBooleanAttribute(ar1[1])) console.log(ar1[1] + ': ' + rsc.getBooleanAttribute(ar1[1]) + ', ');
+                            if (!rsc.getBooleanAttribute(ar1[2])) console.log(ar1[2] + ': ' + rsc.getBooleanAttribute(ar1[2]) + ', ');
+                            if (!rsc.getBooleanAttribute(ar1[3])) console.log(ar1[3] + ': ' + rsc.getBooleanAttribute(ar1[3]) + ', ');
 
                             return;
 
