@@ -208,8 +208,6 @@ window.ceres = {};
 
             function initialise()
             {
-                const locale = 'en';
-                
                 rsa.imageMarkup = 'Image list markup';
                 rsa.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
                 rsa.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
@@ -253,7 +251,7 @@ window.ceres = {};
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
-                        let getAutoProperties = function()
+                        let getAutoProperties = function(locale = 'en')
                         {
                             const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
 
@@ -456,7 +454,7 @@ window.ceres = {};
                         return !obj;
                     }
 
-                    rsc.getBooleanAttribute = function(attribute)
+                    rsc.getBooleanAttribute = function(attribute, locale = 'en')
                     {
                         if (attribute === true || attribute === false) return attribute;
                         if (rsc.isEmptyOrNull(attribute)) return false;
