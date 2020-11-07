@@ -349,6 +349,8 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
+                Object.freeze(atr);
+
                 caching = {};
                 (function(cache) {
 
@@ -547,6 +549,8 @@ window.ceres = {};
                     }
 
                 })(); // end resource allocation
+
+                Object.freeze(rsc);
 
             }
 
