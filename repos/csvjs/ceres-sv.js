@@ -258,13 +258,13 @@ window.ceres = {};
                             let str3 = '"true", "false", "22", "2000"';
                             let str4 = '22, 11';
                             let str5 = 'test test';
-                            let str6 = null;
+                            let str6 = '33';
 
-                            let ar1 = str4.replace(rsc.constant.whitespace,'').split(',');
+                            let ar1 = str6.replace(rsc.constant.whitespace,'').split(',');
 
                             console.log('ar1[0]: ' + ar1[0])
 
-                            if (ar1[0].toLocaleLowerCase(locale) == 'false') console.log('str5 is empty');
+                            if (ar1[0].toLocaleLowerCase(locale) == 'false') console.log('str is empty');
 
                             //console.log('ar1[2]: [' + ar1[2].toLocaleLowerCase(locale).trim() + '] [' + ar1[2] + '] '  );
 
