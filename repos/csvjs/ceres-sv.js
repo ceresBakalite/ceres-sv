@@ -288,6 +288,7 @@ window.ceres = {};
                             Object.seal(cfg.attrib);
 
                             rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                            rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.auto), logtrace: cfg.attrib.trace });
                         }
 
                         return exists;
