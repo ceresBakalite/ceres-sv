@@ -214,8 +214,6 @@ window.ceres = {};
 
             function autoSlide()
             {
-                console.log('Auto slide is active: ref. https://javascript.info/settimeout-setinterval see nested setTimeout');
-
                 //cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
                 //cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 1000;
                 //cfg.attrib.autostop = cfg.attrib.autocycle > 0;
