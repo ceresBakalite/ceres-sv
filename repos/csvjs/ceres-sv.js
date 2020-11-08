@@ -301,6 +301,7 @@ window.ceres = {};
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
                             cfg.attrib.click = !rsc.getBooleanAttribute(progenitor.getAttribute('click')); // enabled
+                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
                             cfg.attrib.switch = getAutoProperties(); // enabled
 
                             Object.seal(cfg.attrib);
