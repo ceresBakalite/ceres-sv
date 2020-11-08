@@ -60,7 +60,7 @@ window.ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                let onClickImage = function() { return cfg.attrib.click ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
+                let onClickImage = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                 let setTrackId = function(index) { return 'nub' + index; }
 
                 const getTrack = function()
@@ -122,7 +122,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + index;
-                    slideContainer.className = cfg.attrib.click ? 'view zoom fade none' : 'view nozoom fade none';
+                    slideContainer.className = cfg.attrib.zoom ? 'view zoom fade none' : 'view nozoom fade none';
 
                     imageContainer.appendChild(slideContainer);
 
@@ -178,8 +178,8 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(slides[enable])) return;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = cfg.attrib.click ? 'view zoom fade none' : 'view nozoom fade none';
-                slides[enable].className = cfg.attrib.click ? 'view zoom fade pointer' : 'view nozoom fade pointer';
+                if (el) el.className = cfg.attrib.zoom ? 'view zoom fade none' : 'view nozoom fade none';
+                slides[enable].className = cfg.attrib.zoom ? 'view zoom fade pointer' : 'view nozoom fade pointer';
 
                 if (cfg.attrib.nub && cfg.attrib.switch) setNubStyle();
             }
@@ -270,7 +270,7 @@ window.ceres = {};
 
                         let zoomImage = function()
                         {
-                            const zoom = progenitor.getAttribute('click');
+                            const zoom = progenitor.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
@@ -307,7 +307,7 @@ window.ceres = {};
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
                             cfg.attrib.switch = getAutoProperties(); // enabled
-                            cfg.attrib.click = zoomImage(); // enabled
+                            cfg.attrib.zoom = zoomImage(); // enabled
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
 
                             Object.seal(cfg.attrib);
