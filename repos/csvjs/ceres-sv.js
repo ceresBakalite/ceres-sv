@@ -232,8 +232,8 @@ window.ceres = {};
 
                 const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                 let count = 0;
-                var myVar1;
-                var myVar2;
+                //var myVar1;
+                //var myVar2;
 
                 auto();
 
