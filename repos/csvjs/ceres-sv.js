@@ -122,7 +122,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + index;
-                    slideContainer.className = cfg.attrib.zoom ? 'view zoom fade none' : 'view nozoom fade none';
+                    slideContainer.className = cfg.attrib.zoom ? 'view zoom fade none' : 'view fade none';
 
                     imageContainer.appendChild(slideContainer);
 
@@ -131,20 +131,20 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                if (cfg.attrib.switch)
+                if (cfg.attrib.static)
                 {
                     rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
                     rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
                 }
 
-                if (cfg.attrib.nub && cfg.attrib.switch) getTrack();
+                if (cfg.attrib.nub && cfg.attrib.static) getTrack();
 
                 cfg.shadow = cfg.shade.shadowRoot;
 
                 cfg.shadow.append(styleContainer);
                 cfg.shadow.append(bodyContainer);
 
-                if (cfg.attrib.switch) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
+                if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
             }
@@ -178,10 +178,10 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(slides[enable])) return;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = cfg.attrib.zoom ? 'view zoom fade none' : 'view nozoom fade none';
-                slides[enable].className = cfg.attrib.zoom ? 'view zoom fade pointer' : 'view nozoom fade pointer';
+                if (el) el.className = cfg.attrib.zoom ? 'view zoom fade none' : 'view fade none';
+                slides[enable].className = cfg.attrib.zoom ? 'view zoom fade pointer' : 'view fade pointer';
 
-                if (cfg.attrib.nub && cfg.attrib.switch) setNubStyle();
+                if (cfg.attrib.nub && cfg.attrib.static) setNubStyle();
             }
 
             function activateNode()
@@ -209,7 +209,7 @@ window.ceres = {};
 
                 setTimeout(function() { setDisplay('block'); }, cfg.attrib.delay);
 
-                if (!cfg.attrib.switch) autoSlide();
+                if (!cfg.attrib.static) autoSlide();
             }
 
             function autoSlide()
@@ -268,7 +268,7 @@ window.ceres = {};
                         const exists = !rsc.isEmptyOrNull(progenitor);
                         const auto = progenitor.getAttribute('auto'); // enabled if properties exist
 
-                        let zoomImage = function()
+                        let getZoomImage = function()
                         {
                             const zoom = progenitor.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
@@ -306,8 +306,8 @@ window.ceres = {};
                             cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.switch = getAutoProperties(); // enabled
-                            cfg.attrib.zoom = zoomImage(); // enabled
+                            cfg.attrib.static = getAutoProperties(); // enabled
+                            cfg.attrib.zoom = getZoomImage(); // enabled
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
 
                             Object.seal(cfg.attrib);
