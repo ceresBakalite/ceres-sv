@@ -232,24 +232,37 @@ window.ceres = {};
 
                 const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                 let count = 0;
+                var myVar;
 
-                let auto = setTimeout(function run() {
+                auto();
 
-                    count += 1;
-
-                    console.log('count: ' + count + ' - ' + iterations);
-
-                    cfg.slide += 1;
-
-                    if (iterations > 0 && count == iterations)
+                function auto()
+                {
+                    myVar = setTimeout(function run()
                     {
-                        console.log('clearTimeout');
-                        clearTimeout(auto);
-                    }
+                        count += 1;
 
-                    setSlide();
-                    setTimeout(run, cfg.attrib.autopause);
-                }, cfg.attrib.autopause);
+                        console.log('count: ' + count + ' - ' + iterations);
+
+                        cfg.slide += 1;
+
+                        if (iterations > 0 && count == iterations)
+                        {
+                            console.log('clearTimeout');
+                            stop();
+                        }
+
+                        setSlide();
+                        setTimeout(run, cfg.attrib.autopause);
+
+                    }, cfg.attrib.autopause);
+
+                }
+
+                function stop()
+                {
+                    clearTimeout(myVar);
+                }
 
             }
 
