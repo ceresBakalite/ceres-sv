@@ -271,7 +271,7 @@ window.ceres = {};
                         let zoomImage = function()
                         {
                             const zoom = progenitor.getAttribute('click');
-                            return rsc.isEmptyOrNull(zoom) ? true : zoom;
+                            return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
                         let getAutoProperties = function(locale = 'en')
