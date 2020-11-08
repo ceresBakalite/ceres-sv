@@ -43,10 +43,6 @@
     cursor: zoom-in;
 }
 
-.nozoom {
-    cursor: default;
-}
-
 .slide {
     user-select: none;
 }
