@@ -222,7 +222,7 @@ window.ceres = {};
                 //cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 1000;
                 //cfg.attrib.autostop = cfg.attrib.autocycle > 0;
 
-                setTimeout(function setSlide() { cfg.slide += 1; setTimeout(setSlide, cfg.attrib.autopause); }, cfg.attrib.autopause);
+                let auto = setTimeout(function setSlide() { cfg.slide += 1; console.log('timer: ' + cfg.slide); setTimeout(setSlide, cfg.attrib.autopause); }, cfg.attrib.autopause);
 
             }
 
