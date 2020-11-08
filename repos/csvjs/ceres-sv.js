@@ -225,7 +225,7 @@ window.ceres = {};
             function initialise()
             {
                 rsa.imageMarkup = 'Image list markup';
-                rsa.configAttributes = 'The ' + csv + ' element attributes after initialisation: ';
+                rsa.configAttributes = 'The ' + csv + ' element attributes: ';
                 rsa.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
                 rsa.progenitorError = 'Error: Unable to find the ' + csv + ' document element';
                 rsa.imageListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
