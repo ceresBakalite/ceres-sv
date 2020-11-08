@@ -292,8 +292,6 @@ window.ceres = {};
                             cfg.attrib.switch = getAutoProperties(); // enabled
 
                             Object.seal(cfg.attrib);
-
-                            rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
                         }
 
                         return exists;
