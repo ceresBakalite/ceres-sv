@@ -261,7 +261,7 @@ window.ceres = {};
                             const ar = auto.replace(rsc.constant.whitespace,'').split(',');
                             const item = ar[0].toLocaleLowerCase(locale);
 
-                            if (rsc.isString(item))
+                            if (!Number.isInteger(parseInt(item)))
                             {
                                 if (item != 'true') return true;
                                 if (ar.length > 1) ar.shift();
