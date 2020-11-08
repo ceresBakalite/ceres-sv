@@ -122,7 +122,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + index;
-                    slideContainer.className = 'view fade none';
+                    slideContainer.className = cfg.attrib.click ? 'view zoom fade none' : 'view nozoom fade none';
 
                     imageContainer.appendChild(slideContainer);
 
@@ -178,8 +178,8 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(slides[enable])) return;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = 'view fade none';
-                slides[enable].className = 'view fade pointer'
+                if (el) el.className = cfg.attrib.click ? 'view zoom fade none' : 'view nozoom fade none';
+                slides[enable].className = cfg.attrib.click ? 'view zoom fade pointer' : 'view nozoom fade pointer';
 
                 if (cfg.attrib.nub && cfg.attrib.switch) setNubStyle();
             }

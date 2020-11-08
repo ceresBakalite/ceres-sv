@@ -37,7 +37,14 @@
 .view {
     display: block;
     contain: content;
+}
+
+.zoom {
     cursor: zoom-in;
+}
+
+.nozoom {
+    cursor: default;
 }
 
 .slide {
