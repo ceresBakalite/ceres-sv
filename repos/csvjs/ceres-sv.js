@@ -173,8 +173,6 @@ window.ceres = {};
 
                 cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
 
-                console.log('cfg.slide: ' + cfg.slide);
-
                 const enable = cfg.slide-1;
 
                 if (rsc.isEmptyOrNull(slides[enable])) return;
@@ -222,7 +220,7 @@ window.ceres = {};
                 //cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 1000;
                 //cfg.attrib.autostop = cfg.attrib.autocycle > 0;
 
-                let auto = setTimeout(function run() { cfg.slide += 1; setSlide(); console.log('timer: ' + cfg.slide); setTimeout(run, cfg.attrib.autopause); }, cfg.attrib.autopause);
+                let auto = setTimeout(function run() { cfg.slide += 1; setSlide(); setTimeout(run, cfg.attrib.autopause); }, cfg.attrib.autopause);
 
             }
 
