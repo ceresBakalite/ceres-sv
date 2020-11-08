@@ -181,7 +181,7 @@ window.ceres = {};
                 if (el) el.className = 'view fade none';
                 slides[enable].className = 'view fade pointer'
 
-                if (cfg.attrib.nub) setNubStyle();
+                if (cfg.attrib.nub && cfg.attrib.switch) setNubStyle();
             }
 
             function activateNode()
