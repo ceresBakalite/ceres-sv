@@ -256,8 +256,10 @@ window.ceres = {};
                         const exists = !rsc.isEmptyOrNull(progenitor);
                         const auto = progenitor.getAttribute('auto'); // enabled if properties exist
 
-                        let disableAuto = function(locale = 'en')
+                        let getAutoProperties = function(locale = 'en')
                         {
+                            if (rsc.isEmptyOrNull(auto)) return true;
+
                             const ar = auto.replace(rsc.constant.whitespace,'').split(',');
                             const item = ar[0].toLocaleLowerCase(locale);
 
@@ -272,12 +274,6 @@ window.ceres = {};
                             cfg.attrib.autostop = cfg.attrib.autocycle > 0;
 
                             return false;
-                        }
-
-                        let getAutoProperties = function()
-                        {
-                            if (rsc.isEmptyOrNull(auto)) return true;
-                            return disableAuto();
                         }
 
                         if (exists)
