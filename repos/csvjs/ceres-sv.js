@@ -263,7 +263,7 @@ window.ceres = {};
 
                             if (rsc.isString(item))
                             {
-                                if (item == 'false') return true;
+                                if (item != 'true') return true;
                                 if (ar.length > 1) ar.shift();
                             }
 
