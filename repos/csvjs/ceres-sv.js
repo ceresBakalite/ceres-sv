@@ -60,6 +60,7 @@ window.ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
+                let onClickImage = function() { return cfg.attrib.switch ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                 let setTrackId = function(index) { return 'nub' + index; }
 
                 const getTrack = function()
@@ -125,25 +126,25 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
-                    rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: 'ceres.getImage(this);', src: getURL(), alt: getAccessibilityText() });
-                    if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                    if (cfg.attrib.sur && cfg.attrib.switch) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
+                    rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: onClickImage(), src: getURL(), alt: getAccessibilityText() });
+                    if (cfg.attrib.sub && cfg.attrib.switch) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                if (cfg.auto.arrow)
+                if (cfg.attrib.switch)
                 {
                     rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
                     rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
                 }
 
-                if (cfg.attrib.nub) getTrack();
+                if (cfg.attrib.nub && cfg.attrib.switch) getTrack();
 
                 cfg.shadow = cfg.shade.shadowRoot;
 
                 cfg.shadow.append(styleContainer);
                 cfg.shadow.append(bodyContainer);
 
-                rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
+                if (cfg.attrib.switch) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
             }
@@ -225,8 +226,6 @@ window.ceres = {};
                 cfg.cache = new Object();
                 cfg.cache.css = [];
                 cfg.cache.src = [];
-                cfg.auto = new Object();
-                cfg.auto.arrow = true;
                 cfg.slide = 1;
 
                 atr = {}; // attribute allocation
@@ -258,18 +257,18 @@ window.ceres = {};
 
                         let getAutoProperties = function(locale = 'en')
                         {
-                            const ar = cfg.attrib.auto.replace(rsc.constant.whitespace,'').split(',');
+                            const auto = progenitor.getAttribute('auto'); // enabled if properties exist
+
+                            if (rsc.isEmptyOrNull(auto)) return true;
+
+                            const ar = auto.replace(rsc.constant.whitespace,'').split(',');
 
                             if (ar[0].toLocaleLowerCase(locale) == 'false') return;
 
-                            cfg.auto.arrow = false;
-                            cfg.auto.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
-                            cfg.auto.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
-                            cfg.auto.reset = cfg.auto.cycle > 0 ? { sur: cfg.attrib.sur, sub: cfg.attrib.sub, nub: cfg.attrib.nub } : null;
+                            cfg.attrib.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
+                            cfg.attrib.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
 
-                            cfg.attrib.sur = false;
-                            cfg.attrib.sub = false;
-                            cfg.attrib.nub = false;
+                            return false;
                         }
 
                         if (exists)
@@ -284,15 +283,13 @@ window.ceres = {};
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.auto = progenitor.getAttribute('auto'); // enabled if properties exist
+                            cfg.attrib.switch = getAutoProperties(); // enabled
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
 
-                            if (!rsc.isEmptyOrNull(cfg.attrib.auto)) getAutoProperties();
 
                             Object.seal(cfg.attrib);
 
                             rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
-                            if (!rsc.isEmptyOrNull(cfg.auto)) rsc.inspect({ type: rsc.constant.notify, notification: rsc.getObjectProperties(cfg.auto), logtrace: cfg.attrib.trace });
                         }
 
                         return exists;
