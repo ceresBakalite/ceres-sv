@@ -262,6 +262,7 @@ window.ceres = {};
 
                 function stop()
                 {
+                    console.log('myVar1,2');                    
                     clearTimeout(myVar1);
                     clearTimeout(myVar2);
                 }
