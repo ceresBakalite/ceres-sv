@@ -281,8 +281,8 @@ window.ceres = {};
                                 if (ar.length > 1) ar.shift();
                             }
 
-                            cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
-                            cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 1000;
+                            cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+                            cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 10000;
                             cfg.attrib.autostop = cfg.attrib.autocycle > 0;
 
                             return false;
