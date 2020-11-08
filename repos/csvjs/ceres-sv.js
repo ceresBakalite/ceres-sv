@@ -214,11 +214,26 @@ window.ceres = {};
 
             function autoSlide()
             {
-                //cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
-                //cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 1000;
-                //cfg.attrib.autostop = cfg.attrib.autocycle > 0;
+                let autoProperties = function(count)
+                {
+                    count += 1;
 
-                let auto = setTimeout(function run() { cfg.slide += 1; setSlide(); setTimeout(run, cfg.attrib.autopause); }, cfg.attrib.autopause);
+                    console.log('count: ' + count + ' - ' + iterations);
+
+                    cfg.slide += 1;
+
+                    if (iterations > 0 && count == iterations)
+                    {
+                        console.log('clearTimeout');
+                        clearTimeout(auto);
+                    }
+
+                }
+
+                const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                let count = 0;
+
+                let auto = setTimeout(function run() { autoProperties(); setSlide(); setTimeout(run, cfg.attrib.autopause); }, cfg.attrib.autopause);
 
             }
 
