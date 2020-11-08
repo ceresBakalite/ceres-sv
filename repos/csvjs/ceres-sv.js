@@ -254,21 +254,29 @@ window.ceres = {};
                     atr.protean = function()
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
+                        const auto = progenitor.getAttribute('auto'); // enabled if properties exist
 
-                        let getAutoProperties = function(locale = 'en')
+                        let disableAuto = function(locale = 'en')
                         {
-                            const auto = progenitor.getAttribute('auto'); // enabled if properties exist
-
-                            if (rsc.isEmptyOrNull(auto)) return true;
-
                             const ar = auto.replace(rsc.constant.whitespace,'').split(',');
+                            const item = ar[0].toLocaleLowerCase(locale);
 
-                            if (ar[0].toLocaleLowerCase(locale) == 'false') return;
+                            if (rsc.isString(item))
+                            {
+                                if (item == 'false') return true;
+                                if (ar.length > 1) ar.shift();
+                            }
 
                             cfg.attrib.cycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1;
-                            cfg.attrib.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[0]) : 1000;
+                            cfg.attrib.pause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 1000;
 
                             return false;
+                        }
+
+                        let getAutoProperties = function()
+                        {
+                            if (rsc.isEmptyOrNull(auto)) return true;
+                            return disableAuto();
                         }
 
                         if (exists)
@@ -278,14 +286,13 @@ window.ceres = {};
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
+                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
                             cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
-                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.switch = getAutoProperties(); // enabled
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
-
+                            cfg.attrib.switch = getAutoProperties(); // enabled
 
                             Object.seal(cfg.attrib);
 
