@@ -265,7 +265,7 @@ window.ceres = {};
 
                             if (!Number.isInteger(parseInt(item)))
                             {
-                                if (item != 'true') return true;
+                                if (!rsc.getBooleanAttribute(item)) return true;
                                 if (ar.length > 1) ar.shift();
                             }
 
