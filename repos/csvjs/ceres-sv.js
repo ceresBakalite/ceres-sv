@@ -241,6 +241,13 @@ window.ceres = {};
                 {
                     myVar1 = setTimeout(function run()
                     {
+                        let stop = function()
+                        {
+                            console.log('myVar1,2');
+                            clearTimeout(myVar2);
+                            clearTimeout(myVar1);
+                        }
+
                         count += 1;
 
                         console.log('count: ' + count + ' - ' + iterations);
@@ -258,13 +265,6 @@ window.ceres = {};
 
                     }, cfg.attrib.autopause);
 
-                }
-
-                function stop()
-                {
-                    console.log('myVar1,2');                    
-                    clearTimeout(myVar1);
-                    clearTimeout(myVar2);
                 }
 
             }
