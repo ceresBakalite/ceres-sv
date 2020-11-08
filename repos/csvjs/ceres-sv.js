@@ -60,7 +60,7 @@ window.ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                let onClickImage = function() { return cfg.attrib.switch ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
+                let onClickImage = function() { return cfg.attrib.click ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                 let setTrackId = function(index) { return 'nub' + index; }
 
                 const getTrack = function()
@@ -126,9 +126,9 @@ window.ceres = {};
 
                     imageContainer.appendChild(slideContainer);
 
-                    if (cfg.attrib.sur && cfg.attrib.switch) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
+                    if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
                     rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: onClickImage(), src: getURL(), alt: getAccessibilityText() });
-                    if (cfg.attrib.sub && cfg.attrib.switch) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                    if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
                 if (cfg.attrib.switch)
@@ -300,7 +300,7 @@ window.ceres = {};
                             cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+                            cfg.attrib.click = !rsc.getBooleanAttribute(progenitor.getAttribute('click')); // enabled
                             cfg.attrib.switch = getAutoProperties(); // enabled
 
                             Object.seal(cfg.attrib);
