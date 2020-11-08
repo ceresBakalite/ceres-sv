@@ -268,6 +268,12 @@ window.ceres = {};
                         const exists = !rsc.isEmptyOrNull(progenitor);
                         const auto = progenitor.getAttribute('auto'); // enabled if properties exist
 
+                        let zoomImage = function()
+                        {
+                            const zoom = progenitor.getAttribute('click');
+                            return rsc.isEmptyOrNull(zoom) ? true : zoom;
+                        }
+
                         let getAutoProperties = function(locale = 'en')
                         {
                             if (rsc.isEmptyOrNull(auto)) return true;
@@ -300,9 +306,9 @@ window.ceres = {};
                             cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.click = rsc.isEmptyOrNull(progenitor.getAttribute('click')) ? true : rsc.getBooleanAttribute(progenitor.getAttribute('click')); // enabled
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
                             cfg.attrib.switch = getAutoProperties(); // enabled
+                            cfg.attrib.click = zoomImage(); // enabled
+                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
 
                             Object.seal(cfg.attrib);
                         }
