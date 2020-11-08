@@ -214,7 +214,7 @@ window.ceres = {};
 
             function autoSlide()
             {
-                let autoProperties = function(count)
+                let autoProperties = function()
                 {
                     count += 1;
 
@@ -233,7 +233,23 @@ window.ceres = {};
                 const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                 let count = 0;
 
-                let auto = setTimeout(function run() { autoProperties(); setSlide(); setTimeout(run, cfg.attrib.autopause); }, cfg.attrib.autopause);
+                let auto = setTimeout(function run() {
+
+                    count += 1;
+
+                    console.log('count: ' + count + ' - ' + iterations);
+
+                    cfg.slide += 1;
+
+                    if (iterations > 0 && count == iterations)
+                    {
+                        console.log('clearTimeout');
+                        clearTimeout(auto);
+                    }
+
+                    setSlide();
+                    setTimeout(run, cfg.attrib.autopause);
+                }, cfg.attrib.autopause);
 
             }
 
