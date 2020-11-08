@@ -173,6 +173,8 @@ window.ceres = {};
 
                 cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
 
+                console.log('cfg.slide: ' + cfg.slide);
+
                 const enable = cfg.slide-1;
 
                 if (rsc.isEmptyOrNull(slides[enable])) return;
