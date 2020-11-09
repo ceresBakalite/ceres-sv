@@ -186,13 +186,13 @@ window.ceres = {};
 
             function autoSlide()
             {
-                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : -1;
-                let iteration = 1;
+                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                let iteration = duration === 0 ? 0 : 1;
 
                 let autoCancel = function()
                 {
-                    if (!cfg.attrib.autocancel) return (cfg.slide++, false);
-                    return iteration >= duration || (cfg.slide++, iteration++, false);
+                    if (!cfg.attrib.autocancel) return (cfg.slide++, false); // never stops
+                    return iteration === duration || (cfg.slide++, iteration++, false); // stops on or after duration
                 }
 
                 let auto = setInterval(function run()
