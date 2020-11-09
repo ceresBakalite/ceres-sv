@@ -214,29 +214,32 @@ window.ceres = {};
 
             function autoSlide()
             {
-                const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-                let accumulate = 0;
+                const duration = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                let cycle = 1;
 
-                let autoProperties = function()
+                let autoCancel = function()
                 {
-                    console.log('accumulate: ' + accumulate + ' - ' + iterations);
+                    console.log('accumulate: ' + cycle + ' - ' + duration);
 
                     cfg.slide += 1;
-                    accumulate += 1;
+                    cycle += 1;
 
-                    if (iterations > 0 && accumulate == iterations)
+                    if (duration > 0 && cycle == duration) return true;
+
+                    return false;
+                }
+
+                let auto = setTimeout(function run()
+                {
+                    if (autoCancel())
                     {
                         console.log('clearTimeout');
                         clearTimeout(auto);
                         return;
                     }
 
-                }
-
-                let auto = setTimeout(function run()
-                {
-                    autoProperties();
                     setSlide();
+
                     setTimeout(run, cfg.attrib.autopause);
 
                 }, cfg.attrib.autopause);
