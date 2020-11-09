@@ -230,17 +230,13 @@ window.ceres = {};
                     return false;
                 }
 
-                let auto = setTimeout(function run()
+                let auto = setInterval(function run()
                 {
-                    if (autoCancel())
-                    {
-
-                        clearTimeout(auto);
-                    }
+                    if (autoCancel()) clearInterval(auto);
 
                     setSlide();
 
-                    let interval = setTimeout(function test() { if (!auto) clearTimeout(interval); run}, cfg.attrib.autopause);
+                    //let interval = setTimeout(run, cfg.attrib.autopause);
 
                 }, cfg.attrib.autopause);
 
