@@ -254,7 +254,7 @@ window.ceres = {};
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
-                    atr.setViewFade = function(className) { return cfg.attrib.autofade ? className : className.replace('fade ', ''); }
+                    atr.setViewFade = function(className) { return cfg.attrib.fade ? className : className.replace('fade ', ''); }
 
                     atr.shadowSlide = function(node)
                     {
@@ -301,7 +301,8 @@ window.ceres = {};
                             cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                             cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
-                            cfg.attrib.autofade = cfg.attrib.autopause > 400;
+
+                            cfg.attrib.fade = cfg.attrib.autopause > 400;
 
                             return false;
                         }
@@ -319,6 +320,7 @@ window.ceres = {};
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
                             cfg.attrib.static = getAutoProperties(); // enabled
+                            cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
                             cfg.attrib.zoom = getZoomImage(); // enabled
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
 
