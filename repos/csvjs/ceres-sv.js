@@ -306,6 +306,8 @@ window.ceres = {};
                             cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
+                            console.log('cfg.attrib.autocancel: ' + cfg.attrib.autocancel);
+
                             return false;
                         }
 
