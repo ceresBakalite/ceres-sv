@@ -214,7 +214,7 @@ window.ceres = {};
 
             function autoSlide()
             {
-                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : -1;
+                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                 let iteration = 1;
 
                 let autoCancel = function()
@@ -231,7 +231,6 @@ window.ceres = {};
 
                 let auto = setInterval(function run()
                 {
-
                     if (autoCancel()) clearInterval(auto);
                     setSlide();
 
