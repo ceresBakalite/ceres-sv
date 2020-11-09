@@ -234,13 +234,11 @@ window.ceres = {};
                 {
                     if (autoCancel())
                     {
-                        cfg.attrib.autopause = -1;
+                        clearTimeout(interval);
                         clearTimeout(auto);
                     }
 
                     setSlide();
-
-                    if (!auto) clearTimeout(interval);
 
                     let interval = setTimeout(run, cfg.attrib.autopause);
 
