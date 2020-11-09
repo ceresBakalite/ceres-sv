@@ -235,13 +235,15 @@ window.ceres = {};
 
                 auto();
 
+                var myVar1 = cfg.shadow.test;
+
                 function auto()
                 {
-                    cfg.shadow.myVar1 = setTimeout(function run()
+                    myVar1 = setTimeout(function run()
                     {
                         let stop = function()
                         {
-                            clearTimeout(cfg.shadow.myVar1);
+                            clearTimeout(myVar1);
                             console.log('myVar1,2');
                         }
 
