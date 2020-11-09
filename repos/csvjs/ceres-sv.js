@@ -240,13 +240,13 @@ window.ceres = {};
 
                 function auto()
                 {
-                    myVar1 = cfg.shadow.setTimeout(function run()
+                    myVar1 = window.setTimeout(function run()
                     {
                         let stop = function()
                         {
                             console.log('myVar1,2');
-                            cfg.shadow.clearTimeout(myVar2);
-                            cfg.shadow.clearTimeout(myVar1);
+                            window.clearTimeout(myVar2);
+                            window.clearTimeout(myVar1);
                         }
 
                         count += 1;
@@ -262,7 +262,7 @@ window.ceres = {};
                         }
 
                         setSlide();
-                        myVar2 = cfg.shadow.setTimeout(run, cfg.attrib.autopause);
+                        myVar2 = window.setTimeout(run, cfg.attrib.autopause);
 
                     }, cfg.attrib.autopause);
 
