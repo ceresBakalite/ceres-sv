@@ -287,7 +287,7 @@ window.ceres = {};
                     {
                         const disableFade = function(str)
                         {
-                            return str.replace('fade ', '');
+                            return className.replace('fade ', '');
                         }
 
                         return cfg.attrib.autofade ? classname : disableFade();
