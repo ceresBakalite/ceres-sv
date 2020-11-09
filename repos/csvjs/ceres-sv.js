@@ -215,16 +215,16 @@ window.ceres = {};
             function autoSlide()
             {
                 const duration = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-                let cycle = 0;
+                let iteration = 1;
 
                 let autoCancel = function()
                 {
-                    console.log('accumulate: ' + cycle + ' - ' + duration);
+                    console.log('iteration: ' + iteration + ' - ' + duration);
 
                     cfg.slide += 1;
-                    cycle += 1;
+                    iteration += 1;
 
-                    if (duration > 0 && cycle == duration) return true;
+                    if (duration > 0 && iteration == duration) return true;
 
                     return false;
                 }
