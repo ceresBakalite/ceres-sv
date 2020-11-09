@@ -25,13 +25,13 @@ window.ceres = {};
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
             const progenitor = this;
-            const cfg = new Object(); // configuration attributes
-            const rsa = new Object(); // notification strings
+            const cfg = {}; // configuration attributes
+            const rsa = {}; // notification strings
             const srm = new Map(); // shadowroot manager
 
-            let caching = new Object(); // http cache allocation
-            let rsc = new Object(); // generic resource allocation
-            let atr = new Object(); // attribute allocation
+            let caching = {}; // http cache allocation
+            let rsc = {}; // generic resource allocation
+            let atr = {}; // attribute allocation
 
             initialise();
 
@@ -254,8 +254,8 @@ window.ceres = {};
                 Object.freeze(rsa);
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.attrib = new Object();
-                cfg.cache = new Object();
+                cfg.attrib = {};
+                cfg.cache = {};
                 cfg.cache.css = [];
                 cfg.cache.src = [];
                 cfg.slide = 1;
@@ -438,8 +438,8 @@ window.ceres = {};
                 rsc = {}; // generic resource allocation
                 (function() {
 
-                    const protean = new Object();
-                    const resource = new Object();
+                    const protean = {};
+                    const resource = {};
                     const symbol = new Map();
 
                     initialise();
