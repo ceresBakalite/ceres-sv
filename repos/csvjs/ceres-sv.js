@@ -60,12 +60,12 @@ window.ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                let onClickImage = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
+                let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
+                let getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
                 const getTrack = function()
                 {
-                    let getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                    let setTrackId = function() { return 'nub' + index; }
+                    let getTrackId = function() { return 'nub' + index; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
@@ -76,7 +76,7 @@ window.ceres = {};
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         let index = item + 1;
-                        rsc.composeElement({ typeof: 'span', id: setTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        rsc.composeElement({ typeof: 'span', id: getTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                 }
@@ -127,14 +127,14 @@ window.ceres = {};
                     imageContainer.appendChild(slideContainer);
 
                     if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
-                    rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: onClickImage(), src: getURL(), alt: getAccessibilityText() });
+                    rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
                     if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
                 if (cfg.attrib.static)
                 {
-                    rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: 'ceres.getSlide(this)' });
-                    rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: 'ceres.getSlide(this)' });
+                    rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                    rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                 }
 
                 if (cfg.attrib.nub && cfg.attrib.static) getTrack();
@@ -144,12 +144,12 @@ window.ceres = {};
                 cfg.shadow.append(styleContainer);
                 cfg.shadow.append(bodyContainer);
 
-                if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 } );
+                if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipeEvent, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
             }
 
-            function getSwipe(swipe)
+            function getSwipeEvent(swipe)
             {
                 const offset = (swipe.action) ? swipe.right : swipe.left;
                 cfg.slide = cfg.slide += offset;
