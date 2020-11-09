@@ -235,7 +235,7 @@ window.ceres = {};
 
                 auto();
 
-                var myVar1 = cfg.shadow.test;
+                var myVar1;
 
                 function auto()
                 {
