@@ -290,7 +290,7 @@ window.ceres = {};
                             return className.replace('fade ', '');
                         }
 
-                        return cfg.attrib.autofade ? classname : disableFade();
+                        return cfg.attrib.autofade ? className : disableFade();
                     }
 
                     atr.protean = function()
