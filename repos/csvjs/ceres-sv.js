@@ -29,7 +29,7 @@ window.ceres = {};
             const rsa = {}; // notification strings
             const srm = new Map(); // shadowroot manager
 
-            //let caching = {}; // http cache allocation
+            let caching = {}; // http cache allocation
             let rsc = {}; // generic resource allocation
             let atr = {}; // attribute allocation
 
@@ -242,54 +242,6 @@ window.ceres = {};
                 if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
             }
 
-            let caching = {};
-            (function(cache) {
-
-                caching.available = ('caches' in window);
-
-                caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
-                {
-                    window.addEventListener('install', function(e)
-                    {
-                        e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
-                    });
-
-                    window.addEventListener('fetch', function(e)
-                    {
-                        e.respondWith(caches.match(e.request).then(function(response)
-                        {
-                            if (response !== undefined)
-                            {
-                                return response;
-
-                            } else {
-
-                                return fetch(e.request).then(function (response)
-                                {
-                                    let responseClone = response.clone();
-
-                                    caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-
-                                    return response;
-
-                                }).catch(function () {
-
-                                    return caches.match(urlImage);
-
-                                });
-
-                            }
-
-                        }));
-
-                    });
-
-                }
-
-            })(); // end caching
-
-            Object.freeze(caching);
-
             function initialise()
             {
                 rsa.imageMarkup = 'Image list markup';
@@ -434,6 +386,54 @@ window.ceres = {};
                 })(); // end attribute allocation
 
                 Object.freeze(atr);
+
+                //caching;
+                (function(cache) {
+
+                    caching.available = ('caches' in window);
+
+                    caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                    {
+                        window.addEventListener('install', function(e)
+                        {
+                            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
+                        });
+
+                        window.addEventListener('fetch', function(e)
+                        {
+                            e.respondWith(caches.match(e.request).then(function(response)
+                            {
+                                if (response !== undefined)
+                                {
+                                    return response;
+
+                                } else {
+
+                                    return fetch(e.request).then(function (response)
+                                    {
+                                        let responseClone = response.clone();
+
+                                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+
+                                        return response;
+
+                                    }).catch(function () {
+
+                                        return caches.match(urlImage);
+
+                                    });
+
+                                }
+
+                            }));
+
+                        });
+
+                    }
+
+                })(); // end caching
+
+                Object.freeze(caching);
 
                 rsc = {}; // generic resource allocation
                 (function() {
