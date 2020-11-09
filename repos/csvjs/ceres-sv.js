@@ -219,6 +219,8 @@ window.ceres = {};
 
                 let autoCancel = function()
                 {
+                    console.log('iteration: ' + iteration + ' - ' + duration);
+
                     if (!cfg.attrib.autostop) return false;
                     if (iteration >= duration) return true;
 
@@ -231,11 +233,11 @@ window.ceres = {};
                 let auto = setTimeout(function run()
                 {
                     if (autoCancel()) clearTimeout(auto);
-                    if (!auto) return;
+                    if (!auto) clearTimeout(interval);
 
                     setSlide();
 
-                    setTimeout(run, cfg.attrib.autopause);
+                    let interval = setTimeout(run, cfg.attrib.autopause);
 
                 }, cfg.attrib.autopause);
 
