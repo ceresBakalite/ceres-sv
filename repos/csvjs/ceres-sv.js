@@ -214,60 +214,32 @@ window.ceres = {};
 
             function autoSlide()
             {
+                const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                let accumulate = 0;
+
                 let autoProperties = function()
                 {
-                    count += 1;
-
-                    console.log('count: ' + count + ' - ' + iterations);
+                    console.log('accumulate: ' + accumulate + ' - ' + iterations);
 
                     cfg.slide += 1;
+                    accumulate += 1;
 
-                    if (iterations > 0 && count == iterations)
+                    if (iterations > 0 && accumulate == iterations)
                     {
                         console.log('clearTimeout');
                         clearTimeout(auto);
+                        return;
                     }
 
                 }
 
-                const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-                let count = 0;
-
-                var myVar1;
-                var myVar2;
-
-                auto();
-
-                function auto()
+                let auto = setTimeout(function run()
                 {
-                    myVar1 = setTimeout(function run()
-                    {
-                        let stop = function()
-                        {
-                            console.log('myVar1,2');
-                            clearTimeout(myVar2);
-                            clearTimeout(myVar1);
-                        }
+                    autoProperties();
+                    setSlide();
+                    setTimeout(run, cfg.attrib.autopause);
 
-                        count += 1;
-
-                        console.log('count: ' + count + ' - ' + iterations);
-
-                        cfg.slide += 1;
-
-                        if (iterations > 0 && count >= iterations)
-                        {
-                            console.log('clearTimeout');
-                            stop();
-                            return;
-                        }
-
-                        setSlide();
-                        myVar2 = setTimeout(run, cfg.attrib.autopause);
-
-                    }, cfg.attrib.autopause);
-
-                }
+                }, cfg.attrib.autopause);
 
             }
 
