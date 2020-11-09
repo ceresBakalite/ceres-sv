@@ -234,19 +234,17 @@ window.ceres = {};
                 let count = 0;
 
                 var myVar1;
-                var myVar2;
 
                 auto();
 
                 function auto()
                 {
-                    myVar1 = window.setTimeout(function run()
+                    myVar1 = setTimeout(function run()
                     {
                         let stop = function()
                         {
+                            clearTimeout(myVar1);
                             console.log('myVar1,2');
-                            window.clearTimeout(myVar2);
-                            window.clearTimeout(myVar1);
                         }
 
                         count += 1;
@@ -262,7 +260,6 @@ window.ceres = {};
                         }
 
                         setSlide();
-                        myVar2 = window.setTimeout(run, cfg.attrib.autopause);
 
                     }, cfg.attrib.autopause);
 
