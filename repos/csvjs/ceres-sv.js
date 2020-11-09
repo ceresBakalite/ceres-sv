@@ -189,7 +189,11 @@ window.ceres = {};
                 const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : -1;
                 let iteration = 1;
 
-                let autoCancel = function() { return cfg.attrib.autocancel ? iteration >= duration || (cfg.slide++, iteration++, false) : (cfg.slide++, false) }
+                let autoCancel = function()
+                {
+                    if (!cfg.attrib.autocancel) return (cfg.slide++, false);
+                    return iteration >= duration || (cfg.slide++, iteration++, false);
+                }
 
                 let auto = setInterval(function run()
                 {
