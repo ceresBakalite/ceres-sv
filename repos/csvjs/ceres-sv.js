@@ -221,11 +221,11 @@ window.ceres = {};
                 {
                     console.log('iteration: ' + iteration + ' - ' + duration);
 
-                    cfg.slide++;
-
                     if (!cfg.attrib.autostop) return false;
+
                     if (iteration >= duration) return true;
 
+                    cfg.slide++;
                     iteration++;
 
                     return false;
