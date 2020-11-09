@@ -319,10 +319,10 @@ window.ceres = {};
                             cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.static = getAutoProperties(); // enabled
                             cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
-                            cfg.attrib.zoom = getZoomImage(); // enabled
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+                            cfg.attrib.static = getAutoProperties(); // enabled
+                            cfg.attrib.zoom = getZoomImage(); // enabled
 
                             Object.seal(cfg.attrib);
                         }
