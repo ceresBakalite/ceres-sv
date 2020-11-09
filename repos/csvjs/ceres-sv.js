@@ -219,7 +219,7 @@ window.ceres = {};
 
                 let autoCancel = function()
                 {
-                    if (duration > 0 && iteration == duration) return true;
+                    if (duration > -1 && iteration == duration) return true;
 
                     cfg.slide++;
                     iteration++;
