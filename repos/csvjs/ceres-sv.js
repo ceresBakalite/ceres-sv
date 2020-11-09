@@ -215,15 +215,14 @@ window.ceres = {};
             function autoSlide()
             {
                 const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : -1;
-                let iteration = 2; // the first iteration has already been pushed by activateNode()
+                let iteration = 1;
 
                 let autoCancel = function()
                 {
-                    cfg.slide++;
-
                     if (!cfg.attrib.autocancel) return false;
                     if (iteration >= duration) return true;
 
+                    cfg.slide++;
                     iteration++;
 
                     return false;
