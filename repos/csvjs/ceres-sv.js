@@ -233,17 +233,15 @@ window.ceres = {};
                 const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                 let count = 0;
 
-                var myVar1;
-
                 auto();
 
                 function auto()
                 {
-                    myVar1 = setTimeout(function run()
+                    cfg.shadow.myVar1 = setTimeout(function run()
                     {
                         let stop = function()
                         {
-                            clearTimeout(myVar1);
+                            clearTimeout(cfg.shadow.myVar1);
                             console.log('myVar1,2');
                         }
 
