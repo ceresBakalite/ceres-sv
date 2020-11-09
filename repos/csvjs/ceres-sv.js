@@ -221,10 +221,10 @@ window.ceres = {};
                 {
                     console.log('iteration: ' + iteration + ' - ' + duration);
 
-                    cfg.slide += 1;
-                    ++iteration;
-
                     if (duration > 0 && iteration == duration) return true;
+
+                    cfg.slide += 1;
+                    iteration++;
 
                     return false;
                 }
