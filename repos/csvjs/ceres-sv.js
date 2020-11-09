@@ -226,6 +226,7 @@ window.ceres = {};
                     }
 
                     if (iteration >= duration) return true;
+console.log(iteration + ' - ' + duration);
 
                     cfg.slide++;
                     iteration++;
