@@ -260,7 +260,7 @@ window.ceres = {};
                 cfg.cache.src = [];
                 cfg.slide = 1;
 
-                atr = {}; // attribute allocation
+                // attribute allocation
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
@@ -387,7 +387,7 @@ window.ceres = {};
 
                 Object.freeze(atr);
 
-                //caching;
+                // caching;
                 (function(cache) {
 
                     caching.available = ('caches' in window);
@@ -435,7 +435,7 @@ window.ceres = {};
 
                 Object.freeze(caching);
 
-                rsc = {}; // generic resource allocation
+                // generic resource allocation
                 (function() {
 
                     const protean = {};
