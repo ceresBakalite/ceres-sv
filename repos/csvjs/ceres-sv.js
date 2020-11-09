@@ -255,7 +255,7 @@ window.ceres = {};
 
                         cfg.slide += 1;
 
-                        if (iterations > 0 && count == iterations)
+                        if (iterations > 0 && count >= iterations)
                         {
                             console.log('clearTimeout');
                             stop();
