@@ -259,6 +259,7 @@ window.ceres = {};
                         {
                             console.log('clearTimeout');
                             stop();
+                            return;
                         }
 
                         setSlide();
