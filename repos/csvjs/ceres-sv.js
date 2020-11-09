@@ -264,6 +264,7 @@ window.ceres = {};
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
+                    atr.getViewClassName = function(className) { return cfg.attrib.autofade ? className : className.replace('fade ', ''); }
 
                     atr.shadowSlide = function(node)
                     {
@@ -281,16 +282,6 @@ window.ceres = {};
                         cfg.slide = srm.get(node.className);
 
                         return shadow;
-                    }
-
-                    atr.getViewClassName = function(className)
-                    {
-                        const disableFade = function(str)
-                        {
-                            return className.replace('fade ', '');
-                        }
-
-                        return cfg.attrib.autofade ? className : disableFade();
                     }
 
                     atr.protean = function()
