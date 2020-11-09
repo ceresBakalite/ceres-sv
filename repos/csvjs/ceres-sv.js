@@ -221,7 +221,7 @@ window.ceres = {};
                 {
                     console.log('iteration: ' + iteration + ' - ' + duration);
 
-                    if (duration > -1 && iteration == duration) return true;
+                    if (duration > -1 && iteration >= duration) return true;
 
                     cfg.slide++;
                     iteration++;
