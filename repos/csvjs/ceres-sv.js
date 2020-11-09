@@ -214,17 +214,16 @@ window.ceres = {};
 
             function autoSlide()
             {
-                const duration = cfg.attrib.autostop && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : -1;
+                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : -1;
                 let iteration = 1;
 
                 let autoCancel = function()
                 {
-                    console.log('iteration: ' + iteration + ' - ' + duration);
+                    //cfg.slide++;
 
-                    if (!cfg.attrib.autostop) return false;
+                    if (!cfg.attrib.autocancel) return false;
                     if (iteration >= duration) return true;
 
-                    cfg.slide++;
                     iteration++;
 
                     return false;
@@ -232,11 +231,9 @@ window.ceres = {};
 
                 let auto = setInterval(function run()
                 {
+
                     if (autoCancel()) clearInterval(auto);
-
                     setSlide();
-
-                    //let interval = setTimeout(run, cfg.attrib.autopause);
 
                 }, cfg.attrib.autopause);
 
@@ -309,7 +306,7 @@ window.ceres = {};
 
                             cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                             cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
-                            cfg.attrib.autostop = cfg.attrib.autocycle > -1;
+                            cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                             return false;
                         }
