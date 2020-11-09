@@ -223,7 +223,7 @@ window.ceres = {};
 
                     if (duration > 0 && iteration == duration) return true;
 
-                    cfg.slide += 1;
+                    cfg.slide++;
                     iteration++;
 
                     return false;
