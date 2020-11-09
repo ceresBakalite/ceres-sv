@@ -239,7 +239,7 @@ window.ceres = {};
 
                 setTimeout(function() { setDisplay('block'); }, cfg.attrib.delay);
 
-                if (!cfg.attrib.static) autoSlide();
+                if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
             }
 
             function initialise()
