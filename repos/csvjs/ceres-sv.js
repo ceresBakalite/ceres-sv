@@ -232,20 +232,21 @@ window.ceres = {};
 
                 const iterations = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                 let count = 0;
-                //var myVar1;
-                //var myVar2;
+
+                var myVar1;
+                var myVar2;
 
                 auto();
 
                 function auto()
                 {
-                    this.myVar1 = setTimeout(function run()
+                    myVar1 = cfg.shadow.setTimeout(function run()
                     {
                         let stop = function()
                         {
                             console.log('myVar1,2');
-                            clearTimeout(this.myVar2);
-                            clearTimeout(this.myVar1);
+                            cfg.shadow.clearTimeout(myVar2);
+                            cfg.shadow.clearTimeout(myVar1);
                         }
 
                         count += 1;
@@ -261,7 +262,7 @@ window.ceres = {};
                         }
 
                         setSlide();
-                        this.myVar2 = setTimeout(run, cfg.attrib.autopause);
+                        myVar2 = cfg.shadow.setTimeout(run, cfg.attrib.autopause);
 
                     }, cfg.attrib.autopause);
 
