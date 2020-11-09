@@ -255,10 +255,10 @@ window.ceres = {};
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
-                    atr.setViewFade = function(type)
+                    atr.setViewFade = function(pointer)
                     {
                         let className = cfg.attrib.zoom ? 'view zoom' : 'view';
-                        return cfg.attrib.fade ? className += ' fade' : className, className += type ? ' pointer' : ' none';
+                        return cfg.attrib.fade ? className += ' fade' : className, className += pointer ? ' pointer' : ' none';
                     }
 
                     atr.shadowSlide = function(node)
