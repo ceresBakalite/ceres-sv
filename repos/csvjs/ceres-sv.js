@@ -219,12 +219,12 @@ window.ceres = {};
 
                 let autoCancel = function()
                 {
-                    if (duration > 0 && iteration == duration) clearTimeout(auto);;
+                    if (duration > 0 && iteration == duration) return true;
 
                     cfg.slide++;
                     iteration++;
 
-                    return !auto;
+                    return false;
                 }
 
                 let auto = setTimeout(function run()
@@ -236,11 +236,13 @@ window.ceres = {};
                         return;
                     }
 */
-                    if (autoCancel()) return;
+                    if (autoCancel()) clearTimeout(auto);
+
+                    if (!auto) return;
 
                     setSlide();
 
-                    setTimeout(run, cfg.attrib.autopause);
+                    //setTimeout(run, cfg.attrib.autopause);
 
                 }, cfg.attrib.autopause);
 
