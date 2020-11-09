@@ -215,7 +215,7 @@ window.ceres = {};
             function autoSlide()
             {
                 const duration = cfg.attrib.autostop && cfg.attrib.autocycle > 0 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-                let cycle = 1;
+                let cycle = 0;
 
                 let autoCancel = function()
                 {
