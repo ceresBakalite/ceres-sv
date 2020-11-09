@@ -122,7 +122,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + index;
-                    slideContainer.className = cfg.attrib.zoom ? atr.setViewFade('view zoom fade none') : atr.setViewFade('view fade none');
+                    slideContainer.className = atr.setViewFade();
 
                     imageContainer.appendChild(slideContainer);
 
@@ -178,8 +178,8 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(slides[enable])) return;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = cfg.attrib.zoom ? atr.setViewFade('view zoom fade none') : atr.setViewFade('view fade none');
-                slides[enable].className = cfg.attrib.zoom ? atr.setViewFade('view zoom fade pointer') : atr.setViewFade('view fade pointer');
+                if (el) el.className = atr.setViewFade();
+                slides[enable].className = atr.setViewFade(true);
 
                 if (cfg.attrib.nub && cfg.attrib.static) setNubStyle();
             }
@@ -254,7 +254,14 @@ window.ceres = {};
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
-                    atr.setViewFade = function(className) { return cfg.attrib.fade ? className : className.replace('fade ', ''); }
+
+                    atr.setViewFade = function(type)
+                    {
+                        let className = cfg.attrib.zoom ? 'view zoom' : 'view';
+                        className = cfg.attrib.fade ? className +=  ' fade' : className;
+
+                        return type ? className +=  ' pointer' : className +=  ' none';
+                    }
 
                     atr.shadowSlide = function(node)
                     {
