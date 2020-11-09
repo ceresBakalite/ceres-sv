@@ -232,8 +232,12 @@ window.ceres = {};
 
                 let auto = setTimeout(function run()
                 {
-                    if (autoCancel()) clearTimeout(auto);
-                    if (!auto) clearTimeout(interval);
+                    if (autoCancel())
+                    {
+                        cfg.attrib.autopause = 0;
+                        clearTimeout(auto);
+                        clearTimeout(interval);
+                    }
 
                     setSlide();
 
