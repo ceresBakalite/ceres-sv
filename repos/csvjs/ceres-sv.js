@@ -224,7 +224,7 @@ window.ceres = {};
                     cfg.slide += 1;
                     cycle += 1;
 
-                    if (duration > 0 && cycle > duration) return true;
+                    if (duration > 0 && cycle == duration) return true;
 
                     return false;
                 }
