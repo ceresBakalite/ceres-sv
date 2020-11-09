@@ -122,7 +122,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + index;
-                    slideContainer.className = cfg.attrib.zoom ? 'view zoom fade none' : 'view fade none';
+                    slideContainer.className = cfg.attrib.zoom ? atr.getViewClassName('view zoom fade none') : atr.getViewClassName('view fade none');
 
                     imageContainer.appendChild(slideContainer);
 
@@ -178,10 +178,40 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(slides[enable])) return;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = cfg.attrib.zoom ? 'view zoom fade none' : 'view fade none';
-                slides[enable].className = cfg.attrib.zoom ? 'view zoom fade pointer' : 'view fade pointer';
+                if (el) el.className = cfg.attrib.zoom ? atr.getViewClassName('view zoom fade none') : atr.getViewClassName('view fade none');
+                slides[enable].className = cfg.attrib.zoom ? atr.getViewClassName('view zoom fade pointer') : atr.getViewClassName('view fade pointer');
 
                 if (cfg.attrib.nub && cfg.attrib.static) setNubStyle();
+            }
+
+            function autoSlide()
+            {
+                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : -1;
+                let iteration = 1;
+
+                let autoCancel = function()
+                {
+                    if (!cfg.attrib.autocancel)
+                    {
+                        cfg.slide++;
+                        return false;
+                    }
+
+                    if (iteration >= duration) return true;
+
+                    cfg.slide++;
+                    iteration++;
+
+                    return false;
+                }
+
+                let auto = setInterval(function run()
+                {
+                    if (autoCancel()) clearInterval(auto);
+                    setSlide();
+
+                }, cfg.attrib.autopause);
+
             }
 
             function activateNode()
@@ -210,37 +240,6 @@ window.ceres = {};
                 setTimeout(function() { setDisplay('block'); }, cfg.attrib.delay);
 
                 if (!cfg.attrib.static) autoSlide();
-            }
-
-            function autoSlide()
-            {
-                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : -1;
-                let iteration = 1;
-
-                let autoCancel = function()
-                {
-                    if (!cfg.attrib.autocancel)
-                    {
-                        cfg.slide++;
-                        return false;
-                    }
-
-                    if (iteration >= duration) return true;
-console.log(iteration + ' - ' + duration);
-
-                    cfg.slide++;
-                    iteration++;
-
-                    return false;
-                }
-
-                let auto = setInterval(function run()
-                {
-                    if (autoCancel()) clearInterval(auto);
-                    setSlide();
-
-                }, cfg.attrib.autopause);
-
             }
 
             function initialise()
@@ -284,6 +283,16 @@ console.log(iteration + ' - ' + duration);
                         return shadow;
                     }
 
+                    atr.getViewClassName = function(className)
+                    {
+                        const disableFade = function(str)
+                        {
+                            return str.replace('fade ', '');
+                        }
+
+                        return cfg.attrib.autofade ? classname : disableFade();
+                    }
+
                     atr.protean = function()
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
@@ -311,6 +320,7 @@ console.log(iteration + ' - ' + duration);
                             cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                             cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
+                            cfg.attrib.autofade = cfg.attrib.autopause > 500;
 
                             return false;
                         }
