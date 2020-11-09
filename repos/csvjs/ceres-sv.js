@@ -219,10 +219,11 @@ window.ceres = {};
 
                 let autoCancel = function()
                 {
+                    cfg.slide++;
+
                     if (!cfg.attrib.autocancel) return false;
                     if (iteration >= duration) return true;
 
-                    cfg.slide++;
                     iteration++;
 
                     return false;
@@ -305,8 +306,6 @@ window.ceres = {};
                             cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                             cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
-
-                            console.log('cfg.attrib.autocancel: ' + cfg.attrib.autocancel);
 
                             return false;
                         }
