@@ -232,11 +232,17 @@ window.ceres = {};
 
                 let auto = setTimeout(function run()
                 {
-                    if (autoCancel()) clearTimeout(auto);
+                    if (autoCancel())
+                    {
+                        cfg.attrib.autopause = 0;
+                        clearTimeout(auto);
+                    }
 
                     setSlide();
 
-                    let interval = setTimeout(function run() { if (!auto) clearTimeout(interval); }, cfg.attrib.autopause);
+                    let interval = setTimeout(run, cfg.attrib.autopause);
+
+                    if (!auto) clearTimeout(interval);
 
                 }, cfg.attrib.autopause);
 
