@@ -61,11 +61,11 @@ window.ceres = {};
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                 let onClickImage = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
-                let setTrackId = function(index) { return 'nub' + index; }
 
                 const getTrack = function()
                 {
-                    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                    let getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                    let setTrackId = function() { return 'nub' + index; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
@@ -76,7 +76,7 @@ window.ceres = {};
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
                         let index = item + 1;
-                        rsc.composeElement({ typeof: 'span', id: setTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        rsc.composeElement({ typeof: 'span', id: setTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                 }
