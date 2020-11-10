@@ -281,7 +281,6 @@ window.ceres = {};
                     atr.protean = function()
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
-                        const auto = progenitor.getAttribute('auto'); // enabled if properties exist
 
                         let getZoomImage = function()
                         {
@@ -291,6 +290,8 @@ window.ceres = {};
 
                         let getAutoProperties = function(locale = 'en')
                         {
+                            const auto = progenitor.getAttribute('auto'); // enabled if properties exist
+
                             if (rsc.isEmptyOrNull(auto)) return true;
 
                             const ar = auto.replace(rsc.constant.whitespace,'').split(',');
