@@ -24,14 +24,13 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
-            const progenitor = this;
-            const cfg = {}; // configuration attributes
-            const rsa = {}; // notification strings
-            const srm = new Map(); // shadowroot manager
-
-            let caching = {}; // http cache allocation
-            let rsc = {}; // generic resource allocation
-            let atr = {}; // attribute allocation
+            const progenitor = this,
+            caching = {}, // http cache allocation
+            cfg = {}, // configuration attributes
+            rsa = {}, // notification strings
+            rsc = {}, // generic resource allocation
+            atr = {}, // attribute allocation
+            srm = new Map(); // shadowroot manager
 
             initialise();
 
@@ -60,7 +59,7 @@ window.ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
+                let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
                 const getTrack = function()
@@ -186,13 +185,13 @@ window.ceres = {};
 
             function autoSlide()
             {
-                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-                let iteration = duration === 0 ? 0 : 1;
+                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                let iteration = complete === 0 ? 0 : 1;
 
                 let autoCancel = function()
                 {
                     if (!cfg.attrib.autocancel) return (cfg.slide++, false); // never stops
-                    return iteration === duration || (cfg.slide++, iteration++, false); // stops on or after duration
+                    return iteration === complete || (cfg.slide++, iteration++, false); // stops when complete
                 }
 
                 let auto = setInterval(function run()
