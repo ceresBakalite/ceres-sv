@@ -64,7 +64,7 @@ window.ceres = {};
 
                 const getTrack = function()
                 {
-                    let getTrackId = function() { return 'nub' + index; }
+                    let getTrackId = function(index) { return 'nub' + index; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
@@ -74,8 +74,8 @@ window.ceres = {};
 
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
-                        var index = item + 1;
-                        rsc.composeElement({ typeof: 'span', id: getTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        let index = item + 1;
+                        rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                 }
