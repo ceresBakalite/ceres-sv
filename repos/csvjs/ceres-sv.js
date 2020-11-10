@@ -24,14 +24,13 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
-            const progenitor = this;
-            const cfg = {}; // configuration attributes
-            const rsa = {}; // notification strings
-            const srm = new Map(); // shadowroot manager
-
-            let caching = {}; // http cache allocation
-            let rsc = {}; // generic resource allocation
-            let atr = {}; // attribute allocation
+            const progenitor = this,
+            caching = {}, // http cache allocation
+            cfg = {}, // configuration attributes
+            rsa = {}, // notification strings
+            rsc = {}, // generic resource allocation
+            atr = {}, // attribute allocation
+            srm = new Map(); // shadowroot manager
 
             initialise();
 
@@ -60,7 +59,7 @@ window.ceres = {};
                 let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
                 let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
+                let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
                 const getTrack = function()
@@ -122,7 +121,7 @@ window.ceres = {};
 
                     let slideContainer = document.createElement('div');
                     slideContainer.id = 'img' + index;
-                    slideContainer.className = cfg.attrib.zoom ? atr.setViewFade('view zoom fade none') : atr.setViewFade('view fade none');
+                    slideContainer.className = atr.getViewClass();
 
                     imageContainer.appendChild(slideContainer);
 
@@ -178,21 +177,21 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(slides[enable])) return;
 
                 const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = cfg.attrib.zoom ? atr.setViewFade('view zoom fade none') : atr.setViewFade('view fade none');
-                slides[enable].className = cfg.attrib.zoom ? atr.setViewFade('view zoom fade pointer') : atr.setViewFade('view fade pointer');
+                if (el) el.className = atr.getViewClass();
+                slides[enable].className = atr.getViewClass(true);
 
                 if (cfg.attrib.nub && cfg.attrib.static) setNubStyle();
             }
 
             function autoSlide()
             {
-                const duration = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-                let iteration = duration === 0 ? 0 : 1;
+                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                let iteration = complete === 0 ? 0 : 1;
 
                 let autoCancel = function()
                 {
                     if (!cfg.attrib.autocancel) return (cfg.slide++, false); // never stops
-                    return iteration === duration || (cfg.slide++, iteration++, false); // stops on or after duration
+                    return iteration === complete || (cfg.slide++, iteration++, false); // stops when complete
                 }
 
                 let auto = setInterval(function run()
@@ -254,7 +253,12 @@ window.ceres = {};
                 (function() {
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
-                    atr.setViewFade = function(className) { return cfg.attrib.autofade ? className : className.replace('fade ', ''); }
+
+                    atr.getViewClass = function(pointer)
+                    {
+                        let className = cfg.attrib.zoom ? 'view zoom' : 'view';
+                        return cfg.attrib.fade ? className += ' fade' : className, className += pointer ? ' pointer' : ' none';
+                    }
 
                     atr.shadowSlide = function(node)
                     {
@@ -301,7 +305,8 @@ window.ceres = {};
                             cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                             cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
-                            cfg.attrib.autofade = cfg.attrib.autopause > 400;
+
+                            cfg.attrib.fade = cfg.attrib.autopause > 400;
 
                             return false;
                         }
@@ -318,9 +323,10 @@ window.ceres = {};
                             cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
+                            cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
+                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
                             cfg.attrib.static = getAutoProperties(); // enabled
                             cfg.attrib.zoom = getZoomImage(); // enabled
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
 
                             Object.seal(cfg.attrib);
                         }
