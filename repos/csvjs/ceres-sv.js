@@ -131,11 +131,11 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                const linkContainer = document.createElement('div');
-                linkContainer.id = csv + '-link';
-                linkContainer.className = cfg.attrib.static ? 'display' : 'none';
+                //const linkContainer = document.createElement('div');
+                //linkContainer.id = csv + '-link';
+                //linkContainer.className = cfg.attrib.static ? 'display' : 'none';
 
-                bodyContainer.appendChild(linkContainer);
+                //bodyContainer.appendChild(linkContainer);
 
                 rsc.composeElement({ typeof: 'a', className: 'left', parent: linkContainer, markup: '&#10094;', onClick: getClickEvent() });
                 rsc.composeElement({ typeof: 'a', className: 'right', parent: linkContainer, markup: '&#10095;', onClick: getClickEvent() });
