@@ -39,10 +39,6 @@
     contain: content;
 }
 
-.display {
-    display: block;
-}
-
 .zoom {
     cursor: zoom-in;
 }
