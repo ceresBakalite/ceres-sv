@@ -282,18 +282,18 @@ window.ceres = {};
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
-                        const getClassAttribute = function(attribute)
+                        const getAttributeByName = function(attribute)
                         {
                             return rsc.getBooleanAttribute(progenitor.getAttribute(attribute));
                         }
 
-                        const getDelayAttibute = function(milliseconds)
+                        const getDelayAttribute = function(milliseconds)
                         {
                             const delay = progenitor.getAttribute('delay');
                             return Number.isInteger(parseInt(delay)) ? parseInt(delay) : milliseconds;
                         }
 
-                        const getZoomAttibute = function()
+                        const getZoomAttribute = function()
                         {
                             const zoom = progenitor.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
@@ -301,7 +301,7 @@ window.ceres = {};
 
                         const getStaticProperties = function(locale = 'en')
                         {
-                            const auto = progenitor.getAttribute('auto'); // enabled if properties exist
+                            const auto = progenitor.getAttribute('auto'); // disabled
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
@@ -330,15 +330,15 @@ window.ceres = {};
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
-                            cfg.attrib.sur = getClassAttribute('sur'); // disabled
-                            cfg.attrib.sub = getClassAttribute('sub'); // disabled
-                            cfg.attrib.trace = getClassAttribute('trace'); // disabled
-                            cfg.attrib.cache = !getClassAttribute('cache'); // enabled
-                            cfg.attrib.fade = !getClassAttribute('fade'); // enabled;
-                            cfg.attrib.nub = !getClassAttribute('nub'); // enabled
+                            cfg.attrib.sur = getAttributeByName('sur'); // disabled
+                            cfg.attrib.sub = getAttributeByName('sub'); // disabled
+                            cfg.attrib.trace = getAttributeByName('trace'); // disabled
+                            cfg.attrib.cache = !getAttributeByName('cache'); // enabled
+                            cfg.attrib.fade = !getAttributeByName('fade'); // enabled;
+                            cfg.attrib.nub = !getAttributeByName('nub'); // enabled
                             cfg.attrib.static = getStaticProperties(); // enabled
-                            cfg.attrib.zoom = getZoomAttibute(); // enabled
-                            cfg.attrib.delay = getDelayAttibute(250);
+                            cfg.attrib.zoom = getZoomAttribute(); // enabled
+                            cfg.attrib.delay = getDelayAttribute(250);
 
                             Object.seal(cfg.attrib);
                         }
