@@ -137,8 +137,8 @@ window.ceres = {};
 
                 //bodyContainer.appendChild(linkContainer);
 
-                rsc.composeElement({ typeof: 'a', className: 'left', parent: linkContainer, markup: '&#10094;', onClick: getClickEvent() });
-                rsc.composeElement({ typeof: 'a', className: 'right', parent: linkContainer, markup: '&#10095;', onClick: getClickEvent() });
+                rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
 
                 if (cfg.attrib.nub && cfg.attrib.static) getTrack();
 
