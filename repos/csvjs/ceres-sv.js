@@ -282,13 +282,19 @@ window.ceres = {};
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
-                        let getZoomImage = function()
+                        const getOnloadDelay = function()
+                        {
+                            const delay = progenitor.getAttribute('delay');
+                            return Number.isInteger(parseInt(delay)) ? parseInt(delay) : 250;
+                        }
+
+                        const getZoomImage = function()
                         {
                             const zoom = progenitor.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        let getAutoProperties = function(locale = 'en')
+                        const getAutoProperties = function(locale = 'en')
                         {
                             const auto = progenitor.getAttribute('auto'); // enabled if properties exist
 
@@ -319,7 +325,6 @@ window.ceres = {};
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
-                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
                             cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
                             cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
@@ -328,6 +333,7 @@ window.ceres = {};
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
                             cfg.attrib.static = getAutoProperties(); // enabled
                             cfg.attrib.zoom = getZoomImage(); // enabled
+                            cfg.attrib.delay = getOnloadDelay();
 
                             Object.seal(cfg.attrib);
                         }
