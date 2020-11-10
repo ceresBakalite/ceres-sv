@@ -62,18 +62,6 @@ window.ceres = {};
                 let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
-                const getClassName = function(cssClass)
-                {
-                    let display = cfg.attrib.static ? 'view' : 'none';
-                    let className = cssClass == 'left' ? display + ' left' : display + ' right';
-
-                    let el = cfg.shadow.querySelector('div.slideview-image > ' + cssClass);
-                    el.className = className;
-
-                    console.log('className: ' + className);
-
-                }
-
                 const getTrack = function()
                 {
                     let getTrackId = function(index) { return 'nub' + index; }
@@ -143,10 +131,13 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ typeof: 'a', className: getClassName('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                rsc.composeElement({ typeof: 'a', className: getClassName('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                const linkContainer = document.createElement('div');
+                linkContainer.className = cfg.attrib.static ? 'view' : 'none';
 
-                getClassName('div.slideview-image > a.left');
+                bodyContainer.appendChild(linkContainer);
+
+                rsc.composeElement({ typeof: 'a', className: 'left', parent: linkContainer, markup: '&#10094;', onClick: getClickEvent() });
+                rsc.composeElement({ typeof: 'a', className: 'right', parent: linkContainer, markup: '&#10095;', onClick: getClickEvent() });
 
                 if (cfg.attrib.nub && cfg.attrib.static) getTrack();
 
