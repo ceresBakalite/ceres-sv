@@ -271,7 +271,8 @@ window.ceres = {};
 
                         srm.set('left', cfg.slide - 1);
                         srm.set('right', cfg.slide + 1);
-                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+                        srm.set('nub', cfg.slide);
+                        //srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
 
                         cfg.slide = srm.get(node.className);
 
