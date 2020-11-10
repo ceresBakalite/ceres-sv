@@ -269,11 +269,11 @@ window.ceres = {};
 
                         cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
-                        srm.set('left', cfg.slide--);
-                        srm.set('right', cfg.slide++);
-                        srm.set('nub', cfg.slide = Number.parseInt(node.id.replace('nub', ''), 10));
+                        srm.set('left', cfg.slide - 1);
+                        srm.set('right', cfg.slide + 1);
+                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
 
-                        srm.get(node.className);
+                        cfg.slide = srm.get(node.className);
 
                         return shadow;
                     }
