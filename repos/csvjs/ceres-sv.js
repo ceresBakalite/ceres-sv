@@ -149,7 +149,7 @@ window.ceres = {};
                     rsc.composeElement({ typeof: 'a', className: 'view right', parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                 }
 
-                getLinkClassName('div.slideview-image > a.left');
+                getClassName('div.slideview-image > a.left');
 
                 if (cfg.attrib.nub && cfg.attrib.static) getTrack();
 
