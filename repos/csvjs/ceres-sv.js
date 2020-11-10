@@ -282,10 +282,11 @@ window.ceres = {};
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
-                        const getOnloadDelay = function()
+
+                        const getOnloadDelay = function(delay)
                         {
-                            const delay = progenitor.getAttribute('delay');
-                            return Number.isInteger(parseInt(delay)) ? parseInt(delay) : 250;
+                            const attribute = progenitor.getAttribute('delay');
+                            return Number.isInteger(parseInt(attribute)) ? parseInt(attribute) : delay;
                         }
 
                         const getZoomImage = function()
@@ -333,7 +334,7 @@ window.ceres = {};
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
                             cfg.attrib.static = getAutoProperties(); // enabled
                             cfg.attrib.zoom = getZoomImage(); // enabled
-                            cfg.attrib.delay = getOnloadDelay();
+                            cfg.attrib.delay = getOnloadDelay(250);
 
                             Object.seal(cfg.attrib);
                         }
