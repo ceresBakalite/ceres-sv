@@ -143,11 +143,8 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                if (cfg.attrib.static)
-                {
-                    rsc.composeElement({ typeof: 'a', className: getClassName('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                    rsc.composeElement({ typeof: 'a', className: getClassName('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
-                }
+                rsc.composeElement({ typeof: 'a', className: getClassName('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                rsc.composeElement({ typeof: 'a', className: getClassName('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
 
                 getClassName('div.slideview-image > a.left');
 
