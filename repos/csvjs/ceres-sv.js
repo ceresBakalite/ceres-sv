@@ -67,7 +67,7 @@ window.ceres = {};
                     console.log('selector: ' + selector);
 
                     let display = cfg.attrib.static ? 'view' : 'delay';
-                    let className = select.includes('left') ? display + ' left' : display + ' right';
+                    let className = selector.includes('left') ? display + ' left' : display + ' right';
                     let el = cfg.shadow.querySelector(selector);
 
                     console.log(className);
