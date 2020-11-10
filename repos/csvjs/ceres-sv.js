@@ -45,7 +45,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (atr.nodeAttributes()) activateNode();
+            if (atr.elementAttributes()) activateElement();
 
             function fetchStylesheets(str)
             {
@@ -64,7 +64,7 @@ window.ceres = {};
 
                 const getTrack = function()
                 {
-                    let getTrackId = function() { return 'nub' + index; }
+                    let getTrackId = function(index) { return 'nub' + index; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
@@ -74,8 +74,8 @@ window.ceres = {};
 
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
-                        var index = item + 1;
-                        rsc.composeElement({ typeof: 'span', id: getTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        let index = item + 1;
+                        rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                 }
@@ -203,7 +203,7 @@ window.ceres = {};
 
             }
 
-            function activateNode()
+            function activateElement()
             {
                 let setDisplay = function(attribute)
                 {
@@ -383,7 +383,7 @@ window.ceres = {};
                         return isImageArray();
                     }
 
-                    atr.nodeAttributes = function()
+                    atr.elementAttributes = function()
                     {
                         if (!atr.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
                         if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
