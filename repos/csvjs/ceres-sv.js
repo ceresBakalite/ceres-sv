@@ -282,6 +282,11 @@ window.ceres = {};
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
+                        const getNodeProperties = function(attribute)
+                        {
+                            return rsc.getBooleanAttribute(progenitor.getAttribute(attribute));
+                        }
+
 
                         const getOnloadDelay = function(milliseconds)
                         {
@@ -326,12 +331,12 @@ window.ceres = {};
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
-                            cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
-                            cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
-                            cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
-                            cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+                            cfg.attrib.sur = getNodeProperties('sur'); // disabled
+                            cfg.attrib.sub = getNodeProperties('sub'); // disabled
+                            cfg.attrib.trace = getNodeProperties('trace'); // disabled
+                            cfg.attrib.cache = !getNodeProperties('cache'); // enabled
+                            cfg.attrib.fade = !getNodeProperties('fade'); // enabled;
+                            cfg.attrib.nub = !getNodeProperties('nub'); // enabled
                             cfg.attrib.static = getAutoProperties(); // enabled
                             cfg.attrib.zoom = getZoomImage(); // enabled
                             cfg.attrib.delay = getOnloadDelay(250);
