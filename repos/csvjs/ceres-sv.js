@@ -62,6 +62,16 @@ window.ceres = {};
                 let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
+                const getLinkClassName = function(selector)
+                {
+                    let display = cfg.attrib.static ? 'view' : 'delay';
+                    let className = select.includes('left') ? display + ' left' : display + ' right';
+                    let el = cfg.shadow.querySelector(selector);
+
+                    console.log(className);
+                    //el.className += cfg.attrib.static ? el.className +=' view' : ' delay';
+                }
+
                 const getTrack = function()
                 {
                     let getTrackId = function(index) { return 'nub' + index; }
@@ -85,6 +95,7 @@ window.ceres = {};
                 rsc.clearElement(cfg.shade);
 
                 cfg.shade.attachShadow({mode: 'open'});
+                cfg.shadow = cfg.shade.shadowRoot;
 
                 const styleContainer = document.createElement('style');
                 styleContainer.id = csv + '-style';
@@ -132,13 +143,13 @@ window.ceres = {};
 
                 if (cfg.attrib.static)
                 {
-                    rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                    rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                    rsc.composeElement({ typeof: 'a', className: 'view left', parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                    rsc.composeElement({ typeof: 'a', className: 'view right', parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                 }
 
-                if (cfg.attrib.nub && cfg.attrib.static) getTrack();
+                getLinkClassName('div.slideview-image > a.left');
 
-                cfg.shadow = cfg.shade.shadowRoot;
+                if (cfg.attrib.nub && cfg.attrib.static) getTrack();
 
                 cfg.shadow.append(styleContainer);
                 cfg.shadow.append(bodyContainer);
