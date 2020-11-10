@@ -269,8 +269,8 @@ window.ceres = {};
 
                         cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
-                        srm.set('left', cfg.slide--);
-                        srm.set('right', cfg.slide++);
+                        srm.set('left', cfg.slide - 1);
+                        srm.set('right', cfg.slide + 1);
                         srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
 
                         cfg.slide = srm.get(node.className);
