@@ -337,8 +337,8 @@ window.ceres = {};
                             cfg.attrib.fade = !getAttributeByName('fade'); // enabled;
                             cfg.attrib.nub = !getAttributeByName('nub'); // enabled
                             cfg.attrib.static = getStaticProperties(); // enabled
+                            cfg.attrib.delay = getDelayAttribute(250); // enabled
                             cfg.attrib.zoom = getZoomAttribute(); // enabled
-                            cfg.attrib.delay = getDelayAttribute(250);
 
                             Object.seal(cfg.attrib);
                         }
