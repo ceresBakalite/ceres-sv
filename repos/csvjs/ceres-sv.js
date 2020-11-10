@@ -62,16 +62,16 @@ window.ceres = {};
                 let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
-                const getClassName = function(selector)
+                const getClassName = function(cssClass)
                 {
-                    console.log('selector: ' + selector);
+                    let display = cfg.attrib.static ? 'view' : 'none';
+                    let className = cssClass == 'left' ? display + ' left' : display + ' right';
 
-                    let display = cfg.attrib.static ? 'view' : 'delay';
-                    let className = selector.includes('left') ? display + ' left' : display + ' right';
-                    let el = cfg.shadow.querySelector(selector);
+                    let el = cfg.shadow.querySelector('div.slideview-image > ' + cssClass);
+                    el.className = className;
 
-                    console.log(className);
-                    //el.className += cfg.attrib.static ? el.className +=' view' : ' delay';
+                    console.log('className: ' + className);
+
                 }
 
                 const getTrack = function()
@@ -145,8 +145,8 @@ window.ceres = {};
 
                 if (cfg.attrib.static)
                 {
-                    rsc.composeElement({ typeof: 'a', className: 'view left', parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                    rsc.composeElement({ typeof: 'a', className: 'view right', parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                    rsc.composeElement({ typeof: 'a', className: getClassName('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                    rsc.composeElement({ typeof: 'a', className: getClassName('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                 }
 
                 getClassName('div.slideview-image > a.left');
