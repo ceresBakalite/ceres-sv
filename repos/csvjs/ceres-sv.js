@@ -61,7 +61,7 @@ window.ceres = {};
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                 let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                let getLinkCss = function(link) { return cfg.attrib.static ? link + ' ' + display : link + ' ' + none; }
+                let getLinkCss = function(link) { return cfg.attrib.static ? link : link += ' none'; }
 
                 const getTrack = function()
                 {
