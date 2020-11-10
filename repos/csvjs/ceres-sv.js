@@ -61,6 +61,7 @@ window.ceres = {};
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                 let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                let getLinkCss = function(link) { return cfg.attrib.static ? link + ' ' + display : link + ' ' + none; }
 
                 const getTrack = function()
                 {
@@ -137,8 +138,8 @@ window.ceres = {};
 
                 //imageContainer.appendChild(linkContainer);
 
-                rsc.composeElement({ typeof: 'a', className: 'left', parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                rsc.composeElement({ typeof: 'a', className: 'right', parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                rsc.composeElement({ typeof: 'a', className: getLinkCss('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                rsc.composeElement({ typeof: 'a', className: getLinkCss('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
 
                 if (cfg.attrib.nub && cfg.attrib.static) getTrack();
 
