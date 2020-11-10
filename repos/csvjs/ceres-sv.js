@@ -132,7 +132,8 @@ window.ceres = {};
                 }
 
                 const linkContainer = document.createElement('div');
-                linkContainer.className = cfg.attrib.static ? 'view' : 'none';
+                linkContainer.id = csv + '-link';
+                linkContainer.className = cfg.attrib.static ? 'display' : 'none';
 
                 bodyContainer.appendChild(linkContainer);
 
