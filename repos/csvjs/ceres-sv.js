@@ -45,7 +45,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (atr.elementAttributes()) activateElement();
+            if (atr.nodeAttributes()) activateNode();
 
             function fetchStylesheets(str)
             {
@@ -64,7 +64,7 @@ window.ceres = {};
 
                 const getTrack = function()
                 {
-                    let getTrackId = function(index) { return 'nub' + index; }
+                    let getTrackId = function() { return 'nub' + index; }
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
@@ -74,8 +74,8 @@ window.ceres = {};
 
                     for (let item = 0; item < cfg.imageArray.length; item++)
                     {
-                        let index = item + 1;
-                        rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        var index = item + 1;
+                        rsc.composeElement({ typeof: 'span', id: getTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                     }
 
                 }
@@ -203,7 +203,7 @@ window.ceres = {};
 
             }
 
-            function activateElement()
+            function activateNode()
             {
                 let setDisplay = function(attribute)
                 {
@@ -254,18 +254,10 @@ window.ceres = {};
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
-                    atr.getViewClass = function(type)
+                    atr.getViewClass = function(pointer)
                     {
                         let className = cfg.attrib.zoom ? 'view zoom' : 'view';
-                        className = cfg.attrib.fade ? className += ' fade' : className;
-
-                        return type ? className += ' pointer' : className +=  ' none';
-                    }
-
-                    atr.xxxgetViewClass = function(pointer)
-                    {
-                        let className = cfg.attrib.zoom ? 'view zoom' : 'view';
-                        return cfg.attrib.fade ? className += ' fade' : className, className += (pointer ? ' pointer' : ' none');
+                        return cfg.attrib.fade ? className += ' fade' : className, className += pointer ? ' pointer' : ' none';
                     }
 
                     atr.shadowSlide = function(node)
@@ -289,28 +281,16 @@ window.ceres = {};
                     atr.protean = function()
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
+                        const auto = progenitor.getAttribute('auto'); // enabled if properties exist
 
-                        const getAttributeByName = function(attribute)
-                        {
-                            return rsc.getBooleanAttribute(progenitor.getAttribute(attribute));
-                        }
-
-                        const getDelayAttribute = function(milliseconds)
-                        {
-                            const delay = progenitor.getAttribute('delay');
-                            return Number.isInteger(parseInt(delay)) ? parseInt(delay) : milliseconds;
-                        }
-
-                        const getZoomAttribute = function()
+                        let getZoomImage = function()
                         {
                             const zoom = progenitor.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        const getStaticProperties = function(locale = 'en')
+                        let getAutoProperties = function(locale = 'en')
                         {
-                            const auto = progenitor.getAttribute('auto'); // disabled
-
                             if (rsc.isEmptyOrNull(auto)) return true;
 
                             const ar = auto.replace(rsc.constant.whitespace,'').split(',');
@@ -338,15 +318,15 @@ window.ceres = {};
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
-                            cfg.attrib.sur = getAttributeByName('sur'); // disabled
-                            cfg.attrib.sub = getAttributeByName('sub'); // disabled
-                            cfg.attrib.trace = getAttributeByName('trace'); // disabled
-                            cfg.attrib.cache = !getAttributeByName('cache'); // enabled
-                            cfg.attrib.fade = !getAttributeByName('fade'); // enabled;
-                            cfg.attrib.nub = !getAttributeByName('nub'); // enabled
-                            cfg.attrib.static = getStaticProperties(); // enabled
-                            cfg.attrib.delay = getDelayAttribute(250); // enabled
-                            cfg.attrib.zoom = getZoomAttribute(); // enabled
+                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
+                            cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
+                            cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
+                            cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
+                            cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
+                            cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
+                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+                            cfg.attrib.static = getAutoProperties(); // enabled
+                            cfg.attrib.zoom = getZoomImage(); // enabled
 
                             Object.seal(cfg.attrib);
                         }
@@ -360,23 +340,23 @@ window.ceres = {};
 
                         rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
-                        const isImageArray = function()
+                        const getImageList = function()
                         {
-                            let getImageList = function()
+                            let getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+
+                            let getContentList = function()
                             {
-                                let getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
 
-                                let getContentList = function()
-                                {
-                                    rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
-
-                                    const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                                    return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
-                                }
-
-                                return cfg.fetchsrc ? getFetchList() : getContentList();
+                                const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
+                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
                             }
 
+                            return cfg.fetchsrc ? getFetchList() : getContentList();
+                        }
+
+                        const isImageArray = function()
+                        {
                             let imageList = getImageList();
 
                             if (!rsc.isEmptyOrNull(imageList))
@@ -391,7 +371,7 @@ window.ceres = {};
                         return isImageArray();
                     }
 
-                    atr.elementAttributes = function()
+                    atr.nodeAttributes = function()
                     {
                         if (!atr.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
                         if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
