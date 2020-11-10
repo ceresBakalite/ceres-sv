@@ -282,25 +282,24 @@ window.ceres = {};
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
-                        const getNodeProperties = function(attribute)
+                        const getElementAttribute = function(attribute)
                         {
                             return rsc.getBooleanAttribute(progenitor.getAttribute(attribute));
                         }
 
-
-                        const getOnloadDelay = function(milliseconds)
+                        const getDelayAttibute = function(milliseconds)
                         {
                             const delay = progenitor.getAttribute('delay');
                             return Number.isInteger(parseInt(delay)) ? parseInt(delay) : milliseconds;
                         }
 
-                        const getZoomImage = function()
+                        const getZoomAttibute = function()
                         {
                             const zoom = progenitor.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        const getAutoProperties = function(locale = 'en')
+                        const getStaticProperties = function(locale = 'en')
                         {
                             const auto = progenitor.getAttribute('auto'); // enabled if properties exist
 
@@ -331,15 +330,15 @@ window.ceres = {};
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
-                            cfg.attrib.sur = getNodeProperties('sur'); // disabled
-                            cfg.attrib.sub = getNodeProperties('sub'); // disabled
-                            cfg.attrib.trace = getNodeProperties('trace'); // disabled
-                            cfg.attrib.cache = !getNodeProperties('cache'); // enabled
-                            cfg.attrib.fade = !getNodeProperties('fade'); // enabled;
-                            cfg.attrib.nub = !getNodeProperties('nub'); // enabled
-                            cfg.attrib.static = getAutoProperties(); // enabled
-                            cfg.attrib.zoom = getZoomImage(); // enabled
-                            cfg.attrib.delay = getOnloadDelay(250);
+                            cfg.attrib.sur = getElementAttribute('sur'); // disabled
+                            cfg.attrib.sub = getElementAttribute('sub'); // disabled
+                            cfg.attrib.trace = getElementAttribute('trace'); // disabled
+                            cfg.attrib.cache = !getElementAttribute('cache'); // enabled
+                            cfg.attrib.fade = !getElementAttribute('fade'); // enabled;
+                            cfg.attrib.nub = !getElementAttribute('nub'); // enabled
+                            cfg.attrib.static = getStaticProperties(); // enabled
+                            cfg.attrib.zoom = getZoomAttibute(); // enabled
+                            cfg.attrib.delay = getDelayAttibute(250);
 
                             Object.seal(cfg.attrib);
                         }
