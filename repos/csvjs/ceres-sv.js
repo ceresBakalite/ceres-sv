@@ -254,10 +254,18 @@ window.ceres = {};
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
-                    atr.getViewClass = function(pointer)
+                    atr.getViewClass = function(type)
                     {
                         let className = cfg.attrib.zoom ? 'view zoom' : 'view';
-                        return cfg.attrib.fade ? className += ' fade' : className, className += pointer ? ' pointer' : ' none';
+                        className = cfg.attrib.fade ? className += ' fade' : className;
+
+                        return type ? className += ' pointer' : className +=  ' none';
+                    }
+
+                    atr.xxxgetViewClass = function(pointer)
+                    {
+                        let className = cfg.attrib.zoom ? 'view zoom' : 'view';
+                        return cfg.attrib.fade ? className += ' fade' : className, className += (pointer ? ' pointer' : ' none');
                     }
 
                     atr.shadowSlide = function(node)
@@ -343,8 +351,6 @@ window.ceres = {};
                             Object.seal(cfg.attrib);
                         }
 
-                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + ' 1.' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
-
                         return exists;
                     }
 
@@ -352,7 +358,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + ' 2.' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const isImageArray = function()
                         {
