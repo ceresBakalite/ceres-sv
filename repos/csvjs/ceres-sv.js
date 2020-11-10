@@ -352,23 +352,23 @@ window.ceres = {};
 
                         rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
-                        const getImageList = function()
-                        {
-                            let getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
-
-                            let getContentList = function()
-                            {
-                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
-
-                                const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
-                            }
-
-                            return cfg.fetchsrc ? getFetchList() : getContentList();
-                        }
-
                         const isImageArray = function()
                         {
+                            let getImageList = function()
+                            {
+                                let getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+
+                                let getContentList = function()
+                                {
+                                    rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
+
+                                    const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
+                                    return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
+                                }
+
+                                return cfg.fetchsrc ? getFetchList() : getContentList();
+                            }
+
                             let imageList = getImageList();
 
                             if (!rsc.isEmptyOrNull(imageList))
