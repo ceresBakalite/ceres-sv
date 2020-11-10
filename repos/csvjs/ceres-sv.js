@@ -283,10 +283,10 @@ window.ceres = {};
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
 
-                        const getOnloadDelay = function(delay)
+                        const getOnloadDelay = function(msec)
                         {
-                            const attribute = progenitor.getAttribute('delay');
-                            return Number.isInteger(parseInt(attribute)) ? parseInt(attribute) : delay;
+                            const delay = progenitor.getAttribute('delay');
+                            return Number.isInteger(parseInt(delay)) ? parseInt(delay) : msec;
                         }
 
                         const getZoomImage = function()
