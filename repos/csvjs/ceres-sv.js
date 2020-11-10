@@ -62,8 +62,10 @@ window.ceres = {};
                 let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
-                const getLinkClassName = function(selector)
+                const getClassName = function(selector)
                 {
+                    console.log('selector: ' + selector);
+
                     let display = cfg.attrib.static ? 'view' : 'delay';
                     let className = select.includes('left') ? display + ' left' : display + ' right';
                     let el = cfg.shadow.querySelector(selector);
