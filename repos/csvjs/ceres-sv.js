@@ -134,7 +134,7 @@ window.ceres = {};
                 const linkContainer = document.createElement('div');
                 linkContainer.className = cfg.attrib.static ? 'view' : 'none';
 
-                imageContainer.appendChild(linkContainer);
+                bodyContainer.appendChild(linkContainer);
 
                 rsc.composeElement({ typeof: 'a', className: 'left', parent: linkContainer, markup: '&#10094;', onClick: getClickEvent() });
                 rsc.composeElement({ typeof: 'a', className: 'right', parent: linkContainer, markup: '&#10095;', onClick: getClickEvent() });
