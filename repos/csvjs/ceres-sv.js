@@ -343,7 +343,7 @@ window.ceres = {};
                             Object.seal(cfg.attrib);
                         }
 
-                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + ' 1.' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         return exists;
                     }
@@ -352,7 +352,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + ' 2.' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const isImageArray = function()
                         {
