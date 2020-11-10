@@ -194,9 +194,9 @@ window.ceres = {};
                     return iteration === complete || (cfg.slide++, iteration++, false); // stops when complete
                 }
 
-                let auto = setInterval(function run()
+                let auto = cfg.shadow.setInterval(function run()
                 {
-                    if (autoCancel()) clearInterval(auto);
+                    if (autoCancel()) cfg.shadow.clearInterval(auto);
                     setSlide();
 
                 }, cfg.attrib.autopause);
