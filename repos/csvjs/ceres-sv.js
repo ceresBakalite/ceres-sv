@@ -261,10 +261,10 @@ window.ceres = {};
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
-                    atr.getViewClass = function(pointer)
+                    atr.getViewClass = function(enabled)
                     {
-                        let className = cfg.attrib.zoom ? 'view zoom' : 'view';
-                        return cfg.attrib.fade ? className += ' fade' : className, className += pointer ? ' pointer' : ' none';
+                        let className = enabled && cfg.attrib.zoom ? 'view zoom pointer' : 'view none';
+                        return cfg.attrib.fade ? className += ' fade' : className;
                     }
 
                     atr.shadowSlide = function(node)
@@ -332,8 +332,8 @@ window.ceres = {};
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
                             cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+                            cfg.attrib.zoom = getZoomImage(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
-                            cfg.attrib.zoom = getZoomImage(); // enabled
 
                             Object.seal(cfg.attrib);
                         }
