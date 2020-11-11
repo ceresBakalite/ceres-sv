@@ -56,9 +56,6 @@ window.ceres = {};
                 cfg.shade.attachShadow({mode: 'open'});
                 cfg.shadow = cfg.shade.shadowRoot;
 
-                cfg.styleContainer = document.createElement('style');
-                cfg.bodyContainer = document.createElement('div');
-
                 atr.getStyleContainer();
                 atr.getBodyContainer();
                 atr.getImageContainer();
@@ -187,6 +184,7 @@ window.ceres = {};
 
                     atr.getStyleContainer = function()
                     {
+                        cfg.styleContainer = document.createElement('style');
                         cfg.styleContainer.id = csv + '-style';
                         cfg.styleContainer.className = 'slideview-style';
 
@@ -205,6 +203,7 @@ window.ceres = {};
 
                     atr.getBodyContainer = function()
                     {
+                        cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
                         cfg.bodyContainer.className = 'slideview-body';
                         cfg.bodyContainer.style.display  = 'none';
