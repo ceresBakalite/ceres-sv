@@ -76,20 +76,20 @@ window.ceres = {};
 
                 cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
 
-                const view = cfg.slide-1;
+                const next = cfg.slide-1;
 
-                if (rsc.isEmptyOrNull(slides[view])) return;
+                if (rsc.isEmptyOrNull(slides[next])) return;
 
                 const active = shadow.querySelector('div.slideview-image > div.active');
                 if (active) active.className = active.className.replace('active', 'none');
 
-                slides[view].className = slides[view].className.replace('none', 'active');
+                slides[next].className = slides[next].className.replace('none', 'active');
 
                 const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
                 if (enabled) enabled.className = 'nub';
 
                 const nub = shadow.querySelectorAll('div.slideview-nub > span.nub');
-                nub[view].className = 'nub enabled';
+                nub[next].className = 'nub enabled';
             }
 
             function autoSlide()
@@ -162,7 +162,7 @@ window.ceres = {};
                 (function() {
 
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                    const getActiveState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
+                    const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
 
                     atr.fetchStylesheets = function(str)
                     {
@@ -211,13 +211,13 @@ window.ceres = {};
                             return className += ' none';
                         }
 
-                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-                        const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
-                        const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
-                        const getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                        const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
-                        const imageContainer = document.createElement('div');
-                        const slideContainerClassName = getClassName();
+                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; },
+                        getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; },
+                        getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; },
+                        getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; },
+                        getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; },
+                        imageContainer = document.createElement('div'),
+                        slideContainerClassName = getClassName();
 
                         imageContainer.id = csv + '-image';
                         imageContainer.className = 'slideview-image';
@@ -246,8 +246,8 @@ window.ceres = {};
 
                     atr.getTrackAttributes = function()
                     {
-                        const getTrackId = function(index) { return 'nub' + index; }
-                        const trackContainer = document.createElement('div');
+                        const getTrackId = function(index) { return 'nub' + index; },
+                        trackContainer = document.createElement('div');
 
                         trackContainer.id = csv + '-nub';
                         trackContainer.className = getActiveState('slideview-nub');
@@ -272,10 +272,10 @@ window.ceres = {};
 
                     atr.getSlideShadow = function(node)
                     {
-                        const root = node.getRootNode().host;
-                        const shade = document.querySelector('#' + root.id);
-                        const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.active');
+                        const root = node.getRootNode().host,
+                        shade = document.querySelector('#' + root.id),
+                        shadow = shade.shadowRoot,
+                        slide = shadow.querySelector('div.slideview-image > div.active');
 
                         cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
@@ -291,7 +291,6 @@ window.ceres = {};
                     atr.precursor = function()
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
-                        const auto = progenitor.getAttribute('auto');
 
                         const getZoomState = function()
                         {
@@ -301,6 +300,8 @@ window.ceres = {};
 
                         const getAutoProperties = function(locale = 'en')
                         {
+                            const auto = progenitor.getAttribute('auto');
+
                             if (rsc.isEmptyOrNull(auto)) return true;
 
                             const ar = auto.replace(rsc.constant.whitespace,'').split(',');
@@ -354,7 +355,7 @@ window.ceres = {};
                         {
                             const getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
 
-                            let getContentList = function()
+                            const getContentList = function()
                             {
                                 rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
 
@@ -444,9 +445,9 @@ window.ceres = {};
                 // generic resource allocation
                 (function() {
 
-                    const protean = {};
-                    const resource = {};
-                    const symbol = new Map();
+                    const protean = {},
+                    resource = {},
+                    symbol = new Map();
 
                     initialise();
 
@@ -538,26 +539,26 @@ window.ceres = {};
                     {
                         if (rsc.isEmptyOrNull(diagnostic)) return rsc.inspect({ type: protean.error, notification: resource.inspect });
 
+                        const errorHandler = function(error)
+                        {
+                            if (rsc.isEmptyOrNull(error)) return rsc.inspect({ type: protean.error, notification: resource.errorHandler });
+
+                            const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                            console.error(err);
+
+                            if (error.alert) alert(err);
+
+                            return false;
+                        }
+
                         const lookup = {
                             [protean.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                            [protean.error]: function() { rsc.errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                            [protean.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
                             [protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + protean.newline + protean.newline + diagnostic.reference); },
-                            [protean.default]: function() { rsc.errorHandler({ notification: resource.errordefault, alert: diagnostic.logtrace } ); }
+                            [protean.default]: function() { errorHandler({ notification: resource.errordefault, alert: diagnostic.logtrace } ); }
                         };
 
                         return lookup[diagnostic.type]() || lookup[protean.default];
-                    }
-
-                    rsc.errorHandler = function(error)
-                    {
-                        if (rsc.isEmptyOrNull(error)) return rsc.inspect({ type: protean.error, notification: resource.errorHandler });
-
-                        const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-                        console.error(err);
-
-                        if (error.alert) alert(err);
-
-                        return false;
                     }
 
                     rsc.getObjectProperties = function(object, str = '')
