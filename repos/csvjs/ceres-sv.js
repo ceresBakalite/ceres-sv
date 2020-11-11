@@ -62,24 +62,7 @@ window.ceres = {};
                 let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
                 let getDisplayState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
-
-                const getTrack = function()
-                {
-                    let getTrackId = function(index) { return 'nub' + index; }
-
-                    const trackContainer = document.createElement('div');
-                    trackContainer.id = csv + '-nub';
-                    trackContainer.className = getDisplayState('slideview-nub');
-
-                    bodyContainer.appendChild(trackContainer);
-
-                    for (let item = 0; item < cfg.imageArray.length; item++)
-                    {
-                        let index = item + 1;
-                        rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
-                    }
-
-                }
+                let getTrackId = function(index) { return 'nub' + index; }
 
                 cfg.shade = document.querySelector('#' + progenitor.id);
 
@@ -135,7 +118,17 @@ window.ceres = {};
                 rsc.composeElement({ typeof: 'a', className: getDisplayState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
                 rsc.composeElement({ typeof: 'a', className: getDisplayState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
 
-                getTrack();
+                const trackContainer = document.createElement('div');
+                trackContainer.id = csv + '-nub';
+                trackContainer.className = getDisplayState('slideview-nub');
+
+                bodyContainer.appendChild(trackContainer);
+
+                for (let item = 0; item < cfg.imageArray.length; item++)
+                {
+                    let index = item + 1;
+                    rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                }
 
                 cfg.shadow.append(styleContainer);
                 cfg.shadow.append(bodyContainer);
