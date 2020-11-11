@@ -61,7 +61,7 @@ window.ceres = {};
                 let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                 let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
                 let getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                let getLinkStyle = function(link) { return cfg.attrib.static ? link : link += ' none'; }
+                let getDisplayState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
 
                 const getTrack = function()
                 {
@@ -69,7 +69,7 @@ window.ceres = {};
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
-                    trackContainer.className = getLinkStyle('slideview-nub');
+                    trackContainer.className = getDisplayState('slideview-nub');
 
                     bodyContainer.appendChild(trackContainer);
 
@@ -132,10 +132,10 @@ window.ceres = {};
                     if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
 
-                rsc.composeElement({ typeof: 'a', className: getLinkStyle('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                rsc.composeElement({ typeof: 'a', className: getLinkStyle('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                rsc.composeElement({ typeof: 'a', className: getDisplayState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                rsc.composeElement({ typeof: 'a', className: getDisplayState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
 
-                if (cfg.attrib.nub && cfg.attrib.static) getTrack();
+                getTrack();
 
                 cfg.shadow.append(styleContainer);
                 cfg.shadow.append(bodyContainer);
