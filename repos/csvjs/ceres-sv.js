@@ -134,7 +134,7 @@ window.ceres = {};
 
                 //const linkContainer = document.createElement('span');
                 //linkContainer.id = csv + '-link';
-                //linkContainer.className = cfg.attrib.static ? 'display' : 'none';
+                //linkContainer.className = cfg.attrib.static ? 'view' : 'none';
 
                 //imageContainer.appendChild(linkContainer);
 
