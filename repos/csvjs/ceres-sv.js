@@ -172,8 +172,6 @@ window.ceres = {};
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const getActiveState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
 
-                    atr.precursor = cfg.fetchsrc || cfg.noscript;
-
                     atr.fetchStylesheets = function(str)
                     {
                         const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
@@ -384,8 +382,10 @@ window.ceres = {};
 
                     atr.nodeAttributes = function()
                     {
+                        const precursor = cfg.fetchsrc || cfg.noscript;
+
                         if (!atr.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
-                        if (!atr.precursor) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
+                        if (!precursor) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
                     }
