@@ -201,7 +201,7 @@ window.ceres = {};
 
                     atr.getImageAttributes = function()
                     {
-                        let getSlideContainerClassName = function()
+                        let getClassName = function()
                         {
                             let className = 'view';
 
@@ -217,7 +217,7 @@ window.ceres = {};
                         const getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                         const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                         const imageContainer = document.createElement('div');
-                        const slideClassName = getSlideContainerClassName();
+                        const slideContainerClassName = getClassName();
 
                         imageContainer.id = csv + '-image';
                         imageContainer.className = 'slideview-image';
@@ -231,7 +231,7 @@ window.ceres = {};
 
                             let slideContainer = document.createElement('div');
                             slideContainer.id = 'img' + index;
-                            slideContainer.className = slideClassName;
+                            slideContainer.className = slideContainerClassName;
 
                             imageContainer.appendChild(slideContainer);
 
