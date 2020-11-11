@@ -153,8 +153,8 @@ window.ceres = {};
                 rsa.imageMarkup = 'Image list markup';
                 rsa.configAttributes = 'The ' + csv + ' element attributes: ';
                 rsa.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
-                rsa.progenitorError = 'Error: Unable to find the ' + csv + ' document element';
-                rsa.imageListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+                rsa.precursorError = 'Error: Unable to find the ' + csv + ' document element';
+                rsa.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
                 rsa.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
 
                 Object.freeze(rsa);
@@ -382,8 +382,8 @@ window.ceres = {};
 
                     atr.nodeAttributes = function()
                     {
-                        if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
-                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
+                        if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.precursorError, logtrace: cfg.attrib.trace });
+                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: rsa.fetchListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
                     }
