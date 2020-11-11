@@ -55,15 +55,6 @@ window.ceres = {};
 
             function getSlideView()
             {
-                let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-                let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
-                let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
-                let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
-                let getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                let getDisplayState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
-                let getTrackId = function(index) { return 'nub' + index; }
-
                 cfg.shade = document.querySelector('#' + progenitor.id);
 
                 rsc.clearElement(cfg.shade);
@@ -71,64 +62,10 @@ window.ceres = {};
                 cfg.shade.attachShadow({mode: 'open'});
                 cfg.shadow = cfg.shade.shadowRoot;
 
-                const styleContainer = document.createElement('style');
-                styleContainer.id = csv + '-style';
-                styleContainer.className = 'slideview-style';
-
-                cfg.shade.appendChild(styleContainer);
-
-                cfg.cache.css.forEach(item =>
-                {
-                    fetch(item).then(response => response.text()).then(str =>
-                    {
-                        styleContainer.insertAdjacentHTML('beforeend', str)
-                    });
-
-                });
-
-                const bodyContainer = document.createElement('div');
-                bodyContainer.id = csv + '-body';
-                bodyContainer.className = 'slideview-body';
-                bodyContainer.style.display  = 'none';
-
-                cfg.shade.appendChild(bodyContainer);
-
-                const imageContainer = document.createElement('div');
-                imageContainer.id = csv + '-image';
-                imageContainer.className = 'slideview-image';
-
-                bodyContainer.appendChild(imageContainer);
-
-                for (let item = 0; item < cfg.imageArray.length; item++)
-                {
-                    var arrayItem = cfg.imageArray[item].split(',');
-                    let index = item + 1;
-
-                    let slideContainer = document.createElement('div');
-                    slideContainer.id = 'img' + index;
-                    slideContainer.className = atr.getViewClass();
-
-                    imageContainer.appendChild(slideContainer);
-
-                    if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
-                    rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
-                    if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
-                }
-
-                rsc.composeElement({ typeof: 'a', className: getDisplayState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                rsc.composeElement({ typeof: 'a', className: getDisplayState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
-
-                const trackContainer = document.createElement('div');
-                trackContainer.id = csv + '-nub';
-                trackContainer.className = getDisplayState('slideview-nub');
-
-                bodyContainer.appendChild(trackContainer);
-
-                for (let item = 0; item < cfg.imageArray.length; item++)
-                {
-                    let index = item + 1;
-                    rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
-                }
+                atr.getStyleContainer();
+                atr.getBodyContainer();
+                atr.getImageContainer();
+                atr.getTrackContainer();
 
                 cfg.shadow.append(styleContainer);
                 cfg.shadow.append(bodyContainer);
@@ -241,6 +178,90 @@ window.ceres = {};
 
                 // attribute allocation
                 (function() {
+
+                    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                    const getDisplayState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
+
+                    atr.getStyleContainer = function()
+                    {
+                        const styleContainer = document.createElement('style');
+                        styleContainer.id = csv + '-style';
+                        styleContainer.className = 'slideview-style';
+
+                        cfg.shade.appendChild(styleContainer);
+
+                        cfg.cache.css.forEach(item =>
+                        {
+                            fetch(item).then(response => response.text()).then(str =>
+                            {
+                                styleContainer.insertAdjacentHTML('beforeend', str)
+                            });
+
+                        });
+
+                    }
+
+                    atr.getBodyContainer = function()
+                    {
+                        const bodyContainer = document.createElement('div');
+                        bodyContainer.id = csv + '-body';
+                        bodyContainer.className = 'slideview-body';
+                        bodyContainer.style.display  = 'none';
+
+                        cfg.shade.appendChild(bodyContainer);
+                    }
+
+                    atr.getImageContainer = function()
+                    {
+                        let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
+                        let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
+                        let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
+                        let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
+                        let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
+
+                        const imageContainer = document.createElement('div');
+                        imageContainer.id = csv + '-image';
+                        imageContainer.className = 'slideview-image';
+
+                        bodyContainer.appendChild(imageContainer);
+
+                        for (let item = 0; item < cfg.imageArray.length; item++)
+                        {
+                            var arrayItem = cfg.imageArray[item].split(',');
+                            let index = item + 1;
+
+                            let slideContainer = document.createElement('div');
+                            slideContainer.id = 'img' + index;
+                            slideContainer.className = atr.getViewClass();
+
+                            imageContainer.appendChild(slideContainer);
+
+                            if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
+                            rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
+                            if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                        }
+
+                        rsc.composeElement({ typeof: 'a', className: getDisplayState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                        rsc.composeElement({ typeof: 'a', className: getDisplayState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                    }
+
+                    atr.getTrackContainer = function()
+                    {
+                        let getTrackId = function(index) { return 'nub' + index; }
+
+                        const trackContainer = document.createElement('div');
+                        trackContainer.id = csv + '-nub';
+                        trackContainer.className = getDisplayState('slideview-nub');
+
+                        bodyContainer.appendChild(trackContainer);
+
+                        for (let item = 0; item < cfg.imageArray.length; item++)
+                        {
+                            let index = item + 1;
+                            rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                        }
+
+                    }
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
