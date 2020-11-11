@@ -93,7 +93,7 @@ window.ceres = {};
                 if (pointer) pointer.className = pointer.className.replace('pointer', 'none');
 
                 //slides[view].className = atr.getViewClass(true);
-                slides[view].className = slides[view].className.replace('none', 'pointer');;
+                slides[view].className = slides[view].className.replace('none', 'pointer');
 
                 const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
                 if (enabled) enabled.className = 'nub';
@@ -263,11 +263,14 @@ window.ceres = {};
 
                     atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
-                    atr.getViewClass = function(enabled)
+                    atr.getViewClass = function()
                     {
-                        let className = cfg.attrib.zoom ? 'view zoom' : 'view';
-                        className = cfg.attrib.fade ? className += ' fade' : className;
-                        return enabled ? className += ' pointer' : className += ' none';
+                        let className = 'view';
+
+                        if (cfg.attrib.zoom) className += ' zoom';
+                        if (cfg.attrib.fade) className += ' fade';
+
+                        return className += ' none';
                     }
 
                     atr.shadowSlide = function(node)
