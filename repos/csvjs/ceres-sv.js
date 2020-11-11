@@ -209,8 +209,8 @@ window.ceres = {};
                         const imageContainer = document.createElement('div');
                         const className = getSlideContainerClassName();
 
-                        const e = "view" + (cfg.attrib.zoom && (" zoom"), cfg.attrib.fade && (" fade"), " none");
-                        console.log('e: ' + e);
+                        let s="view"+(i.attrib.zoom && ' zoom',i.attrib.fade && ' fade'," none");
+                        console.log('s: ' + s);
 
                         function getSlideContainerClassName()
                         {
