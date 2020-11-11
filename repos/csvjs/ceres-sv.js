@@ -40,18 +40,12 @@ window.ceres = {};
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
-            if (cfg.fetchcss) await ( await fetchStylesheets(css) );
+            if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
             if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
             if (atr.nodeAttributes()) activateNode();
-
-            function fetchStylesheets(str)
-            {
-                const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
-                cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
-            }
 
             function getSlideView()
             {
@@ -181,6 +175,12 @@ window.ceres = {};
 
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const getDisplayState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
+
+                    atr.fetchStylesheets = function(str)
+                    {
+                        const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
+                        cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
+                    }
 
                     atr.getStyleContainer = function()
                     {
