@@ -287,7 +287,7 @@ window.ceres = {};
                         return shadow;
                     }
 
-                    atr.protean = function()
+                    atr.precursor = function()
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
                         const auto = progenitor.getAttribute('auto');
@@ -382,10 +382,8 @@ window.ceres = {};
 
                     atr.nodeAttributes = function()
                     {
-                        const precursor = cfg.fetchsrc || cfg.noscript;
-
-                        if (!atr.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
-                        if (!precursor) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
+                        if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
+                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
                     }
