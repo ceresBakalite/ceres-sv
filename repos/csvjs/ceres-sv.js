@@ -89,9 +89,11 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(slides[view])) return;
 
                 const pointer = shadow.querySelector('div.slideview-image > div.pointer');
-                if (pointer) pointer.className = atr.getViewClass();
+                //if (pointer) pointer.className = atr.getViewClass();
+                if (pointer) pointer.className = pointer.className.replace('pointer', 'none');
 
-                slides[view].className = atr.getViewClass(true);
+                //slides[view].className = atr.getViewClass(true);
+                slides[view].className = slides[view].className.replace('none', 'pointer');;
 
                 const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
                 if (enabled) enabled.className = 'nub';
