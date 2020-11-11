@@ -196,7 +196,7 @@ window.ceres = {};
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
-                                styleContainer.insertAdjacentHTML('beforeend', str)
+                                cfg.styleContainer.insertAdjacentHTML('beforeend', str)
                             });
 
                         });
@@ -224,7 +224,7 @@ window.ceres = {};
                         imageContainer.id = csv + '-image';
                         imageContainer.className = 'slideview-image';
 
-                        bodyContainer.appendChild(imageContainer);
+                        cfg.bodyContainer.appendChild(imageContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
@@ -254,7 +254,7 @@ window.ceres = {};
                         trackContainer.id = csv + '-nub';
                         trackContainer.className = getDisplayState('slideview-nub');
 
-                        bodyContainer.appendChild(trackContainer);
+                        cfg.bodyContainer.appendChild(trackContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
