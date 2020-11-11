@@ -69,7 +69,7 @@ window.ceres = {};
 
                     const trackContainer = document.createElement('div');
                     trackContainer.id = csv + '-nub';
-                    trackContainer.className = 'slideview-nub';
+                    trackContainer.className = getLinkStyle('slideview-nub');
 
                     bodyContainer.appendChild(trackContainer);
 
@@ -131,12 +131,6 @@ window.ceres = {};
                     rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
                     if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                 }
-
-                //const linkContainer = document.createElement('span');
-                //linkContainer.id = csv + '-link';
-                //linkContainer.className = cfg.attrib.static ? 'view' : 'none';
-
-                //imageContainer.appendChild(linkContainer);
 
                 rsc.composeElement({ typeof: 'a', className: getLinkStyle('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
                 rsc.composeElement({ typeof: 'a', className: getLinkStyle('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
