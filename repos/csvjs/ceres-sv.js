@@ -263,8 +263,9 @@ window.ceres = {};
 
                     atr.getViewClass = function(enabled)
                     {
-                        let className = enabled && cfg.attrib.zoom ? 'view zoom pointer' : 'view none';
-                        return cfg.attrib.fade ? className += ' fade' : className;
+                        let className = cfg.attrib.zoom ? 'view zoom' : 'view';
+                        className = cfg.attrib.fade ? className += ' fade' : className;
+                        return enabled ? className += ' pointer' : className += ' none';
                     }
 
                     atr.shadowSlide = function(node)
