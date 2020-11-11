@@ -56,13 +56,16 @@ window.ceres = {};
                 cfg.shade.attachShadow({mode: 'open'});
                 cfg.shadow = cfg.shade.shadowRoot;
 
+                cfg.styleContainer = document.createElement('style');
+                cfg.bodyContainer = document.createElement('div');
+
                 atr.getStyleContainer();
                 atr.getBodyContainer();
                 atr.getImageContainer();
                 atr.getTrackContainer();
 
-                cfg.shadow.append(styleContainer);
-                cfg.shadow.append(bodyContainer);
+                cfg.shadow.append(cfg.styleContainer);
+                cfg.shadow.append(cfg.bodyContainer);
 
                 if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipeEvent, { left: -1, right: 1 } );
 
@@ -184,11 +187,10 @@ window.ceres = {};
 
                     atr.getStyleContainer = function()
                     {
-                        const styleContainer = document.createElement('style');
-                        styleContainer.id = csv + '-style';
-                        styleContainer.className = 'slideview-style';
+                        cfg.styleContainer.id = csv + '-style';
+                        cfg.styleContainer.className = 'slideview-style';
 
-                        cfg.shade.appendChild(styleContainer);
+                        cfg.shade.appendChild(cfg.styleContainer);
 
                         cfg.cache.css.forEach(item =>
                         {
@@ -203,12 +205,11 @@ window.ceres = {};
 
                     atr.getBodyContainer = function()
                     {
-                        const bodyContainer = document.createElement('div');
-                        bodyContainer.id = csv + '-body';
-                        bodyContainer.className = 'slideview-body';
-                        bodyContainer.style.display  = 'none';
+                        cfg.bodyContainer.id = csv + '-body';
+                        cfg.bodyContainer.className = 'slideview-body';
+                        cfg.bodyContainer.style.display  = 'none';
 
-                        cfg.shade.appendChild(bodyContainer);
+                        cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
                     atr.getImageContainer = function()
