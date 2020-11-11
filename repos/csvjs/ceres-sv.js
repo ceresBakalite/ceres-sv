@@ -82,26 +82,22 @@ window.ceres = {};
                 if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.shadowSlide(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
-                const setNubStyle = function()
-                {
-                    const el = shadow.querySelector('div.slideview-nub > span.enabled');
-                    if (el) el.className = 'nub';
-
-                    const elements = shadow.querySelectorAll('div.slideview-nub > span.nub');
-                    elements[enable].className = 'nub enabled';
-                }
-
                 cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
 
-                const enable = cfg.slide-1;
+                const slide = cfg.slide-1;
 
-                if (rsc.isEmptyOrNull(slides[enable])) return;
+                if (rsc.isEmptyOrNull(slides[slide])) return;
 
-                const el = shadow.querySelector('div.slideview-image > div.pointer');
-                if (el) el.className = atr.getViewClass();
-                slides[enable].className = atr.getViewClass(true);
+                const pointer = shadow.querySelector('div.slideview-image > div.pointer');
+                if (pointer) pointer.className = atr.getViewClass();
 
-                if (cfg.attrib.nub && cfg.attrib.static) setNubStyle();
+                slides[slide].className = atr.getViewClass(true);
+
+                const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
+                if (enabled) enabled.className = 'nub';
+
+                const nub = shadow.querySelectorAll('div.slideview-nub > span.nub');
+                nub[slide].className = 'nub enabled';
             }
 
             function autoSlide()
