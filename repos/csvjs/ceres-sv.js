@@ -201,7 +201,7 @@ window.ceres = {};
 
                     atr.getImageAttributes = function()
                     {
-                        let getClassName = function()
+                        const getClassName = function()
                         {
                             let className = 'view';
 
