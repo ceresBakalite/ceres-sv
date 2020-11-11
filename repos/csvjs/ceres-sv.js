@@ -88,10 +88,10 @@ window.ceres = {};
 
                 if (rsc.isEmptyOrNull(slides[view])) return;
 
-                const pointer = shadow.querySelector('div.slideview-image > div.pointer');
-                if (pointer) pointer.className = pointer.className.replace('pointer', 'none');
+                const selected = shadow.querySelector('div.slideview-image > div.selected');
+                if (selected) selected.className = selected.className.replace('selected', 'none');
 
-                slides[view].className = slides[view].className.replace('none', 'pointer');
+                slides[view].className = slides[view].className.replace('none', 'selected');
 
                 const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
                 if (enabled) enabled.className = 'nub';
@@ -276,7 +276,7 @@ window.ceres = {};
                         const root = node.getRootNode().host;
                         const shade = document.querySelector('#' + root.id);
                         const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.pointer');
+                        const slide = shadow.querySelector('div.slideview-image > div.selected');
 
                         cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
