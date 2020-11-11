@@ -385,7 +385,7 @@ window.ceres = {};
                     atr.nodeAttributes = function()
                     {
                         if (!atr.protean()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.progenitorError, logtrace: cfg.attrib.trace });
-                        if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
+                        if (!atr.precursor) return rsc.inspect({ type: rsc.constant.error, notification: rsa.imageListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
                     }
