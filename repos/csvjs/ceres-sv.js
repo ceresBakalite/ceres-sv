@@ -56,10 +56,10 @@ window.ceres = {};
                 cfg.shade.attachShadow({mode: 'open'});
                 cfg.shadow = cfg.shade.shadowRoot;
 
-                atr.getStyleContainer();
-                atr.getBodyContainer();
-                atr.getImageContainer();
-                atr.getTrackContainer();
+                atr.getStyleAttributes();
+                atr.getBodyAttributes();
+                atr.getImageAttributes();
+                atr.getTrackAttributes();
 
                 cfg.shadow.append(cfg.styleContainer);
                 cfg.shadow.append(cfg.bodyContainer);
@@ -170,7 +170,9 @@ window.ceres = {};
                 (function() {
 
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                    const getDisplayState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
+                    const getActiveState = function(link) { return !cfg.attrib.nub || cfg.attrib.static ? link : link += ' none'; }
+
+                    atr.precursor = cfg.fetchsrc || cfg.noscript;
 
                     atr.fetchStylesheets = function(str)
                     {
@@ -178,7 +180,7 @@ window.ceres = {};
                         cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
                     }
 
-                    atr.getStyleContainer = function()
+                    atr.getStyleAttributes = function()
                     {
                         cfg.styleContainer = document.createElement('style');
                         cfg.styleContainer.id = csv + '-style';
@@ -197,7 +199,7 @@ window.ceres = {};
 
                     }
 
-                    atr.getBodyContainer = function()
+                    atr.getBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
@@ -207,15 +209,15 @@ window.ceres = {};
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
-                    atr.getImageContainer = function()
+                    atr.getImageAttributes = function()
                     {
-                        let getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-                        let getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
-                        let getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
-                        let getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                        let getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript: void(0);'; }
-
+                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
+                        const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
+                        const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
+                        const getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
+                        const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                         const imageContainer = document.createElement('div');
+
                         imageContainer.id = csv + '-image';
                         imageContainer.className = 'slideview-image';
 
@@ -237,17 +239,17 @@ window.ceres = {};
                             if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                         }
 
-                        rsc.composeElement({ typeof: 'a', className: getDisplayState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                        rsc.composeElement({ typeof: 'a', className: getDisplayState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                        rsc.composeElement({ typeof: 'a', className: getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                        rsc.composeElement({ typeof: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                     }
 
-                    atr.getTrackContainer = function()
+                    atr.getTrackAttributes = function()
                     {
-                        let getTrackId = function(index) { return 'nub' + index; }
-
+                        const getTrackId = function(index) { return 'nub' + index; }
                         const trackContainer = document.createElement('div');
+
                         trackContainer.id = csv + '-nub';
-                        trackContainer.className = getDisplayState('slideview-nub');
+                        trackContainer.className = getActiveState('slideview-nub');
 
                         cfg.bodyContainer.appendChild(trackContainer);
 
@@ -258,8 +260,6 @@ window.ceres = {};
                         }
 
                     }
-
-                    atr.precursor = function() { return cfg.fetchsrc || cfg.noscript; }
 
                     atr.getViewClass = function()
                     {
@@ -292,15 +292,15 @@ window.ceres = {};
                     atr.protean = function()
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
-                        const auto = progenitor.getAttribute('auto'); // enabled if properties exist
+                        const auto = progenitor.getAttribute('auto');
 
-                        let getZoomImage = function()
+                        const getZoomState = function()
                         {
                             const zoom = progenitor.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        let getAutoProperties = function(locale = 'en')
+                        const getAutoProperties = function(locale = 'en')
                         {
                             if (rsc.isEmptyOrNull(auto)) return true;
 
@@ -336,7 +336,7 @@ window.ceres = {};
                             cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
                             cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
                             cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
-                            cfg.attrib.zoom = getZoomImage(); // enabled;
+                            cfg.attrib.zoom = getZoomState(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
 
                             Object.seal(cfg.attrib);
@@ -353,7 +353,7 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            let getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+                            const getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
 
                             let getContentList = function()
                             {
@@ -368,7 +368,7 @@ window.ceres = {};
 
                         const isImageArray = function()
                         {
-                            let imageList = getImageList();
+                            const imageList = getImageList();
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
