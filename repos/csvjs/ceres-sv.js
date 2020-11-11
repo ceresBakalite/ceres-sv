@@ -84,20 +84,20 @@ window.ceres = {};
 
                 cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
 
-                const slide = cfg.slide-1;
+                const view = cfg.slide-1;
 
-                if (rsc.isEmptyOrNull(slides[slide])) return;
+                if (rsc.isEmptyOrNull(slides[view])) return;
 
                 const pointer = shadow.querySelector('div.slideview-image > div.pointer');
                 if (pointer) pointer.className = atr.getViewClass();
 
-                slides[slide].className = atr.getViewClass(true);
+                slides[view].className = atr.getViewClass(true);
 
                 const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
                 if (enabled) enabled.className = 'nub';
 
                 const nub = shadow.querySelectorAll('div.slideview-nub > span.nub');
-                nub[slide].className = 'nub enabled';
+                nub[view].className = 'nub enabled';
             }
 
             function autoSlide()
