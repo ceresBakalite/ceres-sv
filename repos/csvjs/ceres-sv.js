@@ -201,18 +201,7 @@ window.ceres = {};
 
                     atr.getImageAttributes = function()
                     {
-                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
-                        const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
-                        const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
-                        const getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
-                        const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
-                        const imageContainer = document.createElement('div');
-                        const className = getSlideContainerClassName();
-
-                        let s="view"+(!cfg.attrib.zoom || ' zoom', !cfg.attrib.fade || ' fade'," none")();
-                        console.log('xxxs: ' + s);
-
-                        function getSlideContainerClassName()
+                        let getSlideContainerClassName = function()
                         {
                             let className = 'view';
 
@@ -221,6 +210,14 @@ window.ceres = {};
 
                             return className += ' none';
                         }
+
+                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; }
+                        const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; }
+                        const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; }
+                        const getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
+                        const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
+                        const imageContainer = document.createElement('div');
+                        const className = getSlideContainerClassName();
 
                         imageContainer.id = csv + '-image';
                         imageContainer.className = 'slideview-image';
