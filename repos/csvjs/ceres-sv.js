@@ -64,22 +64,14 @@ window.ceres = {};
                 cfg.shadow.append(cfg.styleContainer);
                 cfg.shadow.append(cfg.bodyContainer);
 
-                if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipeEvent, { left: -1, right: 1 } );
+                if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
 
                 rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
             }
 
-            function getSwipeEvent(swipe)
-            {
-                const offset = (swipe.action) ? swipe.right : swipe.left;
-                cfg.slide = cfg.slide += offset;
-
-                setSlide(null, cfg.shadow);
-            }
-
             function setSlide(node, shadow)
             {
-                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.shadowSlide(node);
+                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.getSlideShadow(node);
                 const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                 cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
@@ -215,6 +207,17 @@ window.ceres = {};
                         const getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                         const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                         const imageContainer = document.createElement('div');
+                        const slideClassName = getClassName();
+
+                        function getClassName()
+                        {
+                            let className = 'view';
+
+                            if (cfg.attrib.zoom) className += ' zoom';
+                            if (cfg.attrib.fade) className += ' fade';
+
+                            return className += ' none';
+                        }
 
                         imageContainer.id = csv + '-image';
                         imageContainer.className = 'slideview-image';
@@ -228,7 +231,7 @@ window.ceres = {};
 
                             let slideContainer = document.createElement('div');
                             slideContainer.id = 'img' + index;
-                            slideContainer.className = atr.getViewClass();
+                            slideContainer.className = slideClassName;
 
                             imageContainer.appendChild(slideContainer);
 
@@ -259,17 +262,15 @@ window.ceres = {};
 
                     }
 
-                    atr.getViewClass = function()
+                    atr.getSwipeEvent = function(swipe)
                     {
-                        let className = 'view';
+                        const offset = (swipe.action) ? swipe.right : swipe.left;
+                        cfg.slide = cfg.slide += offset;
 
-                        if (cfg.attrib.zoom) className += ' zoom';
-                        if (cfg.attrib.fade) className += ' fade';
-
-                        return className += ' none';
+                        setSlide(null, cfg.shadow);
                     }
 
-                    atr.shadowSlide = function(node)
+                    atr.getSlideShadow = function(node)
                     {
                         const root = node.getRootNode().host;
                         const shade = document.querySelector('#' + root.id);
