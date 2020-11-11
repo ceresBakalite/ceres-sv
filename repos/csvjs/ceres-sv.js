@@ -207,16 +207,16 @@ window.ceres = {};
                         const getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; }
                         const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                         const imageContainer = document.createElement('div');
-                        const slideClassName = getClassName();
+                        const className = getClassName();
 
                         function getClassName()
                         {
-                            let className = 'view';
+                            let slideContainerClassName = 'view';
 
-                            if (cfg.attrib.zoom) className += ' zoom';
-                            if (cfg.attrib.fade) className += ' fade';
+                            if (cfg.attrib.zoom) slideContainerClassName += ' zoom';
+                            if (cfg.attrib.fade) slideContainerClassName += ' fade';
 
-                            return className += ' none';
+                            return slideContainerClassName += ' none';
                         }
 
                         imageContainer.id = csv + '-image';
@@ -231,7 +231,7 @@ window.ceres = {};
 
                             let slideContainer = document.createElement('div');
                             slideContainer.id = 'img' + index;
-                            slideContainer.className = slideClassName;
+                            slideContainer.className = className;
 
                             imageContainer.appendChild(slideContainer);
 
