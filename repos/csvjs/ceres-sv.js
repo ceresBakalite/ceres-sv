@@ -88,15 +88,13 @@ window.ceres = {};
 
                 if (rsc.isEmptyOrNull(slides[view])) return;
 
-                const pointer = shadow.querySelector('div.slideview-image > div.pointer');
-                //if (pointer) pointer.className = atr.getViewClass();
-                if (pointer) pointer.className = pointer.className.replace('pointer', 'none');
+                const imgEnabled = shadow.querySelector('div.slideview-image > div.enabled');
+                if (imgEnabled) imgEnabled.className = imgEnabled.className.replace('enabled', 'none');
 
-                //slides[view].className = atr.getViewClass(true);
-                slides[view].className = slides[view].className.replace('none', 'pointer');
+                slides[view].className = slides[view].className.replace('none', 'enabled');
 
-                const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
-                if (enabled) enabled.className = 'nub';
+                const nubEnabled = shadow.querySelector('div.slideview-nub > span.enabled');
+                if (nubEnabled) nubEnabled.className = 'nub';
 
                 const nub = shadow.querySelectorAll('div.slideview-nub > span.nub');
                 nub[view].className = 'nub enabled';
@@ -278,7 +276,7 @@ window.ceres = {};
                         const root = node.getRootNode().host;
                         const shade = document.querySelector('#' + root.id);
                         const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.pointer');
+                        const slide = shadow.querySelector('div.slideview-image > div.enabled');
 
                         cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
