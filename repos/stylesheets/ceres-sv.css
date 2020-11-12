@@ -11,7 +11,7 @@
 */
 
 .slideview-body {
-    user-select: none;
+    display: none;
 }
 
 .slideview-body :first-child {
@@ -34,6 +34,10 @@
     cursor: default;
  }
 
+.view {
+    display: block;
+}
+
 .zoom {
     cursor: zoom-in;
 }
@@ -42,14 +46,13 @@
     user-select: none;
 }
 
-.none {
-    /* opacity: 0; */
+.delay {
+    opacity: 0;
     display: none;
 }
 
-.view {
-    /* opacity: 1; */
-    display: block;
+.none {
+    display: none;
 }
 
 .left, .right {
