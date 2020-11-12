@@ -47,7 +47,7 @@ window.ceres = {};
 
             if (atr.nodeAttributes()) activateNode();
 
-            function getSlideView()
+            function setView()
             {
                 cfg.shade = document.querySelector('#' + progenitor.id);
 
@@ -92,7 +92,7 @@ window.ceres = {};
                 nub[next].className = 'nub enabled';
             }
 
-            function autoSlide()
+            function setAuto()
             {
                 const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                 let iteration = complete === 0 ? 0 : 1;
@@ -114,7 +114,7 @@ window.ceres = {};
 
             function activateNode()
             {
-                getSlideView();
+                setView();
                 setSlide();
 
                 if (cfg.attrib.cache) atr.setCache();
@@ -122,7 +122,7 @@ window.ceres = {};
                 setTimeout(function()
                 {
                     cfg.bodyContainer.style.display = 'block';
-                    if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay);
+                    if (!cfg.attrib.static) setTimeout(function() { setAuto(); }, cfg.attrib.delay);
 
                 }, cfg.attrib.delay);
 
