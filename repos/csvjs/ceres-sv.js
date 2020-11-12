@@ -114,28 +114,12 @@ window.ceres = {};
 
             function activateNode()
             {
-                let setDisplay = function(attribute)
-                {
-                    const node = cfg.shadow.querySelector('div.slideview-body');
-                    node.style.display = attribute;
-                }
-
-                let setCache = function()
-                {
-                    if (!caching.available) return;
-
-                    const cacheName = csv + '-cache';
-                    cfg.cache.script = [ rsc.getImportMetaUrl() ];
-
-                    caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
-                }
-
                 getSlideView();
                 setSlide();
 
-                if (cfg.attrib.cache) setCache();
+                if (cfg.attrib.cache) atr.setCache();
 
-                setTimeout(function() { setDisplay('block'); }, cfg.attrib.delay);
+                setTimeout(function() { rsc.setDisplayStyle('div.slideview-body', 'block'); }, cfg.attrib.delay);
 
                 if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
             }
@@ -260,6 +244,16 @@ window.ceres = {};
                             rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                         }
 
+                    }
+
+                    atr.setCache = function()
+                    {
+                        if (!caching.available) return;
+
+                        const cacheName = csv + '-cache';
+                        cfg.cache.script = [ rsc.getImportMetaUrl() ];
+
+                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
                     }
 
                     atr.getSwipeEvent = function(swipe)
@@ -533,6 +527,12 @@ window.ceres = {};
                         let ar = [...new Map (obj.map(node => [key(node), node])).values()];
 
                         return sort ? ar.sort((a, b) => a - b) : ar;
+                    }
+
+                    rsc.setDisplayStyle = function(selector, attribute)
+                    {
+                        const node = cfg.shadow.querySelector(selector);
+                        node.style.display = attribute;
                     }
 
                     rsc.inspect = function(diagnostic)
