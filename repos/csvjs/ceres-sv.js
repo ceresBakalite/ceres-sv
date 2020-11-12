@@ -112,11 +112,8 @@ window.ceres = {};
 
             }
 
-            function activate()
+            function setStart()
             {
-                setView();
-                setSlide();
-
                 if (cfg.attrib.cache) atr.setCache();
 
                 setTimeout(function()
@@ -126,6 +123,13 @@ window.ceres = {};
 
                 }, cfg.attrib.delay);
 
+            }
+
+            function activate()
+            {
+                setView();
+                setSlide();
+                setStart();
             }
 
             function initialise()
