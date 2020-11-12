@@ -113,10 +113,6 @@ window.ceres = {};
 
             function activateNode()
             {
-                if ('caches' in window) return;
-
-                initialiseCache();
-
                 let setDisplay = function(attribute)
                 {
                     const node = cfg.shadow.querySelector('div.slideview-body');
@@ -125,9 +121,9 @@ window.ceres = {};
 
                 let setCache = function()
                 {
-                    const caching = {}; // http cache allocation
+                    if (!('caches' in window)) return;
 
-                    if (!caching.available) return;
+                    initialiseCache();
 
                     const cacheName = csv + '-cache';
                     cfg.cache.script = [ rsc.getImportMetaUrl() ];
