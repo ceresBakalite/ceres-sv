@@ -34,17 +34,6 @@
     cursor: default;
  }
 
-.delay {
-     opacity: 0;
-     display: none;
-     contain: content;
- }
-
-.none {
-     display: none;
-     contain: content;
- }
-
 .view {
     display: block;
     contain: content;
@@ -56,6 +45,17 @@
 
 .slide {
     user-select: none;
+}
+
+.delay {
+    opacity: 0;
+    display: none;
+    contain: content;
+}
+
+.none {
+    display: none;
+    contain: content;
 }
 
 .left, .right {
