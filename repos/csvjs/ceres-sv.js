@@ -252,14 +252,14 @@ window.ceres = {};
 
                         const caching = {}; // http cache allocation
 
-                        initialise();
+                        setCaching();
 
                         const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
 
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
 
-                        function initialise()
+                        function setCaching()
                         {
                             // caching;
                             (function(cache) {
@@ -273,36 +273,25 @@ window.ceres = {};
 
                                 caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
                                 {
-                                    window.addEventListener('install', function(e)
-                                    {
-                                        e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
-                                    });
+                                    window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
 
                                     window.addEventListener('fetch', function(e)
                                     {
                                         e.respondWith(caches.match(e.request).then(function(response)
                                         {
-                                            if (response !== undefined)
+                                            if (response !== undefined) return response;
+
+                                            return fetch(e.request).then(function (response)
                                             {
+                                                let responseClone = response.clone();
+                                                caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
                                                 return response;
 
-                                            } else {
+                                            }).catch(function () {
 
-                                                return fetch(e.request).then(function (response)
-                                                {
-                                                    let responseClone = response.clone();
+                                                return caches.match(urlImage);
 
-                                                    caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-
-                                                    return response;
-
-                                                }).catch(function () {
-
-                                                    return caches.match(urlImage);
-
-                                                });
-
-                                            }
+                                            });
 
                                         }));
 
