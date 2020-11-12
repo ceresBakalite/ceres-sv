@@ -123,6 +123,7 @@ window.ceres = {};
                 {
                     if (!('caches' in window)) return;
 
+                    const caching = {}; // http cache allocation
                     initialiseCache();
 
                     const cacheName = csv + '-cache';
@@ -145,7 +146,6 @@ window.ceres = {};
             {
                 console.log('here now');
                 // caching;
-                const caching = {}; // http cache allocation
                 (function(cache) {
 
                     caching.available = ('caches' in window);
