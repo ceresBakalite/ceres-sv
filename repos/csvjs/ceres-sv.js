@@ -113,8 +113,6 @@ window.ceres = {};
 
             function activateNode()
             {
-                caching = {} // http cache allocation
-
                 let setDisplay = function(attribute)
                 {
                     const node = cfg.shadow.querySelector('div.slideview-body');
@@ -396,6 +394,7 @@ window.ceres = {};
                 Object.freeze(atr);
 
                 // caching;
+                const caching = {}; // http cache allocation
                 (function(cache) {
 
                     caching.available = ('caches' in window);
