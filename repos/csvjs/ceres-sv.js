@@ -183,7 +183,8 @@ window.ceres = {};
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
                         cfg.bodyContainer.className = 'slideview-body none';
-                        //cfg.bodyContainer.style.display  = 'none';
+                        cfg.bodyContainer.style.display  = 'none';
+                        cfg.bodyContainer.style.opacity  = '1';
 
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
