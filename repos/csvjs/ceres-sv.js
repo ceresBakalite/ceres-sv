@@ -119,7 +119,12 @@ window.ceres = {};
                 if (cfg.attrib.cache) atr.setCache();
                 if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
 
-                setTimeout(function() { rsc.setDisplayStyle('div.slideview-body', 'block'); }, cfg.attrib.delay);
+                setTimeout(function()
+                {
+                    cfg.bodyContainer.className = 'slideview-body view';
+                    rsc.setDisplayStyle('div.slideview-body', 'block');
+
+                }, cfg.attrib.delay);
             }
 
             function initialise()
