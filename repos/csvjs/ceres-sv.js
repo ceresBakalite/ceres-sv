@@ -45,7 +45,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (atr.properties()) activate();
+            if (atr.getProperties()) activate();
 
             function setShadow()
             {
@@ -289,7 +289,7 @@ window.ceres = {};
                         return shadow;
                     }
 
-                    atr.precursor = function()
+                    atr.getPrecursor = function()
                     {
                         const exists = !rsc.isEmptyOrNull(progenitor);
 
@@ -383,9 +383,9 @@ window.ceres = {};
                         return isImageArray();
                     }
 
-                    atr.properties = function()
+                    atr.getProperties = function()
                     {
-                        if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.precursorError, logtrace: cfg.attrib.trace });
+                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.precursorError, logtrace: cfg.attrib.trace });
                         if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: rsa.fetchListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
