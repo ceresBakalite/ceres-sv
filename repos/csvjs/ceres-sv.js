@@ -212,13 +212,14 @@ window.ceres = {};
 
                         cfg.bodyContainer.appendChild(imageContainer);
 
+                        let index = 0;
+
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
                             var arrayItem = cfg.imageArray[item].split(',');
-                            let index = item + 1;
 
                             let slideContainer = document.createElement('div');
-                            slideContainer.id = 'img' + index;
+                            slideContainer.id = 'img' + (index = item + 1);
                             slideContainer.className = slideContainerClassName;
 
                             imageContainer.appendChild(slideContainer);
