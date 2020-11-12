@@ -143,10 +143,8 @@ window.ceres = {};
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                     const cacheAvailable = ('caches' in window);
-                    const rsa = {}; // notification strings
+                    const rsa = resourceAllocation(); // notification strings
                     const srm = new Map(); // shadowroot manager
-
-                    initialise();
 
                     atr.fetchStylesheets = function(str)
                     {
@@ -444,16 +442,18 @@ window.ceres = {};
                         return atr.attributesExist();
                     }
 
-                    function initialise()
+                    function resourceAllocation()
                     {
-                        rsa.imageMarkup = 'Image list markup';
-                        rsa.configAttributes = 'The ' + csv + ' element attributes: ';
-                        rsa.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
-                        rsa.precursorError = 'Error: Unable to find the ' + csv + ' document element';
-                        rsa.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
-                        rsa.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
+                        const resource = {};
 
-                        Object.freeze(rsa);
+                        resource.imageMarkup = 'Image list markup';
+                        resource.configAttributes = 'The ' + csv + ' element attributes: ';
+                        resource.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+                        resource.precursorError = 'Error: Unable to find the ' + csv + ' document element';
+                        resource.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+                        resource.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
+
+                        return resource;
                     }
 
                 })(); // end attribute allocation
