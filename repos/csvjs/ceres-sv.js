@@ -144,6 +144,7 @@ window.ceres = {};
             function initialiseCache()
             {
                 // caching;
+                const caching = {}; // http cache allocation
                 (function(cache) {
 
                     caching.available = ('caches' in window);
