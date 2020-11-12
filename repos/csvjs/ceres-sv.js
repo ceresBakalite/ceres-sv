@@ -242,7 +242,7 @@ window.ceres = {};
 
                         cfg.bodyContainer.appendChild(trackContainer);
 
-                        let index = 0;
+                        let index = 1;
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
