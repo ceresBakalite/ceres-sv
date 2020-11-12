@@ -410,10 +410,10 @@ window.ceres = {};
 
                     caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
                     {
+                        console.log('namedCache: ' + namedCache + ' - ' + urlArray);
+
                         window.addEventListener('install', function(e)
                         {
-                            console.log('namedCache: ' + namedCache + ' - ' + urlArray);
-
                             e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
                         });
 
