@@ -143,10 +143,8 @@ window.ceres = {};
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                     const cacheAvailable = ('caches' in window);
-                    const note = {}; // notification strings
+                    const note = setNotifications(); // notification strings
                     const srm = new Map(); // shadowroot manager
-
-                    setNotifications();
 
                     atr.fetchStylesheets = function(str)
                     {
