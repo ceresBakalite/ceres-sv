@@ -219,7 +219,6 @@ window.ceres = {};
                             var arrayItem = cfg.imageArray[item].split(',');
 
                             let slideContainer = document.createElement('div');
-                            //slideContainer.id = 'img' + (index = item + 1);
                             slideContainer.id = 'img' + (++index);
                             slideContainer.className = slideContainerClassName;
 
@@ -244,11 +243,11 @@ window.ceres = {};
 
                         cfg.bodyContainer.appendChild(trackContainer);
 
-                        let index = 1;
+                        let index = 0;
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ typeof: 'span', id: getTrackId(index++), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                            rsc.composeElement({ typeof: 'span', id: getTrackId(++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                         }
 
                     }
