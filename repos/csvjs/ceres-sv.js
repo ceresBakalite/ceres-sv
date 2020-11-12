@@ -47,7 +47,7 @@ window.ceres = {};
 
             if (atr.properties()) activate();
 
-            function setView()
+            function setHTML()
             {
                 cfg.shade = document.querySelector('#' + progenitor.id);
 
@@ -112,7 +112,7 @@ window.ceres = {};
 
             }
 
-            function setAction()
+            function setView()
             {
                 setTimeout(function()
                 {
@@ -126,9 +126,9 @@ window.ceres = {};
 
             function activate()
             {
-                setView();
+                setHTML();
                 setSlide();
-                setAction();
+                setView();
             }
 
             function initialise()
