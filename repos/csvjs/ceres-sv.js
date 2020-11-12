@@ -56,10 +56,10 @@ window.ceres = {};
                 cfg.shade.attachShadow({mode: 'open'});
                 cfg.shadow = cfg.shade.shadowRoot;
 
-                atr.getStyleAttributes();
-                atr.getBodyAttributes();
-                atr.getImageAttributes();
-                atr.getTrackAttributes();
+                atr.setStyleAttributes();
+                atr.setBodyAttributes();
+                atr.setImageAttributes();
+                atr.setTrackAttributes();
 
                 cfg.shadow.append(cfg.styleContainer);
                 cfg.shadow.append(cfg.bodyContainer);
@@ -161,7 +161,7 @@ window.ceres = {};
                         cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
                     }
 
-                    atr.getStyleAttributes = function()
+                    atr.setStyleAttributes = function()
                     {
                         cfg.styleContainer = document.createElement('style');
                         cfg.styleContainer.id = csv + '-style';
@@ -180,7 +180,7 @@ window.ceres = {};
 
                     }
 
-                    atr.getBodyAttributes = function()
+                    atr.setBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
@@ -190,7 +190,7 @@ window.ceres = {};
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
-                    atr.getImageAttributes = function()
+                    atr.setImageAttributes = function()
                     {
                         const getClassName = function()
                         {
@@ -236,7 +236,7 @@ window.ceres = {};
                         rsc.composeElement({ typeof: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                     }
 
-                    atr.getTrackAttributes = function()
+                    atr.setTrackAttributes = function()
                     {
                         const trackContainer = document.createElement('div');
                         trackContainer.id = csv + '-nub';
