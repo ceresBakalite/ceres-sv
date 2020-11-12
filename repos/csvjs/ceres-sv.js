@@ -219,7 +219,7 @@ window.ceres = {};
                             var arrayItem = cfg.imageArray[item].split(',');
 
                             let slideContainer = document.createElement('div');
-                            slideContainer.id = 'img' + (index = item + 1);
+                            slideContainer.id = 'img' + (index++);
                             slideContainer.className = slideContainerClassName;
 
                             imageContainer.appendChild(slideContainer);
