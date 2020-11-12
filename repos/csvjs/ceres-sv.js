@@ -121,14 +121,11 @@ window.ceres = {};
 
                 setTimeout(function()
                 {
-
                     cfg.bodyContainer.style.display = 'block';
-                    //rsc.setDisplayStyle('div.slideview-body', 'block');
-                    //cfg.bodyContainer.className = 'slideview-body view';
+                    if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay);
 
                 }, cfg.attrib.delay);
 
-                if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
             }
 
             function initialise()
@@ -474,12 +471,6 @@ window.ceres = {};
                         if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
                         precursor.appendChild(node);
-                    }
-
-                    rsc.setDisplayStyle = function(selector, attribute)
-                    {
-                        const node = cfg.shadow.querySelector(selector);
-                        node.style.display = attribute;
                     }
 
                     rsc.setHorizontalSwipe = function(touch, callback, args)
