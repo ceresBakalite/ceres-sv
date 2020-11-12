@@ -114,8 +114,6 @@ window.ceres = {};
 
             function setStart()
             {
-                if (cfg.attrib.cache) atr.setCache();
-
                 setTimeout(function()
                 {
                     cfg.bodyContainer.style.display = 'block';
@@ -123,6 +121,7 @@ window.ceres = {};
 
                 }, cfg.attrib.delay);
 
+                if (cfg.attrib.cache) atr.setCache();
             }
 
             function activate()
