@@ -469,6 +469,12 @@ window.ceres = {};
                         precursor.appendChild(node);
                     }
 
+                    rsc.setDisplayStyle = function(selector, attribute)
+                    {
+                        const node = cfg.shadow.querySelector(selector);
+                        node.style.display = attribute;
+                    }
+
                     rsc.setHorizontalSwipe = function(touch, callback, args)
                     {
                         if (!touch.act) touch.act = 80;
@@ -527,12 +533,6 @@ window.ceres = {};
                         let ar = [...new Map (obj.map(node => [key(node), node])).values()];
 
                         return sort ? ar.sort((a, b) => a - b) : ar;
-                    }
-
-                    rsc.setDisplayStyle = function(selector, attribute)
-                    {
-                        const node = cfg.shadow.querySelector(selector);
-                        node.style.display = attribute;
                     }
 
                     rsc.inspect = function(diagnostic)
