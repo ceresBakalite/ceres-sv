@@ -121,8 +121,6 @@ window.ceres = {};
 
                 }, cfg.attrib.delay);
 
-                caching.listExistingCacheNames();
-
                 if (cfg.attrib.cache) atr.insertCache();
 
                 caching.listExistingCacheNames();
@@ -414,6 +412,8 @@ window.ceres = {};
                     {
                         window.addEventListener('install', function(e)
                         {
+                            console.log('namedCache: ' + namedCache + ' - ' + urlArray);
+
                             e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
                         });
 
