@@ -143,8 +143,10 @@ window.ceres = {};
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                     const cacheAvailable = ('caches' in window);
-                    const rsa = resourceAllocation(); // notification strings
+                    const note = {}; // notification strings
                     const srm = new Map(); // shadowroot manager
+
+                    setNotifications();
 
                     atr.fetchStylesheets = function(str)
                     {
@@ -401,7 +403,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.constant.notify, notification: rsa.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.constant.notify, notification: note.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
@@ -409,10 +411,10 @@ window.ceres = {};
 
                             const getContentList = function()
                             {
-                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.noscriptSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.constant.notify, notification: note.noscriptSearch, logtrace: cfg.attrib.trace });
 
                                 const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: rsa.noscriptError, logtrace: cfg.attrib.trace });
+                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: note.noscriptError, logtrace: cfg.attrib.trace });
                             }
 
                             return cfg.fetchsrc ? getFetchList() : getContentList();
@@ -424,7 +426,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.constant.notify, notification: rsa.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.constant.notify, notification: note.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
@@ -436,24 +438,20 @@ window.ceres = {};
 
                     atr.getProperties = function()
                     {
-                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.precursorError, logtrace: cfg.attrib.trace });
-                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: rsa.fetchListError, logtrace: cfg.attrib.trace });
+                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.constant.error, notification: note.precursorError, logtrace: cfg.attrib.trace });
+                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: note.fetchListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
                     }
 
-                    function resourceAllocation()
+                    function setNotifications() // notification strings
                     {
-                        const resource = {};
-
-                        resource.imageMarkup = 'Image list markup';
-                        resource.configAttributes = 'The ' + csv + ' element attributes: ';
-                        resource.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
-                        resource.precursorError = 'Error: Unable to find the ' + csv + ' document element';
-                        resource.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
-                        resource.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
-
-                        return resource;
+                        note.imageMarkup = 'Image list markup';
+                        note.configAttributes = 'The ' + csv + ' element attributes: ';
+                        note.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+                        note.precursorError = 'Error: Unable to find the ' + csv + ' document element';
+                        note.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+                        note.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
                     }
 
                 })(); // end attribute allocation
