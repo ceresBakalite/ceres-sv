@@ -121,7 +121,7 @@ window.ceres = {};
 
                 }, cfg.attrib.delay);
 
-                if (cfg.attrib.cache) atr.insertCache();
+                //if (cfg.attrib.cache) atr.insertCache();
 
                 caching.listExistingCacheNames();
 
@@ -129,6 +129,8 @@ window.ceres = {};
 
             function activate()
             {
+                if (cfg.attrib.cache) atr.insertCache();
+
                 setShadow();
                 setSlide();
                 setView();
