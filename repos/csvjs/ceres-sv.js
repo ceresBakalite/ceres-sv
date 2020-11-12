@@ -144,7 +144,7 @@ window.ceres = {};
 
             function initialiseCache()
             {
-                console.log('here now');
+                console.log('hello');
                 // caching;
                 (function(cache) {
 
