@@ -235,9 +235,7 @@ window.ceres = {};
 
                     atr.getTrackAttributes = function()
                     {
-                        const getTrackId = function() { return 'nub' + (++index); };
                         const trackContainer = document.createElement('div');
-
                         trackContainer.id = csv + '-nub';
                         trackContainer.className = getActiveState('slideview-nub');
 
@@ -247,7 +245,7 @@ window.ceres = {};
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ typeof: 'span', id: getTrackId(), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                            rsc.composeElement({ typeof: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                         }
 
                     }
