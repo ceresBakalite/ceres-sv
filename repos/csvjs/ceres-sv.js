@@ -202,7 +202,7 @@ window.ceres = {};
                         const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; },
                         getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; },
                         getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; },
-                        getSurtitle = function(index) { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; },
+                        getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; },
                         getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; },
                         imageContainer = document.createElement('div'),
                         slideContainerClassName = getClassName();
@@ -212,18 +212,19 @@ window.ceres = {};
 
                         cfg.bodyContainer.appendChild(imageContainer);
 
+                        let index = 1;
+
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
                             var arrayItem = cfg.imageArray[item].split(',');
-                            let index = item + 1;
 
                             let slideContainer = document.createElement('div');
-                            slideContainer.id = 'img' + index;
+                            slideContainer.id = 'img' + index++;
                             slideContainer.className = slideContainerClassName;
 
                             imageContainer.appendChild(slideContainer);
 
-                            if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle(index) });
+                            if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
                             rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
                             if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                         }
