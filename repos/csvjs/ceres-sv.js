@@ -47,7 +47,7 @@ window.ceres = {};
 
             if (atr.properties()) activate();
 
-            function setHTML()
+            function setShadow()
             {
                 cfg.shade = document.querySelector('#' + progenitor.id);
 
@@ -126,7 +126,7 @@ window.ceres = {};
 
             function activate()
             {
-                setHTML();
+                setShadow();
                 setSlide();
                 setView();
             }
