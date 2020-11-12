@@ -319,7 +319,6 @@ window.ceres = {};
 
                             })(); // end caching
 
-                            Object.freeze(caching);
                         }
 
                     }
