@@ -143,6 +143,7 @@ window.ceres = {};
 
             function initialiseCache()
             {
+                console.log('here now');
                 // caching;
                 const caching = {}; // http cache allocation
                 (function(cache) {
