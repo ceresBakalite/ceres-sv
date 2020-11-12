@@ -11,8 +11,7 @@
 */
 
 .slideview-body {
-    opacity: 0;
-    display: none;
+    user-select: none;
 }
 
 .slideview-body :first-child {
@@ -35,26 +34,12 @@
     cursor: default;
  }
 
-.view {
-    opacity: 1;
-    display: block;
-}
-
 .zoom {
     cursor: zoom-in;
 }
 
 .slide {
     user-select: none;
-}
-
-.delay {
-    opacity: 0;
-    display: none;
-}
-
-.none {
-    display: none;
 }
 
 .left, .right {
@@ -153,4 +138,14 @@
 @keyframes fade {
     from {opacity: .4}
     to {opacity: 1}
+}
+
+.none {
+    opacity: 0;
+    display: none;
+}
+
+.view {
+    opacity: 1;
+    display: block;
 }
