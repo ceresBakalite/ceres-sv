@@ -45,7 +45,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (atr.nodeAttributes()) activateNode();
+            if (atr.properties()) activate();
 
             function setView()
             {
@@ -112,7 +112,7 @@ window.ceres = {};
 
             }
 
-            function activateNode()
+            function activate()
             {
                 setView();
                 setSlide();
@@ -380,7 +380,7 @@ window.ceres = {};
                         return isImageArray();
                     }
 
-                    atr.nodeAttributes = function()
+                    atr.properties = function()
                     {
                         if (!atr.precursor()) return rsc.inspect({ type: rsc.constant.error, notification: rsa.precursorError, logtrace: cfg.attrib.trace });
                         if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: rsa.fetchListError, logtrace: cfg.attrib.trace });
