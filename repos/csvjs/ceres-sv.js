@@ -25,7 +25,6 @@ window.ceres = {};
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
             const progenitor = this,
-            caching = {}, // http cache allocation
             cfg = {}, // configuration attributes
             rsa = {}, // notification strings
             rsc = {}, // generic resource allocation
@@ -255,12 +254,73 @@ window.ceres = {};
 
                     atr.insertCache = function()
                     {
+                        const caching = {}; // http cache allocation
+
+                        initialise();
+
                         if (!caching.available) return;
 
                         const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
 
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+
+                        function initialise()
+                        {
+                            // caching;
+                            (function(cache) {
+
+                                caching.available = ('caches' in window);
+
+                                caching.listExistingCacheNames = function()
+                                {
+                                    caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
+                                }
+
+                                caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                                {
+                                    window.addEventListener('install', function(e)
+                                    {
+                                        e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
+                                    });
+
+                                    window.addEventListener('fetch', function(e)
+                                    {
+                                        e.respondWith(caches.match(e.request).then(function(response)
+                                        {
+                                            if (response !== undefined)
+                                            {
+                                                return response;
+
+                                            } else {
+
+                                                return fetch(e.request).then(function (response)
+                                                {
+                                                    let responseClone = response.clone();
+
+                                                    caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+
+                                                    return response;
+
+                                                }).catch(function () {
+
+                                                    return caches.match(urlImage);
+
+                                                });
+
+                                            }
+
+                                        }));
+
+                                    });
+
+                                }
+
+                            })(); // end caching
+
+                            Object.freeze(caching);
+                        }
+
                     }
 
                     atr.getSwipeEvent = function(swipe)
@@ -394,59 +454,6 @@ window.ceres = {};
                 })(); // end attribute allocation
 
                 Object.freeze(atr);
-
-                // caching;
-                (function(cache) {
-
-                    caching.available = ('caches' in window);
-
-                    caching.listExistingCacheNames = function()
-                    {
-                        caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
-                    }
-
-                    caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
-                    {
-                        window.addEventListener('install', function(e)
-                        {
-                            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
-                        });
-
-                        window.addEventListener('fetch', function(e)
-                        {
-                            e.respondWith(caches.match(e.request).then(function(response)
-                            {
-                                if (response !== undefined)
-                                {
-                                    return response;
-
-                                } else {
-
-                                    return fetch(e.request).then(function (response)
-                                    {
-                                        let responseClone = response.clone();
-
-                                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-
-                                        return response;
-
-                                    }).catch(function () {
-
-                                        return caches.match(urlImage);
-
-                                    });
-
-                                }
-
-                            }));
-
-                        });
-
-                    }
-
-                })(); // end caching
-
-                Object.freeze(caching);
 
                 // generic resource allocation
                 (function() {
