@@ -119,7 +119,13 @@ window.ceres = {};
 
                 if (cfg.attrib.cache) atr.setCache();
 
-                setTimeout(function() { rsc.setDisplayStyle('div.slideview-body', 'block'); }, cfg.attrib.delay);
+                setTimeout(function()
+                {
+
+                    cfg.bodyContainer.className = 'slideview-body view';
+                    //rsc.setDisplayStyle('div.slideview-body', 'block');
+
+                }, cfg.attrib.delay);
 
                 if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
             }
@@ -177,8 +183,8 @@ window.ceres = {};
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
-                        cfg.bodyContainer.className = 'slideview-body';
-                        cfg.bodyContainer.style.display  = 'none';
+                        cfg.bodyContainer.className = 'slideview-body none';
+                        //cfg.bodyContainer.style.display  = 'none';
 
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
