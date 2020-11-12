@@ -26,7 +26,6 @@ window.ceres = {};
 
             const progenitor = this,
             cfg = {}, // configuration attributes
-            rsa = {}, // notification strings
             rsc = {}, // generic resource allocation
             atr = {}; // attribute allocation
 
@@ -131,15 +130,6 @@ window.ceres = {};
 
             function initialise()
             {
-                rsa.imageMarkup = 'Image list markup';
-                rsa.configAttributes = 'The ' + csv + ' element attributes: ';
-                rsa.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
-                rsa.precursorError = 'Error: Unable to find the ' + csv + ' document element';
-                rsa.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
-                rsa.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
-
-                Object.freeze(rsa);
-
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.attrib = {};
                 cfg.cache = {};
@@ -153,7 +143,10 @@ window.ceres = {};
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                     const cacheAvailable = ('caches' in window);
+                    const rsa = {}; // notification strings
                     const srm = new Map(); // shadowroot manager
+
+                    initialise();
 
                     atr.fetchStylesheets = function(str)
                     {
@@ -449,6 +442,18 @@ window.ceres = {};
                         if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: rsa.fetchListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
+                    }
+
+                    function initialise()
+                    {
+                        rsa.imageMarkup = 'Image list markup';
+                        rsa.configAttributes = 'The ' + csv + ' element attributes: ';
+                        rsa.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+                        rsa.precursorError = 'Error: Unable to find the ' + csv + ' document element';
+                        rsa.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+                        rsa.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
+
+                        Object.freeze(rsa);
                     }
 
                 })(); // end attribute allocation
