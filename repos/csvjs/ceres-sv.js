@@ -121,6 +121,8 @@ window.ceres = {};
 
                 }, cfg.attrib.delay);
 
+                caching.listExistingCacheNames();
+                
                 if (cfg.attrib.cache) atr.insertCache();
             }
 
@@ -399,6 +401,11 @@ window.ceres = {};
                 (function(cache) {
 
                     caching.available = ('caches' in window);
+
+                    caching.listExistingCacheNames = function()
+                    {
+                        caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
+                    }
 
                     caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
                     {
