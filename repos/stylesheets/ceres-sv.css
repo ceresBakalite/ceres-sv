@@ -10,11 +10,6 @@
  * Copyright (c) 2020 Alexander Munro
 */
 
-.none {
-    opacity: 0;
-    display: none;
-}
-
 .slideview-body {
     user-select: none;
 }
@@ -45,6 +40,16 @@
 
 .slide {
     user-select: none;
+}
+
+.none {
+    opacity: 0;
+    display: none;
+}
+
+.view {
+    opacity: 1;
+    display: block;
 }
 
 .left, .right {
@@ -143,9 +148,4 @@
 @keyframes fade {
     from {opacity: .4}
     to {opacity: 1}
-}
-
-.view {
-    opacity: 1;
-    display: block;
 }
