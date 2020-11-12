@@ -25,7 +25,6 @@ window.ceres = {};
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
             const progenitor = this,
-            caching = {}, // http cache allocation
             cfg = {}, // configuration attributes
             rsa = {}, // notification strings
             rsc = {}, // generic resource allocation
@@ -114,6 +113,8 @@ window.ceres = {};
 
             function activateNode()
             {
+                caching = {} // http cache allocation
+
                 let setDisplay = function(attribute)
                 {
                     const node = cfg.shadow.querySelector('div.slideview-body');
