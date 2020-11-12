@@ -122,8 +122,11 @@ window.ceres = {};
                 }, cfg.attrib.delay);
 
                 caching.listExistingCacheNames();
-                
+
                 if (cfg.attrib.cache) atr.insertCache();
+
+                caching.listExistingCacheNames();
+
             }
 
             function activate()
