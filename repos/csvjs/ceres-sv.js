@@ -250,11 +250,9 @@ window.ceres = {};
                     {
                         if (!cacheAvailable) return;
 
+                        const cacheName = csv + '-cache';
                         const caching = setCaching(); // http cache allocation
 
-                        setCaching();
-
-                        const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
 
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
