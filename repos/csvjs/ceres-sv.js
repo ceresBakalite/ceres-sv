@@ -237,12 +237,13 @@ window.ceres = {};
                     {
                         const getTrackId = function() { return 'nub' + (++index); };
                         const trackContainer = document.createElement('div');
-                        let index = 0;
 
                         trackContainer.id = csv + '-nub';
                         trackContainer.className = getActiveState('slideview-nub');
 
                         cfg.bodyContainer.appendChild(trackContainer);
+
+                        let index = 0;
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
