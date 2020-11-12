@@ -25,6 +25,7 @@ window.ceres = {};
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
             const progenitor = this,
+            caching = {}, // http cache allocation
             cfg = {}, // configuration attributes
             rsa = {}, // notification strings
             rsc = {}, // generic resource allocation
@@ -121,10 +122,7 @@ window.ceres = {};
 
                 let setCache = function()
                 {
-                    if (!('caches' in window)) return;
-
-                    const caching = {}; // http cache allocation
-                    initialiseCache();
+                    if (!caching.available) return;
 
                     const cacheName = csv + '-cache';
                     cfg.cache.script = [ rsc.getImportMetaUrl() ];
@@ -140,58 +138,6 @@ window.ceres = {};
                 setTimeout(function() { setDisplay('block'); }, cfg.attrib.delay);
 
                 if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
-            }
-
-            function initialiseCache()
-            {
-                console.log('hello');
-                // caching;
-                (function(cache) {
-
-                    caching.available = ('caches' in window);
-
-                    caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
-                    {
-                        window.addEventListener('install', function(e)
-                        {
-                            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
-                        });
-
-                        window.addEventListener('fetch', function(e)
-                        {
-                            e.respondWith(caches.match(e.request).then(function(response)
-                            {
-                                if (response !== undefined)
-                                {
-                                    return response;
-
-                                } else {
-
-                                    return fetch(e.request).then(function (response)
-                                    {
-                                        let responseClone = response.clone();
-
-                                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-
-                                        return response;
-
-                                    }).catch(function () {
-
-                                        return caches.match(urlImage);
-
-                                    });
-
-                                }
-
-                            }));
-
-                        });
-
-                    }
-
-                })(); // end caching
-
-                Object.freeze(caching);
             }
 
             function initialise()
@@ -447,6 +393,54 @@ window.ceres = {};
                 })(); // end attribute allocation
 
                 Object.freeze(atr);
+
+                // caching;
+                (function(cache) {
+
+                    caching.available = ('caches' in window);
+
+                    caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                    {
+                        window.addEventListener('install', function(e)
+                        {
+                            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
+                        });
+
+                        window.addEventListener('fetch', function(e)
+                        {
+                            e.respondWith(caches.match(e.request).then(function(response)
+                            {
+                                if (response !== undefined)
+                                {
+                                    return response;
+
+                                } else {
+
+                                    return fetch(e.request).then(function (response)
+                                    {
+                                        let responseClone = response.clone();
+
+                                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+
+                                        return response;
+
+                                    }).catch(function () {
+
+                                        return caches.match(urlImage);
+
+                                    });
+
+                                }
+
+                            }));
+
+                        });
+
+                    }
+
+                })(); // end caching
+
+                Object.freeze(caching);
 
                 // generic resource allocation
                 (function() {
