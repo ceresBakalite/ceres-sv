@@ -242,10 +242,11 @@ window.ceres = {};
 
                         cfg.bodyContainer.appendChild(trackContainer);
 
+                        let index = 0;
+
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            let index = item + 1;
-                            rsc.composeElement({ typeof: 'span', id: getTrackId(index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                            rsc.composeElement({ typeof: 'span', id: getTrackId(index++), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                         }
 
                     }
