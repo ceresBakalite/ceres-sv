@@ -39,12 +39,6 @@
     contain: content;
 }
 
-.delay {
-    opacity: 0;
-    display: none;
-    contain: content;
-}
-
 .none {
     display: none;
     contain: content;
