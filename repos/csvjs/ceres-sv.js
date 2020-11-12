@@ -250,7 +250,7 @@ window.ceres = {};
                     {
                         if (!cacheAvailable) return;
 
-                        const caching = {}; // http cache allocation
+                        const caching = setCaching(); // http cache allocation
 
                         setCaching();
 
