@@ -121,7 +121,7 @@ window.ceres = {};
 
                 }, cfg.attrib.delay);
 
-                if (cfg.attrib.cache) atr.setCache();
+                if (cfg.attrib.cache) atr.insertCache();
             }
 
             function activate()
@@ -253,7 +253,7 @@ window.ceres = {};
 
                     }
 
-                    atr.setCache = function()
+                    atr.insertCache = function()
                     {
                         if (!caching.available) return;
 
