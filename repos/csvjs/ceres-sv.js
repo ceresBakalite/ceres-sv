@@ -113,6 +113,10 @@ window.ceres = {};
 
             function activateNode()
             {
+                if ('caches' in window) return;
+
+                initialiseCache();
+
                 let setDisplay = function(attribute)
                 {
                     const node = cfg.shadow.querySelector('div.slideview-body');
@@ -139,6 +143,57 @@ window.ceres = {};
                 setTimeout(function() { setDisplay('block'); }, cfg.attrib.delay);
 
                 if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
+            }
+
+            function initialiseCache()
+            {
+                // caching;
+                (function(cache) {
+
+                    caching.available = ('caches' in window);
+
+                    caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                    {
+                        window.addEventListener('install', function(e)
+                        {
+                            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
+                        });
+
+                        window.addEventListener('fetch', function(e)
+                        {
+                            e.respondWith(caches.match(e.request).then(function(response)
+                            {
+                                if (response !== undefined)
+                                {
+                                    return response;
+
+                                } else {
+
+                                    return fetch(e.request).then(function (response)
+                                    {
+                                        let responseClone = response.clone();
+
+                                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+
+                                        return response;
+
+                                    }).catch(function () {
+
+                                        return caches.match(urlImage);
+
+                                    });
+
+                                }
+
+                            }));
+
+                        });
+
+                    }
+
+                })(); // end caching
+
+                Object.freeze(caching);
             }
 
             function initialise()
@@ -394,54 +449,6 @@ window.ceres = {};
                 })(); // end attribute allocation
 
                 Object.freeze(atr);
-
-                // caching;
-                (function(cache) {
-
-                    caching.available = ('caches' in window);
-
-                    caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
-                    {
-                        window.addEventListener('install', function(e)
-                        {
-                            e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
-                        });
-
-                        window.addEventListener('fetch', function(e)
-                        {
-                            e.respondWith(caches.match(e.request).then(function(response)
-                            {
-                                if (response !== undefined)
-                                {
-                                    return response;
-
-                                } else {
-
-                                    return fetch(e.request).then(function (response)
-                                    {
-                                        let responseClone = response.clone();
-
-                                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-
-                                        return response;
-
-                                    }).catch(function () {
-
-                                        return caches.match(urlImage);
-
-                                    });
-
-                                }
-
-                            }));
-
-                        });
-
-                    }
-
-                })(); // end caching
-
-                Object.freeze(caching);
 
                 // generic resource allocation
                 (function() {
