@@ -319,7 +319,7 @@ window.ceres = {};
                         if (exists)
                         {
                             progenitor.id = rsc.getUniqueElementId(csv, 1000);
-                            progenitor.setAttribute("class", 'delay');
+                            progenitor.setAttribute("class", 'none');
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
