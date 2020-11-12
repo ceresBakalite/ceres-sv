@@ -235,7 +235,7 @@ window.ceres = {};
 
                     atr.getTrackAttributes = function()
                     {
-                        const getTrackId = function(index) { return 'nub' + index; },
+                        const getTrackId = function() { return 'nub' + index; },
                         trackContainer = document.createElement('div');
 
                         trackContainer.id = csv + '-nub';
