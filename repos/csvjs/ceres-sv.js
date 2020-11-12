@@ -122,7 +122,7 @@ window.ceres = {};
                 setTimeout(function()
                 {
                     cfg.bodyContainer.className = 'slideview-body view';
-                    //rsc.setDisplayStyle('div.slideview-body', 'block');
+                    rsc.setDisplayStyle('div.slideview-body', 'block');
 
                 }, cfg.attrib.delay);
             }
@@ -182,9 +182,8 @@ window.ceres = {};
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
-                        cfg.bodyContainer.className = 'slideview-body none';
+                        cfg.bodyContainer.className = 'slideview-body';
                         cfg.bodyContainer.style.display  = 'none';
-                        cfg.bodyContainer.style.opacity  = '1';
 
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
