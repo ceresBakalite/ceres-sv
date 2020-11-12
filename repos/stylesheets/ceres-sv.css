@@ -39,14 +39,6 @@
     contain: content;
 }
 
-.zoom {
-    cursor: zoom-in;
-}
-
-.slide {
-    user-select: none;
-}
-
 .delay {
     opacity: 0;
     display: none;
@@ -56,6 +48,14 @@
 .none {
     display: none;
     contain: content;
+}
+
+.zoom {
+    cursor: zoom-in;
+}
+
+.slide {
+    user-select: none;
 }
 
 .left, .right {
