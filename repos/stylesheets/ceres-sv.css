@@ -36,6 +36,7 @@
 
 .view {
     display: block;
+    contain: content;
 }
 
 .zoom {
@@ -46,13 +47,19 @@
     user-select: none;
 }
 
+.pointer {
+    user-select: none;
+}
+
 .delay {
     opacity: 0;
     display: none;
+    contain: content;
 }
 
 .none {
     display: none;
+    contain: content;
 }
 
 .left, .right {

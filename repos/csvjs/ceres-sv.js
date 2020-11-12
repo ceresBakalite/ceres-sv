@@ -29,7 +29,8 @@ window.ceres = {};
             cfg = {}, // configuration attributes
             rsa = {}, // notification strings
             rsc = {}, // generic resource allocation
-            atr = {}; // attribute allocation
+            atr = {}, // attribute allocation
+            srm = new Map(); // shadowroot manager
 
             initialise();
 
@@ -117,9 +118,10 @@ window.ceres = {};
                 setSlide();
 
                 if (cfg.attrib.cache) atr.setCache();
-                if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
 
                 setTimeout(function() { rsc.setDisplayStyle('div.slideview-body', 'block'); }, cfg.attrib.delay);
+
+                if (!cfg.attrib.static) setTimeout(function() { autoSlide(); }, cfg.attrib.delay * 2);
             }
 
             function initialise()
@@ -145,8 +147,6 @@ window.ceres = {};
 
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
-
-                    const srm = new Map(); // shadowroot manager
 
                     atr.fetchStylesheets = function(str)
                     {
