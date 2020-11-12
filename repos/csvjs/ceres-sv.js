@@ -112,7 +112,7 @@ window.ceres = {};
 
             }
 
-            function setStart()
+            function setAction()
             {
                 setTimeout(function()
                 {
@@ -128,7 +128,7 @@ window.ceres = {};
             {
                 setView();
                 setSlide();
-                setStart();
+                setAction();
             }
 
             function initialise()
