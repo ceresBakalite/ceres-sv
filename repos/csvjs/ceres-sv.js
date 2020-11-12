@@ -152,6 +152,7 @@ window.ceres = {};
 
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
+                    const cacheAvailable = ('caches' in window);
                     const srm = new Map(); // shadowroot manager
 
                     atr.fetchStylesheets = function(str)
@@ -254,11 +255,11 @@ window.ceres = {};
 
                     atr.insertCache = function()
                     {
+                        if (!cacheAvailable) return;
+
                         const caching = {}; // http cache allocation
 
                         initialise();
-
-                        if (!caching.available) return;
 
                         const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
