@@ -21,7 +21,7 @@ window.ceres = {};
     {
         async connectedCallback()
         {
-            ceres.getImage = function(el) { rsc.windowOpen({ element: el, type: 'image' }); }; // global scope method reference
+            ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
             const progenitor = this,
@@ -461,7 +461,7 @@ window.ceres = {};
 
                     Object.freeze(rsc.constant);
 
-                    rsc.windowOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+                    rsc.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
                     rsc.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
                     rsc.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
                     rsc.getImportMetaUrl = function() { return import.meta.url; }
