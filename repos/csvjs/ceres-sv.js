@@ -123,6 +123,7 @@ window.ceres = {};
                 {
 
                     cfg.bodyContainer.className = 'slideview-body view';
+                    cfg.bodyContainer.style.display  = 'block';
                     //rsc.setDisplayStyle('div.slideview-body', 'block');
 
                 }, cfg.attrib.delay);
@@ -185,7 +186,7 @@ window.ceres = {};
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
                         cfg.bodyContainer.className = 'slideview-body none';
-                        //cfg.bodyContainer.style.display  = 'none';
+                        cfg.bodyContainer.style.display  = 'none';
 
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
