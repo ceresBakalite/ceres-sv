@@ -121,16 +121,11 @@ window.ceres = {};
 
                 }, cfg.attrib.delay);
 
-                //if (cfg.attrib.cache) atr.insertCache();
-
-                caching.listExistingCacheNames();
-
+                if (cfg.attrib.cache) atr.insertCache();
             }
 
             function activate()
             {
-                if (cfg.attrib.cache) atr.insertCache();
-
                 setShadow();
                 setSlide();
                 setView();
@@ -412,8 +407,6 @@ window.ceres = {};
 
                     caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
                     {
-                        console.log('namedCache: ' + namedCache + ' - ' + urlArray);
-
                         window.addEventListener('install', function(e)
                         {
                             e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); }));
