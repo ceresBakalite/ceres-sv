@@ -25,6 +25,7 @@ window.ceres = {};
 
             const cns = 'ceres-csv', // optional markup noscript tag id when using an embedded image list
             cfg = {}, // configuration attributes
+            rsc = {}, // generic resource methods
             atr = {}; // attribute allocation
 
             const progenitor = this;
@@ -37,13 +38,10 @@ window.ceres = {};
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
-            if (atr.setFetchState())
-            {
-                if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
-                if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
+            if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-                cfg.cache.src = cfg.cache.src.concat(src);
-            }
+            cfg.cache.src = cfg.cache.src.concat(src);
 
             if (atr.getProperties()) atr.activate();
 
@@ -59,7 +57,6 @@ window.ceres = {};
                 const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                 const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                 const srm = new Map(); // shadowroot manager
-                const rsc = {}; // generic resource methods
 
                 const remark = {
                     imageMarkup      : 'Image list markup',
@@ -447,6 +444,7 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
+                // generic resource methods
                 (function() {
 
                     const symbol = new Map();
