@@ -32,17 +32,6 @@ window.ceres = {};
 
             initialise();
 
-            let css = progenitor.getAttribute('css') || cfg.defaultCSS;
-            let src = progenitor.getAttribute('src') || null;
-
-            cfg.fetchcss = !rsc.isEmptyOrNull(css);
-            cfg.fetchsrc = !rsc.isEmptyOrNull(src);
-
-            if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
-            if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
-
-            cfg.cache.src = cfg.cache.src.concat(src);
-
             if (atr.getProperties()) atr.activate();
 
             function initialise()
@@ -434,6 +423,17 @@ window.ceres = {};
 
                     atr.getProperties = function()
                     {
+                        let css = progenitor.getAttribute('css') || cfg.defaultCSS;
+                        let src = progenitor.getAttribute('src') || null;
+
+                        cfg.fetchcss = !rsc.isEmptyOrNull(css);
+                        cfg.fetchsrc = !rsc.isEmptyOrNull(src);
+
+                        if (cfg.fetchcss) atr.fetchStylesheets(css);
+                        if (cfg.fetchsrc) fetch(src).then(response => response.text()).then(str => { progenitor.insertAdjacentHTML('beforeend', str) });
+
+                        cfg.cache.src = cfg.cache.src.concat(src);
+
                         if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError, logtrace: cfg.attrib.trace });
                         if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError, logtrace: cfg.attrib.trace });
 
