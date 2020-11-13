@@ -42,7 +42,9 @@ window.ceres = {};
             //if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) fetch(src).then(response => response.text()).then(str => { progenitor.insertAdjacentHTML('afterbegin', str) });
+            //if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+
+            if (cfg.fetchsrc) await ( await fetch(src) ).then(response => response.text()).then(str => { progenitor.insertAdjacentHTML('afterbegin', str) });
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
