@@ -59,6 +59,7 @@ window.ceres = {};
                 const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                 const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                 const srm = new Map(); // shadowroot manager
+                const rsc = {}; // generic resource methods
 
                 const remark = {
                     imageMarkup      : 'Image list markup',
@@ -446,7 +447,6 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
-                const rsc = {}; // generic resource methods
                 (function() {
 
                     const symbol = new Map();
