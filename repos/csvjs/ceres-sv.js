@@ -221,8 +221,6 @@ window.ceres = {};
 
     })(); // end resource allocation
 
-    Object.freeze(rsc);
-
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
