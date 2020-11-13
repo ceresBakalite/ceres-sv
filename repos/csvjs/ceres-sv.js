@@ -39,7 +39,7 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) fetch(src).then(response => response.text()).then(str => { progenitor.insertAdjacentHTML('beforeend', str) });
+            if (cfg.fetchsrc) fetch(src).then(response => response.text()).then(str => { progenitor.insertAdjacentHTML('afterbegin', str) });
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
