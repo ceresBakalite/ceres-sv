@@ -358,7 +358,7 @@ window.ceres = {};
                         const getNoscriptId = function()
                         {
                             const noscript = csvNode.getAttribute('noscript');
-                            return rsc.isEmptyOrNull(noscript) ? 'id' : rsc.getBooleanAttribute(noscript);
+                            return rsc.isEmptyOrNull(noscript) ? 'undefined' : rsc.getBooleanAttribute(noscript);
                         }
 
                         const getAutoProperties = function(locale = 'en')
@@ -392,7 +392,6 @@ window.ceres = {};
 
                             cfg.noscript = document.getElementById(cfg.attrib.noscript) || document.getElementsByTagName('noscript')[0];
 
-                            cfg.attrib.noscript = getNoscriptId(); // optional markup noscript elementId when using embedded image lists
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
                             cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
@@ -402,6 +401,7 @@ window.ceres = {};
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
+                            cfg.attrib.noscript = getNoscriptId(); // optional markup noscript elementId when using embedded image lists
 
                             Object.freeze(cfg.attrib);
                         }
