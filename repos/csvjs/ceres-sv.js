@@ -24,9 +24,8 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
-            const progenitor = this,
-            cfg = {}, // configuration attributes
-            atr = {}; // attribute allocation
+            const progenitor = this;
+            const cfg = {}; // configuration attributes
 
             initialise();
 
@@ -136,266 +135,8 @@ window.ceres = {};
                 cfg.cache.src = [];
                 cfg.slide = 1;
 
-                // attribute allocation
-                (function() {
 
-                    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                    const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
-                    const cacheAvailable = ('caches' in window);
-                    const srm = new Map(); // shadowroot manager
-
-                    const note = {}; // notification strings
-                    setNotifications();
-
-                    atr.fetchStylesheets = function(str)
-                    {
-                        const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
-                        cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
-                    }
-
-                    atr.setStyleAttributes = function()
-                    {
-                        cfg.styleContainer = document.createElement('style');
-                        cfg.styleContainer.id = csv + '-style';
-                        cfg.styleContainer.className = 'slideview-style';
-
-                        cfg.shade.appendChild(cfg.styleContainer);
-
-                        cfg.cache.css.forEach(item =>
-                        {
-                            fetch(item).then(response => response.text()).then(str =>
-                            {
-                                cfg.styleContainer.insertAdjacentHTML('beforeend', str)
-                            });
-
-                        });
-
-                    }
-
-                    atr.setBodyAttributes = function()
-                    {
-                        cfg.bodyContainer = document.createElement('div');
-                        cfg.bodyContainer.id = csv + '-body';
-                        cfg.bodyContainer.className = 'slideview-body';
-                        cfg.bodyContainer.style.display = 'none';
-
-                        cfg.shade.appendChild(cfg.bodyContainer);
-                    }
-
-                    atr.setImageAttributes = function()
-                    {
-                        const getClassName = function()
-                        {
-                            let className = 'view';
-
-                            if (cfg.attrib.zoom) className += ' zoom';
-                            if (cfg.attrib.fade) className += ' fade';
-
-                            return className += ' none';
-                        }
-
-                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; },
-                        getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; },
-                        getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; },
-                        getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; },
-                        getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; },
-                        imageContainer = document.createElement('div'),
-                        slideContainerClassName = getClassName();
-
-                        imageContainer.id = csv + '-image';
-                        imageContainer.className = 'slideview-image';
-
-                        cfg.bodyContainer.appendChild(imageContainer);
-
-                        let index = 0;
-
-                        for (let item = 0; item < cfg.imageArray.length; item++)
-                        {
-                            var arrayItem = cfg.imageArray[item].split(',');
-
-                            let slideContainer = document.createElement('div');
-                            slideContainer.id = 'img' + (++index);
-                            slideContainer.className = slideContainerClassName;
-
-                            imageContainer.appendChild(slideContainer);
-
-                            if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                            rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
-                            if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
-                        }
-
-                        rsc.composeElement({ typeof: 'a', className: getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                        rsc.composeElement({ typeof: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
-                    }
-
-                    atr.setTrackAttributes = function()
-                    {
-                        const trackContainer = document.createElement('div');
-                        trackContainer.id = csv + '-nub';
-                        trackContainer.className = getActiveState('slideview-nub');
-
-                        cfg.bodyContainer.appendChild(trackContainer);
-
-                        let index = 0;
-
-                        for (let item = 0; item < cfg.imageArray.length; item++)
-                        {
-                            rsc.composeElement({ typeof: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
-                        }
-
-                    }
-
-                    atr.insertCache = function()
-                    {
-                        if (!cacheAvailable) return;
-
-                        const cacheName = csv + '-cache';
-                        cfg.cache.script = [ rsc.getImportMetaUrl() ];
-
-                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
-                    }
-
-                    atr.getSwipeEvent = function(swipe)
-                    {
-                        const offset = (swipe.action) ? swipe.right : swipe.left;
-                        cfg.slide = cfg.slide += offset;
-
-                        setSlide(null, cfg.shadow);
-                    }
-
-                    atr.getSlideShadow = function(node)
-                    {
-                        const root = node.getRootNode().host,
-                        shade = document.querySelector('#' + root.id),
-                        shadow = shade.shadowRoot,
-                        slide = shadow.querySelector('div.slideview-image > div.active');
-
-                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
-
-                        srm.set('left', cfg.slide - 1);
-                        srm.set('right', cfg.slide + 1);
-                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
-
-                        cfg.slide = srm.get(node.className);
-
-                        return shadow;
-                    }
-
-                    atr.getPrecursor = function()
-                    {
-                        const exists = !rsc.isEmptyOrNull(progenitor);
-
-                        const getZoomState = function()
-                        {
-                            const zoom = progenitor.getAttribute('zoom');
-                            return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
-                        }
-
-                        const getAutoProperties = function(locale = 'en')
-                        {
-                            const auto = progenitor.getAttribute('auto');
-
-                            if (rsc.isEmptyOrNull(auto)) return true;
-
-                            const ar = auto.replace(rsc.constant.whitespace,'').split(',');
-                            const item = ar[0].toLocaleLowerCase(locale);
-
-                            if (!Number.isInteger(parseInt(item)))
-                            {
-                                if (!rsc.getBooleanAttribute(item)) return true;
-                                if (ar.length > 1) ar.shift();
-                            }
-
-                            cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                            cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
-                            cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
-
-                            cfg.attrib.fade = cfg.attrib.autopause > 400;
-
-                            return false;
-                        }
-
-                        if (exists)
-                        {
-                            progenitor.id = rsc.getUniqueElementId(csv, 1000);
-                            progenitor.setAttribute("class", 'none');
-
-                            cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
-
-                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
-                            cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
-                            cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
-                            cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
-                            cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
-                            cfg.attrib.zoom = getZoomState(); // enabled;
-                            cfg.attrib.static = getAutoProperties(); // enabled
-
-                            Object.seal(cfg.attrib);
-                        }
-
-                        return exists;
-                    }
-
-                    atr.attributesExist = function()
-                    {
-                        cfg.imageArray = null;
-
-                        rsc.inspect({ type: rsc.constant.notify, notification: note.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
-
-                        const getImageList = function()
-                        {
-                            const getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
-
-                            const getContentList = function()
-                            {
-                                rsc.inspect({ type: rsc.constant.notify, notification: note.noscriptSearch, logtrace: cfg.attrib.trace });
-
-                                const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: note.noscriptError, logtrace: cfg.attrib.trace });
-                            }
-
-                            return cfg.fetchsrc ? getFetchList() : getContentList();
-                        }
-
-                        const isImageArray = function()
-                        {
-                            const imageList = getImageList();
-
-                            if (!rsc.isEmptyOrNull(imageList))
-                            {
-                                rsc.inspect({ type: rsc.constant.notify, notification: note.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
-                                cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
-                            }
-
-                            return !rsc.isEmptyOrNull(cfg.imageArray);
-                        }
-
-                        return isImageArray();
-                    }
-
-                    atr.getProperties = function()
-                    {
-                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.constant.error, notification: note.precursorError, logtrace: cfg.attrib.trace });
-                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: note.fetchListError, logtrace: cfg.attrib.trace });
-
-                        return atr.attributesExist();
-                    }
-
-                    function setNotifications() // notification strings
-                    {
-                        note.imageMarkup = 'Image list markup';
-                        note.configAttributes = 'The ' + csv + ' element attributes: ';
-                        note.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
-                        note.precursorError = 'Error: Unable to find the ' + csv + ' document element';
-                        note.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
-                        note.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
-                    }
-
-                })(); // end attribute allocation
-
-                Object.freeze(atr);
+                //Object.freeze(atr);
 
 
                 //Object.freeze(rsc);
@@ -598,3 +339,262 @@ const rsc = {}; // generic resource allocation
     }
 
 })(); // end resource allocation
+
+const atr = {}; // attribute allocation
+(function() {
+
+    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+    const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
+    const cacheAvailable = ('caches' in window);
+    const srm = new Map(); // shadowroot manager
+
+    const note = {}; // notification strings
+    setNotifications();
+
+    atr.fetchStylesheets = function(str)
+    {
+        const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
+        cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
+    }
+
+    atr.setStyleAttributes = function()
+    {
+        cfg.styleContainer = document.createElement('style');
+        cfg.styleContainer.id = csv + '-style';
+        cfg.styleContainer.className = 'slideview-style';
+
+        cfg.shade.appendChild(cfg.styleContainer);
+
+        cfg.cache.css.forEach(item =>
+        {
+            fetch(item).then(response => response.text()).then(str =>
+            {
+                cfg.styleContainer.insertAdjacentHTML('beforeend', str)
+            });
+
+        });
+
+    }
+
+    atr.setBodyAttributes = function()
+    {
+        cfg.bodyContainer = document.createElement('div');
+        cfg.bodyContainer.id = csv + '-body';
+        cfg.bodyContainer.className = 'slideview-body';
+        cfg.bodyContainer.style.display = 'none';
+
+        cfg.shade.appendChild(cfg.bodyContainer);
+    }
+
+    atr.setImageAttributes = function()
+    {
+        const getClassName = function()
+        {
+            let className = 'view';
+
+            if (cfg.attrib.zoom) className += ' zoom';
+            if (cfg.attrib.fade) className += ' fade';
+
+            return className += ' none';
+        }
+
+        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; },
+        getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; },
+        getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; },
+        getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; },
+        getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; },
+        imageContainer = document.createElement('div'),
+        slideContainerClassName = getClassName();
+
+        imageContainer.id = csv + '-image';
+        imageContainer.className = 'slideview-image';
+
+        cfg.bodyContainer.appendChild(imageContainer);
+
+        let index = 0;
+
+        for (let item = 0; item < cfg.imageArray.length; item++)
+        {
+            var arrayItem = cfg.imageArray[item].split(',');
+
+            let slideContainer = document.createElement('div');
+            slideContainer.id = 'img' + (++index);
+            slideContainer.className = slideContainerClassName;
+
+            imageContainer.appendChild(slideContainer);
+
+            if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+            rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
+            if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+        }
+
+        rsc.composeElement({ typeof: 'a', className: getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+        rsc.composeElement({ typeof: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+    }
+
+    atr.setTrackAttributes = function()
+    {
+        const trackContainer = document.createElement('div');
+        trackContainer.id = csv + '-nub';
+        trackContainer.className = getActiveState('slideview-nub');
+
+        cfg.bodyContainer.appendChild(trackContainer);
+
+        let index = 0;
+
+        for (let item = 0; item < cfg.imageArray.length; item++)
+        {
+            rsc.composeElement({ typeof: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+        }
+
+    }
+
+    atr.insertCache = function()
+    {
+        if (!cacheAvailable) return;
+
+        const cacheName = csv + '-cache';
+        cfg.cache.script = [ rsc.getImportMetaUrl() ];
+
+        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+    }
+
+    atr.getSwipeEvent = function(swipe)
+    {
+        const offset = (swipe.action) ? swipe.right : swipe.left;
+        cfg.slide = cfg.slide += offset;
+
+        setSlide(null, cfg.shadow);
+    }
+
+    atr.getSlideShadow = function(node)
+    {
+        const root = node.getRootNode().host,
+        shade = document.querySelector('#' + root.id),
+        shadow = shade.shadowRoot,
+        slide = shadow.querySelector('div.slideview-image > div.active');
+
+        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+
+        srm.set('left', cfg.slide - 1);
+        srm.set('right', cfg.slide + 1);
+        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+
+        cfg.slide = srm.get(node.className);
+
+        return shadow;
+    }
+
+    atr.getPrecursor = function()
+    {
+        const exists = !rsc.isEmptyOrNull(progenitor);
+
+        const getZoomState = function()
+        {
+            const zoom = progenitor.getAttribute('zoom');
+            return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
+        }
+
+        const getAutoProperties = function(locale = 'en')
+        {
+            const auto = progenitor.getAttribute('auto');
+
+            if (rsc.isEmptyOrNull(auto)) return true;
+
+            const ar = auto.replace(rsc.constant.whitespace,'').split(',');
+            const item = ar[0].toLocaleLowerCase(locale);
+
+            if (!Number.isInteger(parseInt(item)))
+            {
+                if (!rsc.getBooleanAttribute(item)) return true;
+                if (ar.length > 1) ar.shift();
+            }
+
+            cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+            cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+            cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
+
+            cfg.attrib.fade = cfg.attrib.autopause > 400;
+
+            return false;
+        }
+
+        if (exists)
+        {
+            progenitor.id = rsc.getUniqueElementId(csv, 1000);
+            progenitor.setAttribute("class", 'none');
+
+            cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
+
+            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
+            cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
+            cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
+            cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
+            cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
+            cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
+            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+            cfg.attrib.zoom = getZoomState(); // enabled;
+            cfg.attrib.static = getAutoProperties(); // enabled
+
+            Object.seal(cfg.attrib);
+        }
+
+        return exists;
+    }
+
+    atr.attributesExist = function()
+    {
+        cfg.imageArray = null;
+
+        rsc.inspect({ type: rsc.constant.notify, notification: note.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+
+        const getImageList = function()
+        {
+            const getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+
+            const getContentList = function()
+            {
+                rsc.inspect({ type: rsc.constant.notify, notification: note.noscriptSearch, logtrace: cfg.attrib.trace });
+
+                const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
+                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: note.noscriptError, logtrace: cfg.attrib.trace });
+            }
+
+            return cfg.fetchsrc ? getFetchList() : getContentList();
+        }
+
+        const isImageArray = function()
+        {
+            const imageList = getImageList();
+
+            if (!rsc.isEmptyOrNull(imageList))
+            {
+                rsc.inspect({ type: rsc.constant.notify, notification: note.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
+                cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+            }
+
+            return !rsc.isEmptyOrNull(cfg.imageArray);
+        }
+
+        return isImageArray();
+    }
+
+    atr.getProperties = function()
+    {
+        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.constant.error, notification: note.precursorError, logtrace: cfg.attrib.trace });
+        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: note.fetchListError, logtrace: cfg.attrib.trace });
+
+        return atr.attributesExist();
+    }
+
+    function setNotifications() // notification strings
+    {
+        note.imageMarkup = 'Image list markup';
+        note.configAttributes = 'The ' + csv + ' element attributes: ';
+        note.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+        note.precursorError = 'Error: Unable to find the ' + csv + ' document element';
+        note.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+        note.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
+    }
+
+})(); // end attribute allocation
