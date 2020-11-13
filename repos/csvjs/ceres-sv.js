@@ -9,6 +9,9 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
+
+const cfg = {}; // configuration attributes
+
 const caching = {}; // http cache allocation
 (function(cache) {
 
@@ -450,8 +453,7 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
-            const progenitor = this,
-            cfg = {}; // configuration attributes
+            const progenitor = this;
 
             initialise();
 
