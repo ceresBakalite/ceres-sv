@@ -14,7 +14,7 @@ window.ceres = {};
 {
     'use strict'; // for conformity - strict by default
 
-    const csv = 'ceres-sv'; // required ceres slideview html element name
+    const csv = 'ceres-sv'; // required ceres slideview html custom element
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -23,7 +23,7 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { atr.setSlide(el); };  // global scope method reference
 
-            const cns = 'ceres-csv', // optional markup noscript tag id when using an embedded image list
+            const cns = 'ceres-csv', // optional markup noscript elementId when using an embedded image list
             cfg = {}, // configuration attributes
             rsc = {}, // generic resource methods
             atr = {}; // attribute allocation
