@@ -12,7 +12,7 @@
 window.ceres = {};
 (function()
 {
-    'use strict';
+    'use strict'; // for conformity - strict by default
 
     const csv = 'ceres-sv'; // required ceres slideview html element name
 
