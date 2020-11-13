@@ -24,8 +24,6 @@ window.ceres = {};
             ceres.getSlide = function(el) { atr.setSlide(el); };  // global scope method reference
 
             const cns = 'ceres-csv', // optional markup noscript tag id when using an embedded image list
-            cfg = {}, // configuration attributes
-            rsc = {}, // generic resource methods
             atr = {}; // attribute allocation
 
             const progenitor = this;
@@ -36,6 +34,9 @@ window.ceres = {};
 
             function initialise()
             {
+                const cfg = {}; // configuration attributes
+                const rsc = {}; // generic resource methods
+
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.attrib = {};
                 cfg.cache = {};
