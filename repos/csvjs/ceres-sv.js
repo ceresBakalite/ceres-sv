@@ -25,7 +25,7 @@ window.ceres = {};
 
             const cns = 'ceres-csv', // optional markup noscript tag id when using an embedded image list
             cfg = {}, // configuration attributes
-            rsc = {}, // generic resource allocation
+            rsc = {}, // generic resource methods
             atr = {}; // attribute allocation
 
             const progenitor = this;
@@ -145,7 +145,7 @@ window.ceres = {};
 
                 note.imageMarkup = 'Image list markup';
                 note.configAttributes = 'The ' + csv + ' element attributes: ';
-                note.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+                note.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body';
                 note.precursorError = 'Error: Unable to find the ' + csv + ' document element';
                 note.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
                 note.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
@@ -453,7 +453,7 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
-                // generic resource allocation
+                // generic resource methods
                 (function() {
 
                     const symbol = new Map();
