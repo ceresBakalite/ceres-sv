@@ -47,7 +47,7 @@ const caching = {}; // http cache allocation
 
     }
 
-    Object.seal(caching);
+    Object.freeze(caching);
 
 })(); // end caching
 
@@ -187,7 +187,7 @@ const rsc = {}; // generic resource allocation
         return str.replace(/, +$/g,'');
     }
 
-    Object.seal(rsc);
+    Object.freeze(rsc);
 
 })(); // end resource allocation
 
