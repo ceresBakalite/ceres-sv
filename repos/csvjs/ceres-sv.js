@@ -22,7 +22,6 @@ window.ceres = {};
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { atr.setSlide(el); };  // global scope method reference
-            ceres.noscriptId = 'ceres-csv'; // optional markup noscript elementId when using embedded image lists
 
             const cfg = {}, // configuration attributes
             rsc = {}, // generic resource methods
@@ -63,8 +62,8 @@ window.ceres = {};
                     configAttributes : 'The ' + csv + ' element attributes: ',
                     noscriptSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body',
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + ceres.noscriptId + ' elements',
-                    noscriptError    : 'Error: Unable to find the ' + ceres.noscriptId + ' fallback noscript element when searching the document body'
+                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cfg.attrib.noscript + ' elements',
+                    noscriptError    : 'Error: Unable to find the ' + cfg.attrib.noscript + ' fallback noscript element when searching the document body'
                 };
 
                 Object.freeze(remark);
@@ -356,6 +355,12 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
+                        const getNoscriptId = function()
+                        {
+                            const noscript = csvNode.getAttribute('noscript');
+                            return rsc.isEmptyOrNull(noscript) ? 'ceres-csv' : rsc.getBooleanAttribute(noscript);
+                        }
+
                         const getAutoProperties = function(locale = 'en')
                         {
                             const auto = csvNode.getAttribute('auto');
@@ -385,8 +390,9 @@ window.ceres = {};
                             csvNode.id = rsc.getUniqueElementId(csv, 1000);
                             csvNode.setAttribute("class", 'none');
 
-                            cfg.noscript = document.getElementById(ceres.noscriptId) || document.getElementsByTagName('noscript')[0];
+                            cfg.noscript = document.getElementById(cfg.attrib.noscript) || document.getElementsByTagName('noscript')[0];
 
+                            cfg.attrib.noscript = getNoscriptId(); // optional markup noscript elementId when using embedded image lists
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
                             cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
@@ -430,7 +436,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : ceres.noscriptId + ' - noscript') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.noscript + ' - noscript') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
