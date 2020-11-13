@@ -57,14 +57,16 @@ window.ceres = {};
                 const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                 const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                 const srm = new Map(); // shadowroot manager
-                const note = {}; // notification strings
 
-                note.imageMarkup = 'Image list markup';
-                note.configAttributes = 'The ' + csv + ' element attributes: ';
-                note.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body';
-                note.precursorError = 'Error: Unable to find the ' + csv + ' document element';
-                note.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
-                note.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
+                const note = { // notification strings
+                    imageMarkup         : 'Image list markup',
+                    configAttributes    : 'The ' + csv + ' element attributes: ',
+                    noscriptSearch      : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body',
+                    precursorError      : 'Error: Unable to find the ' + csv + ' document element',
+                    fetchListError      : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements',
+                    noscriptError       : 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body'
+                };
+
 
                 Object.freeze(note);
 
