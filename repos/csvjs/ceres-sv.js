@@ -31,23 +31,18 @@ window.ceres = {};
 
             initialise();
 
-            let css = progenitor.getAttribute('css') || cfg.defaultCSS;
-            let src = progenitor.getAttribute('src') || null;
+            if (atr.setFetchState())
+            {
+                if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
+                if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
-            cfg.fetchcss = !rsc.isEmptyOrNull(css);
-            cfg.fetchsrc = !rsc.isEmptyOrNull(src);
-
-            if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
-            if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
-
-            cfg.cache.src = cfg.cache.src.concat(src);
+                cfg.cache.src = cfg.cache.src.concat(src);
+            }
 
             if (atr.getProperties()) atr.activate();
 
             function initialise()
             {
-                const rsc = {}; // generic resource methods
-
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.attrib = {};
                 cfg.cache = {};
@@ -72,6 +67,17 @@ window.ceres = {};
 
                 // attribute allocation
                 (function() {
+
+                    atr.setFetchState = function()
+                    {
+                        let css = progenitor.getAttribute('css') || cfg.defaultCSS;
+                        let src = progenitor.getAttribute('src') || null;
+
+                        cfg.fetchcss = !rsc.isEmptyOrNull(css);
+                        cfg.fetchsrc = !rsc.isEmptyOrNull(src);
+
+                        return cfg.fetchcss || cfg.fetchsrc;
+                    }
 
                     atr.setShadow = function()
                     {
@@ -445,7 +451,7 @@ window.ceres = {};
 
                 })(); // end attribute allocation
 
-                // generic resource methods
+                const rsc = {}; // generic resource methods
                 (function() {
 
                     const symbol = new Map();
