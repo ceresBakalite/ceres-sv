@@ -14,7 +14,7 @@ window.ceres = {};
 {
     'use strict';
 
-    const csv = 'ceres-sv'; // required ceres slideview element name
+    const csv = 'ceres-sv'; // required ceres slideview html element name
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
@@ -28,7 +28,7 @@ window.ceres = {};
             rsc = {}, // generic resource methods
             atr = {}; // attribute allocation
 
-            const csvNode = this;
+            const csvNode = this; // the csv root node of a DOM subtree
 
             initialise();
 
