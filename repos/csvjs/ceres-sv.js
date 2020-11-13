@@ -554,14 +554,14 @@ window.ceres = {};
 
                     rsc.inspect = function(diagnostic)
                     {
-                        const errorInspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
+                        const errorInspect = 'Error: An exception occurred in the inspect method. The diagnostic argument was empty or null';
                         const errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
 
                         if (rsc.isEmptyOrNull(diagnostic)) return rsc.inspect({ type: rsc.error, notification: errorInspect });
 
                         const errorHandler = function(error)
                         {
-                            const exception = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
+                            const exception = 'Error: An exception occurred in the errorhandler method. The error argument was empty or null';
 
                             if (rsc.isEmptyOrNull(error)) return rsc.inspect({ type: rsc.error, notification: exception });
 
