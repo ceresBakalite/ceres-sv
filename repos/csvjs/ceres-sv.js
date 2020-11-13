@@ -255,7 +255,7 @@ window.ceres = {};
 
                     atr.insertCache = function()
                     {
-                        if (!caching.available) return;
+                        if (!('caches' in window)) return;
 
                         const caching = {}; // http cache allocation
                         setCache();
