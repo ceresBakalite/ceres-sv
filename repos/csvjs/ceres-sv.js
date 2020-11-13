@@ -14,6 +14,8 @@
 
 const csv = 'ceres-sv'; // required ceres slideview element name
 const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
+const progenitor = {}; // shadowroot
+const cfg = {}; // configuration attributes
 
 const atr = {}; // attribute allocation
 (function() {
@@ -475,9 +477,6 @@ window.ceres = {};
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
-
-            const progenitor = this,
-            cfg = {}; // configuration attributes
 
             initialise();
 
