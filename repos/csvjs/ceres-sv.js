@@ -52,15 +52,25 @@ const caching = {}; // http cache allocation
 const rsc = {}; // generic resource allocation
 (function() {
 
-    const protean = {},
-    resource = {},
-    symbol = new Map();
+    const symbol = new Map();
 
-    initialise();
+    symbol.set('true', true);
+    symbol.set('t', true);
+    symbol.set('yes', true);
+    symbol.set('y', true);
+    symbol.set('1', true);
 
-    rsc.constant = protean; // exposed local scope attributes
+    rsc.reference = 1;
+    rsc.notify = 2;
+    rsc.default = 98;
+    rsc.error = 99;
+    rsc.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+    rsc.newline = rsc.isWindows ? '\r\n' : '\n';
+    rsc.whitespace = /\s/g;
 
-    Object.freeze(rsc.constant);
+    const inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
+    const errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
+    const errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
 
     rsc.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
     rsc.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
@@ -144,11 +154,11 @@ const rsc = {}; // generic resource allocation
 
     rsc.inspect = function(diagnostic)
     {
-        if (rsc.isEmptyOrNull(diagnostic)) return rsc.inspect({ type: protean.error, notification: resource.inspect });
+        if (rsc.isEmptyOrNull(diagnostic)) return rsc.inspect({ type: rsc.error, notification: rsc.inspect });
 
         const errorHandler = function(error)
         {
-            if (rsc.isEmptyOrNull(error)) return rsc.inspect({ type: protean.error, notification: resource.errorHandler });
+            if (rsc.isEmptyOrNull(error)) return rsc.inspect({ type: rsc.error, notification: rsc.errorHandler });
 
             const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
             console.error(err);
@@ -159,44 +169,19 @@ const rsc = {}; // generic resource allocation
         }
 
         const lookup = {
-            [protean.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-            [protean.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-            [protean.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + protean.newline + protean.newline + diagnostic.reference); },
-            [protean.default]: function() { errorHandler({ notification: resource.errordefault, alert: diagnostic.logtrace } ); }
+            [rsc.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+            [rsc.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+            [rsc.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + rsc.newline + rsc.newline + diagnostic.reference); },
+            [rsc.default]: function() { errorHandler({ notification: rsc.errordefault, alert: diagnostic.logtrace } ); }
         };
 
-        return lookup[diagnostic.type]() || lookup[protean.default];
+        return lookup[diagnostic.type]() || lookup[rsc.default];
     }
 
     rsc.getObjectProperties = function(object, str = '')
     {
         for (let property in object) str += property + ': ' + object[property] + ', ';
         return str.replace(/, +$/g,'');
-    }
-
-    function initialise()
-    {
-        symbol.set('true', true);
-        symbol.set('t', true);
-        symbol.set('yes', true);
-        symbol.set('y', true);
-        symbol.set('1', true);
-
-        protean.reference = 1;
-        protean.notify = 2;
-        protean.default = 98;
-        protean.error = 99;
-        protean.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        protean.newline = protean.isWindows ? '\r\n' : '\n';
-        protean.whitespace = /\s/g;
-
-        Object.freeze(protean);
-
-        resource.inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
-        resource.errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
-        resource.errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
-
-        Object.freeze(resource);
     }
 
 })(); // end resource allocation
@@ -355,7 +340,7 @@ const atr = {}; // attribute allocation
 
             if (rsc.isEmptyOrNull(auto)) return true;
 
-            const ar = auto.replace(rsc.constant.whitespace,'').split(',');
+            const ar = auto.replace(rsc.whitespace,'').split(',');
             const item = ar[0].toLocaleLowerCase(locale);
 
             if (!Number.isInteger(parseInt(item)))
@@ -400,7 +385,7 @@ const atr = {}; // attribute allocation
     {
         cfg.imageArray = null;
 
-        rsc.inspect({ type: rsc.constant.notify, notification: note.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+        rsc.inspect({ type: rsc.notify, notification: note.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
         const getImageList = function()
         {
@@ -408,10 +393,10 @@ const atr = {}; // attribute allocation
 
             const getContentList = function()
             {
-                rsc.inspect({ type: rsc.constant.notify, notification: note.noscriptSearch, logtrace: cfg.attrib.trace });
+                rsc.inspect({ type: rsc.notify, notification: note.noscriptSearch, logtrace: cfg.attrib.trace });
 
                 const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.constant.error, notification: note.noscriptError, logtrace: cfg.attrib.trace });
+                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.error, notification: note.noscriptError, logtrace: cfg.attrib.trace });
             }
 
             return cfg.fetchsrc ? getFetchList() : getContentList();
@@ -423,7 +408,7 @@ const atr = {}; // attribute allocation
 
             if (!rsc.isEmptyOrNull(imageList))
             {
-                rsc.inspect({ type: rsc.constant.notify, notification: note.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.constant.newline + imageList, logtrace: cfg.attrib.trace });
+                rsc.inspect({ type: rsc.notify, notification: note.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
             }
 
@@ -435,8 +420,8 @@ const atr = {}; // attribute allocation
 
     atr.getProperties = function()
     {
-        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.constant.error, notification: note.precursorError, logtrace: cfg.attrib.trace });
-        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.constant.error, notification: note.fetchListError, logtrace: cfg.attrib.trace });
+        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: note.precursorError, logtrace: cfg.attrib.trace });
+        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.error, notification: note.fetchListError, logtrace: cfg.attrib.trace });
 
         return atr.attributesExist();
     }
@@ -497,7 +482,7 @@ window.ceres = {};
 
                 if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
 
-                rsc.inspect({ type: rsc.constant.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
+                rsc.inspect({ type: rsc.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
             }
 
             function setSlide(node, shadow)
