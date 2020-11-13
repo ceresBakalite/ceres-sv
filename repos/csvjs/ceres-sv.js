@@ -38,8 +38,11 @@ window.ceres = {};
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
-            if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) fetch(src).then(response => response.text()).then(str => { progenitor.insertAdjacentHTML('afterbegin', str) });
+            if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
+            if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+
+            //if (cfg.fetchcss) atr.fetchStylesheets(css);
+            //if (cfg.fetchsrc) fetch(src).then(response => response.text()).then(str => { progenitor.insertAdjacentHTML('afterbegin', str) });
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
