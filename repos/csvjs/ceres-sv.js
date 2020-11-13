@@ -59,12 +59,12 @@ window.ceres = {};
                 const srm = new Map(); // shadowroot manager
 
                 const note = { // notification strings
-                    imageMarkup         : 'Image list markup',
-                    configAttributes    : 'The ' + csv + ' element attributes: ',
-                    noscriptSearch      : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body',
-                    precursorError      : 'Error: Unable to find the ' + csv + ' document element',
-                    fetchListError      : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements',
-                    noscriptError       : 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body'
+                    imageMarkup      : 'Image list markup',
+                    configAttributes : 'The ' + csv + ' element attributes: ',
+                    noscriptSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body',
+                    precursorError   : 'Error: Unable to find the ' + csv + ' document element',
+                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements',
+                    noscriptError    : 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body'
                 };
 
 
