@@ -28,18 +28,18 @@ window.ceres = {};
             rsc = {}, // generic resource methods
             atr = {}; // attribute allocation
 
-            const progenitor = this;
+            const csvNode = this;
 
             initialise();
 
-            let css = progenitor.getAttribute('css') || cfg.defaultCSS;
-            let src = progenitor.getAttribute('src') || null;
+            let css = csvNode.getAttribute('css') || cfg.defaultCSS;
+            let src = csvNode.getAttribute('src') || null;
 
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
@@ -74,7 +74,7 @@ window.ceres = {};
 
                     atr.setShadow = function()
                     {
-                        cfg.shade = document.querySelector('#' + progenitor.id);
+                        cfg.shade = document.querySelector('#' + csvNode.id);
 
                         rsc.clearElement(cfg.shade);
 
@@ -340,17 +340,17 @@ window.ceres = {};
 
                     atr.getPrecursor = function()
                     {
-                        const exists = !rsc.isEmptyOrNull(progenitor);
+                        const exists = !rsc.isEmptyOrNull(csvNode);
 
                         const getZoomState = function()
                         {
-                            const zoom = progenitor.getAttribute('zoom');
+                            const zoom = csvNode.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
                         const getAutoProperties = function(locale = 'en')
                         {
-                            const auto = progenitor.getAttribute('auto');
+                            const auto = csvNode.getAttribute('auto');
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
@@ -374,18 +374,18 @@ window.ceres = {};
 
                         if (exists)
                         {
-                            progenitor.id = rsc.getUniqueElementId(csv, 1000);
-                            progenitor.setAttribute("class", 'none');
+                            csvNode.id = rsc.getUniqueElementId(csv, 1000);
+                            csvNode.setAttribute("class", 'none');
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
-                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
-                            cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
-                            cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
-                            cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
-                            cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
+                            cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
+                            cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
+                            cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
+                            cfg.attrib.trace = rsc.getBooleanAttribute(csvNode.getAttribute('trace')); // disabled
+                            cfg.attrib.cache = !rsc.getBooleanAttribute(csvNode.getAttribute('cache')); // enabled
+                            cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled;
+                            cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
 
@@ -403,7 +403,7 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            const getFetchList = function() { return (!rsc.isEmptyOrNull(progenitor.textContent)) ? progenitor.textContent : null; }
+                            const getFetchList = function() { return (!rsc.isEmptyOrNull(csvNode.textContent)) ? csvNode.textContent : null; }
 
                             const getContentList = function()
                             {
