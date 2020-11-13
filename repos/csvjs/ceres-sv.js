@@ -60,10 +60,10 @@ window.ceres = {};
                 const remark = {
                     imageMarkup      : 'Image list markup',
                     configAttributes : 'The ' + csv + ' element attributes: ',
-                    noscriptSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body',
+                    templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback template element in the document body',
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cfg.attrib.embed + ' elements',
-                    noscriptError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback noscript element when searching the document body'
+                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
+                    templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body'
                 };
 
                 Object.freeze(remark);
@@ -151,7 +151,7 @@ window.ceres = {};
                     atr.hasProperties = function()
                     {
                         if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError, logtrace: cfg.attrib.trace });
-                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError, logtrace: cfg.attrib.trace });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
                     }
@@ -390,7 +390,7 @@ window.ceres = {};
                             csvNode.id = rsc.getUniqueElementId(csv, 1000);
                             csvNode.setAttribute("class", 'none');
 
-                            cfg.noscript = document.getElementById(cfg.attrib.embed) || document.getElementsByTagName('noscript')[0];
+                            cfg.template = document.getElementById(cfg.attrib.embed) || document.getElementsByTagName('template')[0];
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
@@ -421,10 +421,10 @@ window.ceres = {};
 
                             const getContentList = function()
                             {
-                                rsc.inspect({ type: rsc.notify, notification: remark.noscriptSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
-                                const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.error, notification: remark.noscriptError, logtrace: cfg.attrib.trace });
+                                const list = !rsc.isEmptyOrNull(cfg.template) ? cfg.template.textContent : null;
+                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
                             }
 
                             return cfg.fetchsrc ? getFetchList() : getContentList();
@@ -436,7 +436,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - noscript') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
