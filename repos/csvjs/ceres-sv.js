@@ -58,7 +58,7 @@ window.ceres = {};
                 const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                 const srm = new Map(); // shadowroot manager
 
-                const note = {
+                const remark = {
                     imageMarkup      : 'Image list markup',
                     configAttributes : 'The ' + csv + ' element attributes: ',
                     noscriptSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body',
