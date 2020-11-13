@@ -355,10 +355,10 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        const getTemplateId = function() // optional markup noscript elementId when using embedded image lists
+                        const getTemplateId = function() // optional markup template elementId when using embedded image lists
                         {
                             const embed = csvNode.getAttribute('embed');
-                            return rsc.isEmptyOrNull(embed) ? 'noscriptId' : rsc.getBooleanAttribute(embed);
+                            return rsc.isEmptyOrNull(embed) ? 'undefined' : rsc.getBooleanAttribute(embed);
                         }
 
                         const getAutoProperties = function(locale = 'en')
