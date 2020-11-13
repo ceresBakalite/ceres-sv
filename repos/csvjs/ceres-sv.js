@@ -379,15 +379,17 @@ window.ceres = {};
 
                             cfg.noscript = document.getElementById(cns) || document.getElementsByTagName('noscript')[0];
 
-                            cfg.attrib.delay = Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250;
-                            cfg.attrib.sur = rsc.getBooleanAttribute(progenitor.getAttribute('sur')); // disabled
-                            cfg.attrib.sub = rsc.getBooleanAttribute(progenitor.getAttribute('sub')); // disabled
-                            cfg.attrib.trace = rsc.getBooleanAttribute(progenitor.getAttribute('trace')); // disabled
-                            cfg.attrib.cache = !rsc.getBooleanAttribute(progenitor.getAttribute('cache')); // enabled
-                            cfg.attrib.fade = !rsc.getBooleanAttribute(progenitor.getAttribute('fade')); // enabled;
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(progenitor.getAttribute('nub')); // enabled
-                            cfg.attrib.zoom = getZoomState(); // enabled;
-                            cfg.attrib.static = getAutoProperties(); // enabled
+                            cfg.attrib = {
+                                delay   : Number.isInteger(parseInt(progenitor.getAttribute('delay'))) ? parseInt(progenitor.getAttribute('delay')) : 250,
+                                sur     : rsc.getBooleanAttribute(progenitor.getAttribute('sur')), // disabled
+                                sub     : rsc.getBooleanAttribute(progenitor.getAttribute('sub')), // disabled
+                                trace   : rsc.getBooleanAttribute(progenitor.getAttribute('trace')), // disabled
+                                cache   : !rsc.getBooleanAttribute(progenitor.getAttribute('cache')), // enabled
+                                fade    : !rsc.getBooleanAttribute(progenitor.getAttribute('fade')), // enabled;
+                                nub     : !rsc.getBooleanAttribute(progenitor.getAttribute('nub')), // enabled
+                                zoom    : getZoomState(), // enabled;
+                                static  : getAutoProperties() // enabled
+                            }
 
                             Object.freeze(cfg.attrib);
                         }
