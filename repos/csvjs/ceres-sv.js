@@ -67,7 +67,7 @@ window.ceres = {};
                     noscriptError    : 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body'
                 };
 
-                Object.freeze(note);
+                Object.freeze(remark);
 
                 // attribute allocation
                 (function() {
