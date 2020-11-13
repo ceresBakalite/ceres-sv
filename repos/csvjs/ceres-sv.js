@@ -137,7 +137,7 @@ window.ceres = {};
                 cfg.cache.src = [];
                 cfg.slide = 1;
 
-                Object.freeze(atr);
+                //Object.freeze(atr);
 
                 // generic resource allocation
                 (function() {
