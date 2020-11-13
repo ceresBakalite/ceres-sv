@@ -38,9 +38,6 @@ window.ceres = {};
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
-            //if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
-            //if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
-
             if (cfg.fetchcss) atr.fetchStylesheets(css);
             if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
 
