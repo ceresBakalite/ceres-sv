@@ -358,7 +358,7 @@ window.ceres = {};
                         const getNoscriptId = function()
                         {
                             const noscript = csvNode.getAttribute('noscript');
-                            return rsc.isEmptyOrNull(noscript) ? 'ceres-csv' : rsc.getBooleanAttribute(noscript);
+                            return rsc.isEmptyOrNull(noscript) ? 'id' : rsc.getBooleanAttribute(noscript);
                         }
 
                         const getAutoProperties = function(locale = 'en')
