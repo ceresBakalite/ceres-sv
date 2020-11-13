@@ -58,7 +58,7 @@ window.ceres = {};
                 const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                 const srm = new Map(); // shadowroot manager
 
-                const note = { // notification strings
+                const note = {
                     imageMarkup      : 'Image list markup',
                     configAttributes : 'The ' + csv + ' element attributes: ',
                     noscriptSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body',
@@ -66,7 +66,6 @@ window.ceres = {};
                     fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements',
                     noscriptError    : 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body'
                 };
-
 
                 Object.freeze(note);
 
@@ -400,7 +399,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.notify, notification: note.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
@@ -408,10 +407,10 @@ window.ceres = {};
 
                             const getContentList = function()
                             {
-                                rsc.inspect({ type: rsc.notify, notification: note.noscriptSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.notify, notification: remark.noscriptSearch, logtrace: cfg.attrib.trace });
 
                                 const list = !rsc.isEmptyOrNull(cfg.noscript) ? cfg.noscript.textContent : null;
-                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.error, notification: note.noscriptError, logtrace: cfg.attrib.trace });
+                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.error, notification: remark.noscriptError, logtrace: cfg.attrib.trace });
                             }
 
                             return cfg.fetchsrc ? getFetchList() : getContentList();
@@ -423,7 +422,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.notify, notification: note.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cns + ' - noscript') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
@@ -435,8 +434,8 @@ window.ceres = {};
 
                     atr.getProperties = function()
                     {
-                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: note.precursorError, logtrace: cfg.attrib.trace });
-                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.error, notification: note.fetchListError, logtrace: cfg.attrib.trace });
+                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError, logtrace: cfg.attrib.trace });
+                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError, logtrace: cfg.attrib.trace });
 
                         return atr.attributesExist();
                     }
