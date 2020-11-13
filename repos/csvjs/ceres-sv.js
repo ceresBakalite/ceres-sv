@@ -14,8 +14,9 @@
 
 const csv = 'ceres-sv'; // required ceres slideview element name
 const cns = 'ceres-csv'; // optional markup noscript tag id when using an embedded image list
-const progenitor = {}; // shadowroot
 const cfg = {}; // configuration attributes
+
+let progenitor = {}; // shadowroot
 
 const atr = {}; // attribute allocation
 (function() {
