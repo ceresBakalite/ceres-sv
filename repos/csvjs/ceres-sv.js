@@ -43,7 +43,7 @@ window.ceres = {};
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
-            if (atr.getProperties()) atr.activate();
+            if (atr.hasProperties()) atr.activate();
 
             function initialise()
             {
@@ -147,6 +147,14 @@ window.ceres = {};
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) atr.insertCache();
+                    }
+
+                    atr.hasProperties = function()
+                    {
+                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError, logtrace: cfg.attrib.trace });
+                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError, logtrace: cfg.attrib.trace });
+
+                        return atr.attributesExist();
                     }
 
                     atr.activate = function()
@@ -430,14 +438,6 @@ window.ceres = {};
                         }
 
                         return isImageArray();
-                    }
-
-                    atr.getProperties = function()
-                    {
-                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError, logtrace: cfg.attrib.trace });
-                        if (!(cfg.fetchsrc || cfg.noscript)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError, logtrace: cfg.attrib.trace });
-
-                        return atr.attributesExist();
                     }
 
                     Object.seal(atr);
