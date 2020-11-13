@@ -31,6 +31,12 @@ window.ceres = {};
 
             initialise();
 
+            let css = progenitor.getAttribute('css') || cfg.defaultCSS;
+            let src = progenitor.getAttribute('src') || null;
+
+            cfg.fetchcss = !rsc.isEmptyOrNull(css);
+            cfg.fetchsrc = !rsc.isEmptyOrNull(src);
+
             if (atr.setFetchState())
             {
                 if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
@@ -67,17 +73,6 @@ window.ceres = {};
 
                 // attribute allocation
                 (function() {
-
-                    atr.setFetchState = function()
-                    {
-                        let css = progenitor.getAttribute('css') || cfg.defaultCSS;
-                        let src = progenitor.getAttribute('src') || null;
-
-                        cfg.fetchcss = !rsc.isEmptyOrNull(css);
-                        cfg.fetchsrc = !rsc.isEmptyOrNull(src);
-
-                        return cfg.fetchcss || cfg.fetchsrc;
-                    }
 
                     atr.setShadow = function()
                     {
