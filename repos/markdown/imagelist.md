@@ -1,4 +1,4 @@
-<template id="ceres-csv">
+<noscript id="ceres-csv">
 
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.png, Multi-panel view showing uncommitted comparison matches
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews04.png, Multi-panel view depicting abbreviations deletion
@@ -9,4 +9,4 @@
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews07.png, Multi-panel view depicting duplicate removal on a large dataset
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews08.png, Multi-panel view depicting saved Preference selection attributes
 
-</template>
+</noscript>
