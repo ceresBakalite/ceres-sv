@@ -478,6 +478,8 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { setSlide(el); };  // global scope method reference
 
+            progenitor = this;
+
             initialise();
 
             let css = progenitor.getAttribute('css') || cfg.defaultCSS;
