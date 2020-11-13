@@ -9,6 +9,9 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
+
+const atr = {}; // attribute allocation
+
 window.ceres = {};
 (function()
 {
@@ -340,7 +343,6 @@ const caching = {}; // http cache allocation
 
 })(); // end caching
 
-const atr = {}; // attribute allocation
 (function() {
 
     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
