@@ -68,10 +68,6 @@ const rsc = {}; // generic resource allocation
     rsc.newline = rsc.isWindows ? '\r\n' : '\n';
     rsc.whitespace = /\s/g;
 
-    const inspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
-    const errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
-    const errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
-
     rsc.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
     rsc.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
     rsc.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
@@ -154,7 +150,11 @@ const rsc = {}; // generic resource allocation
 
     rsc.inspect = function(diagnostic)
     {
-        if (rsc.isEmptyOrNull(diagnostic)) return rsc.inspect({ type: rsc.error, notification: rsc.inspect });
+        const errorInspect = 'Error: An exception occurred in the inspect method.  The diagnostic argument was empty or null';
+        const errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
+        const errorhandler = 'Error: An exception occurred in the errorhandler method.  The error argument was empty or null';
+
+        if (rsc.isEmptyOrNull(diagnostic)) return rsc.inspect({ type: rsc.error, notification: rsc.errorInspect });
 
         const errorHandler = function(error)
         {
