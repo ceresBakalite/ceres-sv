@@ -355,7 +355,7 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        const getNoscriptId = function() // optional markup noscript elementId when using embedded image lists
+                        const getTemplateId = function() // optional markup noscript elementId when using embedded image lists
                         {
                             const embed = csvNode.getAttribute('embed');
                             return rsc.isEmptyOrNull(embed) ? 'noscriptId' : rsc.getBooleanAttribute(embed);
@@ -401,7 +401,7 @@ window.ceres = {};
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
-                            cfg.attrib.embed = getNoscriptId();
+                            cfg.attrib.embed = getTemplateId();
 
                             Object.freeze(cfg.attrib);
                         }
