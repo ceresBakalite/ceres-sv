@@ -62,8 +62,8 @@ window.ceres = {};
                     configAttributes : 'The ' + csv + ' element attributes: ',
                     noscriptSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback noscript element in the document body',
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cfg.attrib.noscript + ' elements',
-                    noscriptError    : 'Error: Unable to find the ' + cfg.attrib.noscript + ' fallback noscript element when searching the document body'
+                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cfg.attrib.embed + ' elements',
+                    noscriptError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback noscript element when searching the document body'
                 };
 
                 Object.freeze(remark);
@@ -355,10 +355,10 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        const getNoscriptId = function()
+                        const getNoscriptId = function() // optional markup noscript elementId when using embedded image lists
                         {
-                            const noscript = csvNode.getAttribute('noscript');
-                            return rsc.isEmptyOrNull(noscript) ? 'undefined' : rsc.getBooleanAttribute(noscript);
+                            const embed = csvNode.getAttribute('embed');
+                            return rsc.isEmptyOrNull(embed) ? 'noscriptId' : rsc.getBooleanAttribute(embed);
                         }
 
                         const getAutoProperties = function(locale = 'en')
@@ -390,7 +390,7 @@ window.ceres = {};
                             csvNode.id = rsc.getUniqueElementId(csv, 1000);
                             csvNode.setAttribute("class", 'none');
 
-                            cfg.noscript = document.getElementById(cfg.attrib.noscript) || document.getElementsByTagName('noscript')[0];
+                            cfg.noscript = document.getElementById(cfg.attrib.embed) || document.getElementsByTagName('noscript')[0];
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
@@ -401,7 +401,7 @@ window.ceres = {};
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
-                            cfg.attrib.noscript = getNoscriptId(); // optional markup noscript elementId when using embedded image lists
+                            cfg.attrib.embed = getNoscriptId();
 
                             Object.freeze(cfg.attrib);
                         }
@@ -436,7 +436,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.noscript + ' - noscript') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - noscript') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
