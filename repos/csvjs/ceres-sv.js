@@ -217,121 +217,6 @@ window.ceres = {};
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
-            if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
-            if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
-
-            cfg.cache.src = cfg.cache.src.concat(src);
-
-            if (atr.getProperties()) activate();
-
-            function setShadow()
-            {
-                cfg.shade = document.querySelector('#' + progenitor.id);
-
-                rsc.clearElement(cfg.shade);
-
-                cfg.shade.attachShadow({mode: 'open'});
-                cfg.shadow = cfg.shade.shadowRoot;
-
-                atr.setStyleAttributes();
-                atr.setBodyAttributes();
-                atr.setImageAttributes();
-                atr.setTrackAttributes();
-
-                cfg.shadow.append(cfg.styleContainer);
-                cfg.shadow.append(cfg.bodyContainer);
-
-                if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
-
-                rsc.inspect({ type: rsc.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
-            }
-
-            function setSlide(node, shadow)
-            {
-                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.getSlideShadow(node);
-                const slides = shadow.querySelectorAll('div.slideview-image > div.view');
-
-                cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
-
-                const next = cfg.slide-1;
-
-                if (rsc.isEmptyOrNull(slides[next])) return;
-
-                const active = shadow.querySelector('div.slideview-image > div.active');
-                if (active) active.className = active.className.replace('active', 'none');
-
-                slides[next].className = slides[next].className.replace('none', 'active');
-
-                const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
-                if (enabled) enabled.className = 'nub';
-
-                const nub = shadow.querySelectorAll('div.slideview-nub > span.nub');
-                nub[next].className = 'nub enabled';
-            }
-
-            function setAuto()
-            {
-                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-                let iteration = complete === 0 ? 0 : 1;
-
-                let autoCancel = function()
-                {
-                    if (!cfg.attrib.autocancel) return (cfg.slide++, false); // never stops
-                    return iteration === complete || (cfg.slide++, iteration++, false); // stops when complete
-                }
-
-                let auto = setInterval(function run()
-                {
-                    if (autoCancel()) clearInterval(auto);
-                    setSlide();
-
-                }, cfg.attrib.autopause);
-
-            }
-
-            function setView()
-            {
-                setTimeout(function()
-                {
-                    cfg.bodyContainer.style.display = 'block';
-                    if (!cfg.attrib.static) setTimeout(function() { setAuto(); }, cfg.attrib.delay);
-
-                }, cfg.attrib.delay);
-
-                if (cfg.attrib.cache) atr.insertCache();
-            }
-
-            function activate()
-            {
-                setShadow();
-                setSlide();
-                setView();
-            }
-
-            function initialise()
-            {
-                cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.attrib = {};
-                cfg.cache = {};
-                cfg.cache.css = [];
-                cfg.cache.src = [];
-                cfg.slide = 1;
-
-                const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
-                const srm = new Map(); // shadowroot manager
-                const note = {}; // notification strings
-
-                note.imageMarkup = 'Image list markup';
-                note.configAttributes = 'The ' + csv + ' element attributes: ';
-                note.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
-                note.precursorError = 'Error: Unable to find the ' + csv + ' document element';
-                note.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
-                note.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
-
-                Object.freeze(note);
-            }
-
             const atr = {}; // attribute allocation
             (function() {
 
@@ -572,9 +457,124 @@ window.ceres = {};
                     return atr.attributesExist();
                 }
 
+                Object.freeze(atr);
+
             })(); // end attribute allocation
 
-            Object.freeze(atr);
+            if (cfg.fetchcss) await ( await atr.fetchStylesheets(css) );
+            if (cfg.fetchsrc) progenitor.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+
+            cfg.cache.src = cfg.cache.src.concat(src);
+
+            if (atr.getProperties()) activate();
+
+            function setShadow()
+            {
+                cfg.shade = document.querySelector('#' + progenitor.id);
+
+                rsc.clearElement(cfg.shade);
+
+                cfg.shade.attachShadow({mode: 'open'});
+                cfg.shadow = cfg.shade.shadowRoot;
+
+                atr.setStyleAttributes();
+                atr.setBodyAttributes();
+                atr.setImageAttributes();
+                atr.setTrackAttributes();
+
+                cfg.shadow.append(cfg.styleContainer);
+                cfg.shadow.append(cfg.bodyContainer);
+
+                if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
+
+                rsc.inspect({ type: rsc.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
+            }
+
+            function setSlide(node, shadow)
+            {
+                if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.getSlideShadow(node);
+                const slides = shadow.querySelectorAll('div.slideview-image > div.view');
+
+                cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
+
+                const next = cfg.slide-1;
+
+                if (rsc.isEmptyOrNull(slides[next])) return;
+
+                const active = shadow.querySelector('div.slideview-image > div.active');
+                if (active) active.className = active.className.replace('active', 'none');
+
+                slides[next].className = slides[next].className.replace('none', 'active');
+
+                const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
+                if (enabled) enabled.className = 'nub';
+
+                const nub = shadow.querySelectorAll('div.slideview-nub > span.nub');
+                nub[next].className = 'nub enabled';
+            }
+
+            function setAuto()
+            {
+                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                let iteration = complete === 0 ? 0 : 1;
+
+                let autoCancel = function()
+                {
+                    if (!cfg.attrib.autocancel) return (cfg.slide++, false); // never stops
+                    return iteration === complete || (cfg.slide++, iteration++, false); // stops when complete
+                }
+
+                let auto = setInterval(function run()
+                {
+                    if (autoCancel()) clearInterval(auto);
+                    setSlide();
+
+                }, cfg.attrib.autopause);
+
+            }
+
+            function setView()
+            {
+                setTimeout(function()
+                {
+                    cfg.bodyContainer.style.display = 'block';
+                    if (!cfg.attrib.static) setTimeout(function() { setAuto(); }, cfg.attrib.delay);
+
+                }, cfg.attrib.delay);
+
+                if (cfg.attrib.cache) atr.insertCache();
+            }
+
+            function activate()
+            {
+                setShadow();
+                setSlide();
+                setView();
+            }
+
+            function initialise()
+            {
+                cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+                cfg.attrib = {};
+                cfg.cache = {};
+                cfg.cache.css = [];
+                cfg.cache.src = [];
+                cfg.slide = 1;
+
+                const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
+                const srm = new Map(); // shadowroot manager
+                const note = {}; // notification strings
+
+                note.imageMarkup = 'Image list markup';
+                note.configAttributes = 'The ' + csv + ' element attributes: ';
+                note.noscriptSearch = 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback noscript element in the document body';
+                note.precursorError = 'Error: Unable to find the ' + csv + ' document element';
+                note.fetchListError = 'Error: Unable to find either the fetch ' + csv + ' nor the fallback noscript ' + cns + ' elements';
+                note.noscriptError = 'Error: Unable to find the ' + cns + ' fallback noscript element when searching the document body';
+
+                Object.freeze(note);
+            }
 
         }
 
