@@ -424,7 +424,7 @@ window.ceres = {};
                                 if (csvNode.innerHTML.includes('</template>'))
                                 {
                                   console.log('includes template: ' + csvNode.textContent);
-                                  csvNode.appendChild(document.importNode(csvNode, true).textContent);
+                                  csvNode.appendChild(document.importNode(document.getElementById(csvNode.id), true).textContent);
                                 }
 
                                 let content = csvNode.textContent;
