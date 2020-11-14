@@ -429,7 +429,7 @@ window.ceres = {};
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
-                                let content = rsc.htmlToText(cfg.template.textContent, true);
+                                let content = rsc.htmlToText(cfg.template.innerHTML, true);
 
                                 if (rsc.isEmptyOrNull(content))
                                 {
