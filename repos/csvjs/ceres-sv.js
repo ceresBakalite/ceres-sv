@@ -356,13 +356,21 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        const getTemplateElement = function() // optional markup template elementId when using embedded image lists
+                        const getTemplateId = function()
                         {
+                            let embed = csvNode.getAttribute('embed');
+                            return rsc.isEmptyOrNull(embed) ? null : embed;
+                        }
+
+                        const getTemplateElement = function()
+                        {
+                            if (cfg.fetchsrc) return 'undefined';
+
                             let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(cfg.attrib.embed) : null;
 
                             if (rsc.isEmptyOrNull(el))
                             {
-                                if (!cfg.fetchsrc) rsc.inspect({ type: rsc.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                             }
 
@@ -407,7 +415,7 @@ window.ceres = {};
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
-                            cfg.attrib.embed = csvNode.getAttribute('embed');
+                            cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
 
                             cfg.template = getTemplateElement();
 
@@ -436,11 +444,7 @@ window.ceres = {};
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
                                 let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-
-                                if (rsc.isEmptyOrNull(content))
-                                {
-                                    return rsc.inspect({ type: rsc.error, notification: remark.templateError });
-                                }
+                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.error, notification: remark.templateError });
 
                                 return content;
                             }
