@@ -418,12 +418,26 @@ window.ceres = {};
                         const getImageList = function()
                         {
                             let content = cfg.fetchsrc ? csvNode.textContent : cfg.template.textContent;
-                            let shadowList = function() { return (!rsc.isEmptyOrNull(content)) ? content : null; }
+
+                            let shadowList = function()
+                            {
+                                let content = csvNode.textContent;
+                                return (!rsc.isEmptyOrNull(content)) ? content : null;
+                            }
 
                             let lightList = function()
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
-                                return !rsc.isEmptyOrNull(content) ? content : rsc.inspect({ type: rsc.error, notification: remark.templateError });
+
+                                let content = cfg.template.textContent;
+
+                                if (rsc.isEmptyOrNull(content)) 
+                                {
+                                    rsc.inspect({ type: rsc.error, notification: remark.templateError });
+                                    return null;
+                                }
+
+                                return content;
                             }
 
                             return cfg.fetchsrc ? shadowList() : lightList();
