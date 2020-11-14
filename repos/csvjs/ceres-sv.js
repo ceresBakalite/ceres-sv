@@ -576,9 +576,9 @@ window.ceres = {};
 
                         const lookup = {
                             [rsc.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                            [rsc.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                            [rsc.error]: function() { return errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
                             [rsc.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + rsc.newline + rsc.newline + diagnostic.reference); },
-                            [rsc.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                            [rsc.default]: function() { return errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
                         };
 
                         return lookup[diagnostic.type]() || lookup[rsc.default];
