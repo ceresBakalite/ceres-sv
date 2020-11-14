@@ -150,8 +150,8 @@ window.ceres = {};
 
                     atr.hasProperties = function()
                     {
-                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError, logtrace: cfg.attrib.trace });
-                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError, logtrace: cfg.attrib.trace });
+                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError });
 
                         return atr.attributesExist();
                     }
@@ -423,7 +423,7 @@ window.ceres = {};
                             let lightList = function()
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
-                                return !rsc.isEmptyOrNull(content) ? content : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
+                                return !rsc.isEmptyOrNull(content) ? content : rsc.inspect({ type: rsc.error, notification: remark.templateError });
                             }
 
                             return cfg.fetchsrc ? shadowList() : lightList();
@@ -564,17 +564,8 @@ window.ceres = {};
 
                     rsc.inspect = function(diagnostic)
                     {
-                        const errorInspect = 'Error: An exception occurred in the inspect method. The diagnostic argument was empty or null';
-                        const errordefault = 'An unexpected error has occurred. The inspection type was missing or invalid';
-
-                        if (rsc.isEmptyOrNull(diagnostic)) return rsc.inspect({ type: rsc.error, notification: errorInspect });
-
                         const errorHandler = function(error)
                         {
-                            let exception = 'Error: An exception occurred in the errorhandler method. The error argument was empty or null';
-
-                            if (rsc.isEmptyOrNull(error)) return rsc.inspect({ type: rsc.error, notification: exception });
-
                             let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
                             console.error(err);
 
