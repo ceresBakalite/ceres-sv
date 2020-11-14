@@ -417,9 +417,9 @@ window.ceres = {};
                             cfg.attrib.static = getAutoProperties(); // enabled
                             cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
 
-                            cfg.template = getTemplateElement();
-
                             Object.freeze(cfg.attrib);
+
+                            cfg.template = getTemplateElement();
                         }
 
                         return exists;
