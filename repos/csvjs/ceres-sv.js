@@ -440,7 +440,7 @@ window.ceres = {};
                                 //    console.log('more: ' + cfg.template.content.textContent);
                                 //}
 
-                                let content = cfg.template.content.textContent;
+                                let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
 
                                 if (rsc.isEmptyOrNull(content))
                                 {
