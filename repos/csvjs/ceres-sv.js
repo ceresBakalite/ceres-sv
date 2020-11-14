@@ -417,6 +417,8 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
+                            console.log('test: ' + document.importNode(csvNode, true));
+
                             const getFetchList = function() { return (!rsc.isEmptyOrNull(csvNode.textContent)) ? csvNode.textContent : null; }
 
                             const getContentList = function()
