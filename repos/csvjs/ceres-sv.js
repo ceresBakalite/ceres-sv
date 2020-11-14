@@ -41,8 +41,9 @@ window.ceres = {};
             //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
             if (cfg.fetchsrc)
             {
-                let html = await ( await fetch(src) ).text();
-                csvNode.insertAdjacentHTML('afterbegin', html.textContent);
+                let el = document.createElement("div");
+                el.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+                csvNode.insertAdjacentHTML('afterbegin', el.content.textContent);
             }
 
             cfg.cache.src = cfg.cache.src.concat(src);
