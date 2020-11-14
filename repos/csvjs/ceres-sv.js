@@ -570,8 +570,6 @@ window.ceres = {};
                             console.error(err);
 
                             if (error.alert) alert(err);
-
-                            return false;
                         }
 
                         const lookup = {
