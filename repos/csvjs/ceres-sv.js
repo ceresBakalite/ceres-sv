@@ -61,6 +61,7 @@ window.ceres = {};
                     imageMarkup      : 'Image list markup',
                     configAttributes : 'The ' + csv + ' element attributes: ',
                     templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for a fallback template element in the document body',
+                    elementSearch    : 'There is no \'embed\' elementId available. Falling back to the first occurance of a <template> or <noscript> element',
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
                     fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
                     templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body'
@@ -358,7 +359,12 @@ window.ceres = {};
                         const getTemplateElement = function() // optional markup template elementId when using embedded image lists
                         {
                             let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(cfg.attrib.embed) : null;
-                            if (rsc.isEmptyOrNull(el)) el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
+
+                            if (rsc.isEmptyOrNull(el))
+                            {
+                                rsc.inspect({ type: rsc.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
+                                el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
+                            }
 
                             return rsc.isEmptyOrNull(el) ? 'undefined' : el;
                         }
