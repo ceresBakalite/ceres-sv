@@ -419,7 +419,7 @@ window.ceres = {};
                         {
                             const getFetchList = function()
                             {
-                                console.log('template: ' + csvNode.textContent);
+                                console.log('zzz template: ' + csvNode.textContent);
 
                                 //let content = document.importNode(csvNode, true).textContent;
                                 let content = csvNode.textContent;
