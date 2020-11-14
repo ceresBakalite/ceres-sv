@@ -417,19 +417,19 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            let getFetchList = function()
+                            let shadowList = function()
                             {
                                 let content = (csvNode.innerHTML.includes('</template>')) ? rsc.htmlToText(csvNode.innerHTML, true) : csvNode.textContent;
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
-                            let getContentList = function()
+                            let lightList = function()
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
                                 return !rsc.isEmptyOrNull(cfg.template.textContent) ? cfg.template.textContent : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
                             }
 
-                            return cfg.fetchsrc ? getFetchList() : getContentList();
+                            return cfg.fetchsrc ? shadowList() : lightList();
                         }
 
                         const isImageArray = function()
