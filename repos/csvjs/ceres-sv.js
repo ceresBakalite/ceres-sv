@@ -419,6 +419,8 @@ window.ceres = {};
                         {
                             const getFetchList = function()
                             {
+                                console.log('innerHTML: ' + csvNode.innerHTML);
+
                                 if (csvNode.textContent.includes('</template>'))
                                 {
                                   console.log('includes template: ' + csvNode.textContent);
@@ -432,9 +434,7 @@ window.ceres = {};
                             const getContentList = function()
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
-
-                                let content = document.importNode(cfg.template, true).textContent;
-                                return !rsc.isEmptyOrNull(content) ? content : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
+                                return !rsc.isEmptyOrNull(cfg.template.textContent) ? cfg.template.textContent : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
                             }
 
                             return cfg.fetchsrc ? getFetchList() : getContentList();
