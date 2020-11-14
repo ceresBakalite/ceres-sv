@@ -437,7 +437,7 @@ window.ceres = {};
 
                                 if (cfg.template.tagName == 'TEMPLATE')
                                 {
-                                    console.log('more: ' + cfg.template.innerText);
+                                    console.log('inner: ' + cfg.template.innerText);
                                 }
 
                                 let content = rsc.htmlToText(cfg.template.innerHTML, true);
