@@ -419,7 +419,8 @@ window.ceres = {};
                         {
                             let shadowList = function()
                             {
-                                let content = (csvNode.innerHTML.includes('</template>')) ? rsc.htmlToText(csvNode.innerHTML, true) : rsc.htmlToText(csvNode.textContent);
+                                //let content = (csvNode.innerHTML.includes('</template>')) ? rsc.htmlToText(csvNode.innerHTML, true) : rsc.htmlToText(csvNode.textContent);
+                                let content = csvNode.textContent;
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
@@ -555,7 +556,7 @@ window.ceres = {};
                     rsc.htmlToText = function(html, regex)
                     {
                         if (rsc.isEmptyOrNull(html)) return;
-                        
+
                         if (regex) return html.replace(rsc.markup, '');
 
                         let el = document.createElement("div");
