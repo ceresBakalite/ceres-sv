@@ -437,7 +437,7 @@ window.ceres = {};
 
                                 if (cfg.template.tagName == 'TEMPLATE')
                                 {
-                                    console.log('again: ' + rsc.htmlToText(cfg.template.innerHTML, true).textContent);
+                                    console.log('more: ' + rsc.htmlToText(cfg.template.textContent, true));
                                 }
 
                                 let content = rsc.htmlToText(cfg.template.innerHTML, true);
