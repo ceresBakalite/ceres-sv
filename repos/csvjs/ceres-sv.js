@@ -418,7 +418,6 @@ window.ceres = {};
                         const getImageList = function()
                         {
                             let content = cfg.fetchsrc ? csvNode.textContent : cfg.template.textContent;
-
                             let shadowList = function() { return (!rsc.isEmptyOrNull(content)) ? content : null; }
 
                             let lightList = function()
