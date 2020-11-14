@@ -417,15 +417,13 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            const getFetchList = function()
+                            let getFetchList = function()
                             {
-                                console.log('innerHTML: ' + csvNode.innerHTML);
-
-                                let content = (csvNode.innerHTML.includes('</template>')) ? csvNode.innerHTML : csvNode.textContent;
+                                let content = (csvNode.innerHTML.includes('</template>')) ? rsc.htmlToText(csvNode.innerHTML) : csvNode.textContent;
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
-                            const getContentList = function()
+                            let getContentList = function()
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
                                 return !rsc.isEmptyOrNull(cfg.template.textContent) ? cfg.template.textContent : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
@@ -551,6 +549,14 @@ window.ceres = {};
                         let ar = [...new Map (obj.map(node => [key(node), node])).values()];
 
                         return sort ? ar.sort((a, b) => a - b) : ar;
+                    }
+
+                    rsc.htmlToText = function(html)
+                    {
+                        let el = document.createElement("div");
+                        el.innerHTML = html;
+
+                        return el.textContent || el.innerText;
                     }
 
                     rsc.inspect = function(diagnostic)
