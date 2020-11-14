@@ -594,7 +594,7 @@ window.ceres = {};
                             [rsc.default]: function() { return errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
                         };
 
-                        return lookup[diagnostic.type]() || lookup[rsc.default];
+                        lookup[diagnostic.type]() || lookup[rsc.default];
                     }
 
                     rsc.getObjectProperties = function(object, str = '')
