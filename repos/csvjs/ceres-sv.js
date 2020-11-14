@@ -433,7 +433,7 @@ window.ceres = {};
 
                                 if (rsc.isEmptyOrNull(content))
                                 {
-                                    return rsc.inspect({ type: rsc.error, notification: remark.templateError, callback: 'undefined' });
+                                    return rsc.inspect({ type: rsc.error, notification: remark.templateError });
                                 }
 
                                 return content;
@@ -584,7 +584,7 @@ window.ceres = {};
 
                             if (error.alert) alert(err);
 
-                            return diagnostic.callback || false;
+                            return false;
                         }
 
                         const lookup = {
