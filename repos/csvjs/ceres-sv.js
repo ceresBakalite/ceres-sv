@@ -38,13 +38,7 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
-            if (cfg.fetchsrc)
-            {
-                let el = document.createElement("div");
-                el.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
-                csvNode.insertAdjacentHTML('afterbegin', el.content.textContent);
-            }
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text()) );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
