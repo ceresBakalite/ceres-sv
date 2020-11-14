@@ -355,10 +355,12 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
-                        const getTemplateId = function() // optional markup template elementId when using embedded image lists
+                        const getTemplateElement = function() // optional markup template elementId when using embedded image lists
                         {
-                            let embed = csvNode.getAttribute('embed');
-                            return rsc.isEmptyOrNull(embed) ? 'undefined' : embed;
+                            let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(embed) : null;
+                            if (rsc.isEmptyOrNull(el)) el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
+
+                            return rsc.isEmptyOrNull(el) ? 'undefined' : el;
                         }
 
                         const getAutoProperties = function(locale = 'en')
@@ -399,9 +401,9 @@ window.ceres = {};
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
-                            cfg.attrib.embed = getTemplateId();
+                            cfg.attrib.embed = csvNode.getAttribute('embed');
 
-                            cfg.template = document.getElementById(cfg.attrib.embed) || document.getElementsByTagName('template')[0];
+                            cfg.template = getTemplateElement();
 
                             Object.freeze(cfg.attrib);
                         }
