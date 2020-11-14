@@ -433,7 +433,7 @@ window.ceres = {};
 
                                 if (rsc.isEmptyOrNull(content))
                                 {
-                                    return rsc.inspect({ type: rsc.error, notification: remark.templateError, callback: null });
+                                    return rsc.inspect({ type: rsc.error, notification: remark.templateError, callback: 'undefined' });
                                 }
 
                                 return content;
