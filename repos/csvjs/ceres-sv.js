@@ -420,8 +420,9 @@ window.ceres = {};
                             const getFetchList = function()
                             {
                                 console.log('template: ' + csvNode.textContent);
-                                
-                                let content = document.importNode(csvNode, true).textContent;
+
+                                //let content = document.importNode(csvNode, true).textContent;
+                                let content = csvNode.textContent;
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
