@@ -420,6 +420,9 @@ window.ceres = {};
                             let getFetchList = function()
                             {
                                 let content = (csvNode.innerHTML.includes('</template>')) ? rsc.htmlToText(csvNode.innerHTML) : csvNode.textContent;
+
+                                console.log('content: ' + content);
+
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
