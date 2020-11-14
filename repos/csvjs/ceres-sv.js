@@ -351,24 +351,24 @@ window.ceres = {};
 
                         const getZoomState = function()
                         {
-                            const zoom = csvNode.getAttribute('zoom');
+                            let zoom = csvNode.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
                         const getTemplateId = function() // optional markup template elementId when using embedded image lists
                         {
-                            const embed = csvNode.getAttribute('embed');
+                            let embed = csvNode.getAttribute('embed');
                             return rsc.isEmptyOrNull(embed) ? 'undefined' : rsc.getBooleanAttribute(embed);
                         }
 
                         const getAutoProperties = function(locale = 'en')
                         {
-                            const auto = csvNode.getAttribute('auto');
+                            let auto = csvNode.getAttribute('auto');
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
-                            const ar = auto.replace(rsc.whitespace,'').split(',');
-                            const item = ar[0].toLocaleLowerCase(locale);
+                            let ar = auto.replace(rsc.whitespace,'').split(',');
+                            let item = ar[0].toLocaleLowerCase(locale);
 
                             if (!Number.isInteger(parseInt(item)))
                             {
@@ -434,7 +434,7 @@ window.ceres = {};
 
                         const isImageArray = function()
                         {
-                            const imageList = getImageList();
+                            let imageList = getImageList();
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
@@ -572,11 +572,11 @@ window.ceres = {};
 
                         const errorHandler = function(error)
                         {
-                            const exception = 'Error: An exception occurred in the errorhandler method. The error argument was empty or null';
+                            let exception = 'Error: An exception occurred in the errorhandler method. The error argument was empty or null';
 
                             if (rsc.isEmptyOrNull(error)) return rsc.inspect({ type: rsc.error, notification: exception });
 
-                            const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                            let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
                             console.error(err);
 
                             if (error.alert) alert(err);
