@@ -435,11 +435,9 @@ window.ceres = {};
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
-                                console.log('looking: ' + cfg.template.tagName);
-
                                 if (cfg.template.tagName == 'TEMPLATE')
                                 {
-                                    console.log('found: ' + cfg.template.tagName);
+                                    console.log('found: ' + cfg.template.textContent);
                                 }
 
                                 let content = rsc.htmlToText(cfg.template.innerHTML, true);
