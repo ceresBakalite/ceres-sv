@@ -390,8 +390,6 @@ window.ceres = {};
                             csvNode.id = rsc.getUniqueElementId(csv, 1000);
                             csvNode.setAttribute("class", 'none');
 
-                            cfg.template = document.getElementById(cfg.attrib.embed) || document.getElementsByTagName('template')[0];
-
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
                             cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
@@ -402,6 +400,8 @@ window.ceres = {};
                             cfg.attrib.zoom = getZoomState(); // enabled;
                             cfg.attrib.static = getAutoProperties(); // enabled
                             cfg.attrib.embed = getTemplateId();
+
+                            cfg.template = document.getElementById(cfg.attrib.embed) || document.getElementsByTagName('template')[0];
 
                             Object.freeze(cfg.attrib);
                         }
@@ -417,8 +417,6 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            let content = cfg.fetchsrc ? csvNode.textContent : cfg.template.textContent;
-
                             let shadowList = function()
                             {
                                 let content = csvNode.textContent;
