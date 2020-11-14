@@ -435,11 +435,6 @@ window.ceres = {};
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
-                                //if (cfg.template.tagName == 'TEMPLATE')
-                                //{
-                                //    console.log('more: ' + cfg.template.content.textContent);
-                                //}
-
                                 let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
 
                                 if (rsc.isEmptyOrNull(content))
