@@ -431,10 +431,9 @@ window.ceres = {};
 
                                 let content = cfg.template.textContent;
 
-                                if (rsc.isEmptyOrNull(content)) 
+                                if (rsc.isEmptyOrNull(content))
                                 {
-                                    rsc.inspect({ type: rsc.error, notification: remark.templateError });
-                                    return null;
+                                    return rsc.inspect({ type: rsc.error, notification: remark.templateError });
                                 }
 
                                 return content;
@@ -446,8 +445,6 @@ window.ceres = {};
                         const isImageArray = function()
                         {
                             let imageList = getImageList();
-
-console.log('xxxx: ' + imageList);
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
