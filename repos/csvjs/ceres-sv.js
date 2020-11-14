@@ -435,12 +435,12 @@ window.ceres = {};
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
-                                if (cfg.template.tagName == 'TEMPLATE')
-                                {
-                                    console.log('more: ' + cfg.template.content.textContent);
-                                }
+                                //if (cfg.template.tagName == 'TEMPLATE')
+                                //{
+                                //    console.log('more: ' + cfg.template.content.textContent);
+                                //}
 
-                                let content = rsc.htmlToText(cfg.template.innerHTML, true);
+                                let content = cfg.template.content.textContent;
 
                                 if (rsc.isEmptyOrNull(content))
                                 {
