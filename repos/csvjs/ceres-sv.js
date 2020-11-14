@@ -421,13 +421,7 @@ window.ceres = {};
                             {
                                 console.log('innerHTML: ' + csvNode.innerHTML);
 
-                                if (csvNode.innerHTML.includes('</template>'))
-                                {
-                                  console.log('includes template: ' + csvNode.textContent);
-                                  csvNode.appendChild(document.importNode(document.getElementById(csvNode.id), true).textContent);
-                                }
-
-                                let content = csvNode.textContent;
+                                let content = (csvNode.innerHTML.includes('</template>')) ? csvNode.innerHTML : csvNode.textContent;
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
