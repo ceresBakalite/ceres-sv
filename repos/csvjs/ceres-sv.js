@@ -417,16 +417,18 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            console.log('test: ' + document.importNode(csvNode, true).textContent);
-
-                            const getFetchList = function() { return (!rsc.isEmptyOrNull(csvNode.textContent)) ? csvNode.textContent : null; }
+                            const getFetchList = function()
+                            {
+                                let content = document.importNode(csvNode, true).textContent;
+                                return (!rsc.isEmptyOrNull(content)) ? content : null;
+                            }
 
                             const getContentList = function()
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
-                                const list = !rsc.isEmptyOrNull(cfg.template) ? cfg.template.textContent : null;
-                                return !rsc.isEmptyOrNull(list) ? list : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
+                                let content = document.importNode(cfg.template, true).textContent;
+                                return !rsc.isEmptyOrNull(content) ? content : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
                             }
 
                             return cfg.fetchsrc ? getFetchList() : getContentList();
