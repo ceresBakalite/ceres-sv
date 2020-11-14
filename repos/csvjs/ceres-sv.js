@@ -576,7 +576,7 @@ window.ceres = {};
                     {
                         if (rsc.isEmptyOrNull(html)) return;
 
-                        if (regex) return html.replace(rsc.markup, '').trim();
+                        if (regex) return html.replace(rsc.markup, '');
 
                         let el = document.createElement("div");
                         el.innerHTML = html;
