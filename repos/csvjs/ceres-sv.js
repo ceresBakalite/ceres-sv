@@ -417,17 +417,14 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            let shadowList = function()
-                            {
-                                //let content = (csvNode.innerHTML.includes('</template>')) ? rsc.htmlToText(csvNode.innerHTML, true) : rsc.htmlToText(csvNode.textContent);
-                                let content = csvNode.textContent;
-                                return (!rsc.isEmptyOrNull(content)) ? content : null;
-                            }
+                            let content = cfg.fetchsrc ? csvNode.textContent : cfg.template.textContent;
+
+                            let shadowList = function() { return (!rsc.isEmptyOrNull(content)) ? content : null; }
 
                             let lightList = function()
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
-                                return !rsc.isEmptyOrNull(cfg.template.textContent) ? cfg.template.textContent : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
+                                return !rsc.isEmptyOrNull(content) ? content : rsc.inspect({ type: rsc.error, notification: remark.templateError, logtrace: cfg.attrib.trace });
                             }
 
                             return cfg.fetchsrc ? shadowList() : lightList();
