@@ -433,6 +433,8 @@ window.ceres = {};
                         {
                             let imageList = getImageList();
 
+console.log('xxxx: ' + imageList);
+
                             if (!rsc.isEmptyOrNull(imageList))
                             {
                                 rsc.inspect({ type: rsc.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.newline + imageList, logtrace: cfg.attrib.trace });
