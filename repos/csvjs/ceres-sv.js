@@ -357,7 +357,7 @@ window.ceres = {};
 
                         const getTemplateElement = function() // optional markup template elementId when using embedded image lists
                         {
-                            let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(embed) : null;
+                            let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(cfg.attrib.embed) : null;
                             if (rsc.isEmptyOrNull(el)) el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
 
                             return rsc.isEmptyOrNull(el) ? 'undefined' : el;
