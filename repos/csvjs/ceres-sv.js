@@ -38,7 +38,7 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text()) );
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
@@ -576,7 +576,7 @@ window.ceres = {};
                     {
                         if (rsc.isEmptyOrNull(html)) return;
 
-                        if (regex) return html.replace(rsc.markup, '');
+                        if (regex) return html.replace(rsc.markup, '').trim();
 
                         let el = document.createElement("div");
                         el.innerHTML = html;
