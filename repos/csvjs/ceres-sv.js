@@ -419,7 +419,7 @@ window.ceres = {};
                         {
                             let getFetchList = function()
                             {
-                                let content = (csvNode.innerHTML.includes('</template>')) ? rsc.htmlToText(csvNode.innerHTML) : csvNode.textContent;
+                                let content = (csvNode.innerHTML.includes('</template>')) ? rsc.htmlToText(csvNode.innerHTML, true) : csvNode.textContent;
 
                                 console.log('content: ' + content);
 
@@ -473,6 +473,7 @@ window.ceres = {};
                     rsc.isWindows = (navigator.appVersion.indexOf('Win') != -1);
                     rsc.newline = rsc.isWindows ? '\r\n' : '\n';
                     rsc.whitespace = /\s/g;
+                    rsc.markup = /(<([^>]+)>)/ig;
 
                     rsc.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
                     rsc.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
@@ -554,13 +555,16 @@ window.ceres = {};
                         return sort ? ar.sort((a, b) => a - b) : ar;
                     }
 
-                    rsc.htmlToText = function(html)
+                    rsc.htmlToText = function(html, regex)
                     {
+                        if (regex) return html.replace(rsc.markup, '');
+
                         let el = document.createElement("div");
                         el.innerHTML = html;
 
                         return el.textContent || el.innerText;
                     }
+
 
                     rsc.inspect = function(diagnostic)
                     {
