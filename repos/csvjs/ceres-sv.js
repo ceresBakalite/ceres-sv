@@ -358,7 +358,7 @@ window.ceres = {};
                         const getTemplateId = function() // optional markup template elementId when using embedded image lists
                         {
                             let embed = csvNode.getAttribute('embed');
-                            return rsc.isEmptyOrNull(embed) ? 'undefined' : rsc.getBooleanAttribute(embed);
+                            return rsc.isEmptyOrNull(embed) ? 'undefined' : embed;
                         }
 
                         const getAutoProperties = function(locale = 'en')
