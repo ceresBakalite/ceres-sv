@@ -139,11 +139,8 @@ window.ceres = {};
         this.default = 98;
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-        this.strBoolean = ['true','1','enable','active','on','yes'];
-        this.bool = new Map(this.strBoolean.map(node => [node.toUpperCase(), true]));
-
-console.log('this.bool: ' + this.bool);
-
+        this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
+        this.bool = new Map(Object.entries(this.objBoolean));
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.newline = this.isWindows ? '\r\n' : '\n';
         this.whitespace = /\s/g;
