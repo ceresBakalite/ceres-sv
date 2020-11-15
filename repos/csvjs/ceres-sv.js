@@ -69,6 +69,47 @@ window.ceres = {};
 
                 Object.freeze(remark);
 
+                const caching = {}; // http cache allocation
+                (function(cache) {
+
+                    this.available = ('caches' in window);
+
+                    this.listExistingCacheNames = function()
+                    {
+                        caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
+                    }
+
+                    this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                    {
+                        window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
+
+                        window.addEventListener('fetch', function(e)
+                        {
+                            e.respondWith(caches.match(e.request).then(function(response)
+                            {
+                                if (response !== undefined) return response;
+
+                                return fetch(e.request).then(function (response)
+                                {
+                                    let responseClone = response.clone();
+                                    caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+                                    return response;
+
+                                }).catch(function () {
+
+                                    return caches.match(urlImage);
+
+                                });
+
+                            }));
+
+                        });
+
+                    }
+
+
+                }).call(caching); // end caching
+
                 // attribute allocation
                 (function() {
 
@@ -280,46 +321,6 @@ window.ceres = {};
                         //function setCache()
                         //{
                             // caching;
-                            const caching = {}; // http cache allocation
-                            (function(cache) {
-
-                                this.available = ('caches' in window);
-
-                                this.listExistingCacheNames = function()
-                                {
-                                    caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
-                                }
-
-                                this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
-                                {
-                                    window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
-
-                                    window.addEventListener('fetch', function(e)
-                                    {
-                                        e.respondWith(caches.match(e.request).then(function(response)
-                                        {
-                                            if (response !== undefined) return response;
-
-                                            return fetch(e.request).then(function (response)
-                                            {
-                                                let responseClone = response.clone();
-                                                caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-                                                return response;
-
-                                            }).catch(function () {
-
-                                                return caches.match(urlImage);
-
-                                            });
-
-                                        }));
-
-                                    });
-
-                                }
-
-
-                            }).call(caching); // end caching
 
                         //}
 
