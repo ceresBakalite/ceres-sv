@@ -75,8 +75,9 @@ window.ceres = {};
             if (attribute === true || attribute === false) return attribute;
             if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-            return this.bool.get(attribute.trim().toLowerCase());
+            //return this.bool.get(attribute.trim().toLowerCase());
             //return this.strBoolean.includes(attribute.trim().toUpperCase());
+            return this.strBoolean.includes(attribute.trim().toLowerCase());
         }
 
         this.getUniqueElementId = function(str = null, range = 100)
@@ -139,6 +140,7 @@ window.ceres = {};
         this.default = 98;
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
+        this.strBoolean = ['true', '1', 'enable', 'active', 'on', 'yes'];
         this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
         this.bool = new Map(Object.entries(this.objBoolean));
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
