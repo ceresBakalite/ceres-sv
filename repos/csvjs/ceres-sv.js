@@ -108,10 +108,10 @@ window.ceres = {};
 
             if (regex) return html.replace(this.markup, '');
 
-console.log('here now');
+console.log('here again');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
-            return doc.body.textContent || el.innerText;
+            return doc.body.textContent || doc.body.innerText;
         }
 
         this.inspect = function(diagnostic)
