@@ -140,7 +140,7 @@ window.ceres = {};
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
         this.strBoolean = ['true','1','enable','active','on','yes'];
-        this.bool = new Map(this.strBoolean.map(node => [node.id, node.toUpperCase()]));
+        this.bool = new Map(this.strBoolean.map(node => [node.toUpperCase(), true]));
 
 console.log('this.bool: ' + this.bool);
 
