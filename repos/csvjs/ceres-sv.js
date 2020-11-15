@@ -206,13 +206,9 @@ window.ceres = {};
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
-            console.log('cfg.fetchsrc 0: ' + cfg.fetchsrc);
-
             if (cfg.fetchcss) atr.fetchStylesheets(css);
             //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text() );
-
-            console.log('cfg.fetchsrc 1: ' + cfg.fetchsrc);
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
@@ -560,7 +556,6 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
-                            console.log('cfg.fetchsrc 2: ' + cfg.fetchsrc);
                             let shadowList = function()
                             {
                                 //let content = csvNode.textContent;
