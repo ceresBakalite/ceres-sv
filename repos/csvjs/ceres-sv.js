@@ -75,7 +75,7 @@ window.ceres = {};
             if (attribute === true || attribute === false) return attribute;
             if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-            return this.bool.get(attribute.trim().toUpperCase());
+            return this.bool.get(attribute.trim().toLowerCase());
             //return this.strBoolean.includes(attribute.trim().toUpperCase());
         }
 
@@ -140,12 +140,9 @@ window.ceres = {};
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
         this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
-        //this.bool = new Map(Object.entries(this.objBoolean));
 
-        this.bool = new Map(Object.entries(this.objBoolean).reduce((node, [key, value]) => { node[key.toUpperCase()] = value; return node; }, {}));
-
-
-
+        this.bool = new Map(Object.entries(this.objBoolean.map(node => { return node.toUpperCase(); })));
+        
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.newline = this.isWindows ? '\r\n' : '\n';
         this.whitespace = /\s/g;
