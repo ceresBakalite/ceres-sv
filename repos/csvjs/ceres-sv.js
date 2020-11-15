@@ -96,10 +96,23 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.htmlToText = function(html, regex)
+        this.strip = function(html)
+        {
+           let doc = new DOMParser().parseFromString(html, 'text/html');
+           return doc.body.textContent || '';
+        }
+
+        this.htmlToText = function(html, method = 'regex')
         {
             if (this.isEmptyOrNull(html)) return;
-            if (regex) return html.replace(this.markup, '');
+
+            if (method == 'regex') return html.replace(this.markup, '');
+
+            if (method == 'parser')
+            {
+                let doc = new DOMParser().parseFromString(html, 'text/html');
+                return doc.body.textContent || '';
+            }
 
             let el = document.createElement("div");
             el.innerHTML = html;
@@ -207,7 +220,7 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), 'parser') );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
