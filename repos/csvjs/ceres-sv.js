@@ -145,8 +145,6 @@ window.ceres = {};
             return str.replace(/, +$/g,'');
         }
 
-        Object.freeze(rsc);
-
     }).call(rsc); // end resource allocation
 
     const caching = {}; // http cache allocation
@@ -186,8 +184,6 @@ window.ceres = {};
             });
 
         }
-
-        Object.freeze(caching);
 
     }).call(caching); // end resource allocation
 
@@ -244,7 +240,7 @@ window.ceres = {};
 
                 (function() {
 
-                    atr.setShadow = function()
+                    this.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
 
@@ -253,22 +249,22 @@ window.ceres = {};
                         cfg.shade.attachShadow({mode: 'open'});
                         cfg.shadow = cfg.shade.shadowRoot;
 
-                        atr.setStyleAttributes();
-                        atr.setBodyAttributes();
-                        atr.setImageAttributes();
-                        atr.setTrackAttributes();
+                        this.setStyleAttributes();
+                        this.setBodyAttributes();
+                        this.setImageAttributes();
+                        this.setTrackAttributes();
 
                         cfg.shadow.append(cfg.styleContainer);
                         cfg.shadow.append(cfg.bodyContainer);
 
-                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
+                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, this.getSwipeEvent, { left: -1, right: 1 } );
 
                         rsc.inspect({ type: rsc.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
 
-                    atr.setSlide = function(node, shadow)
+                    this.setSlide = function(node, shadow)
                     {
-                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.getSlideShadow(node);
+                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getSlideShadow(node);
                         const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                         cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
@@ -289,7 +285,7 @@ window.ceres = {};
                         nub[next].className = 'nub enabled';
                     }
 
-                    atr.setAuto = function()
+                    this.setAuto = function()
                     {
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
@@ -303,46 +299,46 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.setSlide();
+                            this.setSlide();
 
                         }, cfg.attrib.autopause);
 
                     }
 
-                    atr.setView = function()
+                    this.setView = function()
                     {
                         setTimeout(function()
                         {
                             cfg.bodyContainer.style.display = 'block';
-                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
+                            if (!cfg.attrib.static) setTimeout(function() { this.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
 
-                        if (cfg.attrib.cache) atr.insertCache();
+                        if (cfg.attrib.cache) this.insertCache();
                     }
 
-                    atr.hasProperties = function()
+                    this.hasProperties = function()
                     {
-                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError });
+                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError });
                         if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError });
 
-                        return atr.attributesExist();
+                        return this.attributesExist();
                     }
 
-                    atr.activate = function()
+                    this.activate = function()
                     {
-                        atr.setShadow();
-                        atr.setSlide();
-                        atr.setView();
+                        this.setShadow();
+                        this.setSlide();
+                        this.setView();
                     }
 
-                    atr.fetchStylesheets = function(str)
+                    this.fetchStylesheets = function(str)
                     {
                         const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                         cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
                     }
 
-                    atr.setStyleAttributes = function()
+                    this.setStyleAttributes = function()
                     {
                         cfg.styleContainer = document.createElement('style');
                         cfg.styleContainer.id = csv + '-style';
@@ -361,7 +357,7 @@ window.ceres = {};
 
                     }
 
-                    atr.setBodyAttributes = function()
+                    this.setBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
@@ -371,7 +367,7 @@ window.ceres = {};
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
-                    atr.setImageAttributes = function()
+                    this.setImageAttributes = function()
                     {
                         const getClassName = function()
                         {
@@ -418,7 +414,7 @@ window.ceres = {};
                     }
 
                     // The nub track is hidden in auto mode
-                    atr.setTrackAttributes = function()
+                    this.setTrackAttributes = function()
                     {
                         const trackContainer = document.createElement('div');
                         trackContainer.id = csv + '-nub';
@@ -435,7 +431,7 @@ window.ceres = {};
 
                     }
 
-                    atr.insertCache = function()
+                    this.insertCache = function()
                     {
                         if (!('caches' in window)) return;
 
@@ -445,7 +441,7 @@ window.ceres = {};
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
                     }
 
-                    atr.getSwipeEvent = function(swipe)
+                    this.getSwipeEvent = function(swipe)
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
@@ -453,7 +449,7 @@ window.ceres = {};
                         setSlide(null, cfg.shadow);
                     }
 
-                    atr.getSlideShadow = function(node)
+                    this.getSlideShadow = function(node)
                     {
                         const root = node.getRootNode().host,
                         shade = document.querySelector('#' + root.id),
@@ -471,7 +467,7 @@ window.ceres = {};
                         return shadow;
                     }
 
-                    atr.getPrecursor = function()
+                    this.getPrecursor = function()
                     {
                         const exists = !rsc.isEmptyOrNull(csvNode);
 
@@ -551,7 +547,7 @@ window.ceres = {};
                         return exists;
                     }
 
-                    atr.attributesExist = function()
+                    this.attributesExist = function()
                     {
                         cfg.imageArray = null;
 
