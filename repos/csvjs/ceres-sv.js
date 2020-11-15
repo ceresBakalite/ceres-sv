@@ -75,7 +75,8 @@ window.ceres = {};
             if (attribute === true || attribute === false) return attribute;
             if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-            return this.strBoolean.includes(attribute.trim().toUpperCase());
+            return this.bool.get(attribute.trim().toUpperCase());
+            //return this.strBoolean.includes(attribute.trim().toUpperCase());
         }
 
         this.getUniqueElementId = function(str = null, range = 100)
@@ -138,7 +139,8 @@ window.ceres = {};
         this.default = 98;
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-        this.strBoolean = ['TRUE','1','YES','ON','ACTIVE','ENABLE'];
+        this.strBoolean = ['true','1','enable','active','on','yes'];
+        this.bool = this.strBoolean.map(node => node.toUpperCase());
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.newline = this.isWindows ? '\r\n' : '\n';
         this.whitespace = /\s/g;
