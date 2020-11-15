@@ -77,7 +77,7 @@ window.ceres = {};
 
             //return this.bool.get(attribute.trim().toLowerCase());
             //return this.strBoolean.includes(attribute.trim().toUpperCase());
-            return this.Bool.includes(attribute.trim().toUpperCase());
+            return this.bool.includes(attribute.trim().toUpperCase());
         }
 
         this.getUniqueElementId = function(str = null, range = 100)
@@ -140,9 +140,9 @@ window.ceres = {};
         this.default = 98;
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-        this.booleanArray = ['true', '1', 'enable', 'active', 'on', 'yes'];
+        //this.booleanArray = ['true', '1', 'enable', 'active', 'on', 'yes'];
         this.booleanString = 'true, 1, enable, active, on, yes';
-        this.bool = this.arrayBoolean.replace(this.whitespace,'').split(',').toUpperCase();
+        this.bool = this.booleanString.replace(this.whitespace,'').split(',').toUpperCase();
 
         //this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
         //this.bool = new Map(Object.entries(this.objBoolean));
