@@ -245,7 +245,7 @@ window.ceres = {};
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
 
-                        rsc.clearElement(cfg.shade);
+                        //rsc.clearElement(cfg.shade);
 
                         cfg.shade.attachShadow({mode: 'open'});
                         cfg.shadow = cfg.shade.shadowRoot;
