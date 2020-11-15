@@ -208,7 +208,12 @@ window.ceres = {};
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
             //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text() );
+            //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text() );
+            if (cfg.fetchsrc)
+            {
+                let test = await ( await fetch(src) ).text();
+                csvNode.insertAdjacentHTML('afterbegin', test.textContent );
+            }
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
