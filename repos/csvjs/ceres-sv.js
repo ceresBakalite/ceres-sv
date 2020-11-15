@@ -96,13 +96,7 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.strip = function(html)
-        {
-           let doc = new DOMParser().parseFromString(html, 'text/html');
-           return doc.body.textContent || '';
-        }
-
-        this.htmlToText = function(html, regex)
+        this.DOMParserHTML = function(html, regex)
         {
             if (this.isEmptyOrNull(html)) return;
 
@@ -213,7 +207,7 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), false ) );
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHTML( await ( await fetch(src) ).text(), false ) );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
