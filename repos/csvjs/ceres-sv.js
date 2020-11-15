@@ -207,7 +207,8 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
+            //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text() );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
@@ -557,7 +558,8 @@ window.ceres = {};
                         {
                             let shadowList = function()
                             {
-                                let content = csvNode.textContent;
+                                //let content = csvNode.textContent;
+                                let content = (csvNode.tagName == 'TEMPLATE') ? csvNode.content.textContent : csvNode.textContent;
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
