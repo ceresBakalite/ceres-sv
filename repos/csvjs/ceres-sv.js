@@ -360,12 +360,12 @@ window.ceres = {};
                         const getTemplateId = function()
                         {
                             let embed = csvNode.getAttribute('embed');
-                            return rsc.isEmptyOrNull(embed) ? null : embed;
+                            return rsc.isEmptyOrNull(embed) ? false : embed;
                         }
 
                         const getTemplateElement = function()
                         {
-                            if (cfg.fetchsrc) return 'undefined';
+                            if (cfg.fetchsrc || !cfg.attrib.embed) return 'undefined';
 
                             let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(cfg.attrib.embed) : null;
 
