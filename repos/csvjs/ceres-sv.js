@@ -146,7 +146,7 @@ window.ceres = {};
         this.markup = /(<([^>]+)>)/ig;
         //this.booleanArray = ['true', '1', 'enable', 'active', 'on', 'yes'];
         this.booleanString = 'true, 1, enable, active, on, yes';
-        this.bool = this.booleanString.replace(this.whitespace,'').split(',').toUpperCase();
+        this.bool = this.booleanString.replace(this.whitespace,'').toUpperCase().split(',');
 
         //this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
         //this.bool = new Map(Object.entries(this.objBoolean));
