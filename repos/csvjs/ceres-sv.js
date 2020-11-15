@@ -267,27 +267,30 @@ window.ceres = {};
                     {
                         if (!('caches' in window)) return;
 
-                        const caching = {}; // http cache allocation
-                        setCache();
+                        //const caching = {}; // http cache allocation
+                        //setCache();
+
+                        const ca = caching(); // http cache allocation
 
                         const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
 
-                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+                        ca.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
 
-                        function setCache()
-                        {
+                        //function setCache()
+                        //{
                             // caching;
+                            const caching = {}; // http cache allocation
                             (function(cache) {
 
-                                caching.available = ('caches' in window);
+                                this.available = ('caches' in window);
 
-                                caching.listExistingCacheNames = function()
+                                this.listExistingCacheNames = function()
                                 {
                                     caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
                                 }
 
-                                caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                                this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
                                 {
                                     window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
 
@@ -315,9 +318,10 @@ window.ceres = {};
 
                                 }
 
-                            })(); // end caching
 
-                        }
+                            }).call(caching); // end caching
+
+                        //}
 
                     }
 
@@ -367,7 +371,7 @@ window.ceres = {};
                         {
                             if (cfg.fetchsrc || !cfg.attrib.embed) return 'undefined';
 
-                            let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(cfg.attrib.embed) : null;
+                            let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
                             if (rsc.isEmptyOrNull(el))
                             {
@@ -378,14 +382,14 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(el) ? 'undefined' : el;
                         }
 
-                        const getAutoProperties = function(locale = 'en')
+                        const getStaticProperties = function()
                         {
                             let auto = csvNode.getAttribute('auto');
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
                             let ar = auto.replace(rsc.whitespace,'').split(',');
-                            let item = ar[0].toLocaleLowerCase(locale);
+                            let item = ar[0];
 
                             if (!Number.isInteger(parseInt(item)))
                             {
@@ -398,7 +402,7 @@ window.ceres = {};
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                             cfg.attrib.fade = cfg.attrib.autopause > 400;
-                            cfg.attrib.nub = 'false'; // text 'false' = hidden from view 
+                            cfg.attrib.nub = 'disabled';
 
                             return false;
                         }
@@ -416,7 +420,7 @@ window.ceres = {};
                             cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled;
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
-                            cfg.attrib.static = getAutoProperties(); // enabled
+                            cfg.attrib.static = getStaticProperties(); // enabled
                             cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
 
                             Object.freeze(cfg.attrib);
