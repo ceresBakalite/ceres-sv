@@ -481,7 +481,7 @@ window.ceres = {};
                     rsc.default = 98;
                     rsc.error = 99;
                     rsc.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-                    rsc.strBoolean = ['TRUE','1','YES','ON','ACTIVE','ENABLE','SUCCESS','ACCEPT','ALLOW','PERMIT','Y','T'];
+                    rsc.strBoolean = ['TRUE','1','YES','ON','ACTIVE','ENABLE'];
                     rsc.isWindows = (navigator.appVersion.indexOf('Win') != -1);
                     rsc.newline = rsc.isWindows ? '\r\n' : '\n';
                     rsc.whitespace = /\s/g;
