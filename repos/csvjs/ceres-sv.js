@@ -141,8 +141,8 @@ window.ceres = {};
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
         this.strBoolean = ['true', '1', 'enable', 'active', 'on', 'yes'];
-        this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
-        this.bool = new Map(Object.entries(this.objBoolean));
+        //this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
+        //this.bool = new Map(Object.entries(this.objBoolean));
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.newline = this.isWindows ? '\r\n' : '\n';
         this.whitespace = /\s/g;
@@ -521,7 +521,7 @@ window.ceres = {};
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                             cfg.attrib.fade = cfg.attrib.autopause > 400;
-                            cfg.attrib.nub = 'disabled';
+                            cfg.attrib.nub = 'false';
 
                             return false;
                         }
