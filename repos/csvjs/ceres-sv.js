@@ -108,6 +108,8 @@ window.ceres = {};
 
             if (regex) return html.replace(this.markup, '');
 
+console.log('here now');
+
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || el.innerText;
         }
