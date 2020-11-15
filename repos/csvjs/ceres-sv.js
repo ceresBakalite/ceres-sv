@@ -245,7 +245,7 @@ window.ceres = {};
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
 
-                        //rsc.clearElement(cfg.shade);
+                        rsc.clearElement(cfg.shade);
 
                         cfg.shade.attachShadow({mode: 'open'});
                         cfg.shadow = cfg.shade.shadowRoot;
@@ -556,6 +556,7 @@ window.ceres = {};
 
                         const getImageList = function()
                         {
+                            console.log('cfg.fetchsrc: ' + cfg.fetchsrc);
                             let shadowList = function()
                             {
                                 //let content = csvNode.textContent;
