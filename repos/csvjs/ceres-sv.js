@@ -213,7 +213,6 @@ window.ceres = {};
             {
                 let el = document.createElement('div');
                 el.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
-                console.log('test: ' + el.textContent);
                 csvNode.insertAdjacentHTML('afterbegin', el.textContent);
             }
 
