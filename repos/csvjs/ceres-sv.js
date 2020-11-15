@@ -15,6 +15,7 @@ window.ceres = {};
     'use strict'; // for conformity - strict by default
 
     const csv = 'ceres-sv'; // required ceres slideview html custom element
+    const cfg = {}; // configuration attributes
 
     const atr = {}; // attribute allocation
     (function() {
@@ -553,7 +554,6 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { atr.setSlide(el); };  // global scope method reference
 
-            const cfg = {}; // configuration attributes
             const csvNode = this; // csv root node of a DOM subtree
 
             initialise();
