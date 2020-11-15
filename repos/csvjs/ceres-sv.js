@@ -75,7 +75,7 @@ window.ceres = {};
             if (attribute === true || attribute === false) return attribute;
             if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-            return this.bool.get(attribute.trim().toUpperCase());
+            return this.bool.get(attribute.trim().toLowerCase());
             //return this.strBoolean.includes(attribute.trim().toUpperCase());
         }
 
