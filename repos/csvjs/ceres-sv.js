@@ -299,7 +299,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            this.setSlide();
+                            atr.setSlide();
 
                         }, cfg.attrib.autopause);
 
