@@ -100,8 +100,8 @@ window.ceres = {};
         {
             if (this.isEmptyOrNull(html)) return;
 
-            let template = html.includes('</template>');
-            if (regex || template) return html.replace(this.markup, '');
+            //let template = html.includes('</template>');
+            //if (regex || template) return html.replace(this.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
@@ -557,8 +557,7 @@ window.ceres = {};
                         {
                             let shadowList = function()
                             {
-                                //let content = csvNode.textContent;
-                                let content = (csvNode.tagName == 'TEMPLATE') ? csvNode.content.textContent : csvNode.textContent;
+                                let content = csvNode.textContent;
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
