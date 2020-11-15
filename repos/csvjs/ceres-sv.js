@@ -211,8 +211,9 @@ window.ceres = {};
             //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text() );
             if (cfg.fetchsrc)
             {
-                let test = await ( await fetch(src) ).text();
-                let content = (test.tagName == 'TEMPLATE') ? test.content.textContent : test.textContent;
+                let el = document.createElement('div');
+                el.insertAdjacentHTML('afterbegin', await ( await fetch(src) ).text());
+                let content = test.textContent;
                 console.log('test: ' + content);
                 csvNode.insertAdjacentHTML('afterbegin', content);
             }
