@@ -105,10 +105,7 @@ window.ceres = {};
         this.htmlToText = function(html, regex)
         {
             if (this.isEmptyOrNull(html)) return;
-
             if (regex) return html.replace(this.markup, '');
-
-console.log('here again');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
@@ -214,7 +211,7 @@ console.log('here again');
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), false ) );
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true ) );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
