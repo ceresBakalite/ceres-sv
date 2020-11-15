@@ -75,8 +75,6 @@ window.ceres = {};
             if (attribute === true || attribute === false) return attribute;
             if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-            //return this.bool.get(attribute.trim().toLowerCase());
-            //return this.strBoolean.includes(attribute.trim().toUpperCase());
             return this.bool.includes(attribute.trim().toUpperCase());
         }
 
@@ -144,12 +142,9 @@ window.ceres = {};
         this.newline = this.isWindows ? '\r\n' : '\n';
         this.whitespace = /\s/g;
         this.markup = /(<([^>]+)>)/ig;
-        //this.booleanArray = ['true', '1', 'enable', 'active', 'on', 'yes'];
-        this.booleanString = 'true, 1, enable, active, on, yes';
-        this.bool = this.booleanString.replace(this.whitespace,'').toUpperCase().split(',');
-
-        //this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
-        //this.bool = new Map(Object.entries(this.objBoolean));
+        this.booleanArray = ['true', '1', 'enable', 'active', 'on', 'yes'];
+        //this.strBoolean = 'true,1,enable,active,on,yes';
+        this.bool = this.booleanArray.toString().toUpperCase().split(',');
 
     }).call(rsc); // end resource allocation
 
