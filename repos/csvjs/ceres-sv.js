@@ -398,6 +398,7 @@ window.ceres = {};
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                             cfg.attrib.fade = cfg.attrib.autopause > 400;
+                            cfg.attrib.nub = 'hidden';
 
                             return false;
                         }
