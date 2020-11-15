@@ -140,7 +140,7 @@ window.ceres = {};
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
         this.strBoolean = ['true','1','enable','active','on','yes'];
-        this.bool = this.strBoolean.map(node => node.toUpperCase());
+        this.bool = new Map(objects.map(node => [node.id, node.toUpperCase()]));
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.newline = this.isWindows ? '\r\n' : '\n';
         this.whitespace = /\s/g;
