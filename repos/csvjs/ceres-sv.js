@@ -107,7 +107,6 @@ window.ceres = {};
 
                     }
 
-
                 }).call(caching); // end caching
 
                 // attribute allocation
@@ -311,12 +310,10 @@ window.ceres = {};
                         //const caching = {}; // http cache allocation
                         //setCache();
 
-                        const ca = caching(); // http cache allocation
-
                         const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
 
-                        ca.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
 
                         //function setCache()
                         //{
