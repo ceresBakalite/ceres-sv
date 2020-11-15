@@ -140,7 +140,12 @@ window.ceres = {};
         this.error = 99;
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
         this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
-        this.bool = new Map(Object.entries(this.objBoolean.toUpperCase()));
+        //this.bool = new Map(Object.entries(this.objBoolean));
+
+        this.bool = new Map(Object.entries(this.objBoolean).reduce((node, [key, value]) => { node[key.toUpperCase()] = value; return node; }, {}));
+
+
+
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.newline = this.isWindows ? '\r\n' : '\n';
         this.whitespace = /\s/g;
