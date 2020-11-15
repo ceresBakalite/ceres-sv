@@ -139,17 +139,17 @@ window.ceres = {};
         this.notify = 2;
         this.default = 98;
         this.error = 99;
+        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
+        this.newline = this.isWindows ? '\r\n' : '\n';
+        this.whitespace = /\s/g;
+        this.markup = /(<([^>]+)>)/ig;
         //this.booleanArray = ['true', '1', 'enable', 'active', 'on', 'yes'];
         this.booleanString = 'true, 1, enable, active, on, yes';
         this.bool = this.booleanString.replace(this.whitespace,'').split(',').toUpperCase();
 
         //this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
         //this.bool = new Map(Object.entries(this.objBoolean));
-        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        this.newline = this.isWindows ? '\r\n' : '\n';
-        this.whitespace = /\s/g;
-        this.markup = /(<([^>]+)>)/ig;
 
     }).call(rsc); // end resource allocation
 
