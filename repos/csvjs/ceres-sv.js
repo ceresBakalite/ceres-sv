@@ -54,7 +54,7 @@ window.ceres = {};
                 cfg.slide = 1;
 
                 const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
+                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; } // The nub track is hidden in auto mode
                 const srm = new Map(); // shadowroot manager
 
                 const remark = {
@@ -245,6 +245,7 @@ window.ceres = {};
                         rsc.composeElement({ typeof: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                     }
 
+                    // The nub track is hidden in auto mode
                     atr.setTrackAttributes = function()
                     {
                         const trackContainer = document.createElement('div');
