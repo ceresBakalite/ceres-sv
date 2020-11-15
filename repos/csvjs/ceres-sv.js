@@ -213,7 +213,7 @@ window.ceres = {};
             {
                 let test = await ( await fetch(src) ).text();
                 console.log('test: ' + test);
-                csvNode.insertAdjacentHTML('afterbegin', test.textContent );
+                csvNode.insertAdjacentHTML('afterbegin', test.content.textContent );
             }
 
             cfg.cache.src = cfg.cache.src.concat(src);
