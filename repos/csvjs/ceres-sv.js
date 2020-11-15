@@ -310,7 +310,7 @@ window.ceres = {};
                         setTimeout(function()
                         {
                             cfg.bodyContainer.style.display = 'block';
-                            if (!cfg.attrib.static) setTimeout(function() { this.setAuto(); }, cfg.attrib.delay);
+                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
 
