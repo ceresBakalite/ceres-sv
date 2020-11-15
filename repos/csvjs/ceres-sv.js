@@ -487,6 +487,7 @@ window.ceres = {};
                     rsc.notify = 2;
                     rsc.default = 98;
                     rsc.error = 99;
+                    rsc.bool = ['TRUE','true','1','YES','yes','Y','y','T','t'];
                     rsc.isWindows = (navigator.appVersion.indexOf('Win') != -1);
                     rsc.newline = rsc.isWindows ? '\r\n' : '\n';
                     rsc.whitespace = /\s/g;
@@ -543,15 +544,15 @@ window.ceres = {};
                         return !obj;
                     }
 
-                    rsc.getBooleanAttribute = function(attribute, locale = 'en')
+                    rsc.getBooleanAttribute = function(attribute)
                     {
                         if (attribute === true || attribute === false) return attribute;
                         if (rsc.isEmptyOrNull(attribute)) return false;
                         if (!rsc.isString(attribute)) return false;
 
-                        const token = attribute.trim().toLocaleLowerCase(locale);
+                        const token = attribute.trim();
 
-                        return symbol.get(token) || false;
+                        return rsc.bool.includes(token);
                     }
 
                     rsc.getUniqueElementId = function(str = null, range = 100)
