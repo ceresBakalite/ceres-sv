@@ -212,8 +212,9 @@ window.ceres = {};
             if (cfg.fetchsrc)
             {
                 let test = await ( await fetch(src) ).text();
-                console.log('test: ' + test);
-                csvNode.insertAdjacentHTML('afterbegin', document.importNode(test, true) );
+                let content = (test.tagName == 'TEMPLATE') ? test.content.textContent : test.textContent;
+                console.log('test: ' + content);
+                csvNode.insertAdjacentHTML('afterbegin', content);
             }
 
             cfg.cache.src = cfg.cache.src.concat(src);
