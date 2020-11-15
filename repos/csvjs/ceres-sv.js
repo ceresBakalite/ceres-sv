@@ -100,8 +100,8 @@ window.ceres = {};
         {
             if (this.isEmptyOrNull(html)) return;
 
-            //let template = html.includes('</template>');
-            //if (regex || template) return html.replace(this.markup, '');
+            let template = html.includes('</template>');
+            if (regex || template) return html.replace(this.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
