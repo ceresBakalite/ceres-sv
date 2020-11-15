@@ -479,7 +479,7 @@ window.ceres = {};
                     rsc.notify = 2;
                     rsc.default = 98;
                     rsc.error = 99;
-                    rsc.bool = ['TRUE','true','1','YES','yes','Y','y','T','t'];
+                    rsc.bool = ['true','1','yes','on','y','t','TRUE','YES','ON','Y','T'];
                     rsc.isWindows = (navigator.appVersion.indexOf('Win') != -1);
                     rsc.newline = rsc.isWindows ? '\r\n' : '\n';
                     rsc.whitespace = /\s/g;
