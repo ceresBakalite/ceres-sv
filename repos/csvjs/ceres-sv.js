@@ -141,7 +141,7 @@ window.ceres = {};
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
         this.objBoolean = { 'true': true, '1': true, 'enable': true, 'active': true, 'on': true, 'yes': true };
         //this.bool = new Map(Object.entries(this.objBoolean));
-        this.bool = new Map(Object.entries(this.objBoolean).reduce((node, key) => ({...node.toUpperCase(), [key]}),{}));
+        this.bool = new Map(Object.entries(this.objBoolean).reduce((node, key) => ({...node, [node]: node.toUpperCase()}),{}));
 
 
 
