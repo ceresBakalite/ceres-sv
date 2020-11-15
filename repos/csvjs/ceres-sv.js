@@ -538,12 +538,10 @@ window.ceres = {};
 
                     rsc.getBooleanAttribute = function(attribute)
                     {
-                        const token = attribute.trim();
-
                         if (attribute === true || attribute === false) return attribute;
-                        if (rsc.isEmptyOrNull(token) || !rsc.isString(token)) return false;
+                        if (rsc.isEmptyOrNull(attribute) || !rsc.isString(attribute)) return false;
 
-                        return rsc.bool.includes(token);
+                        return rsc.bool.includes(attribute.trim());
                     }
 
                     rsc.getUniqueElementId = function(str = null, range = 100)
