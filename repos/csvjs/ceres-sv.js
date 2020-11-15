@@ -475,14 +475,6 @@ window.ceres = {};
                 // generic resource methods
                 (function() {
 
-                    const symbol = new Map();
-
-                    symbol.set('true', true);
-                    symbol.set('t', true);
-                    symbol.set('yes', true);
-                    symbol.set('y', true);
-                    symbol.set('1', true);
-
                     rsc.reference = 1;
                     rsc.notify = 2;
                     rsc.default = 98;
@@ -546,11 +538,10 @@ window.ceres = {};
 
                     rsc.getBooleanAttribute = function(attribute)
                     {
-                        if (attribute === true || attribute === false) return attribute;
-                        if (rsc.isEmptyOrNull(attribute)) return false;
-                        if (!rsc.isString(attribute)) return false;
-
                         const token = attribute.trim();
+
+                        if (attribute === true || attribute === false) return attribute;
+                        if (rsc.isEmptyOrNull(token) || !rsc.isString(token)) return false;
 
                         return rsc.bool.includes(token);
                     }
@@ -576,7 +567,6 @@ window.ceres = {};
                     rsc.htmlToText = function(html, regex)
                     {
                         if (rsc.isEmptyOrNull(html)) return;
-
                         if (regex) return html.replace(rsc.markup, '');
 
                         let el = document.createElement("div");
