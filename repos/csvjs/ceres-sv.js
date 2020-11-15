@@ -212,6 +212,7 @@ window.ceres = {};
             if (cfg.fetchsrc)
             {
                 let test = await ( await fetch(src) ).text();
+                console.log('test: ' + test);
                 csvNode.insertAdjacentHTML('afterbegin', test.textContent );
             }
 
