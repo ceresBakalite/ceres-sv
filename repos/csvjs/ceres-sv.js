@@ -149,6 +149,48 @@ window.ceres = {};
 
     }).call(rsc); // end resource allocation
 
+    const caching = {}; // http cache allocation
+    (function(cache) {
+
+        this.available = ('caches' in window);
+
+        this.listExistingCacheNames = function()
+        {
+            caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
+        }
+
+        this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+        {
+            window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
+
+            window.addEventListener('fetch', function(e)
+            {
+                e.respondWith(caches.match(e.request).then(function(response)
+                {
+                    if (response !== undefined) return response;
+
+                    return fetch(e.request).then(function (response)
+                    {
+                        let responseClone = response.clone();
+                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+                        return response;
+
+                    }).catch(function () {
+
+                        return caches.match(urlImage);
+
+                    });
+
+                }));
+
+            });
+
+        }
+
+        Object.freeze(caching);
+
+    }).call(caching); // end resource allocation
+
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -156,9 +198,9 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { atr.setSlide(el); };  // global scope method reference
 
+            const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
-            const csvNode = this; // csv root node of a DOM subtree
 
             initialise();
 
