@@ -101,7 +101,7 @@ window.ceres = {};
             if (this.isEmptyOrNull(html)) return;
 
             let template = html.includes('</template>');
-            if (regex || template) return html.replace(this.regexMarkup, '');
+            if (regex || template) return html.replace(this.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
@@ -142,8 +142,8 @@ window.ceres = {};
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
         this.bool = this.bTrueArray.toString().toUpperCase().split(',');
         this.newline = this.isWindows ? '\r\n' : '\n';
-        this.regexWhitespace = /\s/g;
-        this.regexMarkup = /(<([^>]+)>)/ig;
+        this.whitespace = /\s/g;
+        this.markup = /(<([^>]+)>)/ig;
 
     }).call(rsc); // end resource allocation
 
@@ -479,7 +479,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
-                            let ar = auto.replace(rsc.regexWhitespace,'').split(',');
+                            let ar = auto.replace(rsc.whitespace,'').split(',');
                             let item = ar[0];
 
                             if (!Number.isInteger(parseInt(item)))
