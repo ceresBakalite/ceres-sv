@@ -445,8 +445,8 @@ window.ceres = {};
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
-alert('aargh atr');
-                        this.setSlide(null, cfg.shadow);
+                        
+                        atr.setSlide(null, cfg.shadow);
                     }
 
                     this.getSlideShadow = function(node)
