@@ -43,22 +43,15 @@ window.ceres = {};
         {
             if (!touch.act) touch.act = 80;
 
-            alert('aargh 2');
-
             touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
             touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
             touch.node.addEventListener('touchend', e =>
             {
                 touch.end = e.changedTouches[0].screenX;
 
-alert('aargh 3');
-
                 if (Math.abs(touch.start - touch.end) > touch.act)
                 {
                     args.action = (touch.start > touch.end);
-
-                    alert('aargh 4: ' + args.action);
-
                     callback.call(this, args);
                 }
 
@@ -452,10 +445,8 @@ alert('aargh 3');
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
-
-alert('aargh');
-
-                        setSlide(null, cfg.shadow);
+alert('aargh atr');
+                        this.setSlide(null, cfg.shadow);
                     }
 
                     this.getSlideShadow = function(node)
