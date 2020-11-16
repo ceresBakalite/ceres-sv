@@ -149,28 +149,6 @@ window.ceres = {};
 
     }).call(rsc); // end resource allocation
 
-    const caching = {}; // http cache allocation
-    (function(cache) {
-
-        this.available = ('caches' in window);
-
-        this.installCache = function(cacheName, urlArray)
-        {
-            // cache a range of response.status values (200, 304 etc)
-            urlArray.forEach(url =>
-            {
-                fetch(url).then(response =>
-                {
-                    if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cacheWarning, logtrace: cfg.attrib.trace }); }
-                    return caches.open(cacheName).then(cache => { return cache.put(url, response); });
-                });
-
-            });
-
-        }
-
-    }).call(caching); // end resource allocation
-
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -411,12 +389,23 @@ window.ceres = {};
 
                     }
 
-                    this.insertCache = function()
+                    this.insertCache = function() // cache a range of response.status values (200, 304 etc)
                     {
-                        if (!caching.available) return;
+                        if (!('caches' in window)) return;
 
                         const cacheName = csv + '-cache';
-                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.getImportMetaUrl() ]))));
+                        const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.getImportMetaUrl() ])));
+
+                        urlArray.forEach(url =>
+                        {
+                            fetch(url).then(response =>
+                            {
+                                if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cacheWarning, logtrace: cfg.attrib.trace }); }
+                                return caches.open(cacheName).then(cache => { return cache.put(url, response); });
+                            });
+
+                        });
+
                     }
 
                     this.getSwipeEvent = function(swipe)
