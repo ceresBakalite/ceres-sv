@@ -159,16 +159,13 @@ window.ceres = {};
 
         this.installCache = function(cacheName, urlArray)
         {
+            // cache a range of response.status values (200, 304 etc)
             urlArray.forEach(url =>
             {
                 fetch(url).then(response =>
                 {
-                    if (!response.ok) { console.log('Bad cache response status: ' + url); }
-
-                    return caches.open(cacheName).then(cache =>
-                    {
-                        return cache.put(url, response);
-                    });
+                    if (!response.ok) { console.warn('Warning: cache response status: ' + url); }
+                    return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                 });
 
             });
