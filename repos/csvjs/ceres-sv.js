@@ -332,7 +332,7 @@ window.ceres = {};
                     this.pushURLScripts = function(css, src)
                     {
                         if (cfg.fetchsrc) cfg.cachesrc = src.split();
-                        cfg.cachecss = css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
+                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.setStyleAttributes = function()
@@ -343,7 +343,7 @@ window.ceres = {};
 
                         cfg.shade.appendChild(cfg.styleContainer);
 
-                        rsc.removeDuplcates(cfg.cachecss).forEach(item =>
+                        cfg.cachecss.forEach(item =>
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
