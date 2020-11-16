@@ -16,6 +16,24 @@ window.ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview html custom element
 
+    const state = {
+
+        reference   : 1,
+        notify      : 2,
+        warn        : 3,
+        default     : 98,
+        error       : 99,
+        bTrueArray  : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
+        isWindows   : (navigator.appVersion.indexOf('Win') != -1),
+        nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
+        whitespace  : /\s/g,
+        markup      : /(<([^>]+)>)/ig,
+
+        get newline() { return this.isWindows ? '\r\n' : '\n'; },
+        get bool() { return this.bTrueArray.toString().toUpperCase().split(','); }
+
+    }
+
     const rsc = {}; // generic resource methods
     (function() {
 
@@ -118,11 +136,11 @@ window.ceres = {};
             }
 
             const lookup = {
-                [this.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
-                [this.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [this.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                [state.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [state.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                [state.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+                [state.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [state.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
             };
 
             lookup[diagnostic.type]() || lookup[this.default];
@@ -134,11 +152,11 @@ window.ceres = {};
             return str.replace(/, +$/g,'');
         }
 
-        this.reference = 1;
-        this.notify = 2;
-        this.warn = 3;
-        this.default = 98;
-        this.error = 99;
+        //this.reference = 1;
+        //this.notify = 2;
+        //this.warn = 3;
+        //this.default = 98;
+        //this.error = 99;
          this.bTrueArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
          this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
          this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
@@ -148,24 +166,6 @@ window.ceres = {};
          this.markup = /(<([^>]+)>)/ig;
 
     }).call(rsc); // end resource allocation
-
-    const state = {
-
-        reference   : 1,
-        notify      : 2,
-        warn        : 3,
-        default     : 98,
-        error       : 99,
-        bTrueArray  : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-        isWindows   : (navigator.appVersion.indexOf('Win') != -1),
-        nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
-        whitespace  : /\s/g,
-        markup      : /(<([^>]+)>)/ig,
-
-        get newline() { return this.isWindows ? '\r\n' : '\n'; },
-        get bool() { return this.bTrueArray.toString().toUpperCase().split(','); }
-
-    }
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
