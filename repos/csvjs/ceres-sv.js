@@ -16,177 +16,6 @@ window.ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview html custom element
 
-    const rsc = {}; // generic resource methods
-    (function() {
-
-        this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-        this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
-        this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-        this.getImportMetaUrl = function() { return import.meta.url; }
-
-        this.composeElement = function(el)
-        {
-            const precursor = el.parent;
-            const node = document.createElement(el.typeof);
-
-            if (el.id) node.setAttribute('id', el.id);
-            if (el.className) node.setAttribute('class', el.className);
-            if (el.onClick) node.setAttribute('onclick', el.onClick);
-            if (el.src) node.setAttribute('src', el.src);
-            if (el.alt) node.setAttribute('alt', el.alt);
-            if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
-
-            precursor.appendChild(node);
-        }
-
-        this.setHorizontalSwipe = function(touch, callback, args)
-        {
-            if (!touch.act) touch.act = 80;
-
-            touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-            touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-            touch.node.addEventListener('touchend', e =>
-            {
-                touch.end = e.changedTouches[0].screenX;
-
-                if (Math.abs(touch.start - touch.end) > touch.act)
-                {
-                    args.action = (touch.start > touch.end);
-                    callback.call(this, args);
-                }
-
-            }, { passive: true });
-
-        }
-
-        this.isEmptyOrNull = function(obj)
-        {
-            if (obj === null || obj == 'undefined') return true;
-
-            if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
-            if (Array.isArray(obj)) return (obj.length === 0);
-            if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
-
-            return !obj;
-        }
-
-        this.getBooleanAttribute = function(attribute)
-        {
-            if (attribute === true || attribute === false) return attribute;
-            if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
-
-            return this.bool.includes(attribute.trim().toUpperCase());
-        }
-
-        this.getUniqueElementId = function(str = null, range = 100)
-        {
-            let elName = function() { return str + Math.floor(Math.random() * range) };
-            let el = null;
-
-            while (document.getElementById(el = elName())) {};
-
-            return el;
-        }
-
-        this.removeDuplcates = function(obj, sort)
-        {
-            const key = JSON.stringify;
-            let ar = [...new Map (obj.map(node => [key(node), node])).values()];
-
-            return sort ? ar.sort((a, b) => a - b) : ar;
-        }
-
-        this.DOMParserHtml = function(html, regex)
-        {
-            if (this.isEmptyOrNull(html)) return;
-
-            let template = html.includes('</template>');
-            if (regex || template) return html.replace(this.markup, '');
-
-            let doc = new DOMParser().parseFromString(html, 'text/html');
-            return doc.body.textContent || doc.body.innerText;
-        }
-
-        this.inspect = function(diagnostic)
-        {
-            const errorHandler = function(error)
-            {
-                let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-                console.error(err);
-
-                if (error.alert) alert(err);
-            }
-
-            const lookup = {
-                [this.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
-                [this.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
-            };
-
-            lookup[diagnostic.type]() || lookup[this.default];
-        }
-
-        this.getObjectProperties = function(object, str = '')
-        {
-            for (let property in object) str += property + ': ' + object[property] + ', ';
-            return str.replace(/, +$/g,'');
-        }
-
-        this.reference = 1;
-        this.notify = 2;
-        this.default = 98;
-        this.error = 99;
-        this.bTrue = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-        this.bool = this.bTrue.toString().toUpperCase().split(',');
-        this.newline = this.isWindows ? '\r\n' : '\n';
-        this.whitespace = /\s/g;
-        this.markup = /(<([^>]+)>)/ig;
-
-    }).call(rsc); // end resource allocation
-
-    const caching = {}; // http cache allocation
-    (function(cache) {
-
-        this.available = ('caches' in window);
-
-        this.listExistingCacheNames = function()
-        {
-            caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
-        }
-
-        this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
-        {
-            window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
-
-            window.addEventListener('fetch', function(e)
-            {
-                e.respondWith(caches.match(e.request).then(function(response)
-                {
-                    if (response !== undefined) return response;
-
-                    return fetch(e.request).then(function (response)
-                    {
-                        let responseClone = response.clone();
-                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-                        return response;
-
-                    }).catch(function () {
-
-                        return caches.match(urlImage);
-
-                    });
-
-                }));
-
-            });
-
-        }
-
-    }).call(caching); // end resource allocation
-
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -194,9 +23,11 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { atr.setSlide(el); };  // global scope method reference
 
+            const cfg = {}, // configuration attributes
+            rsc = {}, // generic resource methods
+            atr = {}; // attribute allocation
+
             const csvNode = this; // csv root node of a DOM subtree
-            const cfg = {}; // configuration attributes
-            const atr = {}; // attribute allocation
 
             initialise();
 
@@ -207,7 +38,7 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ) );
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
@@ -238,9 +69,10 @@ window.ceres = {};
 
                 Object.freeze(remark);
 
+                // attribute allocation
                 (function() {
 
-                    this.setShadow = function()
+                    atr.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
 
@@ -249,22 +81,22 @@ window.ceres = {};
                         cfg.shade.attachShadow({mode: 'open'});
                         cfg.shadow = cfg.shade.shadowRoot;
 
-                        this.setStyleAttributes();
-                        this.setBodyAttributes();
-                        this.setImageAttributes();
-                        this.setTrackAttributes();
+                        atr.setStyleAttributes();
+                        atr.setBodyAttributes();
+                        atr.setImageAttributes();
+                        atr.setTrackAttributes();
 
                         cfg.shadow.append(cfg.styleContainer);
                         cfg.shadow.append(cfg.bodyContainer);
 
-                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, this.getSwipeEvent, { left: -1, right: 1 } );
+                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
 
                         rsc.inspect({ type: rsc.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
 
-                    this.setSlide = function(node, shadow)
+                    atr.setSlide = function(node, shadow)
                     {
-                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getSlideShadow(node);
+                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.getSlideShadow(node);
                         const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                         cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
@@ -285,7 +117,7 @@ window.ceres = {};
                         nub[next].className = 'nub enabled';
                     }
 
-                    this.setAuto = function()
+                    atr.setAuto = function()
                     {
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
@@ -305,7 +137,7 @@ window.ceres = {};
 
                     }
 
-                    this.setView = function()
+                    atr.setView = function()
                     {
                         setTimeout(function()
                         {
@@ -314,31 +146,31 @@ window.ceres = {};
 
                         }, cfg.attrib.delay);
 
-                        if (cfg.attrib.cache) this.insertCache();
+                        if (cfg.attrib.cache) atr.insertCache();
                     }
 
-                    this.hasProperties = function()
+                    atr.hasProperties = function()
                     {
-                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError });
+                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError });
                         if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError });
 
-                        return this.attributesExist();
+                        return atr.attributesExist();
                     }
 
-                    this.activate = function()
+                    atr.activate = function()
                     {
-                        this.setShadow();
-                        this.setSlide();
-                        this.setView();
+                        atr.setShadow();
+                        atr.setSlide();
+                        atr.setView();
                     }
 
-                    this.fetchStylesheets = function(str)
+                    atr.fetchStylesheets = function(str)
                     {
                         const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                         cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
                     }
 
-                    this.setStyleAttributes = function()
+                    atr.setStyleAttributes = function()
                     {
                         cfg.styleContainer = document.createElement('style');
                         cfg.styleContainer.id = csv + '-style';
@@ -357,7 +189,7 @@ window.ceres = {};
 
                     }
 
-                    this.setBodyAttributes = function()
+                    atr.setBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
@@ -367,7 +199,7 @@ window.ceres = {};
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
-                    this.setImageAttributes = function()
+                    atr.setImageAttributes = function()
                     {
                         const getClassName = function()
                         {
@@ -414,7 +246,7 @@ window.ceres = {};
                     }
 
                     // The nub track is hidden in auto mode
-                    this.setTrackAttributes = function()
+                    atr.setTrackAttributes = function()
                     {
                         const trackContainer = document.createElement('div');
                         trackContainer.id = csv + '-nub';
@@ -431,17 +263,65 @@ window.ceres = {};
 
                     }
 
-                    this.insertCache = function()
+                    atr.insertCache = function()
                     {
                         if (!('caches' in window)) return;
+
+                        const caching = {}; // http cache allocation
+                        setCache();
 
                         const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
 
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+
+                        function setCache()
+                        {
+                            // caching;
+                            (function(cache) {
+
+                                caching.available = ('caches' in window);
+
+                                caching.listExistingCacheNames = function()
+                                {
+                                    caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
+                                }
+
+                                caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                                {
+                                    window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
+
+                                    window.addEventListener('fetch', function(e)
+                                    {
+                                        e.respondWith(caches.match(e.request).then(function(response)
+                                        {
+                                            if (response !== undefined) return response;
+
+                                            return fetch(e.request).then(function (response)
+                                            {
+                                                let responseClone = response.clone();
+                                                caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+                                                return response;
+
+                                            }).catch(function () {
+
+                                                return caches.match(urlImage);
+
+                                            });
+
+                                        }));
+
+                                    });
+
+                                }
+
+                            })(); // end caching
+
+                        }
+
                     }
 
-                    this.getSwipeEvent = function(swipe)
+                    atr.getSwipeEvent = function(swipe)
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
@@ -449,7 +329,7 @@ window.ceres = {};
                         setSlide(null, cfg.shadow);
                     }
 
-                    this.getSlideShadow = function(node)
+                    atr.getSlideShadow = function(node)
                     {
                         const root = node.getRootNode().host,
                         shade = document.querySelector('#' + root.id),
@@ -467,7 +347,7 @@ window.ceres = {};
                         return shadow;
                     }
 
-                    this.getPrecursor = function()
+                    atr.getPrecursor = function()
                     {
                         const exists = !rsc.isEmptyOrNull(csvNode);
 
@@ -480,14 +360,14 @@ window.ceres = {};
                         const getTemplateId = function()
                         {
                             let embed = csvNode.getAttribute('embed');
-                            return rsc.isEmptyOrNull(embed) ? false : embed;
+                            return rsc.isEmptyOrNull(embed) ? null : embed;
                         }
 
                         const getTemplateElement = function()
                         {
-                            if (cfg.fetchsrc || !cfg.attrib.embed) return 'undefined';
+                            if (cfg.fetchsrc) return 'undefined';
 
-                            let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
+                            let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(cfg.attrib.embed) : null;
 
                             if (rsc.isEmptyOrNull(el))
                             {
@@ -498,14 +378,14 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(el) ? 'undefined' : el;
                         }
 
-                        const getStaticProperties = function()
+                        const getAutoProperties = function(locale = 'en')
                         {
                             let auto = csvNode.getAttribute('auto');
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
                             let ar = auto.replace(rsc.whitespace,'').split(',');
-                            let item = ar[0];
+                            let item = ar[0].toLocaleLowerCase(locale);
 
                             if (!Number.isInteger(parseInt(item)))
                             {
@@ -518,7 +398,6 @@ window.ceres = {};
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                             cfg.attrib.fade = cfg.attrib.autopause > 400;
-                            cfg.attrib.nub = 'false';
 
                             return false;
                         }
@@ -536,7 +415,7 @@ window.ceres = {};
                             cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled;
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
-                            cfg.attrib.static = getStaticProperties(); // enabled
+                            cfg.attrib.static = getAutoProperties(); // enabled
                             cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
 
                             Object.freeze(cfg.attrib);
@@ -547,7 +426,7 @@ window.ceres = {};
                         return exists;
                     }
 
-                    this.attributesExist = function()
+                    atr.attributesExist = function()
                     {
                         cfg.imageArray = null;
 
@@ -592,7 +471,139 @@ window.ceres = {};
 
                     Object.seal(atr);
 
-                }).call(atr); // end attribute allocation
+                })(); // end attribute allocation
+
+                // generic resource methods
+                (function() {
+
+                    rsc.reference = 1;
+                    rsc.notify = 2;
+                    rsc.default = 98;
+                    rsc.error = 99;
+                    rsc.strBoolean = ['TRUE','1','YES','ON','ACTIVE','ENABLE'];
+                    rsc.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+                    rsc.newline = rsc.isWindows ? '\r\n' : '\n';
+                    rsc.whitespace = /\s/g;
+                    rsc.markup = /(<([^>]+)>)/ig;
+
+                    rsc.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+                    rsc.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+                    rsc.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+                    rsc.getImportMetaUrl = function() { return import.meta.url; }
+
+                    rsc.composeElement = function(el)
+                    {
+                        const precursor = el.parent;
+                        const node = document.createElement(el.typeof);
+
+                        if (el.id) node.setAttribute("id", el.id);
+                        if (el.className) node.setAttribute("class", el.className);
+                        if (el.onClick) node.setAttribute("onclick", el.onClick);
+                        if (el.src) node.setAttribute("src", el.src);
+                        if (el.alt) node.setAttribute("alt", el.alt);
+                        if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+
+                        precursor.appendChild(node);
+                    }
+
+                    rsc.setHorizontalSwipe = function(touch, callback, args)
+                    {
+                        if (!touch.act) touch.act = 80;
+
+                        touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
+                        touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+                        touch.node.addEventListener('touchend', e =>
+                        {
+                            touch.end = e.changedTouches[0].screenX;
+
+                            if (Math.abs(touch.start - touch.end) > touch.act)
+                            {
+                                args.action = (touch.start > touch.end);
+                                callback.call(this, args);
+                            }
+
+                        }, { passive: true });
+
+                    }
+
+                    rsc.isEmptyOrNull = function(obj)
+                    {
+                        if (obj === null || obj == 'undefined') return true;
+
+                        if (rsc.isString(obj)) return (obj.length === 0 || !obj.trim());
+                        if (Array.isArray(obj)) return (obj.length === 0);
+                        if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
+
+                        return !obj;
+                    }
+
+                    rsc.getBooleanAttribute = function(attribute)
+                    {
+                        if (attribute === true || attribute === false) return attribute;
+                        if (rsc.isEmptyOrNull(attribute) || !rsc.isString(attribute)) return false;
+
+                        return rsc.strBoolean.includes(attribute.trim().toUpperCase());
+                    }
+
+                    rsc.getUniqueElementId = function(str = null, range = 100)
+                    {
+                        let elName = function() { return str + Math.floor(Math.random() * range) };
+                        let el = null;
+
+                        while (document.getElementById(el = elName())) {};
+
+                        return el;
+                    }
+
+                    rsc.removeDuplcates = function(obj, sort)
+                    {
+                        const key = JSON.stringify;
+                        let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+
+                        return sort ? ar.sort((a, b) => a - b) : ar;
+                    }
+
+                    rsc.htmlToText = function(html, regex)
+                    {
+                        if (rsc.isEmptyOrNull(html)) return;
+                        if (regex) return html.replace(rsc.markup, '');
+
+                        let el = document.createElement("div");
+                        el.innerHTML = html;
+
+                        return el.textContent || el.innerText;
+                    }
+
+
+                    rsc.inspect = function(diagnostic)
+                    {
+                        const errorHandler = function(error)
+                        {
+                            let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                            console.error(err);
+
+                            if (error.alert) alert(err);
+                        }
+
+                        const lookup = {
+                            [rsc.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                            [rsc.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                            [rsc.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + rsc.newline + rsc.newline + diagnostic.reference); },
+                            [rsc.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                        };
+
+                        lookup[diagnostic.type]() || lookup[rsc.default];
+                    }
+
+                    rsc.getObjectProperties = function(object, str = '')
+                    {
+                        for (let property in object) str += property + ': ' + object[property] + ', ';
+                        return str.replace(/, +$/g,'');
+                    }
+
+                    Object.freeze(rsc);
+
+                })(); // end resource allocation
 
             }
 
