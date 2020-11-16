@@ -277,14 +277,14 @@ window.ceres = {};
                         {
                             (function(cache) {
 
-                                this.available = ('caches' in window);
+                                caching.available = ('caches' in window);
 
-                                this.listExistingCacheNames = function()
+                                caching.listExistingCacheNames = function()
                                 {
                                     caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
                                 }
 
-                                this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                                caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
                                 {
                                     window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
 
@@ -312,7 +312,7 @@ window.ceres = {};
 
                                 }
 
-                            }).call(caching); // end resource allocation
+                            })(); // end resource allocation
 
                         }
 
