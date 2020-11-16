@@ -415,7 +415,7 @@ window.ceres = {};
 
                     this.insertCache = function()
                     {
-                        if (!('caches' in window)) return;
+                        if (!caching.available) return;
 
                         const cacheName = csv + '-cache';
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.getImportMetaUrl() ]))));
