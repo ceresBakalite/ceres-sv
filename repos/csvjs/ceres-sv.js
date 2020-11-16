@@ -101,7 +101,7 @@ window.ceres = {};
             if (this.isEmptyOrNull(html)) return;
 
             let template = html.includes('</template>');
-            if (regex || template) return html.replace(this.markup, '');
+            if (regex || template) return html.replace(this.regexMarkup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
@@ -137,13 +137,13 @@ window.ceres = {};
         this.notify = 2;
         this.default = 98;
         this.error = 99;
-        this.bTrue = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+        this.bTrueArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-        this.bool = this.bTrue.toString().toUpperCase().split(',');
+        this.bool = this.bTrueArray.toString().toUpperCase().split(',');
         this.newline = this.isWindows ? '\r\n' : '\n';
-        this.whitespace = /\s/g;
-        this.markup = /(<([^>]+)>)/ig;
+        this.regexWhitespace = /\s/g;
+        this.regexMarkup = /(<([^>]+)>)/ig;
 
     }).call(rsc); // end resource allocation
 
@@ -504,7 +504,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
-                            let ar = auto.replace(rsc.whitespace,'').split(',');
+                            let ar = auto.replace(rsc.regexWhitespace,'').split(',');
                             let item = ar[0];
 
                             if (!Number.isInteger(parseInt(item)))
