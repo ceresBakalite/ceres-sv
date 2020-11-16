@@ -101,7 +101,7 @@ window.ceres = {};
             if (this.isEmptyOrNull(html)) return;
 
             let template = html.includes('</template>');
-            if (regex || template) return html.replace(this.markup, '');
+            if (regex || template) return html.replace(this.regexMarkup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
@@ -137,13 +137,13 @@ window.ceres = {};
         this.notify = 2;
         this.default = 98;
         this.error = 99;
-        this.bTrue = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+        this.bTrueArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-        this.bool = this.bTrue.toString().toUpperCase().split(',');
+        this.bool = this.bTrueArray.toString().toUpperCase().split(',');
         this.newline = this.isWindows ? '\r\n' : '\n';
-        this.whitespace = /\s/g;
-        this.markup = /(<([^>]+)>)/ig;
+        this.regexWhitespace = /\s/g;
+        this.regexMarkup = /(<([^>]+)>)/ig;
 
     }).call(rsc); // end resource allocation
 
@@ -152,34 +152,16 @@ window.ceres = {};
 
         this.available = ('caches' in window);
 
-        this.listExistingCacheNames = function()
+        this.installCache = function(cacheName, urlArray)
         {
-            caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
-        }
-
-        this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
-        {
-            window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
-
-            window.addEventListener('fetch', function(e)
+            // cache a range of response.status values (200, 304 etc)
+            urlArray.forEach(url =>
             {
-                e.respondWith(caches.match(e.request).then(function(response)
+                fetch(url).then(response =>
                 {
-                    if (response !== undefined) return response;
-
-                    return fetch(e.request).then(function (response)
-                    {
-                        let responseClone = response.clone();
-                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-                        return response;
-
-                    }).catch(function () {
-
-                        return caches.match(urlImage);
-
-                    });
-
-                }));
+                    if (!response.ok) { console.warn('Warning: cache response status: ' + url); }
+                    return caches.open(cacheName).then(cache => { return cache.put(url, response); });
+                });
 
             });
 
@@ -203,13 +185,11 @@ window.ceres = {};
             let css = csvNode.getAttribute('css') || cfg.defaultCSS;
             let src = csvNode.getAttribute('src') || null;
 
-            cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
+            cfg.fetchcss = !rsc.isEmptyOrNull(css);
 
-            if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ) );
-
-            cfg.cache.src = cfg.cache.src.concat(src);
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ));
+            if (cfg.fetchcss || cfg.fetchsrc) atr.setURLArray(css, src);
 
             if (atr.hasProperties()) atr.activate();
 
@@ -217,13 +197,10 @@ window.ceres = {};
             {
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.attrib = {};
-                cfg.cache = {};
-                cfg.cache.css = [];
-                cfg.cache.src = [];
                 cfg.slide = 1;
 
                 const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; } // The nub track is hidden in auto mode
+                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                 const srm = new Map(); // shadowroot manager
 
                 const remark = {
@@ -332,10 +309,10 @@ window.ceres = {};
                         this.setView();
                     }
 
-                    this.fetchStylesheets = function(str)
+                    this.setURLArray = function(css, src)
                     {
-                        const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
-                        cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
+                        if (cfg.fetchsrc) cfg.cachesrc = src.split();
+                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.setStyleAttributes = function()
@@ -346,7 +323,7 @@ window.ceres = {};
 
                         cfg.shade.appendChild(cfg.styleContainer);
 
-                        cfg.cache.css.forEach(item =>
+                        cfg.cachecss.forEach(item =>
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
@@ -433,12 +410,10 @@ window.ceres = {};
 
                     this.insertCache = function()
                     {
-                        if (!('caches' in window)) return;
+                        if (!caching.available) return;
 
                         const cacheName = csv + '-cache';
-                        cfg.cache.script = [ rsc.getImportMetaUrl() ];
-
-                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.getImportMetaUrl() ]))));
                     }
 
                     this.getSwipeEvent = function(swipe)
@@ -504,7 +479,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
-                            let ar = auto.replace(rsc.whitespace,'').split(',');
+                            let ar = auto.replace(rsc.regexWhitespace,'').split(',');
                             let item = ar[0];
 
                             if (!Number.isInteger(parseInt(item)))
