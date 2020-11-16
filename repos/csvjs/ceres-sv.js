@@ -16,8 +16,8 @@ window.ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview html custom element
 
-    const state = {
-
+    const static =
+    {
         reference   : 1,
         notify      : 2,
         warn        : 3,
@@ -31,7 +31,6 @@ window.ceres = {};
 
         get newline() { return this.isWindows ? '\r\n' : '\n'; },
         get bool() { return this.bTrueArray.toString().toUpperCase().split(','); }
-
     }
 
     const rsc = {}; // generic resource methods
@@ -93,7 +92,7 @@ window.ceres = {};
             if (attribute === true || attribute === false) return attribute;
             if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-            return state.bool.includes(attribute.trim().toUpperCase());
+            return static.bool.includes(attribute.trim().toUpperCase());
         }
 
         this.getUniqueElementId = function(str = null, range = 100)
@@ -119,7 +118,7 @@ window.ceres = {};
             if (this.isEmptyOrNull(html)) return;
 
             let template = html.includes('</template>');
-            if (regex || template) return html.replace(this.markup, '');
+            if (regex || template) return html.replace(static.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
@@ -136,14 +135,14 @@ window.ceres = {};
             }
 
             const lookup = {
-                [state.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [state.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [state.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + state.newline + state.newline + diagnostic.reference); },
-                [state.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [state.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                [static.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [static.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                [static.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + static.newline + static.newline + diagnostic.reference); },
+                [static.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [static.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
             };
 
-            lookup[diagnostic.type]() || lookup[state.default];
+            lookup[diagnostic.type]() || lookup[static.default];
         }
 
         this.getObjectProperties = function(object, str = '')
@@ -152,18 +151,18 @@ window.ceres = {};
             return str.replace(/, +$/g,'');
         }
 
-        //this.reference = 1;
-        //this.notify = 2;
-        //this.warn = 3;
-        //this.default = 98;
-        //this.error = 99;
-         this.bTrueArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-         //this.bool = this.bTrueArray.toString().toUpperCase().split(',');
-         //this.newline = this.isWindows ? '\r\n' : '\n';
-         this.whitespace = /\s/g;
-         this.markup = /(<([^>]+)>)/ig;
+        // this.reference = 1;
+        // this.notify = 2;
+        // this.warn = 3;
+        // this.default = 98;
+        // this.error = 99;
+        // this.bTrueArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+        // this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+        // this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
+        // this.bool = this.bTrueArray.toString().toUpperCase().split(',');
+        // this.newline = this.isWindows ? '\r\n' : '\n';
+        // this.whitespace = /\s/g;
+        // this.markup = /(<([^>]+)>)/ig;
 
     }).call(rsc); // end resource allocation
 
@@ -235,7 +234,7 @@ window.ceres = {};
 
                         if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
 
-                        rsc.inspect({ type: state.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: static.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
 
                     this.setSlide = function(node, shadow)
@@ -295,8 +294,8 @@ window.ceres = {};
 
                     this.hasProperties = function()
                     {
-                        if (!this.getPrecursor()) return rsc.inspect({ type: state.error, notification: remark.precursorError });
-                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: state.error, notification: remark.fetchListError });
+                        if (!this.getPrecursor()) return rsc.inspect({ type: static.error, notification: remark.precursorError });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: static.error, notification: remark.fetchListError });
 
                         return this.attributesExist();
                     }
@@ -418,7 +417,7 @@ window.ceres = {};
                         {
                             fetch(url).then(response =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: state.warn, notification: remark.cacheWarning, logtrace: cfg.attrib.trace }); }
+                                if (!response.ok) { rsc.inspect({ type: static.warn, notification: remark.cacheWarning, logtrace: cfg.attrib.trace }); }
                                 return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                             });
 
@@ -476,7 +475,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(el))
                             {
-                                rsc.inspect({ type: state.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: static.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                             }
 
@@ -489,7 +488,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
-                            let ar = auto.replace(rsc.whitespace,'').split(',');
+                            let ar = auto.replace(static.whitespace,'').split(',');
                             let item = ar[0];
 
                             if (!Number.isInteger(parseInt(item)))
@@ -536,7 +535,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: state.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: static.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
@@ -548,10 +547,10 @@ window.ceres = {};
 
                             let lightList = function()
                             {
-                                rsc.inspect({ type: state.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: static.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
                                 let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: state.error, notification: remark.templateError });
+                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: static.error, notification: remark.templateError });
 
                                 return content;
                             }
@@ -565,7 +564,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: state.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + state.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: static.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + static.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
