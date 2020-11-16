@@ -96,7 +96,7 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.DOMParserHTML = function(html, regex)
+        this.DOMParserHtml = function(html, regex)
         {
             if (this.isEmptyOrNull(html)) return;
 
@@ -207,7 +207,7 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHTML( await ( await fetch(src) ).text(), false ) );
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ) );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
