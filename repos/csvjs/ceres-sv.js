@@ -159,6 +159,8 @@ window.ceres = {};
 
         this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
         {
+            console.log('urlArray: ' + urlArray);                        
+
             window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
 
             window.addEventListener('fetch', function(e)
@@ -432,7 +434,6 @@ window.ceres = {};
                         if (!('caches' in window)) return;
 
                         const cacheName = csv + '-cache';
-console.log('test: ' + rsc.removeDuplcates(cfg.cachecss.concat(cfg.cachesrc.concat([ rsc.getImportMetaUrl() ]))));                        
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cachecss.concat(cfg.cachesrc.concat([ rsc.getImportMetaUrl() ]))));
                     }
 
