@@ -273,18 +273,18 @@ window.ceres = {};
 
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
 
-                        const setCache = function()
+                        function setCache()
                         {
                             (function(cache) {
 
-                                caching.available = ('caches' in window);
+                                this.available = ('caches' in window);
 
-                                caching.listExistingCacheNames = function()
+                                this.listExistingCacheNames = function()
                                 {
                                     caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
                                 }
 
-                                caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                                this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
                                 {
                                     window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
 
@@ -312,7 +312,7 @@ window.ceres = {};
 
                                 }
 
-                            })(); // end resource allocation
+                            }).call(caching); // end resource allocation
 
                         }
 
