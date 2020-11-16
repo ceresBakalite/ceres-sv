@@ -343,7 +343,7 @@ window.ceres = {};
 
                         cfg.shade.appendChild(cfg.styleContainer);
 
-                        cfg.cachecss.forEach(item =>
+                        rsc.removeDuplcates(cfg.cachecss).forEach(item =>
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
@@ -433,7 +433,7 @@ window.ceres = {};
                         if (!('caches' in window)) return;
 
                         const cacheName = csv + '-cache';
-                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cachecss.concat(cfg.cachesrc.concat([ rsc.getImportMetaUrl() ]))));
+                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.getImportMetaUrl() ]))));
                     }
 
                     this.getSwipeEvent = function(swipe)
