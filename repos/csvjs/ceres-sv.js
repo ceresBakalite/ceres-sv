@@ -432,6 +432,7 @@ window.ceres = {};
                         if (!('caches' in window)) return;
 
                         const cacheName = csv + '-cache';
+console.log('test: ' + rsc.removeDuplcates(cfg.cachecss.concat(cfg.cachesrc.concat([ rsc.getImportMetaUrl() ]))));                        
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cachecss.concat(cfg.cachesrc.concat([ rsc.getImportMetaUrl() ]))));
                     }
 
