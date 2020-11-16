@@ -159,7 +159,6 @@ window.ceres = {};
 
         this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
         {
-            console.log('installCache');
             window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
 
             window.addEventListener('fetch', function(e)
