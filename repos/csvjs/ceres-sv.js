@@ -205,13 +205,11 @@ window.ceres = {};
             let css = csvNode.getAttribute('css') || cfg.defaultCSS;
             let src = csvNode.getAttribute('src') || null;
 
-            cfg.fetchcss = !rsc.isEmptyOrNull(css);
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
+            cfg.fetchcss = !rsc.isEmptyOrNull(css);
 
-            if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ) );
-
-            cfg.cachesrc.push(src);
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ));
+            if (cfg.fetchcss || cfg.fetchsrc) atr.pushURLScripts(css, src);
 
             if (atr.hasProperties()) atr.activate();
 
@@ -331,9 +329,10 @@ window.ceres = {};
                         this.setView();
                     }
 
-                    this.fetchStylesheets = function(str)
+                    this.pushURLScripts = function(css, src)
                     {
-                        cfg.cachecss = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
+                        if (cfg.fetchsrc) cfg.cachesrc = src.split();
+                        cfg.cachecss = css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                     }
 
                     this.setStyleAttributes = function()
