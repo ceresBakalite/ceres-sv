@@ -121,6 +121,7 @@ window.ceres = {};
                 [this.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
                 [this.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
                 [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+                [this.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
                 [this.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
             };
 
@@ -159,7 +160,7 @@ window.ceres = {};
             {
                 fetch(url).then(response =>
                 {
-                    if (!response.ok) { console.warn('Warning: cache response status: ' + url); }
+                    if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cacheWarning, logtrace: cfg.attrib.trace }); }
                     return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                 });
 
@@ -210,7 +211,8 @@ window.ceres = {};
                     elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
                     fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
-                    templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body'
+                    templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body',
+                    cacheWarning        : 'Warning: cache response status: '
                 };
 
                 Object.freeze(remark);
