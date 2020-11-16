@@ -152,11 +152,6 @@ window.ceres = {};
 
         this.available = ('caches' in window);
 
-        this.listExistingCacheNames = function()
-        {
-            caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
-        }
-
         this.installCache = function(cacheName, urlArray)
         {
             // cache a range of response.status values (200, 304 etc)
