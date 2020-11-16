@@ -209,7 +209,7 @@ window.ceres = {};
             if (cfg.fetchcss) atr.fetchStylesheets(css);
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ) );
 
-            cfg.cache.src = cfg.cache.src.concat(src);
+            cfg.cachesrc = cfg.cachesrc.concat(src);
 
             if (atr.hasProperties()) atr.activate();
 
@@ -217,9 +217,9 @@ window.ceres = {};
             {
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.attrib = {};
-                cfg.cache = {};
-                cfg.cache.css = [];
-                cfg.cache.src = [];
+                cfg.cachecss = [];
+                cfg.cachesrc = [];
+
                 cfg.slide = 1;
 
                 const getClickEvent = function() { return 'ceres.getSlide(this)'; }
@@ -335,7 +335,7 @@ window.ceres = {};
                     this.fetchStylesheets = function(str)
                     {
                         const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
-                        cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
+                        cfg.cachecss = rsc.removeDuplcates(cfg.cachecss.concat(css));
                     }
 
                     this.setStyleAttributes = function()
@@ -346,7 +346,7 @@ window.ceres = {};
 
                         cfg.shade.appendChild(cfg.styleContainer);
 
-                        cfg.cache.css.forEach(item =>
+                        cfg.cachecss.forEach(item =>
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
@@ -436,9 +436,7 @@ window.ceres = {};
                         if (!('caches' in window)) return;
 
                         const cacheName = csv + '-cache';
-                        cfg.cache.script = [ rsc.getImportMetaUrl() ];
-
-                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
+                        caching.installCache(cacheName, rsc.removeDuplcates(cfg.cachecss.concat(cfg.cachesrc.concat([ rsc.getImportMetaUrl() ]))));
                     }
 
                     this.getSwipeEvent = function(swipe)
