@@ -218,7 +218,7 @@ window.ceres = {};
                 cfg.slide = 1;
 
                 const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; } // The nub track is hidden in auto mode
+                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                 const srm = new Map(); // shadowroot manager
 
                 const remark = {
