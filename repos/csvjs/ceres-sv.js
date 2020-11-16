@@ -314,7 +314,7 @@ window.ceres = {};
 
                         }, cfg.attrib.delay);
 
-                        if (cfg.attrib.cache) this.insertCache();
+                        if (cfg.attrib.cache) atr.insertCache();
                     }
 
                     this.hasProperties = function()
@@ -445,7 +445,7 @@ window.ceres = {};
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
-                        
+
                         atr.setSlide(null, cfg.shadow);
                     }
 
