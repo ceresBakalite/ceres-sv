@@ -136,6 +136,7 @@ window.ceres = {};
 
         this.reference = 1;
         this.notify = 2;
+        this.warn = 3;
         this.default = 98;
         this.error = 99;
         this.bTrueArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
