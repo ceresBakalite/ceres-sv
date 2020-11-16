@@ -209,7 +209,7 @@ window.ceres = {};
             cfg.fetchcss = !rsc.isEmptyOrNull(css);
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ));
-            if (cfg.fetchcss || cfg.fetchsrc) atr.pushURLScripts(css, src);
+            if (cfg.fetchcss || cfg.fetchsrc) atr.setURLArray(css, src);
 
             if (atr.hasProperties()) atr.activate();
 
@@ -329,7 +329,7 @@ window.ceres = {};
                         this.setView();
                     }
 
-                    this.pushURLScripts = function(css, src)
+                    this.setURLArray = function(css, src)
                     {
                         if (cfg.fetchsrc) cfg.cachesrc = src.split();
                         if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
