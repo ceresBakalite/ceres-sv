@@ -159,7 +159,7 @@ window.ceres = {};
 
         this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
         {
-            console.log('urlArray: ' + urlArray);                        
+            console.log('urlArray: ' + urlArray);
 
             window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
 
@@ -211,7 +211,7 @@ window.ceres = {};
             if (cfg.fetchcss) atr.fetchStylesheets(css);
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ) );
 
-            cfg.cachesrc = src;
+            cfg.cachesrc.push(src);
 
             if (atr.hasProperties()) atr.activate();
 
