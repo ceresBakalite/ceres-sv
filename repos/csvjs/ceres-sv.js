@@ -74,7 +74,7 @@ window.ceres = {};
             if (attribute === true || attribute === false) return attribute;
             if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-            return rsc.operand.bool.includes(attribute.trim().toUpperCase());
+            return rsc.type.bool.includes(attribute.trim().toUpperCase());
         }
 
         this.getUniqueElementId = function(str = null, range = 100)
@@ -100,7 +100,7 @@ window.ceres = {};
             if (this.isEmptyOrNull(html)) return;
 
             let template = html.includes('</template>');
-            if (regex || template) return html.replace(this.operand.markup, '');
+            if (regex || template) return html.replace(this.type.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
@@ -117,23 +117,23 @@ window.ceres = {};
             }
 
             const lookup = {
-                [this.operand.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.operand.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [this.operand.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.operand.newline + this.operand.newline + diagnostic.reference); },
-                [this.operand.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [this.operand.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                [this.type.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [this.type.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                [this.type.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.type.newline + this.type.newline + diagnostic.reference); },
+                [this.type.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [this.type.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
             };
 
-            lookup[diagnostic.type]() || lookup[this.operand.default];
+            lookup[diagnostic.type]() || lookup[this.type.default];
         }
 
-        this.getObjectProperties = function(object, str = '')
+        this.getObjectProperties = function(obj, str = '')
         {
-            for (let property in object) str += property + ': ' + object[property] + ', ';
+            for (let property in obj) str += property + ': ' + obj[property] + ', ';
             return str.replace(/, +$/g,'');
         }
 
-        this.operand =
+        this.type =
         {
             reference   : 1,
             notify      : 2,
@@ -221,7 +221,7 @@ window.ceres = {};
 
                         if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
 
-                        rsc.inspect({ type: rsc.operand.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.type.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
 
                     this.setSlide = function(node, shadow)
@@ -281,8 +281,8 @@ window.ceres = {};
 
                     this.hasProperties = function()
                     {
-                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.operand.error, notification: remark.precursorError });
-                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.operand.error, notification: remark.fetchListError });
+                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.type.error, notification: remark.precursorError });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.type.error, notification: remark.fetchListError });
 
                         return this.attributesExist();
                     }
@@ -398,13 +398,13 @@ window.ceres = {};
                         if (!('caches' in window)) return;
 
                         const cacheName = csv + '-cache';
-                        const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.operand.metaUrl ])));
+                        const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.type.metaUrl ])));
 
                         urlArray.forEach(url =>
                         {
                             fetch(url).then(response =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: rsc.operand.warn, notification: remark.cacheWarning, logtrace: cfg.attrib.trace }); }
+                                if (!response.ok) { rsc.inspect({ type: rsc.type.warn, notification: remark.cacheWarning, logtrace: cfg.attrib.trace }); }
                                 return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                             });
 
@@ -462,7 +462,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(el))
                             {
-                                rsc.inspect({ type: rsc.operand.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.type.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                             }
 
@@ -475,7 +475,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
-                            let ar = auto.replace(rsc.operand.whitespace,'').split(',');
+                            let ar = auto.replace(rsc.type.whitespace,'').split(',');
                             let item = ar[0];
 
                             if (!Number.isInteger(parseInt(item)))
@@ -522,7 +522,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.operand.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.type.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
@@ -534,10 +534,10 @@ window.ceres = {};
 
                             let lightList = function()
                             {
-                                rsc.inspect({ type: rsc.operand.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.type.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
                                 let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.operand.error, notification: remark.templateError });
+                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.type.error, notification: remark.templateError });
 
                                 return content;
                             }
@@ -551,7 +551,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.operand.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.operand.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.type.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.type.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
