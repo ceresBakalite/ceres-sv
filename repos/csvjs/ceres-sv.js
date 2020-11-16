@@ -16,6 +16,177 @@ window.ceres = {};
 
     const csv = 'ceres-sv'; // required ceres slideview html custom element
 
+    const rsc = {}; // generic resource methods
+    (function() {
+
+        this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+        this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+        this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+        this.getImportMetaUrl = function() { return import.meta.url; }
+
+        this.composeElement = function(el)
+        {
+            const precursor = el.parent;
+            const node = document.createElement(el.typeof);
+
+            if (el.id) node.setAttribute('id', el.id);
+            if (el.className) node.setAttribute('class', el.className);
+            if (el.onClick) node.setAttribute('onclick', el.onClick);
+            if (el.src) node.setAttribute('src', el.src);
+            if (el.alt) node.setAttribute('alt', el.alt);
+            if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+
+            precursor.appendChild(node);
+        }
+
+        this.setHorizontalSwipe = function(touch, callback, args)
+        {
+            if (!touch.act) touch.act = 80;
+
+            touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
+            touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+            touch.node.addEventListener('touchend', e =>
+            {
+                touch.end = e.changedTouches[0].screenX;
+
+                if (Math.abs(touch.start - touch.end) > touch.act)
+                {
+                    args.action = (touch.start > touch.end);
+                    callback.call(this, args);
+                }
+
+            }, { passive: true });
+
+        }
+
+        this.isEmptyOrNull = function(obj)
+        {
+            if (obj === null || obj == 'undefined') return true;
+
+            if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+            if (Array.isArray(obj)) return (obj.length === 0);
+            if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
+
+            return !obj;
+        }
+
+        this.getBooleanAttribute = function(attribute)
+        {
+            if (attribute === true || attribute === false) return attribute;
+            if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
+
+            return this.bool.includes(attribute.trim().toUpperCase());
+        }
+
+        this.getUniqueElementId = function(str = null, range = 100)
+        {
+            let elName = function() { return str + Math.floor(Math.random() * range) };
+            let el = null;
+
+            while (document.getElementById(el = elName())) {};
+
+            return el;
+        }
+
+        this.removeDuplcates = function(obj, sort)
+        {
+            const key = JSON.stringify;
+            let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+
+            return sort ? ar.sort((a, b) => a - b) : ar;
+        }
+
+        this.DOMParserHtml = function(html, regex)
+        {
+            if (this.isEmptyOrNull(html)) return;
+
+            let template = html.includes('</template>');
+            if (regex || template) return html.replace(this.markup, '');
+
+            let doc = new DOMParser().parseFromString(html, 'text/html');
+            return doc.body.textContent || doc.body.innerText;
+        }
+
+        this.inspect = function(diagnostic)
+        {
+            const errorHandler = function(error)
+            {
+                let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                console.error(err);
+
+                if (error.alert) alert(err);
+            }
+
+            const lookup = {
+                [this.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [this.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+                [this.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+            };
+
+            lookup[diagnostic.type]() || lookup[this.default];
+        }
+
+        this.getObjectProperties = function(object, str = '')
+        {
+            for (let property in object) str += property + ': ' + object[property] + ', ';
+            return str.replace(/, +$/g,'');
+        }
+
+        this.reference = 1;
+        this.notify = 2;
+        this.default = 98;
+        this.error = 99;
+        this.bTrue = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+        this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
+        this.bool = this.bTrue.toString().toUpperCase().split(',');
+        this.newline = this.isWindows ? '\r\n' : '\n';
+        this.whitespace = /\s/g;
+        this.markup = /(<([^>]+)>)/ig;
+
+    }).call(rsc); // end resource allocation
+
+    const caching = {}; // http cache allocation
+    (function(cache) {
+
+        this.available = ('caches' in window);
+
+        this.listExistingCacheNames = function()
+        {
+            caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
+        }
+
+        this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+        {
+            window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
+
+            window.addEventListener('fetch', function(e)
+            {
+                e.respondWith(caches.match(e.request).then(function(response)
+                {
+                    if (response !== undefined) return response;
+
+                    return fetch(e.request).then(function (response)
+                    {
+                        let responseClone = response.clone();
+                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
+                        return response;
+
+                    }).catch(function () {
+
+                        return caches.match(urlImage);
+
+                    });
+
+                }));
+
+            });
+
+        }
+
+    }).call(caching); // end resource allocation
+
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
         async connectedCallback()
@@ -26,7 +197,6 @@ window.ceres = {};
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
-            const rsc = {}; // generic resource methods
 
             initialise();
 
@@ -263,59 +433,12 @@ window.ceres = {};
 
                     this.insertCache = function()
                     {
-                        const caching = {}; // http cache allocation
-                        setCache();
-
-                        if (!caching.available) return;
+                        if (!('caches' in window)) return;
 
                         const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
 
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
-
-                        function setCache()
-                        {
-                            (function(cache) {
-
-                                this.available = ('caches' in window);
-
-                                this.listExistingCacheNames = function()
-                                {
-                                    caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
-                                }
-
-                                this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
-                                {
-                                    window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
-
-                                    window.addEventListener('fetch', function(e)
-                                    {
-                                        e.respondWith(caches.match(e.request).then(function(response)
-                                        {
-                                            if (response !== undefined) return response;
-
-                                            return fetch(e.request).then(function (response)
-                                            {
-                                                let responseClone = response.clone();
-                                                caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-                                                return response;
-
-                                            }).catch(function () {
-
-                                                return caches.match(urlImage);
-
-                                            });
-
-                                        }));
-
-                                    });
-
-                                }
-
-                            }).call(caching); // end resource allocation
-
-                        }
-
                     }
 
                     this.getSwipeEvent = function(swipe)
@@ -470,136 +593,6 @@ window.ceres = {};
                     Object.seal(atr);
 
                 }).call(atr); // end attribute allocation
-
-                (function() { // generic resource methods
-
-                    this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-                    this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
-                    this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-                    this.getImportMetaUrl = function() { return import.meta.url; }
-
-                    this.composeElement = function(el)
-                    {
-                        const precursor = el.parent;
-                        const node = document.createElement(el.typeof);
-
-                        if (el.id) node.setAttribute('id', el.id);
-                        if (el.className) node.setAttribute('class', el.className);
-                        if (el.onClick) node.setAttribute('onclick', el.onClick);
-                        if (el.src) node.setAttribute('src', el.src);
-                        if (el.alt) node.setAttribute('alt', el.alt);
-                        if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
-
-                        precursor.appendChild(node);
-                    }
-
-                    this.setHorizontalSwipe = function(touch, callback, args)
-                    {
-                        if (!touch.act) touch.act = 80;
-
-                        touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
-                        touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                        touch.node.addEventListener('touchend', e =>
-                        {
-                            touch.end = e.changedTouches[0].screenX;
-
-                            if (Math.abs(touch.start - touch.end) > touch.act)
-                            {
-                                args.action = (touch.start > touch.end);
-                                callback.call(this, args);
-                            }
-
-                        }, { passive: true });
-
-                    }
-
-                    this.isEmptyOrNull = function(obj)
-                    {
-                        if (obj === null || obj == 'undefined') return true;
-
-                        if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
-                        if (Array.isArray(obj)) return (obj.length === 0);
-                        if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
-
-                        return !obj;
-                    }
-
-                    this.getBooleanAttribute = function(attribute)
-                    {
-                        if (attribute === true || attribute === false) return attribute;
-                        if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
-
-                        return this.bool.includes(attribute.trim().toUpperCase());
-                    }
-
-                    this.getUniqueElementId = function(str = null, range = 100)
-                    {
-                        let elName = function() { return str + Math.floor(Math.random() * range) };
-                        let el = null;
-
-                        while (document.getElementById(el = elName())) {};
-
-                        return el;
-                    }
-
-                    this.removeDuplcates = function(obj, sort)
-                    {
-                        const key = JSON.stringify;
-                        let ar = [...new Map (obj.map(node => [key(node), node])).values()];
-
-                        return sort ? ar.sort((a, b) => a - b) : ar;
-                    }
-
-                    this.DOMParserHtml = function(html, regex)
-                    {
-                        if (this.isEmptyOrNull(html)) return;
-
-                        let template = html.includes('</template>');
-                        if (regex || template) return html.replace(this.markup, '');
-
-                        let doc = new DOMParser().parseFromString(html, 'text/html');
-                        return doc.body.textContent || doc.body.innerText;
-                    }
-
-                    this.inspect = function(diagnostic)
-                    {
-                        const errorHandler = function(error)
-                        {
-                            let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-                            console.error(err);
-
-                            if (error.alert) alert(err);
-                        }
-
-                        const lookup = {
-                            [this.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                            [this.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                            [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
-                            [this.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
-                        };
-
-                        lookup[diagnostic.type]() || lookup[this.default];
-                    }
-
-                    this.getObjectProperties = function(object, str = '')
-                    {
-                        for (let property in object) str += property + ': ' + object[property] + ', ';
-                        return str.replace(/, +$/g,'');
-                    }
-
-                    this.reference = 1;
-                    this.notify = 2;
-                    this.default = 98;
-                    this.error = 99;
-                    this.bTrue = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-                    this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-                    this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-                    this.bool = this.bTrue.toString().toUpperCase().split(',');
-                    this.newline = this.isWindows ? '\r\n' : '\n';
-                    this.whitespace = /\s/g;
-                    this.markup = /(<([^>]+)>)/ig;
-
-                }).call(rsc); // end resource allocation
 
             }
 
