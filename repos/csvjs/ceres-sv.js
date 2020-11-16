@@ -23,11 +23,10 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { atr.setSlide(el); };  // global scope method reference
 
-            const cfg = {}, // configuration attributes
-            rsc = {}, // generic resource methods
-            atr = {}; // attribute allocation
-
             const csvNode = this; // csv root node of a DOM subtree
+            const cfg = {}; // configuration attributes
+            const atr = {}; // attribute allocation
+            const rsc = {}; // generic resource methods
 
             initialise();
 
@@ -38,7 +37,7 @@ window.ceres = {};
             cfg.fetchsrc = !rsc.isEmptyOrNull(src);
 
             if (cfg.fetchcss) atr.fetchStylesheets(css);
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.htmlToText( await ( await fetch(src) ).text(), true) );
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ) );
 
             cfg.cache.src = cfg.cache.src.concat(src);
 
@@ -69,10 +68,9 @@ window.ceres = {};
 
                 Object.freeze(remark);
 
-                // attribute allocation
                 (function() {
 
-                    atr.setShadow = function()
+                    this.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
 
@@ -81,22 +79,22 @@ window.ceres = {};
                         cfg.shade.attachShadow({mode: 'open'});
                         cfg.shadow = cfg.shade.shadowRoot;
 
-                        atr.setStyleAttributes();
-                        atr.setBodyAttributes();
-                        atr.setImageAttributes();
-                        atr.setTrackAttributes();
+                        this.setStyleAttributes();
+                        this.setBodyAttributes();
+                        this.setImageAttributes();
+                        this.setTrackAttributes();
 
                         cfg.shadow.append(cfg.styleContainer);
                         cfg.shadow.append(cfg.bodyContainer);
 
-                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
+                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, this.getSwipeEvent, { left: -1, right: 1 } );
 
                         rsc.inspect({ type: rsc.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
 
-                    atr.setSlide = function(node, shadow)
+                    this.setSlide = function(node, shadow)
                     {
-                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : atr.getSlideShadow(node);
+                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getSlideShadow(node);
                         const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                         cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
@@ -117,7 +115,7 @@ window.ceres = {};
                         nub[next].className = 'nub enabled';
                     }
 
-                    atr.setAuto = function()
+                    this.setAuto = function()
                     {
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
@@ -137,7 +135,7 @@ window.ceres = {};
 
                     }
 
-                    atr.setView = function()
+                    this.setView = function()
                     {
                         setTimeout(function()
                         {
@@ -146,31 +144,31 @@ window.ceres = {};
 
                         }, cfg.attrib.delay);
 
-                        if (cfg.attrib.cache) atr.insertCache();
+                        if (cfg.attrib.cache) this.insertCache();
                     }
 
-                    atr.hasProperties = function()
+                    this.hasProperties = function()
                     {
-                        if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError });
+                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.error, notification: remark.precursorError });
                         if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.error, notification: remark.fetchListError });
 
-                        return atr.attributesExist();
+                        return this.attributesExist();
                     }
 
-                    atr.activate = function()
+                    this.activate = function()
                     {
-                        atr.setShadow();
-                        atr.setSlide();
-                        atr.setView();
+                        this.setShadow();
+                        this.setSlide();
+                        this.setView();
                     }
 
-                    atr.fetchStylesheets = function(str)
+                    this.fetchStylesheets = function(str)
                     {
                         const css = str.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';');
                         cfg.cache.css = rsc.removeDuplcates(cfg.cache.css.concat(css));
                     }
 
-                    atr.setStyleAttributes = function()
+                    this.setStyleAttributes = function()
                     {
                         cfg.styleContainer = document.createElement('style');
                         cfg.styleContainer.id = csv + '-style';
@@ -189,7 +187,7 @@ window.ceres = {};
 
                     }
 
-                    atr.setBodyAttributes = function()
+                    this.setBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.id = csv + '-body';
@@ -199,7 +197,7 @@ window.ceres = {};
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
-                    atr.setImageAttributes = function()
+                    this.setImageAttributes = function()
                     {
                         const getClassName = function()
                         {
@@ -246,7 +244,7 @@ window.ceres = {};
                     }
 
                     // The nub track is hidden in auto mode
-                    atr.setTrackAttributes = function()
+                    this.setTrackAttributes = function()
                     {
                         const trackContainer = document.createElement('div');
                         trackContainer.id = csv + '-nub';
@@ -263,7 +261,7 @@ window.ceres = {};
 
                     }
 
-                    atr.insertCache = function()
+                    this.insertCache = function()
                     {
                         if (!('caches' in window)) return;
 
@@ -275,19 +273,18 @@ window.ceres = {};
 
                         caching.installCache(cacheName, rsc.removeDuplcates(cfg.cache.css.concat(cfg.cache.src.concat(cfg.cache.script))));
 
-                        function setCache()
+                        const setCache = function()
                         {
-                            // caching;
                             (function(cache) {
 
-                                caching.available = ('caches' in window);
+                                this.available = ('caches' in window);
 
-                                caching.listExistingCacheNames = function()
+                                this.listExistingCacheNames = function()
                                 {
                                     caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
                                 }
 
-                                caching.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+                                this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
                                 {
                                     window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
 
@@ -315,13 +312,13 @@ window.ceres = {};
 
                                 }
 
-                            })(); // end caching
+                            }).call(caching); // end resource allocation
 
                         }
 
                     }
 
-                    atr.getSwipeEvent = function(swipe)
+                    this.getSwipeEvent = function(swipe)
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
@@ -329,7 +326,7 @@ window.ceres = {};
                         setSlide(null, cfg.shadow);
                     }
 
-                    atr.getSlideShadow = function(node)
+                    this.getSlideShadow = function(node)
                     {
                         const root = node.getRootNode().host,
                         shade = document.querySelector('#' + root.id),
@@ -347,7 +344,7 @@ window.ceres = {};
                         return shadow;
                     }
 
-                    atr.getPrecursor = function()
+                    this.getPrecursor = function()
                     {
                         const exists = !rsc.isEmptyOrNull(csvNode);
 
@@ -360,14 +357,14 @@ window.ceres = {};
                         const getTemplateId = function()
                         {
                             let embed = csvNode.getAttribute('embed');
-                            return rsc.isEmptyOrNull(embed) ? null : embed;
+                            return rsc.isEmptyOrNull(embed) ? false : embed;
                         }
 
                         const getTemplateElement = function()
                         {
-                            if (cfg.fetchsrc) return 'undefined';
+                            if (cfg.fetchsrc || !cfg.attrib.embed) return 'undefined';
 
-                            let el = (!rsc.isEmptyOrNull(cfg.attrib.embed)) ? document.getElementById(cfg.attrib.embed) : null;
+                            let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
                             if (rsc.isEmptyOrNull(el))
                             {
@@ -378,14 +375,14 @@ window.ceres = {};
                             return rsc.isEmptyOrNull(el) ? 'undefined' : el;
                         }
 
-                        const getAutoProperties = function(locale = 'en')
+                        const getStaticProperties = function()
                         {
                             let auto = csvNode.getAttribute('auto');
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
                             let ar = auto.replace(rsc.whitespace,'').split(',');
-                            let item = ar[0].toLocaleLowerCase(locale);
+                            let item = ar[0];
 
                             if (!Number.isInteger(parseInt(item)))
                             {
@@ -398,6 +395,7 @@ window.ceres = {};
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                             cfg.attrib.fade = cfg.attrib.autopause > 400;
+                            cfg.attrib.nub = 'false';
 
                             return false;
                         }
@@ -415,7 +413,7 @@ window.ceres = {};
                             cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled;
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled;
-                            cfg.attrib.static = getAutoProperties(); // enabled
+                            cfg.attrib.static = getStaticProperties(); // enabled
                             cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
 
                             Object.freeze(cfg.attrib);
@@ -426,7 +424,7 @@ window.ceres = {};
                         return exists;
                     }
 
-                    atr.attributesExist = function()
+                    this.attributesExist = function()
                     {
                         cfg.imageArray = null;
 
@@ -471,42 +469,31 @@ window.ceres = {};
 
                     Object.seal(atr);
 
-                })(); // end attribute allocation
+                }).call(atr); // end attribute allocation
 
-                // generic resource methods
-                (function() {
+                (function() { // generic resource methods
 
-                    rsc.reference = 1;
-                    rsc.notify = 2;
-                    rsc.default = 98;
-                    rsc.error = 99;
-                    rsc.strBoolean = ['TRUE','1','YES','ON','ACTIVE','ENABLE'];
-                    rsc.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-                    rsc.newline = rsc.isWindows ? '\r\n' : '\n';
-                    rsc.whitespace = /\s/g;
-                    rsc.markup = /(<([^>]+)>)/ig;
+                    this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+                    this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+                    this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+                    this.getImportMetaUrl = function() { return import.meta.url; }
 
-                    rsc.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-                    rsc.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
-                    rsc.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-                    rsc.getImportMetaUrl = function() { return import.meta.url; }
-
-                    rsc.composeElement = function(el)
+                    this.composeElement = function(el)
                     {
                         const precursor = el.parent;
                         const node = document.createElement(el.typeof);
 
-                        if (el.id) node.setAttribute("id", el.id);
-                        if (el.className) node.setAttribute("class", el.className);
-                        if (el.onClick) node.setAttribute("onclick", el.onClick);
-                        if (el.src) node.setAttribute("src", el.src);
-                        if (el.alt) node.setAttribute("alt", el.alt);
+                        if (el.id) node.setAttribute('id', el.id);
+                        if (el.className) node.setAttribute('class', el.className);
+                        if (el.onClick) node.setAttribute('onclick', el.onClick);
+                        if (el.src) node.setAttribute('src', el.src);
+                        if (el.alt) node.setAttribute('alt', el.alt);
                         if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
                         precursor.appendChild(node);
                     }
 
-                    rsc.setHorizontalSwipe = function(touch, callback, args)
+                    this.setHorizontalSwipe = function(touch, callback, args)
                     {
                         if (!touch.act) touch.act = 80;
 
@@ -526,26 +513,26 @@ window.ceres = {};
 
                     }
 
-                    rsc.isEmptyOrNull = function(obj)
+                    this.isEmptyOrNull = function(obj)
                     {
                         if (obj === null || obj == 'undefined') return true;
 
-                        if (rsc.isString(obj)) return (obj.length === 0 || !obj.trim());
+                        if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
                         if (Array.isArray(obj)) return (obj.length === 0);
                         if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
 
                         return !obj;
                     }
 
-                    rsc.getBooleanAttribute = function(attribute)
+                    this.getBooleanAttribute = function(attribute)
                     {
                         if (attribute === true || attribute === false) return attribute;
-                        if (rsc.isEmptyOrNull(attribute) || !rsc.isString(attribute)) return false;
+                        if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-                        return rsc.strBoolean.includes(attribute.trim().toUpperCase());
+                        return this.bool.includes(attribute.trim().toUpperCase());
                     }
 
-                    rsc.getUniqueElementId = function(str = null, range = 100)
+                    this.getUniqueElementId = function(str = null, range = 100)
                     {
                         let elName = function() { return str + Math.floor(Math.random() * range) };
                         let el = null;
@@ -555,7 +542,7 @@ window.ceres = {};
                         return el;
                     }
 
-                    rsc.removeDuplcates = function(obj, sort)
+                    this.removeDuplcates = function(obj, sort)
                     {
                         const key = JSON.stringify;
                         let ar = [...new Map (obj.map(node => [key(node), node])).values()];
@@ -563,19 +550,18 @@ window.ceres = {};
                         return sort ? ar.sort((a, b) => a - b) : ar;
                     }
 
-                    rsc.htmlToText = function(html, regex)
+                    this.DOMParserHtml = function(html, regex)
                     {
-                        if (rsc.isEmptyOrNull(html)) return;
-                        if (regex) return html.replace(rsc.markup, '');
+                        if (this.isEmptyOrNull(html)) return;
 
-                        let el = document.createElement("div");
-                        el.innerHTML = html;
+                        let template = html.includes('</template>');
+                        if (regex || template) return html.replace(this.markup, '');
 
-                        return el.textContent || el.innerText;
+                        let doc = new DOMParser().parseFromString(html, 'text/html');
+                        return doc.body.textContent || doc.body.innerText;
                     }
 
-
-                    rsc.inspect = function(diagnostic)
+                    this.inspect = function(diagnostic)
                     {
                         const errorHandler = function(error)
                         {
@@ -586,24 +572,34 @@ window.ceres = {};
                         }
 
                         const lookup = {
-                            [rsc.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                            [rsc.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                            [rsc.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + rsc.newline + rsc.newline + diagnostic.reference); },
-                            [rsc.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                            [this.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                            [this.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                            [this.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+                            [this.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
                         };
 
-                        lookup[diagnostic.type]() || lookup[rsc.default];
+                        lookup[diagnostic.type]() || lookup[this.default];
                     }
 
-                    rsc.getObjectProperties = function(object, str = '')
+                    this.getObjectProperties = function(object, str = '')
                     {
                         for (let property in object) str += property + ': ' + object[property] + ', ';
                         return str.replace(/, +$/g,'');
                     }
 
-                    Object.freeze(rsc);
+                    this.reference = 1;
+                    this.notify = 2;
+                    this.default = 98;
+                    this.error = 99;
+                    this.bTrue = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+                    this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+                    this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
+                    this.bool = this.bTrue.toString().toUpperCase().split(',');
+                    this.newline = this.isWindows ? '\r\n' : '\n';
+                    this.whitespace = /\s/g;
+                    this.markup = /(<([^>]+)>)/ig;
 
-                })(); // end resource allocation
+                }).call(rsc); // end resource allocation
 
             }
 
