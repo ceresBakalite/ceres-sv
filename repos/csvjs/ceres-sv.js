@@ -139,15 +139,33 @@ window.ceres = {};
         this.warn = 3;
         this.default = 98;
         this.error = 99;
-        this.bTrueArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-        this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
-        this.bool = this.bTrueArray.toString().toUpperCase().split(',');
-        this.newline = this.isWindows ? '\r\n' : '\n';
-        this.whitespace = /\s/g;
-        this.markup = /(<([^>]+)>)/ig;
+         this.bTrueArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+         this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+         this.nonWordChars = '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…';
+         this.bool = this.bTrueArray.toString().toUpperCase().split(',');
+         this.newline = this.isWindows ? '\r\n' : '\n';
+         this.whitespace = /\s/g;
+         this.markup = /(<([^>]+)>)/ig;
 
     }).call(rsc); // end resource allocation
+
+    const state = {
+
+        reference   : 1,
+        notify      : 2,
+        warn        : 3,
+        default     : 98,
+        error       : 99,
+        bTrueArray  : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
+        isWindows   : (navigator.appVersion.indexOf('Win') != -1),
+        nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
+        whitespace  : /\s/g,
+        markup      : /(<([^>]+)>)/ig,
+
+        get newline() { return this.isWindows ? '\r\n' : '\n'; },
+        get bool() { return this.bTrueArray.toString().toUpperCase().split(','); }
+
+    }
 
     window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
     {
