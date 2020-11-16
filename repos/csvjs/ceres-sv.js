@@ -263,10 +263,10 @@ window.ceres = {};
 
                     this.insertCache = function()
                     {
-                        if (!('caches' in window)) return;
-
                         const caching = {}; // http cache allocation
                         setCache();
+
+                        if (!caching.available) return;
 
                         const cacheName = csv + '-cache';
                         cfg.cache.script = [ rsc.getImportMetaUrl() ];
