@@ -157,29 +157,19 @@ window.ceres = {};
             caches.keys().then(function(cacheKeys) { console.log('listCache: ' + cacheKeys); });
         }
 
-        this.installCache = function(namedCache, urlArray, urlImage = '/images/NAVCogs.png')
+        this.installCache = function(cacheName, urlArray)
         {
-            window.addEventListener('install', function(e) { e.waitUntil(caches.open(namedCache).then(function(cache) { return cache.addAll(urlArray); })); });
-
-            window.addEventListener('fetch', function(e)
+            urlArray.forEach(url =>
             {
-                e.respondWith(caches.match(e.request).then(function(response)
+                fetch(url).then(response =>
                 {
-                    if (response !== undefined) return response;
+                    if (!response.ok) { console.log('Bad cache response status: ' + url); }
 
-                    return fetch(e.request).then(function (response)
+                    return caches.open(cacheName).then(cache =>
                     {
-                        let responseClone = response.clone();
-                        caches.open(namedCache).then(function (cache) { cache.put(e.request, responseClone); });
-                        return response;
-
-                    }).catch(function () {
-
-                        return caches.match(urlImage);
-
+                        return cache.put(url, response);
                     });
-
-                }));
+                });
 
             });
 
