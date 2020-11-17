@@ -208,7 +208,7 @@ window.ceres = {};
                     this.fetchSourceParser = function()
                     {
                         fetch(cfg.src).then(function (response) {
-console.log('fetch now');
+console.log('fetch again');
                             return rsc.HtmlDOMParser(response.text(), false);
 
                         }).then(function (data) {
