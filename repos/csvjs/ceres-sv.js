@@ -99,11 +99,16 @@ window.ceres = {};
         {
             if (this.isEmptyOrNull(html)) return;
 
-            let template = html.includes('</template>');
-            if (regex || template) return html.replace(rsc.attrib.markup, '');
+            //let template = html.includes('</template>');
+            //if (regex || template) return html.replace(rsc.attrib.markup, '');
+
+            //let template = html.includes('</template>');
+            if (regex) return html.replace(rsc.attrib.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
-            return doc.body.textContent || doc.body.innerText;
+
+            return (html.includes('</template>')) ? doc.body.content.textContent : doc.body.textContent;
+            //return doc.body.textContent || doc.body.innerText;
         }
 
         this.inspect = function(diagnostic)
