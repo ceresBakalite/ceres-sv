@@ -140,14 +140,14 @@ window.ceres = {};
             warn        : 3,
             default     : 98,
             error       : 99,
-            bTrueArray  : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
+            bArray      : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             isWindows   : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
             whitespace  : /\s/g,
             markup      : /(<([^>]+)>)/ig,
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
-            get bool() { return this.bTrueArray.toString().toUpperCase().split(','); },
+            get bool() { return this.bArray.toString().toUpperCase().split(','); },
             get metaUrl() { return import.meta.url; }
         }
 
