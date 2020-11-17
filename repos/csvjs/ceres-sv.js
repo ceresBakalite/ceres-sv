@@ -26,7 +26,7 @@ window.ceres = {};
         this.composeElement = function(el)
         {
             const precursor = el.parent;
-            const node = document.createElement(el.typeof);
+            const node = document.createElement(el.type);
 
             if (el.id) node.setAttribute('id', el.id);
             if (el.className) node.setAttribute('class', el.className);
@@ -365,13 +365,13 @@ window.ceres = {};
 
                             imageContainer.appendChild(slideContainer);
 
-                            if (cfg.attrib.sur) rsc.composeElement({ typeof: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                            rsc.composeElement({ typeof: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
-                            if (cfg.attrib.sub) rsc.composeElement({ typeof: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                            if (cfg.attrib.sur) rsc.composeElement({ type: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
+                            rsc.composeElement({ type: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
+                            if (cfg.attrib.sub) rsc.composeElement({ type: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                         }
 
-                        rsc.composeElement({ typeof: 'a', className: getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                        rsc.composeElement({ typeof: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', className: getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                     }
 
                     // The nub track is hidden in auto mode
@@ -387,7 +387,7 @@ window.ceres = {};
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ typeof: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                            rsc.composeElement({ type: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                         }
 
                     }
