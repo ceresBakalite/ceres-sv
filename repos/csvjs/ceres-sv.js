@@ -207,7 +207,7 @@ window.ceres = {};
                     this.fetchSourceParser = function()
                     {
                         fetch(cfg.src).then(function (response) {
-
+console.log('here now');
                             csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser(response.text(), false));
 
                         }).then(function (data) {
