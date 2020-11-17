@@ -106,8 +106,7 @@ window.ceres = {};
 
             if (html.includes('</template>'))
             {
-                let el = doc.body.querySelector('template');
-                return el.content.textContent;
+                return doc.body.content.textContent;
             }
 
             if (regex) return html.replace(rsc.attrib.markup, '');
