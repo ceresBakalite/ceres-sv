@@ -165,7 +165,6 @@ window.ceres = {};
             initialise();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text() ));
-            if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
 
@@ -180,6 +179,9 @@ window.ceres = {};
 
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
+
+                if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
+                if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                 const srm = new Map(); // shadowroot manager
 
@@ -278,12 +280,6 @@ window.ceres = {};
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) this.insertCache();
-                    }
-
-                    this.setCacheArray = function()
-                    {
-                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
-                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.hasProperties = function()
