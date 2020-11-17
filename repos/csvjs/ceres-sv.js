@@ -166,7 +166,8 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await ( await atr.fetchSourceParser(cfg.src) ));
+            //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
 
             //if (cfg.fetchsrc) atr.fetchSourceParser();
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
@@ -207,8 +208,8 @@ window.ceres = {};
                     this.fetchSourceParser = function()
                     {
                         fetch(cfg.src).then(function (response) {
-console.log('here now');
-                            csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser(response.text(), false));
+console.log('fetch now');
+                            return rsc.HtmlDOMParser(response.text(), false);
 
                         }).then(function (data) {
 
@@ -216,7 +217,7 @@ console.log('here now');
 
                         }).catch(function (ex) {
 
-                            rsc.inspect({ type: rsc.attrib.error, notification: ex, logtrace: cfg.attrib.trace });
+                            rsc.inspect({ type: rsc.attrib.error, notification: ex });
 
                         });
 
