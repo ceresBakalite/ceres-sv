@@ -95,14 +95,14 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.HtmlDOMParser = function(html, regex)
+        this.HtmlDOMParser = function(text, regex)
         {
-            if (this.isEmptyOrNull(html)) return;
+            if (this.isEmptyOrNull(text)) return;
 
-            if (regex || html.includes('</template>')) return html.replace(rsc.attrib.markup, '');
+            if (regex || text.includes('</template>')) return text.replace(rsc.attrib.markup, '');
 
-            let doc = new DOMParser().parseFromString(html, 'text/html');
-            return doc.body.textContent || doc.body.innerText;
+            let html = new DOMParser().parseFromString(text, 'text/html');
+            return html.body.textContent || html.body.innerText;
         }
 
         this.inspect = function(diagnostic)
