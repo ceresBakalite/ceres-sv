@@ -166,10 +166,7 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await atr.fetchSourceParser(cfg.src));
-            //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
-
-            //if (cfg.fetchsrc) atr.fetchSourceParser();
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
@@ -204,30 +201,6 @@ window.ceres = {};
                 Object.freeze(remark);
 
                 (function() {
-
-                    this.fetchSourceParser = function()
-                    {
-                        fetch(cfg.src).then(function (response) {
-console.log('fetch again');
-                            return rsc.HtmlDOMParser(response.text(), false);
-
-                        }).then(function (data) {
-
-                            rsc.inspect({ type: rsc.attrib.warn, notification: data, logtrace: cfg.attrib.trace });
-
-                        }).catch(function (ex) {
-
-                            rsc.inspect({ type: rsc.attrib.error, notification: ex });
-
-                        });
-
-                    }
-
-                    this.setCacheArray = function()
-                    {
-                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
-                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-                    }
 
                     this.setShadow = function()
                     {
@@ -304,6 +277,12 @@ console.log('fetch again');
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) this.insertCache();
+                    }
+
+                    this.setCacheArray = function()
+                    {
+                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
+                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.hasProperties = function()
