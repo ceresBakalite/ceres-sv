@@ -107,7 +107,7 @@ window.ceres = {};
             if (template)
             {
                 let test = new DOMParser().parseFromString(html, 'text/html');
-                let el = test.querySelector('template');
+                let el = test.body.querySelector('template');
                 return el.content.textContent;
             }
 
