@@ -184,24 +184,26 @@ window.ceres = {};
 
                 const srm = new Map(); // shadowroot manager
 
-                const remark = {
-                    imageMarkup      : 'Image list markup',
-                    configAttributes : 'The ' + csv + ' element attributes: ',
-                    templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
-                    elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
-                    precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
-                    templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body',
-                    cacheWarning     : 'Warning: cache response status: '
-                };
-
-                Object.freeze(remark);
-
                 (function() {
 
                     this.getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
 
                     this.getClickEvent = function() { return 'ceres.getSlide(this)'; }
+
+                    this.remark = {
+
+                        imageMarkup      : 'Image list markup',
+                        configAttributes : 'The ' + csv + ' element attributes: ',
+                        templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
+                        elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
+                        precursorError   : 'Error: Unable to find the ' + csv + ' document element',
+                        fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
+                        templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body',
+                        cacheWarning     : 'Warning: cache response status: '
+
+                    };
+
+                    Object.freeze(this.remark);
 
                     this.setShadow = function()
                     {
@@ -288,8 +290,8 @@ window.ceres = {};
 
                     this.hasProperties = function()
                     {
-                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
-                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
+                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: this.remark.precursorError });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: this.remark.fetchListError });
 
                         return this.attributesExist();
                     }
@@ -405,7 +407,7 @@ window.ceres = {};
                         {
                             fetch(url).then(response =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cacheWarning + url, logtrace: cfg.attrib.trace }); }
+                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: this.remark.cacheWarning + url, logtrace: cfg.attrib.trace }); }
                                 return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                             });
 
@@ -463,7 +465,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(el))
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: this.remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                             }
 
@@ -523,7 +525,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.attrib.notify, notification: this.remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
@@ -535,10 +537,10 @@ window.ceres = {};
 
                             let lightList = function()
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: this.remark.templateSearch, logtrace: cfg.attrib.trace });
 
                                 let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.templateError });
+                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: this.remark.templateError });
 
                                 return content;
                             }
@@ -552,7 +554,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: this.remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
