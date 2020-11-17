@@ -166,9 +166,9 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) atr.fetchSourceParser();
+            //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
+            if (cfg.fetchsrc) atr.fetchSourceParser();
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
@@ -208,7 +208,7 @@ window.ceres = {};
                     {
                         fetch(cfg.src).then(function (response) {
 
-                            return response.text();
+                            csvNode.insertAdjacentHTML('afterbegin', response.text());
 
                         }).then(function (data) {
 
@@ -220,6 +220,12 @@ window.ceres = {};
 
                         });
 
+                    }
+
+                    this.setCacheArray = function()
+                    {
+                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
+                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.setShadow = function()
@@ -312,12 +318,6 @@ window.ceres = {};
                         this.setShadow();
                         this.setSlide();
                         this.setView();
-                    }
-
-                    this.setCacheArray = function()
-                    {
-                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
-                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.setStyleAttributes = function()
