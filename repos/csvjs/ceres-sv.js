@@ -219,7 +219,7 @@ window.ceres = {};
                         cfg.shadow.append(cfg.styleContainer);
                         cfg.shadow.append(cfg.bodyContainer);
 
-                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeEvent, { left: -1, right: 1 } );
+                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 } );
 
                         rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
@@ -412,7 +412,7 @@ window.ceres = {};
 
                     }
 
-                    this.getSwipeEvent = function(swipe)
+                    this.getSwipeCallback = function(swipe)
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
@@ -451,7 +451,7 @@ window.ceres = {};
                         const getTemplateId = function()
                         {
                             let embed = csvNode.getAttribute('embed');
-                            return rsc.isEmptyOrNull(embed) ? false : embed;
+                            return rsc.isEmptyOrNull(embed) ? false : embed; // typeof boolean or typeof string
                         }
 
                         const getTemplateElement = function()
@@ -489,7 +489,7 @@ window.ceres = {};
                             cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                             cfg.attrib.fade = cfg.attrib.autopause > 400;
-                            cfg.attrib.nub = 'false';
+                            cfg.attrib.nub = 'false'; // typeof string
 
                             return false;
                         }
@@ -497,7 +497,7 @@ window.ceres = {};
                         if (exists)
                         {
                             csvNode.id = rsc.getUniqueElementId(csv, 1000);
-                            csvNode.setAttribute("class", 'none');
+                            csvNode.setAttribute('class', 'none');
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
