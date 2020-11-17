@@ -218,7 +218,7 @@ window.ceres = {};
 
                         }).catch(function (ex) {
 
-                            rsc.inspect({ type: rsc.attrib.error, notification: ex, logtrace: cfg.attrib.trace });
+                            rsc.inspect({ type: rsc.attrib.error, notification: ex });
 
                         });
 
