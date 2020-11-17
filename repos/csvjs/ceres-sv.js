@@ -182,7 +182,6 @@ window.ceres = {};
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
                 const srm = new Map(); // shadowroot manager
-                const atr = {}; // attribute allocation
 
                 const remark = {
                     imageMarkup      : 'Image list markup',
@@ -197,6 +196,7 @@ window.ceres = {};
 
                 Object.freeze(remark);
 
+                const atr = {}; // attribute allocation
                 (function() {
 
                     this.getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
