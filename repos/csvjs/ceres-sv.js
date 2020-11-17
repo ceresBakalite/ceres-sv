@@ -74,7 +74,7 @@ window.ceres = {};
             if (attribute === true || attribute === false) return attribute;
             if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
 
-            return rsc.attrib.bool.includes(attribute.trim().toUpperCase());
+            return this.attrib.bool.includes(attribute.trim().toUpperCase());
         }
 
         this.getUniqueElementId = function(str = null, range = 100)
@@ -97,9 +97,9 @@ window.ceres = {};
 
         this.HtmlDOMParser = function(text, regex)
         {
-            if (rsc.isEmptyOrNull(text)) return;
+            if (this.isEmptyOrNull(text)) return;
 
-            if (regex || text.includes('</template>')) return text.replace(rsc.attrib.markup, '');
+            if (regex || text.includes('</template>')) return text.replace(this.attrib.markup, '');
 
             let html = new DOMParser().parseFromString(text, 'text/html');
             return html.body.textContent || html.body.innerText;
@@ -116,14 +116,14 @@ window.ceres = {};
             }
 
             const lookup = {
-                [rsc.attrib.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [rsc.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [rsc.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + rsc.attrib.newline + rsc.attrib.newline + diagnostic.reference); },
-                [rsc.attrib.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [rsc.attrib.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                [this.attrib.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [this.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                [this.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
+                [this.attrib.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [this.attrib.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
             };
 
-            lookup[diagnostic.type]() || lookup[rsc.attrib.default];
+            lookup[diagnostic.type]() || lookup[this.attrib.default];
         }
 
         this.getObjectProperties = function(obj, str = '')
