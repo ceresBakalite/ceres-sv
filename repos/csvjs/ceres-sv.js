@@ -106,7 +106,7 @@ window.ceres = {};
 
             if (template)
             {
-                let el = html.querySelector('template');
+                let el = html.document.querySelector('template');
                 return el.content.textContent;
             }
 
