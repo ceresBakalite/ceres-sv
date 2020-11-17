@@ -185,13 +185,13 @@ window.ceres = {};
                 const srm = new Map(); // shadowroot manager
 
                 const remark = {
-                    imageMarkup      : 'Image list markup: ',
-                    configAttributes : 'The element attributes: ',
+                    imageMarkup      : 'Image list markup ',
+                    configAttributes : 'The element attributes ',
                     templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
                     elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
-                    templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body',
+                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
+                    templateError    : 'Error: Unable to find the fallback template element when searching the document body',
                     cacheWarning     : 'Warning: cache response status: '
                 };
 
@@ -523,7 +523,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + ' [' + csvNode.id + '] ' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + '[' + csvNode.id + '] ' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
@@ -538,7 +538,7 @@ window.ceres = {};
                                 rsc.inspect({ type: rsc.attrib.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
                                 let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.templateError });
+                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.templateError + ' [' + cfg.attrib.embed + ']' });
 
                                 return content;
                             }
@@ -552,7 +552,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
