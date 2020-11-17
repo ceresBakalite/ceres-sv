@@ -182,24 +182,24 @@ window.ceres = {};
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
+                const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
+                const srm = new Map(); // shadowroot manager
+
+                const remark = {
+                    imageMarkup      : 'Image list markup',
+                    configAttributes : 'The ' + csv + ' element attributes: ',
+                    templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
+                    elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
+                    precursorError   : 'Error: Unable to find the ' + csv + ' document element',
+                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
+                    templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body',
+                    cacheWarning     : 'Warning: cache response status: '
+                };
+
+                Object.freeze(remark);
+
                 (function() {
-
-                    this.getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                    this.getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
-                    this.srm = new Map(); // shadowroot manager
-
-                    this.remark = {
-                        imageMarkup      : 'Image list markup',
-                        configAttributes : 'The ' + csv + ' element attributes: ',
-                        templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
-                        elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
-                        precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                        fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
-                        templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body',
-                        cacheWarning     : 'Warning: cache response status: '
-                    };
-
-                    Object.freeze(remark);
 
                     this.setShadow = function()
                     {
@@ -286,8 +286,8 @@ window.ceres = {};
 
                     this.hasProperties = function()
                     {
-                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: this.remark.precursorError });
-                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: this.remark.fetchListError });
+                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
                         return this.attributesExist();
                     }
@@ -370,8 +370,8 @@ window.ceres = {};
                             if (cfg.attrib.sub) rsc.composeElement({ type: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                         }
 
-                        rsc.composeElement({ type: 'a', className: this.getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: this.getClickEvent() });
-                        rsc.composeElement({ type: 'a', className: this.getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: this.getClickEvent() });
+                        rsc.composeElement({ type: 'a', className: getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
                     }
 
                     // The nub track is hidden in auto mode
@@ -379,7 +379,7 @@ window.ceres = {};
                     {
                         const trackContainer = document.createElement('div');
                         trackContainer.id = csv + '-nub';
-                        trackContainer.className = this.getActiveState('slideview-nub');
+                        trackContainer.className = getActiveState('slideview-nub');
 
                         cfg.bodyContainer.appendChild(trackContainer);
 
@@ -387,7 +387,7 @@ window.ceres = {};
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ type: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: this.getClickEvent() });
+                            rsc.composeElement({ type: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
                         }
 
                     }
@@ -403,7 +403,7 @@ window.ceres = {};
                         {
                             fetch(url).then(response =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: this.remark.cacheWarning + url, logtrace: cfg.attrib.trace }); }
+                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cacheWarning + url, logtrace: cfg.attrib.trace }); }
                                 return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                             });
 
@@ -428,11 +428,11 @@ window.ceres = {};
 
                         cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
-                        this.srm.set('left', cfg.slide - 1);
-                        this.srm.set('right', cfg.slide + 1);
-                        this.srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+                        srm.set('left', cfg.slide - 1);
+                        srm.set('right', cfg.slide + 1);
+                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
 
-                        cfg.slide = this.srm.get(node.className);
+                        cfg.slide = srm.get(node.className);
 
                         return shadow;
                     }
@@ -461,7 +461,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(el))
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: this.remark.elementSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                             }
 
@@ -521,7 +521,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.attrib.notify, notification: this.remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
@@ -533,10 +533,10 @@ window.ceres = {};
 
                             let lightList = function()
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: this.remark.templateSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
                                 let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: this.remark.templateError });
+                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.templateError });
 
                                 return content;
                             }
@@ -550,7 +550,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: this.remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
