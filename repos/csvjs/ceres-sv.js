@@ -102,13 +102,19 @@ window.ceres = {};
             //let template = html.includes('</template>');
             //if (regex || template) return html.replace(rsc.attrib.markup, '');
 
-            //let template = html.includes('</template>');
+            let template = html.includes('</template>');
+
+            if (template)
+            {
+                let el = html.querySelector('template');
+                return el.content.textContent;
+            }
+
             if (regex) return html.replace(rsc.attrib.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
 
-            return (html.includes('</template>')) ? doc.body.content.textContent : doc.body.textContent;
-            //return doc.body.textContent || doc.body.innerText;
+            return doc.body.textContent || doc.body.innerText;
         }
 
         this.inspect = function(diagnostic)
