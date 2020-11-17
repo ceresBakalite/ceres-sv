@@ -185,8 +185,8 @@ window.ceres = {};
                 const srm = new Map(); // shadowroot manager
 
                 const remark = {
-                    imageMarkup      : 'Image list markup',
-                    configAttributes : 'The ${ csvNode.id } element attributes: ',
+                    imageMarkup      : 'Image list markup: ',
+                    configAttributes : 'The element attributes: ',
                     templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
                     elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
@@ -523,7 +523,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + ' [' + csvNode.id + '] ' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
