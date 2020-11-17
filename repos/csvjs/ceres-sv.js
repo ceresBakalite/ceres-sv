@@ -95,7 +95,7 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.HtmlDOMParser = function(text, regex)
+        this.parseText = function(text, regex)
         {
             if (this.isEmptyOrNull(text)) return;
 
@@ -117,10 +117,10 @@ window.ceres = {};
 
             const lookup = {
                 [this.attrib.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [this.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
                 [this.attrib.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [this.attrib.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                [this.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
+                [this.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                [this.attrib.default]: function() { errorHandler({ notification: 'Unknown exception', alert: diagnostic.logtrace } ); }
             };
 
             lookup[diagnostic.type]() || lookup[this.attrib.default];
@@ -165,7 +165,7 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text() ));
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
