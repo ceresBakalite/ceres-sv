@@ -161,10 +161,12 @@ window.ceres = {};
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
+            const atr = {}; // attribute allocation
 
             initialise();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text() ));
+            if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
 
@@ -179,9 +181,6 @@ window.ceres = {};
 
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
-
-                if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
-                if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                 const srm = new Map(); // shadowroot manager
 
@@ -198,7 +197,6 @@ window.ceres = {};
 
                 Object.freeze(remark);
 
-                const atr = {}; // attribute allocation
                 (function() {
 
                     this.getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
@@ -280,6 +278,12 @@ window.ceres = {};
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) this.insertCache();
+                    }
+
+                    this.setCacheArray = function()
+                    {
+                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
+                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.hasProperties = function()
