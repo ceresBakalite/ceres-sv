@@ -166,12 +166,6 @@ window.ceres = {};
 
             initialise();
 
-            cfg.src = csvNode.getAttribute('src') || null;
-            cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
-
-            cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
-            cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
-
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(cfg.src) ).text(), false ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
@@ -199,6 +193,12 @@ window.ceres = {};
                 };
 
                 Object.freeze(remark);
+
+                cfg.src = csvNode.getAttribute('src') || null;
+                cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
+
+                cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
+                cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
                 (function() {
 
