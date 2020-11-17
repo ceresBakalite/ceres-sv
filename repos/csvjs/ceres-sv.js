@@ -173,7 +173,7 @@ window.ceres = {};
             cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(cfg.src) ).text(), false ));
-            if (cfg.fetchcss || cfg.fetchsrc) atr.setURLArray();
+            if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
 
@@ -294,7 +294,7 @@ window.ceres = {};
                         this.setView();
                     }
 
-                    this.setURLArray = function()
+                    this.setCacheArray = function()
                     {
                         if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
                         if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
