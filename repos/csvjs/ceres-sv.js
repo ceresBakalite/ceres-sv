@@ -101,8 +101,8 @@ window.ceres = {};
 
             if (regex || text.includes('</template>')) return text.replace(this.attrib.markup, '');
 
-            let html = new DOMParser().parseFromString(text, 'text/html');
-            return html.body.textContent || html.body.innerText;
+            let doc = new DOMParser().parseFromString(text, 'text/html');
+            return doc.body.textContent || doc.body.innerText;
         }
 
         this.inspect = function(diagnostic)
