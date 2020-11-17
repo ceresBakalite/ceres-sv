@@ -99,18 +99,9 @@ window.ceres = {};
         {
             if (this.isEmptyOrNull(html)) return;
 
-            //let template = html.includes('</template>');
-            //if (regex || template) return html.replace(rsc.attrib.markup, '');
+            if (regex || html.includes('</template>')) return html.replace(rsc.attrib.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
-
-            if (html.includes('</template>'))
-            {
-                return doc.body.content.textContent;
-            }
-
-            if (regex) return html.replace(rsc.attrib.markup, '');
-
             return doc.body.textContent || doc.body.innerText;
         }
 
