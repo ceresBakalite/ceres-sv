@@ -165,7 +165,7 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text() ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
