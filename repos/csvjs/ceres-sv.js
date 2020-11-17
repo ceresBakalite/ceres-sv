@@ -161,7 +161,6 @@ window.ceres = {};
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
-            const atr = {}; // attribute allocation
 
             initialise();
 
@@ -183,6 +182,7 @@ window.ceres = {};
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
                 const srm = new Map(); // shadowroot manager
+                const atr = {}; // attribute allocation
 
                 const remark = {
                     imageMarkup      : 'Image list markup',
