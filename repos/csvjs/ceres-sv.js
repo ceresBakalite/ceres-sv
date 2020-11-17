@@ -98,10 +98,10 @@ window.ceres = {};
         this.fetchParser = function(url)
         {
             console.log('hello');
-            
+
             fetch(url).then(function (response) {
 
-                return response.json();
+                return response;
 
             }).then(function (data) {
 
