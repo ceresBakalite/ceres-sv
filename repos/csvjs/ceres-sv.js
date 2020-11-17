@@ -120,7 +120,7 @@ window.ceres = {};
                 [this.attrib.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
                 [this.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
                 [this.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [this.attrib.default]: function() { errorHandler({ notification: 'Unknown exception', alert: diagnostic.logtrace } ); }
+                [this.attrib.default]: function() { errorHandler({ notification: 'Unexpected exception' } ); }
             };
 
             lookup[diagnostic.type]() || lookup[this.attrib.default];
