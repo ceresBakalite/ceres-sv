@@ -95,31 +95,6 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.fetchParser = function(url)
-        {
-            console.log('hello');
-
-//            fetch(url).then(response => response.text()).then(str =>
-//            {
-//                csvNode.insertAdjacentHTML('afterbegin', str)
-//            });
-
-            fetch(url).then(function (response) {
-
-                return response.text();
-
-            }).then(function (data) {
-
-                console.log(data);
-
-            }).catch(function (err) {
-
-                console.log("Something went wrong!", err);
-
-            });
-
-        }
-
         this.HtmlDOMParser = function(html, regex)
         {
             if (this.isEmptyOrNull(html)) return;
@@ -191,7 +166,7 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) rsc.fetchParser(cfg.src);
+            if (cfg.fetchsrc) atr.fetchSourceParser();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
@@ -228,6 +203,24 @@ window.ceres = {};
                 Object.freeze(remark);
 
                 (function() {
+
+                    this.fetchSourceParser = function()
+                    {
+                        fetch(cfg.src).then(function (response) {
+
+                            return response.text();
+
+                        }).then(function (data) {
+
+                            rsc.inspect({ type: rsc.attrib.warn, notification: data, logtrace: cfg.attrib.trace });
+
+                        }).catch(function (ex) {
+
+                            rsc.inspect({ type: rsc.attrib.error, notification: ex, logtrace: cfg.attrib.trace });
+
+                        });
+
+                    }
 
                     this.setShadow = function()
                     {
