@@ -95,16 +95,6 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.HtmlDOMParser = function(text, regex)
-        {
-            if (this.isEmptyOrNull(text)) return;
-
-            if (regex || text.includes('</template>')) return text.replace(rsc.attrib.markup, '');
-
-            let html = new DOMParser().parseFromString(text, 'text/html');
-            return html.body.textContent || html.body.innerText;
-        }
-
         this.inspect = function(diagnostic)
         {
             const errorHandler = function(error)
@@ -165,7 +155,7 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', atr.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
@@ -276,6 +266,16 @@ window.ceres = {};
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) this.insertCache();
+                    }
+
+                    this.HtmlDOMParser = function(text, regex)
+                    {
+                        if (this.isEmptyOrNull(text)) return;
+
+                        if (regex || text.includes('</template>')) return text.replace(rsc.attrib.markup, '');
+
+                        let html = new DOMParser().parseFromString(text, 'text/html');
+                        return html.body.textContent || html.body.innerText;
                     }
 
                     this.setCacheArray = function()
