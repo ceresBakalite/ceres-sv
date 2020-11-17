@@ -177,6 +177,12 @@ window.ceres = {};
                 cfg.attrib = {};
                 cfg.slide = 1;
 
+                cfg.src = csvNode.getAttribute('src') || null;
+                cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
+
+                cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
+                cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
+
                 const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                 const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                 const srm = new Map(); // shadowroot manager
@@ -193,12 +199,6 @@ window.ceres = {};
                 };
 
                 Object.freeze(remark);
-
-                cfg.src = csvNode.getAttribute('src') || null;
-                cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
-
-                cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
-                cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
                 (function() {
 
