@@ -100,16 +100,17 @@ window.ceres = {};
             if (this.isEmptyOrNull(html)) return;
 
             //let template = html.includes('</template>');
-            if (regex) return html.replace(rsc.attrib.markup, '');
+            //if (regex || template) return html.replace(rsc.attrib.markup, '');
+
+            let doc = new DOMParser().parseFromString(html, 'text/html');
 
             if (html.includes('</template>'))
             {
-                let test = new DOMParser().parseFromString(html, 'text/html');
-                let el = test.body.querySelector('template');
+                let el = doc.body.querySelector('template');
                 return el.content.textContent;
             }
 
-            let doc = new DOMParser().parseFromString(html, 'text/html');
+            if (regex) return html.replace(rsc.attrib.markup, '');
 
             return doc.body.textContent || doc.body.innerText;
         }
