@@ -100,7 +100,7 @@ window.ceres = {};
             if (this.isEmptyOrNull(html)) return;
 
             let template = html.includes('</template>');
-            if (regex || template) return html.replace(this.attrib.markup, '');
+            if (regex || template) return html.replace(rsc.attrib.markup, '');
 
             let doc = new DOMParser().parseFromString(html, 'text/html');
             return doc.body.textContent || doc.body.innerText;
@@ -117,14 +117,14 @@ window.ceres = {};
             }
 
             const lookup = {
-                [this.attrib.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [this.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
-                [this.attrib.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [this.attrib.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
+                [rsc.attrib.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [rsc.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
+                [rsc.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + rsc.attrib.newline + rsc.attrib.newline + diagnostic.reference); },
+                [rsc.attrib.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [rsc.attrib.default]: function() { errorHandler({ notification: errordefault, alert: diagnostic.logtrace } ); }
             };
 
-            lookup[diagnostic.type]() || lookup[this.attrib.default];
+            lookup[diagnostic.type]() || lookup[rsc.attrib.default];
         }
 
         this.getObjectProperties = function(obj, str = '')
