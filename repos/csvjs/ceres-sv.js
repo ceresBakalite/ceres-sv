@@ -166,7 +166,7 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await ( await atr.fetchSourceParser(cfg.src) ));
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', await atr.fetchSourceParser(cfg.src));
             //if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
 
             //if (cfg.fetchsrc) atr.fetchSourceParser();
