@@ -99,9 +99,14 @@ window.ceres = {};
         {
             console.log('hello');
 
+//            fetch(url).then(response => response.text()).then(str =>
+//            {
+//                csvNode.insertAdjacentHTML('afterbegin', str)
+//            });
+
             fetch(url).then(function (response) {
 
-                return response;
+                return response.text();
 
             }).then(function (data) {
 
