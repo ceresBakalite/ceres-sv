@@ -182,9 +182,9 @@ window.ceres = {};
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
-                cfg.srm = new Map(); // shadowroot manager
+                const srm = new Map(); // shadowroot manager
 
-                cfg.remark = {
+                const remark = {
                     imageMarkup      : 'Image list markup',
                     configAttributes : 'The ' + csv + ' element attributes: ',
                     templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
@@ -195,7 +195,7 @@ window.ceres = {};
                     cacheWarning     : 'Warning: cache response status: '
                 };
 
-                Object.freeze(cfg.remark);
+                Object.freeze(remark);
 
                 (function() {
 
@@ -288,8 +288,8 @@ window.ceres = {};
 
                     this.hasProperties = function()
                     {
-                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: cfg.remark.precursorError });
-                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: cfg.remark.fetchListError });
+                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
                         return this.attributesExist();
                     }
@@ -405,7 +405,7 @@ window.ceres = {};
                         {
                             fetch(url).then(response =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: cfg.remark.cacheWarning + url, logtrace: cfg.attrib.trace }); }
+                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cacheWarning + url, logtrace: cfg.attrib.trace }); }
                                 return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                             });
 
@@ -430,11 +430,11 @@ window.ceres = {};
 
                         cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
-                        cfg.srm.set('left', cfg.slide - 1);
-                        cfg.srm.set('right', cfg.slide + 1);
-                        cfg.srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+                        srm.set('left', cfg.slide - 1);
+                        srm.set('right', cfg.slide + 1);
+                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
 
-                        cfg.slide = cfg.srm.get(node.className);
+                        cfg.slide = srm.get(node.className);
 
                         return shadow;
                     }
@@ -463,7 +463,7 @@ window.ceres = {};
 
                             if (rsc.isEmptyOrNull(el))
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: cfg.remark.elementSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                             }
 
@@ -523,7 +523,7 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
@@ -535,10 +535,10 @@ window.ceres = {};
 
                             let lightList = function()
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: cfg.remark.templateSearch, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
 
                                 let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: cfg.remark.templateError });
+                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.templateError });
 
                                 return content;
                             }
@@ -552,7 +552,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: cfg.remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + ' [' + (cfg.fetchsrc ? csv + ' - fetch' : cfg.attrib.embed + ' - template') + ']:' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
