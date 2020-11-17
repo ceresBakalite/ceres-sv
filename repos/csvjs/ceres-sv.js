@@ -182,7 +182,6 @@ window.ceres = {};
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
-                const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                 const srm = new Map(); // shadowroot manager
 
                 const remark = {
@@ -201,6 +200,8 @@ window.ceres = {};
                 (function() {
 
                     this.getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
+
+                    this.getClickEvent = function() { return 'ceres.getSlide(this)'; }
 
                     this.setShadow = function()
                     {
@@ -371,8 +372,8 @@ window.ceres = {};
                             if (cfg.attrib.sub) rsc.composeElement({ type: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
                         }
 
-                        rsc.composeElement({ type: 'a', className: this.getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                        rsc.composeElement({ type: 'a', className: this.getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', className: this.getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: this.getClickEvent() });
+                        rsc.composeElement({ type: 'a', className: this.getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: this.getClickEvent() });
                     }
 
                     // The nub track is hidden in auto mode
@@ -388,7 +389,7 @@ window.ceres = {};
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ type: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                            rsc.composeElement({ type: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: this.getClickEvent() });
                         }
 
                     }
