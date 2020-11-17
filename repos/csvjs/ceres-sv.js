@@ -208,7 +208,7 @@ window.ceres = {};
                     {
                         fetch(cfg.src).then(function (response) {
 
-                            csvNode.insertAdjacentHTML('afterbegin', response.text());
+                            csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser(response.text(), false));
 
                         }).then(function (data) {
 
