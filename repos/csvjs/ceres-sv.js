@@ -208,7 +208,7 @@ window.ceres = {};
                     {
                         fetch(cfg.src).then(function (response) {
 
-                            console.log('here now');
+                            console.log('hello again');
                             //csvNode.insertAdjacentHTML('afterbegin', response.text());
                             return response.text();
 
