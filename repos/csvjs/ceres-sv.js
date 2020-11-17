@@ -195,7 +195,7 @@ window.ceres = {};
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
                     fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template ' + cfg.attrib.embed + ' elements',
                     templateError    : 'Error: Unable to find the ' + cfg.attrib.embed + ' fallback template element when searching the document body',
-                    cacheWarning        : 'Warning: cache response status: '
+                    cacheWarning     : 'Warning: cache response status: '
                 };
 
                 Object.freeze(remark);
@@ -404,7 +404,7 @@ window.ceres = {};
                         {
                             fetch(url).then(response =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cacheWarning, logtrace: cfg.attrib.trace }); }
+                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cacheWarning + url, logtrace: cfg.attrib.trace }); }
                                 return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                             });
 
