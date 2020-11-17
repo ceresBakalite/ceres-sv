@@ -95,7 +95,25 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.DOMParserHtml = function(html, regex)
+        this.fetchParser = function(url)
+        {
+            fetch(url).then(function (response) {
+
+                return response.json();
+
+            }).then(function (data) {
+
+                console.log(data);
+
+            }).catch(function (err) {
+
+                console.log("Something went wrong!", err);
+
+            });
+
+        }
+
+        this.HtmlDOMParser = function(html, regex)
         {
             if (this.isEmptyOrNull(html)) return;
 
@@ -166,7 +184,9 @@ window.ceres = {};
 
             initialise();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(cfg.src) ).text(), false ));
+            if (cfg.fetchsrc) rsc.fetchParser(cfg.src);
+
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.HtmlDOMParser( await ( await fetch(cfg.src) ).text(), false ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
             if (atr.hasProperties()) atr.activate();
