@@ -101,24 +101,15 @@ window.ceres = {};
 
             //let template = html.includes('</template>');
             if (regex) return html.replace(rsc.attrib.markup, '');
-
             let doc = new DOMParser().parseFromString(html, 'text/html');
-            let el = doc.body.querySelector('template');
 
-            return (el) ? el.content.textContent : doc.body.textContent;
-/*
-            if (doc.body.includes('</template>'))
+            if (html.includes('</template>'))
             {
-                let test = new DOMParser().parseFromString(html, 'text/html');
-                let el = test.body.querySelector('template');
+                let el = doc.body.querySelector('template');
                 return el.content.textContent;
             }
 
-            if (regex) return html.replace(rsc.attrib.markup, '');
-
-
             return doc.body.textContent || doc.body.innerText;
-*/
         }
 
         this.inspect = function(diagnostic)
