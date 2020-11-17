@@ -166,14 +166,14 @@ window.ceres = {};
 
             initialise();
 
-            let css = csvNode.getAttribute('css') || cfg.defaultCSS;
-            let src = csvNode.getAttribute('src') || null;
+            cfg.src = csvNode.getAttribute('src') || null;
+            cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
 
-            cfg.fetchsrc = !rsc.isEmptyOrNull(src);
-            cfg.fetchcss = !rsc.isEmptyOrNull(css);
+            cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
+            cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(src) ).text(), false ));
-            if (cfg.fetchcss || cfg.fetchsrc) atr.setURLArray(css, src);
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.DOMParserHtml( await ( await fetch(cfg.src) ).text(), false ));
+            if (cfg.fetchcss || cfg.fetchsrc) atr.setURLArray();
 
             if (atr.hasProperties()) atr.activate();
 
@@ -294,10 +294,10 @@ window.ceres = {};
                         this.setView();
                     }
 
-                    this.setURLArray = function(css, src)
+                    this.setURLArray = function()
                     {
-                        if (cfg.fetchsrc) cfg.cachesrc = src.split();
-                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
+                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.setStyleAttributes = function()
