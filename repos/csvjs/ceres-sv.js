@@ -100,11 +100,14 @@ window.ceres = {};
             if (this.isEmptyOrNull(html)) return;
 
             //let template = html.includes('</template>');
-            //if (regex || template) return html.replace(rsc.attrib.markup, '');
+            if (regex) return html.replace(rsc.attrib.markup, '');
 
-            let template = html.includes('</template>');
+            let doc = new DOMParser().parseFromString(html, 'text/html');
+            let el = doc.body.querySelector('template');
 
-            if (template)
+            return (el) ? el.content.textContent : doc.body.textContent;
+/*
+            if (doc.body.includes('</template>'))
             {
                 let test = new DOMParser().parseFromString(html, 'text/html');
                 let el = test.body.querySelector('template');
@@ -113,9 +116,9 @@ window.ceres = {};
 
             if (regex) return html.replace(rsc.attrib.markup, '');
 
-            let doc = new DOMParser().parseFromString(html, 'text/html');
 
             return doc.body.textContent || doc.body.innerText;
+*/
         }
 
         this.inspect = function(diagnostic)
