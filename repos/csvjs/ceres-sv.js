@@ -192,7 +192,7 @@ window.ceres = {};
                     precursorError   : 'Error: Unable to find the ' + csv + ' document element',
                     fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
                     templateError    : 'Error: Unable to find the fallback template element when searching the document body',
-                    cacheWarning     : 'Warning: cache response status: '
+                    cacheWarning     : 'Warning: cache response status '
                 };
 
                 Object.freeze(remark);
