@@ -119,8 +119,8 @@ window.ceres = {};
                 [this.attrib.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
                 [this.attrib.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
                 [this.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
-                [this.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace } ); },
-                [this.attrib.default]: function() { errorHandler({ notification: 'Unhandled exception' } ); }
+                [this.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }); },
+                [this.attrib.default]: function() { errorHandler({ notification: 'Unhandled exception' }); }
             };
 
             lookup[diagnostic.type]() || lookup[this.attrib.default];
@@ -220,7 +220,7 @@ window.ceres = {};
 
                     this.setSlide = function(node, shadow)
                     {
-                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getSlideShadow(node);
+                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getShadow(node);
                         const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                         cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
@@ -386,7 +386,6 @@ window.ceres = {};
                     this.insertCache = function() // cache a range of response.status values (200, 304 etc)
                     {
                         if (!('caches' in window)) return;
-
                         if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
 
                         const cacheName = csv + '-cache';
@@ -412,7 +411,7 @@ window.ceres = {};
                         atr.setSlide(null, cfg.shadow);
                     }
 
-                    this.getSlideShadow = function(node)
+                    this.getShadow = function(node)
                     {
                         const root = node.getRootNode().host,
                         shade = document.querySelector('#' + root.id),
