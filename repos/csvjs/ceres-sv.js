@@ -391,7 +391,7 @@ window.ceres = {};
                         {
                             fetch(url).then(response =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cacheWarning + url, logtrace: cfg.attrib.trace }); }
+                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cacheWarning + '[' + response.status + '] - ' + url, logtrace: cfg.attrib.trace }); }
                                 return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                             });
 
