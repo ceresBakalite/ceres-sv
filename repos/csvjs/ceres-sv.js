@@ -196,9 +196,6 @@ window.ceres = {};
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
-                if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
-                if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
                 (function() {
 
                     this.getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
@@ -305,6 +302,8 @@ window.ceres = {};
 
                         cfg.shade.appendChild(cfg.styleContainer);
 
+                        cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
                         cfg.cachecss.forEach(item =>
                         {
                             fetch(item).then(response => response.text()).then(str =>
@@ -393,6 +392,8 @@ window.ceres = {};
                     this.insertCache = function() // cache a range of response.status values (200, 304 etc)
                     {
                         if (!('caches' in window)) return;
+
+                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
 
                         const cacheName = csv + '-cache';
                         const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
