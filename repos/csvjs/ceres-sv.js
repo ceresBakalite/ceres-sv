@@ -147,7 +147,8 @@ window.ceres = {};
             markup      : /(<([^>]+)>)/ig,
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
-            get bool() { return this.bArray.toString().toUpperCase().split(','); },
+            //get bool() { return this.bArray.toString().toUpperCase().split(','); },
+            get bool() { return this.bArray.map(item => { return item.toUpperCase(); }) },
             get metaUrl() { return import.meta.url; }
         }
 
