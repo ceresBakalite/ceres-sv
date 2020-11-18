@@ -79,6 +79,7 @@ window.ceres = {};
 
         this.getUniqueElementId = function(args = {})
         {
+            if (!args.name) args.name = '';
             if (!args.range) args.range = 100;
 
             let elName = function() { return args.name + Math.floor(Math.random() * args.range) };
