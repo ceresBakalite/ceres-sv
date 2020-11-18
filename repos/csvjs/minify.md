@@ -8,7 +8,7 @@ https://github.com/terser/terser
 
 *recommended usage*
 
-        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m
+        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m reserved=['getImage','getSlide'] -f quote_style=1
 
 **Example 2**
 
