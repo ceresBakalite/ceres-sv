@@ -29,14 +29,6 @@ window.ceres = {};
             const node = document.createElement(el.type);
 
             el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) node.setAttribute(item, item[i]); });
-/*
-            if (el.id) node.setAttribute('id', el.id);
-            if (el.className) node.setAttribute('class', el.className);
-            if (el.onClick) node.setAttribute('onclick', el.onClick);
-            if (el.src) node.setAttribute('src', el.src);
-            if (el.alt) node.setAttribute('alt', el.alt);
-            if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
-*/
             precursor.appendChild(node);
         }
 
