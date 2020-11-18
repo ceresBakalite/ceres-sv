@@ -177,25 +177,24 @@ window.ceres = {};
                 cfg.attrib = {};
                 cfg.slide = 1;
 
-                const srm = new Map(); // shadowroot manager
-
-                const remark = {
-                    imageMarkup      : 'Image list markup ',
-                    configAttributes : 'The element attributes ',
-                    templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
-                    elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
-                    precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                    fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
-                    templateError    : 'Error: Unable to find the fallback template element when searching the document body',
-                    cacheWarning     : 'Warning: cache response status '
-                };
-
-                Object.freeze(remark);
-
                 (function() {
 
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                    const srm = new Map(); // shadowroot manager
+
+                    const remark = {
+                        imageMarkup      : 'Image list markup ',
+                        configAttributes : 'The element attributes ',
+                        templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
+                        elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
+                        precursorError   : 'Error: Unable to find the ' + csv + ' document element',
+                        fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
+                        templateError    : 'Error: Unable to find the fallback template element when searching the document body',
+                        cacheWarning     : 'Warning: cache response status '
+                    };
+
+                    Object.freeze(remark);
 
                     this.setShadow = function()
                     {
