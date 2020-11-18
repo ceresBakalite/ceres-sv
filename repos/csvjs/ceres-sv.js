@@ -79,7 +79,7 @@ window.ceres = {};
 
         this.getUniqueElementId = function(args = {})
         {
-            if (!args.name) args.name = 'el';
+            if (!args.name) args.name = 'n';
             if (!args.range) args.range = 100;
 
             let elName = function() { return args.name + Math.floor(Math.random() * args.range) };
@@ -482,7 +482,7 @@ window.ceres = {};
 
                         if (exists)
                         {
-                            csvNode.id = rsc.getUniqueElementId({ range: 1000 });
+                            csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
                             csvNode.setAttribute('class', 'none');
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
