@@ -38,7 +38,7 @@ window.ceres = {};
             precursor.appendChild(node);
         }
 
-        this.setHorizontalSwipe = function(touch, callback, args)
+        this.setHorizontalSwipe = function(touch = {}, callback, args)
         {
             if (!touch.act) touch.act = 80;
 
@@ -127,7 +127,7 @@ window.ceres = {};
             lookup[diagnostic.type]() || lookup[this.attrib.default];
         }
 
-        this.getObjectProperties = function(string, str = '')
+        this.getObjectProperties = function(string = {}, str = '')
         {
             for (let literal in string) str += literal + ': ' + string[literal] + ', ';
             return str.replace(/, +$/g,'');
@@ -398,7 +398,7 @@ window.ceres = {};
 
                     }
 
-                    this.getSwipeCallback = function(swipe)
+                    this.getSwipeCallback = function(swipe = {})
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
