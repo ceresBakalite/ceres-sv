@@ -163,25 +163,25 @@ window.ceres = {};
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
 
-            const test = {}; // generic resource methods
+            const app = {}; // generic resource methods
             (function() {
 
                 this.hasProperties = function()
                 {
                     configureAttributes();
 
-                    if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                    if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
                     if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
-                    return this.attributesExist();
+                    return atr.attributesExist();
                 }
 
-            }).call(test); // end resource allocation
+            }).call(app); // end resource allocation
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
-            if (test.hasProperties()) atr.activate();
+            if (app.hasProperties()) atr.activate();
 
             function configureAttributes()
             {
