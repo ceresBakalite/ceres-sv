@@ -330,14 +330,14 @@ window.ceres = {};
                             return className += ' none';
                         }
 
-                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; },
-                        getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; },
-                        getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; },
-                        getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; },
-                        getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; },
-                        imageContainer = document.createElement('div'),
-                        slideContainerClassName = getClassName();
+                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; };
+                        const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                        const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; };
+                        const getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
+                        const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
+                        const slideContainerClassName = getClassName();
 
+                        const imageContainer = document.createElement('div');
                         imageContainer.id = csv + '-image';
                         imageContainer.className = 'slideview-image';
 
@@ -408,10 +408,10 @@ window.ceres = {};
 
                     this.getShadow = function(node)
                     {
-                        const root = node.getRootNode().host,
-                        shade = document.querySelector('#' + root.id),
-                        shadow = shade.shadowRoot,
-                        slide = shadow.querySelector('div.slideview-image > div.active');
+                        const root = node.getRootNode().host;
+                        const shade = document.querySelector('#' + root.id);
+                        const shadow = shade.shadowRoot;
+                        const slide = shadow.querySelector('div.slideview-image > div.active');
 
                         cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
