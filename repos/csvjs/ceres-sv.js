@@ -77,11 +77,9 @@ window.ceres = {};
             return this.attrib.bool.includes(attribute.trim().toUpperCase());
         }
 
-        this.getUniqueElementId = function(str = null, range = 100)
+        this.getUniqueElementId = function(str = null, el = null, range = 100)
         {
             let elName = function() { return str + Math.floor(Math.random() * range) };
-            let el = null;
-
             while (document.getElementById(el = elName())) {};
 
             return el;
@@ -126,9 +124,9 @@ window.ceres = {};
             lookup[diagnostic.type]() || lookup[this.attrib.default];
         }
 
-        this.getObjectProperties = function(obj, str = '')
+        this.getObjectProperties = function(string, str = '')
         {
-            for (let property in obj) str += property + ': ' + obj[property] + ', ';
+            for (let literal in string) str += literal + ': ' + string[literal] + ', ';
             return str.replace(/, +$/g,'');
         }
 
@@ -319,12 +317,10 @@ window.ceres = {};
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
-                    this.setImageAttributes = function()
+                    this.setImageAttributes = function(index = 0)
                     {
-                        const getClassName = function()
+                        const getClassName = function(className = 'view')
                         {
-                            let className = 'view';
-
                             if (cfg.attrib.zoom) className += ' zoom';
                             if (cfg.attrib.fade) className += ' fade';
 
@@ -343,8 +339,6 @@ window.ceres = {};
                         imageContainer.className = 'slideview-image';
 
                         cfg.bodyContainer.appendChild(imageContainer);
-
-                        let index = 0;
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
@@ -366,15 +360,13 @@ window.ceres = {};
                     }
 
                     // The nub track is hidden in auto mode
-                    this.setTrackAttributes = function()
+                    this.setTrackAttributes = function(index = 0)
                     {
                         const trackContainer = document.createElement('div');
                         trackContainer.id = csv + '-nub';
                         trackContainer.className = getActiveState('slideview-nub');
 
                         cfg.bodyContainer.appendChild(trackContainer);
-
-                        let index = 0;
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
