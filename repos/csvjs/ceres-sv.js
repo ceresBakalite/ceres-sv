@@ -384,16 +384,6 @@ window.ceres = {};
 
                         if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
 
-                        cfg.cachesrc.forEach((item) => {
-                            console.log('cachesrc: ' + item);
-                        });
-
-                        cfg.cachecss.forEach((item) => {
-                            console.log('cachecss: ' + item);
-                        });
-
-                        console.log('metaUrl: ' + rsc.attrib.metaUrl);
-
                         const cacheName = csv + '-cache';
                         const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
 
