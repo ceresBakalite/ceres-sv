@@ -171,6 +171,13 @@ window.ceres = {};
 
             function configureAttributes()
             {
+                cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+                cfg.src = csvNode.getAttribute('src') || null;
+                cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
+                cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
+                cfg.attrib = {};
+                cfg.slide = 1;
+
                 const srm = new Map(); // shadowroot manager
 
                 const remark = {
@@ -185,16 +192,6 @@ window.ceres = {};
                 };
 
                 Object.freeze(remark);
-
-                cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.attrib = {};
-                cfg.slide = 1;
-
-                cfg.src = csvNode.getAttribute('src') || null;
-                cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
-
-                cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
-                cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
                 (function() {
 
