@@ -25,16 +25,18 @@ window.ceres = {};
 
         this.composeElement = function(el)
         {
-            const precursor = el.parent;
+            const precursor = this.attrib.tag.includes(el.type.trim().toUpperCase()) ? document.head : el.parent;
             const node = document.createElement(el.type);
 
+            el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) node.setAttribute(item, item[i]); });
+/*
             if (el.id) node.setAttribute('id', el.id);
             if (el.className) node.setAttribute('class', el.className);
             if (el.onClick) node.setAttribute('onclick', el.onClick);
             if (el.src) node.setAttribute('src', el.src);
             if (el.alt) node.setAttribute('alt', el.alt);
             if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
-
+*/
             precursor.appendChild(node);
         }
 
@@ -141,14 +143,15 @@ window.ceres = {};
             default     : 98,
             error       : 99,
             bArray      : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
+            tagName     : ['link', 'script', 'style' ],
             isWindows   : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
             whitespace  : /\s/g,
             markup      : /(<([^>]+)>)/ig,
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
-            //get bool() { return this.bArray.toString().toUpperCase().split(','); },
             get bool() { return this.bArray.map(item => { return item.toUpperCase(); }) },
+            get tag() { return this.tagName.map(item => { return item.toUpperCase(); }) },
             get metaUrl() { return import.meta.url; }
         }
 
