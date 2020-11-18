@@ -77,12 +77,15 @@ window.ceres = {};
             return this.attrib.bool.includes(attribute.trim().toUpperCase());
         }
 
-        this.getUniqueElementId = function(str = null, range = 100, el = null)
+        this.getUniqueElementId = function(args)
         {
-            let elName = function() { return str + Math.floor(Math.random() * range) };
-            while (document.getElementById(el = elName())) {};
+            //if (!args.name) args.name = null;
+            if (!args.range) args.range = 100;
 
-            return el;
+            let elName = function() { return args.name + Math.floor(Math.random() * args.range) };
+            while (document.getElementById(args.el = elName())) {};
+
+            return args.el;
         }
 
         this.removeDuplcates = function(obj, sort)
@@ -479,7 +482,7 @@ window.ceres = {};
 
                         if (exists)
                         {
-                            csvNode.id = rsc.getUniqueElementId(csv, 1000);
+                            csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
                             csvNode.setAttribute('class', 'none');
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
