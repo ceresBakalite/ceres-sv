@@ -29,7 +29,7 @@ window.ceres = {};
             const node = document.createElement(el.type);
 
             //el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) node.setAttribute(item, item[i]); });
-            el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) console.log(item + ' - ' + item[i]); });
+            el.forEach((item, i) => { console.log(item + ' - ' + item[i]); });
 
             if (el.id) node.setAttribute('id', el.id);
             if (el.className) node.setAttribute('class', el.className);
