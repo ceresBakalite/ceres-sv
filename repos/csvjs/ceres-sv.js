@@ -398,7 +398,7 @@ window.ceres = {};
 
                     }
 
-                    this.getSwipeCallback = function(swipe = {})
+                    this.getSwipeCallback = function(swipe)
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
