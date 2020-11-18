@@ -77,7 +77,7 @@ window.ceres = {};
             return this.attrib.bool.includes(attribute.trim().toUpperCase());
         }
 
-        this.getUniqueElementId = function(str = null, el = null, range = 100)
+        this.getUniqueElementId = function(str = null, range = 100, el = null)
         {
             let elName = function() { return str + Math.floor(Math.random() * range) };
             while (document.getElementById(el = elName())) {};
