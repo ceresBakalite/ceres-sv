@@ -166,7 +166,6 @@ window.ceres = {};
             configureAttributes();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
-
             if (atr.hasProperties()) atr.activate();
 
             function configureAttributes()
