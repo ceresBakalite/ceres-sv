@@ -181,6 +181,9 @@ window.ceres = {};
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.fetchcss = !rsc.isEmptyOrNull(cfg.css);
 
+                if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
+                if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
                 const srm = new Map(); // shadowroot manager
 
                 const remark = {
@@ -220,7 +223,6 @@ window.ceres = {};
                         cfg.shadow.append(cfg.bodyContainer);
 
                         if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 } );
-                        if (cfg.fetchcss || cfg.fetchsrc) this.setCacheArray();
 
                         rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
@@ -278,12 +280,6 @@ window.ceres = {};
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) this.insertCache();
-                    }
-
-                    this.setCacheArray = function()
-                    {
-                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
-                        if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                     }
 
                     this.hasProperties = function()
