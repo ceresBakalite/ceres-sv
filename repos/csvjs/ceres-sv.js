@@ -163,25 +163,12 @@ window.ceres = {};
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
 
-            const app = {}; // generic resource methods
-            (function() {
-
-                this.hasProperties = function()
-                {
-                    configureAttributes();
-
-                    if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
-                    if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
-
-                    return atr.attributesExist();
-                }
-
-            }).call(app); // end resource allocation
+            configureAttributes();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
             if (cfg.fetchcss || cfg.fetchsrc) atr.setCacheArray();
 
-            if (app.hasProperties()) atr.activate();
+            if (atr.hasProperties()) atr.activate();
 
             function configureAttributes()
             {
@@ -297,6 +284,14 @@ window.ceres = {};
                     {
                         if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
                         if (cfg.fetchcss) cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                    }
+
+                    this.hasProperties = function()
+                    {
+                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
+
+                        return this.attributesExist();
                     }
 
                     this.activate = function()
