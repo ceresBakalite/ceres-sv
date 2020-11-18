@@ -2,7 +2,7 @@
  * @license
  * ceres-sv v1.0.0
  *
- * Minified using terser v5.3.5
+ * Minified using terser v5.4.0
  * Original file: ceresbakalite/ceres-sv/repos/csvjs/ceres-sv.js
  *
  * ceresBakalite/ceres-sv is licensed under the MIT License - http://opensource.org/licenses/MIT
@@ -38,7 +38,7 @@ window.ceres = {};
             precursor.appendChild(node);
         }
 
-        this.setHorizontalSwipe = function(touch = {}, callback, args)
+        this.setHorizontalSwipe = function(touch, callback, args)
         {
             if (!touch.act) touch.act = 80;
 
@@ -69,12 +69,12 @@ window.ceres = {};
             return !obj;
         }
 
-        this.getBooleanAttribute = function(attribute)
+        this.getBooleanAttribute = function(obj)
         {
-            if (attribute === true || attribute === false) return attribute;
-            if (this.isEmptyOrNull(attribute) || !this.isString(attribute)) return false;
+            if (obj === true || obj === false) return atr;
+            if (this.isEmptyOrNull(obj) || !this.isString(obj)) return false;
 
-            return this.attrib.bool.includes(attribute.trim().toUpperCase());
+            return this.attrib.bool.includes(obj.trim().toUpperCase());
         }
 
         this.getUniqueElementId = function(args = {})
