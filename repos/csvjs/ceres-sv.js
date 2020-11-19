@@ -167,7 +167,7 @@ window.ceres = {};
             let test = 'https://ceresbakalite.github.io/similarity/images/';
 
             let text = rsc.parseText( await ( await fetch(test) ).text());
-            console.log(text);
+            console.log('test text: ' + text);
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
             if (atr.hasProperties()) atr.activate();
