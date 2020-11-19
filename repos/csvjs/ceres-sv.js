@@ -104,9 +104,9 @@ window.ceres = {};
             {
                 console.log('test 3');
                 let str = '';
-                let test =  JSON.stringify(obj.text);
+                let ar =  this.removeDuplcates(JSON.stringify(obj.text));
                 //Object.entries(test).forEach(([key, value]) => { str += key + ', ' + value + rsc.newline; });
-                return test;
+                return ar;
             }
 
             let doc = new DOMParser().parseFromString(obj.text, 'text/html');
