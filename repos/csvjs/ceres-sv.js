@@ -176,7 +176,12 @@ window.ceres = {};
             //  .then(response => response.json())
             //  .then(data => console.log(data));
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( { text: await ( await fetch(cfg.src) ).text(), json: (cfg.src.includes('.json')) } ));
+            if (cfg.fetchsrc)
+            {
+                let test = await ( await fetch(cfg.src) ).text();
+                csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( { text: test, json: (cfg.src.includes('.json')) } ));
+            }
+
             if (atr.hasProperties()) atr.activate();
 
             function configureAttributes()
