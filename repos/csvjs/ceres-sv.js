@@ -28,19 +28,7 @@ window.ceres = {};
             const precursor = this.attrib.tag.includes(el.type.trim().toUpperCase()) ? document.head : el.parent;
             const node = document.createElement(el.type);
 
-            //el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) node.setAttribute(item, item[i]); });
-
-            Object.entries(attribute).forEach(([key, value]) => {
-                node.setAttribute(key, value);
-            });
-
-/*
-            if (attribute.id) node.setAttribute('id', attribute.id);
-            if (attribute.class) node.setAttribute('class', attribute.class);
-            if (attribute.onclick) node.setAttribute('onclick', attribute.onclick);
-            if (attribute.src) node.setAttribute('src', attribute.src);
-            if (attribute.alt) node.setAttribute('alt', attribute.alt);
-*/
+            Object.entries(attribute).forEach(([key, value]) => { node.setAttribute(key, value); });
             if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
             precursor.appendChild(node);
