@@ -164,6 +164,11 @@ window.ceres = {};
 
             configureAttributes();
 
+            let test = 'https://ceresbakalite.github.io/similarity/images/';
+
+            let text = rsc.parseText( await ( await fetch(test) ).text());
+            console.log(text);
+
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
             if (atr.hasProperties()) atr.activate();
 
@@ -378,17 +383,6 @@ window.ceres = {};
 
                     this.insertCache = function() // cache a range of response.status values (200, 304 etc)
                     {
-                        let test = 'https://ceresbakalite.github.io/similarity/images/';
-
-                        fetch(test).then(function(response)
-                        {
-                            response.text().then(function(text) {
-                                console.log(text);
-                            });
-
-                        });
-
-
                         if (!('caches' in window)) return;
 
                         cfg.cachesrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
