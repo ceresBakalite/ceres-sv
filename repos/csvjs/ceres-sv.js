@@ -137,15 +137,15 @@ window.ceres = {};
             default     : 98,
             error       : 99,
             bArray      : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            tagName     : ['link', 'script', 'style' ],
+            tagName     : ['link', 'script', 'style'],
             isWindows   : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
             whitespace  : /\s/g,
             markup      : /(<([^>]+)>)/ig,
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
-            get bool() { return this.bArray.map(item => { return item.toUpperCase(); }) },
-            get tag() { return this.tagName.map(item => { return item.toUpperCase(); }) },
+            get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
+            get tag() { return this.tagName.map(item => { return item.trim().toUpperCase(); }) },
             get metaUrl() { return import.meta.url; }
         }
 
@@ -445,11 +445,16 @@ window.ceres = {};
 
                             let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
+console.log('el 1: ' + el);
+
                             if (rsc.isEmptyOrNull(el))
                             {
                                 rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
+                                console.log('el 2: ' + el);
                             }
+
+                            console.log('el 3: ' + el);
 
                             return rsc.isEmptyOrNull(el) ? 'undefined' : el;
                         }
