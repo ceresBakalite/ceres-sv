@@ -104,8 +104,8 @@ window.ceres = {};
             {
                 console.log('test 1');
                 let str = '';
-                let test = JSON.parse(obj.text);
-                Object.entries(test).forEach(([key, value]) => { str += key + ', ' + value + rsc.newline; });
+                //let test = JSON.parse(obj.text);
+                Object.entries(obj.text).forEach(([key, value]) => { str += key + ', ' + value + rsc.newline; });
                 return str;
             }
 
