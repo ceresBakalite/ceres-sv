@@ -106,11 +106,11 @@ window.ceres = {};
 
                 let test = JSON.parse(obj.text);
 
-                var details = test.map(function(detail) {
+                var details = test.data.map(function(detail) {
                     return [detail.url, detail.text];
                 });
 
-                console.log(JSON.stringify(details));
+                console.log(details);
 
             }
 
