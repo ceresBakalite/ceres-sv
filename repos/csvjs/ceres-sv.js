@@ -25,6 +25,9 @@ window.ceres = {};
 
         this.composeElement = function(el, atr)
         {
+            if (!el.type) return;
+            if (!el.parent) el.parent = document.body;
+
             const precursor = this.attrib.tag.includes(el.type.trim().toUpperCase()) ? document.head : el.parent;
             const node = document.createElement(el.type);
 
@@ -166,9 +169,9 @@ window.ceres = {};
 
             let test = 'https://ceresbakalite.github.io/similarity/images.json';
 
-            fetch(test)
-              .then(response => response.json())
-              .then(data => console.log(data));
+            //fetch(test)
+            //  .then(response => response.json())
+            //  .then(data => console.log(data));
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
             if (atr.hasProperties()) atr.activate();
