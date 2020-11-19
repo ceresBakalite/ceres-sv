@@ -441,6 +441,7 @@ window.ceres = {};
 
                         const getTemplateElement = function()
                         {
+                            console.log('fetch state: ' + cfg.fetchsrc + ' - ' + cfg.attrib.embed);
                             if (cfg.fetchsrc || !cfg.attrib.embed) return 'undefined';
 
                             let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
