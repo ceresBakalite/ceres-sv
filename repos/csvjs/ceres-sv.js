@@ -166,7 +166,7 @@ window.ceres = {};
 
             let test = 'https://ceresbakalite.github.io/similarity/images';
 
-            fetch(test).then(response => response.text()).then(str =>
+            fetch(test).then(response => response.JSON()).then(str =>
             {
                 console.log(str);
             });
