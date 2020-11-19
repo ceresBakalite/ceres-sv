@@ -1,6 +1,6 @@
 /**
  * @license
- * ceres-sv v1.0.0
+ * ceres-sv v1.0.1
  *
  * Minified using terser v5.3.5
  * Original file: ceresbakalite/ceres-sv/repos/csvjs/ceres-sv.js
