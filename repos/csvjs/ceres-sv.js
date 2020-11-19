@@ -102,7 +102,7 @@ window.ceres = {};
 
             if (obj.json)
             {
-                console.log('test 8: ' + obj.text);
+                console.log('test 9: ' + obj.text);
 
                 let test = JSON.parse(obj.text);
 
