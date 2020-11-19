@@ -102,7 +102,7 @@ window.ceres = {};
 
             if (obj.json)
             {
-                console.log('test 3');
+                console.log('test 4');
                 let str = '';
                 let ar =  this.removeDuplcates(JSON.stringify(obj.text));
                 //Object.entries(test).forEach(([key, value]) => { str += key + ', ' + value + rsc.newline; });
