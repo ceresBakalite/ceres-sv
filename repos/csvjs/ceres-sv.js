@@ -380,7 +380,7 @@ window.ceres = {};
                     {
                         if (!('caches' in window)) return;
 
-                        cfg.cachesrc = cfg.src.split();
+                        cfg.cachesrc = (cfg.fetchsrc) ? cfg.src.split() : [];
 
                         const cacheName = csv + '-cache';
                         const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
