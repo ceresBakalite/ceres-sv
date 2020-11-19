@@ -102,11 +102,11 @@ window.ceres = {};
 
             if (obj.json)
             {
-                console.log('test 2');
+                console.log('test 3');
                 let str = '';
-                //let test = JSON.parse(obj.text);
-                Object.entries(obj.text).forEach(([key, value]) => { str += key + ', ' + value + rsc.newline; });
-                return str;
+                let test =  JSON.stringify(obj.text);
+                //Object.entries(test).forEach(([key, value]) => { str += key + ', ' + value + rsc.newline; });
+                return test;
             }
 
             let doc = new DOMParser().parseFromString(obj.text, 'text/html');
