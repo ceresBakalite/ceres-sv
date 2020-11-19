@@ -23,22 +23,22 @@ window.ceres = {};
         this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
 
-        this.composeElement = function(el, atr)
+        this.composeElement = function(el, attribute)
         {
             const precursor = this.attrib.tag.includes(el.type.trim().toUpperCase()) ? document.head : el.parent;
             const node = document.createElement(el.type);
 
             //el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) node.setAttribute(item, item[i]); });
 
-            Object.entries(atr).forEach(([key, value]) => {
+            Object.entries(attribute).forEach(([key, value]) => {
                 console.log(key + ' - ' + key[value]);
             });
 
-            if (atr.id) node.setAttribute('id', el.id);
-            if (atr.className) node.setAttribute('class', el.className);
-            if (atr.onClick) node.setAttribute('onclick', el.onClick);
-            if (atr.src) node.setAttribute('src', el.src);
-            if (atr.alt) node.setAttribute('alt', el.alt);
+            if (attribute.id) node.setAttribute('id', attribute.id);
+            if (attribute.class) node.setAttribute('class', attribute.class);
+            if (attribute.onclick) node.setAttribute('onclick', attribute.onclick);
+            if (attribute.src) node.setAttribute('src', attribute.src);
+            if (attribute.alt) node.setAttribute('alt', attribute.alt);
 
             if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
