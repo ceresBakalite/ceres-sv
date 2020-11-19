@@ -175,9 +175,9 @@ window.ceres = {};
 
                 request.onreadystatechange = function()
                 {
-                    if (request.readyState === 4)
+                    if (request.readyState == 4 && request.status == 200)
                     {
-                        alert(request.responseXML.getElementsByTagName('a')[1].childNodes[0].nodeValue);
+                        console.log(request.responseText);
                     }
                 }
 
