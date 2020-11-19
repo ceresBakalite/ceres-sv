@@ -105,9 +105,8 @@ window.ceres = {};
                 console.log('test 9: ' + obj.text);
 
                 let test = JSON.parse(obj.text);
-                const key = JSON.stringify;
 
-                let ar = [...new Map (test.map(node => [key(node), node])).values()];
+                let ar = [...new Map (test.map(node => [node.url, node.text])).values()];
 
                 console.log('ar: ' + ar);
 /*
