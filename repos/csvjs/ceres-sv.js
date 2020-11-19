@@ -356,7 +356,7 @@ window.ceres = {};
                             if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
                         }
 
-                        rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' },  { class: getActiveState('left'), onclick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' }, { class: getActiveState('left'), onclick: getClickEvent() });
                         rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
                     }
 
