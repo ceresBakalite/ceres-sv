@@ -31,15 +31,16 @@ window.ceres = {};
             //el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) node.setAttribute(item, item[i]); });
 
             Object.entries(attribute).forEach(([key, value]) => {
-                console.log(key + ' - ' + value);
+                node.setAttribute(key, value);
             });
 
+/*
             if (attribute.id) node.setAttribute('id', attribute.id);
             if (attribute.class) node.setAttribute('class', attribute.class);
             if (attribute.onclick) node.setAttribute('onclick', attribute.onclick);
             if (attribute.src) node.setAttribute('src', attribute.src);
             if (attribute.alt) node.setAttribute('alt', attribute.alt);
-
+*/
             if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
             precursor.appendChild(node);
