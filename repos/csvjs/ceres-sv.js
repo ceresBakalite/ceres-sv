@@ -380,7 +380,7 @@ window.ceres = {};
                     {
                         if (!('caches' in window)) return;
 
-                        if (cfg.fetchsrc) cfg.cachesrc = cfg.src.split();
+                        cfg.cachesrc = cfg.src.split();
 
                         const cacheName = csv + '-cache';
                         const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
@@ -445,16 +445,11 @@ window.ceres = {};
 
                             let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
-console.log('el 1: ' + el);
-
                             if (rsc.isEmptyOrNull(el))
                             {
                                 rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
-                                console.log('el 2: ' + el);
                             }
-
-                            console.log('el 3: ' + el);
 
                             return rsc.isEmptyOrNull(el) ? 'undefined' : el;
                         }
