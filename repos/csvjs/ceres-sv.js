@@ -105,11 +105,18 @@ window.ceres = {};
                 console.log('test 9: ' + obj.text);
 
                 let test = JSON.parse(obj.text);
+                const key = JSON.stringify;
+
+                let ar = [...new Map (test.map(node => [key(node), node])).values()];
+
+                console.log('ar: ' + ar);
+/*
+                let test = JSON.parse(obj.text);
 
                 var details = test.map(function(detail) {
-                    return [detail.url + ',', detail.text + rsc.newline];
+                    return [detail.url, detail.text];
                 });
-
+*/
                 console.log('details: ' + details);
 
             }
