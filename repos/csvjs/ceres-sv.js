@@ -164,13 +164,11 @@ window.ceres = {};
 
             configureAttributes();
 
-            let test = 'https://ceresbakalite.github.io/similarity/images';
+            let test = 'https://ceresbakalite.github.io/similarity/images.json';
 
-            fetch(test).then(response => response.JSON()).then(str =>
-            {
-                console.log(str);
-            });
-
+            fetch(test)
+              .then(response => response.json())
+              .then(data => console.log(data));
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
             if (atr.hasProperties()) atr.activate();
