@@ -164,7 +164,7 @@ window.ceres = {};
 
             configureAttributes();
 
-            let test = 'https://ceresbakalite.github.io/similarity/images/';
+            let test = 'https://ceresbakalite.github.io/similarity/images';
 
             let text = rsc.parseText( await ( await fetch(test) ).text());
             console.log('test text: ' + text);
