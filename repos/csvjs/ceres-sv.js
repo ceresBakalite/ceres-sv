@@ -26,9 +26,8 @@ window.ceres = {};
         this.composeElement = function(el, atr)
         {
             if (!el.type) return;
-            if (!el.parent) el.parent = document.body;
 
-            const precursor = this.attrib.tag.includes(el.type.trim().toUpperCase()) ? document.head : el.parent;
+            const precursor = this.attrib.tag.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
             const node = document.createElement(el.type);
 
             Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
