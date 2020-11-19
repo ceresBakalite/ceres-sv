@@ -164,24 +164,12 @@ window.ceres = {};
 
             configureAttributes();
 
-            if (window.XMLHttpRequest)
+            let test = 'https://ceresbakalite.github.io/similarity/images';
+
+            fetch(test).then(response => response.text()).then(str =>
             {
-                let test = 'https://ceresbakalite.github.io/similarity/images';
-                let request = new XMLHttpRequest();
-
-                request.open('post', test, true);
-                request.responseType = 'document';
-                request.send();
-
-                request.onreadystatechange = function()
-                {
-                    if (request.readyState == 4 && request.status == 200)
-                    {
-                        console.log(request.responseText);
-                    }
-                }
-
-            }
+                console.log(str);
+            });
 
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
