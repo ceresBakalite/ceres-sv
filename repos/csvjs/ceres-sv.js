@@ -31,7 +31,7 @@ window.ceres = {};
             //el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) node.setAttribute(item, item[i]); });
 
             Object.entries(el).forEach(([key, value]) => {
-                console.log(key + ' - ' + value);
+                console.log(key + ' - ' + key[value]);
             });
 
             if (el.id) node.setAttribute('id', el.id);
