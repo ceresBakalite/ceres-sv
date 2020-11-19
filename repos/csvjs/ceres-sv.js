@@ -105,6 +105,7 @@ window.ceres = {};
                 console.log('test 8: ' + obj.text);
 
                 let test = JSON.parse(obj.text);
+
                 var details = test.map(function(detail) {
                     return [detail.url, detail.text];
                 });
