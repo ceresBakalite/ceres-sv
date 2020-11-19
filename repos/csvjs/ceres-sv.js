@@ -23,22 +23,23 @@ window.ceres = {};
         this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
 
-        this.composeElement = function(el)
+        this.composeElement = function(el, atr)
         {
             const precursor = this.attrib.tag.includes(el.type.trim().toUpperCase()) ? document.head : el.parent;
             const node = document.createElement(el.type);
 
             //el.forEach((item, i) => { if (!this.isEmptyOrNull(item[i])) node.setAttribute(item, item[i]); });
 
-            Object.entries(el).forEach(([key, value]) => {
+            Object.entries(atr).forEach(([key, value]) => {
                 console.log(key + ' - ' + key[value]);
             });
 
-            if (el.id) node.setAttribute('id', el.id);
-            if (el.className) node.setAttribute('class', el.className);
-            if (el.onClick) node.setAttribute('onclick', el.onClick);
-            if (el.src) node.setAttribute('src', el.src);
-            if (el.alt) node.setAttribute('alt', el.alt);
+            if (atr.id) node.setAttribute('id', el.id);
+            if (atr.className) node.setAttribute('class', el.className);
+            if (atr.onClick) node.setAttribute('onclick', el.onClick);
+            if (atr.src) node.setAttribute('src', el.src);
+            if (atr.alt) node.setAttribute('alt', el.alt);
+
             if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
             precursor.appendChild(node);
@@ -361,13 +362,13 @@ window.ceres = {};
 
                             imageContainer.appendChild(slideContainer);
 
-                            if (cfg.attrib.sur) rsc.composeElement({ type: 'div', className: 'surtitle', parent: slideContainer, markup: getSurtitle() });
-                            rsc.composeElement({ type: 'img', className: 'slide', parent: slideContainer, onClick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
-                            if (cfg.attrib.sub) rsc.composeElement({ type: 'div', className: 'subtitle', parent: slideContainer, markup: getSubtitle() });
+                            if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSurtitle() }, { class: 'surtitle' });
+                            rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
+                            if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
                         }
 
-                        rsc.composeElement({ type: 'a', className: getActiveState('left'), parent: imageContainer, markup: '&#10094;', onClick: getClickEvent() });
-                        rsc.composeElement({ type: 'a', className: getActiveState('right'), parent: imageContainer, markup: '&#10095;', onClick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' },  { class: getActiveState('left'), onclick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
                     }
 
                     // The nub track is hidden in auto mode
@@ -381,7 +382,7 @@ window.ceres = {};
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ type: 'span', id: 'nub' + (++index), className: 'nub', parent: trackContainer, onClick: getClickEvent() });
+                            rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
                         }
 
                     }
