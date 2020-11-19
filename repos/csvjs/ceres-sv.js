@@ -94,13 +94,19 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.parseText = function(text, regex)
+        this.parseText = function(obj)
         {
-            if (this.isEmptyOrNull(text)) return;
+            if (this.isEmptyOrNull(obj.text)) return;
 
-            if (regex || text.includes('</template>')) return text.replace(this.attrib.markup, '');
+            if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
-            let doc = new DOMParser().parseFromString(text, 'text/html');
+            if (obj.json)
+            {
+                let test = JSON.parse(obj.text);
+                return test;
+            }
+
+            let doc = new DOMParser().parseFromString(obj.text, 'text/html');
             return doc.body.textContent || doc.body.innerText;
         }
 
@@ -166,13 +172,11 @@ window.ceres = {};
 
             configureAttributes();
 
-            let test = 'https://ceresbakalite.github.io/similarity/images.json';
-
             //fetch(test)
             //  .then(response => response.json())
             //  .then(data => console.log(data));
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( await ( await fetch(cfg.src) ).text() ));
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( { text: await ( await fetch(cfg.src) ).text(), json: (cfg.src.includes('.json')) } ));
             if (atr.hasProperties()) atr.activate();
 
             function configureAttributes()
