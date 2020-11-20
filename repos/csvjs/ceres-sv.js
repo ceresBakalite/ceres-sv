@@ -381,6 +381,7 @@ window.ceres = {};
 
                     this.parseJSON = function(textList, jsonList = '')
                     {
+                        console.log('hello');
                         if (cfg.fetchsrc && (!cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) == '.json')) return textList;
 
                         let json = JSON.parse(textList);
