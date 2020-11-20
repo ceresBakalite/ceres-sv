@@ -173,7 +173,7 @@ window.ceres = {};
             function configureAttributes()
             {
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src = String(csvNode.getAttribute('src')).trim() || null;
+                cfg.src = String(csvNode.getAttribute('src')).trim();
                 cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.attrib = {};
