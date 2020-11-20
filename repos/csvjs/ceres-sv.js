@@ -102,8 +102,11 @@ window.ceres = {};
 
             let jsonList = function(list = '')
             {
-                let response = JSON.parse(obj.text);
-                for (let i = 0; i < response.data.length; i++) { list += response.data[i].url + ', ' + response.data[i].text + '\n'; }
+                let json = JSON.parse(obj.text);
+
+                json.forEach((item) => { list += item.url + ', ' + item.text + '\n'; });
+
+                //for (let i = 0; i < ar.data.length; i++) { list += ar.data[i].url + ', ' + ar.data[i].text + '\n'; }
                 return list;
             }
 
