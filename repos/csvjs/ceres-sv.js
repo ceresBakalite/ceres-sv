@@ -173,7 +173,7 @@ window.ceres = {};
             function configureAttributes()
             {
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src = String(csvNode.getAttribute('src')).trim();
+                cfg.src = csvNode.getAttribute('src') || null;
                 cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.attrib = {};
@@ -381,7 +381,7 @@ window.ceres = {};
 
                     this.parseJSON = function(textList, jsonList = '')
                     {
-                        console.log('hello 2');
+                        console.log('hello 3');
                         if (cfg.fetchsrc)
                         {
                           if (!cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) == '.json') return textList;
