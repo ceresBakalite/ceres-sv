@@ -100,14 +100,14 @@ window.ceres = {};
 
             if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
-            let parseJSON = function(list = null)
+            let jsonList = function(list = '')
             {
                 let response = JSON.parse(obj.text);
                 for (let i = 0; i < response.data.length; i++) { list += response.data[i].url + ', ' + response.data[i].text + rsc.newline; }
-                return list;
+                return list.textContent;
             }
 
-            if (obj.json) return parseJSON();
+            if (obj.json) return jsonList();
 
             let doc = new DOMParser().parseFromString(obj.text, 'text/html');
             return doc.body.textContent || doc.body.innerText;
