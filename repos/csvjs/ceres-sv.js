@@ -100,28 +100,14 @@ window.ceres = {};
 
             if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
-            if (obj.json)
+            let parseJSON = function(list = null)
             {
-                console.log('test 13: ' + obj.text);
-
-                let test = JSON.parse(obj.text);
-
-                for (let i = 0; i < test.data.length; i++)
-                {
-                    console.log(test.data[i].url + ', ' + test.data[i].text);
-                }
-
-                //console.log(test.data[i].url + ', ' + test.data[i].text);
-
-/*
-                let test = JSON.parse(obj.text);
-
-                var details = test.map(function(detail) {
-                    return [detail.url, detail.text];
-                });
-*/
-
+                let response = JSON.parse(obj.text);
+                for (let i = 0; i < response.data.length; i++) { list += response.data[i].url + ', ' + response.data[i].text + rsc.newline; }
+                return list;
             }
+
+            if (obj.json) return parseJSON();
 
             let doc = new DOMParser().parseFromString(obj.text, 'text/html');
             return doc.body.textContent || doc.body.innerText;
