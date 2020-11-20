@@ -103,7 +103,7 @@ window.ceres = {};
             let jsonList = function(list = '')
             {
                 let response = JSON.parse(obj.text);
-                for (let i = 0; i < response.data.length; i++) { list += response.data[i].url + ', ' + response.data[i].text + rsc.newline; }
+                for (let i = 0; i < response.data.length; i++) { list += response.data[i].url + ', ' + response.data[i].text + ' '; }
                 return list;
             }
 
