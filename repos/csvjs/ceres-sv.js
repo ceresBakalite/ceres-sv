@@ -100,17 +100,12 @@ window.ceres = {};
 
             if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
-            let jsonList = function(list = '')
+            let parseJSON = function(json)
             {
-                let json = JSON.parse(obj.text);
-
-                json.forEach((item) => { list += item.url + ', ' + item.text + '\n'; });
-
-                //for (let i = 0; i < ar.data.length; i++) { list += ar.data[i].url + ', ' + ar.data[i].text + '\n'; }
-                return list;
+                json.forEach((node) => { obj.text += node.url + ', ' + node.text + '\n'; });
             }
 
-            if (obj.json) obj.text = jsonList();
+            if (obj.json) parseJSON(JSON.parse(obj.text), obj.text = '');
 
             let doc = new DOMParser().parseFromString(obj.text, 'text/html');
             return doc.body.textContent || doc.body.innerText;
