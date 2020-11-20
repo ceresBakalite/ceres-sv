@@ -100,13 +100,6 @@ window.ceres = {};
 
             if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
-            let parseJSON = function(json)
-            {
-                json.forEach((node) => { obj.text += node.url + ', ' + node.text + '\n'; });
-            }
-
-            if (obj.json) parseJSON(JSON.parse(obj.text), obj.text = '');
-
             let doc = new DOMParser().parseFromString(obj.text, 'text/html');
             return doc.body.textContent || doc.body.innerText;
         }
@@ -173,15 +166,7 @@ window.ceres = {};
 
             configureAttributes();
 
-            //fetch(test)
-            //  .then(response => response.json())
-            //  .then(data => console.log(data));
-
-            if (cfg.fetchsrc)
-            {
-                let test = await ( await fetch(cfg.src) ).text();
-                csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( { text: test, json: (cfg.src.includes('.json')) } ));
-            }
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( { text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) } ));
 
             if (atr.hasProperties()) atr.activate();
 
@@ -392,6 +377,16 @@ window.ceres = {};
                             rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
                         }
 
+                    }
+
+                    this.parseJSON = function(textList, jsonList = '')
+                    {
+                        if (!cfg.src.substring(cfg.src.lastIndexOf('.')+1, cfg.src.length) == '.json') return textList;
+
+                        let json = JSON.parse(textList);
+                        json.forEach((node) => { jsonList += node.url + ', ' + node.text + '\n'; });
+
+                        return jsonList;
                     }
 
                     this.insertCache = function() // cache a range of response.status values (200, 304 etc)
