@@ -102,12 +102,12 @@ window.ceres = {};
 
             if (obj.json)
             {
-                console.log('test 14: ' + obj.text);
+                console.log('test 15: ' + obj.text);
 
                 let test = JSON.parse(obj.text);
 
-                test.data.forEach((item) => {
-                    console.log(test.data[item].url + ', ' + test.data[item].text);
+                test.data.forEach((item, i) => {
+                    console.log(item[i].url + ', ' + item[i].text);
                 });
 
 /*
