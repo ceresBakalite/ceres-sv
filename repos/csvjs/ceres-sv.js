@@ -106,7 +106,7 @@ window.ceres = {};
 
                 let test = JSON.parse(obj.text);
 
-                for (let i = 0; i < test.length; i++)
+                for (let i = 0; i < test.data.length; i++)
                 {
                     console.log(test.data[i].url + ', ' + test.data[i].text);
                 }
