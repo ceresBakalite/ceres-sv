@@ -102,9 +102,9 @@ window.ceres = {};
 
             if (obj.json)
             {
-                console.log('test 10: ' + obj.text);
+                console.log('test 11: ' + obj.text);
 
-                let test = JSON.parse(obj.text);
+                let test = JSON.stringify(obj.text);
                 let str = '';
 
                 Object.entries(test).forEach(([key, value]) => { str += key + ', ' + value + rsc.newline; });
