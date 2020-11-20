@@ -382,8 +382,9 @@ window.ceres = {};
                     this.parseJSON = function(textList, jsonList = '')
                     {
                         console.log('test: ' + cfg.src.substring(cfg.src.lastIndexOf('.')+1, cfg.src.length));
-                        if (!cfg.src.substring(cfg.src.lastIndexOf('.')+1, cfg.src.length) == '.json') return textList;
-
+                        //if (!cfg.src.substring(cfg.src.lastIndexOf('.')+1, cfg.src.length) == '.json') return textList;
+                        return textList;
+                        
                         let json = JSON.parse(textList);
                         json.forEach((node) => { jsonList += node.url + ', ' + node.text + '\n'; });
 
