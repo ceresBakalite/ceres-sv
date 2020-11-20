@@ -458,8 +458,10 @@ window.ceres = {};
 
                             let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
+console.log('embed: ' + document.getElementById(cfg.attrib.embed));
                             if (rsc.isEmptyOrNull(el))
                             {
+console.log('empty');
                                 rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                             }
