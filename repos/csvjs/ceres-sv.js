@@ -105,11 +105,7 @@ window.ceres = {};
                 console.log('test 13: ' + obj.text);
 
                 let test = JSON.parse(obj.text);
-                let str = '';
-                Object.entries(JSON.stringify(test)).forEach(([key, value]) => { str += key + ', ' + value + rsc.newline; });
-
-
-                console.log('str: ' + str);
+                console.log(test.data[0].url + " " + test.data[0].text);
 /*
                 let test = JSON.parse(obj.text);
 
@@ -117,7 +113,6 @@ window.ceres = {};
                     return [detail.url, detail.text];
                 });
 */
-                console.log('details: ' + details);
 
             }
 
