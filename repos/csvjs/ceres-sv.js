@@ -104,10 +104,10 @@ window.ceres = {};
             {
                 let response = JSON.parse(obj.text);
                 for (let i = 0; i < response.data.length; i++) { list += response.data[i].url + ', ' + response.data[i].text + rsc.newline; }
-                return list.textContent;
+                return list;
             }
 
-            if (obj.json) return jsonList();
+            if (obj.json) obj.text = jsonList();
 
             let doc = new DOMParser().parseFromString(obj.text, 'text/html');
             return doc.body.textContent || doc.body.innerText;
