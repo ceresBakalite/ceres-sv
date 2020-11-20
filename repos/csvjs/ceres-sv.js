@@ -179,6 +179,8 @@ window.ceres = {};
                 cfg.attrib = {};
                 cfg.slide = 1;
 
+                cfg.src = (cfg.fetchsrc) ? cfg.src.trim() : null;
+
                 (function() {
 
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
@@ -381,9 +383,7 @@ window.ceres = {};
 
                     this.parseJSON = function(textList, jsonList = '')
                     {
-console.log('cfg.src: ' + cfg.src)
                         if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
-console.log('why' + cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) + ' - ' + (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json'))
 
                         let json = JSON.parse(textList);
                         json.forEach((node) => { jsonList += node.url + ', ' + node.text + '\n'; });
@@ -460,10 +460,8 @@ console.log('why' + cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) 
 
                             let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
-console.log('embed: ' + document.getElementById(cfg.attrib.embed));
                             if (rsc.isEmptyOrNull(el))
                             {
-console.log('empty');
                                 rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
                                 el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                             }
