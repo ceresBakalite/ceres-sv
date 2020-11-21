@@ -357,8 +357,7 @@ window.ceres = {};
                             imageContainer.appendChild(slideContainer);
 
                             if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSurtitle() }, { class: 'surtitle' });
-                            //rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
-                            rsc.composeElement({ type: 'span', parent: slideContainer }, { class: 'slide', markup: getAccessibilityText() });
+                            rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
                             if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
                         }
 
