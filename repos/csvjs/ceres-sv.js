@@ -172,10 +172,10 @@ window.ceres = {};
 
             function configureAttributes()
             {
-                let src = csvNode.getAttribute('src');
+                const srcNode = csvNode.getAttribute('src');
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src = rsc.isEmptyOrNull(src) ? null : src.trim();
+                cfg.src = rsc.isEmptyOrNull(srcNode) ? null : srcNode.trim();
                 cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.attrib = {};
