@@ -164,6 +164,8 @@ window.ceres = {};
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
 
+console.log('csvNode.src: ' + csvNode.src);
+
             configureAttributes();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( { text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) } ));
