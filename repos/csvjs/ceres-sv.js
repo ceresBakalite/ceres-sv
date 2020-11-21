@@ -40,7 +40,7 @@ window.ceres = {};
         {
             if (!touch.act) touch.act = 80;
 
-            touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true } );
+            touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
             touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
             touch.node.addEventListener('touchend', e =>
             {
@@ -166,7 +166,7 @@ window.ceres = {};
 
             configureAttributes();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText( { text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) } ));
+            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
             if (atr.hasProperties()) atr.activate();
 
@@ -206,7 +206,7 @@ window.ceres = {};
 
                         rsc.clearElement(cfg.shade);
 
-                        cfg.shade.attachShadow({mode: 'open'});
+                        cfg.shade.attachShadow({ mode: 'open' });
                         cfg.shadow = cfg.shade.shadowRoot;
 
                         this.setStyleAttributes();
@@ -217,7 +217,7 @@ window.ceres = {};
                         cfg.shadow.append(cfg.styleContainer);
                         cfg.shadow.append(cfg.bodyContainer);
 
-                        if (cfg.attrib.static) rsc.setHorizontalSwipe( { node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 } );
+                        if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
 
                         rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
@@ -504,9 +504,9 @@ window.ceres = {};
                             cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
                             cfg.attrib.trace = rsc.getBooleanAttribute(csvNode.getAttribute('trace')); // disabled
                             cfg.attrib.cache = !rsc.getBooleanAttribute(csvNode.getAttribute('cache')); // enabled
-                            cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled;
+                            cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled
                             cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
-                            cfg.attrib.zoom = getZoomState(); // enabled;
+                            cfg.attrib.zoom = getZoomState(); // enabled
                             cfg.attrib.static = getStaticProperties(); // enabled
                             cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
 
