@@ -401,6 +401,8 @@ window.ceres = {};
                         const cacheName = csv + '-cache';
                         const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
 
+console.log('test: ' + urlArray);
+
                         urlArray.forEach(url =>
                         {
                             fetch(url).then(response =>
