@@ -202,7 +202,8 @@ window.ceres = {};
                     this.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
-                        cfg.shade.visibility = 'hidden';
+                        //cfg.shade.visibility = 'hidden';
+                        cfg.shade.style.display = 'none';
 
                         rsc.clearElement(cfg.shade);
 
