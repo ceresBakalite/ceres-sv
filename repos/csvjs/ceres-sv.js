@@ -359,11 +359,10 @@ window.ceres = {};
                         rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
                     }
 
-                    // The nub track is hidden in auto mode
                     this.setTrackAttributes = function(index = 0)
                     {
                         cfg.trackContainer = document.createElement('div');
-                        cfg.trackContainer.className = getActiveState('slideview-nub none');
+                        cfg.trackContainer.className = 'slideview-nub none';
                         cfg.bodyContainer.appendChild(cfg.trackContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
