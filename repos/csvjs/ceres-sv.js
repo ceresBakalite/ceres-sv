@@ -202,7 +202,7 @@ window.ceres = {};
                     this.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
-                        cfg.shade.style.display = 'none';
+                        //cfg.shade.style.display = 'none';
 
                         rsc.clearElement(cfg.shade);
 
@@ -270,7 +270,7 @@ window.ceres = {};
                         setTimeout(function()
                         {
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-                            cfg.shade.style.display = 'block';
+                            //cfg.shade.style.display = 'block';
 
                         }, cfg.attrib.delay);
 
