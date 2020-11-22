@@ -212,13 +212,6 @@ window.ceres = {};
                         this.setBodyAttributes();
                         this.setImageAttributes();
                         this.setTrackAttributes();
-
-                        cfg.shadow.append(cfg.styleContainer);
-                        cfg.shadow.append(cfg.bodyContainer);
-
-                        if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
-
-                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
 
                     this.setSlide = function(node, shadow)
@@ -266,6 +259,13 @@ window.ceres = {};
 
                     this.setView = function()
                     {
+                        cfg.shadow.append(cfg.styleContainer);
+                        cfg.shadow.append(cfg.bodyContainer);
+
+                        if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
+
+                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
+
                         setTimeout(function()
                         {
                             cfg.bodyContainer.style.display = 'block';
