@@ -364,7 +364,7 @@ window.ceres = {};
                     {
                         cfg.trackContainer = document.createElement('div');
                         cfg.trackContainer.className = getActiveState('slideview-nub none');
-                        cfg.bodyContainer.appendChild(trackContainer);
+                        cfg.bodyContainer.appendChild(cfg.trackContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
