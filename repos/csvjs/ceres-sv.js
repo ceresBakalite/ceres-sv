@@ -160,7 +160,7 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { atr.setSlide(el); }; // global scope method reference
 
-            const csvNode = this; // csv root node of a DOM subtree
+            const csvNode = ceres.this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
 
