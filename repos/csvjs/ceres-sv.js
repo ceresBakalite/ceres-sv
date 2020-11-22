@@ -213,8 +213,8 @@ window.ceres = {};
                         this.setImageAttributes();
                         this.setTrackAttributes();
 
-                        cfg.shadow.append(cfg.styleContainer);
-                        cfg.shadow.append(cfg.bodyContainer);
+                        //cfg.shadow.append(cfg.styleContainer);
+                        //cfg.shadow.append(cfg.bodyContainer);
 
                         if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
 
@@ -273,6 +273,9 @@ window.ceres = {};
 
                         }, cfg.attrib.delay);
 
+                        cfg.shadow.append(cfg.styleContainer);
+                        cfg.shadow.append(cfg.bodyContainer);
+
                         if (cfg.attrib.cache) this.insertCache();
                     }
 
@@ -293,9 +296,9 @@ window.ceres = {};
 
                     this.setStyleAttributes = function()
                     {
-                        const styleContainer = document.createElement('style');
-                        styleContainer.className = 'slideview-style';
-                        cfg.shade.appendChild(styleContainer);
+                        cfg.styleContainer = document.createElement('style');
+                        cfg.styleContainer.className = 'slideview-style';
+                        cfg.shade.appendChild(cfg.styleContainer);
 
                         cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
@@ -303,7 +306,7 @@ window.ceres = {};
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
-                                styleContainer.insertAdjacentHTML('beforeend', str)
+                                cfg.styleContainer.insertAdjacentHTML('beforeend', str)
                             });
 
                         });
