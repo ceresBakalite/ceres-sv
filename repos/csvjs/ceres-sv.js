@@ -9,7 +9,7 @@
  *
  * Copyright (c) 2020 Alexander Munro
 */
-var ceres = {};
+const ceres = {};
 (function()
 {
     'use strict'; // for conformity - strict by default
@@ -571,4 +571,4 @@ var ceres = {};
 
     }); // end HTMLElement extension
 
-})();
+}).call(ceres);
