@@ -14,8 +14,6 @@ window.ceres = {};
 {
     'use strict'; // for conformity - strict by default
 
-    const csv = 'ceres-sv'; // required ceres slideview html custom element
-
     const rsc = {}; // generic resource methods
     (function() {
 
@@ -153,7 +151,7 @@ window.ceres = {};
 
     }).call(rsc); // end resource allocation
 
-    window.customElements.get(csv) || window.customElements.define(csv, class extends HTMLElement
+    window.customElements.get('ceres-sv') || window.customElements.define('ceres-sv', class extends HTMLElement
     {
         async connectedCallback()
         {
@@ -172,6 +170,10 @@ window.ceres = {};
 
             function configureAttributes()
             {
+console.log('csvNode.tagName: ' + csvNode.tagName);
+
+                const csv = 'ceres-sv'; // required ceres slideview html custom element
+
                 csvNode.src = csvNode.getAttribute('src');
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
