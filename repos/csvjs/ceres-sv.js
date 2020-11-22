@@ -151,7 +151,6 @@ window.ceres = {};
 
     }).call(rsc); // end resource allocation
 
-    //window.customElements.get('ceres-sv') || window.customElements.define('ceres-sv', class extends HTMLElement
     window.customElements.define('ceres-sv', class extends HTMLElement
     {
         async connectedCallback()
@@ -171,8 +170,6 @@ window.ceres = {};
 
             function configureAttributes()
             {
-                const csv = csvNode.tagName.toLowerCase();
-
                 csvNode.src = csvNode.getAttribute('src');
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
@@ -186,15 +183,16 @@ window.ceres = {};
 
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
+                    const tag = csvNode.tagName.toLocaleLowerCase();
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
                         imageMarkup      : 'Image list markup ',
                         configAttributes : 'The element attributes ',
-                        templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
+                        templateSearch   : 'The ' + tag + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
                         elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
-                        precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                        fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
+                        precursorError   : 'Error: Unable to find the ' + tag + ' document element',
+                        fetchListError   : 'Error: Unable to find either the fetch ' + tag + ' nor the fallback template elements',
                         templateError    : 'Error: Unable to find the fallback template element when searching the document body',
                         cacheWarning     : 'Warning: cache response status '
                     };
@@ -296,7 +294,7 @@ window.ceres = {};
                     this.setStyleAttributes = function()
                     {
                         cfg.styleContainer = document.createElement('style');
-                        cfg.styleContainer.id = csv + '-style';
+                        cfg.styleContainer.id = tag + '-style';
                         cfg.styleContainer.className = 'slideview-style';
 
                         cfg.shade.appendChild(cfg.styleContainer);
@@ -317,7 +315,7 @@ window.ceres = {};
                     this.setBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
-                        cfg.bodyContainer.id = csv + '-body';
+                        cfg.bodyContainer.id = tag + '-body';
                         cfg.bodyContainer.className = 'slideview-body';
                         cfg.bodyContainer.style.display = 'none';
 
@@ -342,7 +340,7 @@ window.ceres = {};
                         const slideContainerClassName = getClassName();
 
                         const imageContainer = document.createElement('div');
-                        imageContainer.id = csv + '-image';
+                        imageContainer.id = tag + '-image';
                         imageContainer.className = 'slideview-image';
 
                         cfg.bodyContainer.appendChild(imageContainer);
@@ -370,7 +368,7 @@ window.ceres = {};
                     this.setTrackAttributes = function(index = 0)
                     {
                         const trackContainer = document.createElement('div');
-                        trackContainer.id = csv + '-nub';
+                        trackContainer.id = tag + '-nub';
                         trackContainer.className = getActiveState('slideview-nub');
 
                         cfg.bodyContainer.appendChild(trackContainer);
@@ -398,7 +396,7 @@ window.ceres = {};
 
                         cfg.cachesrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
 
-                        const cacheName = csv + '-cache';
+                        const cacheName = tag + '-cache';
                         const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
 
                         urlArray.forEach(url =>
@@ -497,7 +495,7 @@ window.ceres = {};
 
                         if (exists)
                         {
-                            csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
+                            csvNode.id = rsc.getUniqueElementId({ name: tag, range: 1000 });
                             csvNode.setAttribute('class', 'none');
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
