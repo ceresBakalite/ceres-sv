@@ -266,16 +266,9 @@ window.ceres = {};
 
                     this.setView = function()
                     {
-                        let displayBlock = function()
-                        {
-                            cfg.bodyContainer.style.display = 'block';
-                            cfg.imageContainer.style.display = 'block';
-                            cfg.trackContainer.style.display = 'block';
-                        }
-
                         setTimeout(function()
                         {
-                            displayBlock();
+                            cfg.bodyContainer.style.display = 'block';
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
@@ -302,7 +295,6 @@ window.ceres = {};
                     {
                         cfg.styleContainer = document.createElement('style');
                         cfg.styleContainer.className = 'slideview-style';
-
                         cfg.shade.appendChild(cfg.styleContainer);
 
                         cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
@@ -323,7 +315,6 @@ window.ceres = {};
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.className = 'slideview-body';
                         cfg.bodyContainer.style.display = 'none';
-
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
@@ -346,8 +337,6 @@ window.ceres = {};
 
                         cfg.imageContainer = document.createElement('div');
                         cfg.imageContainer.className = 'slideview-image';
-                        cfg.imageContainer.style.display = "none";
-
                         cfg.bodyContainer.appendChild(cfg.imageContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
@@ -374,8 +363,6 @@ window.ceres = {};
                     {
                         cfg.trackContainer = document.createElement('div');
                         cfg.trackContainer.className = getActiveState('slideview-nub');
-                        cfg.trackContainer.style.display = "none";
-
                         cfg.bodyContainer.appendChild(cfg.trackContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
