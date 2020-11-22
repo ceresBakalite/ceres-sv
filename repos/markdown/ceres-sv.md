@@ -1,5 +1,3 @@
-<script type="module" src="https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js">
-</script>
 ## Welcome to ceres-sv
 
 ### *Very simple multi-image slide viewer*<div id="logo-container"><img id="logo-default" title="No readable content. Just a page logo" class="img-logo" align="right" src="/ceres-sv/images/CSV-02/Logo01.png"></div>
