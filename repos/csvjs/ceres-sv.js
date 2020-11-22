@@ -137,7 +137,7 @@ window.ceres = {};
             default     : 98,
             error       : 99,
             bArray      : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            tag         : ['link', 'script', 'style'],
+            tagArray    : ['link', 'script', 'style'],
             isWindows   : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
             whitespace  : /\s/g,
@@ -145,7 +145,7 @@ window.ceres = {};
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
-            get tagName() { return this.tag.map(item => { return item.trim().toUpperCase(); }) },
+            get tagName() { return this.tagArray.map(item => { return item.trim().toUpperCase(); }) },
             get metaUrl() { return import.meta.url; }
         }
 
