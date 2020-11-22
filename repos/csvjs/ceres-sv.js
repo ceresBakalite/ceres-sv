@@ -266,11 +266,16 @@ window.ceres = {};
 
                     this.setView = function()
                     {
-                        setTimeout(function()
+                        let displayBlock = function()
                         {
                             cfg.bodyContainer.style.display = 'block';
-                            //cfg.imageContainer.style.display = 'block';
-                            //cfg.trackContainer.style.display = 'block';
+                            cfg.imageContainer.style.display = 'block';
+                            cfg.trackContainer.style.display = 'block';
+                        }
+
+                        setTimeout(function()
+                        {
+                            displayBlock();
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
@@ -296,7 +301,6 @@ window.ceres = {};
                     this.setStyleAttributes = function()
                     {
                         cfg.styleContainer = document.createElement('style');
-                        //cfg.styleContainer.id = csv + '-style';
                         cfg.styleContainer.className = 'slideview-style';
 
                         cfg.shade.appendChild(cfg.styleContainer);
@@ -317,7 +321,6 @@ window.ceres = {};
                     this.setBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
-                        //cfg.bodyContainer.id = csv + '-body';
                         cfg.bodyContainer.className = 'slideview-body';
                         cfg.bodyContainer.style.display = 'none';
 
@@ -342,8 +345,8 @@ window.ceres = {};
                         const slideContainerClassName = getClassName();
 
                         cfg.imageContainer = document.createElement('div');
-                        //imageContainer.id = csv + '-image';
                         cfg.imageContainer.className = 'slideview-image';
+                        cfg.imageContainer.style.display = "none";
 
                         cfg.bodyContainer.appendChild(cfg.imageContainer);
 
@@ -370,8 +373,8 @@ window.ceres = {};
                     this.setTrackAttributes = function(index = 0)
                     {
                         cfg.trackContainer = document.createElement('div');
-                        //trackContainer.id = csv + '-nub';
                         cfg.trackContainer.className = getActiveState('slideview-nub');
+                        cfg.trackContainer.style.display = "none";
 
                         cfg.bodyContainer.appendChild(cfg.trackContainer);
 
