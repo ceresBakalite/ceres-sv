@@ -160,23 +160,23 @@ window.ceres = {};
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
             ceres.getSlide = function(el) { atr.setSlide(el); }; // global scope method reference
 
-            const csvNode = ceres.this; // csv root node of a DOM subtree
+            ceres.csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
 
             configureAttributes();
 
-            if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.fetchsrc) ceres.csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
             if (atr.hasProperties()) atr.activate();
 
             function configureAttributes()
             {
-                csvNode.src = csvNode.getAttribute('src');
+                ceres.csvNode.src = ceres.csvNode.getAttribute('src');
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src = rsc.isEmptyOrNull(csvNode.src) ? null : csvNode.src.trim();
-                cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
+                cfg.src = rsc.isEmptyOrNull(ceres.csvNode.src) ? null : ceres.csvNode.src.trim();
+                cfg.css = ceres.csvNode.getAttribute('css') || cfg.defaultCSS;
                 cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
                 cfg.attrib = {};
                 cfg.slide = 1;
@@ -202,7 +202,7 @@ window.ceres = {};
 
                     this.setShadow = function()
                     {
-                        cfg.shade = document.querySelector('#' + csvNode.id);
+                        cfg.shade = document.querySelector('#' + ceres.csvNode.id);
 
                         rsc.clearElement(cfg.shade);
 
@@ -440,17 +440,17 @@ window.ceres = {};
 
                     this.getPrecursor = function()
                     {
-                        const exists = !rsc.isEmptyOrNull(csvNode);
+                        const exists = !rsc.isEmptyOrNull(ceres.csvNode);
 
                         const getZoomState = function()
                         {
-                            let zoom = csvNode.getAttribute('zoom');
+                            let zoom = ceres.csvNode.getAttribute('zoom');
                             return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
                         }
 
                         const getTemplateId = function()
                         {
-                            let embed = csvNode.getAttribute('embed');
+                            let embed = ceres.csvNode.getAttribute('embed');
                             return rsc.isEmptyOrNull(embed) ? false : embed; // typeof boolean or typeof string
                         }
 
@@ -471,7 +471,7 @@ window.ceres = {};
 
                         const getStaticProperties = function()
                         {
-                            let auto = csvNode.getAttribute('auto');
+                            let auto = ceres.csvNode.getAttribute('auto');
 
                             if (rsc.isEmptyOrNull(auto)) return true;
 
@@ -496,16 +496,16 @@ window.ceres = {};
 
                         if (exists)
                         {
-                            csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
-                            csvNode.setAttribute('class', 'none');
+                            ceres.csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
+                            ceres.csvNode.setAttribute('class', 'none');
 
-                            cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
-                            cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
-                            cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
-                            cfg.attrib.trace = rsc.getBooleanAttribute(csvNode.getAttribute('trace')); // disabled
-                            cfg.attrib.cache = !rsc.getBooleanAttribute(csvNode.getAttribute('cache')); // enabled
-                            cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
+                            cfg.attrib.delay = Number.isInteger(parseInt(ceres.csvNode.getAttribute('delay'))) ? parseInt(ceres.csvNode.getAttribute('delay')) : 250;
+                            cfg.attrib.sur = rsc.getBooleanAttribute(ceres.csvNode.getAttribute('sur')); // disabled
+                            cfg.attrib.sub = rsc.getBooleanAttribute(ceres.csvNode.getAttribute('sub')); // disabled
+                            cfg.attrib.trace = rsc.getBooleanAttribute(ceres.csvNode.getAttribute('trace')); // disabled
+                            cfg.attrib.cache = !rsc.getBooleanAttribute(ceres.csvNode.getAttribute('cache')); // enabled
+                            cfg.attrib.fade = !rsc.getBooleanAttribute(ceres.csvNode.getAttribute('fade')); // enabled
+                            cfg.attrib.nub = !rsc.getBooleanAttribute(ceres.csvNode.getAttribute('nub')); // enabled
                             cfg.attrib.zoom = getZoomState(); // enabled
                             cfg.attrib.static = getStaticProperties(); // enabled
                             cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
@@ -522,13 +522,13 @@ window.ceres = {};
                     {
                         cfg.imageArray = null;
 
-                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + '[' + csvNode.id + '] ' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + '[' + ceres.csvNode.id + '] ' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                         const getImageList = function()
                         {
                             let shadowList = function()
                             {
-                                let content = csvNode.textContent;
+                                let content = ceres.csvNode.textContent;
                                 return (!rsc.isEmptyOrNull(content)) ? content : null;
                             }
 
@@ -551,7 +551,7 @@ window.ceres = {};
 
                             if (!rsc.isEmptyOrNull(imageList))
                             {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + '[' + (cfg.fetchsrc ? ceres.csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                 cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                             }
 
