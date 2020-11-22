@@ -269,6 +269,7 @@ window.ceres = {};
                         setTimeout(function()
                         {
                             cfg.bodyContainer.style.display = 'block';
+                            cfg.trackContainer.className = getActiveState('slideview-nub');
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
@@ -361,13 +362,13 @@ window.ceres = {};
                     // The nub track is hidden in auto mode
                     this.setTrackAttributes = function(index = 0)
                     {
-                        const trackContainer = document.createElement('div');
-                        trackContainer.className = getActiveState('slideview-nub none');
+                        cfg.trackContainer = document.createElement('div');
+                        cfg.trackContainer.className = getActiveState('slideview-nub none');
                         cfg.bodyContainer.appendChild(trackContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
+                            rsc.composeElement({ type: 'span', parent: cfg.trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
                         }
 
                     }
