@@ -151,7 +151,8 @@ window.ceres = {};
 
     }).call(rsc); // end resource allocation
 
-    window.customElements.get('ceres-sv') || window.customElements.define('ceres-sv', class extends HTMLElement
+    //window.customElements.get('ceres-sv') || window.customElements.define('ceres-sv', class extends HTMLElement
+    window.customElements.define('ceres-sv', class extends HTMLElement
     {
         async connectedCallback()
         {
@@ -170,9 +171,7 @@ window.ceres = {};
 
             function configureAttributes()
             {
-console.log('csvNode.tagName: ' + csvNode.tagName);
-
-                const csv = 'ceres-sv'; // required ceres slideview html custom element
+                const csv = csvNode.tagName.toLowerCase();
 
                 csvNode.src = csvNode.getAttribute('src');
 
