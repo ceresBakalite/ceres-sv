@@ -4,7 +4,9 @@
 
 **ceres-sv** is a simple means to display a series of images as a sliding view.  
 
+<div class="slideview-content">
 <ceres-sv trace="true" sur="true" src="https://ceresbakalite.github.io/ceres-sv/repos/markdown/keyvaluepair.json"></ceres-sv>
+</div>
 ***
 
 ### Data Repositories <img class="img-pointer" src="/ceres-sv/images/CSVPeriscope.png">
