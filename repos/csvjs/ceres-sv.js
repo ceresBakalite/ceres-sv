@@ -202,7 +202,6 @@ window.ceres = {};
                     this.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
-                        //cfg.shade.visibility = 'hidden';
                         cfg.shade.style.display = 'none';
 
                         rsc.clearElement(cfg.shade);
@@ -270,11 +269,8 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
-                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
                             cfg.shade.style.display = 'block';
-                            cfg.bodyContainer.style.display = 'block';
-                            cfg.trackContainer.className = getActiveState('slideview-nub');
-
+                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) this.insertCache();
@@ -318,7 +314,6 @@ window.ceres = {};
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.className = 'slideview-body';
-                        cfg.bodyContainer.style.display = 'none';
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
@@ -364,13 +359,13 @@ window.ceres = {};
 
                     this.setTrackAttributes = function(index = 0)
                     {
-                        cfg.trackContainer = document.createElement('div');
-                        cfg.trackContainer.className = 'slideview-nub none';
-                        cfg.bodyContainer.appendChild(cfg.trackContainer);
+                        const trackContainer = document.createElement('div');
+                        trackContainer.className = getActiveState('slideview-nub');
+                        cfg.bodyContainer.appendChild(trackContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ type: 'span', parent: cfg.trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
+                            rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
                         }
 
                     }
