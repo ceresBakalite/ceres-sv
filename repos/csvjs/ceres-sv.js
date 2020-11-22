@@ -213,8 +213,8 @@ window.ceres = {};
                         this.setImageAttributes();
                         this.setTrackAttributes();
 
-                        //cfg.shadow.append(cfg.styleContainer);
-                        //cfg.shadow.append(cfg.bodyContainer);
+                        cfg.shadow.append(cfg.styleContainer);
+                        cfg.shadow.append(cfg.bodyContainer);
 
                         if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
 
@@ -272,9 +272,6 @@ window.ceres = {};
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
-
-                        cfg.shadow.append(cfg.styleContainer);
-                        cfg.shadow.append(cfg.bodyContainer);
 
                         if (cfg.attrib.cache) this.insertCache();
                     }
