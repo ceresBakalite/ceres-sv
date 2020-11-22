@@ -268,9 +268,9 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
+                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
                             cfg.bodyContainer.style.display = 'block';
                             cfg.trackContainer.className = getActiveState('slideview-nub');
-                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
 
