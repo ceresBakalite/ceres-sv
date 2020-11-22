@@ -4,7 +4,7 @@
 
 **ceres-sv** is a simple means to display a series of images as a sliding view.  
 
-<iframe class="frame-container" title="Selected menu item document place holder" src="https://ceresbakalite.github.io/ceres-sv/repos/markdown/csvTest01.html"></iframe>
+<iframe class="frame-container" title="document place holder" src="https://ceresbakalite.github.io/ceres-sv/repos/markdown/csvTest01.html"></iframe>
 
 ***
 
