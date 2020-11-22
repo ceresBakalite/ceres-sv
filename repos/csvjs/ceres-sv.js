@@ -25,7 +25,7 @@ window.ceres = {};
         {
             if (!el.type) return;
 
-            const precursor = this.attrib.tag.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+            const precursor = this.attrib.tagName.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
             const node = document.createElement(el.type);
 
             Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
@@ -137,7 +137,7 @@ window.ceres = {};
             default     : 98,
             error       : 99,
             bArray      : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            tagName     : ['link', 'script', 'style'],
+            tag         : ['link', 'script', 'style'],
             isWindows   : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
             whitespace  : /\s/g,
@@ -145,7 +145,7 @@ window.ceres = {};
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
-            get tag() { return this.tagName.map(item => { return item.trim().toUpperCase(); }) },
+            get tagName() { return this.tag.map(item => { return item.trim().toUpperCase(); }) },
             get metaUrl() { return import.meta.url; }
         }
 
@@ -183,16 +183,16 @@ window.ceres = {};
 
                     const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
                     const getClickEvent = function() { return 'ceres.getSlide(this)'; }
-                    const tag = csvNode.tagName.toLocaleLowerCase();
+                    const csv = csvNode.tagName.toLocaleLowerCase();
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
                         imageMarkup      : 'Image list markup ',
                         configAttributes : 'The element attributes ',
-                        templateSearch   : 'The ' + tag + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
+                        templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
                         elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
-                        precursorError   : 'Error: Unable to find the ' + tag + ' document element',
-                        fetchListError   : 'Error: Unable to find either the fetch ' + tag + ' nor the fallback template elements',
+                        precursorError   : 'Error: Unable to find the ' + csv + ' document element',
+                        fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
                         templateError    : 'Error: Unable to find the fallback template element when searching the document body',
                         cacheWarning     : 'Warning: cache response status '
                     };
@@ -294,7 +294,7 @@ window.ceres = {};
                     this.setStyleAttributes = function()
                     {
                         cfg.styleContainer = document.createElement('style');
-                        cfg.styleContainer.id = tag + '-style';
+                        cfg.styleContainer.id = csv + '-style';
                         cfg.styleContainer.className = 'slideview-style';
 
                         cfg.shade.appendChild(cfg.styleContainer);
@@ -315,7 +315,7 @@ window.ceres = {};
                     this.setBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
-                        cfg.bodyContainer.id = tag + '-body';
+                        cfg.bodyContainer.id = csv + '-body';
                         cfg.bodyContainer.className = 'slideview-body';
                         cfg.bodyContainer.style.display = 'none';
 
@@ -340,7 +340,7 @@ window.ceres = {};
                         const slideContainerClassName = getClassName();
 
                         const imageContainer = document.createElement('div');
-                        imageContainer.id = tag + '-image';
+                        imageContainer.id = csv + '-image';
                         imageContainer.className = 'slideview-image';
 
                         cfg.bodyContainer.appendChild(imageContainer);
@@ -368,7 +368,7 @@ window.ceres = {};
                     this.setTrackAttributes = function(index = 0)
                     {
                         const trackContainer = document.createElement('div');
-                        trackContainer.id = tag + '-nub';
+                        trackContainer.id = csv + '-nub';
                         trackContainer.className = getActiveState('slideview-nub');
 
                         cfg.bodyContainer.appendChild(trackContainer);
@@ -396,7 +396,7 @@ window.ceres = {};
 
                         cfg.cachesrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
 
-                        const cacheName = tag + '-cache';
+                        const cacheName = csv + '-cache';
                         const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
 
                         urlArray.forEach(url =>
@@ -495,7 +495,7 @@ window.ceres = {};
 
                         if (exists)
                         {
-                            csvNode.id = rsc.getUniqueElementId({ name: tag, range: 1000 });
+                            csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
                             csvNode.setAttribute('class', 'none');
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
