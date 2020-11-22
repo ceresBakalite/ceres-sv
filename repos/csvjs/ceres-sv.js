@@ -171,6 +171,7 @@ window.ceres = {};
             function configureAttributes()
             {
                 csvNode.src = csvNode.getAttribute('src');
+                csvNode.visibility = 'hidden';
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.src = rsc.isEmptyOrNull(csvNode.src) ? null : csvNode.src.trim();
