@@ -269,8 +269,9 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
-                            cfg.shade.style.display = 'block';
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
+                            cfg.shade.style.display = 'block';
+
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) this.insertCache();
