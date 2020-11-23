@@ -222,11 +222,12 @@ window.ceres = {};
 
                     this.setSlide = function(args)
                     {
-                        //if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
-                        if (args.node) args.shadow = this.getShadow(args.node);
+                        if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
                         const slides = args.shadow.querySelectorAll('div.slideview-image > div.view');
 
                         cfg.slide = rsc.isEmptyOrNull(args.autoSlide) ? cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide : args.autoSlide;
+
+console.log('args.autoSlide: ' + args.autoSlide + ' cfg.slide: ' + cfg.slide);
 
                         const next = cfg.slide-1;
 
