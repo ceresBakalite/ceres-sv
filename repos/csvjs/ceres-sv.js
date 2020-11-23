@@ -171,7 +171,7 @@ window.ceres = {};
             function configureAttributes()
             {
                 csvNode.src = csvNode.getAttribute('src');
-                //csvNode.classList.add('none');
+                csvNode.classList.add('none');
                 csvNode.style.display = 'none';
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
@@ -270,8 +270,8 @@ window.ceres = {};
                         setTimeout(function()
                         {
                             csvNode.removeAttribute('style');
-                            //csvNode.classList.remove('none');
-                            //if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
+                            csvNode.classList.remove('none');
+                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
 
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
