@@ -12,9 +12,7 @@
 
 :host {}
 
-.slideview-body {
-    /* display: none; */
-}
+.slideview-body {}
 
 .slideview-body :first-child {
     margin-top: 0;
