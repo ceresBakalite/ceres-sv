@@ -214,7 +214,6 @@ window.ceres = {};
                         this.setImageAttributes();
                         this.setTrackAttributes();
 
-                        cfg.shadow.append(cfg.styleContainer);
                         cfg.shadow.append(cfg.bodyContainer);
 
                         if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
@@ -311,6 +310,7 @@ window.ceres = {};
 
                         });
 
+                        cfg.shadow.append(cfg.styleContainer);
                     }
 
                     this.setBodyAttributes = function()
@@ -362,7 +362,6 @@ window.ceres = {};
                         rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
                     }
 
-                    // The nub track is hidden in auto mode
                     this.setTrackAttributes = function(index = 0)
                     {
                         const trackContainer = document.createElement('div');
