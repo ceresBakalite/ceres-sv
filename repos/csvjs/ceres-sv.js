@@ -268,14 +268,14 @@ window.ceres = {};
                         {
                             csvNode.classList.remove('none');
                             console.log('csvNode.classList.length: ' + csvNode.classList.length);
-                            //if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
+                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
 
                         if (cfg.attrib.cache) this.insertCache();
 
-                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.attrib.notify, notification: csvNode, logtrace: cfg.attrib.trace });
                     }
 
                     this.hasProperties = function()
