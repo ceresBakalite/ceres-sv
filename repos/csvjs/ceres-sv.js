@@ -248,11 +248,11 @@ window.ceres = {};
                         let slide = 1;
 
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-console.log('complete: ' + complete);
                         let iteration = complete === 0 ? 0 : 1;
 
                         let autoCancel = function()
                         {
+                            console.log('complete: ' + complete + ' iteration: ' + iteration);
                             if (!cfg.attrib.autocancel) return (slide++, false); // never stops
                             return iteration === complete || (slide++, iteration++, false); // stops when complete
                         }
