@@ -244,6 +244,13 @@ window.ceres = {};
 
                     this.setAuto = function()
                     {
+                        const root = node.getRootNode().host;
+                        const shade = document.querySelector('#' + root.id);
+                        const shadow = shade.shadowRoot;
+                        const slide = shadow.querySelector('div.slideview-image > div.active');
+
+                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
 
@@ -266,7 +273,6 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
-
                             csvNode.classList.remove('none');
                             if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
 
