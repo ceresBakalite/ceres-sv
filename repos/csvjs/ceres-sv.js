@@ -288,6 +288,16 @@ window.ceres = {};
                         return this.attributesExist();
                     }
 
+                    this.hostSlide = function()
+                    {
+                        const root = node.getRootNode().host;
+                        const shade = document.querySelector('#' + root.id);
+                        const shadow = shade.shadowRoot;
+                        const slide = shadow.querySelector('div.slideview-image > div.active');
+
+                        return Number.parseInt(slide.id.replace('img', ''), 10);
+                    }
+
                     this.activate = function()
                     {
                         this.setShadow();
@@ -408,16 +418,6 @@ window.ceres = {};
 
                         });
 
-                    }
-
-                    this.hostSlide == function()
-                    {
-                        const root = node.getRootNode().host;
-                        const shade = document.querySelector('#' + root.id);
-                        const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.active');
-
-                        return Number.parseInt(slide.id.replace('img', ''), 10);
                     }
 
                     this.getSwipeCallback = function(swipe)
