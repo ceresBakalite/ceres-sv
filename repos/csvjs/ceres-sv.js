@@ -245,13 +245,15 @@ window.ceres = {};
 
                     this.setAuto = function()
                     {
-                        let slide = 1;
 
+                        const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.view');
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
+                        let slide = 1;
 
                         let autoCancel = function()
                         {
+                            slide = slide < 1 ? slides.length : slide > slides.length ? 1 : slide;
                             console.log('complete: ' + complete + ' iteration: ' + iteration);
                             if (!cfg.attrib.autocancel) return (slide++, false); // never stops
                             return iteration === complete || (slide++, iteration++, false); // stops when complete
