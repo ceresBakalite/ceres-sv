@@ -222,6 +222,8 @@ window.ceres = {};
 
                     this.setSlide = function(args)
                     {
+                        if (!args) args = {};
+                        
                         if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
                         const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
