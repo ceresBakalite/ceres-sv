@@ -225,7 +225,7 @@ window.ceres = {};
                         if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
                         const slides = args.shadow.querySelectorAll('div.slideview-image > div.view');
 
-                        cfg.slide = rsc.isEmptyOrNull(args.autoSlide) ? cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide : args.autoSlide;
+                        cfg.slide = rsc.isEmptyOrNull(args.autoSlide) ? cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide : args.autoSlide-1;
 
 console.log('args.autoSlide: ' + args.autoSlide + ' cfg.slide: ' + cfg.slide);
 
@@ -250,7 +250,7 @@ console.log('args.autoSlide: ' + args.autoSlide + ' cfg.slide: ' + cfg.slide);
                         const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.view');
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
-                        let autoslide = 0;
+                        let autoslide = 1;
 
                         let autoCancel = function()
                         {
