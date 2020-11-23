@@ -202,7 +202,6 @@ window.ceres = {};
                     this.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
-                        cfg.shade.style.display = 'none';
 
                         rsc.clearElement(cfg.shade);
 
@@ -269,7 +268,7 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
-                            cfg.shade.style.display = 'block';
+                            csvNode.style.display = 'block';
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
@@ -492,7 +491,8 @@ window.ceres = {};
                         if (exists)
                         {
                             csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
-                            csvNode.setAttribute('class', 'none');
+                            csvNode.style.display = 'none';
+
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
