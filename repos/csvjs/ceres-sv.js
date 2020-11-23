@@ -131,17 +131,17 @@ window.ceres = {};
 
         this.attrib =
         {
-            reference   : 1,
-            notify      : 2,
-            warn        : 3,
-            default     : 98,
-            error       : 99,
-            bArray      : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            tagArray    : ['link', 'script', 'style'],
-            isWindows   : (navigator.appVersion.indexOf('Win') != -1),
-            nonWordChars: '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
-            whitespace  : /\s/g,
-            markup      : /(<([^>]+)>)/ig,
+            reference    : 1,
+            notify       : 2,
+            warn         : 3,
+            default      : 98,
+            error        : 99,
+            bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
+            tagArray     : ['link', 'script', 'style'],
+            isWindows    : (navigator.appVersion.indexOf('Win') != -1),
+            nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
+            whitespace   : /\s/g,
+            markup       : /(<([^>]+)>)/ig,
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
@@ -225,7 +225,10 @@ window.ceres = {};
                         if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
                         const slides = args.shadow.querySelectorAll('div.slideview-image > div.view');
 
-                        cfg.slide = !rsc.isEmptyOrNull(args.autoslide) ? --args.autoslide : (cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide);
+                        cfg.slide = !rsc.isEmptyOrNull(args.autoslide) ? --args.autoslide
+                            : cfg.slide < 1 ? slides.length
+                            : cfg.slide > slides.length ? 1
+                            : cfg.slide;
 
                         const next = cfg.slide-1;
 
