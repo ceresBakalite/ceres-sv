@@ -275,7 +275,7 @@ window.ceres = {};
 
                         if (cfg.attrib.cache) this.insertCache();
 
-                        rsc.inspect({ type: rsc.attrib.notify, notification: csvNode, logtrace: cfg.attrib.trace });
+                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                     }
 
                     this.hasProperties = function()
