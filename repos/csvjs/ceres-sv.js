@@ -221,7 +221,7 @@ window.ceres = {};
 
                     this.setSlide = function(node, shadow)
                     {
-                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getShadow(node);
+                        if (rsc.isEmptyOrNull(shadow)) shadow = this.getShadow(node);
                         const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                         cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
@@ -288,9 +288,9 @@ window.ceres = {};
                         return this.attributesExist();
                     }
 
-                    this.hostSlide = function()
+                    this.hostSlide = function(node)
                     {
-                        const root = node.getRootNode().host;
+                        const root = rsc.isEmptyOrNull(node) ? cfg.shadow : node.getRootNode().host;
                         const shade = document.querySelector('#' + root.id);
                         const shadow = shade.shadowRoot;
                         const slide = shadow.querySelector('div.slideview-image > div.active');
@@ -430,7 +430,7 @@ window.ceres = {};
 
                     this.getShadow = function(node)
                     {
-                        cfg.slide = this.hostSlide();
+                        cfg.slide = this.hostSlide(node);
 
                         srm.set('left', cfg.slide - 1);
                         srm.set('right', cfg.slide + 1);
