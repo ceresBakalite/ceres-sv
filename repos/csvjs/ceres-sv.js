@@ -221,7 +221,7 @@ window.ceres = {};
 
                     this.setSlide = function(node, shadow)
                     {
-                        if (rsc.isEmptyOrNull(shadow)) shadow = this.getShadow(node);
+                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getShadow(node);
                         const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
                         cfg.slide = cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide;
@@ -244,7 +244,11 @@ window.ceres = {};
 
                     this.setAuto = function()
                     {
-                        cfg.slide = this.hostSlide();
+                        const shade = document.querySelector('#' + cfg.shade.id);
+                        const shadow = shade.shadowRoot;
+                        const slide = shadow.querySelector('div.slideview-image > div.active');
+
+                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
@@ -286,16 +290,6 @@ window.ceres = {};
                         if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
                         return this.attributesExist();
-                    }
-
-                    this.hostSlide = function(node)
-                    {
-                        const root = rsc.isEmptyOrNull(node) ? cfg.shadow : node.getRootNode().host;
-                        const shade = document.querySelector('#' + root.id);
-                        const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.active');
-
-                        return Number.parseInt(slide.id.replace('img', ''), 10);
                     }
 
                     this.activate = function()
@@ -430,7 +424,12 @@ window.ceres = {};
 
                     this.getShadow = function(node)
                     {
-                        cfg.slide = this.hostSlide(node);
+                        const root = node.getRootNode().host;
+                        const shade = document.querySelector('#' + root.id);
+                        const shadow = shade.shadowRoot;
+                        const slide = shadow.querySelector('div.slideview-image > div.active');
+
+                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
                         srm.set('left', cfg.slide - 1);
                         srm.set('right', cfg.slide + 1);
