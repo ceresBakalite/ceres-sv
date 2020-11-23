@@ -493,8 +493,6 @@ window.ceres = {};
                         if (exists)
                         {
                             csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
-                            csvNode.style.display = 'none';
-
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
