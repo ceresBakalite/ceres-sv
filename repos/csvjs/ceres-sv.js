@@ -265,7 +265,7 @@ console.log('args.autoSlide: ' + args.autoSlide + ' cfg.slide: ' + cfg.slide);
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.setSlide({ autoSlide: --autoslide });
+                            atr.setSlide({ autoSlide: autoslide-- });
 
                         }, cfg.attrib.autopause);
 
