@@ -13,7 +13,7 @@
 :host {}
 
 .slideview-body {
-    display: none;
+    /* display: none; */
 }
 
 .slideview-body :first-child {
