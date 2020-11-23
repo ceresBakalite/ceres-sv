@@ -245,7 +245,7 @@ window.ceres = {};
 
                     this.setAuto = function()
                     {
-                        cfg.slide = 0;
+                        cfg.slide = 1;
 
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
