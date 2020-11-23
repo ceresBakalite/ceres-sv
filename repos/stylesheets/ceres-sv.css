@@ -10,9 +10,13 @@
  * Copyright (c) 2020 Alexander Munro
 */
 
-:host {}
+:host {
+    visibility: hidden;
+}
 
-.slideview-body {}
+.slideview-body {
+    user-select: none;
+}
 
 .slideview-body :first-child {
     margin-top: 0;
