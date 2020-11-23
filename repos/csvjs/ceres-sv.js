@@ -267,6 +267,22 @@ window.ceres = {};
 
                     this.setView = function()
                     {
+                        let test = function()
+                        {
+                            var out = "";
+                            var elementStyle = csvNode.style;
+                            var computedStyle = window.getComputedStyle(csvNode, null);
+
+                            for (prop in elementStyle)
+                            {
+                                if (elementStyle.hasOwnProperty(prop))
+                                {
+                                    out += "  " + prop + " = '" + elementStyle[prop] + "' > '" + computedStyle[prop] + "'\n";
+                                }
+                            }
+                            console.log(out)
+                        }
+
                         setTimeout(function()
                         {
                             csvNode.classList.remove('none');
@@ -274,6 +290,7 @@ window.ceres = {};
 
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
+                            test();
                             csvNode.removeAttribute('style');
 
                         }, cfg.attrib.delay);
