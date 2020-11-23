@@ -248,8 +248,8 @@ console.log('args.autoSlide: ' + args.autoSlide + ' cfg.slide: ' + cfg.slide);
                     this.setAuto = function()
                     {
                         const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.view');
-                        const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? (cfg.imageArray.length * cfg.attrib.autocycle) + 1 : 0;
-                        let iteration = complete === 0 ? 0 : 1;
+                        const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                        let iteration = 0;
                         let autoslide = 1;
 
                         let autoCancel = function()
