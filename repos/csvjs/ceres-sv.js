@@ -171,7 +171,7 @@ window.ceres = {};
             function configureAttributes()
             {
                 csvNode.src = csvNode.getAttribute('src');
-                csvNode.className = 'none';
+                csvNode.classList.add('none');
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.src = rsc.isEmptyOrNull(csvNode.src) ? null : csvNode.src.trim();
@@ -231,9 +231,9 @@ window.ceres = {};
                         if (rsc.isEmptyOrNull(slides[next])) return;
 
                         const active = shadow.querySelector('div.slideview-image > div.active');
-                        if (active) active.className = active.className.replace('active', 'none');
+                        if (active) active.classList.replace('active', 'none');
 
-                        slides[next].className = slides[next].className.replace('none', 'active');
+                        slides[next].classList.replace('none', 'active');
 
                         const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
                         if (enabled) enabled.className = 'nub';
