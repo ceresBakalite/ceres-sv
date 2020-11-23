@@ -217,8 +217,6 @@ window.ceres = {};
                         cfg.shadow.append(cfg.bodyContainer);
 
                         if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
-
-                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
                     }
 
                     this.setSlide = function(node, shadow)
@@ -268,7 +266,8 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
-                            csvNode.classList.remove('none');
+                            csvNode.removeAttribute("class")
+                            rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shade, logtrace: cfg.attrib.trace });
 
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
