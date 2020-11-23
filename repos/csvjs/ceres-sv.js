@@ -242,19 +242,9 @@ window.ceres = {};
                         nub[next].className = 'nub enabled';
                     }
 
-                    this.hostSlide == function()
-                    {
-                        const root = node.getRootNode().host;
-                        const shade = document.querySelector('#' + root.id);
-                        const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.active');
-
-                        return Number.parseInt(slide.id.replace('img', ''), 10);
-                    }
-
                     this.setAuto = function()
                     {
-                        cfg.slide = hostSlide();
+                        cfg.slide = this.hostSlide();
 
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
@@ -420,6 +410,16 @@ window.ceres = {};
 
                     }
 
+                    this.hostSlide == function()
+                    {
+                        const root = node.getRootNode().host;
+                        const shade = document.querySelector('#' + root.id);
+                        const shadow = shade.shadowRoot;
+                        const slide = shadow.querySelector('div.slideview-image > div.active');
+
+                        return Number.parseInt(slide.id.replace('img', ''), 10);
+                    }
+
                     this.getSwipeCallback = function(swipe)
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
@@ -430,7 +430,7 @@ window.ceres = {};
 
                     this.getShadow = function(node)
                     {
-                        cfg.slide = hostSlide();
+                        cfg.slide = this.hostSlide();
 
                         srm.set('left', cfg.slide - 1);
                         srm.set('right', cfg.slide + 1);
