@@ -269,8 +269,7 @@ window.ceres = {};
                         setTimeout(function()
                         {
                             csvNode.style.display = 'block';
-                            cfg.bodyContainer.className = 'slideview-body';
-
+                            
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
@@ -316,7 +315,7 @@ window.ceres = {};
                     this.setBodyAttributes = function()
                     {
                         cfg.bodyContainer = document.createElement('div');
-                        cfg.bodyContainer.className = 'slideview-body none';
+                        cfg.bodyContainer.className = 'slideview-body';
 
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
