@@ -156,7 +156,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.setSlide({ node: el }); }; // global scope method reference
+            ceres.getSlide = function(el) { atr.setSlide(el); }; // global scope method reference
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
@@ -220,14 +220,12 @@ window.ceres = {};
                         if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
                     }
 
-                    this.setSlide = function(args)
+                    this.setSlide = function(node, shadow, autoSlide)
                     {
-                        if (!args.shadow) args.shadow = null;
-
-                        if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
+                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getShadow(node);
                         const slides = shadow.querySelectorAll('div.slideview-image > div.view');
 
-                        cfg.slide = rsc.isEmptyOrNull(args.slide) ? cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide : args.slide;
+                        cfg.slide = rsc.isEmptyOrNull(autoSlide) ? cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide : autoSlide;
 
                         const next = cfg.slide-1;
 
@@ -261,7 +259,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.setSlide({ slide: slide });
+                            atr.setSlide(null, null, slide);
 
                         }, cfg.attrib.autopause);
 
@@ -421,7 +419,7 @@ window.ceres = {};
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
 
-                        atr.setSlide({ shadow: cfg.shadow });
+                        atr.setSlide(null, cfg.shadow);
                     }
 
                     this.getShadow = function(node)
