@@ -267,7 +267,7 @@ window.ceres = {};
                         setTimeout(function()
                         {
                             csvNode.classList.remove('none'); 
-                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
+                            //if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
