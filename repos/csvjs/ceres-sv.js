@@ -156,7 +156,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.setSlide(el); }; // global scope method reference
+            ceres.getSlide = function(el) { atr.setSlide({ node: el }); }; // global scope method reference
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
@@ -220,26 +220,27 @@ window.ceres = {};
                         if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
                     }
 
-                    this.setSlide = function(node, shadow, autoSlide)
+                    //this.setSlide = function(node, shadow, autoSlide)
+                    this.setSlide = function(args)
                     {
-                        if (rsc.isEmptyOrNull(shadow)) shadow = rsc.isEmptyOrNull(node) ? cfg.shadow : this.getShadow(node);
-                        const slides = shadow.querySelectorAll('div.slideview-image > div.view');
+                        if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
+                        const slides = args.shadow.querySelectorAll('div.slideview-image > div.view');
 
-                        cfg.slide = rsc.isEmptyOrNull(autoSlide) ? cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide : autoSlide;
+                        cfg.slide = rsc.isEmptyOrNull(args.autoSlide) ? cfg.slide < 1 ? slides.length : cfg.slide > slides.length ? 1 : cfg.slide : args.autoSlide;
 
                         const next = cfg.slide-1;
 
                         if (rsc.isEmptyOrNull(slides[next])) return;
 
-                        const active = shadow.querySelector('div.slideview-image > div.active');
+                        const active = args.shadow.querySelector('div.slideview-image > div.active');
                         if (active) active.classList.replace('active', 'none');
 
                         slides[next].classList.replace('none', 'active');
 
-                        const enabled = shadow.querySelector('div.slideview-nub > span.enabled');
+                        const enabled = args.shadow.querySelector('div.slideview-nub > span.enabled');
                         if (enabled) enabled.className = 'nub';
 
-                        const nub = shadow.querySelectorAll('div.slideview-nub > span.nub');
+                        const nub = args.shadow.querySelectorAll('div.slideview-nub > span.nub');
                         nub[next].className = 'nub enabled';
                     }
 
@@ -261,7 +262,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.setSlide(null, null, autoslide);
+                            atr.setSlide({ autoslide: autoslide });
 
                         }, cfg.attrib.autopause);
 
@@ -421,7 +422,7 @@ window.ceres = {};
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
 
-                        atr.setSlide(null, cfg.shadow);
+                        atr.setSlide({ shadow: cfg.shadow });
                     }
 
                     this.getShadow = function(node)
