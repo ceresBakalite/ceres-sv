@@ -254,7 +254,7 @@ console.log('args.autoSlide: ' + args.autoSlide + ' cfg.slide: ' + cfg.slide);
 
                         let autoCancel = function()
                         {
-                            autoslide = autoslide === 0 ? 1
+                            autoslide = autoslide === 0 ? 0
                                 : autoslide < 1 ? slides.length
                                 : autoslide > slides.length ? 1
                                 : autoslide;
