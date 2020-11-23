@@ -274,7 +274,7 @@ window.ceres = {};
 
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
-                            csvNode.removeAttribute('style');
+                            csvNode.style.removeProperty('display');
 
                         }, cfg.attrib.delay);
 
