@@ -242,14 +242,19 @@ window.ceres = {};
                         nub[next].className = 'nub enabled';
                     }
 
-                    this.setAuto = function()
+                    this.hostSlide == function()
                     {
                         const root = node.getRootNode().host;
                         const shade = document.querySelector('#' + root.id);
                         const shadow = shade.shadowRoot;
                         const slide = shadow.querySelector('div.slideview-image > div.active');
 
-                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+                        return Number.parseInt(slide.id.replace('img', ''), 10);
+                    }
+
+                    this.setAuto = function()
+                    {
+                        cfg.slide = hostSlide();
 
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
@@ -425,12 +430,7 @@ window.ceres = {};
 
                     this.getShadow = function(node)
                     {
-                        const root = node.getRootNode().host;
-                        const shade = document.querySelector('#' + root.id);
-                        const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.active');
-
-                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+                        cfg.slide = hostSlide();
 
                         srm.set('left', cfg.slide - 1);
                         srm.set('right', cfg.slide + 1);
