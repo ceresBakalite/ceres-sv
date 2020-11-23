@@ -202,7 +202,6 @@ window.ceres = {};
                     this.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
-                        //cfg.shade.style.display = 'none';
 
                         rsc.clearElement(cfg.shade);
 
@@ -269,8 +268,8 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
+                            cfg.bodyContainer.style.display = 'block';
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-                            //cfg.shade.style.display = 'block';
 
                         }, cfg.attrib.delay);
 
@@ -296,6 +295,7 @@ window.ceres = {};
                     {
                         cfg.styleContainer = document.createElement('style');
                         cfg.styleContainer.className = 'slideview-style';
+
                         cfg.shade.appendChild(cfg.styleContainer);
 
                         cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
@@ -315,6 +315,8 @@ window.ceres = {};
                     {
                         cfg.bodyContainer = document.createElement('div');
                         cfg.bodyContainer.className = 'slideview-body';
+                        cfg.bodyContainer.style.display = 'none';
+
                         cfg.shade.appendChild(cfg.bodyContainer);
                     }
 
@@ -335,9 +337,9 @@ window.ceres = {};
                         const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
                         const slideContainerClassName = getClassName();
 
-                        const imageContainer = document.createElement('div');
-                        imageContainer.className = 'slideview-image';
-                        cfg.bodyContainer.appendChild(imageContainer);
+                        cfg.imageContainer = document.createElement('div');
+                        cfg.imageContainer.className = 'slideview-image';
+                        cfg.bodyContainer.appendChild(cfg.imageContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
@@ -347,26 +349,27 @@ window.ceres = {};
                             slideContainer.id = 'img' + (++index);
                             slideContainer.className = slideContainerClassName;
 
-                            imageContainer.appendChild(slideContainer);
+                            cfg.imageContainer.appendChild(slideContainer);
 
                             if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSurtitle() }, { class: 'surtitle' });
                             rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
                             if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
                         }
 
-                        rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' }, { class: getActiveState('left'), onclick: getClickEvent() });
-                        rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', parent: cfg.imageContainer, markup: '&#10094;' }, { class: getActiveState('left'), onclick: getClickEvent() });
+                        rsc.composeElement({ type: 'a', parent: cfg.imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
                     }
 
+                    // The nub track is hidden in auto mode
                     this.setTrackAttributes = function(index = 0)
                     {
-                        const trackContainer = document.createElement('div');
-                        trackContainer.className = getActiveState('slideview-nub');
-                        cfg.bodyContainer.appendChild(trackContainer);
+                        cfg.trackContainer = document.createElement('div');
+                        cfg.trackContainer.className = getActiveState('slideview-nub');
+                        cfg.bodyContainer.appendChild(cfg.trackContainer);
 
                         for (let item = 0; item < cfg.imageArray.length; item++)
                         {
-                            rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
+                            rsc.composeElement({ type: 'span', parent: cfg.trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
                         }
 
                     }
@@ -487,7 +490,7 @@ window.ceres = {};
                         if (exists)
                         {
                             csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
-                            //csvNode.setAttribute('class', 'none');
+                            csvNode.setAttribute('class', 'none');
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
                             cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
