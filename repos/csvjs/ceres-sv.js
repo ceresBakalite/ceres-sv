@@ -268,7 +268,7 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
-                            csvNode.style.display = 'block';
+                            //csvNode.style.display = 'block';
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
                         }, cfg.attrib.delay);
@@ -491,7 +491,7 @@ window.ceres = {};
                         if (exists)
                         {
                             csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
-                            csvNode.style.display = 'none';
+                            //csvNode.style.display = 'none';
 
 
                             cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
