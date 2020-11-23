@@ -268,7 +268,7 @@ window.ceres = {};
                     {
                         setTimeout(function()
                         {
-                            csvNode.className = 'view';
+                            csvNode.classList.remove('none');
 
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
 
