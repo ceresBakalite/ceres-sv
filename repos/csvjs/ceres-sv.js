@@ -244,11 +244,7 @@ window.ceres = {};
 
                     this.setAuto = function()
                     {
-                        const shade = document.querySelector('#' + cfg.shade.id);
-                        const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.active');
-
-                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+                        cfg.slide = 0;
 
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = complete === 0 ? 0 : 1;
