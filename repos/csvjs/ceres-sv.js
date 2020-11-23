@@ -298,7 +298,7 @@ window.ceres = {};
                     this.activate = function()
                     {
                         this.setShadow();
-                        this.setSlide({ shadow: null });
+                        this.setSlide({ shadow: cfg.shadow });
                         this.setView();
                     }
 
