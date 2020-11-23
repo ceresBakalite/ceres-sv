@@ -273,7 +273,7 @@ window.ceres = {};
                             var elementStyle = csvNode.style;
                             var computedStyle = window.getComputedStyle(csvNode, null);
 
-                            for (prop in elementStyle)
+                            for (let prop in elementStyle)
                             {
                                 if (elementStyle.hasOwnProperty(prop))
                                 {
