@@ -277,7 +277,7 @@ window.ceres = {};
                         setTimeout(function()
                         {
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-                            atr.displayState.clear();
+                            atr.displayState.show();
 
                         }, cfg.attrib.delay);
 
@@ -293,7 +293,7 @@ window.ceres = {};
                           csvNode.style.display = 'none';
                       },
 
-                      clear: function() {
+                      show: function() {
                           csvNode.classList.remove('none');
                           csvNode.style.removeProperty('display');
 
