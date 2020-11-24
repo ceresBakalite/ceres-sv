@@ -269,6 +269,7 @@ window.ceres = {};
                     {
                         const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.view');
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+
                         let iteration = 0;
                         let autoslide = 1;
 
@@ -336,12 +337,12 @@ window.ceres = {};
 
                     this.setImageAttributes = function(index = 0)
                     {
-                        const getClassName = function(className = 'view')
+                        const getClassName = function(className = 'none')
                         {
                             if (cfg.attrib.zoom) className += ' zoom';
                             if (cfg.attrib.fade) className += ' fade';
 
-                            return className += ' none';
+                            return className;
                         }
 
                         const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; };
