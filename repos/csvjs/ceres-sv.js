@@ -164,6 +164,8 @@ window.ceres = {};
 
             configureAttributes();
 
+            atr.displayState.hide();
+
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
             if (atr.hasProperties()) atr.activate();
@@ -270,6 +272,20 @@ window.ceres = {};
 
                     }
 
+                    this.setView = function()
+                    {
+                        setTimeout(function()
+                        {
+                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
+                            atr.displayState.clear();
+
+                        }, cfg.attrib.delay);
+
+                        if (cfg.attrib.cache) this.insertCache();
+
+                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
+                    }
+
                     this.displayState = {
 
                       hide: function() {
@@ -287,24 +303,8 @@ window.ceres = {};
 
                     };
 
-                    this.setView = function()
-                    {
-                        setTimeout(function()
-                        {
-                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-                            atr.displayState.clear();
-
-                        }, cfg.attrib.delay);
-
-                        if (cfg.attrib.cache) this.insertCache();
-
-                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
-                    }
-
                     this.hasProperties = function()
                     {
-                        this.displayState.hide();
-
                         if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
                         if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
