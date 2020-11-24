@@ -201,26 +201,26 @@ window.ceres = {};
 
                     Object.freeze(remark);
 
-                    this.setShadow = function()
-                    {
-                        cfg.shade = document.querySelector('#' + csvNode.id);
-
-                        rsc.clearElement(cfg.shade);
-
-                        cfg.shade.attachShadow({ mode: 'open' });
-                        cfg.shadow = cfg.shade.shadowRoot;
-
-                        this.setStyleAttributes();
-                        this.setBodyAttributes();
-                        this.setImageAttributes();
-                        this.setTrackAttributes();
-
-                        cfg.shadow.append(cfg.bodyContainer);
-
-                        if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
-                    }
-
                     this.view = {
+
+                        setShadow: function()
+                        {
+                            cfg.shade = document.querySelector('#' + csvNode.id);
+
+                            rsc.clearElement(cfg.shade);
+
+                            cfg.shade.attachShadow({ mode: 'open' });
+                            cfg.shadow = cfg.shade.shadowRoot;
+
+                            atr.setStyleAttributes();
+                            atr.setBodyAttributes();
+                            atr.setImageAttributes();
+                            atr.setTrackAttributes();
+
+                            cfg.shadow.append(cfg.bodyContainer);
+
+                            if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
+                        },
 
                         hasProperties: function()
                         {
@@ -232,7 +232,7 @@ window.ceres = {};
 
                         activate: function()
                         {
-                            atr.setShadow();
+                            this.setShadow();
                             this.setSlide({ shadow: cfg.shadow });
                             this.setView();
                         },
