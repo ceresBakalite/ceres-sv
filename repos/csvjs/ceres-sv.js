@@ -251,7 +251,8 @@ window.ceres = {};
                         const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.view');
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
                         let iteration = 0;
-                        let autoslide = 1;
+                        //let autoslide = 1;
+                        let autoslide = 0;
 
                         let autoCancel = function()
                         {
@@ -266,7 +267,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.setSlide({ autoslide: autoslide-1 });
+                            atr.setSlide({ autoslide: autoslide });
 
                         }, cfg.attrib.autopause);
 
