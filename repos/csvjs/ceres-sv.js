@@ -225,7 +225,7 @@ window.ceres = {};
                         if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
                         const slides = args.shadow.querySelectorAll('div.slideview-image > div.view');
 
-                        cfg.slide = !rsc.isEmptyOrNull(args.autoslide) ? --args.autoslide
+                        cfg.slide = !rsc.isEmptyOrNull(args.autoslide) ? args.autoslide
                             : cfg.slide < 1 ? slides.length
                             : cfg.slide > slides.length ? 1
                             : cfg.slide;
@@ -266,7 +266,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.setSlide({ autoslide: autoslide });
+                            atr.setSlide({ autoslide: autoslide-1 });
 
                         }, cfg.attrib.autopause);
 
