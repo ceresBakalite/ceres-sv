@@ -293,7 +293,7 @@ window.ceres = {};
                             if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
                             if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
-                            return this.attributesExist();
+                            return atr.attributesExist();
                         },
 
                         activate: function()
