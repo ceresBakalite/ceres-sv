@@ -199,8 +199,6 @@ window.ceres = {};
 
                     Object.freeze(remark);
 
-                    this.displayState.hide();
-
                     this.setShadow = function()
                     {
                         cfg.shade = document.querySelector('#' + csvNode.id);
@@ -305,6 +303,8 @@ window.ceres = {};
 
                     this.hasProperties = function()
                     {
+                        this.displayState.hide();
+
                         if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
                         if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
