@@ -164,7 +164,7 @@ window.ceres = {};
 
             configureAttributes();
 
-            atr.displayState.hide();
+            atr.setState.hide();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
@@ -296,7 +296,7 @@ window.ceres = {};
                         setTimeout(function()
                         {
                             if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-                            atr.displayState.show();
+                            atr.setState.show();
 
                         }, cfg.attrib.delay);
 
@@ -304,23 +304,6 @@ window.ceres = {};
 
                         rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                     }
-
-                    this.displayState = {
-
-                        hide: function() {
-                            csvNode.classList.add('none');
-                            csvNode.style.display = 'none';
-                        },
-
-                        show: function() {
-                            csvNode.classList.remove('none');
-                            csvNode.style.removeProperty('display');
-
-                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
-                            if (csvNode.style.length === 0) csvNode.removeAttribute("style");
-                        }
-
-                    };
 
                     this.setStyleAttributes = function()
                     {
@@ -405,6 +388,23 @@ window.ceres = {};
                         }
 
                     }
+
+                    this.setState = {
+
+                        hide: function() {
+                            csvNode.classList.add('none');
+                            csvNode.style.display = 'none';
+                        },
+
+                        show: function() {
+                            csvNode.classList.remove('none');
+                            csvNode.style.removeProperty('display');
+
+                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
+                            if (csvNode.style.length === 0) csvNode.removeAttribute("style");
+                        }
+
+                    };
 
                     this.parseJSON = function(textList, jsonList = '')
                     {
