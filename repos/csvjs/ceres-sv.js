@@ -286,6 +286,21 @@ window.ceres = {};
                         rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                     }
 
+                    this.hasProperties = function()
+                    {
+                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
+
+                        return this.attributesExist();
+                    }
+
+                    this.activate = function()
+                    {
+                        this.setShadow();
+                        this.setSlide({ shadow: cfg.shadow });
+                        this.setView();
+                    }
+
                     this.displayState = {
 
                       hide: function() {
@@ -302,21 +317,6 @@ window.ceres = {};
                       }
 
                     };
-
-                    this.hasProperties = function()
-                    {
-                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
-                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
-
-                        return this.attributesExist();
-                    }
-
-                    this.activate = function()
-                    {
-                        this.setShadow();
-                        this.setSlide({ shadow: cfg.shadow });
-                        this.setView();
-                    }
 
                     this.setStyleAttributes = function()
                     {
