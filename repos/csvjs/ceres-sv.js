@@ -272,20 +272,6 @@ window.ceres = {};
 
                     }
 
-                    this.setView = function()
-                    {
-                        setTimeout(function()
-                        {
-                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-                            atr.displayState.show();
-
-                        }, cfg.attrib.delay);
-
-                        if (cfg.attrib.cache) this.insertCache();
-
-                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
-                    }
-
                     this.view = {
 
                         hasProperties: function()
@@ -300,7 +286,21 @@ window.ceres = {};
                         {
                             atr.setShadow();
                             atr.setSlide({ shadow: cfg.shadow });
-                            atr.setView();
+                            this.view.setView();
+                        },
+
+                        setView: function()
+                        {
+                            setTimeout(function()
+                            {
+                                if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
+                                atr.displayState.show();
+
+                            }, cfg.attrib.delay);
+
+                            if (cfg.attrib.cache) this.insertCache();
+
+                            rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                         }
 
                     };
