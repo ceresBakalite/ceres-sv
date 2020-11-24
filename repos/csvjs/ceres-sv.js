@@ -241,7 +241,7 @@ window.ceres = {};
                         {
                             setTimeout(function()
                             {
-                                if (!cfg.attrib.static) setTimeout(function() { this.setAuto(); }, cfg.attrib.delay);
+                                if (!cfg.attrib.static) setTimeout(function() { atr.view.setAuto(); }, cfg.attrib.delay);
                                 atr.displayState.show();
 
                             }, cfg.attrib.delay);
