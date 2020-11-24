@@ -286,7 +286,7 @@ window.ceres = {};
                         {
                             atr.setShadow();
                             atr.setSlide({ shadow: cfg.shadow });
-                            this.view.setView();
+                            this.setView();
                         },
 
                         setView: function()
