@@ -242,7 +242,7 @@ window.ceres = {};
                     this.setSlide = function(obj)
                     {
                         if (rsc.isEmptyOrNull(obj.shadow)) obj.shadow = rsc.isEmptyOrNull(obj.node) ? cfg.shadow : this.getShadow(obj.node);
-                        const slides = obj.shadow.querySelectorAll('div.slideview-image > div.view');
+                        const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
 
                         cfg.slide = !rsc.isEmptyOrNull(obj.autoslide) ? obj.autoslide
                             : cfg.slide < 1 ? slides.length
@@ -337,7 +337,7 @@ window.ceres = {};
 
                     this.setImageAttributes = function(index = 0)
                     {
-                        const getClassName = function(className = 'view')
+                        const getClassName = function(className = 'slide')
                         {
                             if (cfg.attrib.zoom) className += ' zoom';
                             if (cfg.attrib.fade) className += ' fade';
