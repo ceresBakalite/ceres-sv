@@ -168,7 +168,7 @@ window.ceres = {};
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
-            if (atr.hasProperties()) atr.activate();
+            if (atr.view.hasProperties()) atr.view.activate();
 
             function configureAttributes()
             {
@@ -286,35 +286,39 @@ window.ceres = {};
                         rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                     }
 
-                    this.hasProperties = function()
-                    {
-                        if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
-                        if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
+                    this.view = {
 
-                        return this.attributesExist();
-                    }
+                        hasProperties: function()
+                        {
+                            if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                            if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
-                    this.activate = function()
-                    {
-                        this.setShadow();
-                        this.setSlide({ shadow: cfg.shadow });
-                        this.setView();
-                    }
+                            return this.attributesExist();
+                        },
+
+                        activate: function()
+                        {
+                            this.setShadow();
+                            this.setSlide({ shadow: cfg.shadow });
+                            this.setView();
+                        }
+
+                    };
 
                     this.displayState = {
 
-                      hide: function() {
-                          csvNode.classList.add('none');
-                          csvNode.style.display = 'none';
-                      },
+                        hide: function() {
+                            csvNode.classList.add('none');
+                            csvNode.style.display = 'none';
+                        },
 
-                      show: function() {
-                          csvNode.classList.remove('none');
-                          csvNode.style.removeProperty('display');
+                        show: function() {
+                            csvNode.classList.remove('none');
+                            csvNode.style.removeProperty('display');
 
-                          if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
-                          if (csvNode.style.length === 0) csvNode.removeAttribute("style");
-                      }
+                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
+                            if (csvNode.style.length === 0) csvNode.removeAttribute("style");
+                        }
 
                     };
 
