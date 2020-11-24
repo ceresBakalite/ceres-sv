@@ -337,12 +337,12 @@ window.ceres = {};
 
                     this.setImageAttributes = function(index = 0)
                     {
-                        const getClassName = function(className = 'none')
+                        const getClassName = function(className = 'view')
                         {
                             if (cfg.attrib.zoom) className += ' zoom';
                             if (cfg.attrib.fade) className += ' fade';
 
-                            return className;
+                            return className += ' none';
                         }
 
                         const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; };
