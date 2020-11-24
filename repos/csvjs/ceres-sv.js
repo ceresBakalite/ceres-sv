@@ -267,7 +267,7 @@ window.ceres = {};
 
                     this.setAuto = function()
                     {
-                        const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.view');
+                        const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
 
                         let iteration = 0;
