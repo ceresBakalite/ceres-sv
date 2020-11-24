@@ -171,8 +171,6 @@ window.ceres = {};
             function configureAttributes()
             {
                 csvNode.src = csvNode.getAttribute('src');
-                //csvNode.classList.add('none');
-                //csvNode.style.display = 'none';
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.src = rsc.isEmptyOrNull(csvNode.src) ? null : csvNode.src.trim();
@@ -200,6 +198,8 @@ window.ceres = {};
                     };
 
                     Object.freeze(remark);
+
+                    this.displayState.hide();
 
                     this.setShadow = function()
                     {
@@ -272,28 +272,8 @@ window.ceres = {};
 
                     }
 
-                    this.setView = function()
-                    {
-                        setTimeout(function()
-                        {
-                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-
-                            this.displayState.clear();
-
-                            //csvNode.classList.remove('none');
-                            //if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
-
-                            //csvNode.style.removeProperty('display');
-                            //if (csvNode.style.length === 0) csvNode.removeAttribute("style");
-
-                        }, cfg.attrib.delay);
-
-                        if (cfg.attrib.cache) this.insertCache();
-
-                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
-                    }
-
                     this.displayState = {
+
                       hide: function() {
                           csvNode.classList.add('none');
                           csvNode.style.display = 'none';
@@ -306,8 +286,22 @@ window.ceres = {};
                           if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
                           if (csvNode.style.length === 0) csvNode.removeAttribute("style");
                       }
+
                     };
 
+                    this.setView = function()
+                    {
+                        setTimeout(function()
+                        {
+                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
+                            atr.displayState.clear();
+
+                        }, cfg.attrib.delay);
+
+                        if (cfg.attrib.cache) this.insertCache();
+
+                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
+                    }
 
                     this.hasProperties = function()
                     {
@@ -467,8 +461,6 @@ window.ceres = {};
 
                     this.getPrecursor = function()
                     {
-                        this.displayState.hide();
-
                         const exists = !rsc.isEmptyOrNull(csvNode);
 
                         const getZoomState = function()
