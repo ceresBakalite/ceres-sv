@@ -271,7 +271,7 @@ window.ceres = {};
                             let auto = setInterval(function run()
                             {
                                 if (autoCancel()) clearInterval(auto);
-                                this.setSlide({ autoslide: autoslide-1 });
+                                atr.view.setSlide({ autoslide: autoslide-1 });
 
                             }, cfg.attrib.autopause);
 
