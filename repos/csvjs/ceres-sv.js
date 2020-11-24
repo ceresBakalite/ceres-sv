@@ -290,7 +290,7 @@ window.ceres = {};
 
                         hasProperties: function()
                         {
-                            if (!this.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                            if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
                             if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
                             return this.attributesExist();
@@ -298,9 +298,9 @@ window.ceres = {};
 
                         activate: function()
                         {
-                            this.setShadow();
-                            this.setSlide({ shadow: cfg.shadow });
-                            this.setView();
+                            atr.setShadow();
+                            atr.setSlide({ shadow: cfg.shadow });
+                            atr.setView();
                         }
 
                     };
