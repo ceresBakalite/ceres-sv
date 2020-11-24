@@ -156,7 +156,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.setSlide({ node: el }); }; // global scope method reference
+            ceres.getSlide = function(el) { atr.view.setSlide({ node: el }); }; // global scope method reference
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
@@ -220,58 +220,6 @@ window.ceres = {};
                         if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
                     }
 
-                    this.setSlide = function(obj)
-                    {
-                        if (rsc.isEmptyOrNull(obj.shadow)) obj.shadow = rsc.isEmptyOrNull(obj.node) ? cfg.shadow : this.getShadow(obj.node);
-                        const slides = obj.shadow.querySelectorAll('div.slideview-image > div.view');
-
-                        cfg.slide = !rsc.isEmptyOrNull(obj.autoslide) ? obj.autoslide
-                            : cfg.slide < 1 ? slides.length
-                            : cfg.slide > slides.length ? 1
-                            : cfg.slide;
-
-                        const next = cfg.slide-1;
-
-                        if (rsc.isEmptyOrNull(slides[next])) return;
-
-                        const active = obj.shadow.querySelector('div.slideview-image > div.active');
-                        if (active) active.classList.replace('active', 'none');
-
-                        slides[next].classList.replace('none', 'active');
-
-                        const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
-                        if (enabled) enabled.className = 'nub';
-
-                        const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
-                        nub[next].className = 'nub enabled';
-                    }
-
-                    this.setAuto = function()
-                    {
-                        const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.view');
-                        const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-                        let iteration = 0;
-                        let autoslide = 1;
-
-                        let autoCancel = function()
-                        {
-                            autoslide = autoslide < 1 ? slides.length
-                                : autoslide > slides.length ? 1
-                                : autoslide;
-
-                            if (!cfg.attrib.autocancel) return (autoslide++, false); // never stops
-                            return iteration === complete || (autoslide++, iteration++, false); // stops when complete
-                        }
-
-                        let auto = setInterval(function run()
-                        {
-                            if (autoCancel()) clearInterval(auto);
-                            atr.setSlide({ autoslide: autoslide-1 });
-
-                        }, cfg.attrib.autopause);
-
-                    }
-
                     this.view = {
 
                         hasProperties: function()
@@ -285,7 +233,7 @@ window.ceres = {};
                         activate: function()
                         {
                             atr.setShadow();
-                            atr.setSlide({ shadow: cfg.shadow });
+                            this.setSlide({ shadow: cfg.shadow });
                             this.setView();
                         },
 
@@ -293,14 +241,66 @@ window.ceres = {};
                         {
                             setTimeout(function()
                             {
-                                if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
+                                if (!cfg.attrib.static) setTimeout(function() { this.setAuto(); }, cfg.attrib.delay);
                                 atr.displayState.show();
 
                             }, cfg.attrib.delay);
 
-                            if (cfg.attrib.cache) this.insertCache();
+                            if (cfg.attrib.cache) atr.insertCache();
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
+                        },
+
+                        setAuto: function()
+                        {
+                            const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.view');
+                            const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                            let iteration = 0;
+                            let autoslide = 1;
+
+                            let autoCancel = function()
+                            {
+                                autoslide = autoslide < 1 ? slides.length
+                                    : autoslide > slides.length ? 1
+                                    : autoslide;
+
+                                if (!cfg.attrib.autocancel) return (autoslide++, false); // never stops
+                                return iteration === complete || (autoslide++, iteration++, false); // stops when complete
+                            }
+
+                            let auto = setInterval(function run()
+                            {
+                                if (autoCancel()) clearInterval(auto);
+                                this.setSlide({ autoslide: autoslide-1 });
+
+                            }, cfg.attrib.autopause);
+
+                        },
+
+                        setSlide: function(obj)
+                        {
+                            if (rsc.isEmptyOrNull(obj.shadow)) obj.shadow = rsc.isEmptyOrNull(obj.node) ? cfg.shadow : atr.getShadow(obj.node);
+                            const slides = obj.shadow.querySelectorAll('div.slideview-image > div.view');
+
+                            cfg.slide = !rsc.isEmptyOrNull(obj.autoslide) ? obj.autoslide
+                                : cfg.slide < 1 ? slides.length
+                                : cfg.slide > slides.length ? 1
+                                : cfg.slide;
+
+                            const next = cfg.slide-1;
+
+                            if (rsc.isEmptyOrNull(slides[next])) return;
+
+                            const active = obj.shadow.querySelector('div.slideview-image > div.active');
+                            if (active) active.classList.replace('active', 'none');
+
+                            slides[next].classList.replace('none', 'active');
+
+                            const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
+                            if (enabled) enabled.className = 'nub';
+
+                            const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
+                            nub[next].className = 'nub enabled';
                         }
 
                     };
@@ -442,7 +442,7 @@ window.ceres = {};
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
 
-                        atr.setSlide({ shadow: cfg.shadow });
+                        atr.view.setSlide({ shadow: cfg.shadow });
                     }
 
                     this.getShadow = function(node)
