@@ -73,15 +73,15 @@ window.ceres = {};
             return this.attrib.bool.includes(obj.trim().toUpperCase());
         }
 
-        this.getUniqueElementId = function(args = {})
+        this.getUniqueElementId = function(obj)
         {
-            if (!args.name) args.name = 'n';
-            if (!args.range) args.range = 100;
+            if (!obj.name) obj.name = 'n';
+            if (!obj.range) obj.range = 100;
 
-            let elName = function() { return args.name + Math.floor(Math.random() * args.range) };
-            while (document.getElementById(args.el = elName())) {};
+            let elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
+            while (document.getElementById(obj.el = elName())) {};
 
-            return args.el;
+            return obj.el;
         }
 
         this.removeDuplcates = function(obj, sort)
@@ -220,12 +220,12 @@ window.ceres = {};
                         if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
                     }
 
-                    this.setSlide = function(args)
+                    this.setSlide = function(obj)
                     {
-                        if (rsc.isEmptyOrNull(args.shadow)) args.shadow = rsc.isEmptyOrNull(args.node) ? cfg.shadow : this.getShadow(args.node);
-                        const slides = args.shadow.querySelectorAll('div.slideview-image > div.view');
+                        if (rsc.isEmptyOrNull(obj.shadow)) obj.shadow = rsc.isEmptyOrNull(obj.node) ? cfg.shadow : this.getShadow(obj.node);
+                        const slides = obj.shadow.querySelectorAll('div.slideview-image > div.view');
 
-                        cfg.slide = !rsc.isEmptyOrNull(args.autoslide) ? args.autoslide
+                        cfg.slide = !rsc.isEmptyOrNull(obj.autoslide) ? obj.autoslide
                             : cfg.slide < 1 ? slides.length
                             : cfg.slide > slides.length ? 1
                             : cfg.slide;
@@ -234,15 +234,15 @@ window.ceres = {};
 
                         if (rsc.isEmptyOrNull(slides[next])) return;
 
-                        const active = args.shadow.querySelector('div.slideview-image > div.active');
+                        const active = obj.shadow.querySelector('div.slideview-image > div.active');
                         if (active) active.classList.replace('active', 'none');
 
                         slides[next].classList.replace('none', 'active');
 
-                        const enabled = args.shadow.querySelector('div.slideview-nub > span.enabled');
+                        const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
                         if (enabled) enabled.className = 'nub';
 
-                        const nub = args.shadow.querySelectorAll('div.slideview-nub > span.nub');
+                        const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
                         nub[next].className = 'nub enabled';
                     }
 
