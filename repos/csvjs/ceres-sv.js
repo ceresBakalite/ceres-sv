@@ -448,6 +448,8 @@ window.ceres = {};
                                 const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
                                 const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
                                 const classlist = this.classList('slide');
+                                const zoom = this.clickEvent.zoom();
+                                const href = this.clickEvent.href();
 
                                 const imgNode = document.createElement('div');
                                 imgNode.className = 'slideview-image';
@@ -465,16 +467,17 @@ window.ceres = {};
                                     imgNode.appendChild(slideNode);
 
                                     if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle' });
-                                    rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: this.clickEvent.image(), src: setURL(), alt: setText() });
+                                    rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoom, src: setURL(), alt: setText() });
                                     if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
                                 }
 
-                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.classList('left'), onclick: this.clickEvent.slide() });
-                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.classList('right'), onclick: this.clickEvent.slide() });
+                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.classList('left'), onclick: href });
+                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.classList('right'), onclick: href });
                             },
 
                             track: function(index = 0)
                             {
+                                const href = this.clickEvent.href();
                                 const trackNode = document.createElement('div');
                                 trackNode.className = this.classList('slideview-nub');
 
@@ -482,7 +485,7 @@ window.ceres = {};
 
                                 for (let item = 0; item < cfg.imageArray.length; item++)
                                 {
-                                    rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.clickEvent.slide() });
+                                    rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: href });
                                 }
 
                             },
@@ -499,8 +502,8 @@ window.ceres = {};
 
                             clickEvent:
                             {
-                                image: function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; },
-                                slide: function() { return 'ceres.getSlide(this)'; }
+                                href: function() { return 'ceres.getSlide(this)'; },
+                                zoom: function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                             }
 
                         }
