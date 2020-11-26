@@ -204,10 +204,10 @@ window.ceres = {};
 
                         hasContent: function()
                         {
-                            if (!atr.has.properties()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
-                            if (!atr.has.images()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
+                            if (!atr.el.properties()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
+                            if (!atr.el.textList()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
 
-                            return atr.has.content();
+                            return atr.el.listArray();
                         },
 
                         showContent: function()
@@ -282,7 +282,7 @@ window.ceres = {};
 
                     };
 
-                    this.has = { // HTMLElement properties
+                    this.el = { // HTMLElement properties
 
                         properties: function()
                         {
@@ -363,12 +363,12 @@ window.ceres = {};
                             return exists;
                         },
 
-                        images: function()
+                        textList: function()
                         {
                             return (cfg.fetchsrc || cfg.template);
                         },
 
-                        content: function()
+                        listArray: function()
                         {
                             cfg.imageArray = null;
 
