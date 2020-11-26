@@ -412,16 +412,6 @@ window.ceres = {};
 
                         set: { // HTMLElement markup
 
-                            setNext: function(className)
-                            {
-                                return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
-                            },
-
-                            getNext: function()
-                            {
-                                return 'ceres.getSlide(this)';
-                            },
-
                             styles: function()
                             {
                                 cfg.styleNode = document.createElement('style');
@@ -504,6 +494,16 @@ window.ceres = {};
                                     rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.getNext() });
                                 }
 
+                            },
+
+                            setNext: function(className)
+                            {
+                                return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
+                            },
+
+                            getNext: function()
+                            {
+                                return 'ceres.getSlide(this)';
                             }
 
                         }
