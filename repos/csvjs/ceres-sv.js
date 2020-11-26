@@ -227,7 +227,7 @@ window.ceres = {};
                             const getZoom = function()
                             {
                                 let zoom = csvNode.getAttribute('zoom');
-                                return rsc.ignore(zoom) ? true : rsc.getBoolean(zoom);
+                                return !!rsc.ignore(zoom) || rsc.getBoolean(zoom);
                             }
 
                             const getEmbed = function()
