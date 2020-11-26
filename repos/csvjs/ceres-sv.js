@@ -54,7 +54,7 @@ window.ceres = {};
 
         }
 
-        this.negate = function(obj)
+        this.ignore = function(obj)
         {
             if (obj === null || obj == 'undefined') return true;
 
@@ -68,7 +68,7 @@ window.ceres = {};
         this.getBoolean = function(obj)
         {
             if (obj === true || obj === false) return atr;
-            if (this.negate(obj) || !this.isString(obj)) return false;
+            if (this.ignore(obj) || !this.isString(obj)) return false;
 
             return this.attrib.bool.includes(obj.trim().toUpperCase());
         }
@@ -94,7 +94,7 @@ window.ceres = {};
 
         this.parseText = function(obj)
         {
-            if (this.negate(obj.text)) return;
+            if (this.ignore(obj.text)) return;
 
             if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
@@ -175,9 +175,9 @@ window.ceres = {};
                 csvNode.src = csvNode.getAttribute('src');
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src = rsc.negate(csvNode.src) ? null : csvNode.src.trim();
+                cfg.src = rsc.ignore(csvNode.src) ? null : csvNode.src.trim();
                 cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
-                cfg.fetchsrc = !rsc.negate(cfg.src);
+                cfg.fetchsrc = !rsc.ignore(cfg.src);
                 cfg.attrib = {};
                 cfg.slide = 1;
 
@@ -222,18 +222,18 @@ window.ceres = {};
 
                         get: function()
                         {
-                            const exists = !rsc.negate(csvNode);
+                            const exists = !rsc.ignore(csvNode);
 
                             const getZoom = function()
                             {
                                 let zoom = csvNode.getAttribute('zoom');
-                                return rsc.negate(zoom) ? true : rsc.getBoolean(zoom);
+                                return rsc.ignore(zoom) ? true : rsc.getBoolean(zoom);
                             }
 
                             const getEmbed = function()
                             {
                                 let embed = csvNode.getAttribute('embed');
-                                return rsc.negate(embed) ? false : embed; // typeof boolean or typeof string
+                                return rsc.ignore(embed) ? false : embed; // typeof boolean or typeof string
                             }
 
                             const getTemplate = function()
@@ -242,20 +242,20 @@ window.ceres = {};
 
                                 let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
-                                if (rsc.negate(el))
+                                if (rsc.ignore(el))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
 
-                                return rsc.negate(el) ? 'undefined' : el;
+                                return rsc.ignore(el) ? 'undefined' : el;
                             }
 
                             const getStatic = function()
                             {
                                 let auto = csvNode.getAttribute('auto');
 
-                                if (rsc.negate(auto)) return true;
+                                if (rsc.ignore(auto)) return true;
 
                                 let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
@@ -315,7 +315,7 @@ window.ceres = {};
                                 let shadowList = function()
                                 {
                                     let text = csvNode.textContent;
-                                    return (!rsc.negate(text)) ? text : null;
+                                    return (!rsc.ignore(text)) ? text : null;
                                 }
 
                                 let lightList = function()
@@ -323,7 +323,7 @@ window.ceres = {};
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.srcSearch, logtrace: cfg.attrib.trace });
 
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                    if (rsc.negate(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
+                                    if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
                                     return text;
                                 }
@@ -335,13 +335,13 @@ window.ceres = {};
                             {
                                 let imageList = getImageList();
 
-                                if (!rsc.negate(imageList))
+                                if (!rsc.ignore(imageList))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
 
-                                return !rsc.negate(cfg.imageArray);
+                                return !rsc.ignore(cfg.imageArray);
                             }
 
                             return isImageArray();
@@ -372,17 +372,17 @@ window.ceres = {};
 
                         setSlide: function(obj)
                         {
-                            if (rsc.negate(obj.shadow)) obj.shadow = rsc.negate(obj.node) ? cfg.shadow : atr.getShadow(obj.node);
+                            if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : atr.getShadow(obj.node);
                             const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
 
-                            cfg.slide = !rsc.negate(obj.autoslide) ? obj.autoslide
+                            cfg.slide = !rsc.ignore(obj.autoslide) ? obj.autoslide
                                 : cfg.slide < 1 ? slides.length
                                 : cfg.slide > slides.length ? 1
                                 : cfg.slide;
 
                                 const next = cfg.slide-1;
 
-                                if (rsc.negate(slides[next])) return;
+                                if (rsc.ignore(slides[next])) return;
 
                                 const active = obj.shadow.querySelector('div.slideview-image > div.active');
                                 if (active) active.classList.replace('active', 'none');
@@ -451,8 +451,8 @@ window.ceres = {};
                                     return className += ' none';
                                 }
 
-                                const setURL = function() { return (!rsc.negate(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                                const setText = function() { return (!rsc.negate(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                                const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
+                                const setText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
                                 const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
                                 const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
                                 const setZoom = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
