@@ -478,30 +478,30 @@ window.ceres = {};
                                     if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
                                 }
 
-                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.show('left'), onclick: this.slide() });
-                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.show('right'), onclick: this.slide() });
+                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.setClass('left'), onclick: this.setEvent() });
+                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.setClass('right'), onclick: this.setEvent() });
                             },
 
                             track: function(index = 0)
                             {
                                 const trackNode = document.createElement('div');
-                                trackNode.className = this.show('slideview-nub');
+                                trackNode.className = this.setClass('slideview-nub');
 
                                 cfg.bodyNode.appendChild(trackNode);
 
                                 for (let item = 0; item < cfg.imageArray.length; item++)
                                 {
-                                    rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.slide() });
+                                    rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.setEvent() });
                                 }
 
                             },
 
-                            show: function(className)
+                            setClass: function(className)
                             {
                                 return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
                             },
 
-                            slide: function()
+                            setEvent: function()
                             {
                                 return 'ceres.getSlide(this)';
                             }
