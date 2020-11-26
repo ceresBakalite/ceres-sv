@@ -156,7 +156,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.node.setSlide({ node: el }); }; // global scope method reference
+            ceres.getSlide = function(el) { atr.get.slide({ node: el }); }; // global scope method reference
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
@@ -204,22 +204,22 @@ window.ceres = {};
 
                         hasContent: function()
                         {
-                            if (!atr.properties.get()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
-                            if (!atr.properties.list()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
+                            if (!atr.content.values()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
+                            if (!atr.content.list()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
 
-                            return atr.properties.content();
+                            return atr.content.exists();
                         },
 
                         showContent: function()
                         {
-                            atr.enable.shadow();
-                            atr.enable.slide({ shadow: cfg.shadow });
-                            atr.enable.view();
+                            atr.get.shadow();
+                            atr.get.slide({ shadow: cfg.shadow });
+                            atr.get.view();
                         },
 
                     };
 
-                    this.enable = { // HTMLElement components
+                    this.get = { // HTMLElement components
 
                         shadow: function()
                         {
@@ -250,20 +250,20 @@ window.ceres = {};
                                 : cfg.slide > slides.length ? 1
                                 : cfg.slide;
 
-                                const next = cfg.slide-1;
+                            const next = cfg.slide-1;
 
-                                if (rsc.ignore(slides[next])) return;
+                            if (rsc.ignore(slides[next])) return;
 
-                                const active = obj.shadow.querySelector('div.slideview-image > div.active');
-                                if (active) active.classList.replace('active', 'none');
+                            const active = obj.shadow.querySelector('div.slideview-image > div.active');
+                            if (active) active.classList.replace('active', 'none');
 
-                                slides[next].classList.replace('none', 'active');
+                            slides[next].classList.replace('none', 'active');
 
-                                const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
-                                if (enabled) enabled.className = 'nub';
+                            const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
+                            if (enabled) enabled.className = 'nub';
 
-                                const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
-                                nub[next].className = 'nub enabled';
+                            const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
+                            nub[next].className = 'nub enabled';
                         },
 
                         view: function()
@@ -282,9 +282,9 @@ window.ceres = {};
 
                     };
 
-                    this.properties = { // HTMLElement properties
+                    this.content = { // HTMLElement properties
 
-                        get: function()
+                        values: function()
                         {
                             const exists = !rsc.ignore(csvNode);
 
@@ -368,7 +368,7 @@ window.ceres = {};
                             return (cfg.fetchsrc || cfg.template);
                         },
 
-                        content: function()
+                        exists: function()
                         {
                             cfg.imageArray = null;
 
@@ -508,7 +508,7 @@ window.ceres = {};
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
 
-                        atr.node.setSlide({ shadow: cfg.shadow });
+                        atr.get.slide({ shadow: cfg.shadow });
                     }
 
                     this.getShadow = function(node) // shadowRoot slide manager
@@ -550,7 +550,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.node.setSlide({ autoslide: autoslide-1 });
+                            atr.get.slide({ autoslide: autoslide-1 });
 
                         }, cfg.attrib.autopause);
 
