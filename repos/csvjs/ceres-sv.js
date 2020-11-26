@@ -34,7 +34,7 @@ window.ceres = {};
             precursor.appendChild(node);
         }
 
-        this.setHorizontalSwipe = function(touch, callback, args)
+        this.setSwipe = function(touch, callback, args) // horizontal swipe
         {
             if (!touch.act) touch.act = 80;
 
@@ -54,7 +54,7 @@ window.ceres = {};
 
         }
 
-        this.isEmptyOrNull = function(obj)
+        this.negate = function(obj)
         {
             if (obj === null || obj == 'undefined') return true;
 
@@ -65,15 +65,15 @@ window.ceres = {};
             return !obj;
         }
 
-        this.getBooleanAttribute = function(obj)
+        this.getBoolean = function(obj)
         {
             if (obj === true || obj === false) return atr;
-            if (this.isEmptyOrNull(obj) || !this.isString(obj)) return false;
+            if (this.negate(obj) || !this.isString(obj)) return false;
 
             return this.attrib.bool.includes(obj.trim().toUpperCase());
         }
 
-        this.getUniqueElementId = function(obj)
+        this.getUniqueId = function(obj)
         {
             if (!obj.name) obj.name = 'n';
             if (!obj.range) obj.range = 100;
@@ -94,7 +94,7 @@ window.ceres = {};
 
         this.parseText = function(obj)
         {
-            if (this.isEmptyOrNull(obj.text)) return;
+            if (this.negate(obj.text)) return;
 
             if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
@@ -123,7 +123,7 @@ window.ceres = {};
             lookup[diagnostic.type]() || lookup[this.attrib.default];
         }
 
-        this.getObjectProperties = function(string = {}, str = '')
+        this.getProperties = function(string = {}, str = '')
         {
             for (let literal in string) str += literal + ': ' + string[literal] + ', ';
             return str.replace(/, +$/g,'');
@@ -175,28 +175,26 @@ window.ceres = {};
                 csvNode.src = csvNode.getAttribute('src');
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src = rsc.isEmptyOrNull(csvNode.src) ? null : csvNode.src.trim();
+                cfg.src = rsc.negate(csvNode.src) ? null : csvNode.src.trim();
                 cfg.css = csvNode.getAttribute('css') || cfg.defaultCSS;
-                cfg.fetchsrc = !rsc.isEmptyOrNull(cfg.src);
+                cfg.fetchsrc = !rsc.negate(cfg.src);
                 cfg.attrib = {};
                 cfg.slide = 1;
 
                 (function() {
 
-                    const getActiveState = function(className) { return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none'; }
-                    const getClickEvent = function() { return 'ceres.getSlide(this)'; }
                     const csv = csvNode.tagName.toLocaleLowerCase();
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
-                        imageMarkup      : 'Image list markup ',
-                        configAttributes : 'The element attributes ',
-                        templateSearch   : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
-                        elementSearch    : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
-                        precursorError   : 'Error: Unable to find the ' + csv + ' document element',
-                        fetchListError   : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
-                        templateError    : 'Error: Unable to find the fallback template element when searching the document body',
-                        cacheWarning     : 'Warning: cache response status '
+                        markup     : 'Image list markup ',
+                        element    : 'The element attributes ',
+                        srcSearch  : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
+                        tagSearch  : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
+                        properties : 'Error: Unable to find the ' + csv + ' document element',
+                        list       : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
+                        template   : 'Error: Unable to find the fallback template element when searching the document body',
+                        cache      : 'Warning: cache response status '
                     };
 
                     Object.freeze(remark);
@@ -205,8 +203,8 @@ window.ceres = {};
 
                         hasContent: function()
                         {
-                            if (!atr.properties.get()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
-                            if (!atr.properties.list()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
+                            if (!atr.properties.get()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
+                            if (!atr.properties.list()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
 
                             return atr.properties.content();
                         },
@@ -224,47 +222,47 @@ window.ceres = {};
 
                         get: function()
                         {
-                            const exists = !rsc.isEmptyOrNull(csvNode);
+                            const exists = !rsc.negate(csvNode);
 
-                            const getZoomState = function()
+                            const getZoom = function()
                             {
                                 let zoom = csvNode.getAttribute('zoom');
-                                return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
+                                return rsc.negate(zoom) ? true : rsc.getBoolean(zoom);
                             }
 
-                            const getTemplateId = function()
+                            const getEmbed = function()
                             {
                                 let embed = csvNode.getAttribute('embed');
-                                return rsc.isEmptyOrNull(embed) ? false : embed; // typeof boolean or typeof string
+                                return rsc.negate(embed) ? false : embed; // typeof boolean or typeof string
                             }
 
-                            const getTemplateElement = function()
+                            const getTemplate = function()
                             {
                                 if (cfg.fetchsrc) return 'undefined';
 
                                 let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
-                                if (rsc.isEmptyOrNull(el))
+                                if (rsc.negate(el))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
 
-                                return rsc.isEmptyOrNull(el) ? 'undefined' : el;
+                                return rsc.negate(el) ? 'undefined' : el;
                             }
 
-                            const getStaticProperties = function()
+                            const getStatic = function()
                             {
                                 let auto = csvNode.getAttribute('auto');
 
-                                if (rsc.isEmptyOrNull(auto)) return true;
+                                if (rsc.negate(auto)) return true;
 
                                 let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
                                 {
-                                    if (!rsc.getBooleanAttribute(item)) return true;
+                                    if (!rsc.getBoolean(item)) return true;
                                     if (ar.length > 1) ar.shift();
                                 }
 
@@ -280,22 +278,22 @@ window.ceres = {};
 
                             if (exists)
                             {
-                                csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
+                                csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
                                 cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
-                                cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
-                                cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
-                                cfg.attrib.trace = rsc.getBooleanAttribute(csvNode.getAttribute('trace')); // disabled
-                                cfg.attrib.cache = !rsc.getBooleanAttribute(csvNode.getAttribute('cache')); // enabled
-                                cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled
-                                cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
-                                cfg.attrib.zoom = getZoomState(); // enabled
-                                cfg.attrib.static = getStaticProperties(); // enabled
-                                cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
+                                cfg.attrib.sur = rsc.getBoolean(csvNode.getAttribute('sur')); // disabled
+                                cfg.attrib.sub = rsc.getBoolean(csvNode.getAttribute('sub')); // disabled
+                                cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
+                                cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
+                                cfg.attrib.fade = !rsc.getBoolean(csvNode.getAttribute('fade')); // enabled
+                                cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
+                                cfg.attrib.zoom = getZoom(); // enabled
+                                cfg.attrib.static = getStatic(); // enabled
+                                cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
 
                                 Object.freeze(cfg.attrib);
 
-                                cfg.template = getTemplateElement();
+                                cfg.template = getTemplate();
                             }
 
                             return exists;
@@ -310,22 +308,22 @@ window.ceres = {};
                         {
                             cfg.imageArray = null;
 
-                            rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + '[' + csvNode.id + '] ' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                            rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvNode.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
                             const getImageList = function()
                             {
                                 let shadowList = function()
                                 {
                                     let text = csvNode.textContent;
-                                    return (!rsc.isEmptyOrNull(text)) ? text : null;
+                                    return (!rsc.negate(text)) ? text : null;
                                 }
 
                                 let lightList = function()
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.srcSearch, logtrace: cfg.attrib.trace });
 
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                    if (rsc.isEmptyOrNull(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.templateError + ' [' + cfg.attrib.embed + ']' });
+                                    if (rsc.negate(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
                                     return text;
                                 }
@@ -337,13 +335,13 @@ window.ceres = {};
                             {
                                 let imageList = getImageList();
 
-                                if (!rsc.isEmptyOrNull(imageList))
+                                if (!rsc.negate(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
 
-                                return !rsc.isEmptyOrNull(cfg.imageArray);
+                                return !rsc.negate(cfg.imageArray);
                             }
 
                             return isImageArray();
@@ -367,24 +365,24 @@ window.ceres = {};
                             this.set.images();
                             this.set.track();
 
-                            cfg.shadow.append(cfg.bodyContainer);
+                            cfg.shadow.append(cfg.bodyNode);
 
-                            if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
+                            if (cfg.attrib.static) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipe, { left: -1, right: 1 });
                         },
 
                         setSlide: function(obj)
                         {
-                            if (rsc.isEmptyOrNull(obj.shadow)) obj.shadow = rsc.isEmptyOrNull(obj.node) ? cfg.shadow : atr.getShadow(obj.node);
+                            if (rsc.negate(obj.shadow)) obj.shadow = rsc.negate(obj.node) ? cfg.shadow : atr.getShadow(obj.node);
                             const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
 
-                            cfg.slide = !rsc.isEmptyOrNull(obj.autoslide) ? obj.autoslide
+                            cfg.slide = !rsc.negate(obj.autoslide) ? obj.autoslide
                                 : cfg.slide < 1 ? slides.length
                                 : cfg.slide > slides.length ? 1
                                 : cfg.slide;
 
                                 const next = cfg.slide-1;
 
-                                if (rsc.isEmptyOrNull(slides[next])) return;
+                                if (rsc.negate(slides[next])) return;
 
                                 const active = obj.shadow.querySelector('div.slideview-image > div.active');
                                 if (active) active.classList.replace('active', 'none');
@@ -414,12 +412,22 @@ window.ceres = {};
 
                         set: { // HTMLElement markup
 
+                            setNext: function(className)
+                            {
+                                return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
+                            },
+
+                            getNext: function()
+                            {
+                                return 'ceres.getSlide(this)';
+                            },
+
                             styles: function()
                             {
-                                cfg.styleContainer = document.createElement('style');
-                                cfg.styleContainer.className = 'slideview-style';
+                                cfg.styleNode = document.createElement('style');
+                                cfg.styleNode.className = 'slideview-style';
 
-                                cfg.shade.appendChild(cfg.styleContainer);
+                                cfg.shade.appendChild(cfg.styleNode);
 
                                 cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
@@ -427,25 +435,25 @@ window.ceres = {};
                                 {
                                     fetch(item).then(response => response.text()).then(str =>
                                     {
-                                        cfg.styleContainer.insertAdjacentHTML('beforeend', str)
+                                        cfg.styleNode.insertAdjacentHTML('beforeend', str)
                                     });
 
                                 });
 
-                                cfg.shadow.append(cfg.styleContainer);
+                                cfg.shadow.append(cfg.styleNode);
                             },
 
                             body: function()
                             {
-                                cfg.bodyContainer = document.createElement('div');
-                                cfg.bodyContainer.className = 'slideview-body';
+                                cfg.bodyNode = document.createElement('div');
+                                cfg.bodyNode.className = 'slideview-body';
 
-                                cfg.shade.appendChild(cfg.bodyContainer);
+                                cfg.shade.appendChild(cfg.bodyNode);
                             },
 
                             images: function(index = 0)
                             {
-                                const getClassName = function(className = 'slide')
+                                const getClassList = function(className = 'slide')
                                 {
                                     if (cfg.attrib.zoom) className += ' zoom';
                                     if (cfg.attrib.fade) className += ' fade';
@@ -453,47 +461,47 @@ window.ceres = {};
                                     return className += ' none';
                                 }
 
-                                const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                                const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; };
-                                const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; };
-                                const getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
-                                const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
-                                const slideContainerClassName = getClassName();
+                                const setURL = function() { return (!rsc.negate(arrayItem[0])) ? arrayItem[0].trim() : null; };
+                                const setText = function() { return (!rsc.negate(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                                const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
+                                const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
+                                const setZoom = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
+                                const setClassList = getClassList();
 
-                                const imageContainer = document.createElement('div');
-                                imageContainer.className = 'slideview-image';
+                                const imgNode = document.createElement('div');
+                                imgNode.className = 'slideview-image';
 
-                                cfg.bodyContainer.appendChild(imageContainer);
+                                cfg.bodyNode.appendChild(imgNode);
 
                                 for (let item = 0; item < cfg.imageArray.length; item++)
                                 {
                                     var arrayItem = cfg.imageArray[item].split(',');
 
-                                    let slideContainer = document.createElement('div');
-                                    slideContainer.id = 'img' + (++index);
-                                    slideContainer.className = slideContainerClassName;
+                                    let slideNode = document.createElement('div');
+                                    slideNode.id = 'img' + (++index);
+                                    slideNode.className = setClassList;
 
-                                    imageContainer.appendChild(slideContainer);
+                                    imgNode.appendChild(slideNode);
 
-                                    if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSurtitle() }, { class: 'surtitle' });
-                                    rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
-                                    if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
+                                    if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle' });
+                                    rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: setZoom(), src: setURL(), alt: setText() });
+                                    if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
                                 }
 
-                                rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' }, { class: getActiveState('left'), onclick: getClickEvent() });
-                                rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
+                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.setNext('left'), onclick: this.getNext() });
+                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.setNext('right'), onclick: this.getNext() });
                             },
 
                             track: function(index = 0)
                             {
-                                const trackContainer = document.createElement('div');
-                                trackContainer.className = getActiveState('slideview-nub');
+                                const trackNode = document.createElement('div');
+                                trackNode.className = this.setNext('slideview-nub');
 
-                                cfg.bodyContainer.appendChild(trackContainer);
+                                cfg.bodyNode.appendChild(trackNode);
 
                                 for (let item = 0; item < cfg.imageArray.length; item++)
                                 {
-                                    rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
+                                    rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.getNext() });
                                 }
 
                             }
@@ -542,7 +550,7 @@ window.ceres = {};
                         {
                             fetch(url).then(response =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cacheWarning + '[' + response.status + '] - ' + url, logtrace: cfg.attrib.trace }); }
+                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.attrib.trace }); }
                                 return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                             });
 
@@ -577,7 +585,7 @@ window.ceres = {};
 
                     }
 
-                    this.getSwipeCallback = function(swipe)
+                    this.getSwipe = function(swipe)
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
