@@ -361,10 +361,10 @@ window.ceres = {};
                             cfg.shade.attachShadow({ mode: 'open' });
                             cfg.shadow = cfg.shade.shadowRoot;
 
-                            this.set.styles();
-                            this.set.body();
-                            this.set.images();
-                            this.set.track();
+                            atr.setStyles();
+                            atr.setBody();
+                            atr.setImages();
+                            atr.setTrack();
 
                             cfg.shadow.append(cfg.bodyNode);
 
@@ -409,96 +409,6 @@ window.ceres = {};
                             if (cfg.attrib.cache) atr.insertCache();
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
-                        },
-
-                        set: { // HTMLElement markup
-
-                            styles: function()
-                            {
-                                cfg.styleNode = document.createElement('style');
-                                cfg.styleNode.className = 'slideview-style';
-
-                                cfg.shade.appendChild(cfg.styleNode);
-
-                                cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                                cfg.cachecss.forEach(item =>
-                                {
-                                    fetch(item).then(response => response.text()).then(str =>
-                                    {
-                                        cfg.styleNode.insertAdjacentHTML('beforeend', str)
-                                    });
-
-                                });
-
-                                cfg.shadow.append(cfg.styleNode);
-                            },
-
-                            body: function()
-                            {
-                                cfg.bodyNode = document.createElement('div');
-                                cfg.bodyNode.className = 'slideview-body';
-
-                                cfg.shade.appendChild(cfg.bodyNode);
-                            },
-
-                            images: function(index = 0)
-                            {
-                                const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                                const setText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
-                                const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
-                                const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
-                                const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
-                                const classlist = this.classList('slide');
-
-                                const imgNode = document.createElement('div');
-                                imgNode.className = 'slideview-image';
-
-                                cfg.bodyNode.appendChild(imgNode);
-
-                                for (let item = 0; item < cfg.imageArray.length; item++)
-                                {
-                                    var arrayItem = cfg.imageArray[item].split(',');
-
-                                    let slideNode = document.createElement('div');
-                                    slideNode.id = 'img' + (++index);
-                                    slideNode.className = classlist;
-
-                                    imgNode.appendChild(slideNode);
-
-                                    if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle' });
-                                    rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setText() });
-                                    if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
-                                }
-
-                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.classList('left'), onclick: cfg.href });
-                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.classList('right'), onclick: cfg.href });
-                            },
-
-                            track: function(index = 0)
-                            {
-                                const trackNode = document.createElement('div');
-                                trackNode.className = this.classList('slideview-nub');
-
-                                cfg.bodyNode.appendChild(trackNode);
-
-                                for (let item = 0; item < cfg.imageArray.length; item++)
-                                {
-                                    rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: cfg.href });
-                                }
-
-                            },
-
-                            classList: function(className)
-                            {
-                                if (className != 'slide') return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
-
-                                if (cfg.attrib.zoom) className += ' zoom';
-                                if (cfg.attrib.fade) className += ' fade';
-
-                                return className += ' none';
-                            }
-
                         }
 
                     };
@@ -520,34 +430,79 @@ window.ceres = {};
 
                     };
 
-                    this.parseJSON = function(textList, jsonList = '')
+                    this.setStyles = function()
                     {
-                        if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
+                        cfg.styleNode = document.createElement('style');
+                        cfg.styleNode.className = 'slideview-style';
 
-                        let json = JSON.parse(textList);
-                        json.forEach((node) => { jsonList += node.url + ', ' + node.text + '\n'; });
+                        cfg.shade.appendChild(cfg.styleNode);
 
-                        return jsonList;
-                    }
+                        cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                    this.insertCache = function() // cache a range of response.status values (200, 304 etc)
-                    {
-                        if (!('caches' in window)) return;
-
-                        cfg.cachesrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
-
-                        const cacheName = csv + '-cache';
-                        const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
-
-                        urlArray.forEach(url =>
+                        cfg.cachecss.forEach(item =>
                         {
-                            fetch(url).then(response =>
+                            fetch(item).then(response => response.text()).then(str =>
                             {
-                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.attrib.trace }); }
-                                return caches.open(cacheName).then(cache => { return cache.put(url, response); });
+                                cfg.styleNode.insertAdjacentHTML('beforeend', str)
                             });
 
                         });
+
+                        cfg.shadow.append(cfg.styleNode);
+                    },
+
+                    this.setBody = function()
+                    {
+                        cfg.bodyNode = document.createElement('div');
+                        cfg.bodyNode.className = 'slideview-body';
+
+                        cfg.shade.appendChild(cfg.bodyNode);
+                    },
+
+                    this.setImages = function(index = 0)
+                    {
+                        const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
+                        const setText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                        const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
+                        const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
+                        const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+                        const classlist = atr.getClassList('slide');
+
+                        const imgNode = document.createElement('div');
+                        imgNode.className = 'slideview-image';
+
+                        cfg.bodyNode.appendChild(imgNode);
+
+                        for (let item = 0; item < cfg.imageArray.length; item++)
+                        {
+                            var arrayItem = cfg.imageArray[item].split(',');
+
+                            let slideNode = document.createElement('div');
+                            slideNode.id = 'img' + (++index);
+                            slideNode.className = classlist;
+
+                            imgNode.appendChild(slideNode);
+
+                            if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle' });
+                            rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setText() });
+                            if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
+                        }
+
+                        rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: cfg.href });
+                        rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: cfg.href });
+                    },
+
+                    this.setTrack = function(index = 0)
+                    {
+                        const trackNode = document.createElement('div');
+                        trackNode.className = atr.getClassList('slideview-nub');
+
+                        cfg.bodyNode.appendChild(trackNode);
+
+                        for (let item = 0; item < cfg.imageArray.length; item++)
+                        {
+                            rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: cfg.href });
+                        }
 
                     }
 
@@ -578,6 +533,16 @@ window.ceres = {};
 
                     }
 
+                    this.getClassList = function(className)
+                    {
+                        if (className != 'slide') return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
+
+                        if (cfg.attrib.zoom) className += ' zoom';
+                        if (cfg.attrib.fade) className += ' fade';
+
+                        return className += ' none';
+                    }
+
                     this.getSwipe = function(swipe)
                     {
                         const offset = (swipe.action) ? swipe.right : swipe.left;
@@ -602,6 +567,37 @@ window.ceres = {};
                         cfg.slide = srm.get(node.className);
 
                         return shadow;
+                    }
+
+                    this.parseJSON = function(textList, jsonList = '')
+                    {
+                        if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
+
+                        let json = JSON.parse(textList);
+                        json.forEach((node) => { jsonList += node.url + ', ' + node.text + '\n'; });
+
+                        return jsonList;
+                    }
+
+                    this.insertCache = function() // cache a range of response.status values (200, 304 etc)
+                    {
+                        if (!('caches' in window)) return;
+
+                        cfg.cachesrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
+
+                        const cacheName = csv + '-cache';
+                        const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
+
+                        urlArray.forEach(url =>
+                        {
+                            fetch(url).then(response =>
+                            {
+                                if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.attrib.trace }); }
+                                return caches.open(cacheName).then(cache => { return cache.put(url, response); });
+                            });
+
+                        });
+
                     }
 
                     Object.seal(atr);
