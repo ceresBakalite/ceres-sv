@@ -205,24 +205,24 @@ window.ceres = {};
 
                         hasProperties: function()
                         {
-                            if (!atr.precursor.get()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
-                            if (!atr.precursor.list()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
+                            if (!atr.precursor.getAttributes()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                            if (!atr.precursor.getList()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
-                            return atr.precursor.content();
+                            return atr.precursor.getContent();
                         },
 
                         activate: function()
                         {
-                            atr.setShadow();
-                            atr.setSlide({ shadow: cfg.shadow });
-                            atr.setView();
+                            atr.node.setShadow();
+                            atr.node.setSlide({ shadow: cfg.shadow });
+                            atr.node.setView();
                         }
 
                     };
 
                     this.precursor = {
 
-                        get: function()
+                        getAttributes: function()
                         {
                             const exists = !rsc.isEmptyOrNull(csvNode);
 
@@ -301,12 +301,12 @@ window.ceres = {};
                             return exists;
                         },
 
-                        list: function()
+                        getList: function()
                         {
                             return (cfg.fetchsrc || cfg.template);
                         },
 
-                        content: function()
+                        getContent: function()
                         {
                             cfg.imageArray = null;
 
@@ -351,175 +351,152 @@ window.ceres = {};
 
                     };
 
-                    this.setShadow = function()
-                    {
-                        cfg.shade = document.querySelector('#' + csvNode.id);
+                    this.node = {
 
-                        rsc.clearElement(cfg.shade);
-
-                        cfg.shade.attachShadow({ mode: 'open' });
-                        cfg.shadow = cfg.shade.shadowRoot;
-
-                        this.setStyleAttributes();
-                        this.setBodyAttributes();
-                        this.setImageAttributes();
-                        this.setTrackAttributes();
-
-                        cfg.shadow.append(cfg.bodyContainer);
-
-                        if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
-                    }
-
-                    this.setSlide = function(obj)
-                    {
-                        if (rsc.isEmptyOrNull(obj.shadow)) obj.shadow = rsc.isEmptyOrNull(obj.node) ? cfg.shadow : this.getShadow(obj.node);
-                        const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
-
-                        cfg.slide = !rsc.isEmptyOrNull(obj.autoslide) ? obj.autoslide
-                            : cfg.slide < 1 ? slides.length
-                            : cfg.slide > slides.length ? 1
-                            : cfg.slide;
-
-                        const next = cfg.slide-1;
-
-                        if (rsc.isEmptyOrNull(slides[next])) return;
-
-                        const active = obj.shadow.querySelector('div.slideview-image > div.active');
-                        if (active) active.classList.replace('active', 'none');
-
-                        slides[next].classList.replace('none', 'active');
-
-                        const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
-                        if (enabled) enabled.className = 'nub';
-
-                        const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
-                        nub[next].className = 'nub enabled';
-                    }
-
-                    this.setAuto = function()
-                    {
-                        const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
-                        const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
-
-                        let iteration = 0;
-                        let autoslide = 1;
-
-                        let autoCancel = function()
+                        setShadow: function()
                         {
-                            autoslide = autoslide < 1 ? slides.length
-                                : autoslide > slides.length ? 1
-                                : autoslide;
+                            cfg.shade = document.querySelector('#' + csvNode.id);
 
-                            if (!cfg.attrib.autocancel) return (autoslide++, false); // never stops
-                            return iteration === complete || (autoslide++, iteration++, false); // stops when complete
-                        }
+                            rsc.clearElement(cfg.shade);
 
-                        let auto = setInterval(function run()
+                            cfg.shade.attachShadow({ mode: 'open' });
+                            cfg.shadow = cfg.shade.shadowRoot;
+
+                            this.setStyles();
+                            this.setBody();
+                            this.setImages();
+                            this.setTrack();
+
+                            cfg.shadow.append(cfg.bodyContainer);
+
+                            if (cfg.attrib.static) rsc.setHorizontalSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipeCallback, { left: -1, right: 1 });
+                        },
+
+                        setSlide: function(obj)
                         {
-                            if (autoCancel()) clearInterval(auto);
-                            atr.setSlide({ autoslide: autoslide-1 });
+                            if (rsc.isEmptyOrNull(obj.shadow)) obj.shadow = rsc.isEmptyOrNull(obj.node) ? cfg.shadow : atr.getShadow(obj.node);
+                            const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
 
-                        }, cfg.attrib.autopause);
+                            cfg.slide = !rsc.isEmptyOrNull(obj.autoslide) ? obj.autoslide
+                                : cfg.slide < 1 ? slides.length
+                                : cfg.slide > slides.length ? 1
+                                : cfg.slide;
 
-                    }
+                                const next = cfg.slide-1;
 
-                    this.setView = function()
-                    {
-                        setTimeout(function()
+                                if (rsc.isEmptyOrNull(slides[next])) return;
+
+                                const active = obj.shadow.querySelector('div.slideview-image > div.active');
+                                if (active) active.classList.replace('active', 'none');
+
+                                slides[next].classList.replace('none', 'active');
+
+                                const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
+                                if (enabled) enabled.className = 'nub';
+
+                                const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
+                                nub[next].className = 'nub enabled';
+                        },
+
+                        setView: function()
                         {
-                            if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-                            atr.setState.show();
-
-                        }, cfg.attrib.delay);
-
-                        if (cfg.attrib.cache) this.insertCache();
-
-                        rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
-                    }
-
-                    this.setStyleAttributes = function()
-                    {
-                        cfg.styleContainer = document.createElement('style');
-                        cfg.styleContainer.className = 'slideview-style';
-
-                        cfg.shade.appendChild(cfg.styleContainer);
-
-                        cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                        cfg.cachecss.forEach(item =>
-                        {
-                            fetch(item).then(response => response.text()).then(str =>
+                            setTimeout(function()
                             {
-                                cfg.styleContainer.insertAdjacentHTML('beforeend', str)
+                                if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
+                                atr.setState.show();
+
+                            }, cfg.attrib.delay);
+
+                            if (cfg.attrib.cache) atr.insertCache();
+
+                            rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
+                        },
+
+                        setStyles: function()
+                        {
+                            cfg.styleContainer = document.createElement('style');
+                            cfg.styleContainer.className = 'slideview-style';
+
+                            cfg.shade.appendChild(cfg.styleContainer);
+
+                            cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                            cfg.cachecss.forEach(item =>
+                            {
+                                fetch(item).then(response => response.text()).then(str =>
+                                {
+                                    cfg.styleContainer.insertAdjacentHTML('beforeend', str)
+                                });
+
                             });
 
-                        });
+                            cfg.shadow.append(cfg.styleContainer);
+                        },
 
-                        cfg.shadow.append(cfg.styleContainer);
-                    }
-
-                    this.setBodyAttributes = function()
-                    {
-                        cfg.bodyContainer = document.createElement('div');
-                        cfg.bodyContainer.className = 'slideview-body';
-
-                        cfg.shade.appendChild(cfg.bodyContainer);
-                    }
-
-                    this.setImageAttributes = function(index = 0)
-                    {
-                        const getClassName = function(className = 'slide')
+                        setBody: function()
                         {
-                            if (cfg.attrib.zoom) className += ' zoom';
-                            if (cfg.attrib.fade) className += ' fade';
+                            cfg.bodyContainer = document.createElement('div');
+                            cfg.bodyContainer.className = 'slideview-body';
 
-                            return className += ' none';
+                            cfg.shade.appendChild(cfg.bodyContainer);
+                        },
+
+                        setImages: function(index = 0)
+                        {
+                            const getClassName = function(className = 'slide')
+                            {
+                                if (cfg.attrib.zoom) className += ' zoom';
+                                if (cfg.attrib.fade) className += ' fade';
+
+                                return className += ' none';
+                            }
+
+                            const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; };
+                            const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                            const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; };
+                            const getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
+                            const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
+                            const slideContainerClassName = getClassName();
+
+                            const imageContainer = document.createElement('div');
+                            imageContainer.className = 'slideview-image';
+
+                            cfg.bodyContainer.appendChild(imageContainer);
+
+                            for (let item = 0; item < cfg.imageArray.length; item++)
+                            {
+                                var arrayItem = cfg.imageArray[item].split(',');
+
+                                let slideContainer = document.createElement('div');
+                                slideContainer.id = 'img' + (++index);
+                                slideContainer.className = slideContainerClassName;
+
+                                imageContainer.appendChild(slideContainer);
+
+                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSurtitle() }, { class: 'surtitle' });
+                                rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
+                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
+                            }
+
+                            rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' }, { class: getActiveState('left'), onclick: getClickEvent() });
+                            rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
+                        },
+
+                        setTrack: function(index = 0)
+                        {
+                            const trackContainer = document.createElement('div');
+                            trackContainer.className = getActiveState('slideview-nub');
+
+                            cfg.bodyContainer.appendChild(trackContainer);
+
+                            for (let item = 0; item < cfg.imageArray.length; item++)
+                            {
+                                rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
+                            }
+
                         }
 
-                        const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                        const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; };
-                        const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; };
-                        const getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
-                        const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
-                        const slideContainerClassName = getClassName();
-
-                        const imageContainer = document.createElement('div');
-                        imageContainer.className = 'slideview-image';
-
-                        cfg.bodyContainer.appendChild(imageContainer);
-
-                        for (let item = 0; item < cfg.imageArray.length; item++)
-                        {
-                            var arrayItem = cfg.imageArray[item].split(',');
-
-                            let slideContainer = document.createElement('div');
-                            slideContainer.id = 'img' + (++index);
-                            slideContainer.className = slideContainerClassName;
-
-                            imageContainer.appendChild(slideContainer);
-
-                            if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSurtitle() }, { class: 'surtitle' });
-                            rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
-                            if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
-                        }
-
-                        rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' }, { class: getActiveState('left'), onclick: getClickEvent() });
-                        rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
-                    }
-
-                    this.setTrackAttributes = function(index = 0)
-                    {
-                        const trackContainer = document.createElement('div');
-                        trackContainer.className = getActiveState('slideview-nub');
-
-                        cfg.bodyContainer.appendChild(trackContainer);
-
-                        for (let item = 0; item < cfg.imageArray.length; item++)
-                        {
-                            rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
-                        }
-
-                    }
+                    };
 
                     this.setState = {
 
@@ -566,6 +543,33 @@ window.ceres = {};
                             });
 
                         });
+
+                    }
+
+                    this.setAuto = function()
+                    {
+                        const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
+                        const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+
+                        let iteration = 0;
+                        let autoslide = 1;
+
+                        let autoCancel = function()
+                        {
+                            autoslide = autoslide < 1 ? slides.length
+                                : autoslide > slides.length ? 1
+                                : autoslide;
+
+                            if (!cfg.attrib.autocancel) return (autoslide++, false); // never stops
+                            return iteration === complete || (autoslide++, iteration++, false); // stops when complete
+                        }
+
+                        let auto = setInterval(function run()
+                        {
+                            if (autoCancel()) clearInterval(auto);
+                            atr.setSlide({ autoslide: autoslide-1 });
+
+                        }, cfg.attrib.autopause);
 
                     }
 
