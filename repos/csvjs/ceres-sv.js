@@ -204,7 +204,7 @@ window.ceres = {};
 
                         hasContent: function()
                         {
-                            if (!atr.has.values()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
+                            if (!atr.has.properties()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
                             if (!atr.has.images()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
 
                             return atr.has.content();
@@ -284,7 +284,7 @@ window.ceres = {};
 
                     this.has = { // HTMLElement properties
 
-                        values: function()
+                        properties: function()
                         {
                             const exists = !rsc.ignore(csvNode);
 
