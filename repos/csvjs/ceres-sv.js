@@ -156,7 +156,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.setSlide({ node: el }); }; // global scope method reference
+            ceres.getSlide = function(el) { atr.node.setSlide({ node: el }); }; // global scope method reference
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
@@ -567,7 +567,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.setSlide({ autoslide: autoslide-1 });
+                            atr.node.setSlide({ autoslide: autoslide-1 });
 
                         }, cfg.attrib.autopause);
 
@@ -578,7 +578,7 @@ window.ceres = {};
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
 
-                        atr.setSlide({ shadow: cfg.shadow });
+                        atr.node.setSlide({ shadow: cfg.shadow });
                     }
 
                     this.getShadow = function(node)
