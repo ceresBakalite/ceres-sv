@@ -478,14 +478,14 @@ window.ceres = {};
                                     if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
                                 }
 
-                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.display('left'), onclick: this.slide() });
-                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.display('right'), onclick: this.slide() });
+                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.show('left'), onclick: this.slide() });
+                                rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.show('right'), onclick: this.slide() });
                             },
 
                             track: function(index = 0)
                             {
                                 const trackNode = document.createElement('div');
-                                trackNode.className = this.display('slideview-nub');
+                                trackNode.className = this.show('slideview-nub');
 
                                 cfg.bodyNode.appendChild(trackNode);
 
@@ -496,7 +496,7 @@ window.ceres = {};
 
                             },
 
-                            display: function(className)
+                            show: function(className)
                             {
                                 return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
                             },
