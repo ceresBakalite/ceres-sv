@@ -156,7 +156,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.node.setSlide({ node: el }); }; // global scope method reference
+            ceres.getSlide = function(el) { atr.extension.setSlide({ node: el }); }; // global scope method reference
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
@@ -168,7 +168,7 @@ window.ceres = {};
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
-            if (atr.view.hasProperties()) atr.view.activate();
+            if (atr.node.hasContent()) atr.node.showContent();
 
             function configureAttributes()
             {
@@ -201,28 +201,28 @@ window.ceres = {};
 
                     Object.freeze(remark);
 
-                    this.view = {
+                    this.node = {
 
-                        hasProperties: function()
+                        hasContent: function()
                         {
-                            if (!atr.precursor.getAttributes()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
-                            if (!atr.precursor.getList()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
+                            if (!atr.properties.get()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                            if (!atr.properties.list()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
-                            return atr.precursor.getContent();
+                            return atr.properties.content();
                         },
 
-                        activate: function()
+                        showContent: function()
                         {
-                            atr.node.setShadow();
-                            atr.node.setSlide({ shadow: cfg.shadow });
-                            atr.node.setView();
+                            atr.extension.setShadow();
+                            atr.extension.setSlide({ shadow: cfg.shadow });
+                            atr.extension.setView();
                         }
 
                     };
 
-                    this.precursor = {
+                    this.properties = {
 
-                        getAttributes: function()
+                        get: function()
                         {
                             const exists = !rsc.isEmptyOrNull(csvNode);
 
@@ -301,12 +301,12 @@ window.ceres = {};
                             return exists;
                         },
 
-                        getList: function()
+                        list: function()
                         {
                             return (cfg.fetchsrc || cfg.template);
                         },
 
-                        getContent: function()
+                        content: function()
                         {
                             cfg.imageArray = null;
 
@@ -351,7 +351,7 @@ window.ceres = {};
 
                     };
 
-                    this.node = {
+                    this.extension = {
 
                         setShadow: function()
                         {
@@ -362,10 +362,10 @@ window.ceres = {};
                             cfg.shade.attachShadow({ mode: 'open' });
                             cfg.shadow = cfg.shade.shadowRoot;
 
-                            this.setStyles();
-                            this.setBody();
-                            this.setImages();
-                            this.setTrack();
+                            this.set.styles();
+                            this.set.body();
+                            this.set.images();
+                            this.set.track();
 
                             cfg.shadow.append(cfg.bodyContainer);
 
@@ -412,86 +412,90 @@ window.ceres = {};
                             rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                         },
 
-                        setStyles: function()
-                        {
-                            cfg.styleContainer = document.createElement('style');
-                            cfg.styleContainer.className = 'slideview-style';
+                        set: {
 
-                            cfg.shade.appendChild(cfg.styleContainer);
-
-                            cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                            cfg.cachecss.forEach(item =>
+                            styles: function()
                             {
-                                fetch(item).then(response => response.text()).then(str =>
+                                cfg.styleContainer = document.createElement('style');
+                                cfg.styleContainer.className = 'slideview-style';
+
+                                cfg.shade.appendChild(cfg.styleContainer);
+
+                                cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                                cfg.cachecss.forEach(item =>
                                 {
-                                    cfg.styleContainer.insertAdjacentHTML('beforeend', str)
+                                    fetch(item).then(response => response.text()).then(str =>
+                                    {
+                                        cfg.styleContainer.insertAdjacentHTML('beforeend', str)
+                                    });
+
                                 });
 
-                            });
+                                cfg.shadow.append(cfg.styleContainer);
+                            },
 
-                            cfg.shadow.append(cfg.styleContainer);
-                        },
-
-                        setBody: function()
-                        {
-                            cfg.bodyContainer = document.createElement('div');
-                            cfg.bodyContainer.className = 'slideview-body';
-
-                            cfg.shade.appendChild(cfg.bodyContainer);
-                        },
-
-                        setImages: function(index = 0)
-                        {
-                            const getClassName = function(className = 'slide')
+                            body: function()
                             {
-                                if (cfg.attrib.zoom) className += ' zoom';
-                                if (cfg.attrib.fade) className += ' fade';
+                                cfg.bodyContainer = document.createElement('div');
+                                cfg.bodyContainer.className = 'slideview-body';
 
-                                return className += ' none';
-                            }
+                                cfg.shade.appendChild(cfg.bodyContainer);
+                            },
 
-                            const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                            const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; };
-                            const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; };
-                            const getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
-                            const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
-                            const slideContainerClassName = getClassName();
-
-                            const imageContainer = document.createElement('div');
-                            imageContainer.className = 'slideview-image';
-
-                            cfg.bodyContainer.appendChild(imageContainer);
-
-                            for (let item = 0; item < cfg.imageArray.length; item++)
+                            images: function(index = 0)
                             {
-                                var arrayItem = cfg.imageArray[item].split(',');
+                                const getClassName = function(className = 'slide')
+                                {
+                                    if (cfg.attrib.zoom) className += ' zoom';
+                                    if (cfg.attrib.fade) className += ' fade';
 
-                                let slideContainer = document.createElement('div');
-                                slideContainer.id = 'img' + (++index);
-                                slideContainer.className = slideContainerClassName;
+                                    return className += ' none';
+                                }
 
-                                imageContainer.appendChild(slideContainer);
+                                const getURL = function() { return (!rsc.isEmptyOrNull(arrayItem[0])) ? arrayItem[0].trim() : null; };
+                                const getAccessibilityText = function() { return (!rsc.isEmptyOrNull(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                                const getSubtitle = function() { return (cfg.attrib.sub) ? getAccessibilityText() : null; };
+                                const getSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
+                                const getImageEvent = function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; };
+                                const slideContainerClassName = getClassName();
 
-                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSurtitle() }, { class: 'surtitle' });
-                                rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
-                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
-                            }
+                                const imageContainer = document.createElement('div');
+                                imageContainer.className = 'slideview-image';
 
-                            rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' }, { class: getActiveState('left'), onclick: getClickEvent() });
-                            rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
-                        },
+                                cfg.bodyContainer.appendChild(imageContainer);
 
-                        setTrack: function(index = 0)
-                        {
-                            const trackContainer = document.createElement('div');
-                            trackContainer.className = getActiveState('slideview-nub');
+                                for (let item = 0; item < cfg.imageArray.length; item++)
+                                {
+                                    var arrayItem = cfg.imageArray[item].split(',');
 
-                            cfg.bodyContainer.appendChild(trackContainer);
+                                    let slideContainer = document.createElement('div');
+                                    slideContainer.id = 'img' + (++index);
+                                    slideContainer.className = slideContainerClassName;
 
-                            for (let item = 0; item < cfg.imageArray.length; item++)
+                                    imageContainer.appendChild(slideContainer);
+
+                                    if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSurtitle() }, { class: 'surtitle' });
+                                    rsc.composeElement({ type: 'img', parent: slideContainer }, { class: 'slide', onclick: getImageEvent(), src: getURL(), alt: getAccessibilityText() });
+                                    if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideContainer, markup: getSubtitle() }, { class: 'subtitle' });
+                                }
+
+                                rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10094;' }, { class: getActiveState('left'), onclick: getClickEvent() });
+                                rsc.composeElement({ type: 'a', parent: imageContainer, markup: '&#10095;' }, { class: getActiveState('right'), onclick: getClickEvent() });
+                            },
+
+                            track: function(index = 0)
                             {
-                                rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
+                                const trackContainer = document.createElement('div');
+                                trackContainer.className = getActiveState('slideview-nub');
+
+                                cfg.bodyContainer.appendChild(trackContainer);
+
+                                for (let item = 0; item < cfg.imageArray.length; item++)
+                                {
+                                    rsc.composeElement({ type: 'span', parent: trackContainer }, { id: 'nub' + (++index), class: 'nub', onclick: getClickEvent() });
+                                }
+
                             }
 
                         }
@@ -567,7 +571,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.node.setSlide({ autoslide: autoslide-1 });
+                            atr.extension.setSlide({ autoslide: autoslide-1 });
 
                         }, cfg.attrib.autopause);
 
@@ -578,7 +582,7 @@ window.ceres = {};
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
 
-                        atr.node.setSlide({ shadow: cfg.shadow });
+                        atr.extension.setSlide({ shadow: cfg.shadow });
                     }
 
                     this.getShadow = function(node)
