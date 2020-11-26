@@ -407,7 +407,7 @@ window.ceres = {};
 
                             if (cfg.attrib.cache) atr.insertCache();
 
-                            rsc.inspect({ type: rsc.attrib.notify, notification: JSON.parse(JSON.stringify(cfg.shadow)), logtrace: cfg.attrib.trace });
+                            rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                         },
 
                         set: { // HTMLElement markup
