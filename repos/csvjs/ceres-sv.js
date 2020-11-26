@@ -205,10 +205,10 @@ window.ceres = {};
 
                         hasProperties: function()
                         {
-                            if (!atr.getPrecursor()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
-                            if (!(cfg.fetchsrc || cfg.template)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
+                            if (!atr.precursor.get()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.precursorError });
+                            if (!atr.precursor.list()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.fetchListError });
 
-                            return atr.attributesExist();
+                            return atr.precursor.content();
                         },
 
                         activate: function()
@@ -216,6 +216,137 @@ window.ceres = {};
                             atr.setShadow();
                             atr.setSlide({ shadow: cfg.shadow });
                             atr.setView();
+                        }
+
+                    };
+
+                    this.precursor = {
+
+                        get: function()
+                        {
+                            const exists = !rsc.isEmptyOrNull(csvNode);
+
+                            const getZoomState = function()
+                            {
+                                let zoom = csvNode.getAttribute('zoom');
+                                return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
+                            }
+
+                            const getTemplateId = function()
+                            {
+                                let embed = csvNode.getAttribute('embed');
+                                return rsc.isEmptyOrNull(embed) ? false : embed; // typeof boolean or typeof string
+                            }
+
+                            const getTemplateElement = function()
+                            {
+                                if (cfg.fetchsrc) return 'undefined';
+
+                                let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
+
+                                if (rsc.isEmptyOrNull(el))
+                                {
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
+                                    el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
+                                }
+
+                                return rsc.isEmptyOrNull(el) ? 'undefined' : el;
+                            }
+
+                            const getStaticProperties = function()
+                            {
+                                let auto = csvNode.getAttribute('auto');
+
+                                if (rsc.isEmptyOrNull(auto)) return true;
+
+                                let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
+                                let item = ar[0];
+
+                                if (!Number.isInteger(parseInt(item)))
+                                {
+                                    if (!rsc.getBooleanAttribute(item)) return true;
+                                    if (ar.length > 1) ar.shift();
+                                }
+
+                                cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+                                cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
+
+                                cfg.attrib.fade = cfg.attrib.autopause > 400;
+                                cfg.attrib.nub = 'false'; // typeof string
+
+                                return false;
+                            }
+
+                            if (exists)
+                            {
+                                csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
+
+                                cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
+                                cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
+                                cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
+                                cfg.attrib.trace = rsc.getBooleanAttribute(csvNode.getAttribute('trace')); // disabled
+                                cfg.attrib.cache = !rsc.getBooleanAttribute(csvNode.getAttribute('cache')); // enabled
+                                cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled
+                                cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
+                                cfg.attrib.zoom = getZoomState(); // enabled
+                                cfg.attrib.static = getStaticProperties(); // enabled
+                                cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
+
+                                Object.freeze(cfg.attrib);
+
+                                cfg.template = getTemplateElement();
+                            }
+
+                            return exists;
+                        },
+
+                        list: function()
+                        {
+                            return (cfg.fetchsrc || cfg.template);
+                        },
+
+                        content: function()
+                        {
+                            cfg.imageArray = null;
+
+                            rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + '[' + csvNode.id + '] ' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+
+                            const getImageList = function()
+                            {
+                                let shadowList = function()
+                                {
+                                    let text = csvNode.textContent;
+                                    return (!rsc.isEmptyOrNull(text)) ? text : null;
+                                }
+
+                                let lightList = function()
+                                {
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
+
+                                    let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
+                                    if (rsc.isEmptyOrNull(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.templateError + ' [' + cfg.attrib.embed + ']' });
+
+                                    return text;
+                                }
+
+                                return cfg.fetchsrc ? shadowList() : lightList();
+                            }
+
+                            const isImageArray = function()
+                            {
+                                let imageList = getImageList();
+
+                                if (!rsc.isEmptyOrNull(imageList))
+                                {
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                    cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+                                }
+
+                                return !rsc.isEmptyOrNull(cfg.imageArray);
+                            }
+
+                            return isImageArray();
                         }
 
                     };
@@ -462,128 +593,6 @@ window.ceres = {};
                         cfg.slide = srm.get(node.className);
 
                         return shadow;
-                    }
-
-                    this.getPrecursor = function()
-                    {
-                        const exists = !rsc.isEmptyOrNull(csvNode);
-
-                        const getZoomState = function()
-                        {
-                            let zoom = csvNode.getAttribute('zoom');
-                            return rsc.isEmptyOrNull(zoom) ? true : rsc.getBooleanAttribute(zoom);
-                        }
-
-                        const getTemplateId = function()
-                        {
-                            let embed = csvNode.getAttribute('embed');
-                            return rsc.isEmptyOrNull(embed) ? false : embed; // typeof boolean or typeof string
-                        }
-
-                        const getTemplateElement = function()
-                        {
-                            if (cfg.fetchsrc) return 'undefined';
-
-                            let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
-
-                            if (rsc.isEmptyOrNull(el))
-                            {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.elementSearch, logtrace: cfg.attrib.trace });
-                                el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
-                            }
-
-                            return rsc.isEmptyOrNull(el) ? 'undefined' : el;
-                        }
-
-                        const getStaticProperties = function()
-                        {
-                            let auto = csvNode.getAttribute('auto');
-
-                            if (rsc.isEmptyOrNull(auto)) return true;
-
-                            let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
-                            let item = ar[0];
-
-                            if (!Number.isInteger(parseInt(item)))
-                            {
-                                if (!rsc.getBooleanAttribute(item)) return true;
-                                if (ar.length > 1) ar.shift();
-                            }
-
-                            cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                            cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
-                            cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
-
-                            cfg.attrib.fade = cfg.attrib.autopause > 400;
-                            cfg.attrib.nub = 'false'; // typeof string
-
-                            return false;
-                        }
-
-                        if (exists)
-                        {
-                            csvNode.id = rsc.getUniqueElementId({ name: csv, range: 1000 });
-
-                            cfg.attrib.delay = Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
-                            cfg.attrib.sur = rsc.getBooleanAttribute(csvNode.getAttribute('sur')); // disabled
-                            cfg.attrib.sub = rsc.getBooleanAttribute(csvNode.getAttribute('sub')); // disabled
-                            cfg.attrib.trace = rsc.getBooleanAttribute(csvNode.getAttribute('trace')); // disabled
-                            cfg.attrib.cache = !rsc.getBooleanAttribute(csvNode.getAttribute('cache')); // enabled
-                            cfg.attrib.fade = !rsc.getBooleanAttribute(csvNode.getAttribute('fade')); // enabled
-                            cfg.attrib.nub = !rsc.getBooleanAttribute(csvNode.getAttribute('nub')); // enabled
-                            cfg.attrib.zoom = getZoomState(); // enabled
-                            cfg.attrib.static = getStaticProperties(); // enabled
-                            cfg.attrib.embed = getTemplateId(); // template elementId when using embedded image lists
-
-                            Object.freeze(cfg.attrib);
-
-                            cfg.template = getTemplateElement();
-                        }
-
-                        return exists;
-                    }
-
-                    this.attributesExist = function()
-                    {
-                        cfg.imageArray = null;
-
-                        rsc.inspect({ type: rsc.attrib.notify, notification: remark.configAttributes + '[' + csvNode.id + '] ' + rsc.getObjectProperties(cfg.attrib), logtrace: cfg.attrib.trace });
-
-                        const getImageList = function()
-                        {
-                            let shadowList = function()
-                            {
-                                let content = csvNode.textContent;
-                                return (!rsc.isEmptyOrNull(content)) ? content : null;
-                            }
-
-                            let lightList = function()
-                            {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.templateSearch, logtrace: cfg.attrib.trace });
-
-                                let content = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-                                if (rsc.isEmptyOrNull(content)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.templateError + ' [' + cfg.attrib.embed + ']' });
-
-                                return content;
-                            }
-
-                            return cfg.fetchsrc ? shadowList() : lightList();
-                        }
-
-                        const isImageArray = function()
-                        {
-                            let imageList = getImageList();
-
-                            if (!rsc.isEmptyOrNull(imageList))
-                            {
-                                rsc.inspect({ type: rsc.attrib.notify, notification: remark.imageMarkup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
-                                cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
-                            }
-
-                            return !rsc.isEmptyOrNull(cfg.imageArray);
-                        }
-
-                        return isImageArray();
                     }
 
                     Object.seal(atr);
