@@ -212,12 +212,16 @@ window.ceres = {};
 
                         showContent: function()
                         {
-                            this.setShadow();
-                            this.setSlide({ shadow: cfg.shadow });
-                            this.setView();
+                            atr.enable.shadow();
+                            atr.enable.slide({ shadow: cfg.shadow });
+                            atr.enable.view();
                         },
 
-                        setShadow: function()
+                    };
+
+                    this.enable = { // HTMLElement components
+
+                        shadow: function()
                         {
                             cfg.shade = document.querySelector('#' + csvNode.id);
 
@@ -236,7 +240,7 @@ window.ceres = {};
                             if (cfg.attrib.static) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, atr.getSwipe, { left: -1, right: 1 });
                         },
 
-                        setSlide: function(obj)
+                        slide: function(obj)
                         {
                             if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : atr.getShadow(obj.node);
                             const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
@@ -262,7 +266,7 @@ window.ceres = {};
                                 nub[next].className = 'nub enabled';
                         },
 
-                        setView: function()
+                        view: function()
                         {
                             setTimeout(function()
                             {
