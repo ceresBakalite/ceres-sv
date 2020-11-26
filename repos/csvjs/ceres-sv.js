@@ -447,14 +447,14 @@ window.ceres = {};
                                 const setText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
                                 const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
                                 const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
-                                const zoomEvent = this.clickEvent.zoom();
+                                const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                                 const classlist = this.classList('slide');
 
                                 const imgNode = document.createElement('div');
                                 imgNode.className = 'slideview-image';
 
                                 cfg.bodyNode.appendChild(imgNode);
-                                cfg.href = this.clickEvent.href();
+                                cfg.href = 'ceres.getSlide(this)';
 
                                 for (let item = 0; item < cfg.imageArray.length; item++)
                                 {
@@ -497,12 +497,6 @@ window.ceres = {};
                                 if (cfg.attrib.fade) className += ' fade';
 
                                 return className += ' none';
-                            },
-
-                            clickEvent:
-                            {
-                                href: function() { return 'ceres.getSlide(this)'; },
-                                zoom: function() { return cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'; }
                             }
 
                         }
