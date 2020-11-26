@@ -164,7 +164,7 @@ window.ceres = {};
 
             configureAttributes();
 
-            atr.state.hide();
+            atr.getState.hide();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
@@ -266,8 +266,8 @@ window.ceres = {};
                         {
                             setTimeout(function()
                             {
-                                if (!cfg.attrib.static) setTimeout(function() { atr.startAuto(); }, cfg.attrib.delay);
-                                atr.state.show();
+                                if (!cfg.attrib.static) setTimeout(function() { atr.getAuto(); }, cfg.attrib.delay);
+                                atr.getState.show();
 
                             }, cfg.attrib.delay);
 
@@ -525,7 +525,7 @@ window.ceres = {};
                         return shadow;
                     }
 
-                    this.startAuto = function()
+                    this.getAuto = function()
                     {
                         const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
@@ -552,7 +552,7 @@ window.ceres = {};
 
                     }
 
-                    this.state = {
+                    this.getState = {
 
                         hide: function() {
                             csvNode.classList.add('none');
