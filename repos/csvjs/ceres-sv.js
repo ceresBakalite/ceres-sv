@@ -156,7 +156,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.ext.setSlide({ node: el }); }; // global scope method reference
+            ceres.getSlide = function(el) { atr.extension.setSlide({ node: el }); }; // global scope method reference
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
@@ -164,7 +164,7 @@ window.ceres = {};
 
             configureAttributes();
 
-            atr.setState.hide();
+            atr.displayState.hide();
 
             if (cfg.fetchsrc) csvNode.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
@@ -212,9 +212,9 @@ window.ceres = {};
 
                         showContent: function()
                         {
-                            atr.ext.setShadow();
-                            atr.ext.setSlide({ shadow: cfg.shadow });
-                            atr.ext.setView();
+                            atr.extension.setShadow();
+                            atr.extension.setSlide({ shadow: cfg.shadow });
+                            atr.extension.setView();
                         }
 
                     };
@@ -350,7 +350,7 @@ window.ceres = {};
 
                     };
 
-                    this.ext = { // HTMLElement extension
+                    this.extension = { // HTMLElement extension
 
                         setShadow: function()
                         {
@@ -361,10 +361,10 @@ window.ceres = {};
                             cfg.shade.attachShadow({ mode: 'open' });
                             cfg.shadow = cfg.shade.shadowRoot;
 
-                            atr.setStyles();
-                            atr.setBody();
-                            atr.setImages();
-                            atr.setTrack();
+                            atr.compose.styles();
+                            atr.compose.body();
+                            atr.compose.images();
+                            atr.compose.track();
 
                             cfg.shadow.append(cfg.bodyNode);
 
@@ -401,8 +401,8 @@ window.ceres = {};
                         {
                             setTimeout(function()
                             {
-                                if (!cfg.attrib.static) setTimeout(function() { atr.setAuto(); }, cfg.attrib.delay);
-                                atr.setState.show();
+                                if (!cfg.attrib.static) setTimeout(function() { atr.startAuto(); }, cfg.attrib.delay);
+                                atr.displayState.show();
 
                             }, cfg.attrib.delay);
 
@@ -413,100 +413,123 @@ window.ceres = {};
 
                     };
 
-                    this.setState = {
+                    this.compose = { // HTMLElement compose extension
 
-                        hide: function() {
-                            csvNode.classList.add('none');
-                            csvNode.style.display = 'none';
+                        styles: function()
+                        {
+                            cfg.styleNode = document.createElement('style');
+                            cfg.styleNode.className = 'slideview-style';
+
+                            cfg.shade.appendChild(cfg.styleNode);
+
+                            cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                            cfg.cachecss.forEach(item =>
+                            {
+                                fetch(item).then(response => response.text()).then(str =>
+                                {
+                                    cfg.styleNode.insertAdjacentHTML('beforeend', str)
+                                });
+
+                            });
+
+                            cfg.shadow.append(cfg.styleNode);
                         },
 
-                        show: function() {
-                            csvNode.classList.remove('none');
-                            csvNode.style.removeProperty('display');
+                        body: function()
+                        {
+                            cfg.bodyNode = document.createElement('div');
+                            cfg.bodyNode.className = 'slideview-body';
 
-                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
-                            if (csvNode.style.length === 0) csvNode.removeAttribute("style");
+                            cfg.shade.appendChild(cfg.bodyNode);
+                        },
+
+                        images: function(index = 0)
+                        {
+                            const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
+                            const setText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                            const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
+                            const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
+                            const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+                            const classlist = atr.getClassList('slide');
+
+                            const imgNode = document.createElement('div');
+                            imgNode.className = 'slideview-image';
+
+                            cfg.bodyNode.appendChild(imgNode);
+
+                            for (let item = 0; item < cfg.imageArray.length; item++)
+                            {
+                                var arrayItem = cfg.imageArray[item].split(',');
+
+                                let slideNode = document.createElement('div');
+                                slideNode.id = 'img' + (++index);
+                                slideNode.className = classlist;
+
+                                imgNode.appendChild(slideNode);
+
+                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle' });
+                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setText() });
+                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
+                            }
+
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: cfg.href });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: cfg.href });
+                        },
+
+                        track: function(index = 0)
+                        {
+                            const trackNode = document.createElement('div');
+                            trackNode.className = atr.getClassList('slideview-nub');
+
+                            cfg.bodyNode.appendChild(trackNode);
+
+                            for (let item = 0; item < cfg.imageArray.length; item++)
+                            {
+                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: cfg.href });
+                            }
+
                         }
 
                     };
 
-                    this.setStyles = function()
+                    this.getClassList = function(className)
                     {
-                        cfg.styleNode = document.createElement('style');
-                        cfg.styleNode.className = 'slideview-style';
+                        if (className != 'slide') return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
 
-                        cfg.shade.appendChild(cfg.styleNode);
+                        if (cfg.attrib.zoom) className += ' zoom';
+                        if (cfg.attrib.fade) className += ' fade';
 
-                        cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                        cfg.cachecss.forEach(item =>
-                        {
-                            fetch(item).then(response => response.text()).then(str =>
-                            {
-                                cfg.styleNode.insertAdjacentHTML('beforeend', str)
-                            });
-
-                        });
-
-                        cfg.shadow.append(cfg.styleNode);
-                    },
-
-                    this.setBody = function()
-                    {
-                        cfg.bodyNode = document.createElement('div');
-                        cfg.bodyNode.className = 'slideview-body';
-
-                        cfg.shade.appendChild(cfg.bodyNode);
-                    },
-
-                    this.setImages = function(index = 0)
-                    {
-                        const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                        const setText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
-                        const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
-                        const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
-                        const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
-                        const classlist = atr.getClassList('slide');
-
-                        const imgNode = document.createElement('div');
-                        imgNode.className = 'slideview-image';
-
-                        cfg.bodyNode.appendChild(imgNode);
-
-                        for (let item = 0; item < cfg.imageArray.length; item++)
-                        {
-                            var arrayItem = cfg.imageArray[item].split(',');
-
-                            let slideNode = document.createElement('div');
-                            slideNode.id = 'img' + (++index);
-                            slideNode.className = classlist;
-
-                            imgNode.appendChild(slideNode);
-
-                            if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle' });
-                            rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setText() });
-                            if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
-                        }
-
-                        rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: cfg.href });
-                        rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: cfg.href });
-                    },
-
-                    this.setTrack = function(index = 0)
-                    {
-                        const trackNode = document.createElement('div');
-                        trackNode.className = atr.getClassList('slideview-nub');
-
-                        cfg.bodyNode.appendChild(trackNode);
-
-                        for (let item = 0; item < cfg.imageArray.length; item++)
-                        {
-                            rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: cfg.href });
-                        }
-
+                        return className += ' none';
                     }
 
-                    this.setAuto = function()
+                    this.getSwipe = function(swipe)
+                    {
+                        const offset = (swipe.action) ? swipe.right : swipe.left;
+                        cfg.slide = cfg.slide += offset;
+
+                        atr.extension.setSlide({ shadow: cfg.shadow });
+                    }
+
+                    this.getShadow = function(node) // shadowRoot slide manager
+                    {
+                        const root = node.getRootNode().host;
+                        const shade = document.querySelector('#' + root.id);
+                        const shadow = shade.shadowRoot;
+                        const slide = shadow.querySelector('div.slideview-image > div.active');
+
+                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+
+                        srm.set('left', cfg.slide - 1);
+                        srm.set('right', cfg.slide + 1);
+                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+
+                        cfg.slide = srm.get(node.className);
+
+                        return shadow;
+                    }
+
+                    this.startAuto = function()
                     {
                         const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
                         const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
@@ -527,47 +550,28 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.ext.setSlide({ autoslide: autoslide-1 });
+                            atr.extension.setSlide({ autoslide: autoslide-1 });
 
                         }, cfg.attrib.autopause);
 
                     }
 
-                    this.getClassList = function(className)
-                    {
-                        if (className != 'slide') return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
+                    this.displayState = {
 
-                        if (cfg.attrib.zoom) className += ' zoom';
-                        if (cfg.attrib.fade) className += ' fade';
+                        hide: function() {
+                            csvNode.classList.add('none');
+                            csvNode.style.display = 'none';
+                        },
 
-                        return className += ' none';
-                    }
+                        show: function() {
+                            csvNode.classList.remove('none');
+                            csvNode.style.removeProperty('display');
 
-                    this.getSwipe = function(swipe)
-                    {
-                        const offset = (swipe.action) ? swipe.right : swipe.left;
-                        cfg.slide = cfg.slide += offset;
+                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
+                            if (csvNode.style.length === 0) csvNode.removeAttribute("style");
+                        }
 
-                        atr.ext.setSlide({ shadow: cfg.shadow });
-                    }
-
-                    this.getShadow = function(node) // shadowRoot slide manager
-                    {
-                        const root = node.getRootNode().host;
-                        const shade = document.querySelector('#' + root.id);
-                        const shadow = shade.shadowRoot;
-                        const slide = shadow.querySelector('div.slideview-image > div.active');
-
-                        cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
-
-                        srm.set('left', cfg.slide - 1);
-                        srm.set('right', cfg.slide + 1);
-                        srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
-
-                        cfg.slide = srm.get(node.className);
-
-                        return shadow;
-                    }
+                    };
 
                     this.parseJSON = function(textList, jsonList = '')
                     {
