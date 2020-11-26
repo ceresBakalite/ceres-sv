@@ -156,7 +156,7 @@ window.ceres = {};
         async connectedCallback()
         {
             ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.extension.setSlide({ node: el }); }; // global scope method reference
+            ceres.getSlide = function(el) { atr.ext.setSlide({ node: el }); }; // global scope method reference
 
             const csvNode = this; // csv root node of a DOM subtree
             const cfg = {}; // configuration attributes
@@ -201,7 +201,7 @@ window.ceres = {};
 
                     Object.freeze(remark);
 
-                    this.node = {
+                    this.node = { // HTMLElement instance
 
                         hasContent: function()
                         {
@@ -213,14 +213,14 @@ window.ceres = {};
 
                         showContent: function()
                         {
-                            atr.extension.setShadow();
-                            atr.extension.setSlide({ shadow: cfg.shadow });
-                            atr.extension.setView();
+                            atr.ext.setShadow();
+                            atr.ext.setSlide({ shadow: cfg.shadow });
+                            atr.ext.setView();
                         }
 
                     };
 
-                    this.properties = {
+                    this.properties = { // HTMLElement properties
 
                         get: function()
                         {
@@ -351,7 +351,7 @@ window.ceres = {};
 
                     };
 
-                    this.extension = {
+                    this.ext = { // HTMLElement extension
 
                         setShadow: function()
                         {
@@ -412,7 +412,7 @@ window.ceres = {};
                             rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                         },
 
-                        set: {
+                        set: { // HTMLElement markup
 
                             styles: function()
                             {
@@ -571,7 +571,7 @@ window.ceres = {};
                         let auto = setInterval(function run()
                         {
                             if (autoCancel()) clearInterval(auto);
-                            atr.extension.setSlide({ autoslide: autoslide-1 });
+                            atr.ext.setSlide({ autoslide: autoslide-1 });
 
                         }, cfg.attrib.autopause);
 
@@ -582,7 +582,7 @@ window.ceres = {};
                         const offset = (swipe.action) ? swipe.right : swipe.left;
                         cfg.slide = cfg.slide += offset;
 
-                        atr.extension.setSlide({ shadow: cfg.shadow });
+                        atr.ext.setSlide({ shadow: cfg.shadow });
                     }
 
                     this.getShadow = function(node)
