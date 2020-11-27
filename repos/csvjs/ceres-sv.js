@@ -252,6 +252,26 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
+                            const getFade = function()
+                            {
+                                let fade = csvNode.getAttribute('fade');
+
+                                if (rsc.ignore(fade)) return true;
+
+                                let ar = fade.replace(rsc.attrib.whitespace,'').split(',');
+                                let item = ar[0];
+
+                                if (!Number.isInteger(parseInt(item)))
+                                {
+                                    if (!rsc.getBoolean(item)) return false;
+                                    if (ar.length > 1) ar.shift();
+                                }
+
+                                cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
+
+                                return true;
+                            }
+
                             const getStatic = function()
                             {
                                 let auto = csvNode.getAttribute('auto');
@@ -286,8 +306,8 @@ window.ceres = {};
                                 cfg.attrib.sub = rsc.getBoolean(csvNode.getAttribute('sub')); // disabled
                                 cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
-                                cfg.attrib.fade = !rsc.getBoolean(csvNode.getAttribute('fade')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
+                                cfg.attrib.fade = getFade(); // enabled
                                 cfg.attrib.zoom = getZoom(); // enabled
                                 cfg.attrib.static = getStatic(); // enabled
                                 cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
