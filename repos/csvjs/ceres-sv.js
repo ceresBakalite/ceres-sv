@@ -596,7 +596,7 @@ window.ceres = {};
 
                     this.getClassList = function(className)
                     {
-                        if (className != 'slide') return (!(cfg.attrib.nub && cfg.attrib.auto)) ? className : className += ' none';
+                        if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
 
                         if (cfg.attrib.zoom) className += ' zoom';
                         if (cfg.attrib.fade) className += ' fade';
