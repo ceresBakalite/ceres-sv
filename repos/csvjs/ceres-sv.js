@@ -227,49 +227,58 @@ window.ceres = {};
 
                             const config = {
 
-                                type: function(attribute) // enabled
+                                fade: function()
                                 {
-                                    let value = csvNode.getAttribute(attribute);
+                                    let fade = csvNode.getAttribute('fade');
 
-                                    if (rsc.ignore(value)) return true;
+                                    if (rsc.ignore(fade)) return true;
 
-                                    let ar = value.replace(rsc.attrib.whitespace,'').split(',');
+                                    let ar = fade.replace(rsc.attrib.whitespace,'').split(',');
                                     let item = ar[0];
 
                                     if (!Number.isInteger(parseInt(item)))
                                     {
-                                        if (attribute == 'fade' && !rsc.getBoolean(item)) return false;
-                                        if (attribute == 'auto' && !rsc.getBoolean(item)) return true;
+                                        if (!rsc.getBoolean(item)) return false;
                                         if (ar.length > 1) ar.shift();
                                     }
 
-                                    if (attribute == 'fade')
-                                    {
-                                        cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
-                                        return true;
-                                    }
+                                    cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
 
-                                    if (attribute == 'auto')
-                                    {
-                                        cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                                        cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
-                                        cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
-
-                                        cfg.attrib.fade = cfg.attrib.autopause > 400;
-                                        cfg.attrib.nub = 'false'; // typeof string
-
-                                        return false;
-                                    }
-
+                                    return true;
                                 },
 
-                                zoom: function() // enabled
+                                static: function()
+                                {
+                                    let auto = csvNode.getAttribute('auto');
+
+                                    if (rsc.ignore(auto)) return true;
+
+                                    let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
+                                    let item = ar[0];
+
+                                    if (!Number.isInteger(parseInt(item)))
+                                    {
+                                        if (!rsc.getBoolean(item)) return true;
+                                        if (ar.length > 1) ar.shift();
+                                    }
+
+                                    cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+                                    cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                    cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
+
+                                    cfg.attrib.fade = cfg.attrib.autopause > 400;
+                                    cfg.attrib.nub = 'false'; // typeof string
+
+                                    return false;
+                                },
+
+                                zoom: function()
                                 {
                                     let zoom = csvNode.getAttribute('zoom');
                                     return !!rsc.ignore(zoom) || rsc.getBoolean(zoom);
                                 },
 
-                                embed: function() // template elementId when using embedded image lists
+                                embed: function()
                                 {
                                     let embed = csvNode.getAttribute('embed');
                                     return rsc.ignore(embed) ? false : embed; // typeof boolean or typeof string
@@ -307,15 +316,15 @@ window.ceres = {};
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
 
-                                cfg.attrib.delay = this.config.delay();
-                                cfg.attrib.embed = this.config.embed();
-                                cfg.attrib.zoom = this.config.zoom();
-                                cfg.attrib.fade = this.config.type('fade');
-                                cfg.attrib.static = this.config.type('auto');
+                                cfg.attrib.delay = this.config.delay(); // default 250
+                                cfg.attrib.fade = this.config.fade(); // enabled
+                                cfg.attrib.zoom = this.config.zoom(); // enabled
+                                cfg.attrib.static = this.config.static(); // enabled
+                                cfg.attrib.embed = this.config.embed(); // template elementId when using embedded image lists
 
                                 Object.freeze(cfg.attrib);
 
-                                cfg.template = this.config.template();
+                                cfg.template = this.config.template(); // element when using embedded image lists
                             }
 
                             return exists;
