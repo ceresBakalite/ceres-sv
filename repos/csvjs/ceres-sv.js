@@ -324,7 +324,7 @@ window.ceres = {};
 
                                 Object.freeze(cfg.attrib);
 
-                                cfg.template = this.config.template(); // element when using embedded image lists
+                                cfg.template = config.template(); // element when using embedded image lists
                             }
 
                             return exists;
