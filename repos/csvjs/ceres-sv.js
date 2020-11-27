@@ -480,7 +480,7 @@ window.ceres = {};
 
                             }, cfg.attrib.delay);
 
-                            if (cfg.attrib.cache) atr.insertCache();
+                            if (cfg.attrib.cache) insertCache();
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
                         }
