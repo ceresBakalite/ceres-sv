@@ -354,7 +354,7 @@ window.ceres = {};
 
                         shadow: function()
                         {
-                            let getSwipe = function(swipe)
+                            const getSwipe = function(swipe)
                             {
                                 const offset = (swipe.action) ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
@@ -381,7 +381,7 @@ window.ceres = {};
 
                         slide: function(obj)
                         {
-                            let getShadow = function(node) // shadowRoot slide manager
+                            const getShadow = function(node) // shadowRoot slide manager
                             {
                                 const root = node.getRootNode().host;
                                 const shade = document.querySelector('#' + root.id);
@@ -425,7 +425,7 @@ window.ceres = {};
 
                         view: function()
                         {
-                            let getAuto = function()
+                            const getAuto = function()
                             {
                                 const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
                                 const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
@@ -452,7 +452,7 @@ window.ceres = {};
 
                             }
 
-                            let insertCache = function() // cache a range of response.status values (200, 304 etc)
+                            const insertCache = function() // cache a range of response.status values (200, 304 etc)
                             {
                                 if (!('caches' in window)) return;
 
