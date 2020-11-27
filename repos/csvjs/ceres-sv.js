@@ -231,6 +231,26 @@ window.ceres = {};
                                 return !!rsc.ignore(zoom) || rsc.getBoolean(zoom);
                             }
 
+                            const getFade = function()
+                            {
+                                let fade = csvNode.getAttribute('fade');
+
+                                if (rsc.ignore(fade)) return true;
+
+                                let ar = fade.replace(rsc.attrib.whitespace,'').split(',');
+                                let item = ar[0];
+
+                                if (!Number.isInteger(parseInt(item)))
+                                {
+                                    if (!rsc.getBoolean(item)) return false;
+                                    if (ar.length > 1) ar.shift();
+                                }
+
+                                cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
+
+                                return true;
+                            }
+
                             const getDelay = function()
                             {
                                 return Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
@@ -255,26 +275,6 @@ window.ceres = {};
                                 }
 
                                 return rsc.ignore(el) ? 'undefined' : el;
-                            }
-
-                            const getFade = function()
-                            {
-                                let fade = csvNode.getAttribute('fade');
-
-                                if (rsc.ignore(fade)) return true;
-
-                                let ar = fade.replace(rsc.attrib.whitespace,'').split(',');
-                                let item = ar[0];
-
-                                if (!Number.isInteger(parseInt(item)))
-                                {
-                                    if (!rsc.getBoolean(item)) return false;
-                                    if (ar.length > 1) ar.shift();
-                                }
-
-                                cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
-
-                                return true;
                             }
 
                             const getStatic = function()
