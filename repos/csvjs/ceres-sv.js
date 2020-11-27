@@ -277,18 +277,18 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getStatic = function()
+                            const getAuto = function()
                             {
                                 let auto = csvNode.getAttribute('auto');
 
-                                if (rsc.ignore(auto)) return true;
+                                if (rsc.ignore(auto)) return false;
 
                                 let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
                                 {
-                                    if (!rsc.getBoolean(item)) return true;
+                                    if (!rsc.getBoolean(item)) return false;
                                     if (ar.length > 1) ar.shift();
                                 }
 
@@ -299,7 +299,7 @@ window.ceres = {};
                                 cfg.attrib.fade = cfg.attrib.autopause > 400;
                                 cfg.attrib.nub = 'false'; // typeof string
 
-                                return false;
+                                return true;
                             }
 
                             if (exists)
@@ -315,12 +315,12 @@ window.ceres = {};
                                 cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.fade = getFade(); // enabled
                                 cfg.attrib.zoom = getZoom(); // enabled
-                                cfg.attrib.static = getStatic(); // enabled
+                                cfg.attrib.auto = getAuto(); // enabled
                                 cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
 
                                 Object.freeze(cfg.attrib);
 
-                                cfg.template = getTemplate();
+                                cfg.template = getTemplate(); // element when using embedded image lists
                             }
 
                             return exists;
@@ -402,7 +402,7 @@ window.ceres = {};
 
                             cfg.shadow.append(cfg.bodyNode);
 
-                            if (cfg.attrib.static) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
+                            if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
 
                         slide: function(obj)
@@ -501,7 +501,7 @@ window.ceres = {};
 
                             setTimeout(function()
                             {
-                                if (!cfg.attrib.static) setTimeout(function() { getAuto(); }, cfg.attrib.delay);
+                                if (cfg.attrib.auto) setTimeout(function() { getAuto(); }, cfg.attrib.delay);
                                 atr.getState.show();
 
                             }, cfg.attrib.delay);
@@ -596,7 +596,7 @@ window.ceres = {};
 
                     this.getClassList = function(className)
                     {
-                        if (className != 'slide') return !cfg.attrib.nub || cfg.attrib.static ? className : className += ' none';
+                        if (className != 'slide') return (!(cfg.attrib.nub && cfg.attrib.auto)) ? className : className += ' none';
 
                         if (cfg.attrib.zoom) className += ' zoom';
                         if (cfg.attrib.fade) className += ' fade';
