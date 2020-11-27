@@ -205,9 +205,9 @@ window.ceres = {};
                         hasContent: function()
                         {
                             if (!atr.content.properties()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
-                            if (!atr.content.textlist()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
+                            if (!atr.content.textList()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
 
-                            return atr.content.textarray();
+                            return atr.content.textArray();
                         },
 
                         showContent: function()
