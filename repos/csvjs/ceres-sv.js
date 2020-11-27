@@ -606,17 +606,22 @@ window.ceres = {};
 
                     this.getState = {
 
-                        hide: function() {
+                        hide: function()
+                        {
                             csvNode.classList.add('none');
                             csvNode.style.display = 'none';
                         },
 
-                        show: function() {
+                        show: function()
+                        {
                             csvNode.classList.remove('none');
                             csvNode.style.removeProperty('display');
 
                             if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
+
+                            cfg.shadow.querySelector('surtitle').classList.remove('none');
+                            cfg.shadow.querySelector('subtitle').classList.remove('none');
                         }
 
                     };
