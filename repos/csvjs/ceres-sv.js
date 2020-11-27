@@ -614,14 +614,17 @@ window.ceres = {};
 
                         show: function()
                         {
+                            let surtitle = cfg.shadow.querySelector('surtitle');
+                            let subtitle = cfg.shadow.querySelector('subtitle');
+
                             csvNode.classList.remove('none');
                             csvNode.style.removeProperty('display');
 
                             if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
 
-                            cfg.shadow.querySelector('surtitle').classList.remove('none');
-                            cfg.shadow.querySelector('subtitle').classList.remove('none');
+                            if (surtitle) surtitle.classList.remove('none');
+                            if (subtitle) subtitle.classList.remove('none');
                         }
 
                     };
