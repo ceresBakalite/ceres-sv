@@ -400,26 +400,26 @@ window.ceres = {};
                             }
 
                             if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : getShadow(obj.node);
-                            const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
+                            let slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
 
                             cfg.slide = !rsc.ignore(obj.autoslide) ? obj.autoslide
                                 : cfg.slide < 1 ? slides.length
                                 : cfg.slide > slides.length ? 1
                                 : cfg.slide;
 
-                            const next = cfg.slide-1;
+                            let next = cfg.slide-1;
 
                             if (rsc.ignore(slides[next])) return;
 
-                            const active = obj.shadow.querySelector('div.slideview-image > div.active');
+                            let active = obj.shadow.querySelector('div.slideview-image > div.active');
                             if (active) active.classList.replace('active', 'none');
 
                             slides[next].classList.replace('none', 'active');
 
-                            const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
+                            let enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
                             if (enabled) enabled.className = 'nub';
 
-                            const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
+                            let nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
                             nub[next].className = 'nub enabled';
                         },
 
