@@ -316,11 +316,11 @@ window.ceres = {};
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
 
-                                cfg.attrib.delay = this.config.delay(); // default 250
-                                cfg.attrib.fade = this.config.fade(); // enabled
-                                cfg.attrib.zoom = this.config.zoom(); // enabled
-                                cfg.attrib.static = this.config.static(); // enabled
-                                cfg.attrib.embed = this.config.embed(); // template elementId when using embedded image lists
+                                cfg.attrib.delay = config.delay(); // default 250
+                                cfg.attrib.fade = config.fade(); // enabled
+                                cfg.attrib.zoom = config.zoom(); // enabled
+                                cfg.attrib.static = config.static(); // enabled
+                                cfg.attrib.embed = config.embed(); // template elementId when using embedded image lists
 
                                 Object.freeze(cfg.attrib);
 
