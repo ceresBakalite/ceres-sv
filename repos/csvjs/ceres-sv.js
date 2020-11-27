@@ -620,11 +620,8 @@ window.ceres = {};
                             if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
 
-                            let sur = cfg.shadow.querySelector('surtitle');
-                            let sub = cfg.shadow.querySelector('subtitle');
-
-                            if (sur) sur.classList.remove('none');
-                            if (sub) sub.classList.remove('none');
+                            let slides = cfg.shadow.querySelectorAll('surtitle', 'subtitle');
+                            slides.forEach((item) => { item.classList.remove('none'); });
                         }
 
                     };
