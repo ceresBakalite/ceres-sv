@@ -620,7 +620,7 @@ window.ceres = {};
                             if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
 
-                            let slides = cfg.shadow.querySelectorAll('surtitle', 'subtitle');
+                            let slides = cfg.shadow.querySelectorAll('div.surtitle, div.subtitle');
                             slides.forEach((item) => { item.classList.remove('none'); });
                         }
 
