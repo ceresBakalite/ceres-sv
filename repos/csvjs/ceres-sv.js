@@ -356,7 +356,7 @@ window.ceres = {};
                         {
                             const getSwipe = function(swipe)
                             {
-                                const offset = (swipe.action) ? swipe.right : swipe.left;
+                                let offset = (swipe.action) ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
                                 atr.get.slide({ shadow: cfg.shadow });
@@ -383,10 +383,10 @@ window.ceres = {};
                         {
                             const getShadow = function(node) // shadowRoot slide manager
                             {
-                                const root = node.getRootNode().host;
-                                const shade = document.querySelector('#' + root.id);
-                                const shadow = shade.shadowRoot;
-                                const slide = shadow.querySelector('div.slideview-image > div.active');
+                                let root = node.getRootNode().host;
+                                let shade = document.querySelector('#' + root.id);
+                                let shadow = shade.shadowRoot;
+                                let slide = shadow.querySelector('div.slideview-image > div.active');
 
                                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
@@ -427,8 +427,8 @@ window.ceres = {};
                         {
                             const getAuto = function()
                             {
-                                const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
-                                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                                let slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
+                                let complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
@@ -458,8 +458,8 @@ window.ceres = {};
 
                                 cfg.cachesrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
 
-                                const cacheName = csv + '-cache';
-                                const urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
+                                let cacheName = csv + '-cache';
+                                let urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
 
                                 urlArray.forEach(url =>
                                 {
@@ -524,8 +524,9 @@ window.ceres = {};
                             const setText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
                             const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
                             const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
-                            const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
-                            const classlist = atr.getClassList('slide');
+
+                            let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+                            let classlist = atr.getClassList('slide');
 
                             const imgNode = document.createElement('div');
                             imgNode.className = 'slideview-image';
