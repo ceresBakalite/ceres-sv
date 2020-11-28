@@ -257,10 +257,10 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getAttributeArray = function(attribute, bDefault)
+                            const getTitle = function(attribute)
                             {
                                 let value = csvNode.getAttribute(attribute);
-                                if (rsc.ignore(value)) return bDefault;
+                                if (rsc.ignore(value)) return false;
 
                                 let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
@@ -270,13 +270,6 @@ window.ceres = {};
                                     if (!rsc.getBoolean(item)) return false;
                                     if (ar.length > 1) ar.shift();
                                 }
-
-                                return ar;
-                            }
-
-                            const getTitle = function(type)
-                            {
-                                let ar = getAttributeArray(type, false);
 
                                 ar.forEach((item) => {
 
