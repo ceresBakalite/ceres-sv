@@ -257,7 +257,7 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const nodeAttribute = function(attribute)
+                            const nodeAttributes = function(attribute)
                             {
                                 let value = csvNode.getAttribute(attribute);
                                 if (rsc.ignore(value)) return (attribute == 'fade');
@@ -317,10 +317,10 @@ window.ceres = {};
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
 
-                                cfg.attrib.sur = nodeAttribute('sur'); // disabled
-                                cfg.attrib.sub = nodeAttribute('sub'); // disabled
-                                cfg.attrib.fade = nodeAttribute('fade'); // enabled
-                                cfg.attrib.auto = nodeAttribute('auto'); // enabled
+                                cfg.attrib.sur = nodeAttributes('sur'); // disabled
+                                cfg.attrib.sub = nodeAttributes('sub'); // disabled
+                                cfg.attrib.fade = nodeAttributes('fade'); // enabled
+                                cfg.attrib.auto = nodeAttributes('auto'); // enabled
 
                                 cfg.attrib.zoom = getZoom(); // enabled
                                 cfg.attrib.delay = getDelay(); // default 250
