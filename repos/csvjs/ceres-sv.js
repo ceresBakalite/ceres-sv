@@ -231,23 +231,6 @@ window.ceres = {};
                                 return !!rsc.ignore(zoom) || rsc.getBoolean(zoom);
                             }
 
-                            const getAttributeArray = function(attribute, bDefault)
-                            {
-                                let value = csvNode.getAttribute(attribute);
-                                if (rsc.ignore(value)) return bDefault;
-
-                                let ar = value.replace(rsc.attrib.whitespace,'').split(',');
-                                let item = ar[0];
-
-                                if (!Number.isInteger(parseInt(item)))
-                                {
-                                    if (!rsc.getBoolean(item)) return false;
-                                    if (ar.length > 1) ar.shift();
-                                }
-
-                                return ar;
-                            }
-
                             const getDelay = function()
                             {
                                 return Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
@@ -272,6 +255,23 @@ window.ceres = {};
                                 }
 
                                 return rsc.ignore(el) ? 'undefined' : el;
+                            }
+
+                            const getAttributeArray = function(attribute, bDefault)
+                            {
+                                let value = csvNode.getAttribute(attribute);
+                                if (rsc.ignore(value)) return bDefault;
+
+                                let ar = value.replace(rsc.attrib.whitespace,'').split(',');
+                                let item = ar[0];
+
+                                if (!Number.isInteger(parseInt(item)))
+                                {
+                                    if (!rsc.getBoolean(item)) return false;
+                                    if (ar.length > 1) ar.shift();
+                                }
+
+                                return ar;
                             }
 
                             const getFade = function()
@@ -300,7 +300,7 @@ window.ceres = {};
                             {
                                 let ar = getAttributeArray(type, false);
 
-                                title.forEach((item) => {
+                                ar.forEach((item) => {
 
                                     const lookup = {
                                         'left': function() { console.info('left'); },
