@@ -289,22 +289,18 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                ar.forEach((item) => {
+                                const lookup = {
+                                    'left': function() { console.info(item); },
+                                    'center': function() { console.info(item); },
+                                    'right': function() { console.info(item); },
+                                    'top': function() { console.info(item); },
+                                    'bottom': function() { console.info(item); },
+                                    'bold': function() { console.info(item); },
+                                    'color': function() { console.info(item); },
+                                    'default': function() { console.info(item); }
+                                };
 
-                                    const lookup = {
-                                        'left': function() { console.info('left'); },
-                                        'center': function() { console.info('center'); },
-                                        'right': function() { console.info('right'); },
-                                        'top': function() { console.info('top'); },
-                                        'bottom': function() { console.info('bottom'); },
-                                        'bold': function() { console.info('bold'); },
-                                        'color': function() { console.info('color'); },
-                                        'default': function() { console.info('default'); }
-                                    };
-
-                                    lookup[item] || lookup['default'];
-
-                                });
+                                ar.forEach((item) => { lookup[item] || lookup['default']; });
 
                                 return true;
                             }
