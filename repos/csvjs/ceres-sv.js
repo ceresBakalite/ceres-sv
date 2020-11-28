@@ -630,9 +630,6 @@ window.ceres = {};
 
                             let slides = cfg.shadow.querySelectorAll('div.surtitle, div.subtitle');
                             slides.forEach((item) => { item.classList.remove('none'); });
-
-                            cfg.shadow.host.display = 'block';
-
                         }
 
                     };
