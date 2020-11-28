@@ -347,18 +347,18 @@ window.ceres = {};
                             {
                                 csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                cfg.attrib.sur = rsc.getBoolean(csvNode.getAttribute('sur')); // disabled (left, center, right, top, bottom, bold, color)
-                                cfg.attrib.sub = rsc.getBoolean(csvNode.getAttribute('sub')); // disabled
+                                //cfg.attrib.sur = rsc.getBoolean(csvNode.getAttribute('sur')); // disabled (left, center, right, top, bottom, bold, color)
+                                //cfg.attrib.sub = rsc.getBoolean(csvNode.getAttribute('sub')); // disabled
                                 cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
 
-                                let test = getTitle('sur');
-
-                                cfg.attrib.delay = getDelay(); // default 250
+                                cfg.attrib.sur = getTitle('sur'); // disabled
+                                cfg.attrib.sub = getTitle('sub'); // disabled
                                 cfg.attrib.fade = getFade(); // enabled
                                 cfg.attrib.zoom = getZoom(); // enabled
                                 cfg.attrib.auto = getAuto(); // enabled
+                                cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
 
                                 Object.freeze(cfg.attrib);
