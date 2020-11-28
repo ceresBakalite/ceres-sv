@@ -294,7 +294,6 @@ window.ceres = {};
                             const getFade = function()
                             {
                                 let fade = csvNode.getAttribute('fade');
-
                                 if (rsc.ignore(fade)) return true;
 
                                 let ar = fade.replace(rsc.attrib.whitespace,'').split(',');
@@ -314,7 +313,6 @@ window.ceres = {};
                             const getAuto = function()
                             {
                                 let auto = csvNode.getAttribute('auto');
-
                                 if (rsc.ignore(auto)) return false;
 
                                 let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
@@ -340,8 +338,6 @@ window.ceres = {};
                             {
                                 csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                //cfg.attrib.sur = rsc.getBoolean(csvNode.getAttribute('sur')); // disabled (left, center, right, top, bottom, bold, color)
-                                //cfg.attrib.sub = rsc.getBoolean(csvNode.getAttribute('sub')); // disabled
                                 cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
