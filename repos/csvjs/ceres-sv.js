@@ -257,6 +257,59 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
+                            const getNodeAttribute = function(attribute)
+                            {
+                                let value = csvNode.getAttribute(attribute);
+                                if (rsc.ignore(value)) return (attribute == 'fade');
+                                //if (rsc.ignore(value)) return (attribute == 'fade') ? true : false;
+
+                                let ar = value.replace(rsc.attrib.whitespace,'').split(',');
+                                let item = ar[0];
+
+                                if (!Number.isInteger(parseInt(item)))
+                                {
+                                    if (!rsc.getBoolean(item)) return false;
+                                    if (ar.length > 1) ar.shift();
+                                }
+
+                                if (attribute == 'fade')
+                                {
+                                    cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
+                                    return true;
+                                }
+
+                                if (attribute == 'auto')
+                                {
+                                    cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+                                    cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                    cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
+
+                                    cfg.attrib.fade = cfg.attrib.autopause > 400;
+                                    cfg.attrib.nub = 'false'; // typeof string
+
+                                    return true;
+                                }
+
+                                ar.forEach((item) => {
+
+                                    const lookup = {
+                                        'left': function() { console.info('left'); },
+                                        'center': function() { console.info('center'); },
+                                        'right': function() { console.info('right'); },
+                                        'top': function() { console.info('top'); },
+                                        'bottom': function() { console.info('bottom'); },
+                                        'bold': function() { console.info('bold'); },
+                                        'color': function() { console.info('color'); },
+                                        'default': function() { console.info('default'); }
+                                    };
+
+                                    lookup[item] || lookup['default'];
+
+                                });
+
+                                return true;
+                            }
+
                             const getTitle = function(attribute)
                             {
                                 let value = csvNode.getAttribute(attribute);
@@ -342,11 +395,12 @@ window.ceres = {};
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
 
-                                cfg.attrib.sur = getTitle('sur'); // disabled
-                                cfg.attrib.sub = getTitle('sub'); // disabled
-                                cfg.attrib.fade = getFade(); // enabled
+                                cfg.attrib.sur = getNodeAttribute('sur'); // disabled
+                                cfg.attrib.sub = getNodeAttribute('sub'); // disabled
+                                cfg.attrib.fade = getNodeAttribute('fade'); // enabled
+                                cfg.attrib.auto = getNodeAttribute('auto'); // enabled
+
                                 cfg.attrib.zoom = getZoom(); // enabled
-                                cfg.attrib.auto = getAuto(); // enabled
                                 cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
 
