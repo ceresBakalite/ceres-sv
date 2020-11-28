@@ -292,14 +292,14 @@ window.ceres = {};
                                 ar.forEach((item) => {
 
                                     const lookup = {
-                                        'left': function() { console.info(item); },
-                                        'center': function() { console.info(item); },
-                                        'right': function() { console.info(item); },
-                                        'top': function() { console.info(item); },
-                                        'bottom': function() { console.info(item); },
-                                        'bold': function() { console.info(item); },
-                                        'color': function() { console.info(item); },
-                                        'default': function() { console.info(item); }
+                                        'left': function() { console.info('left'); },
+                                        'center': function() { console.info('center'); },
+                                        'right': function() { console.info('right'); },
+                                        'top': function() { console.info('top'); },
+                                        'bottom': function() { console.info('bottom'); },
+                                        'bold': function() { console.info('bold'); },
+                                        'color': function() { console.info('color'); },
+                                        'default': function() { console.info('default'); }
                                     };
 
                                     lookup[item] || lookup['default'];
@@ -374,6 +374,7 @@ window.ceres = {};
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(rsc.attrib.newline, ';').split(';') : null;
+                                    //cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
