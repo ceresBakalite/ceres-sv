@@ -231,6 +231,26 @@ window.ceres = {};
                                 return !!rsc.ignore(zoom) || rsc.getBoolean(zoom);
                             }
 
+                            const getFade = function()
+                            {
+                                let fade = csvNode.getAttribute('fade');
+
+                                if (rsc.ignore(fade)) return true;
+
+                                let ar = fade.replace(rsc.attrib.whitespace,'').split(',');
+                                let item = ar[0];
+
+                                if (!Number.isInteger(parseInt(item)))
+                                {
+                                    if (!rsc.getBoolean(item)) return false;
+                                    if (ar.length > 1) ar.shift();
+                                }
+
+                                cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
+
+                                return true;
+                            }
+
                             const getDelay = function()
                             {
                                 return Number.isInteger(parseInt(csvNode.getAttribute('delay'))) ? parseInt(csvNode.getAttribute('delay')) : 250;
@@ -257,12 +277,13 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getAttributeArray = function(attribute, bDefault)
+                            const getAuto = function()
                             {
-                                let value = csvNode.getAttribute(attribute);
-                                if (rsc.ignore(value)) return bDefault;
+                                let auto = csvNode.getAttribute('auto');
 
-                                let ar = value.replace(rsc.attrib.whitespace,'').split(',');
+                                if (rsc.ignore(auto)) return false;
+
+                                let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
@@ -270,21 +291,6 @@ window.ceres = {};
                                     if (!rsc.getBoolean(item)) return false;
                                     if (ar.length > 1) ar.shift();
                                 }
-
-                                return ar;
-                            }
-
-                            const getFade = function()
-                            {
-                                let ar = getAttributeArray('fade', true);
-                                cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
-
-                                return true;
-                            }
-
-                            const getAuto = function()
-                            {
-                                let ar = getAttributeArray('auto', false);
 
                                 cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                                 cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
@@ -296,43 +302,17 @@ window.ceres = {};
                                 return true;
                             }
 
-                            const getTitle = function(type)
-                            {
-                                let ar = getAttributeArray(type, false);
-
-                                ar.forEach((item) => {
-
-                                    const lookup = {
-                                        'left': function() { console.info('left'); },
-                                        'center': function() { console.info('center'); },
-                                        'right': function() { console.info('right'); },
-                                        'top': function() { console.info('top'); },
-                                        'bottom': function() { console.info('bottom'); },
-                                        'bold': function() { console.info('bold'); },
-                                        'color': function() { console.info('color'); },
-                                        'default': function() { console.info('default'); }
-                                    };
-
-                                    lookup[item]() || lookup['default']();
-
-                                });
-
-                                return true;
-                            }
-
                             if (exists)
                             {
                                 csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                cfg.attrib.sur = rsc.getBoolean(csvNode.getAttribute('sur')); // disabled (left, center, right, top, bottom, bold, colour)
+                                cfg.attrib.sur = rsc.getBoolean(csvNode.getAttribute('sur')); // disabled (left, center, right, top, bottom, bold, color)
                                 cfg.attrib.sub = rsc.getBoolean(csvNode.getAttribute('sub')); // disabled
                                 cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
 
                                 cfg.attrib.delay = getDelay(); // default 250
-                                //cfg.attrib.sur = getTitle('sur'); // enabled
-                                //cfg.attrib.sub = getTitle('sub'); // enabled
                                 cfg.attrib.fade = getFade(); // enabled
                                 cfg.attrib.zoom = getZoom(); // enabled
                                 cfg.attrib.auto = getAuto(); // enabled
