@@ -10,13 +10,7 @@
  * Copyright (c) 2020 Alexander Munro
 */
 
-:host {
-    display: none;
-}
-
-:host(.active) {
-    display: block;
-}
+:host {}
 
 .slideview-body {
     user-select: none;
