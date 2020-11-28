@@ -231,13 +231,17 @@ window.ceres = {};
                                 return !!rsc.ignore(zoom) || rsc.getBoolean(zoom);
                             }
 
+                            const getAttributeArray = function(attribute, bDefault)
+                            {
+                                let value = csvNode.getAttribute(attribute);
+                                if (rsc.ignore(value)) return bDefault;
+
+                                return value.replace(rsc.attrib.whitespace,'').split(',');
+                            }
+
                             const getFade = function()
                             {
-                                let fade = csvNode.getAttribute('fade');
-
-                                if (rsc.ignore(fade)) return true;
-
-                                let ar = fade.replace(rsc.attrib.whitespace,'').split(',');
+                                let ar = getAttributeArray('fade', true);
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
@@ -279,11 +283,7 @@ window.ceres = {};
 
                             const getAuto = function()
                             {
-                                let auto = csvNode.getAttribute('auto');
-
-                                if (rsc.ignore(auto)) return false;
-
-                                let ar = auto.replace(rsc.attrib.whitespace,'').split(',');
+                                let ar = getAttributeArray('auto', false);
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
@@ -304,11 +304,7 @@ window.ceres = {};
 
                             const getTitle = function(type)
                             {
-                                let title = csvNode.getAttribute(type);
-
-                                if (rsc.ignore(title)) return false;
-
-                                let ar = title.replace(rsc.attrib.whitespace,'').split(',');
+                                let ar = getAttributeArray(type, false);
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
