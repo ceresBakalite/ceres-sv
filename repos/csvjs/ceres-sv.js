@@ -274,6 +274,30 @@ window.ceres = {};
                                 return ar;
                             }
 
+                            const getTitle = function(type)
+                            {
+                                let ar = getAttributeArray(type, false);
+
+                                ar.forEach((item) => {
+
+                                    const lookup = {
+                                        'left': function() { console.info('left'); },
+                                        'center': function() { console.info('center'); },
+                                        'right': function() { console.info('right'); },
+                                        'top': function() { console.info('top'); },
+                                        'bottom': function() { console.info('bottom'); },
+                                        'bold': function() { console.info('bold'); },
+                                        'color': function() { console.info('color'); },
+                                        'default': function() { console.info('default'); }
+                                    };
+
+                                    lookup[item]() || lookup['default']();
+
+                                });
+
+                                return true;
+                            }
+
                             const getFade = function()
                             {
                                 let fade = csvNode.getAttribute('fade');
@@ -319,30 +343,6 @@ window.ceres = {};
                                 return true;
                             }
 
-                            const getTitle = function(type)
-                            {
-                                let ar = getAttributeArray(type, false);
-
-                                ar.forEach((item) => {
-
-                                    const lookup = {
-                                        'left': function() { console.info('left'); },
-                                        'center': function() { console.info('center'); },
-                                        'right': function() { console.info('right'); },
-                                        'top': function() { console.info('top'); },
-                                        'bottom': function() { console.info('bottom'); },
-                                        'bold': function() { console.info('bold'); },
-                                        'color': function() { console.info('color'); },
-                                        'default': function() { console.info('default'); }
-                                    };
-
-                                    lookup[item]() || lookup['default']();
-
-                                });
-
-                                return true;
-                            }
-
                             if (exists)
                             {
                                 csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
@@ -352,6 +352,8 @@ window.ceres = {};
                                 cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
+
+                                test = getTitle('sur')
 
                                 cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.fade = getFade(); // enabled
