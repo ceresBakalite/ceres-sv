@@ -215,7 +215,7 @@ window.ceres = {};
                             atr.get.shadow();
                             atr.get.slide({ shadow: cfg.shadow });
                             atr.get.view();
-                        },
+                        }
 
                     };
 
