@@ -353,7 +353,7 @@ window.ceres = {};
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
 
-                                test = getTitle('sur')
+                                let test = getTitle('sur');
 
                                 cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.fade = getFade(); // enabled
