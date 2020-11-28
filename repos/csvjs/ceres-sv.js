@@ -310,10 +310,9 @@ window.ceres = {};
                                         'bottom': function() { console.info('bottom'); },
                                         'bold': function() { console.info('bold'); },
                                         'color': function() { console.info('color'); },
-                                        'default': function() { console.info('default'); }
                                     };
 
-                                    lookup[item]() || lookup['default'];
+                                    lookup[item]();
 
                                 });
 
