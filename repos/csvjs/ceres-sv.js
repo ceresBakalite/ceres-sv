@@ -291,7 +291,7 @@ window.ceres = {};
                                         'default': function() { console.info('default'); }
                                     };
 
-                                    lookup[item]() || lookup['default']();
+                                    lookup[item] || lookup['default'];
 
                                 });
 
