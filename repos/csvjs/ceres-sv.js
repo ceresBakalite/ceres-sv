@@ -302,16 +302,53 @@ window.ceres = {};
                                 return true;
                             }
 
+                            const getTitle = function(type)
+                            {
+                                let title = csvNode.getAttribute(type);
+
+                                if (rsc.ignore(title)) return false;
+
+                                let ar = title.replace(rsc.attrib.whitespace,'').split(',');
+                                let item = ar[0];
+
+                                if (!Number.isInteger(parseInt(item)))
+                                {
+                                    if (!rsc.getBoolean(item)) return false;
+                                    if (ar.length > 1) ar.shift();
+                                }
+
+                                title.forEach((item) => {
+
+                                    const lookup = {
+                                        'left': function() { console.info('left'); },
+                                        'center': function() { console.info('center'); },
+                                        'right': function() { console.info('right'); },
+                                        'top': function() { console.info('top'); },
+                                        'bottom': function() { console.info('bottom'); },
+                                        'bold': function() { console.info('bold'); },
+                                        'color': function() { console.info('color'); },
+                                        'default': function() { console.info('default'); }
+                                    };
+
+                                    lookup[item]() || lookup['default'];
+
+                                });
+
+                                return true;
+                            }
+
                             if (exists)
                             {
                                 csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                cfg.attrib.sur = rsc.getBoolean(csvNode.getAttribute('sur')); // disabled
-                                cfg.attrib.sub = rsc.getBoolean(csvNode.getAttribute('sub')); // disabled
+                                //cfg.attrib.sur = rsc.getBoolean(csvNode.getAttribute('sur')); // disabled (left, center, right, top, bottom, bold, colour)
+                                //cfg.attrib.sub = rsc.getBoolean(csvNode.getAttribute('sub')); // disabled
                                 cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
                                 cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
                                 cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
 
+                                cfg.attrib.sur = getTitle('sur'); // enabled
+                                cfg.attrib.sub = getTitle('sub'); // enabled
                                 cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.fade = getFade(); // enabled
                                 cfg.attrib.zoom = getZoom(); // enabled
