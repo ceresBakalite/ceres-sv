@@ -236,12 +236,7 @@ window.ceres = {};
                                 let value = csvNode.getAttribute(attribute);
                                 if (rsc.ignore(value)) return bDefault;
 
-                                return value.replace(rsc.attrib.whitespace,'').split(',');
-                            }
-
-                            const getFade = function()
-                            {
-                                let ar = getAttributeArray('fade', true);
+                                let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
@@ -250,9 +245,7 @@ window.ceres = {};
                                     if (ar.length > 1) ar.shift();
                                 }
 
-                                cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
-
-                                return true;
+                                return ar;
                             }
 
                             const getDelay = function()
@@ -281,16 +274,17 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
+                            const getFade = function()
+                            {
+                                let ar = getAttributeArray('fade', true);
+                                cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
+
+                                return true;
+                            }
+
                             const getAuto = function()
                             {
                                 let ar = getAttributeArray('auto', false);
-                                let item = ar[0];
-
-                                if (!Number.isInteger(parseInt(item)))
-                                {
-                                    if (!rsc.getBoolean(item)) return false;
-                                    if (ar.length > 1) ar.shift();
-                                }
 
                                 cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                                 cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
@@ -305,13 +299,6 @@ window.ceres = {};
                             const getTitle = function(type)
                             {
                                 let ar = getAttributeArray(type, false);
-                                let item = ar[0];
-
-                                if (!Number.isInteger(parseInt(item)))
-                                {
-                                    if (!rsc.getBoolean(item)) return false;
-                                    if (ar.length > 1) ar.shift();
-                                }
 
                                 title.forEach((item) => {
 
