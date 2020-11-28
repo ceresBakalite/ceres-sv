@@ -373,8 +373,8 @@ window.ceres = {};
                                 if (!rsc.ignore(imageList))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.fetchsrc ? csvNode.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
-                                    //cfg.imageArray = (imageList) ? imageList.trim().replace(rsc.attrib.newline, ';').split(';') : null;
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
+                                    //cfg.imageArray = (imageList) ? imageList.trim().replace(rsc.attrib.newline, ';').split(';') : null;
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
@@ -640,7 +640,7 @@ window.ceres = {};
                         if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
 
                         let json = JSON.parse(textList);
-                        json.forEach((node) => { jsonList += node.url + ', ' + node.text + rsc.attrib.newline; });
+                        json.forEach((node) => { jsonList += node.url + ', ' + node.text + '\n'; });
 
                         return jsonList;
                     }
