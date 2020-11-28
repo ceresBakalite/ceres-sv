@@ -142,9 +142,8 @@ window.ceres = {};
             nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
             whitespace   : /\s/g,
             markup       : /(<([^>]+)>)/ig,
-            linefeed     : '\n',
 
-            get newline() { return this.isWindows ? '\r\n' : this.linefeed; },
+            get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
             get tagName() { return this.tagArray.map(item => { return item.trim().toUpperCase(); }) },
             get metaUrl() { return import.meta.url; }
@@ -636,7 +635,7 @@ window.ceres = {};
                         if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
 
                         let json = JSON.parse(textList);
-                        json.forEach((node) => { jsonList += node.url + ', ' + node.text + rsc.attrib.linefeed; });
+                        json.forEach((node) => { jsonList += node.url + ', ' + node.text + '\n'; });
 
                         return jsonList;
                     }
