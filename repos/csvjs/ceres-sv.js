@@ -625,14 +625,15 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                         hide: function()
                         {
-                            csvNode.style.display = 'none';
                             csvNode.style.visibility = 'hidden';
+                            csvNode.style.display = 'none';
                         },
 
                         show: function()
                         {
                             csvNode.style.removeProperty('display');
                             csvNode.style.removeProperty('visibility');
+                            cfg.shadow.style.host.removeProperty('display');
 
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
                         }
