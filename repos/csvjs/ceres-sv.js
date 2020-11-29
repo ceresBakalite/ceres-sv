@@ -240,6 +240,7 @@ window.ceres = {};
                                 cfg.attrib.zoom = getZoom(); // enabled
                                 cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
+
                                 cfg.attrib.auto = nodeAttributes('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
