@@ -411,7 +411,7 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                             cfg.shade.attachShadow({ mode: 'open' });
                             cfg.shadow = cfg.shade.shadowRoot;
-                            cfg.host = cfg.shadow.host;
+                            //cfg.host = cfg.shadow.host;
 
                             //cfg.host.style.display = 'none';
 
