@@ -232,17 +232,6 @@ window.ceres = {};
                                 embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const lookup = {
-                                'left'    : function() { return true; },
-                                'center'  : function() { return true; },
-                                'right'   : function() { return true; },
-                                'top'     : function() { return true; },
-                                'bottom'  : function() { return true; },
-                                'bold'    : function() { return true; },
-                                'color'   : function() { return true; },
-                                'default' : function() { return false; }
-                            };
-
                             const getTemplate = function()
                             {
                                 if (cfg.fetchsrc) return 'undefined';
@@ -315,12 +304,17 @@ window.ceres = {};
                                     return true;
                                 }
 
+                                style =
+                                {
+                                    styles : ['left','center','right','top','bottom','bold','color','default'],
+                                    get property() { return this.styles.map(item => { return item.trim().toUpperCase(); }) },
+                                }
+
 console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                                 ar.forEach((item) => {
 
-                                    console.log('item: ' + item);
-                                    if (lookup[item]) console.log('found: ' + item);
+                                    if (style.property.includes(item.trim().toUpperCase())) console.log('found: ' + item);
 
                                 });
 
