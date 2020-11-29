@@ -304,17 +304,17 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                style =
+                                elStyle =
                                 {
-                                    styles : ['left','center','right','top','bottom','bold','color','default'],
-                                    get property() { return this.styles.map(item => { return item.trim().toUpperCase(); }) },
+                                    el : ['left','center','right','top','bottom','bold','color','default'],
+                                    get property() { return this.el.map(item => { return item.trim().toUpperCase(); }) }
                                 }
 
 console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                                 ar.forEach((item) => {
 
-                                    if (style.property.includes(item.trim().toUpperCase())) console.log('found: ' + item);
+                                    if (elStyle.property.includes(item.trim().toUpperCase())) console.log('found: ' + item);
 
                                 });
 
