@@ -289,6 +289,8 @@ window.ceres = {};
                                     return true;
                                 }
 
+console.log('attribute: ' + attribute + ' - ar:' + ar);
+
                                 const lookup = {
                                     'left': function() { console.info('left'); },
                                     'center': function() { console.info('center'); },
