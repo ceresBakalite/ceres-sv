@@ -274,19 +274,14 @@ window.ceres = {};
 
                             const getRootAttribute = function(attribute)
                             {
-                                console.log('attribute: ' + attribute);
-
                                 let value = csvRoot.getAttribute(attribute);
                                 if (rsc.ignore(value)) return (attribute == 'fade');
-
-                                console.log(attribute + ': ' + value);
 
                                 let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
                                 {
-                                    console.log('not number: ' + attribute + ' - ar[0]: ' + item + ' length: ' + ar.length);
                                     if (!rsc.getBoolean(item)) return false;
                                     if (ar.length > 1) ar.shift();
                                 }
@@ -294,7 +289,6 @@ window.ceres = {};
                                 if (attribute == 'fade')
                                 {
                                     cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
-                                    console.log('fade: ' + attribute + ' - item: ' + item + ' length: ' + ar.length + ' fadeduration: ' + cfg.attrib.fadeduration);
                                     return true;
                                 }
 
@@ -307,25 +301,28 @@ window.ceres = {};
                                     cfg.attrib.fade = cfg.attrib.autopause > 400;
                                     cfg.attrib.nub = 'false'; // typeof string
 
-                                    console.log('auto: attribute: ' + attribute + ' - item: ' + item + ' length: ' + ar.length + ' fadeduration: ' + cfg.attrib.fadeduration);
-
                                     return true;
                                 }
 
 console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                                 const lookup = {
-                                    'left': function() { console.info('left'); },
-                                    'center': function() { console.info('center'); },
-                                    'right': function() { console.info('right'); },
-                                    'top': function() { console.info('top'); },
-                                    'bottom': function() { console.info('bottom'); },
-                                    'bold': function() { console.info('bold'); },
-                                    'color': function() { console.info('color'); },
-                                    'default': function() { console.info('default'); }
+                                    left    : function() { console.info('left'); },
+                                    center  : function() { console.info('center'); },
+                                    right   : function() { console.info('right'); },
+                                    top     : function() { console.info('top'); },
+                                    bottom  : function() { console.info('bottom'); },
+                                    bold    : function() { console.info('bold'); },
+                                    color   : function() { console.info('color'); },
+                                    default : function() { console.info('default'); }
                                 };
 
-                                ar.forEach((item) => { lookup[item] || lookup['default']; });
+                                ar.forEach((item) => {
+
+                                    console.log('item: ' + item);
+                                    lookup[item] || lookup['default'];
+
+                                });
 
                                 return true;
                             }
