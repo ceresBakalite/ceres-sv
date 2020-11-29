@@ -640,6 +640,9 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                             let slides = cfg.shadow.querySelectorAll('div.surtitle, div.subtitle');
                             slides.forEach((item) => { item.classList.remove('none'); });
+
+                            csvNode.style.visibility = 'visible';
+
                         }
 
                     };
