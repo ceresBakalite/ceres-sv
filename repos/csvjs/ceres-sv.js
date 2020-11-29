@@ -304,7 +304,7 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                elStyle =
+                                const elStyle =
                                 {
                                     el : ['left','center','right','top','bottom','bold','color','default'],
                                     get property() { return this.el.map(item => { return item.trim().toUpperCase(); }) }
