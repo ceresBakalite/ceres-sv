@@ -625,22 +625,15 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                         hide: function()
                         {
+                            csvNode.style.display = 'none';
                             csvNode.style.visibility = 'hidden';
-                            //csvNode.classList.add('none');
-                            //csvNode.style.display = 'none';
                         },
 
                         show: function()
                         {
-                            //csvNode.classList.remove('none');
-
-                            //if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
-                            //if (csvNode.style.length === 0) csvNode.removeAttribute("style");
-
-                            //let slides = cfg.shadow.querySelectorAll('div.surtitle, div.subtitle');
-                            //slides.forEach((item) => { item.classList.remove('none'); });
-
+                            csvNode.style.removeProperty('display');
                             csvNode.style.removeProperty('visibility');
+
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
                         }
 
