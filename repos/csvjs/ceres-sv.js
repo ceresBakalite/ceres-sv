@@ -264,6 +264,8 @@ window.ceres = {};
                                 let value = csvNode.getAttribute(attribute);
                                 if (rsc.ignore(value)) return (attribute == 'fade');
 
+                                console.log('value: ' + value);
+
                                 let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
 
