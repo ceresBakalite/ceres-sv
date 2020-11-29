@@ -259,6 +259,8 @@ window.ceres = {};
 
                             const nodeAttributes = function(attribute)
                             {
+                                console.log('attribute: ' + attribute);
+
                                 let value = csvNode.getAttribute(attribute);
                                 if (rsc.ignore(value)) return (attribute == 'fade');
 
@@ -267,18 +269,22 @@ window.ceres = {};
 
                                 if (!Number.isInteger(parseInt(item)))
                                 {
+                                    console.log('attribute: ' + attribute + ' - item: ' + item);
                                     if (!rsc.getBoolean(item)) return false;
                                     if (ar.length > 1) ar.shift();
                                 }
 
                                 if (attribute == 'fade')
                                 {
+                                    console.log('fade: attribute: ' + attribute + ' - item: ' + item);
                                     cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
                                     return true;
                                 }
 
                                 if (attribute == 'auto')
                                 {
+                                    console.log('auto: attribute: ' + attribute + ' - item: ' + item);
+
                                     cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                                     cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
                                     cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
