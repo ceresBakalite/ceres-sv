@@ -306,7 +306,7 @@ window.ceres = {};
 
                                 const elStyle =
                                 {
-                                    el : ['left','center','right','top','bottom','bold','color','default'],
+                                    el : ['left','center','right','top','bottom','bold','color'],
                                     get property() { return this.el.map(item => { return item.trim().toUpperCase(); }) }
                                 }
 
