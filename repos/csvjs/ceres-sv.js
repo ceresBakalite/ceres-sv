@@ -238,9 +238,9 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
+                                cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
                                 cfg.attrib.trace = attribute.trace(csvRoot.getAttribute('trace')); // disabled
                                 cfg.attrib.delay = attribute.delay(csvRoot.getAttribute('delay')); // default 250
                                 cfg.attrib.embed = attribute.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
