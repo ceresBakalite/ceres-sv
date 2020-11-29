@@ -223,7 +223,31 @@ window.ceres = {};
 
                         properties: function()
                         {
-                            const exists = !rsc.ignore(csvNode);
+                            const setNodeProperties = function()
+                            {
+                                if (rsc.ignore(csvNode)) return false;
+
+                                csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
+
+                                cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
+                                cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
+                                cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
+
+                                cfg.attrib.sur = nodeAttributes('sur'); // disabled
+                                cfg.attrib.sub = nodeAttributes('sub'); // disabled
+                                cfg.attrib.fade = nodeAttributes('fade'); // enabled
+
+                                cfg.attrib.zoom = getZoom(); // enabled
+                                cfg.attrib.delay = getDelay(); // default 250
+                                cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
+                                cfg.attrib.auto = nodeAttributes('auto'); // disabled
+
+                                Object.freeze(cfg.attrib);
+
+                                cfg.template = getTemplate(); // element when using embedded image lists
+
+                                return true;
+                            }
 
                             const getZoom = function()
                             {
@@ -315,34 +339,7 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
                                 return true;
                             }
 
-                            const setAttributes = function()
-                            {
-                                cfg.attrib.auto = nodeAttributes('auto'); // disabled
-                                Object.freeze(cfg.attrib);
-
-                                cfg.template = getTemplate(); // element when using embedded image lists
-                            }
-
-                            if (exists)
-                            {
-                                csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
-
-                                cfg.attrib.trace = rsc.getBoolean(csvNode.getAttribute('trace')); // disabled
-                                cfg.attrib.cache = !rsc.getBoolean(csvNode.getAttribute('cache')); // enabled
-                                cfg.attrib.nub = !rsc.getBoolean(csvNode.getAttribute('nub')); // enabled
-
-                                cfg.attrib.sur = nodeAttributes('sur'); // disabled
-                                cfg.attrib.sub = nodeAttributes('sub'); // disabled
-                                cfg.attrib.fade = nodeAttributes('fade'); // enabled
-
-                                cfg.attrib.zoom = getZoom(); // enabled
-                                cfg.attrib.delay = getDelay(); // default 250
-                                cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
-
-                                setAttributes();
-                            }
-
-                            return exists;
+                            return setNodeProperties();
                         },
 
                         textList: function()
