@@ -625,6 +625,7 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                         hide: function()
                         {
+                            csvNode.style.visibility = 'hidden';
                             csvNode.classList.add('none');
                             csvNode.style.display = 'none';
                         },
