@@ -586,9 +586,9 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                                 imgNode.appendChild(slideNode);
 
-                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle none' });
+                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle' });
                                 rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setText() });
-                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle none' });
+                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle' });
                             }
 
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: cfg.href });
@@ -626,23 +626,22 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
                         hide: function()
                         {
                             csvNode.style.visibility = 'hidden';
-                            csvNode.classList.add('none');
-                            csvNode.style.display = 'none';
+                            //csvNode.classList.add('none');
+                            //csvNode.style.display = 'none';
                         },
 
                         show: function()
                         {
-                            csvNode.classList.remove('none');
-                            csvNode.style.removeProperty('display');
+                            //csvNode.classList.remove('none');
 
-                            if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
+                            //if (csvNode.classList.length === 0) csvNode.removeAttribute("class");
+                            //if (csvNode.style.length === 0) csvNode.removeAttribute("style");
+
+                            //let slides = cfg.shadow.querySelectorAll('div.surtitle, div.subtitle');
+                            //slides.forEach((item) => { item.classList.remove('none'); });
+
+                            csvNode.style.removeProperty('visibility');
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
-
-                            let slides = cfg.shadow.querySelectorAll('div.surtitle, div.subtitle');
-                            slides.forEach((item) => { item.classList.remove('none'); });
-
-                            csvNode.style.visibility = 'visible';
-
                         }
 
                     };
