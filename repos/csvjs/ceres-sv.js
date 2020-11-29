@@ -232,6 +232,21 @@ window.ceres = {};
                                 embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
+                            const getTemplate = function()
+                            {
+                                if (cfg.fetchsrc) return 'undefined';
+
+                                let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
+
+                                if (rsc.ignore(el))
+                                {
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
+                                    el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
+                                }
+
+                                return rsc.ignore(el) ? 'undefined' : el;
+                            }
+
                             const getRootProperties = function()
                             {
                                 if (rsc.ignore(csvRoot)) return false;
@@ -255,21 +270,6 @@ window.ceres = {};
                                 cfg.template = getTemplate(); // element when using embedded image lists
 
                                 return true;
-                            }
-
-                            const getTemplate = function()
-                            {
-                                if (cfg.fetchsrc) return 'undefined';
-
-                                let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
-
-                                if (rsc.ignore(el))
-                                {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
-                                    el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
-                                }
-
-                                return rsc.ignore(el) ? 'undefined' : el;
                             }
 
                             const getRootAttribute = function(attribute)
