@@ -238,16 +238,16 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                cfg.attrib.trace = attribute.trace(csvRoot.getAttribute('trace')); // disabled
                                 cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
+                                cfg.attrib.trace = attribute.trace(csvRoot.getAttribute('trace')); // disabled
                                 cfg.attrib.delay = attribute.delay(csvRoot.getAttribute('delay')); // default 250
                                 cfg.attrib.embed = attribute.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
 
+                                cfg.attrib.fade = getRootAttribute('fade'); // enabled
                                 cfg.attrib.sur  = getRootAttribute('sur'); // disabled
                                 cfg.attrib.sub  = getRootAttribute('sub'); // disabled
-                                cfg.attrib.fade = getRootAttribute('fade'); // enabled
                                 cfg.attrib.auto = getRootAttribute('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
