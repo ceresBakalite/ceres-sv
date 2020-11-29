@@ -232,6 +232,17 @@ window.ceres = {};
                                 embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
+                            const lookup = {
+                                'left'    : function() { return true; },
+                                'center'  : function() { return true; },
+                                'right'   : function() { return true; },
+                                'top'     : function() { return true; },
+                                'bottom'  : function() { return true; },
+                                'bold'    : function() { return true; },
+                                'color'   : function() { return true; },
+                                'default' : function() { return false; }
+                            };
+
                             const getTemplate = function()
                             {
                                 if (cfg.fetchsrc) return 'undefined';
@@ -306,21 +317,10 @@ window.ceres = {};
 
 console.log('attribute: ' + attribute + ' - ar:' + ar);
 
-                                const lookup = {
-                                    left    : function() { console.info('left'); },
-                                    center  : function() { console.info('center'); },
-                                    right   : function() { console.info('right'); },
-                                    top     : function() { console.info('top'); },
-                                    bottom  : function() { console.info('bottom'); },
-                                    bold    : function() { console.info('bold'); },
-                                    color   : function() { console.info('color'); },
-                                    default : function() { console.info('default'); }
-                                };
-
                                 ar.forEach((item) => {
 
                                     console.log('item: ' + item);
-                                    lookup[item] || lookup['default'];
+                                    if (lookup[item]) console.log('found: ' + item);
 
                                 });
 
