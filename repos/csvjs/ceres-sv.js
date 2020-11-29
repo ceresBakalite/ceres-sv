@@ -413,7 +413,7 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
                             cfg.shadow = cfg.shade.shadowRoot;
                             cfg.host = cfg.shadow.host;
 
-                            cfg.host.style.display = 'none';
+                            cfg.host.style.visibility = 'hidden';
 
                             atr.compose.styles();
                             atr.compose.body();
@@ -628,16 +628,17 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                         hide: function()
                         {
-                            csvNode.style.visibility = 'hidden';
-                            csvNode.style.display = 'none';
+                            //csvNode.style.visibility = 'hidden';
+                            //csvNode.style.display = 'none';
                         },
 
                         show: function()
                         {
-                            csvNode.style.removeProperty('display');
-                            csvNode.style.removeProperty('visibility');
-                            //cfg.host.style.removeProperty('display');
+                            //csvNode.style.removeProperty('display');
+                            //csvNode.style.removeProperty('visibility');
+                            //cfg.host.style.removeProperty('visibility');
 
+                            //if (cfg.host.style.length === 0) cfg.host.removeAttribute("style");
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
                         }
 
