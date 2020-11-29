@@ -636,7 +636,7 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
                         {
                             csvNode.style.removeProperty('display');
                             csvNode.style.removeProperty('visibility');
-                            cfg.host.style.removeProperty('display');
+                            //cfg.host.style.removeProperty('display');
 
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
                         }
