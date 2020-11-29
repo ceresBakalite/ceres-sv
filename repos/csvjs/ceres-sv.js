@@ -411,9 +411,6 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                             cfg.shade.attachShadow({ mode: 'open' });
                             cfg.shadow = cfg.shade.shadowRoot;
-                            cfg.host = cfg.shadow.host;
-
-                            cfg.host.style.visibility = 'hidden';
 
                             atr.compose.styles();
                             atr.compose.body();
@@ -626,19 +623,11 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                     this.getState = {
 
-                        hide: function()
-                        {
-                            //csvNode.style.visibility = 'hidden';
-                            //csvNode.style.display = 'none';
-                        },
+                        hide: function() { csvNode.style.visibility = 'hidden'; },
 
                         show: function()
                         {
-                            //csvNode.style.removeProperty('display');
-                            //csvNode.style.removeProperty('visibility');
-                            //cfg.host.style.removeProperty('visibility');
-
-                            //if (cfg.host.style.length === 0) cfg.host.removeAttribute("style");
+                            csvNode.style.removeProperty('visibility');
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
                         }
 
