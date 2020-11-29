@@ -315,6 +315,14 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
                                 return true;
                             }
 
+                            const setAttributes = function()
+                            {
+                                cfg.attrib.auto = nodeAttributes('auto'); // disabled
+                                Object.freeze(cfg.attrib);
+
+                                cfg.template = getTemplate(); // element when using embedded image lists
+                            }
+
                             if (exists)
                             {
                                 csvNode.id = rsc.getUniqueId({ name: csv, range: 1000 });
@@ -331,11 +339,7 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
                                 cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
 
-                                cfg.attrib.auto = nodeAttributes('auto'); // disabled
-
-                                Object.freeze(cfg.attrib);
-
-                                cfg.template = getTemplate(); // element when using embedded image lists
+                                setAttributes();
                             }
 
                             return exists;
