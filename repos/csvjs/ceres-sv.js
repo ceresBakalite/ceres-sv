@@ -411,9 +411,9 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                             cfg.shade.attachShadow({ mode: 'open' });
                             cfg.shadow = cfg.shade.shadowRoot;
-                            //cfg.host = cfg.shadow.host;
+                            cfg.host = cfg.shadow.host;
 
-                            //cfg.host.style.display = 'none';
+                            cfg.host.style.display = 'none';
 
                             atr.compose.styles();
                             atr.compose.body();
@@ -636,7 +636,7 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
                         {
                             csvNode.style.removeProperty('display');
                             csvNode.style.removeProperty('visibility');
-                            //cfg.host.style.removeProperty('display');
+                            cfg.host.style.removeProperty('display');
 
                             if (csvNode.style.length === 0) csvNode.removeAttribute("style");
                         }
