@@ -264,35 +264,35 @@ window.ceres = {};
                                 let value = csvNode.getAttribute(attribute);
                                 if (rsc.ignore(value)) return (attribute == 'fade');
 
-                                console.log('value: ' + value);
+                                console.log(attribute + ': ' + value);
 
                                 let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                 let item = ar[0];
 
                                 if (!Number.isInteger(parseInt(item)))
                                 {
-                                    console.log('attribute: ' + attribute + ' - item: ' + item);
+                                    console.log('not number: ' + attribute + ' - ar[0]: ' + item + ' length: ' + ar.length);
                                     if (!rsc.getBoolean(item)) return false;
                                     if (ar.length > 1) ar.shift();
                                 }
 
                                 if (attribute == 'fade')
                                 {
-                                    console.log('fade: attribute: ' + attribute + ' - item: ' + item);
                                     cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
+                                    console.log('fade: ' + attribute + ' - item: ' + item + ' length: ' + ar.length + ' fadeduration: ' + cfg.attrib.fadeduration);
                                     return true;
                                 }
 
                                 if (attribute == 'auto')
                                 {
-                                    console.log('auto: attribute: ' + attribute + ' - item: ' + item);
-
                                     cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                                     cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
                                     cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                                     cfg.attrib.fade = cfg.attrib.autopause > 400;
                                     cfg.attrib.nub = 'false'; // typeof string
+
+                                    console.log('auto: attribute: ' + attribute + ' - item: ' + item + ' length: ' + ar.length + ' fadeduration: ' + cfg.attrib.fadeduration);
 
                                     return true;
                                 }
@@ -326,11 +326,12 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
                                 cfg.attrib.sur = nodeAttributes('sur'); // disabled
                                 cfg.attrib.sub = nodeAttributes('sub'); // disabled
                                 cfg.attrib.fade = nodeAttributes('fade'); // enabled
-                                cfg.attrib.auto = nodeAttributes('auto'); // enabled
 
                                 cfg.attrib.zoom = getZoom(); // enabled
                                 cfg.attrib.delay = getDelay(); // default 250
                                 cfg.attrib.embed = getEmbed(); // template elementId when using embedded image lists
+
+                                cfg.attrib.auto = nodeAttributes('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
 
