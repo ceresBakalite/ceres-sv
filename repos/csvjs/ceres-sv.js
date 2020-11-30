@@ -284,7 +284,7 @@ window.ceres = {};
 
                                     //el.parentNode.removeChild(el);
 
-                                    return content;
+                                    return Promise.resolve(content);
                                 }
 
                                 let getRootAttribute = function(attribute)
