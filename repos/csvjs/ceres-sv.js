@@ -259,6 +259,8 @@ window.ceres = {};
                                     let value = csvRoot.getAttribute(attribute);
                                     if (rsc.ignore(value)) return (attribute == 'fade');
 
+                                    let title = ['sub','sur'];
+
                                     let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                     let item = ar[0];
 
@@ -290,7 +292,6 @@ window.ceres = {};
                                     {
                                         const elStyle =
                                         {
-                                            properties: ['sub','sur'], 
                                             get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
                                             get attribute() { return ar.map(item => { return item.toUpperCase(); }) }
                                         }
@@ -305,7 +306,7 @@ window.ceres = {};
 
                                     }
 
-                                    if (elStyle.properties.includes(attribute)) getStyle();
+                                    if (title.includes(attribute)) getStyle();
 
                                     return true;
                                 }
