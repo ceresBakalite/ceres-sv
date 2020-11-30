@@ -254,6 +254,61 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
+                                let getRootAttribute = function(attribute)
+                                {
+                                    let value = csvRoot.getAttribute(attribute);
+                                    if (rsc.ignore(value)) return (attribute == 'fade');
+
+                                    let ar = value.replace(rsc.attrib.whitespace,'').split(',');
+                                    let item = ar[0];
+
+                                    if (!Number.isInteger(parseInt(item)))
+                                    {
+                                        if (!rsc.getBoolean(item)) return false;
+                                        if (ar.length > 1) ar.shift();
+                                    }
+
+                                    if (attribute == 'fade')
+                                    {
+                                        cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
+                                        return true;
+                                    }
+
+                                    if (attribute == 'auto')
+                                    {
+                                        cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+                                        cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                        cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
+
+                                        cfg.attrib.fade = cfg.attrib.autopause > 400;
+                                        cfg.attrib.nub = 'false'; // typeof string
+
+                                        return true;
+                                    }
+
+                                    let getStyle = function()
+                                    {
+                                        const elStyle =
+                                        {
+                                            get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
+                                            get attribute() { return ar.map(item => { return item.toUpperCase(); }) }
+                                        }
+
+                                        console.log('attribute: ' + attribute + ' - ar:' + ar);
+
+                                        elStyle.attribute.forEach((item) => {
+
+                                            if (elStyle.property.includes(item) || item.includes('COLOR:')) console.log('found: ' + item.replace('COLOR:',''));
+
+                                        });
+
+                                    }
+
+                                    getStyle();
+
+                                    return true;
+                                }
+
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
                                 cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
@@ -269,55 +324,6 @@ window.ceres = {};
                                 Object.freeze(cfg.attrib);
 
                                 cfg.template = getTemplate(); // element when using embedded image lists
-
-                                return true;
-                            }
-
-                            const getRootAttribute = function(attribute)
-                            {
-                                let value = csvRoot.getAttribute(attribute);
-                                if (rsc.ignore(value)) return (attribute == 'fade');
-
-                                let ar = value.replace(rsc.attrib.whitespace,'').split(',');
-                                let item = ar[0];
-
-                                if (!Number.isInteger(parseInt(item)))
-                                {
-                                    if (!rsc.getBoolean(item)) return false;
-                                    if (ar.length > 1) ar.shift();
-                                }
-
-                                if (attribute == 'fade')
-                                {
-                                    cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
-                                    return true;
-                                }
-
-                                if (attribute == 'auto')
-                                {
-                                    cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                                    cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
-                                    cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
-
-                                    cfg.attrib.fade = cfg.attrib.autopause > 400;
-                                    cfg.attrib.nub = 'false'; // typeof string
-
-                                    return true;
-                                }
-
-                                const elStyle =
-                                {
-                                    get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
-                                    get attribute() { return ar.map(item => { return item.toUpperCase(); }) }
-                                }
-
-                                console.log('attribute: ' + attribute + ' - ar:' + ar);
-
-                                elStyle.attribute.forEach((item) => {
-
-                                    if (elStyle.property.includes(item) || item.includes('COLOR:')) console.log('found: ' + item.replace('COLOR:',''));
-
-                                });
 
                                 return true;
                             }
