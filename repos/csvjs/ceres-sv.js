@@ -274,7 +274,7 @@ window.ceres = {};
 
                             const getRootAttribute = function(attribute)
                             {
-                                let value = csvRoot.getAttribute(attribute);
+                                let value = csvRoot.getAttribute(attribute).toUpperCase();
                                 if (rsc.ignore(value)) return (attribute == 'fade');
 
                                 let ar = value.replace(rsc.attrib.whitespace,'').split(',');
@@ -312,7 +312,7 @@ window.ceres = {};
 
                                 console.log('attribute: ' + attribute + ' - ar:' + ar);
 
-                                ar.toUpperCase().forEach((item) => {
+                                ar.forEach((item) => {
 
                                     if (elStyle.property.includes(item) || item.includes('COLOR:')) console.log('found: ' + item.replace('COLOR:',''));
 
