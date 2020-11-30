@@ -261,16 +261,18 @@ window.ceres = {};
                                 {
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
+                                    let el = document.createElement('div');
+
                                     for (let item of cfg.cachecss)
                                     {
                                         fetch(item).then(response => response.text()).then(str =>
                                         {
-                                            console.log('str: ' + str)
-                                            cfg.stylecss.concat(str);
+                                            el.insertAdjacentHTML('beforeend', str)
                                         });
 
                                     }
 
+                                    return el.textContent;
                                 }
 
                                 let getRootAttribute = function(attribute)
