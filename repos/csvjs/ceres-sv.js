@@ -242,15 +242,16 @@ window.ceres = {};
 
                                 cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                                for (let item of cfg.cachecss)
+                                console.log('cfg.cachecss: ' + cfg.cachecss);
+
+                                cfg.cachecss.forEach(item =>
                                 {
                                     fetch(item).then(response => response.text()).then(str =>
                                     {
-                                        console.log('str: ' + str);
-                                        styles += str;
+                                        style = styles += str;
                                     });
 
-                                }
+                                });
 
                                 console.log('styles: ' + styles);
 
