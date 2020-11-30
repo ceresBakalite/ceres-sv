@@ -266,10 +266,15 @@ window.ceres = {};
 
                                     for (let item of cfg.cachecss)
                                     {
+
+                                        el.insertAdjacentHTML('beforeend', await ( await fetch(item) ).text() );
+
+                                        /*
                                         await fetch(item).then(response => response.text()).then(str =>
                                         {
                                             el.insertAdjacentHTML('beforeend', str);
                                         });
+                                        */
 
                                     }
 
