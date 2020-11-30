@@ -236,8 +236,10 @@ window.ceres = {};
                                 embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const getstyles = function(styles = null)
+                            const getstyles = function()
                             {
+                                let styles = '';
+                                
                                 cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                                 cfg.cachecss.forEach(item =>
