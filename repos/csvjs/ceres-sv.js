@@ -273,8 +273,11 @@ window.ceres = {};
 
                                     }
 
-                                    //el.parentNode.removeChild(el);
-                                    return el.innerHTML;
+                                    let content = el.textContent;
+
+                                    el.parentNode.removeChild(el);
+
+                                    return content;
                                 }
 
                                 let getRootAttribute = function(attribute)
