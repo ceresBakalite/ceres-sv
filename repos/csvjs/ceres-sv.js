@@ -248,6 +248,7 @@ window.ceres = {};
                                 {
                                     fetch(item).then(response => response.text()).then(str =>
                                     {
+                                        console.log('str: ' + str);
                                         styles += str;
                                     });
 
