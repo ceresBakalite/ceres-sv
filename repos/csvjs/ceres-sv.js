@@ -178,6 +178,7 @@ window.ceres = {};
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.src = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
+                cfg.stylecss = atr.getStyles();
                 cfg.fetchsrc = !rsc.ignore(cfg.src);
                 cfg.href = 'ceres.getSlide(this)';
                 cfg.attrib = {};
@@ -235,24 +236,6 @@ window.ceres = {};
                                 delay : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
                                 embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
-
-                            const getstyles = function()
-                            {
-                                let styles = '';
-                                
-                                cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                                cfg.cachecss.forEach(item =>
-                                {
-                                    fetch(item).then(response => response.text()).then(str =>
-                                    {
-                                        styles = styles += str;
-                                    });
-
-                                });
-
-                                return styles;
-                            }
 
                             const getTemplate = function()
                             {
@@ -349,9 +332,7 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.styleString = getstyles();
-
-                                console.log('cfg.styleString: ' + cfg.styleString);
+                                console.log('cfg.stylecss: ' + cfg.stylecss);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
@@ -573,6 +554,7 @@ window.ceres = {};
 
                             cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
+                            //cfg.stylecss
                             cfg.cachecss.forEach(item =>
                             {
                                 fetch(item).then(response => response.text()).then(str =>
@@ -642,6 +624,24 @@ window.ceres = {};
                         }
 
                     };
+
+                    this.getStyles = function()
+                    {
+                        let styles = '';
+
+                        cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                        cfg.cachecss.forEach(item =>
+                        {
+                            fetch(item).then(response => response.text()).then(str =>
+                            {
+                                styles = styles += str;
+                            });
+
+                        });
+
+                        return styles;
+                    }
 
                     this.getClassList = function(className)
                     {
