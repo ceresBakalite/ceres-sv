@@ -267,8 +267,10 @@ window.ceres = {};
                                         fetch(item).then(response => response.text()).then(str =>
                                         {
                                             console.log('str: ' + str)
-                                            styles.concat(str); 
+                                            styles.concat(str);
                                         });
+
+                                        console.log('xxxstyles: ' + styles)
 
                                     }
                                     console.log('styles: ' + styles)
