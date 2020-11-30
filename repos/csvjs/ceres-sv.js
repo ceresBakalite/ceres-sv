@@ -320,6 +320,7 @@ window.ceres = {};
                                             //if (elStyle.property.includes(item) || colorAttribute(item))
                                             if (colorAttribute(item))
                                             {
+                                                console.log('not found: ' + item);
                                                 console.log('this found: ' + item.replace('COLOR:',''));
                                             }
                                             //if (elStyle.property.includes(item) || item.includes('COLOR:') || item.includes('#') || item.includes('rgb(') || item.includes('rgba(' || item.includes('hsl(') || item.includes('hsla('))) console.log('found: ' + item.replace('COLOR:',''));
