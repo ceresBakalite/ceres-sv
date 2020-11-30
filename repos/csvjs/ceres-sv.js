@@ -299,8 +299,8 @@ window.ceres = {};
                                     {
                                         const colorAttribute = function(item)
                                         {
-                                            elStyle.color.forEach((el) => {
-
+                                            for (let el of elStyle.color)
+                                            {
                                                 if (item.includes(el))
                                                 {
                                                     cfg.attrib.surColor = item.replace('COLOR:', '');
@@ -308,7 +308,7 @@ window.ceres = {};
                                                     return true;
                                                 }
 
-                                            });
+                                            }
 
                                             return false;
                                         }
@@ -317,8 +317,7 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            //if (elStyle.property.includes(item) || colorAttribute(item))
-                                            if (colorAttribute(item))
+                                            if (elStyle.property.includes(item) || colorAttribute(item))
                                             {
                                                 console.log('not found: ' + item);
                                                 console.log('this found: ' + item.replace('COLOR:',''));
