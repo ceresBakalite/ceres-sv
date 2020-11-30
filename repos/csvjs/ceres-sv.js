@@ -269,10 +269,12 @@ window.ceres = {};
                                         {
                                             //el.insertAdjacentHTML('beforeend', str)
                                             el.innerHTML += str;
+                                            console.log('1.innerHTML: ' + el.innerHTML);
                                         });
 
                                     }
 
+                                    console.log('2.innerHTML: ' + el.innerHTML);
                                     return el.innerHTML;
                                 }
 
