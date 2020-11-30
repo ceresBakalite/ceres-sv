@@ -312,9 +312,9 @@ window.ceres = {};
 
                                 console.log('attribute: ' + attribute + ' - ar:' + ar);
 
-                                ar = ar.map(item => { return item.toUpperCase(); });
+                                //ar = ar.map(item => { return item.toUpperCase(); });
 
-                                ar.forEach((item) => {
+                                ar.forEach((item = item.toUpperCase()) => {
 
                                     if (elStyle.property.includes(item) || item.includes('COLOR:')) console.log('found: ' + item.replace('COLOR:',''));
 
