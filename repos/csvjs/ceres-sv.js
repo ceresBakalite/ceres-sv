@@ -251,6 +251,8 @@ window.ceres = {};
 
                                 });
 
+                                console.log('styles: ' + styles);
+
                                 return styles;
                             }
 
@@ -350,8 +352,6 @@ window.ceres = {};
                                 }
 
                                 cfg.styleString = getstyles();
-
-                                console.log('cfg.styleString: ' + cfg.styleString);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
