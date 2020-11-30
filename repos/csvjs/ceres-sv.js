@@ -138,7 +138,7 @@ window.ceres = {};
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             pArray       : ['left','center','right','top','bottom','bold','color'],
-            tagArray     : ['link', 'script', 'style'],
+            tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
             whitespace   : /\s/g,
@@ -146,7 +146,7 @@ window.ceres = {};
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
-            get tagName() { return this.tagArray.map(item => { return item.trim().toUpperCase(); }) },
+            get tagName() { return this.tArray.map(item => { return item.trim().toUpperCase(); }) },
             get metaUrl() { return import.meta.url; }
         }
 
@@ -224,6 +224,8 @@ window.ceres = {};
 
                         properties: function()
                         {
+                            const attributeArray = ['nub', 'sub','sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'fadetime', 'auto', 'autocycle', 'autopause', 'autocancel'];
+
                             const attribute = {
                                 nub   : function(atr) { return !rsc.getBoolean(atr); },
                                 zoom  : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
@@ -251,15 +253,12 @@ window.ceres = {};
                             const getRootProperties = function()
                             {
                                 if (rsc.ignore(csvRoot)) return false;
-
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
                                 let getRootAttribute = function(attribute)
                                 {
                                     let value = csvRoot.getAttribute(attribute);
                                     if (rsc.ignore(value)) return (attribute == 'fade');
-
-                                    let attributeArray = ['nub', 'sub','sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'autocycle', 'autopause', 'autocancel'];
 
                                     let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                     let item = ar[0];
@@ -272,7 +271,7 @@ window.ceres = {};
 
                                     if (attribute == 'fade')
                                     {
-                                        cfg.attrib.fadeduration = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
+                                        cfg.attrib.fadetime = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
                                         return true;
                                     }
 
