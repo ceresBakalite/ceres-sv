@@ -271,7 +271,6 @@ window.ceres = {};
 
                                     }
 
-                                    return styles;
                                 }
 
                                 let getRootAttribute = function(attribute)
