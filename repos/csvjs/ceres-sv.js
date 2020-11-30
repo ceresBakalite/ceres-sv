@@ -227,6 +227,24 @@ window.ceres = {};
                             const attributeArray = ['nub', 'sub','sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'fadetime', 'auto', 'autocycle', 'autopause', 'autocancel', 'textColor'];
                             const colorArray = ['color', '#', 'rgb', 'rgba', 'hsl', 'hsla'];
 
+                            const styleContent = function()
+                            {
+                                let styles = null;
+
+                                cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                                cfg.cachecss.forEach(item =>
+                                {
+                                    fetch(item).then(response => response.text()).then(str =>
+                                    {
+                                        styles += str;
+                                    });
+
+                                });
+
+                                return styles;
+                            }
+
                             const attribute = {
                                 nub   : function(atr) { return !rsc.getBoolean(atr); },
                                 zoom  : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
@@ -303,6 +321,7 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
+                                                    //styleContent
                                                     cfg.attrib.surColor = item.replace('COLOR:', '');
                                                     cfg.attrib.subColor = item.replace('COLOR:', '');
                                                     return true;
@@ -330,6 +349,8 @@ window.ceres = {};
 
                                     return true;
                                 }
+
+                                cfg.styleString = styleContent();
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
@@ -549,16 +570,7 @@ window.ceres = {};
 
                             cfg.shade.appendChild(cfg.styleNode);
 
-                            cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                            cfg.cachecss.forEach(item =>
-                            {
-                                fetch(item).then(response => response.text()).then(str =>
-                                {
-                                    cfg.styleNode.insertAdjacentHTML('beforeend', str)
-                                });
-
-                            });
+                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.styleString);
 
                             cfg.shadow.append(cfg.styleNode);
                         },
