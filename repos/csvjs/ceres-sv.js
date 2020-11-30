@@ -236,7 +236,7 @@ window.ceres = {};
                                 embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const getstyles = function()
+                            const getstyles = function(styles = null)
                             {
                                 cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
@@ -244,7 +244,7 @@ window.ceres = {};
                                 {
                                     fetch(item).then(response => response.text()).then(str =>
                                     {
-                                        let styles = styles += str;
+                                        styles = styles += str;
                                     });
 
                                 });
