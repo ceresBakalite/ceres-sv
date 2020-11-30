@@ -178,7 +178,6 @@ window.ceres = {};
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.src = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
-                cfg.stylecss = atr.getStyles();
                 cfg.fetchsrc = !rsc.ignore(cfg.src);
                 cfg.href = 'ceres.getSlide(this)';
                 cfg.attrib = {};
@@ -257,6 +256,24 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
+                                let getRootStyles = function()
+                                {
+                                    let styles = '';
+
+                                    cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                                    cfg.cachecss.forEach(item =>
+                                    {
+                                        fetch(item).then(response => response.text()).then(str =>
+                                        {
+                                            styles = styles += str;
+                                        });
+
+                                    });
+
+                                    return styles;
+                                }
+
                                 let getRootAttribute = function(attribute)
                                 {
                                     let value = csvRoot.getAttribute(attribute);
@@ -331,6 +348,8 @@ window.ceres = {};
 
                                     return true;
                                 }
+
+                                cfg.stylecss = getRootStyles();
 
                                 console.log('cfg.stylecss: ' + cfg.stylecss);
 
@@ -624,24 +643,6 @@ window.ceres = {};
                         }
 
                     };
-
-                    this.getStyles = function()
-                    {
-                        let styles = '';
-
-                        cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                        cfg.cachecss.forEach(item =>
-                        {
-                            fetch(item).then(response => response.text()).then(str =>
-                            {
-                                styles = styles += str;
-                            });
-
-                        });
-
-                        return styles;
-                    }
 
                     this.getClassList = function(className)
                     {
