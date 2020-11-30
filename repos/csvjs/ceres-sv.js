@@ -314,7 +314,7 @@ console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                                 ar.forEach((item) => {
 
-                                    if (elStyle.property.includes(item.trim().toUpperCase())) console.log('found: ' + item);
+                                    if (elStyle.property.includes(item.trim().toUpperCase()) || item.trim().toUpperCase().includes('color')) console.log('found: ' + item);
 
                                 });
 
