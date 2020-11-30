@@ -362,7 +362,7 @@ window.ceres = {};
 
                                 getRootStyles();
 
-                                console.log('cfg.stylecss: ' + cfg.stylecss);
+                                console.log('css: ' + cfg.stylecss);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
