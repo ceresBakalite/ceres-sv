@@ -352,6 +352,9 @@ window.ceres = {};
 
                                 cfg.styleString = styleContent();
 
+console.log('cfg.styleString: ' + cfg.styleString);
+
+
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
                                 cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
