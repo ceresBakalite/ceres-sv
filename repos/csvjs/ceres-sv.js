@@ -269,7 +269,7 @@ window.ceres = {};
                                     for (let item of cfg.cachecss)
                                     {
 
-                                        content += await ( await fetch(item) ).text();
+                                        content += Promise.resolve(await ( await fetch(item) ).text());
 
                                         /*
                                         await fetch(item).then(response => response.text()).then(str =>
@@ -284,7 +284,7 @@ window.ceres = {};
 
                                     //el.parentNode.removeChild(el);
 
-                                    return Promise.resolve(content);
+                                    return content;
                                 }
 
                                 let getRootAttribute = function(attribute)
