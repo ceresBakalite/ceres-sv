@@ -261,13 +261,15 @@ window.ceres = {};
                                 {
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                                    const el = document.createElement('div');
-                                    document.body.appendChild(el);
+                                    //const el = document.createElement('div');
+                                    //document.body.appendChild(el);
+
+                                    let content = '';
 
                                     for (let item of cfg.cachecss)
                                     {
 
-                                        el.insertAdjacentHTML('beforeend', await ( await fetch(item) ).text() );
+                                        content += await ( await fetch(item) ).text();
 
                                         /*
                                         await fetch(item).then(response => response.text()).then(str =>
@@ -278,9 +280,9 @@ window.ceres = {};
 
                                     }
 
-                                    let content = el.textContent;
+                                    //let content = el.textContent;
 
-                                    el.parentNode.removeChild(el);
+                                    //el.parentNode.removeChild(el);
 
                                     return content;
                                 }
