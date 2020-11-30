@@ -264,12 +264,12 @@ window.ceres = {};
                                     //const el = document.createElement('div');
                                     //document.body.appendChild(el);
 
-                                    ///let content = '';
+                                    let content = '';
 
                                     for (let item of cfg.cachecss)
                                     {
 
-                                        cfg.stylecss = await ( await Promise.resolve(fetch(item)) ).text();
+                                        content = await ( await Promise.resolve(fetch(item)) ).text();
 
                                         /*
                                         await fetch(item).then(response => response.text()).then(str =>
@@ -280,12 +280,12 @@ window.ceres = {};
 
                                     }
 
-                                    ///console.log('content: ' + content);
+                                    console.log('content: ' + content);
                                     //let content = el.textContent;
 
                                     //el.parentNode.removeChild(el);
 
-                                    ///return content;
+                                    return content;
                                 }
 
                                 let getRootAttribute = function(attribute)
@@ -319,8 +319,6 @@ window.ceres = {};
 
                                         return true;
                                     }
-
-                                    console.log('xxxx css: ' + cfg.stylecss);
 
                                     const elStyle =
                                     {
@@ -365,7 +363,9 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                getRootStyles();
+                                cfg.stylecss = getRootStyles();
+
+                                console.log('xxxx css: ' + cfg.stylecss);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
