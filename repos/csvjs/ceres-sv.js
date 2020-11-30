@@ -269,7 +269,7 @@ window.ceres = {};
                                     for (let item of cfg.cachecss)
                                     {
 
-                                        content += await ( await Promise.resolve(fetch(item)) ).text();
+                                        content = await ( await Promise.resolve(fetch(item)) ).text();
 
                                         /*
                                         await fetch(item).then(response => response.text()).then(str =>
@@ -280,6 +280,7 @@ window.ceres = {};
 
                                     }
 
+                                    console.log('content: ' + content);
                                     //let content = el.textContent;
 
                                     //el.parentNode.removeChild(el);
