@@ -259,7 +259,7 @@ window.ceres = {};
                                     let value = csvRoot.getAttribute(attribute);
                                     if (rsc.ignore(value)) return (attribute == 'fade');
 
-                                    let title = ['sub','sur'];
+                                    let attributeArray = ['nub', 'sub','sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'autocycle', 'autopause', 'autocancel'];
 
                                     let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                     let item = ar[0];
@@ -306,7 +306,7 @@ window.ceres = {};
 
                                     }
 
-                                    if (title.includes(attribute)) getStyle();
+                                    if (attributeArray.includes(attribute)) getStyle();
 
                                     return true;
                                 }
