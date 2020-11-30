@@ -264,12 +264,12 @@ window.ceres = {};
                                     //const el = document.createElement('div');
                                     //document.body.appendChild(el);
 
-                                    let content = '';
+                                    ///let content = '';
 
                                     for (let item of cfg.cachecss)
                                     {
 
-                                        content = await ( await Promise.resolve(fetch(item)) ).text();
+                                        cfg.stylecss = await ( await Promise.resolve(fetch(item)) ).text();
 
                                         /*
                                         await fetch(item).then(response => response.text()).then(str =>
@@ -280,12 +280,12 @@ window.ceres = {};
 
                                     }
 
-                                    console.log('content: ' + content);
+                                    ///console.log('content: ' + content);
                                     //let content = el.textContent;
 
                                     //el.parentNode.removeChild(el);
 
-                                    return content;
+                                    ///return content;
                                 }
 
                                 let getRootAttribute = function(attribute)
@@ -363,7 +363,7 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.stylecss = getRootStyles();
+                                getRootStyles();
 
                                 console.log('css: ' + cfg.stylecss);
 
