@@ -257,7 +257,7 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                let getRootStyles = function()
+                                async function getRootStyles()
                                 {
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
@@ -266,7 +266,7 @@ window.ceres = {};
 
                                     for (let item of cfg.cachecss)
                                     {
-                                        fetch(item).then(response => response.text()).then(str =>
+                                        await fetch(item).then(response => response.text()).then(str =>
                                         {
                                             el.insertAdjacentHTML('beforeend', str);
                                         });
