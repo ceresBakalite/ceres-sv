@@ -299,8 +299,11 @@ window.ceres = {};
                                     {
                                         const colorAttribute = function(item)
                                         {
+                                            console.log('item: ' + item);
+
                                             if (elStyle.color.includes(item))
                                             {
+                                                console.log('found now');
                                                 cfg.attrib.surColor = item.replace('COLOR:', '');
                                                 cfg.attrib.subColor = item.replace('COLOR:', '');
                                                 return true;
