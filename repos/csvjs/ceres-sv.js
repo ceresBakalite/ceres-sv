@@ -262,7 +262,7 @@ window.ceres = {};
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                                     const el = document.createElement('div');
-                                    el.appendChild('document.body');
+                                    document.body.appendChild(el);
 
                                     for (let item of cfg.cachecss)
                                     {
@@ -273,6 +273,7 @@ window.ceres = {};
 
                                     }
 
+                                    //el.parentNode.removeChild(el);
                                     return el.innerHTML;
                                 }
 
