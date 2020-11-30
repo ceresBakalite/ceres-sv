@@ -290,6 +290,7 @@ window.ceres = {};
                                     {
                                         const elStyle =
                                         {
+                                            properties: ['sub','sur'], 
                                             get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
                                             get attribute() { return ar.map(item => { return item.toUpperCase(); }) }
                                         }
@@ -304,7 +305,7 @@ window.ceres = {};
 
                                     }
 
-                                    getStyle();
+                                    if (elStyle.properties.includes(attribute)) getStyle();
 
                                     return true;
                                 }
