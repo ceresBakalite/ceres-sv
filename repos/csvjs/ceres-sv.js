@@ -227,7 +227,16 @@ window.ceres = {};
                             const attributeArray = ['nub', 'sub','sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'fadetime', 'auto', 'autocycle', 'autopause', 'autocancel', 'textColor'];
                             const colorArray = ['color', '#', 'rgb', 'rgba', 'hsl', 'hsla'];
 
-                            const styleContent = function()
+                            const attribute = {
+                                nub   : function(atr) { return !rsc.getBoolean(atr); },
+                                zoom  : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
+                                cache : function(atr) { return !rsc.getBoolean(atr); },
+                                trace : function(atr) { return rsc.getBoolean(atr); },
+                                delay : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
+                                embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
+                            };
+
+                            const getstyles = function()
                             {
                                 let styles = '';
 
@@ -244,15 +253,6 @@ window.ceres = {};
 
                                 return styles;
                             }
-
-                            const attribute = {
-                                nub   : function(atr) { return !rsc.getBoolean(atr); },
-                                zoom  : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
-                                cache : function(atr) { return !rsc.getBoolean(atr); },
-                                trace : function(atr) { return rsc.getBoolean(atr); },
-                                delay : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
-                                embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
-                            };
 
                             const getTemplate = function()
                             {
@@ -339,7 +339,6 @@ window.ceres = {};
                                             {
                                                 console.log('found: ' + item.replace('COLOR:',''));
                                             }
-                                            //if (elStyle.property.includes(item) || item.includes('COLOR:') || item.includes('#') || item.includes('rgb(') || item.includes('rgba(' || item.includes('hsl(') || item.includes('hsla('))) console.log('found: ' + item.replace('COLOR:',''));
 
                                         });
 
@@ -350,7 +349,9 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.styleString = styleContent();
+                                cfg.styleString = getstyles();
+
+                                console.log('cfg.styleString: ' + cfg.styleString);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
