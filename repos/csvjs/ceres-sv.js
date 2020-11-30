@@ -229,7 +229,7 @@ window.ceres = {};
 
                             const styleContent = function()
                             {
-                                let styles = null;
+                                let styles = '';
 
                                 cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
