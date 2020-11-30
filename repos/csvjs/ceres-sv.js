@@ -242,6 +242,8 @@ window.ceres = {};
 
                                 cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
+                                console.log('cfg.cachecss: ' + cfg.cachecss);
+
                                 cfg.cachecss.forEach(item =>
                                 {
                                     fetch(item).then(response => response.text()).then(str =>
