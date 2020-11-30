@@ -321,7 +321,6 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
-                                                    //styleContent
                                                     cfg.attrib.surColor = item.replace('COLOR:', '');
                                                     cfg.attrib.subColor = item.replace('COLOR:', '');
                                                     return true;
@@ -340,6 +339,7 @@ window.ceres = {};
                                             {
                                                 console.log('found: ' + item.replace('COLOR:',''));
                                             }
+                                            //if (elStyle.property.includes(item) || item.includes('COLOR:') || item.includes('#') || item.includes('rgb(') || item.includes('rgba(' || item.includes('hsl(') || item.includes('hsla('))) console.log('found: ' + item.replace('COLOR:',''));
 
                                         });
 
@@ -351,9 +351,6 @@ window.ceres = {};
                                 }
 
                                 cfg.styleString = styleContent();
-
-console.log('cfg.styleString: ' + cfg.styleString);
-
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
@@ -573,7 +570,16 @@ console.log('cfg.styleString: ' + cfg.styleString);
 
                             cfg.shade.appendChild(cfg.styleNode);
 
-                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.styleString);
+                            cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                            cfg.cachecss.forEach(item =>
+                            {
+                                fetch(item).then(response => response.text()).then(str =>
+                                {
+                                    cfg.styleNode.insertAdjacentHTML('beforeend', str)
+                                });
+
+                            });
 
                             cfg.shadow.append(cfg.styleNode);
                         },
