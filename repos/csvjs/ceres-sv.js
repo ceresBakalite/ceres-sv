@@ -320,6 +320,8 @@ window.ceres = {};
                                         return true;
                                     }
 
+                                    console.log('css: ' + cfg.stylecss);
+
                                     const elStyle =
                                     {
                                         get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
@@ -364,8 +366,6 @@ window.ceres = {};
                                 }
 
                                 getRootStyles();
-
-                                console.log('css: ' + cfg.stylecss);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
