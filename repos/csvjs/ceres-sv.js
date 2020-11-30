@@ -320,7 +320,7 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    console.log('css: ' + cfg.stylecss);
+                                    console.log('xxxx css: ' + cfg.stylecss);
 
                                     const elStyle =
                                     {
