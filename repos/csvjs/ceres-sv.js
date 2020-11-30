@@ -307,14 +307,13 @@ window.ceres = {};
                                 const elStyle =
                                 {
                                     el : ['left','center','right','top','bottom','bold','color'],
-                                    get property() { return this.el.map(item => { return item.trim().toUpperCase(); }) }
+                                    get property() { return this.el.map(item => { return item.trim().toUpperCase(); }) },
+                                    get attribute() { return ar.map(item => { return item.toUpperCase(); }) }
                                 }
 
                                 console.log('attribute: ' + attribute + ' - ar:' + ar);
 
-                                //ar = ar.map(item => { return item.toUpperCase(); });
-
-                                ar.forEach((item = item.toUpperCase()) => {
+                                elStyle.attribute.forEach((item) => {
 
                                     if (elStyle.property.includes(item) || item.includes('COLOR:')) console.log('found: ' + item.replace('COLOR:',''));
 
