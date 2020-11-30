@@ -301,13 +301,17 @@ window.ceres = {};
                                         {
                                             console.log('item: ' + item);
 
-                                            if (elStyle.color.includes(item))
-                                            {
-                                                console.log('found now');
-                                                cfg.attrib.surColor = item.replace('COLOR:', '');
-                                                cfg.attrib.subColor = item.replace('COLOR:', '');
-                                                return true;
-                                            }
+                                            elStyle.color.forEach((el) => {
+
+                                                if (item.includes(el))
+                                                {
+                                                    console.log('found now');
+                                                    cfg.attrib.surColor = item.replace('COLOR:', '');
+                                                    cfg.attrib.subColor = item.replace('COLOR:', '');
+                                                    return true;
+                                                }
+
+                                            });
 
                                             return false;
                                         }
