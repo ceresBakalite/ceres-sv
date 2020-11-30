@@ -310,11 +310,14 @@ window.ceres = {};
                                     get property() { return this.el.map(item => { return item.trim().toUpperCase(); }) }
                                 }
 
-console.log('attribute: ' + attribute + ' - ar:' + ar);
+                                console.log('attribute: ' + attribute + ' - ar:' + ar);
+
+                                let test = '';
 
                                 ar.forEach((item) => {
 
-                                    if (elStyle.property.includes(item.trim().toUpperCase()) || item.trim().toUpperCase().includes('COLOR')) console.log('found: ' + item);
+                                    test = item.trim().toUpperCase();
+                                    if (elStyle.property.includes(test) || test.includes('COLOR')) console.log('found: ' + item);
 
                                 });
 
