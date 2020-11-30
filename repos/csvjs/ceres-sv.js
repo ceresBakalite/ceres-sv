@@ -137,6 +137,7 @@ window.ceres = {};
             default      : 98,
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
+            pArray       : ['left','center','right','top','bottom','bold','color'],
             tagArray     : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
@@ -306,8 +307,7 @@ window.ceres = {};
 
                                 const elStyle =
                                 {
-                                    el : ['left','center','right','top','bottom','bold','color'],
-                                    get property() { return this.el.map(item => { return item.trim().toUpperCase(); }) },
+                                    get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
                                     get attribute() { return ar.map(item => { return item.toUpperCase(); }) }
                                 }
 
