@@ -261,29 +261,12 @@ window.ceres = {};
                                 {
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                                    //const el = document.createElement('div');
-                                    //document.body.appendChild(el);
-
                                     let content = '';
 
                                     for (let item of cfg.cachecss)
                                     {
-
-                                        content = rsc.parseText(await ( await fetch(item) ).text());
-
-                                        /*
-                                        await fetch(item).then(response => response.text()).then(str =>
-                                        {
-                                            el.insertAdjacentHTML('beforeend', str);
-                                        });
-                                        */
-
+                                        content += rsc.parseText(await ( await fetch(item) ).text());
                                     }
-
-                                    console.log('content: ' + content);
-                                    //let content = el.textContent;
-
-                                    //el.parentNode.removeChild(el);
 
                                     return content;
                                 }
