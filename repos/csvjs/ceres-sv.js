@@ -178,6 +178,7 @@ window.ceres = {};
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.src = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
+                cfg.stylecss = '';
                 cfg.fetchsrc = !rsc.ignore(cfg.src);
                 cfg.href = 'ceres.getSlide(this)';
                 cfg.attrib = {};
@@ -258,8 +259,6 @@ window.ceres = {};
 
                                 let getRootStyles = function()
                                 {
-                                    let styles = '';
-
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                                     for (let item of cfg.cachecss)
@@ -267,13 +266,10 @@ window.ceres = {};
                                         fetch(item).then(response => response.text()).then(str =>
                                         {
                                             console.log('str: ' + str)
-                                            styles.concat(str);
+                                            cfg.stylecss.concat(str);
                                         });
 
-                                        console.log('xxxstyles: ' + styles)
-
                                     }
-                                    console.log('styles: ' + styles)
 
                                     return styles;
                                 }
@@ -353,7 +349,7 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.stylecss = getRootStyles();
+                                getRootStyles();
 
                                 console.log('cfg.stylecss: ' + cfg.stylecss);
 
