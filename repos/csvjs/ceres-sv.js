@@ -224,7 +224,8 @@ window.ceres = {};
 
                         properties: function()
                         {
-                            const attributeArray = ['nub', 'sub','sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'fadetime', 'auto', 'autocycle', 'autopause', 'autocancel'];
+                            const attributeArray = ['nub', 'sub','sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'fadetime', 'auto', 'autocycle', 'autopause', 'autocancel', 'textColor'];
+                            const colorArray = ['color', '#', 'rgb', 'rgba', 'hsl', 'hsla'];
 
                             const attribute = {
                                 nub   : function(atr) { return !rsc.getBoolean(atr); },
@@ -289,6 +290,18 @@ window.ceres = {};
 
                                     let getStyle = function()
                                     {
+                                        const colorAttribute = function(item)
+                                        {
+                                            if (colorArray.includes(item)
+                                            {
+                                                cfg.attrib.surColor = item.replace('COLOR:', '');
+                                                cfg.attrib.subColor = item.replace('COLOR:', '');
+                                                return true;
+                                            }
+
+                                            return false;
+                                        }
+
                                         const elStyle =
                                         {
                                             get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
@@ -299,7 +312,11 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item) || item.includes('COLOR:')) console.log('found: ' + item.replace('COLOR:',''));
+                                            if (elStyle.property.includes(item) || colorAttribute(item))
+                                            {
+                                                console.log('found: ' + item.replace('COLOR:',''));
+                                            }
+                                            //if (elStyle.property.includes(item) || item.includes('COLOR:') || item.includes('#') || item.includes('rgb(') || item.includes('rgba(' || item.includes('hsl(') || item.includes('hsla('))) console.log('found: ' + item.replace('COLOR:',''));
 
                                         });
 
