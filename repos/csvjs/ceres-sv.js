@@ -360,7 +360,7 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                getRootStyles();
+                                cfg.stylecss = getRootStyles();
 
                                 console.log('css: ' + cfg.stylecss);
 
