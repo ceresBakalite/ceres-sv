@@ -267,7 +267,8 @@ window.ceres = {};
                                     {
                                         fetch(item).then(response => response.text()).then(str =>
                                         {
-                                            el.insertAdjacentHTML('beforeend', str)
+                                            //el.insertAdjacentHTML('beforeend', str)
+                                            el.innerHTML += str;
                                         });
 
                                     }
