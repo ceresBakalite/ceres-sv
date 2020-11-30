@@ -264,8 +264,14 @@ window.ceres = {};
 
                                     for (let item of cfg.cachecss)
                                     {
-                                        fetch(item).then(response => response.text()).then(str => { styles.concat(str); });
+                                        fetch(item).then(response => response.text()).then(str =>
+                                        {
+                                            console.log('str: ' + str)
+                                            styles.concat(str); 
+                                        });
+
                                     }
+                                    console.log('styles: ' + styles)
 
                                     return styles;
                                 }
