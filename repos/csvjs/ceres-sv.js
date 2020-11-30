@@ -288,11 +288,18 @@ window.ceres = {};
                                         return true;
                                     }
 
+                                    const elStyle =
+                                    {
+                                        get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
+                                        get attribute() { return ar.map(item => { return item.toUpperCase(); }) },
+                                        get color() { return colorArray.map(item => { return item.toUpperCase(); }) }
+                                    }
+
                                     let getStyle = function()
                                     {
                                         const colorAttribute = function(item)
                                         {
-                                            if (colorArray.includes(item)
+                                            if (color.includes(item))
                                             {
                                                 cfg.attrib.surColor = item.replace('COLOR:', '');
                                                 cfg.attrib.subColor = item.replace('COLOR:', '');
@@ -302,19 +309,13 @@ window.ceres = {};
                                             return false;
                                         }
 
-                                        const elStyle =
-                                        {
-                                            get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
-                                            get attribute() { return ar.map(item => { return item.toUpperCase(); }) }
-                                        }
-
                                         console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                                         elStyle.attribute.forEach((item) => {
 
                                             if (elStyle.property.includes(item) || colorAttribute(item))
                                             {
-                                                console.log('found: ' + item.replace('COLOR:',''));
+                                                console.log('this found: ' + item.replace('COLOR:',''));
                                             }
                                             //if (elStyle.property.includes(item) || item.includes('COLOR:') || item.includes('#') || item.includes('rgb(') || item.includes('rgba(' || item.includes('hsl(') || item.includes('hsla('))) console.log('found: ' + item.replace('COLOR:',''));
 
