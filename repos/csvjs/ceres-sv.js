@@ -261,7 +261,7 @@ window.ceres = {};
                                 {
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                                    let el = document.createElement('div');
+                                    const el = document.createElement('div');
 
                                     for (let item of cfg.cachecss)
                                     {
@@ -272,7 +272,7 @@ window.ceres = {};
 
                                     }
 
-                                    return el.textContent;
+                                    return el.innerHTML;
                                 }
 
                                 let getRootAttribute = function(attribute)
