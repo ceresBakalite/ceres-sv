@@ -317,7 +317,8 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item) || colorAttribute(item))
+                                            //if (elStyle.property.includes(item) || colorAttribute(item))
+                                            if (colorAttribute(item))
                                             {
                                                 console.log('this found: ' + item.replace('COLOR:',''));
                                             }
