@@ -257,7 +257,6 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-
                                 async function getRootStyles()
                                 {
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
@@ -364,7 +363,6 @@ window.ceres = {};
                                         }
 
                                         console.log('attribute: ' + attribute + ' - ar:' + ar);
-                                        console.log('sss css: ' + cfg.stylecss);
 
                                         elStyle.attribute.forEach((item) => {
 
@@ -605,7 +603,8 @@ window.ceres = {};
 
                             cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                            //cfg.stylecss
+                            console.log('style: ' + cfg.stylecss);
+
                             cfg.cachecss.forEach(item =>
                             {
                                 fetch(item).then(response => response.text()).then(str =>
