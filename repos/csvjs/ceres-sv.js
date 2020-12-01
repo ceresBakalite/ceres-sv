@@ -232,6 +232,8 @@ window.ceres = {};
 
                         });
 
+                        console.log('data: ' + data);
+
                         return data;
                     }
 
