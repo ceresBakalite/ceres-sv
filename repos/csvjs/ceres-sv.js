@@ -257,19 +257,28 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                async function getRootStyles()
+                                async function getRootStyles ()
                                 {
+                                    let data = '';
+
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                                    //const el = document.createElement('div');
-                                    //document.body.appendChild(el);
+                                    for (let item of cfg.cachecss)
+                                    {
+                                        data += await (await fetch(item)).text();
+                                    }
+
+                                    return data;
+                                }
+
+                                async function xxxgetRootStyles()
+                                {
+                                    cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                                     let content = '';
 
                                     for (let item of cfg.cachecss)
                                     {
-
-                                        //content = rsc.parseText( await ( await fetch(cfg.src) ).text() );
 
                                         await fetch(item).then(response => response.text()).then(str =>
                                         {
@@ -279,9 +288,6 @@ window.ceres = {};
                                     }
 
                                     console.log('test 1: ' + content);
-                                    //let content = el.textContent;
-
-                                    //el.parentNode.removeChild(el);
 
                                     return content;
                                 }
