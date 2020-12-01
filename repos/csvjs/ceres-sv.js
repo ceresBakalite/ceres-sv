@@ -165,7 +165,7 @@ window.ceres = {};
 
             atr.getState.hide();
 
-            if (cfg.fetchsrc) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
             for (let item of cfg.cssRoot)
             {
@@ -181,7 +181,7 @@ window.ceres = {};
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.src = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
-                cfg.fetchsrc = !rsc.ignore(cfg.src);
+                cfg.srcRoot = !rsc.ignore(cfg.src);
                 cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                 cfg.href = 'ceres.getSlide(this)';
                 cfg.attrib = {};
@@ -242,7 +242,7 @@ window.ceres = {};
 
                             const getTemplate = function()
                             {
-                                if (cfg.fetchsrc) return 'undefined';
+                                if (cfg.srcRoot) return 'undefined';
 
                                 let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
 
@@ -359,7 +359,7 @@ window.ceres = {};
 
                         textList: function()
                         {
-                            return (cfg.fetchsrc || cfg.template);
+                            return (cfg.srcRoot || cfg.template);
                         },
 
                         textArray: function()
@@ -386,7 +386,7 @@ window.ceres = {};
                                     return text;
                                 }
 
-                                return cfg.fetchsrc ? shadowList() : lightList();
+                                return cfg.srcRoot ? shadowList() : lightList();
                             }
 
                             const isImageArray = function()
@@ -395,7 +395,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.fetchsrc ? csvRoot.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
 
@@ -513,7 +513,7 @@ window.ceres = {};
                             {
                                 if (!('caches' in window)) return;
 
-                                cfg.shadowsrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
+                                cfg.shadowsrc = (cfg.srcRoot) ? cfg.src.split() : Array.from('');
 
                                 let cacheName = csv + '-cache';
                                 let urlArray = rsc.removeDuplcates(cfg.shadowsrc.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
