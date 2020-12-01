@@ -307,7 +307,7 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
-                                                    let regex = attribute == 'sur' ? /.surtitle[^&]*}/ig : /.subtitle[^&]*}/ig;
+                                                    let regex = attribute == 'sur' ? /.surtitle[^&]*?}/ig : /.subtitle[^&]*?}/ig;
                                                     let group = cfg.shadowStyle.match(regex);
                                                     let color = item.replace('COLOR:', '');
 
