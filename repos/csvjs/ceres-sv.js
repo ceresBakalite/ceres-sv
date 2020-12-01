@@ -269,7 +269,7 @@ window.ceres = {};
                                     for (let item of cfg.cachecss)
                                     {
 
-                                        content = await ( await Promise.resolve(fetch(item)) ).text();
+                                        content = rsc.parseText( await ( await fetch(cfg.src) ).text() );
 
                                         /*
                                         await fetch(item).then(response => response.text()).then(str =>
