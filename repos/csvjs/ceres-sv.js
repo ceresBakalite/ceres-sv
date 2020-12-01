@@ -169,10 +169,12 @@ window.ceres = {};
 
             for (let item of cfg.cssRoot)
             {
+                //csvRoot.insertAdjacentHTML('beforeend', rsc.parseText({ text: await ( await fetch(item) ).text() });
                 cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
             }
 
-            csvRoot.insertAdjacentHTML('beforeend', cfg.shadowStyle);
+            //cfg.shadowStyle = csvRoot.textContent;
+            //csvRoot.insertAdjacentHTML('beforeend', cfg.shadowStyle);
 
             if (atr.node.hasContent()) atr.node.showContent();
 
@@ -309,12 +311,8 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
-
-                                                    let text = csvRoot.textContent;
-
-
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    let group = text.match(regex);
+                                                    let group = cfg.shadowStyle.match(regex);
                                                     let value = item.replace('COLOR:', '');
 
                                                     //cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
