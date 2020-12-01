@@ -385,7 +385,7 @@ window.ceres = {};
                                 }
 
                                 //cfg.stylecss = getRootStyles();
-                                getRootStyles().then(data => cfg.stylecss);
+                                getRootStyles().then(data => cfg.stylecss = data);
 
                                 console.log('xxxx css: ' + cfg.stylecss);
 
