@@ -308,7 +308,7 @@ window.ceres = {};
                                                 if (item.includes(el))
                                                 {
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    let group = cfg.shadowStyle.match(regex);
+                                                    let group = rsc.parseText(cfg.shadowStyle.match(regex));
                                                     let value = item.replace('COLOR:', '');
 
                                                     let test = group.replace('surtitle', 'test')
