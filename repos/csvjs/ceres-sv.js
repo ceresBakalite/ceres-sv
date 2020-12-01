@@ -269,14 +269,12 @@ window.ceres = {};
                                     for (let item of cfg.cachecss)
                                     {
 
-                                        content = rsc.parseText( await ( await fetch(cfg.src) ).text() );
+                                        //content = rsc.parseText( await ( await fetch(cfg.src) ).text() );
 
-                                        /*
                                         await fetch(item).then(response => response.text()).then(str =>
                                         {
-                                            el.insertAdjacentHTML('beforeend', str);
+                                            content += str;
                                         });
-                                        */
 
                                     }
 
