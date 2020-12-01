@@ -169,7 +169,7 @@ window.ceres = {};
 
             //cfg.cachecss.forEach(item =>
             //{
-                cfg.stylecss = rsc.parseText({ text: await ( await fetch(cfg.defaultCSS) ).text() });
+                cfg.stylecss = await ( await fetch(cfg.defaultCSS) ).text();
                 //fetch(item).then(response => response.text()).then(str =>
                 //{
                 //    cfg.stylecss += str;
