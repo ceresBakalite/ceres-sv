@@ -311,7 +311,7 @@ window.ceres = {};
                                                     let group = cfg.shadowStyle.match(regex);
                                                     let color = item.replace('COLOR:', '');
 
-                                                    let re = new RegExp(/color[^&]*?\x3B/, 'i');
+                                                    let re = new RegExp(/color[^&]*?font/, 'i');
                                                     let test = group.match(re);
 
                                                     console.log('group: ' + group);
