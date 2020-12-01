@@ -570,7 +570,7 @@ window.ceres = {};
                             cfg.styleNode.className = 'slideview-style';
                             cfg.styleNode.insertAdjacentHTML('beforeend', cfg.stylecss);
 
-                            cfg.shade.appendChild(cfg.styleNode);
+                            //cfg.shade.appendChild(cfg.styleNode);
 
 
 /*
