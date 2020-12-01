@@ -312,6 +312,7 @@ window.ceres = {};
                                                     let color = item.replace('COLOR:', '');
 
                                                     console.log('group: ' + group);
+                                                    console.log('subGroup: ' + group.match(/color[^&]*?;/i));
 
                                                     if (group)
                                                     {
