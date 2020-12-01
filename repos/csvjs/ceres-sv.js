@@ -308,10 +308,11 @@ window.ceres = {};
                                                 if (item.includes(el))
                                                 {
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    let group = cfg.shadowStyle.match(regex);
+                                                    //let group = cfg.shadowStyle.match(regex);
                                                     let value = item.replace('COLOR:', '');
+                                                    cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(re, 'color: ' + value + ';');
 
-                                                    console.log('group: ' + group);
+                                                    console.log('cfg.shadowStyle: ' + cfg.shadowStyle);
 
                                                     /*
                                                     let re = /color[^&]*?font/i;
