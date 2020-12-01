@@ -278,7 +278,7 @@ window.ceres = {};
 
                                     }
 
-                                    console.log('content: ' + content);
+                                    console.log('test 1: ' + content);
                                     //let content = el.textContent;
 
                                     //el.parentNode.removeChild(el);
