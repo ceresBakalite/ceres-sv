@@ -180,10 +180,9 @@ window.ceres = {};
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.src = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
-                cfg.fetchsrc = !rsc.ignore(cfg.src);
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
+                cfg.fetchsrc = !rsc.ignore(cfg.src);
                 cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-                //cfg.stylecss = null;
                 cfg.href = 'ceres.getSlide(this)';
                 cfg.attrib = {};
                 cfg.slide = 1;
@@ -279,41 +278,6 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                async function zzzzgetRootStyles()
-                                {
-                                    let data = '';
-
-                                    cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                                    for (let item of cfg.cachecss)
-                                    {
-                                        data += await (await fetch(item)).text();
-                                    }
-
-                                    return data;
-                                }
-
-                                async function xxxgetRootStyles()
-                                {
-                                    cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                                    let content = '';
-
-                                    for (let item of cfg.cachecss)
-                                    {
-
-                                        await fetch(item).then(response => response.text()).then(str =>
-                                        {
-                                            content += str;
-                                        });
-
-                                    }
-
-                                    console.log('test 1: ' + content);
-
-                                    return content;
-                                }
-
                                 let getRootAttribute = function(attribute)
                                 {
                                     let value = csvRoot.getAttribute(attribute);
@@ -372,7 +336,6 @@ window.ceres = {};
                                         }
 
                                         console.log('attribute: ' + attribute + ' - ar:' + ar);
-                                        console.log('test: ' + cfg.stylecss);
 
                                         elStyle.attribute.forEach((item) => {
 
@@ -389,11 +352,6 @@ window.ceres = {};
 
                                     return true;
                                 }
-
-                                //cfg.stylecss = atr.getRootStyles();
-                                //console.log('cfg.stylecss: ' + cfg.stylecss)
-
-                                //atr.getRootStyles().then(data => console.log(data));
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
@@ -610,10 +568,10 @@ window.ceres = {};
                         {
                             cfg.styleNode = document.createElement('style');
                             cfg.styleNode.className = 'slideview-style';
+                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.stylecss);
 
                             cfg.shade.appendChild(cfg.styleNode);
 
-                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.stylecss);
 
 /*
                             cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
