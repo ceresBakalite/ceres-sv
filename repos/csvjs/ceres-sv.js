@@ -603,6 +603,9 @@ window.ceres = {};
 
                             cfg.shade.appendChild(cfg.styleNode);
 
+                            cfg.styleNode.insertAdjacentHTML('beforeend', atr.getRootStyles());
+
+/*
                             cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                             cfg.cachecss.forEach(item =>
@@ -613,6 +616,7 @@ window.ceres = {};
                                 });
 
                             });
+*/
 
                             cfg.shadow.append(cfg.styleNode);
                         },
