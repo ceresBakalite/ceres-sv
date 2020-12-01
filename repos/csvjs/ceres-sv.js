@@ -317,12 +317,13 @@ window.ceres = {};
                                                     console.log('group: ' + group);
 
 
-                                                    /*
-                                                    let re = /color[^&]*?font/i;
+                                                    
+                                                    let re = /color[^&]*?;/i;
                                                     let test = group.match(re);
 
                                                     console.log('subGroup: ' + test);
 
+                                                    /*
                                                     if (group)
                                                     {
                                                         let newGroup = group.replace(re, 'color: ' + value + ';')
