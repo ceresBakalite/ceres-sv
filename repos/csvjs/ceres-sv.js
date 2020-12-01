@@ -224,24 +224,6 @@ window.ceres = {};
 
                     };
 
-                    this.xxxxxxxxgetRootStyles = function(data = '')
-                    {
-                        cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                        cfg.cachecss.forEach(item =>
-                        {
-                            fetch(item).then(response => response.text()).then(str =>
-                            {
-                                data += str;
-                            });
-
-                        });
-
-                        console.log('data: ' + data);
-
-                        return data;
-                    }
-
                     this.content = { // HTMLElement properties
 
                         properties: function()
