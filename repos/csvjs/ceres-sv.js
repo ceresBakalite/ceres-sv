@@ -174,8 +174,6 @@ window.ceres = {};
 
             csvRoot.insertAdjacentHTML('beforeend', cfg.shadowStyle);
 
-            csvRoot.append(node);
-
             if (atr.node.hasContent()) atr.node.showContent();
 
             function configureAttributes()
