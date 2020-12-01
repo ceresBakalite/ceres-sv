@@ -310,7 +310,7 @@ window.ceres = {};
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                                     //let group = cfg.shadowStyle.match(regex);
                                                     let value = item.replace('COLOR:', '');
-                                                    cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(re, 'color: ' + value + ';');
+                                                    cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
 
                                                     console.log('cfg.shadowStyle: ' + cfg.shadowStyle);
 
