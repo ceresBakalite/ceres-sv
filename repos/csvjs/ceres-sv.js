@@ -321,7 +321,7 @@ window.ceres = {};
 
                                                     console.log('group: ' + group);
 
-
+                                                    /*
                                                     let re = /color[^&]*?;t/i;
                                                     let test = group.match(re);
 
