@@ -265,7 +265,7 @@ window.ceres = {};
 
                                     for (let item of cfg.cachecss)
                                     {
-                                        data += await (await fetch(item)).text();
+                                        data += await (await fetch(item)).json();
                                     }
 
                                     return data;
