@@ -169,12 +169,8 @@ window.ceres = {};
 
             for (let item of cfg.cssRoot)
             {
-                //csvRoot.insertAdjacentHTML('beforeend', rsc.parseText({ text: await ( await fetch(item) ).text() });
                 cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
             }
-
-            //cfg.shadowStyle = csvRoot.textContent;
-            //csvRoot.insertAdjacentHTML('beforeend', cfg.shadowStyle);
 
             if (atr.node.hasContent()) atr.node.showContent();
 
@@ -319,13 +315,13 @@ window.ceres = {};
 
                                                     console.log('group: ' + group);
 
+
                                                     /*
-                                                    let re = /color[^&]*?;t/i;
+                                                    let re = /color[^&]*?font/i;
                                                     let test = group.match(re);
 
                                                     console.log('subGroup: ' + test);
 
-                                                    /*
                                                     if (group)
                                                     {
                                                         let newGroup = group.replace(re, 'color: ' + value + ';')
@@ -375,8 +371,6 @@ window.ceres = {};
                                 Object.freeze(cfg.attrib);
 
                                 cfg.template = getTemplate(); // element when using embedded image lists
-
-                                rsc.clearElement(csvRoot);
 
                                 return true;
                             }
