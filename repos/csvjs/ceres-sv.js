@@ -169,7 +169,7 @@ window.ceres = {};
 
             for (let item of cfg.cssRoot)
             {
-                cfg.shadowStyle += rsc.parseText(await ( await fetch(item) ).text());
+                cfg.shadowStyle += await ( await fetch(item) ).text();
             }
 
             if (atr.node.hasContent()) atr.node.showContent();
@@ -308,11 +308,10 @@ window.ceres = {};
                                                 if (item.includes(el))
                                                 {
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    let group = rsc.parseText(cfg.shadowStyle.match(regex));
+                                                    let group = cfg.shadowStyle.match(regex);
                                                     let value = item.replace('COLOR:', '');
 
-                                                    let test = group.replace('surtitle', 'test')
-                                                    console.log('group: ' + test);
+                                                    console.log('group: ' + group);
 
                                                     /*
                                                     let re = /color[^&]*?font/i;
