@@ -12,8 +12,6 @@
 window.ceres = {};
 (function()
 {
-    'use strict'; // for conformity - strict by default
-
     const rsc = {}; // generic resource methods
     (function() {
 
@@ -257,17 +255,18 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                async function getRootStyles()
+                                let getRootStyles = async() =>
                                 {
+                                    let data = '';
+
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                                     for (let item of cfg.cachecss)
                                     {
-                                        let response = await fetch(item);
-                                        cfg.stylecss += await response.text();
+                                        data += await (await fetch(item)).text();
                                     }
 
-                                    return cfg.stylecss;
+                                    return data;
                                 }
 
                                 async function zzzzgetRootStyles()
@@ -363,6 +362,7 @@ window.ceres = {};
                                         }
 
                                         console.log('attribute: ' + attribute + ' - ar:' + ar);
+                                        console.log('test: ' + cfg.stylecss);
 
                                         elStyle.attribute.forEach((item) => {
 
@@ -380,7 +380,8 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.stylecss = getRootStyles();
+                                //cfg.stylecss = { getRootStyles() };
+                                getRootStyles().then(data => console.log(data));
                                 //getRootStyles().then(data => console.log(data));
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
@@ -613,9 +614,6 @@ window.ceres = {};
                             });
 
                             cfg.shadow.append(cfg.styleNode);
-
-                            console.log('node1: ' + csvRoot.textContent);
-
                         },
 
                         body: function()
