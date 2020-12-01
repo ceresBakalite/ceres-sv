@@ -614,7 +614,7 @@ window.ceres = {};
 
                             cfg.shadow.append(cfg.styleNode);
 
-                            console.log('node: ' + cfg.styleNode.textContent);
+                            console.log('node1: ' + csvRoot.textContent);
 
                         },
 
