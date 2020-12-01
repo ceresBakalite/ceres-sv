@@ -307,8 +307,14 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
-                                                    cfg.attrib.surColor = item.replace('COLOR:', '');
-                                                    cfg.attrib.subColor = item.replace('COLOR:', '');
+                                                    let regex = attribute == 'sur' ? /.surtitle[^&]*}/ig : /.subtitle[^&]*}/ig;
+                                                    let group = cfg.shadowStyle.match(regex);
+                                                    let newGroup = group.replace(/.color[^&]*;/ig, '.color: ' + (attribute == 'sur' ? cfg.attrib.surColor : cfg.attrib.subColor) + ';')
+
+                                                    cfg.shadowStyle.replace(group, newGroup);
+
+                                                    //cfg.attrib.surColor = item.replace('COLOR:', '');
+                                                    //cfg.attrib.subColor = item.replace('COLOR:', '');
                                                     return true;
                                                 }
 
