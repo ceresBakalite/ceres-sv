@@ -311,13 +311,13 @@ window.ceres = {};
                                                     let group = cfg.shadowStyle.match(regex);
                                                     let color = item.replace('COLOR:', '');
 
-                                                    regex = /color[^&]*?\x3B/i;
+                                                    let re = new RegExp(/color[^&]*?\x3B/, 'i');
                                                     console.log('group: ' + group);
-                                                    console.log('subGroup: ' + group.match(regex));
+                                                    console.log('subGroup: ' + group.match(re));
 
                                                     if (group)
                                                     {
-                                                        let newGroup = group.replace(regex, 'color: ' + color + ';')
+                                                        let newGroup = group.replace(re, 'color: ' + color + ';')
                                                         console.log('newGroup: ' + newGroup);
 
                                                         if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
