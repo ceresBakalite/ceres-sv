@@ -219,6 +219,20 @@ window.ceres = {};
 
                     };
 
+                    this.getRootStyles = async() =>
+                    {
+                        let data = '';
+
+                        cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                        for (let item of cfg.cachecss)
+                        {
+                            data += await (await fetch(item)).text();
+                        }
+
+                        return data;
+                    }
+
                     this.content = { // HTMLElement properties
 
                         properties: function()
@@ -254,20 +268,6 @@ window.ceres = {};
                             {
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
-
-                                let getRootStyles = async() =>
-                                {
-                                    let data = '';
-
-                                    cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                                    for (let item of cfg.cachecss)
-                                    {
-                                        data += await (await fetch(item)).text();
-                                    }
-
-                                    return data;
-                                }
 
                                 async function zzzzgetRootStyles()
                                 {
@@ -381,7 +381,7 @@ window.ceres = {};
                                 }
 
                                 //cfg.stylecss = { getRootStyles() };
-                                getRootStyles().then(data => console.log(data));
+                                atr.getRootStyles().then(data => console.log(data));
                                 //getRootStyles().then(data => console.log(data));
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
