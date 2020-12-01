@@ -169,7 +169,7 @@ window.ceres = {};
 
             for (let item of cfg.cssRoot)
             {
-                cfg.shadowStyle += await ( await fetch(item) ).text();
+                cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
             }
 
             function test(attribute, item)
