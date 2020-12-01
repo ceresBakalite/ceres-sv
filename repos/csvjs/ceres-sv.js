@@ -309,17 +309,16 @@ window.ceres = {};
                                                 {
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*}/ig : /.subtitle[^&]*}/ig;
                                                     let group = cfg.shadowStyle.match(regex);
+                                                    let color = item.replace('COLOR:', '');
 
                                                     console.log('group: ' + group);
 
                                                     if (!rsc.ignore(group))
                                                     {
-                                                        let newGroup = group.replace(/.color[^&]*;/ig, '.color: ' + (attribute == 'sur' ? cfg.attrib.surColor : cfg.attrib.subColor) + ';')
+                                                        let newGroup = group.replace(/.color[^&]*;/ig, '.color: ' + color + ';')
                                                         cfg.shadowStyle.replace(group, newGroup);
                                                     }
 
-                                                    //cfg.attrib.surColor = item.replace('COLOR:', '');
-                                                    //cfg.attrib.subColor = item.replace('COLOR:', '');
                                                     return true;
                                                 }
 
