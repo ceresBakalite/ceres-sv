@@ -307,18 +307,18 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
-                                                    let regex = attribute == 'sur' ? /.surtitle[^&]*?}/ig : /.subtitle[^&]*?}/ig;
+                                                    let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                                     let group = cfg.shadowStyle.match(regex);
                                                     let color = item.replace('COLOR:', '');
 
                                                     console.log('group: ' + group);
 
-                                                    if (!rsc.ignore(group))
+                                                    if (group)
                                                     {
-                                                        let newGroup = group.replace(/.color[^&]*;/ig, '.color: ' + color + ';')
+                                                        let newGroup = group.replace(/color[^&]*?;/i, 'color: ' + color + ';')
                                                         console.log('newGroup: ' + newGroup);
 
-                                                        cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+                                                        if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                     }
 
                                                     return true;
