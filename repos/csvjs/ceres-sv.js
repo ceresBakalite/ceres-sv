@@ -311,7 +311,8 @@ window.ceres = {};
                                                     let group = cfg.shadowStyle.match(regex);
                                                     let value = item.replace('COLOR:', '');
 
-                                                    console.log('group: ' + group);
+                                                    let test = group.replace('surtitle', 'test')
+                                                    console.log('group: ' + test);
 
                                                     /*
                                                     let re = /color[^&]*?font/i;
