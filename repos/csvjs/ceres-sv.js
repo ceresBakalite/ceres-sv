@@ -227,12 +227,12 @@ window.ceres = {};
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
-                                data += str
+                                data += str;
                             });
 
                         });
 
-                        return data;
+                        return rsc.parseText(data);
                     }
 
                     this.content = { // HTMLElement properties
