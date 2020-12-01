@@ -223,7 +223,7 @@ window.ceres = {};
                     {
                         cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                        cfg.cachecss.forEach(item =>
+                        await cfg.cachecss.forEach(item =>
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
@@ -232,7 +232,7 @@ window.ceres = {};
 
                         });
 
-                        return rsc.parseText(data);
+                        return data;
                     }
 
                     this.content = { // HTMLElement properties
