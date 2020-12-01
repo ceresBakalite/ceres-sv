@@ -167,6 +167,15 @@ window.ceres = {};
 
             if (cfg.fetchsrc) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
+            await cfg.cachecss.forEach(item =>
+            {
+                fetch(item).then(response => response.text()).then(str =>
+                {
+                    cfg.stylecss += str;
+                });
+
+            });
+
             if (atr.node.hasContent()) atr.node.showContent();
 
             function configureAttributes()
@@ -174,13 +183,15 @@ window.ceres = {};
                 csvRoot.src = csvRoot.getAttribute('src');
 
                 cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.src = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
-                cfg.stylecss = '';
                 cfg.fetchsrc = !rsc.ignore(cfg.src);
+                cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
+                cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                cfg.stylecss = '';
                 cfg.href = 'ceres.getSlide(this)';
                 cfg.attrib = {};
                 cfg.slide = 1;
+
 
                 (function() {
 
@@ -219,7 +230,7 @@ window.ceres = {};
 
                     };
 
-                    this.getRootStyles = function(data = '')
+                    this.xxxxxxxxgetRootStyles = function(data = '')
                     {
                         cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
@@ -384,8 +395,8 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.stylecss = atr.getRootStyles();
-                                console.log('cfg.stylecss: ' + cfg.stylecss)
+                                //cfg.stylecss = atr.getRootStyles();
+                                //console.log('cfg.stylecss: ' + cfg.stylecss)
 
                                 //atr.getRootStyles().then(data => console.log(data));
 
@@ -607,7 +618,7 @@ window.ceres = {};
 
                             cfg.shade.appendChild(cfg.styleNode);
 
-                            cfg.styleNode.insertAdjacentHTML('beforeend', atr.getRootStyles());
+                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.stylecss);
 
 /*
                             cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
