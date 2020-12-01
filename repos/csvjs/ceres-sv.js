@@ -309,17 +309,18 @@ window.ceres = {};
                                                 {
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                                     let group = cfg.shadowStyle.match(regex);
-                                                    let color = item.replace('COLOR:', '');
+                                                    let value = item.replace('COLOR:', '');
+
+                                                    console.log('group: ' + group);
 
                                                     let re = /color[^&]*?font/i;
                                                     let test = group.match(re);
 
-                                                    console.log('group: ' + group);
                                                     console.log('subGroup: ' + test);
 
                                                     if (group)
                                                     {
-                                                        let newGroup = group.replace(re, 'color: ' + color + ';')
+                                                        let newGroup = group.replace(re, 'color: ' + value + ';')
                                                         console.log('newGroup: ' + newGroup);
 
                                                         if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
