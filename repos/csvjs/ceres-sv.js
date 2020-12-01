@@ -266,7 +266,6 @@ window.ceres = {};
                                     {
                                         let response = await fetch(item);
                                         cfg.stylecss += await response.text();
-                                        resolve(cfg.stylecss);
                                     }
 
                                     return cfg.stylecss;
