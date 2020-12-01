@@ -170,11 +170,6 @@ window.ceres = {};
             for (let item of cfg.cachecss)
             {
                 cfg.stylecss += await ( await fetch(item) ).text();
-                //fetch(item).then(response => response.text()).then(str =>
-                //{
-                //    cfg.stylecss += str;
-                //});
-
             }
 
             if (atr.node.hasContent()) atr.node.showContent();
@@ -188,11 +183,10 @@ window.ceres = {};
                 cfg.fetchsrc = !rsc.ignore(cfg.src);
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-                cfg.stylecss = '';
+                cfg.stylecss = null;
                 cfg.href = 'ceres.getSlide(this)';
                 cfg.attrib = {};
                 cfg.slide = 1;
-
 
                 (function() {
 
