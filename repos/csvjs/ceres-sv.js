@@ -257,7 +257,24 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                async function getRootStyles ()
+
+                                async function getRootStyles()
+                                {
+                                    let data = '';
+
+                                    cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+
+                                    for (let item of cfg.cachecss)
+                                    {
+
+                                        let response = await fetch(item);
+                                        data += await response.text();
+                                    }
+
+                                    return data;
+                                }
+
+                                async function zzzzgetRootStyles()
                                 {
                                     let data = '';
 
@@ -268,9 +285,7 @@ window.ceres = {};
                                         data += await (await fetch(item)).text();
                                     }
 
-                                    data => cfg.stylecss;
-
-                                    return cfg.stylecss;
+                                    return data;
                                 }
 
                                 async function xxxgetRootStyles()
@@ -369,9 +384,10 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.stylecss = getRootStyles();
+                                //cfg.stylecss = getRootStyles();
+                                getRootStyles().then(data => console.log(data));
 
-                                console.log('xxxx css: ' + cfg.stylecss);
+                                //console.log('xxxx css: ' + cfg.stylecss);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
