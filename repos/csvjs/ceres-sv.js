@@ -268,7 +268,9 @@ window.ceres = {};
                                         data += await (await fetch(item)).text();
                                     }
 
-                                    return rsc.parseText(data);
+                                    data => cfg.stylecss;
+
+                                    return cfg.stylecss;
                                 }
 
                                 async function xxxgetRootStyles()
