@@ -316,7 +316,7 @@ window.ceres = {};
                                                     if (!rsc.ignore(group))
                                                     {
                                                         let newGroup = group.replace(/.color[^&]*;/ig, '.color: ' + color + ';')
-                                                        cfg.shadowStyle.replace(group, newGroup);
+                                                        cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                     }
 
                                                     return true;
