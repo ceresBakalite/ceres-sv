@@ -570,22 +570,6 @@ window.ceres = {};
                             cfg.styleNode.className = 'slideview-style';
                             cfg.styleNode.insertAdjacentHTML('beforeend', cfg.stylecss);
 
-                            //cfg.shade.appendChild(cfg.styleNode);
-
-
-/*
-                            cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-
-                            cfg.cachecss.forEach(item =>
-                            {
-                                fetch(item).then(response => response.text()).then(str =>
-                                {
-                                    cfg.styleNode.insertAdjacentHTML('beforeend', str)
-                                });
-
-                            });
-*/
-
                             cfg.shadow.append(cfg.styleNode);
                         },
 
