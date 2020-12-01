@@ -385,9 +385,9 @@ window.ceres = {};
                                 }
 
                                 //cfg.stylecss = getRootStyles();
-                                getRootStyles().then(data => cfg.stylecss = data);
+                                getRootStyles().then(data => { cfg.stylecss = data });
 
-                                console.log('xxxx css: ' + cfg.stylecss);
+                                console.log('zzz css: ' + cfg.stylecss);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
