@@ -167,15 +167,15 @@ window.ceres = {};
 
             if (cfg.fetchsrc) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
-            //cfg.cachecss.forEach(item =>
-            //{
-                cfg.stylecss = await ( await fetch(cfg.defaultCSS) ).text();
+            for (let item of cfg.cachecss)
+            {
+                cfg.stylecss += await ( await fetch(item) ).text();
                 //fetch(item).then(response => response.text()).then(str =>
                 //{
                 //    cfg.stylecss += str;
                 //});
 
-            //});
+            }
 
             if (atr.node.hasContent()) atr.node.showContent();
 
