@@ -169,7 +169,7 @@ window.ceres = {};
 
             for (let item of cfg.cssRoot)
             {
-                cfg.shadowStyle += await ( await fetch(item) ).text();
+                cfg.shadowStyle += rsc.parseText(await ( await fetch(item) ).text());
             }
 
             if (atr.node.hasContent()) atr.node.showContent();
