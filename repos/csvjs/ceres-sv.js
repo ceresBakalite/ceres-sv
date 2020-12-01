@@ -172,16 +172,6 @@ window.ceres = {};
                 cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
             }
 
-            function test(attribute, item)
-            {
-                let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                //let group = cfg.shadowStyle.match(regex);
-                let value = item.replace('COLOR:', '');
-                cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
-
-                console.log('cfg.shadowStyle: ' + cfg.shadowStyle);
-            }
-
             if (atr.node.hasContent()) atr.node.showContent();
 
             function configureAttributes()
@@ -318,17 +308,16 @@ window.ceres = {};
                                                 if (item.includes(el))
                                                 {
 
-                                                    test(attribute, item);
+                                                    let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                                    let group = cfg.shadowStyle.match(regex);
+                                                    let value = item.replace('COLOR:', '');
+
+                                                    //cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
+
+                                                    console.log('group: ' + group);
+
 
                                                     /*
-                                                    let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    //let group = cfg.shadowStyle.match(regex);
-                                                    let value = item.replace('COLOR:', '');
-                                                    cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
-
-                                                    console.log('cfg.shadowStyle: ' + cfg.shadowStyle);
-
-
                                                     let re = /color[^&]*?font/i;
                                                     let test = group.match(re);
 
