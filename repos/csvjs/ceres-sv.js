@@ -311,7 +311,7 @@ window.ceres = {};
                                                     let group = cfg.shadowStyle.match(regex);
                                                     let color = item.replace('COLOR:', '');
 
-                                                    regex = /color[^&]*?\3B/i;
+                                                    regex = /color[^&]*?\x3B/i;
                                                     console.log('group: ' + group);
                                                     console.log('subGroup: ' + group.match(regex));
 
