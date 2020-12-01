@@ -172,6 +172,10 @@ window.ceres = {};
                 cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
             }
 
+            csvRoot.insertAdjacentHTML('beforeend', cfg.shadowStyle);
+
+            csvRoot.append(node);
+
             if (atr.node.hasContent()) atr.node.showContent();
 
             function configureAttributes()
@@ -308,15 +312,18 @@ window.ceres = {};
                                                 if (item.includes(el))
                                                 {
 
+                                                    let text = csvRoot.textContent;
+
+
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    let group = cfg.shadowStyle.match(regex);
+                                                    let group = text.match(regex);
                                                     let value = item.replace('COLOR:', '');
 
                                                     //cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
 
                                                     console.log('group: ' + group);
 
-                                                    /*
+
                                                     let re = /color[^&]*?;t/i;
                                                     let test = group.match(re);
 
@@ -372,6 +379,8 @@ window.ceres = {};
                                 Object.freeze(cfg.attrib);
 
                                 cfg.template = getTemplate(); // element when using embedded image lists
+
+                                rsc.clearElement(csvRoot);
 
                                 return true;
                             }
