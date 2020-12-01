@@ -312,8 +312,10 @@ window.ceres = {};
                                                     let color = item.replace('COLOR:', '');
 
                                                     let re = new RegExp(/color[^&]*?\x3B/, 'i');
+                                                    let test = group.match(re);
+
                                                     console.log('group: ' + group);
-                                                    console.log('subGroup: ' + group.match(re));
+                                                    console.log('subGroup: ' + test);
 
                                                     if (group)
                                                     {
