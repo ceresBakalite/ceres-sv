@@ -380,9 +380,10 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                //cfg.stylecss = { getRootStyles() };
-                                atr.getRootStyles().then(data => console.log(data));
-                                //getRootStyles().then(data => console.log(data));
+                                cfg.stylecss = atr.getRootStyles();
+                                console.log('cfg.stylecss: ' + cfg.stylecss)
+
+                                //atr.getRootStyles().then(data => console.log(data));
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
