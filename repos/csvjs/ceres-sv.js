@@ -169,7 +169,7 @@ window.ceres = {};
 
             for (let item of cfg.cssRoot)
             {
-                cfg.styleRoot += await ( await fetch(item) ).text();
+                cfg.shadowStyle += await ( await fetch(item) ).text();
             }
 
             if (atr.node.hasContent()) atr.node.showContent();
@@ -550,7 +550,7 @@ window.ceres = {};
                         {
                             cfg.styleNode = document.createElement('style');
                             cfg.styleNode.className = 'slideview-style';
-                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.styleRoot);
+                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
 
                             cfg.shadow.append(cfg.styleNode);
                         },
