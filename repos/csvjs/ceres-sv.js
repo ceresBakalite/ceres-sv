@@ -364,6 +364,7 @@ window.ceres = {};
                                         }
 
                                         console.log('attribute: ' + attribute + ' - ar:' + ar);
+                                        console.log('sss css: ' + cfg.stylecss);
 
                                         elStyle.attribute.forEach((item) => {
 
@@ -381,10 +382,8 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                //cfg.stylecss = getRootStyles();
-                                getRootStyles().then(data => console.log(data));
-
-                                //console.log('xxxx css: ' + cfg.stylecss);
+                                cfg.stylecss = getRootStyles();
+                                //getRootStyles().then(data => console.log(data));
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
