@@ -167,9 +167,9 @@ window.ceres = {};
 
             if (cfg.fetchsrc) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
-            for (let item of cfg.cachecss)
+            for (let item of cfg.cssRoot)
             {
-                cfg.stylecss += await ( await fetch(item) ).text();
+                cfg.styleRoot += await ( await fetch(item) ).text();
             }
 
             if (atr.node.hasContent()) atr.node.showContent();
@@ -182,7 +182,7 @@ window.ceres = {};
                 cfg.src = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.fetchsrc = !rsc.ignore(cfg.src);
-                cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                 cfg.href = 'ceres.getSlide(this)';
                 cfg.attrib = {};
                 cfg.slide = 1;
@@ -513,10 +513,10 @@ window.ceres = {};
                             {
                                 if (!('caches' in window)) return;
 
-                                cfg.cachesrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
+                                cfg.shadowsrc = (cfg.fetchsrc) ? cfg.src.split() : Array.from('');
 
                                 let cacheName = csv + '-cache';
-                                let urlArray = rsc.removeDuplcates(cfg.cachesrc.concat(cfg.cachecss.concat([ rsc.attrib.metaUrl ])));
+                                let urlArray = rsc.removeDuplcates(cfg.shadowsrc.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
 
                                 urlArray.forEach(url =>
                                 {
@@ -550,7 +550,7 @@ window.ceres = {};
                         {
                             cfg.styleNode = document.createElement('style');
                             cfg.styleNode.className = 'slideview-style';
-                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.stylecss);
+                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.styleRoot);
 
                             cfg.shadow.append(cfg.styleNode);
                         },
