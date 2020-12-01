@@ -603,8 +603,6 @@ window.ceres = {};
 
                             cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                            console.log('style: ' + cfg.stylecss);
-
                             cfg.cachecss.forEach(item =>
                             {
                                 fetch(item).then(response => response.text()).then(str =>
@@ -615,6 +613,9 @@ window.ceres = {};
                             });
 
                             cfg.shadow.append(cfg.styleNode);
+
+                            console.log('node: ' + cfg.styleNode.textContent);
+
                         },
 
                         body: function()
