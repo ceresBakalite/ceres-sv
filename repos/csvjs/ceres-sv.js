@@ -219,11 +219,11 @@ window.ceres = {};
 
                     };
 
-                    this.getRootStyles = async(data = '') =>
+                    this.getRootStyles = function(data = '')
                     {
                         cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
-                        await cfg.cachecss.forEach(item =>
+                        cfg.cachecss.forEach(item =>
                         {
                             fetch(item).then(response => response.text()).then(str =>
                             {
