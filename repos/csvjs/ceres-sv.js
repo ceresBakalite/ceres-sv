@@ -265,10 +265,10 @@ window.ceres = {};
 
                                     for (let item of cfg.cachecss)
                                     {
-                                        data += await (await fetch(item)).json();
+                                        data += await (await fetch(item)).text();
                                     }
 
-                                    return data;
+                                    return rsc.parseText(data);
                                 }
 
                                 async function xxxgetRootStyles()
