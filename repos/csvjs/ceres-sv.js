@@ -260,18 +260,15 @@ window.ceres = {};
 
                                 async function getRootStyles()
                                 {
-                                    let data = '';
-
                                     cfg.cachecss = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
 
                                     for (let item of cfg.cachecss)
                                     {
-
                                         let response = await fetch(item);
-                                        data += await response.text();
+                                        cfg.stylecss += await response.text();
                                     }
 
-                                    return data;
+                                    return cfg.stylecss;
                                 }
 
                                 async function zzzzgetRootStyles()
@@ -385,9 +382,9 @@ window.ceres = {};
                                 }
 
                                 //cfg.stylecss = getRootStyles();
-                                getRootStyles().then(data => { cfg.stylecss = data });
+                                getRootStyles().then(data => console.log(data));
 
-                                console.log('zzz css: ' + cfg.stylecss);
+                                //console.log('xxxx css: ' + cfg.stylecss);
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
