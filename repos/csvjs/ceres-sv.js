@@ -309,11 +309,10 @@ window.ceres = {};
                                                 {
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                                     let group = cfg.shadowStyle.match(regex) + '';
-                                                    let value = item.replace('COLOR:', '');
 
                                                     if (group)
                                                     {
-                                                        let newGroup = group.replace(/color[^&]*?;/i, 'color:' + value + ';')
+                                                        let newGroup = group.replace(/color[^&]*?;/i, 'color:' + item.replace('COLOR:', '') + ';')
                                                         if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                     }
 
