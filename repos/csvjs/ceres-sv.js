@@ -340,7 +340,7 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item.toUpperCase()) && (colorAttribute(item) || fontAttribute(item))){}
+                                            if (elStyle.property.includes(item.toUpperCase()) || colorAttribute(item) || fontAttribute(item)){}
 
                                         });
 
