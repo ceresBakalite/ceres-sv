@@ -167,15 +167,15 @@ window.ceres = {};
 
             if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
-            cfg.cssNode = document.createElement('div');
-            cfg.cssNode.className = 'cssNode';
+            //cfg.cssNode = document.createElement('div');
+            //cfg.cssNode.className = 'cssNode';
 
-            csvRoot.appendChild(cfg.cssNode);
+            //csvRoot.appendChild(cfg.cssNode);
 
             for (let item of cfg.cssRoot)
             {
-                cfg.cssNode.insertAdjacentHTML('beforeend', rsc.parseText({ text: await ( await fetch(item) ).text() }) );
-                //cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
+                //cfg.cssNode.insertAdjacentHTML('beforeend', rsc.parseText({ text: await ( await fetch(item) ).text() }) );
+                cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
             }
 
             if (atr.node.hasContent()) atr.node.showContent();
@@ -313,10 +313,10 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
-                                                    let text = cfg.cssNode.textContent;
+                                                    //let text = cfg.cssNode.textContent;
 
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    let group = text.match(regex) + '';
+                                                    let group = cfg.shadowStyle.match(regex) + '';
                                                     let value = item.replace('COLOR:', '');
 
                                                     //cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
@@ -333,7 +333,7 @@ window.ceres = {};
                                                         let newGroup = group.replace(re, 'color:' + value + ';')
                                                         console.log('newGroup: ' + newGroup);
 
-                                                        if (newGroup) text = text.replace(group, newGroup);
+                                                        if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                     }
 
                                                     return true;
@@ -388,8 +388,8 @@ window.ceres = {};
 
                         textList: function()
                         {
-                            cfg.shadowStyle = cfg.cssNode.textContent;
-                            cfg.cssNode.remove();
+                            //cfg.shadowStyle = cfg.cssNode.textContent;
+                            //cfg.cssNode.remove();
 
                             return (cfg.srcRoot || cfg.template);
                         },
