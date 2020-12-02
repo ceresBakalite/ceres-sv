@@ -135,7 +135,7 @@ window.ceres = {};
             default      : 98,
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            pArray       : ['left','center','right','top','bottom', 'color', 'font'],
+            pArray       : ['color', 'font', 'left','center','right','top','bottom'],
             tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
@@ -342,10 +342,7 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item.toUpperCase()) || colorAttribute(item) || fontAttribute(item))
-                                            {
-                                                console.log('found: ' + item);
-                                            }
+                                            if (elStyle.property.includes(item.toUpperCase()) || colorAttribute(item) || fontAttribute(item)){}
 
                                         });
 
@@ -355,8 +352,6 @@ window.ceres = {};
 
                                     return true;
                                 }
-
-
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
