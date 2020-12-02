@@ -331,7 +331,7 @@ window.ceres = {};
 
                                             if (group)
                                             {
-                                                let newGroup = group.replace(/font[^&]*?;/i, 'font:' + item.replace('font:', '').toLowerCase() + ';')
+                                                let newGroup = group.replace(/font[^&]*?;/i, 'font:' + item.replace('FONT:', '').toLowerCase() + ';')
                                                 if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
 
                                                 return true;
@@ -346,7 +346,7 @@ window.ceres = {};
 
                                             if (elStyle.property.includes(item) || colorAttribute(item) || fontAttribute(item))
                                             {
-                                                console.log('found: ' + item.replace('COLOR:',''));
+                                                console.log('found: ' + item);
                                             }
 
                                         });
