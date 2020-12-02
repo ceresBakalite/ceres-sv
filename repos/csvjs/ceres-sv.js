@@ -342,11 +342,7 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            let re = new RegExp(item, 'i');
-
-                                            //if (elStyle.property.includes(item) || colorAttribute(item) || fontAttribute(item))
-
-                                            if (elStyle.property.match(re) || colorAttribute(item) || fontAttribute(item))
+                                            if (elStyle.property.includes(item) || colorAttribute(item) || fontAttribute(item))
                                             {
                                                 console.log('found: ' + item);
                                             }
