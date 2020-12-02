@@ -309,7 +309,7 @@ window.ceres = {};
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(/color[^&]*?;/i, 'color:' + item.replace(/color:/i, '').toLowerCase() + ';')
+                                                    let newGroup = group.replace(/color[^&]*?;/i, item + ';')
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
@@ -327,7 +327,7 @@ window.ceres = {};
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(/font[^&]*?;/i, 'font:' + item.replace(/font:/i, '').toLowerCase() + ';')
+                                                    let newGroup = group.replace(/font[^&]*?;/i, item + ';')
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
 
                                                     return true;
