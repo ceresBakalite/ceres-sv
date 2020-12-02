@@ -167,14 +167,8 @@ window.ceres = {};
 
             if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
-            //cfg.cssNode = document.createElement('div');
-            //cfg.cssNode.className = 'cssNode';
-
-            //csvRoot.appendChild(cfg.cssNode);
-
             for (let item of cfg.cssRoot)
             {
-                //cfg.cssNode.insertAdjacentHTML('beforeend', rsc.parseText({ text: await ( await fetch(item) ).text() }) );
                 cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
             }
 
@@ -313,26 +307,13 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
-                                                    //let text = cfg.cssNode.textContent;
-
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                                     let group = cfg.shadowStyle.match(regex) + '';
                                                     let value = item.replace('COLOR:', '');
 
-                                                    //cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
-
-                                                    console.log('group: ' + group);
-
-                                                    let re = /color[^&]*?;/i;
-                                                    let test = group.match(re);
-
-                                                    console.log('subGroup: ' + test);
-
                                                     if (group)
                                                     {
-                                                        let newGroup = group.replace(re, 'color:' + value + ';')
-                                                        console.log('newGroup: ' + newGroup);
-
+                                                        let newGroup = group.replace(/color[^&]*?;/i, 'color:' + value + ';')
                                                         if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                     }
 
