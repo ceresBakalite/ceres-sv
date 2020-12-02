@@ -668,8 +668,6 @@ window.ceres = {};
                             if (node.sub) jsonList += ', ' + node.sub;
                             if (node.sur) jsonList += ', ' + node.sur;
                             jsonList += '\n';
-                            //jsonList += node.url + ', ' + node.sub + '\n'; });
-                            //jsonList += node.url + ', ' + node.sub  + ', ' + node.sur + '\n';
                         });
 
                         return jsonList;
