@@ -327,15 +327,15 @@ window.ceres = {};
                                                     let test = group.match(re);
 
                                                     console.log('subGroup: ' + test);
-                                                    /*
+
                                                     if (group)
                                                     {
-                                                        let newGroup = group.replace(re, 'color: ' + value + ';')
+                                                        let newGroup = group.replace(re, 'color:' + value + ';')
                                                         console.log('newGroup: ' + newGroup);
 
-                                                        if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+                                                        if (newGroup) text = text.replace(group, newGroup);
                                                     }
-                                                    */
+
                                                     return true;
                                                 }
 
