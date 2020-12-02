@@ -312,7 +312,7 @@ window.ceres = {};
 
                                                     if (group)
                                                     {
-                                                        let newGroup = group.replace(/color[^&]*?;/i, 'color:' + item.replace('COLOR:', '') + ';')
+                                                        let newGroup = group.replace(/color[^&]*?;/i, 'color:' + item.replace('COLOR:', '').toLowerCase() + ';')
                                                         if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                     }
 
