@@ -316,7 +316,7 @@ window.ceres = {};
                                                     let text = cfg.cssNode.textContent;
 
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    let group = text.match(regex).trim();
+                                                    let group = text.match(regex) + '';
                                                     let value = item.replace('COLOR:', '');
 
                                                     //cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
