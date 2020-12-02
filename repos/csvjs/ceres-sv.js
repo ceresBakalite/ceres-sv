@@ -229,7 +229,6 @@ window.ceres = {};
                         properties: function()
                         {
                             const attributeArray = ['nub', 'sub','sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'fadetime', 'auto', 'autocycle', 'autopause', 'autocancel', 'textColor'];
-                            const colorArray = ['color', '#', 'rgb', 'rgba', 'hsl', 'hsla'];
 
                             const attribute = {
                                 nub   : function(atr) { return !rsc.getBoolean(atr); },
@@ -296,7 +295,6 @@ window.ceres = {};
                                     {
                                         get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
                                         get attribute() { return ar.map(item => { return item.toUpperCase(); }) },
-                                        get color() { return colorArray.map(item => { return item.toUpperCase(); }) }
                                     }
 
                                     let getStyle = function()
@@ -305,21 +303,17 @@ window.ceres = {};
 
                                         const colorAttribute = function(item)
                                         {
-                                            for (let el of elStyle.color)
+                                            if (Boolean(item.match(/color:/i)))
                                             {
-                                                if (item.includes(el))
+                                                let group = cfg.shadowStyle.match(regex) + '';
+
+                                                if (group)
                                                 {
-                                                    let group = cfg.shadowStyle.match(regex) + '';
-
-                                                    if (group)
-                                                    {
-                                                        let newGroup = group.replace(/color[^&]*?;/i, 'color:' + item.replace('COLOR:', '').toLowerCase() + ';')
-                                                        if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
-                                                    }
-
-                                                    return true;
+                                                    let newGroup = group.replace(/color[^&]*?;/i, 'color:' + item.replace(/color:/i, '').toLowerCase() + ';')
+                                                    if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
+                                                return true;
                                             }
 
                                             return false;
@@ -327,17 +321,21 @@ window.ceres = {};
 
                                         const fontAttribute = function(item)
                                         {
-                                            let group = cfg.shadowStyle.match(regex) + '';
-
-                                            if (group)
+                                            if (Boolean(item.match(/font:/i)))
                                             {
-                                                let newGroup = group.replace(/font[^&]*?;/i, 'font:' + item.replace('FONT:', '').toLowerCase() + ';')
-                                                if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+                                                let group = cfg.shadowStyle.match(regex) + '';
 
-                                                //return true;
+                                                if (group)
+                                                {
+                                                    let newGroup = group.replace(/font[^&]*?;/i, 'font:' + item.replace(/font:/i, '').toLowerCase() + ';')
+                                                    if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+
+                                                    return true;
+                                                }
+
+                                                return false;
                                             }
 
-                                            //return false;
                                         }
 
                                         console.log('attribute: ' + attribute + ' - ar:' + ar);
@@ -384,9 +382,6 @@ window.ceres = {};
 
                         textList: function()
                         {
-                            //cfg.shadowStyle = cfg.cssNode.textContent;
-                            //cfg.cssNode.remove();
-
                             return (cfg.srcRoot || cfg.template);
                         },
 
