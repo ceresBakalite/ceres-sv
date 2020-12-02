@@ -363,7 +363,8 @@ window.ceres = {};
                                 }
 
                                 cfg.shadowStyle = cfg.cssNode.textContent;
-
+                                cfg.cssNode.remove();
+                                
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
                                 cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
@@ -379,8 +380,6 @@ window.ceres = {};
                                 Object.freeze(cfg.attrib);
 
                                 cfg.template = getTemplate(); // element when using embedded image lists
-
-                                cfg.cssNode.remove();
 
                                 return true;
                             }
