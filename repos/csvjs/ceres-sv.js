@@ -322,12 +322,12 @@ window.ceres = {};
                                                     console.log('group: ' + group);
 
 
-                                                    /*
+
                                                     let re = /color[^&]*?font/i;
                                                     let test = group.match(re);
 
                                                     console.log('subGroup: ' + test);
-
+                                                    /*
                                                     if (group)
                                                     {
                                                         let newGroup = group.replace(re, 'color: ' + value + ';')
@@ -364,7 +364,7 @@ window.ceres = {};
 
                                 cfg.shadowStyle = cfg.cssNode.textContent;
                                 cfg.cssNode.remove();
-                                
+
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
                                 cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
