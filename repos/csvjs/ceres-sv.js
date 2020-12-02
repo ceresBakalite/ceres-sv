@@ -135,7 +135,7 @@ window.ceres = {};
             default      : 98,
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            pArray       : ['left','center','right','top','bottom','bold','color'],
+            pArray       : ['left','center','right','top','bottom', 'color', 'font'],
             tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
@@ -301,13 +301,14 @@ window.ceres = {};
 
                                     let getStyle = function()
                                     {
+                                        let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+
                                         const colorAttribute = function(item)
                                         {
                                             for (let el of elStyle.color)
                                             {
                                                 if (item.includes(el))
                                                 {
-                                                    let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                                     let group = cfg.shadowStyle.match(regex) + '';
 
                                                     if (group)
@@ -324,11 +325,26 @@ window.ceres = {};
                                             return false;
                                         }
 
+                                        const fontAttribute = function(item)
+                                        {
+                                            let group = cfg.shadowStyle.match(regex) + '';
+
+                                            if (group)
+                                            {
+                                                let newGroup = group.replace(/font[^&]*?;/i, 'font:' + item.replace('font:', '').toLowerCase() + ';')
+                                                if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+
+                                                return true;
+                                            }
+
+                                            return false;
+                                        }
+
                                         console.log('attribute: ' + attribute + ' - ar:' + ar);
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item) || colorAttribute(item))
+                                            if (elStyle.property.includes(item) || colorAttribute(item) || fontAttribute(item))
                                             {
                                                 console.log('found: ' + item.replace('COLOR:',''));
                                             }
