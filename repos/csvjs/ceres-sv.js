@@ -346,6 +346,7 @@ window.ceres = {};
 
                                             //if (elStyle.property.includes(item) || colorAttribute(item) || fontAttribute(item))
 
+                                            console.log('re: ' + re);
                                             if (Boolean(elStyle.property.match(re)) || colorAttribute(item) || fontAttribute(item))
                                             {
                                                 console.log('found: ' + item);
