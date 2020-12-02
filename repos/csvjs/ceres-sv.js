@@ -265,7 +265,6 @@ window.ceres = {};
                                     let value = csvRoot.getAttribute(attribute);
                                     if (rsc.ignore(value)) return (attribute == 'fade');
 
-                                    //let ar = value.replace(rsc.attrib.whitespace,'').split(',');
                                     let ar = value.replace(/ :|: /gi,':').split(',');
                                     let item = ar[0];
 
@@ -335,10 +334,10 @@ window.ceres = {};
                                                 let newGroup = group.replace(/font[^&]*?;/i, 'font:' + item.replace('FONT:', '').toLowerCase() + ';')
                                                 if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
 
-                                                return true;
+                                                //return true;
                                             }
 
-                                            return false;
+                                            //return false;
                                         }
 
                                         console.log('attribute: ' + attribute + ' - ar:' + ar);
