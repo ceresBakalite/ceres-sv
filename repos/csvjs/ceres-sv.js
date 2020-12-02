@@ -167,9 +167,15 @@ window.ceres = {};
 
             if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
+            cfg.cssNode = document.createElement('div');
+            cfg.cssNode.className = 'cssNode';
+
+            csvRoot.appendChild(cfg.cssNode);
+
             for (let item of cfg.cssRoot)
             {
-                cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
+                cfg.cssNode.insertAdjacentHTML('beforeend', rsc.parseText({ text: await ( await fetch(item) ).text() }) );
+                //cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
             }
 
             if (atr.node.hasContent()) atr.node.showContent();
@@ -356,6 +362,8 @@ window.ceres = {};
                                     return true;
                                 }
 
+                                cfg.shadowStyle = cfg.cssNode.textContent;
+
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
                                 cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
@@ -371,6 +379,8 @@ window.ceres = {};
                                 Object.freeze(cfg.attrib);
 
                                 cfg.template = getTemplate(); // element when using embedded image lists
+
+                                cfg.cssNode.remove();
 
                                 return true;
                             }
