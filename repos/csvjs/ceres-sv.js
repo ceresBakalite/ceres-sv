@@ -293,8 +293,8 @@ window.ceres = {};
 
                                     const elStyle =
                                     {
-                                        get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
-                                        get attribute() { return ar.map(item => { return item.toUpperCase(); }) },
+                                        get property() { return rsc.attrib.pArray.map(item => { return item.trim(); }) },
+                                        get attribute() { return ar.map(item => { return item.trim(); }) },
                                     }
 
                                     let getStyle = function()
@@ -342,7 +342,9 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item) || colorAttribute(item) || fontAttribute(item))
+                                            let regex = new RegExp(item, 'i');
+                                            //if (elStyle.property.includes(item) || colorAttribute(item) || fontAttribute(item))
+                                            if (Boolean(elStyle.property.match(regex)) || colorAttribute(item) || fontAttribute(item))
                                             {
                                                 console.log('found: ' + item);
                                             }
