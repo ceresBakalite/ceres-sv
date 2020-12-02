@@ -265,7 +265,8 @@ window.ceres = {};
                                     let value = csvRoot.getAttribute(attribute);
                                     if (rsc.ignore(value)) return (attribute == 'fade');
 
-                                    let ar = value.replace(rsc.attrib.whitespace,'').split(',');
+                                    //let ar = value.replace(rsc.attrib.whitespace,'').split(',');
+                                    let ar = value.replace(/ :|: /gi,':').split(',');
                                     let item = ar[0];
 
                                     if (!Number.isInteger(parseInt(item)))
