@@ -338,11 +338,9 @@ window.ceres = {};
 
                                         }
 
-                                        console.log('attribute: ' + attribute + ' - ar:' + ar);
-
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item.toUpperCase()) || colorAttribute(item) || fontAttribute(item)){}
+                                            if (elStyle.property.includes(item.toUpperCase()) && (colorAttribute(item) || fontAttribute(item))){}
 
                                         });
 
