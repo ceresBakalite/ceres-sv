@@ -313,8 +313,10 @@ window.ceres = {};
                                             {
                                                 if (item.includes(el))
                                                 {
+                                                    let text = cfg.cssNode.textContent;
+
                                                     let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                                    let group = cfg.shadowStyle.match(regex);
+                                                    let group = text.match(regex) + ' testing';
                                                     let value = item.replace('COLOR:', '');
 
                                                     //cfg.shadowStyle = cfg.shadowStyle.match(regex).replace(/color[^&]*?;/i, 'color: ' + value + ';');
@@ -362,8 +364,7 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.shadowStyle = cfg.cssNode.textContent;
-                                cfg.cssNode.remove();
+
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
@@ -389,6 +390,9 @@ window.ceres = {};
 
                         textList: function()
                         {
+                            cfg.shadowStyle = cfg.cssNode.textContent;
+                            cfg.cssNode.remove();
+
                             return (cfg.srcRoot || cfg.template);
                         },
 
