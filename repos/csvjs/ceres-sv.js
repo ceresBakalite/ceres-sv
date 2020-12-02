@@ -662,7 +662,15 @@ window.ceres = {};
                         if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
 
                         let json = JSON.parse(textList);
-                        json.forEach((node) => { jsonList += node.url + ', ' + node.sub + '\n'; });
+                        json.forEach((node) =>
+                        {
+                            jsonList += node.url;
+                            if (node.sub) jsonList += ', ' + node.sub;
+                            if (node.sur) jsonList += ', ' + node.sur;
+                            jsonList += '\n';
+                            //jsonList += node.url + ', ' + node.sub + '\n'; });
+                            //jsonList += node.url + ', ' + node.sub  + ', ' + node.sur + '\n';
+                        });
 
                         return jsonList;
                     }
