@@ -353,13 +353,12 @@ window.ceres = {};
                                                 {
                                                     let newGroup = group.replace(/font[^&]*?;/i, item + ';')
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
-
-                                                    return true;
                                                 }
 
-                                                return false;
+                                                return true;
                                             }
 
+                                            return false;
                                         }
 
                                         const paddingAttribute = function(item)
