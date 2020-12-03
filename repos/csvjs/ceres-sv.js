@@ -165,7 +165,7 @@ window.ceres = {};
 
             configureAttributes();
 
-            atr.getState.hide();
+            atr.setDisplay.hide();
 
             if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
 
@@ -534,7 +534,7 @@ window.ceres = {};
                             setTimeout(function()
                             {
                                 if (cfg.attrib.auto) setTimeout(function() { getAuto(); }, cfg.attrib.delay);
-                                atr.getState.show();
+                                atr.setDisplay.show();
 
                             }, cfg.attrib.delay);
 
@@ -615,17 +615,7 @@ window.ceres = {};
 
                     };
 
-                    this.getClassList = function(className)
-                    {
-                        if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
-
-                        if (cfg.attrib.zoom) className += ' zoom';
-                        if (cfg.attrib.fade) className += ' fade';
-
-                        return className += ' none';
-                    }
-
-                    this.getState = {
+                    this.setDisplay = {
 
                         hide: function()
                         {
@@ -643,10 +633,20 @@ window.ceres = {};
 
                     };
 
+
+                    this.getClassList = function(className)
+                    {
+                        if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
+
+                        if (cfg.attrib.zoom) className += ' zoom';
+                        if (cfg.attrib.fade) className += ' fade';
+
+                        return className += ' none';
+                    }
+
                     this.parseJSON = function(textList, jsonList = '')
                     {
                         if (!rsc.fileType(cfg.src, '.json')) return textList;
-                        //if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
 
                         let json = JSON.parse(textList);
                         json.forEach((node) =>
