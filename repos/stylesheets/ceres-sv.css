@@ -119,15 +119,16 @@
 .fade {
     -webkit-animation-name: fade;
     -webkit-animation-duration: 1.5s;
-    animation-name: fade;
+    animation-name: titlefade;
     animation-duration: 1.5s;
 }
 
-.titlefade {
+.fadetitle {
     -webkit-animation-name: fade;
-    -webkit-animation-duration: 2.5s;
-    animation-name: fade;
-    animation-duration: 2.5s;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fadetitle;
+    animation-delay: 1.5s;
+    animation-duration: 1.5s;
 }
 
 @media screen and (min-width: 64em) {
