@@ -307,9 +307,9 @@ window.ceres = {};
                                             let re = (Boolean(item.match(/color:/i))) ? /color[^&]*?;/i
                                                 : (Boolean(item.match(/font:/i))) ? /font[^&]*?;/i
                                                 : (Boolean(item.match(/padding:/i))) ? /padding[^&]*?;/i
-                                                : null;
+                                                : '';
 
-                                            if (re)
+                                            if (!rsc.ignore(re))
                                             {
                                                 let group = cfg.shadowStyle.match(regex) + '';
 
