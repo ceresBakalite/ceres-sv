@@ -84,7 +84,8 @@
     font: normal 15px sans-serif;
     margin: 8px 35px 0px 8px;
     position: absolute;
-    bottom: 8px;
+    /* bottom: 8px; */
+    padding: 0px 0px 8px 0px;
     width: 95%;
     text-align: center;
 }
