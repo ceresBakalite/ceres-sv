@@ -123,14 +123,6 @@
     animation-duration: 1.5s;
 }
 
-.fadetitle {
-    -webkit-animation-name: fadetitle;
-    -webkit-animation-duration: 1.5s;
-    animation-name: fadetitle;
-    animation-delay: 1.5s;
-    animation-duration: 1.5s;
-}
-
 @media screen and (min-width: 64em) {
     .slideview-body {
         max-width: 64rem;
@@ -160,11 +152,6 @@
 }
 
 @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-}
-
-@keyframes fadetitle {
     from {opacity: .4}
     to {opacity: 1}
 }
