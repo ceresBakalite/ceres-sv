@@ -233,8 +233,9 @@ window.ceres = {};
 
                             const attribute = {
                                 nub   : function(atr) { return !rsc.getBoolean(atr); },
-                                zoom  : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
+                                fade  : function(atr) { return !rsc.getBoolean(atr); },
                                 cache : function(atr) { return !rsc.getBoolean(atr); },
+                                zoom  : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
                                 trace : function(atr) { return rsc.getBoolean(atr); },
                                 delay : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
                                 embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
@@ -263,7 +264,7 @@ window.ceres = {};
                                 let getRootAttribute = function(attribute)
                                 {
                                     let value = csvRoot.getAttribute(attribute);
-                                    if (rsc.ignore(value)) return (attribute == 'fade');
+                                    if (rsc.ignore(value)) return false;
 
                                     let ar = value.replace(/ :|: /gi,':').split(',');
                                     let item = ar[0];
@@ -272,12 +273,6 @@ window.ceres = {};
                                     {
                                         if (!rsc.getBoolean(item)) return false;
                                         if (ar.length > 1) ar.shift();
-                                    }
-
-                                    if (attribute == 'fade')
-                                    {
-                                        cfg.attrib.fadetime = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 1500;
-                                        return true;
                                     }
 
                                     if (attribute == 'auto')
@@ -341,13 +336,13 @@ window.ceres = {};
                                 }
 
                                 cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
+                                cfg.attrib.fade  = attribute.fade(csvRoot.getAttribute('fade')); // enabled
                                 cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
                                 cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
                                 cfg.attrib.trace = attribute.trace(csvRoot.getAttribute('trace')); // disabled
                                 cfg.attrib.delay = attribute.delay(csvRoot.getAttribute('delay')); // default 250
                                 cfg.attrib.embed = attribute.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
 
-                                cfg.attrib.fade = getRootAttribute('fade'); // enabled
                                 cfg.attrib.sur  = getRootAttribute('sur'); // disabled
                                 cfg.attrib.sub  = getRootAttribute('sub'); // disabled
                                 cfg.attrib.auto = getRootAttribute('auto'); // disabled
