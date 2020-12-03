@@ -152,6 +152,8 @@ window.ceres = {};
 
     }).call(rsc); // end resource allocation
 
+    window,
+    document,
     window.customElements.define('ceres-sv', class extends HTMLElement
     {
         async connectedCallback()
