@@ -82,9 +82,9 @@
 .subtitle {
     color: #f2f2f2;
     font: normal 15px sans-serif;
-    padding: 0px 0px 8px 0px;
     margin: 8px 35px 0px 8px;
     position: absolute;
+    padding: 0px 0px 8px 0px;
     width: 95%;
     text-align: center;
 }
