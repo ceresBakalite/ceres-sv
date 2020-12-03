@@ -18,7 +18,8 @@ window.ceres = {};
         this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
         this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-        this.fileName = function(url) { return url.substring(url.lastIndexOf('/')+1); }
+        this.fileName = function(path) { return path.substring(path.lastIndexOf('/'), path.length); }
+        this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.'), path.length) === type; }
 
         this.composeElement = function(el, atr)
         {
@@ -644,7 +645,8 @@ window.ceres = {};
 
                     this.parseJSON = function(textList, jsonList = '')
                     {
-                        if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
+                        if (!rsc.fileType(cfg.src, '.json')) return textList;
+                        //if (cfg.src.substring(cfg.src.lastIndexOf('.'), cfg.src.length) != '.json') return textList;
 
                         let json = JSON.parse(textList);
                         json.forEach((node) =>
