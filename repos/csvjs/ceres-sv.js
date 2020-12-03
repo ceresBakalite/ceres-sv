@@ -51,6 +51,146 @@ window.ceres = {};
                 cfg.attrib = {};
                 cfg.slide = 1;
 
+                const rsc = {}; // generic resource methods
+                (function() {
+
+                    //this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+                    this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+                    this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+                    this.fileName = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
+                    this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.'), path.length).toUpperCase() === type.toUpperCase(); }
+
+                    this.composeElement = function(el, atr)
+                    {
+                        if (!el.type) return;
+
+                        const precursor = this.attrib.tagName.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+                        const node = document.createElement(el.type);
+
+                        Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
+                        if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+
+                        precursor.appendChild(node);
+                    }
+
+                    this.setSwipe = function(touch, callback, args) // horizontal swipe
+                    {
+                        if (!touch.act) touch.act = 80;
+
+                        touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
+                        touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+                        touch.node.addEventListener('touchend', e =>
+                        {
+                            touch.end = e.changedTouches[0].screenX;
+
+                            if (Math.abs(touch.start - touch.end) > touch.act)
+                            {
+                                args.action = (touch.start > touch.end);
+                                callback.call(this, args);
+                            }
+
+                        }, { passive: true });
+
+                    }
+
+                    this.ignore = function(obj)
+                    {
+                        if (obj === null || obj == 'undefined') return true;
+
+                        if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+                        if (Array.isArray(obj)) return (obj.length === 0);
+                        if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
+
+                        return !obj;
+                    }
+
+                    this.getBoolean = function(obj)
+                    {
+                        if (obj === true || obj === false) return atr;
+                        if (this.ignore(obj) || !this.isString(obj)) return false;
+
+                        return this.attrib.bool.includes(obj.trim().toUpperCase());
+                    }
+
+                    this.getUniqueId = function(obj)
+                    {
+                        if (!obj.name) obj.name = 'n';
+                        if (!obj.range) obj.range = 100;
+
+                        let elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
+                        while (document.getElementById(obj.el = elName())) {};
+
+                        return obj.el;
+                    }
+
+                    this.removeDuplcates = function(obj, sort)
+                    {
+                        const key = JSON.stringify;
+                        let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+
+                        return sort ? ar.sort((a, b) => a - b) : ar;
+                    }
+
+                    this.parseText = function(obj)
+                    {
+                        if (this.ignore(obj.text)) return;
+
+                        if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
+
+                        let doc = new DOMParser().parseFromString(obj.text, 'text/html');
+                        return doc.body.textContent || doc.body.innerText;
+                    }
+
+                    this.inspect = function(diagnostic)
+                    {
+                        const errorHandler = function(error)
+                        {
+                            let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                            console.error(err);
+
+                            if (error.alert) alert(err);
+                        }
+
+                        const lookup = {
+                            [this.attrib.notify]    : function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                            [this.attrib.warn]      : function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                            [this.attrib.reference] : function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
+                            [this.attrib.error]     : function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }); },
+                            [this.attrib.default]   : function() { errorHandler({ notification: 'Unhandled exception' }); }
+                        };
+
+                        lookup[diagnostic.type]() || lookup[this.attrib.default];
+                    }
+
+                    this.getProperties = function(string = {}, str = '')
+                    {
+                        for (let literal in string) str += literal + ': ' + string[literal] + ', ';
+                        return str.replace(/, +$/g,'');
+                    }
+
+                    this.attrib =
+                    {
+                        reference    : 1,
+                        notify       : 2,
+                        warn         : 3,
+                        default      : 98,
+                        error        : 99,
+                        bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
+                        pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
+                        tArray       : ['link', 'script', 'style'],
+                        isWindows    : (navigator.appVersion.indexOf('Win') != -1),
+                        nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
+                        whitespace   : /\s/g,
+                        markup       : /(<([^>]+)>)/ig,
+
+                        get newline() { return this.isWindows ? '\r\n' : '\n'; },
+                        get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
+                        get tagName() { return this.tArray.map(item => { return item.trim().toUpperCase(); }) },
+                        get metaUrl() { return import.meta.url; }
+                    }
+
+                }).call(rsc); // end resource allocation
+
                 (function() {
 
                     const csv = csvRoot.tagName.toLocaleLowerCase();
@@ -526,146 +666,6 @@ window.ceres = {};
                     Object.seal(atr);
 
                 }).call(atr); // end attribute allocation
-
-                const rsc = {}; // generic resource methods
-                (function() {
-
-                    //this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-                    this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
-                    this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-                    this.fileName = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
-                    this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.'), path.length).toUpperCase() === type.toUpperCase(); }
-
-                    this.composeElement = function(el, atr)
-                    {
-                        if (!el.type) return;
-
-                        const precursor = this.attrib.tagName.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
-                        const node = document.createElement(el.type);
-
-                        Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
-                        if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
-
-                        precursor.appendChild(node);
-                    }
-
-                    this.setSwipe = function(touch, callback, args) // horizontal swipe
-                    {
-                        if (!touch.act) touch.act = 80;
-
-                        touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
-                        touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                        touch.node.addEventListener('touchend', e =>
-                        {
-                            touch.end = e.changedTouches[0].screenX;
-
-                            if (Math.abs(touch.start - touch.end) > touch.act)
-                            {
-                                args.action = (touch.start > touch.end);
-                                callback.call(this, args);
-                            }
-
-                        }, { passive: true });
-
-                    }
-
-                    this.ignore = function(obj)
-                    {
-                        if (obj === null || obj == 'undefined') return true;
-
-                        if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
-                        if (Array.isArray(obj)) return (obj.length === 0);
-                        if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
-
-                        return !obj;
-                    }
-
-                    this.getBoolean = function(obj)
-                    {
-                        if (obj === true || obj === false) return atr;
-                        if (this.ignore(obj) || !this.isString(obj)) return false;
-
-                        return this.attrib.bool.includes(obj.trim().toUpperCase());
-                    }
-
-                    this.getUniqueId = function(obj)
-                    {
-                        if (!obj.name) obj.name = 'n';
-                        if (!obj.range) obj.range = 100;
-
-                        let elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
-                        while (document.getElementById(obj.el = elName())) {};
-
-                        return obj.el;
-                    }
-
-                    this.removeDuplcates = function(obj, sort)
-                    {
-                        const key = JSON.stringify;
-                        let ar = [...new Map (obj.map(node => [key(node), node])).values()];
-
-                        return sort ? ar.sort((a, b) => a - b) : ar;
-                    }
-
-                    this.parseText = function(obj)
-                    {
-                        if (this.ignore(obj.text)) return;
-
-                        if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
-
-                        let doc = new DOMParser().parseFromString(obj.text, 'text/html');
-                        return doc.body.textContent || doc.body.innerText;
-                    }
-
-                    this.inspect = function(diagnostic)
-                    {
-                        const errorHandler = function(error)
-                        {
-                            let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-                            console.error(err);
-
-                            if (error.alert) alert(err);
-                        }
-
-                        const lookup = {
-                            [this.attrib.notify]    : function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                            [this.attrib.warn]      : function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                            [this.attrib.reference] : function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
-                            [this.attrib.error]     : function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }); },
-                            [this.attrib.default]   : function() { errorHandler({ notification: 'Unhandled exception' }); }
-                        };
-
-                        lookup[diagnostic.type]() || lookup[this.attrib.default];
-                    }
-
-                    this.getProperties = function(string = {}, str = '')
-                    {
-                        for (let literal in string) str += literal + ': ' + string[literal] + ', ';
-                        return str.replace(/, +$/g,'');
-                    }
-
-                    this.attrib =
-                    {
-                        reference    : 1,
-                        notify       : 2,
-                        warn         : 3,
-                        default      : 98,
-                        error        : 99,
-                        bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-                        pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
-                        tArray       : ['link', 'script', 'style'],
-                        isWindows    : (navigator.appVersion.indexOf('Win') != -1),
-                        nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
-                        whitespace   : /\s/g,
-                        markup       : /(<([^>]+)>)/ig,
-
-                        get newline() { return this.isWindows ? '\r\n' : '\n'; },
-                        get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
-                        get tagName() { return this.tArray.map(item => { return item.trim().toUpperCase(); }) },
-                        get metaUrl() { return import.meta.url; }
-                    }
-
-                }).call(rsc); // end resource allocation
 
             }
 
