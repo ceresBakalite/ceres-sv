@@ -261,6 +261,12 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
+                                const elStyle =
+                                {
+                                    get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
+                                    get attribute() { return ar.map(item => { return item.trim(); }) },
+                                }
+
                                 let getRootAttribute = function(attribute)
                                 {
                                     let value = csvRoot.getAttribute(attribute);
@@ -285,12 +291,6 @@ window.ceres = {};
                                         cfg.attrib.nub = 'false'; // typeof string
 
                                         return true;
-                                    }
-
-                                    const elStyle =
-                                    {
-                                        get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
-                                        get attribute() { return ar.map(item => { return item.trim(); }) },
                                     }
 
                                     let getStyle = function()
