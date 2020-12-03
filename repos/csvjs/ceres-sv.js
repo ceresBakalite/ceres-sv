@@ -136,7 +136,7 @@ window.ceres = {};
             default      : 98,
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            pArray       : ['color', 'font', 'left','center','right','top','bottom'],
+            pArray       : ['color', 'font', 'padding'],
             tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
@@ -302,6 +302,29 @@ window.ceres = {};
                                     {
                                         let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
 
+                                        const styleAttribute = function(item)
+                                        {
+                                            let re = (Boolean(item.match(/color:/i))) ? /color[^&]*?;/i
+                                                : (Boolean(item.match(/font:/i))) ? /font[^&]*?;/i
+                                                : (Boolean(item.match(/padding:/i))) ? /padding[^&]*?;/i
+                                                : null;
+
+                                            if (re)
+                                            {
+                                                let group = cfg.shadowStyle.match(regex) + '';
+
+                                                if (group)
+                                                {
+                                                    let newGroup = group.replace(re, item + ';')
+                                                    if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+                                                }
+
+                                                return true;
+                                            }
+
+                                            return false;
+                                        }
+
                                         const colorAttribute = function(item)
                                         {
                                             if (Boolean(item.match(/color:/i)))
@@ -339,9 +362,29 @@ window.ceres = {};
 
                                         }
 
+                                        const paddingAttribute = function(item)
+                                        {
+                                            if (Boolean(item.match(/padding:/i)))
+                                            {
+                                                let group = cfg.shadowStyle.match(regex) + '';
+
+                                                if (group)
+                                                {
+                                                    let newGroup = group.replace(/padding[^&]*?;/i, item + ';')
+                                                    if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+
+                                                    return true;
+                                                }
+
+                                                return false;
+                                            }
+
+                                        }
+
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item.toUpperCase()) || colorAttribute(item) || fontAttribute(item)){}
+                                            //if (elStyle.property.includes(item.toUpperCase()) || colorAttribute(item) || fontAttribute(item)){}
+                                            if (elStyle.property.includes(item.toUpperCase()) || styleAttribute(item)){}
 
                                         });
 
