@@ -664,10 +664,16 @@ window.ceres = {};
                         let json = JSON.parse(textList);
                         json.forEach((node) =>
                         {
-                            jsonList += node.url;
-                            if (node.sub) jsonList += ', ' + node.sub;
-                            if (node.sur) jsonList += ', ' + node.sur;
-                            jsonList += '\n';
+                            //jsonList += node.url;
+                            //if (node.sub) jsonList += ', ' + node.sub;
+                            //if (node.sur) jsonList += ', ' + node.sur;
+                            //jsonList += '\n';
+
+                            jsonList += node.url
+                                + ((node.sub) ? ', ' + node.sub : '')
+                                + ((node.sur) ? ', ' + node.sur : '')
+                                + '\n';
+
                         });
 
                         return jsonList;
