@@ -327,10 +327,7 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            console.log(item + ' elStyle.property.includes(item.toUpperCase(): ' + elStyle.property.includes(item.toUpperCase()));
-                                            console.log(item + ' styleAttribute(item): ' + styleAttribute(item));
-
-                                            if (elStyle.property.includes(item.toUpperCase()) styleAttribute(item));
+                                            if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
 
                                         });
 
