@@ -163,3 +163,8 @@
     from {opacity: .4}
     to {opacity: 1}
 }
+
+@keyframes fadetitle {
+    from {opacity: .4}
+    to {opacity: 1}
+}
