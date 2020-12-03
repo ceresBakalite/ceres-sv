@@ -113,11 +113,11 @@ window.ceres = {};
             }
 
             const lookup = {
-                [this.attrib.notify]: function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.attrib.warn]: function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [this.attrib.reference]: function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
-                [this.attrib.error]: function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }); },
-                [this.attrib.default]: function() { errorHandler({ notification: 'Unhandled exception' }); }
+                [this.attrib.notify]    : function() { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [this.attrib.warn]      : function() { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [this.attrib.reference] : function() { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
+                [this.attrib.error]     : function() { errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }); },
+                [this.attrib.default]   : function() { errorHandler({ notification: 'Unhandled exception' }); }
             };
 
             lookup[diagnostic.type]() || lookup[this.attrib.default];
