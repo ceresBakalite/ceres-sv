@@ -633,7 +633,6 @@ window.ceres = {};
 
                     };
 
-
                     this.getClassList = function(className)
                     {
                         if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
