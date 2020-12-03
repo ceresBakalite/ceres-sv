@@ -582,9 +582,10 @@ window.ceres = {};
                         images: function(index = 0)
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                            const setText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
-                            const setSubtitle = function() { return (cfg.attrib.sub) ? setText() : null; };
-                            const setSurtitle = function() { return (cfg.attrib.sur) ? index + ' / ' + cfg.imageArray.length : null; };
+                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim() : index + ' / ' + cfg.imageArray.length; };
+                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                            const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; };
+                            const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; };
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             let classlist = atr.getClassList('slide');
@@ -664,16 +665,10 @@ window.ceres = {};
                         let json = JSON.parse(textList);
                         json.forEach((node) =>
                         {
-                            //jsonList += node.url;
-                            //if (node.sub) jsonList += ', ' + node.sub;
-                            //if (node.sur) jsonList += ', ' + node.sur;
-                            //jsonList += '\n';
-
                             jsonList += node.url
                                 + ((node.sub) ? ', ' + node.sub : '')
                                 + ((node.sur) ? ', ' + node.sur : '')
                                 + '\n';
-
                         });
 
                         return jsonList;
