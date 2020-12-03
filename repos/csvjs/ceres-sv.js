@@ -19,16 +19,16 @@ window.ceres = {};
         this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
         this.fileName = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
-        this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.'), path.length) === type; }
+        // this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.'), path.length) === type; }
 
-        /*
+
         this.fileType = function(path, type)
         {
             const regex = new RegExp('/' + type + '/', 'i');
             return Boolean(path.substring(path.lastIndexOf('.'), path.length).match(regex));
         }
-        */
         
+
         this.composeElement = function(el, atr)
         {
             if (!el.type) return;
