@@ -229,7 +229,7 @@ window.ceres = {};
 
                         properties: function()
                         {
-                            const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'fadetime', 'auto', 'autocycle', 'autopause', 'autocancel', 'textColor'];
+                            const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto'];
 
                             const attribute = {
                                 nub   : function(atr) { return !rsc.getBoolean(atr); },
