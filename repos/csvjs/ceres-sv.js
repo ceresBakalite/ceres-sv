@@ -261,24 +261,37 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                let getRootAttribute = function(attribute)
+                                let getRootAttribute = function(str)
                                 {
-                                    let value = csvRoot.getAttribute(attribute);
-                                    if (rsc.ignore(value)) return false;
+                                    //let value = csvRoot.getAttribute(attribute);
+                                    //if (rsc.ignore(value)) return false;
 
-                                    let ar = value.replace(/ :|: /gi,':').split(',');
-                                    let item = ar[0];
+                                    //let ar = value.replace(/ :|: /gi,':').split(',');
+                                    //let item = ar[0];
+
+                                    const elStyle =
+                                    {
+                                        value : function() { csvRoot.getAttribute(str); },
+                                        valueArray : function() { return value.replace(/ :|: /gi,':').split(','); },
+
+                                        get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
+                                        get attribute() { return this.valueArray.map(item => { return item.trim(); }) },
+                                    }
+
+                                    if (rsc.ignore(elStyle.value)) return false;
+
+                                    let item = elStyle.valueArray[0];
 
                                     if (!Number.isInteger(parseInt(item)))
                                     {
                                         if (!rsc.getBoolean(item)) return false;
-                                        if (ar.length > 1) ar.shift();
+                                        if (elStyle.valueArray.length > 1) elStyle.valueArray.shift();
                                     }
 
-                                    if (attribute == 'auto')
+                                    if (str == 'auto')
                                     {
-                                        cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                                        cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                        cfg.attrib.autocycle = Number.isInteger(parseInt(elStyle.valueArray[0])) ? parseInt(elStyle.valueArray[0]) : 10;
+                                        cfg.attrib.autopause = Number.isInteger(parseInt(elStyle.valueArray[1])) ? parseInt(elStyle.valueArray[1]) : 3000;
                                         cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                                         cfg.attrib.fade = cfg.attrib.autopause > 400;
@@ -287,17 +300,11 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    const elStyle =
-                                    {
-                                        get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
-                                        get attribute() { return ar.map(item => { return item.trim(); }) },
-                                    }
-
                                     let getStyle = function()
                                     {
-                                        if (ar.length == 0) return;
+                                        if (elStyle.valueArray.length == 0) return;
 
-                                        let regex = attribute == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                        let regex = str == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
 
                                         const styleAttribute = function(item)
                                         {
