@@ -85,7 +85,7 @@
     margin: 8px 35px 0px 8px;
     position: absolute;
     padding: 0;
-    top: 0;
+    top: auto;
     bottom: 8px;
     width: 95%;
     text-align: center;
@@ -95,8 +95,8 @@
     color: #f2f2f2;
     font: normal 12px sans-serif;
     padding: 8px 12px;
-    top: 0;
-    bottom: 0;
+    top: auto;
+    bottom: auto;
     position: absolute;
     top: 0;
 }
