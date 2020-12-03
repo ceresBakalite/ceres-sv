@@ -18,6 +18,7 @@ window.ceres = {};
         this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
         this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+        this.fileName = function(url) { return url.substring(url.lastIndexOf('/')+1); }
 
         this.composeElement = function(el, atr)
         {
@@ -411,7 +412,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - fetch' : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
 
