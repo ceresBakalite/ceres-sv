@@ -136,7 +136,7 @@ window.ceres = {};
             default      : 98,
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            pArray       : ['color', 'font', 'padding', 'left','center','right','top','bottom'],
+            pArray       : ['color', 'font', 'padding'],
             tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             nonWordChars : '/\()"\':,.;<>~!@#$%^&*|+=[]{}`?-…',
@@ -382,6 +382,10 @@ window.ceres = {};
                                         }
 
                                         elStyle.attribute.forEach((item) => {
+
+                                            console.log(item + ' elStyle.property.includes(item.toUpperCase(): ' + elStyle.property.includes(item.toUpperCase()));
+                                            console.log(item + ' colorAttribute(item): ' + colorAttribute(item));
+                                            console.log(item + ' fontAttribute(item): ' + fontAttribute(item));
 
                                             if (elStyle.property.includes(item.toUpperCase()) || colorAttribute(item) || fontAttribute(item)){}
                                             //if (elStyle.property.includes(item.toUpperCase()) || styleAttribute(item)){}
