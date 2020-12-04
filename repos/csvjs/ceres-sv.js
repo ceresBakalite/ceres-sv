@@ -263,7 +263,7 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.parseJSON( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
 
             for (let item of cfg.cssRoot)
             {
@@ -742,10 +742,16 @@ window.ceres = {};
                         return className += ' none';
                     }
 
+                    this.getFileType = function(textList)
+                    {
+                        if (rsc.fileType(cfg.src, '.json')) return parseJSON(textList);
+                        if (rsc.fileType(cfg.src, '.csv')) return parseCSV(textList);
+
+                        return textList;
+                    }
+
                     this.parseJSON = function(textList, jsonList = '')
                     {
-                        if (!rsc.fileType(cfg.src, '.json')) return textList;
-
                         let json = JSON.parse(textList);
                         json.forEach((node) =>
                         {
