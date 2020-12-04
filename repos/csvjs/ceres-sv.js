@@ -139,11 +139,7 @@ window.ceres = {};
             {
                 [...str].forEach((char) =>
                 {
-                    if (!matchQuote(char))
-                    {
-                        if (!matchComma(char)) value.push(char);
-                    }
-
+                    if (!matchQuote(char)) { if (!matchComma(char)) value.push(char); }
                 });
 
                 return item.push(value.join(''));
