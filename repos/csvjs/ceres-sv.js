@@ -111,27 +111,37 @@ window.ceres = {};
 
             let delimeter = false;
 
+            const matchQuote = function(char)
+            {
+                if (Boolean(char.match(/\x22/)))
+                {
+                    delimeter = !delimeter;
+                    return true;
+                }
+
+                return false;
+            }
+
+            const matchComma = function(char)
+            {
+                if (Boolean(char.match(/\x2c/)) && !delimeter)
+                {
+                    item.push(value.join(''));
+                    value = [];
+
+                    return true;
+                }
+
+                return false;
+            }
+
             const resolve = function(str)
             {
                 [...str].forEach((char) =>
                 {
-                    if (Boolean(char.match(/\x22/)))
+                    if (!matchQuote(char))
                     {
-                        delimeter = !delimeter;
-
-                    } else {
-
-                        if (Boolean(char.match(/\x2c/)) && !delimeter)
-                        {
-                            item.push(value.join(''));
-                            value = [];
-
-                        } else {
-
-                            value.push(char);
-
-                        }
-
+                        if (!matchComma(char)) value.push(char);
                     }
 
                 });
