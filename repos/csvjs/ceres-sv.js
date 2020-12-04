@@ -103,7 +103,7 @@ window.ceres = {};
         }
 
         // http://jsfiddle.net/3jLE2/2/
-        this.parseCSV = function(csv)
+        this.parseCSV = function(text)
         {
             const entries = [];
             const entry = [];
@@ -161,7 +161,7 @@ window.ceres = {};
 
             }
 
-            let dataLines = csv.split('\n');
+            let dataLines = text.split(this.attrib.newline);
             let data = dataLines.map(parse);
 
             entries.push(entry.join(''));
@@ -750,20 +750,20 @@ window.ceres = {};
                         return textList;
                     }
 
-                    this.parseJSON = function(textList)
+                    this.parseJSON = function(text)
                     {
-                        let jsonList = '';
-                        let json = JSON.parse(textList);
-                        
+                        let str = '';
+                        let json = JSON.parse(text);
+
                         json.forEach((node) =>
                         {
-                            jsonList += node.url
+                            str += node.url
                                 + ((node.sub) ? ', ' + node.sub : '')
                                 + ((node.sur) ? ', ' + node.sur : '')
                                 + '\n';
                         });
 
-                        return jsonList;
+                        return str;
                     }
 
                     Object.seal(atr);
