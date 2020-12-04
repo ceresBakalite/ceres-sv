@@ -102,6 +102,76 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
+        // http://jsfiddle.net/3jLE2/2/
+        this.parseCSV = function(csv)
+        {
+            const parse = function(row)
+            {
+                row.split('').forEach(function (character)
+                {
+                    if (character === '"')
+                    {
+                        insideQuote = !insideQuote;
+
+                    } else {
+
+                        if (character == "," && !insideQuote)
+                        {
+                            entries.push(entry.join(''));
+                            entry = [];
+
+                        } else {
+
+                            entry.push(character);
+
+                        }
+
+                    }
+
+                });
+
+            }
+
+            const entries = [];
+            const entry = [];
+
+            let insideQuote = false;
+            let dataLines = csv.split('\n');
+            let data = dataLines.map(parse);
+
+            entries.push(entry.join(''));
+
+            return entries;
+        }
+
+        /*
+        // csv could contain the content read from a csv file
+        var csv = '"foo, the column",bar\n2,3\n"4, the value",5',
+
+        // Split the input into lines
+        lines = csv.split('\n'),
+
+        // Extract column names from the first line
+        columnNamesLine = lines[0],
+        columnNames = parse(columnNamesLine),
+
+        // Extract data from subsequent lines
+        dataLines = lines.slice(1),
+        data = dataLines.map(parse);
+
+        // Prints ["foo, the column","bar"]
+        console.log(JSON.stringify(columnNames));
+
+        // Prints [["2","3"],["4, the value","5"]]
+        console.log(JSON.stringify(data));
+
+        // Here's how you can transform the data
+        // into objects, like D3's csv parser:
+
+        // Prints [{"foo, the column":"2","bar":"3"},{"foo, the column":"4, the value","bar":"5"}]
+        console.log(JSON.stringify(dataObjects));
+        */
+
         this.inspect = function(diagnostic)
         {
             const errorHandler = function(error)
