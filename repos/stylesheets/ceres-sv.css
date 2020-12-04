@@ -28,6 +28,7 @@
 .slideview-image {
     max-width: 100%;
     position: relative;
+    display:inline-block;
     margin: 0px;
 }
 
@@ -51,7 +52,6 @@
 }
 
 .slide {
-    display:inline-block;
     user-select: none;
 }
 
