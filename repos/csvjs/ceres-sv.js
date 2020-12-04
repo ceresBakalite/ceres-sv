@@ -113,26 +113,19 @@ window.ceres = {};
 
             const matchQuote = function(char)
             {
-                if (Boolean(char.match(/\x22/)))
-                {
-                    delimeter = !delimeter;
-                    return true;
-                }
+                if (!Boolean(char.match(/\x22/))) return false;
+                delimeter = !delimeter;
 
-                return false;
+                return true;
             }
 
             const matchComma = function(char)
             {
-                if (Boolean(char.match(/\x2c/)) && !delimeter)
-                {
-                    item.push(value.join(''));
-                    value = [];
+                if (!Boolean(char.match(/\x2c/)) || delimeter) return false;
+                item.push(value.join(''));
+                value = [];
 
-                    return true;
-                }
-
-                return false;
+                return true;
             }
 
             const resolve = function(str)
