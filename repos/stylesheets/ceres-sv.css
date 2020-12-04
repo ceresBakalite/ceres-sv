@@ -18,7 +18,6 @@
 
 .slideview-body :first-child {
     margin-top: 0;
-    display: block;
 }
 
 .slideview-body img {
@@ -28,8 +27,8 @@
 
 .slideview-image {
     max-width: 100%;
-    /* display: flex; */
-    /* justify-content: space-between;     */
+    display: flex;
+    justify-content: space-between;
     position: relative;
     margin: 0px;
 }
