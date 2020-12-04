@@ -105,6 +105,7 @@ window.ceres = {};
         // http://jsfiddle.net/3jLE2/2/
         this.parseCSV = function(text)
         {
+            const textArray = text.split(this.attrib.newline);
             const item = new Array(text.length);
             const value = [];
 
@@ -135,14 +136,10 @@ window.ceres = {};
 
                 });
 
+                return item.push(value.join(''));
             }
 
-            let dataLines = text.split(this.attrib.newline);
-            let data = dataLines.map(resolve);
-
-            entries.push(entry.join(''));
-
-            return entries;
+            return textArray.map(resolve);
         }
 
         /*
