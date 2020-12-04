@@ -112,9 +112,7 @@ window.ceres = {};
 
             const parse = function(row)
             {
-                let ar = [...row];
-
-                ar.forEach(function (char)
+                [...row].forEach((char) =>
                 {
                     if (Boolean(char.match(/\x22/)))
                     {
