@@ -108,19 +108,43 @@ window.ceres = {};
             const entries = [];
             const entry = [];
 
-            let insideQuote = false;
+            let quote = false;
 
             const parse = function(row)
             {
-                [...row].forEach((char) =>
+                let ar = [...row];
+
+                /*
+                for (let i = 0; i < ar.length; i++)
+                {
+                    let char = ar[i];
+
+                    if (Boolean(char.match(/\x22/))) quote = !quote;
+
+                    if (quote)
+                    {
+                        entry.push(char);
+                        break;
+                    }
+
+                    if (Boolean(char.match(/\x2c/)))
+                    {
+                        entries.push(entry.join(''));
+                        entry = [];
+                    }
+
+                }
+                */
+
+                ar.forEach((char) =>
                 {
                     if (Boolean(char.match(/\x22/)))
                     {
-                        insideQuote = !insideQuote;
+                        quote = !quote;
 
                     } else {
 
-                        if (Boolean(char.match(/\x2c/)) && !insideQuote)
+                        if (Boolean(char.match(/\x2c/)) && !quote)
                         {
                             entries.push(entry.join(''));
                             entry = [];
