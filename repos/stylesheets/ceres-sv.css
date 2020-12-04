@@ -22,13 +22,11 @@
 
 .slideview-body img {
     max-width: 100%;
-    display: block;
     margin: 0px;
 }
 
 .slideview-image {
     max-width: 100%;
-    display: block;
     position: relative;
     margin: 0px;
 }
