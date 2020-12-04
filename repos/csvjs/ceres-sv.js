@@ -105,24 +105,31 @@ window.ceres = {};
         // http://jsfiddle.net/3jLE2/2/
         this.parseCSV = function(csv)
         {
+            const entries = [];
+            const entry = [];
+
+            let insideQuote = false;
+
             const parse = function(row)
             {
-                row.split('').forEach(function (character)
+                let ar = [...row];
+
+                ar.forEach(function (char)
                 {
-                    if (character === '"')
+                    if (Boolean(char.match(/\x22/)))
                     {
                         insideQuote = !insideQuote;
 
                     } else {
 
-                        if (character == "," && !insideQuote)
+                        if (Boolean(char.match(/\x2c/)) && !insideQuote)
                         {
                             entries.push(entry.join(''));
                             entry = [];
 
                         } else {
 
-                            entry.push(character);
+                            entry.push(char);
 
                         }
 
@@ -132,10 +139,6 @@ window.ceres = {};
 
             }
 
-            const entries = [];
-            const entry = [];
-
-            let insideQuote = false;
             let dataLines = csv.split('\n');
             let data = dataLines.map(parse);
 
