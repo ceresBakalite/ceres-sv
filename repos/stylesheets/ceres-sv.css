@@ -27,8 +27,6 @@
 
 .slideview-image {
     max-width: 100%;
-    display: flex;
-    justify-content: space-between;
     position: relative;
     margin: 0px;
 }
