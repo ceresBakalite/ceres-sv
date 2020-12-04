@@ -240,7 +240,7 @@ window.ceres = {};
                                 zoom    : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
                                 trace   : function(atr) { return rsc.getBoolean(atr); },
                                 delay   : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
-                                loading : function(atr) { return rsc.ignore(atr) ? 'lazy' : atr },
+                                loading : function(atr) { return rsc.ignore(atr) ? 'auto' : atr },
                                 embed   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
@@ -344,7 +344,7 @@ window.ceres = {};
                                 cfg.attrib.cache    = attribute.cache(csvRoot.getAttribute('cache')); // enabled
                                 cfg.attrib.trace    = attribute.trace(csvRoot.getAttribute('trace')); // disabled
                                 cfg.attrib.delay    = attribute.delay(csvRoot.getAttribute('delay')); // default 250
-                                cfg.attrib.loading  = attribute.loading(csvRoot.getAttribute('loading')); // default lazy
+                                cfg.attrib.loading  = attribute.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
                                 cfg.attrib.embed    = attribute.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
 
                                 cfg.attrib.sur      = getRootAttribute('sur'); // disabled
@@ -574,7 +574,7 @@ window.ceres = {};
                             const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
                             const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; };
                             const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; };
-                            const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager/i))) ? cfg.attrib.loading : 'auto'; };
+                            const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; };
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             let classlist = atr.getClassList('slide');
