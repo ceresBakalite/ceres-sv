@@ -51,6 +51,7 @@
 }
 
 .slide {
+    display:inline-block;
     user-select: none;
 }
 
