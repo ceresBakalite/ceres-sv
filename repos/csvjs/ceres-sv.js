@@ -231,16 +231,17 @@ window.ceres = {};
 
                         properties: function()
                         {
-                            const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto'];
+                            const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
 
                             const attribute = {
-                                nub   : function(atr) { return !rsc.getBoolean(atr); },
-                                fade  : function(atr) { return !rsc.getBoolean(atr); },
-                                cache : function(atr) { return !rsc.getBoolean(atr); },
-                                zoom  : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
-                                trace : function(atr) { return rsc.getBoolean(atr); },
-                                delay : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
-                                embed : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
+                                nub     : function(atr) { return !rsc.getBoolean(atr); },
+                                fade    : function(atr) { return !rsc.getBoolean(atr); },
+                                cache   : function(atr) { return !rsc.getBoolean(atr); },
+                                zoom    : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
+                                trace   : function(atr) { return rsc.getBoolean(atr); },
+                                delay   : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
+                                loading : function(atr) { return rsc.ignore(atr) ? 'lazy' : atr },
+                                embed   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
                             const getTemplate = function()
@@ -279,12 +280,12 @@ window.ceres = {};
 
                                     if (str == 'auto')
                                     {
-                                        cfg.attrib.autocycle = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                                        cfg.attrib.autopause = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
-                                        cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
+                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                        cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
 
                                         cfg.attrib.fade = cfg.attrib.autopause > 400;
-                                        cfg.attrib.nub = 'false'; // typeof string
+                                        cfg.attrib.nub  = 'false'; // typeof string
 
                                         return true;
                                     }
@@ -337,17 +338,18 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.attrib.nub   = attribute.nub(csvRoot.getAttribute('nub')); // enabled
-                                cfg.attrib.fade  = attribute.fade(csvRoot.getAttribute('fade')); // enabled
-                                cfg.attrib.zoom  = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
-                                cfg.attrib.cache = attribute.cache(csvRoot.getAttribute('cache')); // enabled
-                                cfg.attrib.trace = attribute.trace(csvRoot.getAttribute('trace')); // disabled
-                                cfg.attrib.delay = attribute.delay(csvRoot.getAttribute('delay')); // default 250
-                                cfg.attrib.embed = attribute.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
+                                cfg.attrib.nub      = attribute.nub(csvRoot.getAttribute('nub')); // enabled
+                                cfg.attrib.fade     = attribute.fade(csvRoot.getAttribute('fade')); // enabled
+                                cfg.attrib.zoom     = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
+                                cfg.attrib.cache    = attribute.cache(csvRoot.getAttribute('cache')); // enabled
+                                cfg.attrib.trace    = attribute.trace(csvRoot.getAttribute('trace')); // disabled
+                                cfg.attrib.delay    = attribute.delay(csvRoot.getAttribute('delay')); // default 250
+                                cfg.attrib.loading  = attribute.loading(csvRoot.getAttribute('loading')); // default lazy
+                                cfg.attrib.embed    = attribute.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
 
-                                cfg.attrib.sur  = getRootAttribute('sur'); // disabled
-                                cfg.attrib.sub  = getRootAttribute('sub'); // disabled
-                                cfg.attrib.auto = getRootAttribute('auto'); // disabled
+                                cfg.attrib.sur      = getRootAttribute('sur'); // disabled
+                                cfg.attrib.sub      = getRootAttribute('sub'); // disabled
+                                cfg.attrib.auto     = getRootAttribute('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
 
@@ -572,6 +574,7 @@ window.ceres = {};
                             const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
                             const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; };
                             const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; };
+                            const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager/i))) ? cfg.attrib.loading : 'auto'; };
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             let classlist = atr.getClassList('slide');
@@ -592,7 +595,7 @@ window.ceres = {};
                                 imgNode.appendChild(slideNode);
 
                                 if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle fade' });
-                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubText() });
+                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubText(), loading: setLoading() });
                                 if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle fade' });
                             }
 
