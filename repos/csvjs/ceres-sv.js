@@ -105,29 +105,29 @@ window.ceres = {};
         // http://jsfiddle.net/3jLE2/2/
         this.parseCSV = function(text)
         {
-            const entries = [];
-            const entry = [];
+            const item = [];
+            const value = [];
 
-            let quote = false;
+            let delimeter = false;
 
-            const parse = function(row)
+            const resolve = function(str)
             {
-                [...row].forEach((char) =>
+                [...str].forEach((char) =>
                 {
                     if (Boolean(char.match(/\x22/)))
                     {
-                        quote = !quote;
+                        delimeter = !delimeter;
 
                     } else {
 
-                        if (Boolean(char.match(/\x2c/)) && !quote)
+                        if (Boolean(char.match(/\x2c/)) && !delimeter)
                         {
-                            entries.push(entry.join(''));
-                            entry = [];
+                            item.push(value.join(''));
+                            value = [];
 
                         } else {
 
-                            entry.push(char);
+                            value.push(char);
 
                         }
 
@@ -138,7 +138,7 @@ window.ceres = {};
             }
 
             let dataLines = text.split(this.attrib.newline);
-            let data = dataLines.map(parse);
+            let data = dataLines.map(resolve);
 
             entries.push(entry.join(''));
 
