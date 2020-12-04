@@ -750,9 +750,11 @@ window.ceres = {};
                         return textList;
                     }
 
-                    this.parseJSON = function(textList, jsonList = '')
+                    this.parseJSON = function(textList)
                     {
+                        let jsonList = '';
                         let json = JSON.parse(textList);
+                        
                         json.forEach((node) =>
                         {
                             jsonList += node.url
