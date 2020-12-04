@@ -744,8 +744,8 @@ window.ceres = {};
 
                     this.getFileType = function(textList)
                     {
-                        if (rsc.fileType(cfg.src, '.json')) return parseJSON(textList);
-                        if (rsc.fileType(cfg.src, '.csv')) return parseCSV(textList);
+                        if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
+                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList);
 
                         return textList;
                     }
