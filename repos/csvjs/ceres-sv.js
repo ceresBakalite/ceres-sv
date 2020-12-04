@@ -105,7 +105,7 @@ window.ceres = {};
         // http://jsfiddle.net/3jLE2/2/
         this.parseCSV = function(text)
         {
-            const item = [];
+            const item = new Array(text.length);
             const value = [];
 
             let delimeter = false;
