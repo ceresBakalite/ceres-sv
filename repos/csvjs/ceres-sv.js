@@ -107,17 +107,17 @@ window.ceres = {};
             const textArray = text.split('\n');
             let delimeter = false;
 
-            let arrayItem = '';
+            let groupItem = '';
             const regex = /"[^&]*?"[\s]*?,/g;
 
-            for (let row of textArray)
+            for (let row = 0; row < textArray.length; row++)
             {
-                let groups = [...row.matchAll(regex)];
+                let groups = [...textArray[row].matchAll(regex)];
 
                 for (let item = 0; item < groups.length; item++)
                 {
-                    arrayItem = groups[item].replace(/\x22/g, 'xxx')
-                    console.log('arrayItem: ' + arrayItem);
+                    groupItem = groups[item].replace(/\x22/g, 'xxx')
+                    console.log('arrayItem: ' + groupItem);
                 }
 
             }
