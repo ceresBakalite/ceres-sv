@@ -107,8 +107,8 @@ window.ceres = {};
         {
             const textArray = text.split(this.attrib.newline);
             const item = new Array(text.length);
-            const value = [];
 
+            let value = [];
             let delimeter = false;
 
             const matchQuote = function(char)
