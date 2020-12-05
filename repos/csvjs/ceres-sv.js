@@ -119,9 +119,8 @@ window.ceres = {};
 
                 groups.forEach((item) =>
                 {
-                    let groupItem = (item + '').replace(/^1/,'');
-                    //let groupItem = (item + '').replace(/^1|,+$/,'');
-                    console.log('more AARGH: ' + rsc.recursiveReplace(groupItem.replace(/,+$/,''), RegExp(/"|,/g), symbols) + ',');
+                    let groupItem = (item + '').replace(/,+$/g,'');
+                    console.log('more AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols) + ',');
                 });
 
             });
@@ -153,7 +152,7 @@ window.ceres = {};
         this.getProperties = function(string = {}, str = '')
         {
             for (let literal in string) str += literal + ': ' + string[literal] + ', ';
-            return str.replace(/, +$/,'');
+            return str.replace(/, +$/g,'');
         }
 
         this.attrib =
