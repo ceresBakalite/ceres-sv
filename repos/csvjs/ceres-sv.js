@@ -165,11 +165,11 @@ window.ceres = {};
 
             const regex = /"[^&]*?"[\s]*?,/g;
 
-            for (let row in textArray)
+            for (let row of textArray)
             {
                 let groups = [...row.matchAll(regex)];
 
-                for (group in groups)
+                for (group of groups)
                 {
                     //group = group.replace(/"/g, '&#39;');
                     console.log('group: ' + group);
