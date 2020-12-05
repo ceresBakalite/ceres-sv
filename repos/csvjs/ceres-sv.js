@@ -117,24 +117,11 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     groupItem = item + '';
-                    console.log('AGAINItem: ' + groupItem.replace(/\x22/g, 'xxx'));
+                    console.log('AGAINItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
                 });
 
             });
 
-            /*
-            for (let row = 0; row < textArray.length; row++)
-            {
-                let groups = [...textArray[row].matchAll(regex)];
-
-                for (let item = 0; item < groups.length; item++)
-                {
-                    groupItem = groups[item] + '';
-                    console.log('groupItem: ' + groupItem.replace(/\x22/g, 'xxx'));
-                }
-
-            }
-            */
             return text;
         }
 
