@@ -112,7 +112,6 @@ window.ceres = {};
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
             const symbols = { '"': '&#34;' , ',': '&#44;' };
-            const delimeters = { ',': '' , '"': '' };
 
             textArray.forEach((row) =>
             {
@@ -120,7 +119,8 @@ window.ceres = {};
 
                 groups.forEach((item) =>
                 {
-                    let groupItem = String(item).replace(/^\s*?"|"\s*?,$/,'');
+                    let groupItem = String(item).replace(/^\s*?"/,'');
+                    groupItem = groupItem.replace(/"\s*?,$/,'');
 
                     console.log('5 AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols));
                     // encodeURIComponent(groupItem)
