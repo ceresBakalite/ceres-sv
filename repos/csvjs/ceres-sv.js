@@ -119,8 +119,10 @@ window.ceres = {};
 
                 groups.forEach((item) =>
                 {
-                    let groupItem = String(item).replace(/^\s*?"/,'');
-                    console.log('AARGH: ' + rsc.recursiveReplace(groupItem.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols));
+                    let group = String(item);
+                    let newGroup = group.replace(/^\s*?"/,'');
+                    console.log('AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
+                    row.replace(group, newGroup);
                 });
 
             });
