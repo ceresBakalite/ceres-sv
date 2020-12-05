@@ -171,7 +171,7 @@ window.ceres = {};
 
                 for (group in groups)
                 {
-                    group = group.replace(/"/g, '&#39;');
+                    //group = group.replace(/"/g, '&#39;');
                     console.log('group: ' + group);
                 }
 
