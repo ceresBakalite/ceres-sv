@@ -111,7 +111,7 @@ window.ceres = {};
         {
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
-            const symbols = { '"': 'XXX' , ',': 'YYY' };
+            const symbols = { '"': '&#34;' , ',': '&#44;' };
 
             textArray.forEach((row) =>
             {
@@ -121,7 +121,6 @@ window.ceres = {};
                 {
                     let groupItem = item + '';
                     console.log('AARGHItem: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols));
-                    //console.log('COMMAItem: ' + groupItem.replace(/"|,/g, function(match) { return symbols[match]; }) );
                 });
 
             });
