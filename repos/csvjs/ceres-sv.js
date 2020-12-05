@@ -122,7 +122,7 @@ window.ceres = {};
                     let group = String(item);
                     let newGroup = group.replace(/^\s*?"/,'');
                     console.log('2 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
-                    row.replace(group, newGroup);
+                    row.replace(group, rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
                 });
 
             });
