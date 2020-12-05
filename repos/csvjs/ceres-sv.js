@@ -102,9 +102,9 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.recursiveReplcae = function(str, regex, obj)
+        this.recursiveReplcae = function(str, criteria, obj)
         {
-            return str.replace(regex, function(match) { return obj[match]; });
+            return str.replace(criteria, function(match) { return obj[match]; });
         }
 
         this.parseCSV = function(text)
@@ -120,7 +120,7 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     let groupItem = item + '';
-                    console.log('AARGHItem: ' + rsc.recursiveReplace(groupItem, /"|,/g, symbols));
+                    console.log('AARGHItem: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols));
                     //console.log('COMMAItem: ' + groupItem.replace(/"|,/g, function(match) { return symbols[match]; }) );
                 });
 
