@@ -116,8 +116,9 @@ window.ceres = {};
 
                 for (let item = 0; item < groups.length; item++)
                 {
-                    //groupItem = groups[item].replace(/\x22/g, 'xxx')
-                    console.log('groupItem: ' + groups[item]);
+                    //groupItem = groups[item].replace(/\x22/g, 'xxx');
+                    groupItem = groups[item] + '';
+                    console.log('groupItem: ' + groupItem.replace(/\x22/g, 'xxx'));
                 }
 
             }
