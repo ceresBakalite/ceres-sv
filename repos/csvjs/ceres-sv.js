@@ -112,12 +112,12 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                let groups = [...textArray[row].matchAll(regex)];
+                let groups = [...row.matchAll(regex)];
 
                 groups.forEach((item) =>
                 {
                     groupItem = item + '';
-                    console.log('groupItem: ' + groupItem.replace(/\x22/g, 'xxx'));
+                    console.log('TESTItem: ' + groupItem.replace(/\x22/g, 'xxx'));
                 });
 
             });
