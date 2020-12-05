@@ -84,6 +84,11 @@ window.ceres = {};
             return obj.el;
         }
 
+        this.recursiveReplace = function(str, criteria, obj)
+        {
+            return str.replace(criteria, function(match) { return obj[match]; });
+        }
+
         this.removeDuplcates = function(obj, sort)
         {
             const key = JSON.stringify;
@@ -102,11 +107,6 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.recursiveReplace = function(str, criteria, obj)
-        {
-            return str.replace(criteria, function(match) { return obj[match]; });
-        }
-
         this.parseCSV = function(text)
         {
             const textArray = text.split('\n');
@@ -120,6 +120,7 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     let groupItem = item + '';
+                    groupItem = groupItem.replace(/^1|,+$/,'');
                     console.log('AARGHItem: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols));
                 });
 
@@ -152,7 +153,7 @@ window.ceres = {};
         this.getProperties = function(string = {}, str = '')
         {
             for (let literal in string) str += literal + ': ' + string[literal] + ', ';
-            return str.replace(/, +$/g,'');
+            return str.replace(/, +$/,'');
         }
 
         this.attrib =
