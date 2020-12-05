@@ -112,6 +112,7 @@ window.ceres = {};
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
             const symbols = { '"': '&#34;' , ',': '&#44;' };
+            const delimeters = { ',': '' , '"': '' };
 
             textArray.forEach((row) =>
             {
@@ -119,7 +120,8 @@ window.ceres = {};
 
                 groups.forEach((item) =>
                 {
-                    let groupItem = (item + '').replace(/,+$/g,'');
+                    let groupItem = rsc.recursiveReplace(item + '', RegExp(/,+$|"\s+$/g), delimeters);
+                    //let groupItem = (item + '').replace(/,+$/g,'');
                     console.log('more AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols) + ',');
                 });
 
