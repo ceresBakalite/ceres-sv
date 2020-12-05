@@ -169,10 +169,10 @@ window.ceres = {};
             {
                 let groups = [...row.matchAll(regex)];
 
-                for (let group of groups)
+                for (let item = 0; item < groups.length; item++)
                 {
-                    let test2 = groups[group].replace(/\x22/g, 'xxx') + '';
-                    console.log('group: ' + test2);
+                    let arrayItem = groups[item].replace(/\x22/g, 'xxx')
+                    console.log('arrayItem: ' + arrayItem);
                 }
 
             }
