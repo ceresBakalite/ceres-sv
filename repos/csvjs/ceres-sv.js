@@ -172,7 +172,7 @@ window.ceres = {};
 
                 groups.forEach((group) =>
                 {
-                    console.log('group: ' + group)
+                    console.log('group: ' + group.replace('"', '&#39;'))
                 });
 
             });
