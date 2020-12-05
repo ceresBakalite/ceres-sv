@@ -117,7 +117,7 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     groupItem = item + '';
-                    console.log('AGAINItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
+                    console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
                 });
 
             });
