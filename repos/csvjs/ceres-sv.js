@@ -130,7 +130,7 @@ window.ceres = {};
                 p = l;
             }
 
-            return JSON.stringify(ret.join('\n'));
+            return ret.join('\n');
         };
 
         // http://jsfiddle.net/3jLE2/2/
