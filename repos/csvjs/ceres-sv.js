@@ -102,6 +102,11 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
+        this.recursiveReplace = function(regex, str, obj)
+        {
+            return str.replace(regex, function(match) { return symbol[match]; });
+        }
+
         this.parseCSV = function(text)
         {
             const textArray = text.split('\n');
@@ -109,7 +114,7 @@ window.ceres = {};
 
             let groupItem = '';
             const regex = /"[^&]*?"[\s]*?,/g;
-            const symbol = { '\x22': 'DDDAAA' , '\x44': 'NNNBBB' };
+            const symbols = { '"': 'DDDAAA' , ',': 'NNNBBB' };
 
             textArray.forEach((row) =>
             {
@@ -118,7 +123,7 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     groupItem = item + '';
-                    console.log('COMMAItem: ' + groupItem.replace(/\x22|\x44/g, function(match) { return symbol[match]; }) );
+                    console.log('COMMAItem: ' + groupItem.replace(/\x22|\x44/g, function(match) { return symbols[match]; }) );
                     //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
 
                     //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx')).replace(/\x44/g, 'yyy'));
