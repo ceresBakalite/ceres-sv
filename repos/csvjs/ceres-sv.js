@@ -157,12 +157,9 @@ window.ceres = {};
         // http://jsfiddle.net/3jLE2/2/
         this.parseCSV = function(text)
         {
-            const textArray = text.split('\n');
-            const item = new Array(text.length);
-
-            let value = [];
             let delimeter = false;
 
+            let arrayItem = '';
             const regex = /"[^&]*?"[\s]*?,/g;
 
             for (let row of textArray)
@@ -171,73 +168,14 @@ window.ceres = {};
 
                 for (let item = 0; item < groups.length; item++)
                 {
-                    let arrayItem = groups[item].replace(/\x22/g, 'xxx')
+                    arrayItem = groups[item].replace(/\x22/g, 'xxx')
                     console.log('arrayItem: ' + arrayItem);
                 }
 
             }
 
             return text;
-
-            const matchQuote = function(char)
-            {
-                //if (!Boolean(char.match(/\x22/))) return false;
-                if (!Boolean(char.match('"'))) return false;
-                delimeter = !delimeter;
-
-                return true;
-            }
-
-            const matchComma = function(char)
-            {
-                //if (!Boolean(char.match(/\x2c/)) || delimeter) return false;
-                if (!Boolean(char.match(',')) || delimeter) return false;
-                item.push(value.join(''));
-                value = [];
-
-                return true;
-            }
-
-            const resolve = function(str)
-            {
-                [...str].forEach((char) =>
-                {
-                    if (!matchQuote(char)) { if (!matchComma(char)) value.push(char); }
-                });
-
-                return item.push(value.join(''));
-            }
-
-            return textArray.map(resolve);
         }
-
-        /*
-        // csv could contain the content read from a csv file
-        var csv = '"foo, the column",bar\n2,3\n"4, the value",5',
-
-        // Split the input into lines
-        lines = csv.split('\n'),
-
-        // Extract column names from the first line
-        columnNamesLine = lines[0],
-        columnNames = parse(columnNamesLine),
-
-        // Extract data from subsequent lines
-        dataLines = lines.slice(1),
-        data = dataLines.map(parse);
-
-        // Prints ["foo, the column","bar"]
-        console.log(JSON.stringify(columnNames));
-
-        // Prints [["2","3"],["4, the value","5"]]
-        console.log(JSON.stringify(data));
-
-        // Here's how you can transform the data
-        // into objects, like D3's csv parser:
-
-        // Prints [{"foo, the column":"2","bar":"3"},{"foo, the column":"4, the value","bar":"5"}]
-        console.log(JSON.stringify(dataObjects));
-        */
 
         this.inspect = function(diagnostic)
         {
