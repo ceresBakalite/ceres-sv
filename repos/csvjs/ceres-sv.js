@@ -168,11 +168,12 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                let groups = [...row.matchAll(regex) + ''];
+                let groups = [...row.matchAll(regex)];
 
                 groups.forEach((group) =>
                 {
-                    console.log('group: ' + group.replace(/"/g, '&#39;'))
+                    let test = group.replace(/"/g, '&#39;')
+                    console.log('group: ' + test)
                 });
 
             });
