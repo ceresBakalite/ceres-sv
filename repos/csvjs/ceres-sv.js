@@ -121,13 +121,13 @@ window.ceres = {};
                 {
                     let group = String(item);
                     let newGroup = group.replace(/^\s*?"/,'');
-                    console.log('1 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
+                    console.log('2 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
                     row.replace(group, newGroup);
                 });
 
             });
 
-            return textArray.join('');
+            return textArray.join('\n');
         }
 
         this.inspect = function(diagnostic)
