@@ -110,19 +110,31 @@ window.ceres = {};
             let groupItem = '';
             const regex = /"[^&]*?"[\s]*?,/g;
 
+            textArray.forEach((row) =>
+            {
+                let groups = [...textArray[row].matchAll(regex)];
+
+                groups.forEach((item) =>
+                {
+                    groupItem = item + '';
+                    console.log('groupItem: ' + groupItem.replace(/\x22/g, 'xxx'));
+                });
+
+            });
+
+            /*
             for (let row = 0; row < textArray.length; row++)
             {
                 let groups = [...textArray[row].matchAll(regex)];
 
                 for (let item = 0; item < groups.length; item++)
                 {
-                    //groupItem = groups[item].replace(/\x22/g, 'xxx');
                     groupItem = groups[item] + '';
                     console.log('groupItem: ' + groupItem.replace(/\x22/g, 'xxx'));
                 }
 
             }
-
+            */
             return text;
         }
 
