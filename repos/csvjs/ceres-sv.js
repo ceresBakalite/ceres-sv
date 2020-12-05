@@ -133,20 +133,52 @@ window.ceres = {};
             return ret.join('\n');
         };
 
+        /*
+        let re = (Boolean(item.match(/color:/i))) ? /color[^&]*?;/i
+            : (Boolean(item.match(/font:/i))) ? /font[^&]*?;/i
+            : (Boolean(item.match(/padding:/i))) ? /padding[^&]*?;/i
+            : (Boolean(item.match(/top:/i))) ? /top[^&]*?;/i
+            : (Boolean(item.match(/bottom:/i))) ? /bottom[^&]*?;/i
+            : null;
+
+        if (!rsc.ignore(re))
+        {
+            let group = cfg.shadowStyle.match(regex) + '';
+
+            if (group)
+            {
+                let newGroup = group.replace(re, item + ';')
+                if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+            }
+
+        }
+        */
+
         // http://jsfiddle.net/3jLE2/2/
         this.parseCSV = function(text)
         {
-            return text;
             const textArray = text.split('\n');
             const item = new Array(text.length);
 
             let value = [];
             let delimeter = false;
 
+            let regex = /"[^&]*?"/g;
+
             textArray.forEach((row) =>
             {
-                console.log('row: ' + row);
+                let groups = [...row.matchAll(regexp)];
+
+                for (group in groups)
+                {
+
+                    console.log('group: ' + group)
+
+                }
+
             });
+
+            return text;
 
             const matchQuote = function(char)
             {
