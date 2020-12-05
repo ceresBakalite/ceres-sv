@@ -163,7 +163,7 @@ window.ceres = {};
             let value = [];
             let delimeter = false;
 
-            let regex = /\"[^&]*?\"/g;
+            const regex = /\"[^&]*?\"/g;
 
             textArray.forEach((row) =>
             {
