@@ -127,7 +127,7 @@ window.ceres = {};
 
             });
 
-            return text;
+            return textArray.join('');
         }
 
         this.inspect = function(diagnostic)
