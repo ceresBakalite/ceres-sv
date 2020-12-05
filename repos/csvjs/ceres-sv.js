@@ -254,6 +254,7 @@ window.ceres = {};
                 cfg.srcRoot = !rsc.ignore(cfg.src);
                 cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                 cfg.href = 'ceres.getSlide(this)';
+                cfg.shadowStyle = '';
                 cfg.attrib = {};
                 cfg.slide = 1;
 
