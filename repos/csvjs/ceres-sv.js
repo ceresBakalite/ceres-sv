@@ -110,9 +110,6 @@ window.ceres = {};
         this.parseCSV = function(text)
         {
             const textArray = text.split('\n');
-            let delimeter = false;
-
-            let groupItem = '';
             const regex = /"[^&]*?"[\s]*?,/g;
             const symbols = { '"': 'DDDAAA' , ',': 'NNNBBB' };
 
@@ -122,8 +119,8 @@ window.ceres = {};
 
                 groups.forEach((item) =>
                 {
-                    groupItem = item + '';
-                    console.log('COMMAItem: ' + groupItem.replace(/'"'|','/g, function(match) { return symbols[match]; }) );
+                    let groupItem = item + '';
+                    console.log('TESTItem: ' + groupItem.replace(/'"'|','/g, function(match) { return symbols[match]; }) );
                     //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
 
                     //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx')).replace(/\x44/g, 'yyy'));
