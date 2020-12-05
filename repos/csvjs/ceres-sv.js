@@ -112,6 +112,7 @@ window.ceres = {};
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
             const symbols = { '"': '&#34;' , ',': '&#44;' };
+            const newArray = new Array(textArray.length);
 
             textArray.forEach((row) =>
             {
@@ -125,9 +126,10 @@ window.ceres = {};
                     row.replace(group, rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
                 });
 
+                newArray.push(row);
             });
 
-            return textArray.join('\n');
+            return newArray.join('\n');
         }
 
         this.inspect = function(diagnostic)
