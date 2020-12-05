@@ -117,7 +117,11 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     groupItem = item + '';
-                    console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
+                    var replaceChars = { '"': 'XXX' , ',': 'YYY' };
+                    console.log('COMMAItem: ' + groupItem.replace(/"|,/g, function(match) {return replaceChars[match];}));
+                    //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
+
+                    //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx')).replace(/\x44/g, 'yyy'));
                 });
 
             });
