@@ -122,7 +122,7 @@ window.ceres = {};
                 {
                     let groupItem = rsc.recursiveReplace(item + '', RegExp(/,+$|"\s+$/g), delimeters);
                     //let groupItem = (item + '').replace(/,+$/g,'');
-                    console.log('more AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols) + ',');
+                    console.log('even more AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols) + ',');
                 });
 
             });
