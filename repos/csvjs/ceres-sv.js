@@ -102,7 +102,7 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.parseCSV = function(text)
+        this.xxxparseCSV = function(text)
         {
             let p = '';
             let row = [''];
@@ -134,9 +134,9 @@ window.ceres = {};
         };
 
         // http://jsfiddle.net/3jLE2/2/
-        this.xxxparseCSV = function(text)
+        this.parseCSV = function(text)
         {
-            const textArray = text.split(this.attrib.newline);
+            const textArray = text.split('\n');
             const item = new Array(text.length);
 
             let value = [];
@@ -754,6 +754,22 @@ window.ceres = {};
                         if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList);
 
                         return textList;
+                    }
+
+                    this.parseJSON = function(text)
+                    {
+                        let str = '';
+                        let json = JSON.parse(text);
+
+                        json.forEach((node) =>
+                        {
+                            str += node.url
+                                + ((node.sub) ? ', ' + node.sub : '')
+                                + ((node.sur) ? ', ' + node.sur : '')
+                                + '\n';
+                        });
+
+                        return str;
                     }
 
                     this.parseJSON = function(text)
