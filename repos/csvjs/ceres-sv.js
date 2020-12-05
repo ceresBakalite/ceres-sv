@@ -122,7 +122,7 @@ window.ceres = {};
                 {
                     let groupItem = String(item).replace(/^\s*?"|"\s*?,$/,'');
 
-                    console.log('4 AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols));
+                    console.log('5 AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols));
                     // encodeURIComponent(groupItem)
 
                 });
@@ -344,7 +344,7 @@ window.ceres = {};
 
                                             if (!rsc.ignore(re))
                                             {
-                                                let group = cfg.shadowStyle.match(regex) + '';
+                                                let group = String(cfg.shadowStyle.match(regex));
 
                                                 if (group)
                                                 {
