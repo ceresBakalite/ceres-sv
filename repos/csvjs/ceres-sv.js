@@ -136,6 +136,7 @@ window.ceres = {};
         // http://jsfiddle.net/3jLE2/2/
         this.parseCSV = function(text)
         {
+            return text;
             const textArray = text.split('\n');
             const item = new Array(text.length);
 
