@@ -112,7 +112,7 @@ window.ceres = {};
 
             for (let row = 0; row < textArray.length; row++)
             {
-                let groups = [...textArray[row].matchAll(regex)];
+                let groups = [...textArray[row].matchAll(regex) + ''];
 
                 for (let item = 0; item < groups.length; item++)
                 {
