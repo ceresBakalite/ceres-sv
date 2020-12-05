@@ -102,16 +102,11 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.recursiveReplace = function(regex, str, obj)
-        {
-            return str.replace(regex, function(match) { return symbol[match]; });
-        }
-
         this.parseCSV = function(text)
         {
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
-            const symbols = { '"': 'DDDAAA' , ',': 'NNNBBB' };
+            const symbols = { '"': 'XXX' , ',': 'YYY' };
 
             textArray.forEach((row) =>
             {
@@ -120,10 +115,7 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     let groupItem = item + '';
-                    console.log('TESTItem: ' + groupItem.replace(/'"'|','/g, function(match) { return symbols[match]; }) );
-                    //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
-
-                    //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx')).replace(/\x44/g, 'yyy'));
+                    console.log('COMMAItem: ' + groupItem.replace(/"|,/g, function(match) {return symbols[match];}));
                 });
 
             });
