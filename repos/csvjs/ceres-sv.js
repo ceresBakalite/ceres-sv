@@ -172,7 +172,7 @@ window.ceres = {};
 
                 for (const group in groups)
                 {
-                    console.log('group: ' + group.replace(/"/g, 'zz'));
+                    console.log('group: ' + group.replace(/"/g, '&#39;') + '');
                 }
 
             });
