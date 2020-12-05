@@ -120,9 +120,9 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     let groupItem = String(item).replace(/^\s*?"/,'');
-                    groupItem = groupItem.replace(/"\s*?,$/,'');
+                    //groupItem = groupItem.replace(/"\s*?,$/,'');
 
-                    console.log('5 AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols));
+                    console.log('6 AARGH: ' + rsc.recursiveReplace(groupItem.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols));
                     // encodeURIComponent(groupItem)
 
                 });
