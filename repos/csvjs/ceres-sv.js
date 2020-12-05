@@ -120,9 +120,10 @@ window.ceres = {};
 
                 groups.forEach((item) =>
                 {
-                    let groupItem = rsc.recursiveReplace(item + '', RegExp(/,+$|"\s+$/g), delimeters);
-                    //let groupItem = (item + '').replace(/,+$/g,'');
-                    console.log('even more AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols) + ',');
+                    let groupItem = (item + '').replace(/"\s,+$/g,'');
+                    console.log('even more AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols));
+                    // encodeURIComponent(groupItem)
+
                 });
 
             });
