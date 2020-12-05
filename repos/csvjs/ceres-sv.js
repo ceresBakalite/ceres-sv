@@ -109,7 +109,7 @@ window.ceres = {};
 
             let groupItem = '';
             const regex = /"[^&]*?"[\s]*?,/g;
-            const symbol = { '\x22': 'AAA' , '\x44': 'BBB' };
+            const symbol = { '\x22': 'DDDAAA' , '\x44': 'NNNBBB' };
 
             textArray.forEach((row) =>
             {
