@@ -170,11 +170,10 @@ window.ceres = {};
             {
                 let groups = [...row.matchAll(regex)];
 
-                groups.forEach((group) =>
+                for (const group in groups)
                 {
-                    let test = group.replace(/"/g, '&#39;') + '';
-                    console.log('group: ' + test)
-                });
+                    console.log('group: ' + group.replace(/"/g, '&#39;') + '');
+                }
 
             });
 
