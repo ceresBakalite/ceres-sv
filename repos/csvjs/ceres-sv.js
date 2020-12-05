@@ -142,6 +142,11 @@ window.ceres = {};
             let value = [];
             let delimeter = false;
 
+            textArray.forEach((row) =>
+            {
+                console.log('row: ' + row);
+            });
+
             const matchQuote = function(char)
             {
                 //if (!Boolean(char.match(/\x22/))) return false;
