@@ -121,7 +121,7 @@ window.ceres = {};
                 {
                     let group = String(item);
                     let newGroup = group.replace(/^\s*?"/,'');
-                    console.log('42 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
+                    //console.log('42 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
                     row.replace(group, rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
                 });
 
