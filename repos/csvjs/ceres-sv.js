@@ -168,7 +168,7 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                let groups = [...row.matchAll(regex)];
+                let groups = [...row.matchAll(regex) + ''];
 
                 groups.forEach((group) =>
                 {
