@@ -109,6 +109,7 @@ window.ceres = {};
 
             let groupItem = '';
             const regex = /"[^&]*?"[\s]*?,/g;
+            const symbol = { '\x22': 'AAA' , '\x44': 'BBB' };
 
             textArray.forEach((row) =>
             {
@@ -117,8 +118,7 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     groupItem = item + '';
-                    var replaceChars = { '"': 'XXX' , ',': 'YYY' };
-                    console.log('COMMAItem: ' + groupItem.replace(/"|,/g, function(match) {return replaceChars[match];}));
+                    console.log('COMMAItem: ' + groupItem.replace(/\x22|\x44/g, function(match) { return symbol[match]; }) );
                     //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx').replace(/\x44/g, 'yyy'));
 
                     //console.log('COMMAItem: ' + groupItem.replace(/\x22/g, 'xxx')).replace(/\x44/g, 'yyy'));
