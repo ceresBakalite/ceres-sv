@@ -163,10 +163,9 @@ window.ceres = {};
             let value = [];
             let delimeter = false;
 
-
             const regex = /"[^&]*?"[\s]*?,/g;
 
-            textArray.forEach((row) =>
+            for (const row in textArray)
             {
                 let groups = [...row.matchAll(regex)];
 
@@ -176,7 +175,7 @@ window.ceres = {};
                     console.log('group: ' + group);
                 });
 
-            });
+            }
 
             return text;
 
