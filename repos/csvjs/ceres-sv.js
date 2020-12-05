@@ -119,9 +119,9 @@ window.ceres = {};
 
                 groups.forEach((item) =>
                 {
-                    //let groupItem = item + '';
-                    let groupItem = (item + '').replace(/^1|,+$/,'');
-                    console.log('AARGH: ' + rsc.recursiveReplace(groupItem, RegExp(/"|,/g), symbols) + ',');
+                    let groupItem = (item + '').replace(/^1/,'');
+                    //let groupItem = (item + '').replace(/^1|,+$/,'');
+                    console.log('more AARGH: ' + rsc.recursiveReplace(groupItem.replace(/,+$/,''), RegExp(/"|,/g), symbols) + ',');
                 });
 
             });
