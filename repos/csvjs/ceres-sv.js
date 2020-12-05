@@ -102,7 +102,7 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.recursiveReplcae = function(str, criteria, obj)
+        this.recursiveReplace = function(str, criteria, obj)
         {
             return str.replace(criteria, function(match) { return obj[match]; });
         }
