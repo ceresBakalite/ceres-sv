@@ -102,7 +102,7 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.recursiveReplcae = function(regex, str, obj)
+        this.recursiveReplcae = function(str, regex, obj)
         {
             return str.replace(regex, function(match) { return obj[match]; });
         }
@@ -120,7 +120,7 @@ window.ceres = {};
                 groups.forEach((item) =>
                 {
                     let groupItem = item + '';
-                    console.log('AARGHItem: ' + this.recursiveReplace(/"|,/g, groupItem, symbols));
+                    console.log('AARGHItem: ' + rsc.recursiveReplace(groupItem, /"|,/g, symbols));
                     //console.log('COMMAItem: ' + groupItem.replace(/"|,/g, function(match) { return symbols[match]; }) );
                 });
 
