@@ -169,7 +169,7 @@ window.ceres = {};
             {
                 let groups = [...row.matchAll(regex)];
 
-                for (group of groups)
+                for (let group of groups)
                 {
                     //group = group.replace(/"/g, '&#39;');
                     console.log('group: ' + group);
