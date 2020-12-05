@@ -171,7 +171,7 @@ window.ceres = {};
 
                 for (let group of groups)
                 {
-                    group = group.replace(/"/g, 'xxx');
+                    group = group.replace(/\x22/g, 'xxx') + '';
                     console.log('group: ' + group);
                 }
 
