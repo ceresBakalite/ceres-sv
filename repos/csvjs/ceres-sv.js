@@ -105,8 +105,8 @@ window.ceres = {};
         this.parseCSV = function(text)
         {
             let p = '';
-            let row = [''];
-            let ret = [row];
+            let row = [];
+            let ret = [];
             let i = 0;
             let r = 0;
             let s = !0;
