@@ -102,61 +102,9 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.xxxparseCSV = function(text)
-        {
-            let p = '';
-            let row = [''];
-            let ret = [row];
-            let i = 0;
-            let r = 0;
-            let s = !0;
-            let l;
-
-            for (l of text)
-            {
-                if ('"' === l)
-                {
-                    if (s && l === p) row[i] += l;
-                    s = !s;
-                }
-                else if (',' === l && s) l = row[++i] = '';
-                else if ('\n' === l && s)
-                {
-                    if ('\r' === p) row[i] = row[i].slice(0, -1);
-                    row = ret[++r] = [l = '']; i = 0;
-                }
-                else row[i] += l;
-
-                p = l;
-            }
-
-            return ret.join('\n');
-        };
-
-        /*
-        let re = (Boolean(item.match(/color:/i))) ? /color[^&]*?;/i
-            : (Boolean(item.match(/font:/i))) ? /font[^&]*?;/i
-            : (Boolean(item.match(/padding:/i))) ? /padding[^&]*?;/i
-            : (Boolean(item.match(/top:/i))) ? /top[^&]*?;/i
-            : (Boolean(item.match(/bottom:/i))) ? /bottom[^&]*?;/i
-            : null;
-
-        if (!rsc.ignore(re))
-        {
-            let group = cfg.shadowStyle.match(regex) + '';
-
-            if (group)
-            {
-                let newGroup = group.replace(re, item + ';')
-                if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
-            }
-
-        }
-        */
-
-        // http://jsfiddle.net/3jLE2/2/
         this.parseCSV = function(text)
         {
+            const textArray = text.split('\n');
             let delimeter = false;
 
             let arrayItem = '';
