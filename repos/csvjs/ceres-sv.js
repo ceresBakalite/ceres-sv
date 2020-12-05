@@ -163,18 +163,17 @@ window.ceres = {};
             let value = [];
             let delimeter = false;
 
-            const regex = /"[^&]*?"/g;
+
+            const regex = /"[^&]*?",/g;
 
             textArray.forEach((row) =>
             {
                 let groups = [...row.matchAll(regex)];
 
-                for (group in groups)
+                groups.forEach((group) =>
                 {
-
                     console.log('group: ' + group)
-
-                }
+                });
 
             });
 
