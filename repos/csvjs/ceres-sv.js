@@ -111,9 +111,8 @@ window.ceres = {};
         {
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
-            //const symbols = { '"': '\x22' , ',': '\x2c' };
-            const symbols = { '"': '&quot;' , ',': '&comma;' };
-            //const symbols = { '"': '1test1' , ',': '2test2' };
+            //const symbols = { '"': '&quot;' , ',': '&comma;' };
+            const symbols = { '"': '_csvq_' , ',': '_csvc_' };
             const newArray = new Array(textArray.length);
             const delimeter = 'csv-junk';
 
@@ -210,8 +209,7 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            //if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.getFileType( await ( await fetch(cfg.src) ).text() ));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
 
             for (let item of cfg.cssRoot)
             {
