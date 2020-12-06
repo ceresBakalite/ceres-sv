@@ -119,13 +119,17 @@ window.ceres = {};
                 let newRow = String(row);
                 let groups = [...newRow.matchAll(regex)];
 
+                console.log('row: ' + row);
+
                 groups.forEach((item) =>
                 {
                     let group = String(item);
                     let newGroup = group.replace(/^\s*?"/,'');
-                    console.log('42 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
+                    //console.log('42 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
                     newRow.replace(group, rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
                 });
+
+                console.log('newRow: ' + newRow);
 
                 newArray.push(newRow);
             });
