@@ -143,8 +143,7 @@ window.ceres = {};
                 arr[row][col] += cc;
             }
 
-            console.log('arr: ' + arr.join('\n'));
-            return arr;
+            return arr.join('\n');
         }
 
         this.XXXparseCSV = function(text, delimeter = {})
