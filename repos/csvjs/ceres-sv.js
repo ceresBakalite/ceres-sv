@@ -111,31 +111,20 @@ window.ceres = {};
         {
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
-            //const symbols = { '"': '&quot;' , ',': '&comma;' };
             const symbols = { '"': '_csvq_' , ',': '_csvc_' };
             const newArray = new Array(textArray.length);
-            const delimeter = 'csv-junk';
 
             textArray.forEach((row) =>
             {
                 let newRow = String(row).replace(/,(?!\s)/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
 
-                console.log('newRow: ' + newRow);
-
                 groups.forEach((group) =>
                 {
-                    console.log('group: ' + group);
-
                     let newGroup = String(group).replace(/^\s*?"/,'');
                     newGroup = rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',';
-
-                    console.log('2 AARGH: ' + newGroup);
-
                     newRow = String(newRow).replace(group, newGroup);
                 });
-
-                console.log('updatedNewRow: ' + newRow);
 
                 newArray.push(newRow);
             });
