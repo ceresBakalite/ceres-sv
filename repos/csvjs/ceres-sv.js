@@ -116,17 +116,21 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                //let newRow = String(row);
+                //let newRow = '';
                 let groups = [...row.matchAll(regex)];
 
                 console.log('row: ' + row);
 
-                groups.forEach((item) =>
+                groups.forEach((group) =>
                 {
-                    console.log('item: ' + item);
-                    let newGroup = String(item).replace(/^\s*?"/,'');
-                    console.log('2 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
-                    String(row).replace(String(item), rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
+                    console.log('group: ' + group);
+
+                    let newGroup = String(group).replace(/^\s*?"/,'');
+                    newGroup = rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',';
+
+                    console.log('2 AARGH: ' + newGroup);
+
+                    row = String(row).replace(group, newGroup);
                 });
 
                 console.log('updatedRow: ' + row);
