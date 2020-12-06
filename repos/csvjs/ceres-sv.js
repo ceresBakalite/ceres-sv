@@ -107,7 +107,7 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.parseCSV = {
+        this.xxxxparseCSV = {
 
             parse: function(csv, reviver) {
                 reviver = reviver || function(r, c, v) { return v; };
@@ -216,7 +216,7 @@ window.ceres = {};
             return arr.join('\n');
         }
 
-        this.XXXparseCSV = function(text, delimeter = {})
+        this.parseCSV = function(text, delimeter = {})
         {
             if (!delimeter.quote) delimeter.quote = '&quot;';
             if (!delimeter.comma) delimeter.comma = '&comma;';
@@ -793,8 +793,8 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
-                        //if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: '_csvq_', comma: '_csvc_'});
-                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV.parse(textList);
+                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: '_csvq_', comma: '_csvc_'});
+                        //if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV.parse(textList);
 
                         return textList;
                     }
