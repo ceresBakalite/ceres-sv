@@ -112,7 +112,7 @@ window.ceres = {};
             if (!delimeter.quote) delimeter.quote = '&quot;';
             if (!delimeter.comma) delimeter.comma = '&comma;';
 
-            const textArray = text.replaceAll('""','"').split('\n');
+            const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
             const symbols = { '"': delimeter.quote, ',': delimeter.comma };
             const newArray = new Array(textArray.length);
