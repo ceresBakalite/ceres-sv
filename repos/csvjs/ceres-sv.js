@@ -128,7 +128,7 @@ window.ceres = {};
                     newRow = String(newRow).replace(group, newGroup);
                 });
 
-                newArray.push(newRow.replace(/\s*?,\S$/, ''));
+                newArray.push(newRow.trim().replace(/\s*?,\S$/, ''));
             });
 
             return newArray.join('\n');
