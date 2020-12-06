@@ -116,10 +116,10 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                //let newRow = '';
-                let groups = [...row.matchAll(regex)];
+                let newRow = String(row).replace(/,\S/, ', ');;
+                let groups = [...newRow.matchAll(regex)];
 
-                console.log('row: ' + row);
+                console.log('newRow: ' + newRow);
 
                 groups.forEach((group) =>
                 {
@@ -130,12 +130,12 @@ window.ceres = {};
 
                     console.log('2 AARGH: ' + newGroup);
 
-                    row = String(row).replace(group, newGroup);
+                    newRow = String(newRow).replace(group, newGroup);
                 });
 
-                console.log('updatedRow: ' + row);
+                console.log('newRow: ' + newRow);
 
-                newArray.push(row);
+                newArray.push(newRow);
             });
 
             return newArray.join('\n');
