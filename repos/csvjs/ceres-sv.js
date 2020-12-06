@@ -109,10 +109,8 @@ window.ceres = {};
 
         this.parseCSV = function(text, delimeter = {})
         {
-            //if (!char.quote) char.quote = '&quot;';
-            //if (!char.comma) char.comma = '&comma;';
-            if (!delimeter.quote) delimeter.quote = '_csvq_';
-            if (!delimeter.comma) delimeter.comma = '_csvc_';
+            if (!delimeter.quote) delimeter.quote = '&quot;';
+            if (!delimeter.comma) delimeter.comma = '&comma;';
 
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
@@ -685,25 +683,9 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList);
+                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: '_csvq_', comma: '_csvc_'});
 
                         return textList;
-                    }
-
-                    this.parseJSON = function(text)
-                    {
-                        let str = '';
-                        let json = JSON.parse(text);
-
-                        json.forEach((node) =>
-                        {
-                            str += node.url
-                                + ((node.sub) ? ', ' + node.sub : '')
-                                + ((node.sur) ? ', ' + node.sur : '')
-                                + '\n';
-                        });
-
-                        return str;
                     }
 
                     this.parseJSON = function(text)
