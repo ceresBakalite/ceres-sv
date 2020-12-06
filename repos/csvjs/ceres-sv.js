@@ -127,7 +127,7 @@ window.ceres = {};
                 arr[row][col] += cc;
             }
 
-            console.log('arr: ' + arr);
+            console.log('arr: ' + arr.join('\n'));
 
             return arr;
         }
