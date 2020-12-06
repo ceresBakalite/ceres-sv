@@ -432,8 +432,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    imageList = imageList.replaceAll('_csvq_', '&quot;').replaceAll('_csvc_', '&comma;')
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll('_csvq_', '&quot;').replaceAll('_csvc_', '&comma;'), logtrace: cfg.attrib.trace });
 
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
@@ -605,8 +604,8 @@ window.ceres = {};
                         images: function(index = 0)
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim() : index + ' / ' + cfg.imageArray.length; };
-                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim().replaceAll('_csvq_', '&quot;').replaceAll('_csvc_', '&comma;') : index + ' / ' + cfg.imageArray.length; };
+                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim().replaceAll('_csvq_', '&quot;').replaceAll('_csvc_', '&comma;') : null; };
                             const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; };
                             const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; };
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; };
