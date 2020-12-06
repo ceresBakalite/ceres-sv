@@ -133,7 +133,7 @@ window.ceres = {};
                     newRow = String(newRow).replace(group, newGroup);
                 });
 
-                console.log('newRow: ' + newRow);
+                console.log('updatedNewRow: ' + newRow);
 
                 newArray.push(newRow);
             });
