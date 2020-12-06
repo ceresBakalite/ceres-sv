@@ -117,7 +117,7 @@ window.ceres = {};
             textArray.forEach((row) =>
             {
                 //let newRow = String(row);
-                let groups = [...newRow.matchAll(regex)];
+                let groups = [...row.matchAll(regex)];
 
                 console.log('row: ' + row);
 
