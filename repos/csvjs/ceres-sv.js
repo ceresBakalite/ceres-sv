@@ -111,7 +111,7 @@ window.ceres = {};
         {
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
-            const symbols = { '"': '&#34;' , ',': '&#44;' };
+            const symbols = { '"': '\x22' , ',': '&#44;' };
             const newArray = new Array(textArray.length);
             const delimeter = 'csv-junk';
 
