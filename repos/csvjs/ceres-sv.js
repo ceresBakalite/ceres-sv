@@ -121,12 +121,12 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                let newRow = String(row).replace(/,(?!\s)/g, ', ');
+                let newRow = String(row).replace(/,(?!\s)/g, ', ').replace(/""/,'"');
                 let groups = [...newRow.matchAll(regex)];
 
                 groups.forEach((group) =>
                 {
-                    let newGroup = rsc.recursiveReplace(String(group).replace(/""/,'"').replace(/^\s*?"/,'').replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',';
+                    let newGroup = rsc.recursiveReplace(String(group).replace(/^\s*?"/,'').replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',';
                     newRow = String(newRow).replace(group, newGroup);
                 });
 
