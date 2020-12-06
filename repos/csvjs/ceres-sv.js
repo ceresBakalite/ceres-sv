@@ -107,7 +107,7 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        var parseCSV = {
+        this.parseCSV = {
 
             parse: function(csv, reviver) {
                 reviver = reviver || function(r, c, v) { return v; };
@@ -795,7 +795,7 @@ window.ceres = {};
                         if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
                         //if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: '_csvq_', comma: '_csvc_'});
                         if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV.parse(textList);
-parseCSV
+
                         return textList;
                     }
 
