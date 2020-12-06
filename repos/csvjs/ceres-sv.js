@@ -111,8 +111,8 @@ window.ceres = {};
         {
             //if (!char.quote) char.quote = '&quot;';
             //if (!char.comma) char.comma = '&comma;';
-            if (!delimeter.quote) delimeter.quote = '_csvq;';
-            if (!delimeter.comma) delimeter.comma = '_csvc;';
+            if (!delimeter.quote) delimeter.quote = '_csvq_';
+            if (!delimeter.comma) delimeter.comma = '_csvc_';
 
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
@@ -126,8 +126,8 @@ window.ceres = {};
 
                 groups.forEach((group) =>
                 {
-                    let newGroup = String(group).replace(/^\s*?"/,'');
-                    newGroup = rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',';
+                    let newGroup = String(group).replace(/^\s*?"/,'').replace(/"\s*?,$/,'');
+                    newGroup = rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + ',';
                     newRow = String(newRow).replace(group, newGroup);
                 });
 
