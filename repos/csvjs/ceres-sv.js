@@ -113,10 +113,14 @@ window.ceres = {};
             const regex = /"[^&]*?"[\s]*?,/g;
             const symbols = { '"': '&#34;' , ',': '&#44;' };
             const newArray = new Array(textArray.length);
+            const delimeter = 'csv-junk';
 
             textArray.forEach((row) =>
             {
-                let newRow = String(row).replace(/,\S/g, ', ');
+                let newRow = String(row).replace(/, /g, delimeter);
+                newRow = newRow.replace(/,/g, ', ');
+                newRow = newRow.replace(delimeter, ', ');
+
                 let groups = [...newRow.matchAll(regex)];
 
                 console.log('newRow: ' + newRow);
