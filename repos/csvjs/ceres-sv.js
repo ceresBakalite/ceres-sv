@@ -107,7 +107,32 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.parseCSV = function(text, delimeter = {})
+        this.parseCSV = function(text)
+        {
+            let arr = [];
+            let quote = false;
+
+            for (var row = col = c = 0; c < text.length; c++)
+            {
+                let cc = str[c], nc = str[c+1];
+
+                arr[row] = arr[row] || [];
+                arr[row][col] = arr[row][col] || '';
+
+                if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+                if (cc == '"') { quote = !quote; continue; }
+                if (cc == ',' && !quote) { ++col; continue; }
+                if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+
+                arr[row][col] += cc;
+            }
+
+            console.log('arr: ' + arr);
+
+            return arr;
+        }
+
+        this.XXXparseCSV = function(text, delimeter = {})
         {
             if (!delimeter.quote) delimeter.quote = '&quot;';
             if (!delimeter.comma) delimeter.comma = '&comma;';
