@@ -116,7 +116,7 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                let newRow = String(row).replace(/,\S/, ', ');;
+                let newRow = String(row).replace(/,\S/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
 
                 console.log('newRow: ' + newRow);
