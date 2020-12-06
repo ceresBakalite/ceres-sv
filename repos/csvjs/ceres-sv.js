@@ -107,7 +107,7 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.parseCSV = function(text, delimeter)
+        this.parseCSV = function(text, delimeter = {})
         {
             //if (!char.quote) char.quote = '&quot;';
             //if (!char.comma) char.comma = '&comma;';
