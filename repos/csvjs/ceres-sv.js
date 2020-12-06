@@ -107,11 +107,16 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.parseCSV = function(text)
+        this.parseCSV = function(text, delimeter)
         {
+            //if (!char.quote) char.quote = '&quot;';
+            //if (!char.comma) char.comma = '&comma;';
+            if (!delimeter.quote) delimeter.quote = '_csvq;';
+            if (!delimeter.comma) delimeter.comma = '_csvc;';
+
             const textArray = text.split('\n');
             const regex = /"[^&]*?"[\s]*?,/g;
-            const symbols = { '"': '_csvq_' , ',': '_csvc_' };
+            const symbols = { '"': delimeter.quote, ',': delimeter.comma };
             const newArray = new Array(textArray.length);
 
             textArray.forEach((row) =>
