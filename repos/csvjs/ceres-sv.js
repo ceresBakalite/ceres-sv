@@ -124,7 +124,8 @@ window.ceres = {};
 
                 groups.forEach((group) =>
                 {
-                    let newGroup = rsc.recursiveReplace(String(group).replace(/^\s*?"/, '').replace(/"\s*?,\s*? $/, '').replaceAll('""', '"'), RegExp(/"|,/g), symbols) + ',';
+                    group = String(group).replaceAll('""', '"');
+                    let newGroup = rsc.recursiveReplace(String(group).replace(/^\s*?"/, '').replace(/"\s*?,\s*? $/, ''), RegExp(/"|,/g), symbols) + ',';
                     newRow = String(newRow).replace(group, newGroup);
                 });
 
