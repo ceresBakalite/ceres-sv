@@ -123,6 +123,7 @@ window.ceres = {};
 
                 groups.forEach((item) =>
                 {
+                    console.log('item: ' + item);
                     let newGroup = String(item).replace(/^\s*?"/,'');
                     console.log('2 AARGH: ' + rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
                     String(row).replace(String(item), rsc.recursiveReplace(newGroup.replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',');
