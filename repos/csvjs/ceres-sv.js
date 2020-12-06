@@ -152,7 +152,7 @@ window.ceres = {};
                         ++c;
                     }
                 }
-                return table;
+                return table.join('\n');
             },
 
             stringify: function(table, replacer) {
