@@ -117,6 +117,18 @@ window.ceres = {};
             const symbols = { '"': delimeter.quote, ',': delimeter.comma };
             const newArray = new Array(textArray.length);
 
+/*
+            groups.forEach((group) =>
+            {
+                let newGroup = rsc.recursiveReplace(String(group).replace(/^\s*?"/,'').replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',';
+                newRow = String(newRow).replace(group, newGroup.replace(/"\s$/g, ''));
+                //newRow = String(newRow).replace(group, newGroup);
+            });
+
+            newArray.push(newRow.replace(/\s*?,\S *?$/g, ''));
+            //newArray.push(newRow.trim().slice(0,-1));
+*/
+
             textArray.forEach((row) =>
             {
                 //let newRow = String(row + ',').replace(/,(?!\s)/g, ', ').replace(/"""/,'"');
@@ -126,8 +138,7 @@ window.ceres = {};
                 groups.forEach((group) =>
                 {
                     let newGroup = rsc.recursiveReplace(String(group).replace(/^\s*?"/,'').replace(/"\s*?,$/,''), RegExp(/"|,/g), symbols) + ',';
-                    newRow = String(newRow).replace(group, newGroup.replace(/"\s$/g, ''));
-                    //newRow = String(newRow).replace(group, newGroup);
+                    newRow = String(newRow).replace(group, newGroup);
                 });
 
                 newArray.push(newRow.replace(/\s*?,\S *?$/g, ''));
