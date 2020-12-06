@@ -107,115 +107,6 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        this.xxxxparseCSV = {
-
-            parse: function(csv, reviver) {
-                reviver = reviver || function(r, c, v) { return v; };
-                var chars = csv.split(''), c = 0, cc = chars.length, start, end, table = [], row;
-                while (c < cc) {
-                    table.push(row = []);
-                    while (c < cc && '\r' !== chars[c] && '\n' !== chars[c]) {
-                        start = end = c;
-                        if ('"' === chars[c]){
-                            start = end = ++c;
-                            while (c < cc) {
-                                if ('"' === chars[c]) {
-                                    if ('"' !== chars[c+1]) {
-                                        break;
-                                    }
-                                    else {
-                                        chars[++c] = ''; // unescape ""
-                                    }
-                                }
-                                end = ++c;
-                            }
-                            if ('"' === chars[c]) {
-                                ++c;
-                            }
-                            while (c < cc && '\r' !== chars[c] && '\n' !== chars[c] && ',' !== chars[c]) {
-                                ++c;
-                            }
-                        } else {
-                            while (c < cc && '\r' !== chars[c] && '\n' !== chars[c] && ',' !== chars[c]) {
-                                end = ++c;
-                            }
-                        }
-                        row.push(reviver(table.length-1, row.length, chars.slice(start, end).join('')));
-                        if (',' === chars[c]) {
-                            ++c;
-                        }
-                    }
-                    if ('\r' === chars[c]) {
-                        ++c;
-                    }
-                    if ('\n' === chars[c]) {
-                        ++c;
-                    }
-                }
-                return table.join('\n');
-            },
-
-            stringify: function(table, replacer) {
-                replacer = replacer || function(r, c, v) { return v; };
-                var csv = '', c, cc, r, rr = table.length, cell;
-                for (r = 0; r < rr; ++r) {
-                    if (r) {
-                        csv += '\r\n';
-                    }
-                    for (c = 0, cc = table[r].length; c < cc; ++c) {
-                        if (c) {
-                            csv += ',';
-                        }
-                        cell = replacer(r, c, table[r][c]);
-                        if (/[,\r\n"]/.test(cell)) {
-                            cell = '"' + cell.replace(/"/g, '""') + '"';
-                        }
-                        csv += (cell || 0 === cell) ? cell : '';
-                    }
-                }
-                return csv;
-            }
-        };
-
-        // Trevor Dixon - Stackoverflow
-        this.xxxparseCSV = function(text)
-        {
-            var arr = [];
-            var quote = false;  // 'true' means we're inside a quoted field
-
-            // Iterate over each character, keep track of current row and column (of the returned array)
-            for (var row = 0, col = 0, c = 0; c < text.length; c++) {
-                var cc = text[c], nc = text[c+1];        // Current character, next character
-                arr[row] = arr[row] || [];             // Create a new row if necessary
-                arr[row][col] = arr[row][col] || '';   // Create a new column (start with empty string) if necessary
-
-                // If the current character is a quotation mark, and we're inside a
-                // quoted field, and the next character is also a quotation mark,
-                // add a quotation mark to the current column and skip the next character
-                if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
-
-                // If it's just one quotation mark, begin/end quoted field
-                if (cc == '"') { quote = !quote; continue; }
-
-                // If it's a comma and we're not in a quoted field, move on to the next column
-                if (cc == ',' && !quote) { ++col; continue; }
-
-                // If it's a newline (CRLF) and we're not in a quoted field, skip the next character
-                // and move on to the next row and move to column 0 of that new row
-                if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
-
-                // If it's a newline (LF or CR) and we're not in a quoted field,
-                // move on to the next row and move to column 0 of that new row
-                if (cc == '\n' && !quote) { ++row; col = 0; continue; }
-                if (cc == '\r' && !quote) { ++row; col = 0; continue; }
-
-                // Otherwise, append the current character to the current column
-                arr[row][col] += cc;
-            }
-
-            return arr.join('\n');
-        }
-
         this.parseCSV = function(text, delimeter = {})
         {
             if (!delimeter.quote) delimeter.quote = '&quot;';
@@ -794,7 +685,6 @@ window.ceres = {};
                     {
                         if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
                         if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: '_csvq_', comma: '_csvc_'});
-                        //if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV.parse(textList);
 
                         return textList;
                     }
