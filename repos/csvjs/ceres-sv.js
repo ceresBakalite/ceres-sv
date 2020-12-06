@@ -210,7 +210,8 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
+            //if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.getFileType( await ( await fetch(cfg.src) ).text() ));
 
             for (let item of cfg.cssRoot)
             {
