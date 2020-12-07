@@ -169,6 +169,7 @@ window.ceres = {};
 
                 newRow = newRow.replace(re, ''); // replace the end symbol if it appears at the end of a row
                 newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+                newRow = newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');
 
                 console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + newRow);
 
