@@ -84,6 +84,20 @@ window.ceres = {};
             return obj.el;
         }
 
+        this.getCurrentDateTime = function(obj = {})
+        {
+            const getStr = this.ignore(obj);
+            const date = new Date();
+            const time = date.getDate()
+                    + ((getStr || obj.month) ? '/' + (date.getMonth()+1) : '')
+                    + ((getStr || obj.year) ? '/' + date.getFullYear() : '')
+                    + ((getStr || obj.hours) ? ' @ ' + date.getHours() : '')
+                    + ((getStr || obj.minutes) ?  ':' + date.getMinutes() : '')
+                    + ((getStr || obj.seconds) ?  + ':' + date.getSeconds() : '');
+
+            return time;
+        }
+
         this.recursiveReplace = function(str, criteria, obj)
         {
             return str.replace(criteria, function(match) { return obj[match]; });
@@ -123,7 +137,7 @@ window.ceres = {};
                 let newRow = String(row).replace(/,(?!\s)/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
 
-consol.log('test  1');
+console.log('test ' + this.getCurrentDateTime( {hours: true, minutes: true} ));
 
                 groups.forEach((group) =>
                 {
