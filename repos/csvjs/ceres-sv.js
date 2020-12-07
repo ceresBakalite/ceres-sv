@@ -140,6 +140,7 @@ window.ceres = {};
 
             const textArray = text.split('\n');
             const regex = /"[^]*?",|"[^]*?"$/g;
+            const re = new RegExp(symbol.end);
             const symbols = { '"': symbol.quote, ',': symbol.comma };
             const newArray = new Array(textArray.length);
 
@@ -168,7 +169,7 @@ window.ceres = {};
                 });
 
                 newRow = newRow.replace(/_&grp\s*?$/, ''); // replace the end symbol if it appears at the end of a row
-                newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+                newRow = newRow.replaceAll(re, ', '); // replace any remaining end symbols with comma seperators
 
                 console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + newRow);
 
