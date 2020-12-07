@@ -136,7 +136,7 @@ window.ceres = {};
         {
             if (!delimeter.quote) delimeter.quote = '&quot;'; // \x22
             if (!delimeter.comma) delimeter.comma = '&comma;'; // \x2c
-            if (!delimeter.end) delimeter.end = '_endgroup_'
+            if (!delimeter.end) delimeter.end = '_&grp'
 
             const textArray = text.split('\n');
             const regex = /,"[^]*?",|"[^]*?"$/g;
