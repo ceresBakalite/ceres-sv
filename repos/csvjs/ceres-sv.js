@@ -140,7 +140,9 @@ window.ceres = {};
 
             const textArray = text.split('\n');
             const regex = /"[^]*?",|"[^]*?"$/g;
-            const re = new RegExp(String(symbol.end));
+            const endSymbol = symbol.end + '\s*?$';
+            const re = new RegExp(endSymbol, 'g');
+            const symbols = { '"': symbol.quote, ',': symbol.comma };
             const newArray = new Array(textArray.length);
 
             const parseGroup = function(group)
@@ -167,8 +169,8 @@ window.ceres = {};
                     newRow = newRow.replace(group, newGroup);
                 });
 
-                newRow = newRow.replace(/_&grp\s*?$/, ''); // replace the end symbol if it appears at the end of a row
-                newRow = newRow.replaceAll(re, ', '); // replace any remaining end symbols with comma seperators
+                newRow = newRow.replace(re, ''); // replace the end symbol if it appears at the end of a row
+                newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
 
                 console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + newRow);
 
