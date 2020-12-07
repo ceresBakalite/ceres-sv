@@ -131,7 +131,7 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
-        // noddy csv parser - better than most, worse than some
+        // noddy regex csv parser - better than most, worse than some
         this.parseCSV = function(text, delimeter = {})
         {
             if (!delimeter.quote) delimeter.quote = '&quot;'; // \x22
@@ -157,7 +157,7 @@ window.ceres = {};
             textArray.forEach((row) =>
             {
                 let newRow = String(row);
-                let groups = [...newRow.matchAll(regex)];
+                let groups = [...newRow.matchAll(regex)]; // get character groups in need of parsing
 
                 let j = i++;
 
@@ -217,6 +217,8 @@ window.ceres = {};
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
             tArray       : ['link', 'script', 'style'],
+            quoteSymbol  : '_&q',
+            commaSymbol  : '_&c',
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             whitespace   : /\s/g,
             markup       : /(<([^>]+)>)/ig,
@@ -478,8 +480,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll('_csvq_', '&quot;').replaceAll('_csvc_', '&comma;'), logtrace: cfg.attrib.trace });
-
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
 
@@ -650,8 +651,8 @@ window.ceres = {};
                         images: function(index = 0)
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim().replaceAll('_csvq_', '&quot;').replaceAll('_csvc_', '&comma;') : index + ' / ' + cfg.imageArray.length; };
-                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim().replaceAll('_csvq_', '&quot;').replaceAll('_csvc_', '&comma;') : null; };
+                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : index + ' / ' + cfg.imageArray.length; };
+                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : null; };
                             const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; };
                             const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; };
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; };
@@ -730,7 +731,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: '_csvq_', comma: '_csvc_'});
+                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: rsc.attrib.quoteSymbol, comma: rsc.attrib.commaSymbol});
 
                         return textList;
                     }
