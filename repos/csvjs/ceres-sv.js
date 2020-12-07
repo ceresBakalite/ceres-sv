@@ -108,7 +108,7 @@ window.ceres = {};
             return date.trim();
         }
 
-        this.recursiveReplace = function(str, criteria, obj)
+        this.xxxrecursiveReplace = function(str, criteria, obj)
         {
             return str.replace(criteria, function(match) { return obj[match]; });
         }
@@ -132,15 +132,14 @@ window.ceres = {};
         }
 
         // noddy regex csv parser - better than most, worse than some
-        this.parseCSV = function(text, obj = {})
+        this.parseCSV = function(text, symbol = {})
         {
-            if (!obj.quote) obj.quote = '&quot;'; // \x22
-            if (!obj.comma) obj.comma = '&comma;'; // \x2c
-            if (!obj.end) obj.end = '_&grp';
+            if (!symbol.quote) symbol.quote = '&quot;'; // \x22
+            if (!symbol.comma) symbol.comma = '&comma;'; // \x2c
+            if (!symbol.end) symbol.end = '_&grp';
 
             const textArray = text.split('\n');
             const regex = /,"[^]*?",|"[^]*?"$/g;
-            const symbols = { '"': obj.quote, ',': obj.comma };
             const newArray = new Array(textArray.length);
 
             const parseGroup = function(group)
@@ -149,7 +148,8 @@ window.ceres = {};
                 newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
 
-                return ', ' + rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + obj.end; // replace remaining commas and quotes with symbols
+                //return ', ' + rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + symbol.end; // replace remaining commas and quotes with symbols
+                return ', ' + newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
             let i = 0;
