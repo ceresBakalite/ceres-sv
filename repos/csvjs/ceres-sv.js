@@ -136,6 +136,7 @@ window.ceres = {};
         {
             if (!delimeter.quote) delimeter.quote = '&quot;'; // \x22
             if (!delimeter.comma) delimeter.comma = '&comma;'; // \x2c
+            if (!delimeter.end) delimeter.end = '_endgroup_'
 
             const textArray = text.split('\n');
             const regex = /,"[^]*?",|"[^]*?"$/g;
@@ -157,7 +158,7 @@ window.ceres = {};
                     let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, ''); // replace leading/trailing commas
                     newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                     newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                    newGroup = rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols); // replace remaining commas and quotes with symbols
+                    newGroup = ', ' + rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + delimeter.end; // replace remaining commas and quotes with symbols
                     console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + newGroup);
                 });
 
