@@ -156,6 +156,7 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
+                let testRow = String(row);
                 let newRow = String(row);
                 let groups = [...newRow.matchAll(regex)]; // get character groups in need of parsing
 
@@ -164,14 +165,18 @@ window.ceres = {};
                 groups.forEach((group) =>
                 {
                     let newGroup = parseGroup(group);
-                    console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + newGroup);
+                    testRow = String(testRow).replace(group, newGroup);
                 });
+
+                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + testRow);
+
 
                 groups.forEach((group) =>
                 {
                     let newGroup = rsc.recursiveReplace(String(group).replace(/^\s*?"/, '').replace(/"\s*?,\s*? $/, ''), RegExp(/"|,/g), symbols) + ',';
                     newRow = String(newRow).replace(group, newGroup);
                 });
+
 
                 newArray.push(newRow.trim().slice(0,-1));
             });
