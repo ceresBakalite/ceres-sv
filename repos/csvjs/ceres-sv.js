@@ -138,7 +138,7 @@ window.ceres = {};
             if (!delimeter.comma) delimeter.comma = '&comma;'; // \x2c
 
             const textArray = text.split('\n');
-            const regex = /,"[^&]*?",|"[^&]*?"/g;
+            const regex = /,"[^]*?",|"[^]*?"$/g;
             const symbols = { '"': delimeter.quote, ',': delimeter.comma };
             const newArray = new Array(textArray.length);
 
