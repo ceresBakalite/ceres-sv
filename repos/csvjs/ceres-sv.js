@@ -173,7 +173,7 @@ window.ceres = {};
                 groups.forEach((group) =>
                 {
                     let newGroup = parseGroup(group);
-                    console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testGroup 1 ' + j + ': ' + newGroup);
+                    console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testGroup 1 ' + j + ': [' + group + '] - [' + newGroup + ']');
                     testRow = testRow.replace(group, newGroup);
                 });
 
