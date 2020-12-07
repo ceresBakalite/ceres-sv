@@ -86,7 +86,9 @@ window.ceres = {};
 
         this.getCurrentDateTime = function(obj = {})
         {
+            const newDate = new Date();
             const defaultDate = this.ignore(obj);
+
             if (defaultDate) return newDate;
 
             // For todays date;
@@ -99,8 +101,6 @@ window.ceres = {};
                 let time = ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
                 return (obj.ms) ? time + "." + ((this.getUTCMilliseconds() < 10)?"0":"") + this.getUTCMilliseconds() : time;
             }
-
-            const newDate = new Date();
 
             let date = (obj.date) ? newDate.today() + ' ' : '';
             date = (obj.time) ? date + newDate.timeNow() : '';
