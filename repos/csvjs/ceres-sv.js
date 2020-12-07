@@ -152,7 +152,8 @@ window.ceres = {};
                 // 5) add endgroup symbol
 
 
-                let newGroup = String(group).replace(/^\s*?"/, '').replace(/^\s*?"/, ''); // remove leading quote and trailing quote and comma 
+                let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quote and trailing quote and comma
+                //let newGroup = String(group).replace(/^\s*?"/, '').replace(/^\s*?"/, ''); // remove leading quote and trailing quote and comma
                 //newGroup = newGroup.replace(/"\s*?$|"\s*?,\s*?$/, ','); // replace any remaining trailing quote (retain any trailing comma);
                 //newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                 //newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
