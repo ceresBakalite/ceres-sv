@@ -170,7 +170,7 @@ window.ceres = {};
                 newRow = newRow.replace(/_&grp\s*?$/, ''); // replace the end symbol if it appears at the end of a row
                 newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
 
-                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow ' + j + ': ' + testRow);
+                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + newRow);
 
                 newArray.push(newRow);
             });
