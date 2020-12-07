@@ -154,8 +154,8 @@ window.ceres = {};
 
                 groups.forEach((group) =>
                 {
-                    let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, '');
-                    newGroup = newGroup.replace(/^\s*?" */, '').replace(/\s*?" *$/, '');
+                    let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, ''); // replace leading/trailing commas
+                    newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                     console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + newGroup);
                 });
 
