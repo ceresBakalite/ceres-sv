@@ -96,7 +96,8 @@ window.ceres = {};
 
             // For the time now
             Date.prototype.timeNow = function () {
-                 return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds() +"."+ ((this.getUTCMilliseconds() < 10)?"0":"") + this.getUTCMilliseconds();
+                let time = ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+                return (obj.seconds) ? time + "." + ((this.getUTCMilliseconds() < 10)?"0":"") + this.getUTCMilliseconds() : time;
             }
 
             const newDate = new Date();
