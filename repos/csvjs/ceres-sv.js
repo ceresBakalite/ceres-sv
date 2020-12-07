@@ -173,11 +173,12 @@ window.ceres = {};
                 groups.forEach((group) =>
                 {
                     let newGroup = parseGroup(group);
+                    console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testGroup 1 ' + j + ': ' + newGroup);
                     testRow = testRow.replace(group, newGroup);
                 });
 
-                testRow = testRow.replaceAll(symbol.end, ''); // cleanup symbols
-                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow 2 ' + j + ': ' + testRow);
+                //testRow = testRow.replaceAll(symbol.end, ''); // cleanup symbols
+                //console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow 2 ' + j + ': ' + testRow);
 
 
                 groups.forEach((group) =>
