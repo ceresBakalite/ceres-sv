@@ -99,8 +99,10 @@ window.ceres = {};
             const defaultDate = this.ignore(obj);
             const newDate = new Date();
 
-            let date = (defaultDate || obj.date) ? newDate.today() : '';
-            date = (defaultDate || obj.time) ? date + '@' + newDate.timeNow() : '';
+            if (defaultDate) return newDate;
+
+            let date = (obj.date) ? newDate.today() : '';
+            date = (obj.time) ? date + ' @' + newDate.timeNow() : '';
 
             return date;
         }
