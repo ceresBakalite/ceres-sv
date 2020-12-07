@@ -142,14 +142,19 @@ window.ceres = {};
             const symbols = { '"': delimeter.quote, ',': delimeter.comma };
             const newArray = new Array(textArray.length);
 
+            let i = 0;
+
             textArray.forEach((row) =>
             {
-                let newRow = String(row).replace(/,(?!\s)/g, ', ');
+                //let newRow = String(row).replace(/,(?!\s)/g, ', ');
+                let newRow = String(row);
                 let groups = [...newRow.matchAll(regex)];
+
+                let j = i++;
 
                 groups.forEach((group) =>
                 {
-                    console.log(this.getCurrentDateTime({ time: true, ms: true }) + ': ' + group);
+                    console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + group);
                 });
 
                 groups.forEach((group) =>
