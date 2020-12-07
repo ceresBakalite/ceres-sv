@@ -156,8 +156,8 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                let testRow = String(row);
                 let newRow = String(row);
+                let testRow = newRow;
                 let groups = [...newRow.matchAll(regex)]; // get character groups in need of parsing
 
                 let j = i++;
@@ -165,10 +165,10 @@ window.ceres = {};
                 groups.forEach((group) =>
                 {
                     let newGroup = parseGroup(group);
-                    testRow = String(testRow).replace(group, newGroup);
+                    testRow = testRow.replace(group, newGroup);
                 });
 
-                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + testRow);
+                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow ' + j + ': ' + testRow);
 
 
                 groups.forEach((group) =>
