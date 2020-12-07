@@ -139,7 +139,7 @@ window.ceres = {};
             if (!symbol.end) symbol.end = '_&grp'; // end of character group
 
             const textArray = text.split('\n');
-            const regex = /"[^]*?",|"[^]*?"$/g;
+            const regex = /"[^]*?",|"[^]*?"$/gm;
             const re = new RegExp(symbol.end + '\s*?$', 'g');
             const newArray = new Array(textArray.length);
 
