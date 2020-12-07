@@ -123,7 +123,7 @@ window.ceres = {};
                 let newRow = String(row).replace(/,(?!\s)/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
 
-
+consol.log('test  1');
 
                 groups.forEach((group) =>
                 {
