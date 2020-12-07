@@ -145,22 +145,10 @@ window.ceres = {};
 
             const parseGroup = function(group)
             {
-                // 1) remove leading quote and trailing quote and comma
-                // 2) replace double quotes with a single quote
-                // 4) replace remaining commas and quotes with symbols
-                // 5) add endgroup symbol
-
-
-                let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quote and trailing quote and comma
+                let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
-                //let newGroup = String(group).replace(/^\s*?"/, '').replace(/^\s*?"/, ''); // remove leading quote and trailing quote and comma
-                //newGroup = newGroup.replace(/"\s*?$|"\s*?,\s*?$/, ','); // replace any remaining trailing quote (retain any trailing comma);
-                //newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
-                //newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
 
-                //return newGroup;
-                //return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
+                return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
             let i = 0;
@@ -176,12 +164,13 @@ window.ceres = {};
                 groups.forEach((group) =>
                 {
                     let newGroup = parseGroup(group);
-                    console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testGroup 2 ' + j + ': [' + group + '] - [' + newGroup + ']');
+                    //console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testGroup ' + j + ': [' + group + '] - [' + newGroup + ']');
                     testRow = testRow.replace(group, newGroup);
                 });
 
-                //testRow = testRow.replaceAll(symbol.end, ''); // cleanup symbols
-                //console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow 2 ' + j + ': ' + testRow);
+                testRow = testRow.replace(/_&grp\s*?$/, ''); // replace the end symbol if it appears at the end of a row
+                testRow = testRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow ' + j + ': ' + testRow);
 
 
                 groups.forEach((group) =>
