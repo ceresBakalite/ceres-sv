@@ -147,8 +147,10 @@ window.ceres = {};
                 let newRow = String(row).replace(/,(?!\s)/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
 
-                console.log('time: ' + this.getCurrentDateTime({ time: true, ms: true }));
-                console.log('groups: ' + groups.length);
+                groups.forEach((group) =>
+                {
+                    console.log(this.getCurrentDateTime({ time: true, ms: true }) + ': ' + group);
+                });
 
                 groups.forEach((group) =>
                 {
@@ -159,6 +161,7 @@ window.ceres = {};
                 newArray.push(newRow.trim().slice(0,-1));
             });
 
+            console.log('time: ' + this.getCurrentDateTime({ time: true, ms: true }));
             return newArray.join('\n');
         }
 
