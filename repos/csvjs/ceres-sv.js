@@ -108,7 +108,7 @@ window.ceres = {};
             return date.trim();
         }
 
-        this.xxxrecursiveReplace = function(str, criteria, obj)
+        this.recursiveReplace = function(str, criteria, obj)
         {
             return str.replace(criteria, function(match) { return obj[match]; });
         }
@@ -140,6 +140,7 @@ window.ceres = {};
 
             const textArray = text.split('\n');
             const regex = /,"[^]*?",|"[^]*?"$/g;
+            const symbols = { '"': symbol.quote, ',': symbol.comma };
             const newArray = new Array(textArray.length);
 
             const parseGroup = function(group)
