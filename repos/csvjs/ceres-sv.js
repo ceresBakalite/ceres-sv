@@ -132,15 +132,15 @@ window.ceres = {};
         }
 
         // noddy regex csv parser - better than most, worse than some
-        this.parseCSV = function(text, dltr = {})
+        this.parseCSV = function(text, obj = {})
         {
-            if (!dltr.quote) dltr.quote = '&quot;'; // \x22
-            if (!dltr.comma) dltr.comma = '&comma;'; // \x2c
-            if (!dltr.end) dltr.end = '_&grp'
+            if (!obj.quote) obj.quote = '&quot;'; // \x22
+            if (!obj.comma) obj.comma = '&comma;'; // \x2c
+            if (!obj.end) obj.end = '_&grp';
 
             const textArray = text.split('\n');
             const regex = /,"[^]*?",|"[^]*?"$/g;
-            const symbols = { '"': dltr.quote, ',': dltr.comma };
+            const symbols = { '"': obj.quote, ',': obj.comma };
             const newArray = new Array(textArray.length);
 
             const parseGroup = function(group)
@@ -149,7 +149,7 @@ window.ceres = {};
                 newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
 
-                return ', ' + rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + dltr.end; // replace remaining commas and quotes with symbols
+                return ', ' + rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + obj.end; // replace remaining commas and quotes with symbols
             }
 
             let i = 0;
