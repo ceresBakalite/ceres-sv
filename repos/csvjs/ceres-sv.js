@@ -176,7 +176,7 @@ window.ceres = {};
                     testRow = testRow.replace(group, newGroup);
                 });
 
-                testRow = testRow.replace(symbol.end, ''); // cleanup symbols
+                testRow = testRow.replaceAll(symbol.end, ''); // cleanup symbols
                 console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow 1 ' + j + ': ' + testRow);
 
 
