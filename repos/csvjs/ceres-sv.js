@@ -150,7 +150,7 @@ window.ceres = {};
                 //newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
 
-                return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + ', ' + symbol.end; // replace remaining commas and quotes with symbols
+                return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
             let i = 0;
