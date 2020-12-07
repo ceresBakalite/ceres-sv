@@ -145,9 +145,9 @@ window.ceres = {};
 
             const parseGroup = function(group)
             {
-                let newGroup = String(group);
-                //let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, ''); // replace leading/trailing commas
-                newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
+                let newGroup = String(group).replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
+                newGroup = newGroup.replace(/"\s*?$|"\s*?,\s*?$/, ','); // replace any remaining trailing quote (retain any trailing comma);
+                //newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
 
                 return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + ', ' + symbol.end; // replace remaining commas and quotes with symbols
