@@ -101,10 +101,10 @@ window.ceres = {};
 
             if (defaultDate) return newDate;
 
-            let date = (obj.date) ? newDate.today() : '';
-            date = (obj.time) ? date + ' @' + newDate.timeNow() : '';
+            let date = (obj.date) ? newDate.today() + ' ' : '';
+            date = (obj.time) ? date + '@' + newDate.timeNow() : '';
 
-            return date;
+            return date.trim();
         }
 
         this.recursiveReplace = function(str, criteria, obj)
