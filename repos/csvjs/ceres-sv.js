@@ -86,16 +86,23 @@ window.ceres = {};
 
         this.getCurrentDateTime = function(obj = {})
         {
-            const getStr = this.ignore(obj);
-            const date = new Date();
-            const time = date.getDate()
-                    + ((getStr || obj.month) ? '/' + (date.getMonth()+1) : '')
-                    + ((getStr || obj.year) ? '/' + date.getFullYear() : '')
-                    + ((getStr || obj.hours) ? ' @ ' + date.getHours() : '')
-                    + ((getStr || obj.minutes) ?  ':' + date.getMinutes() : '')
-                    + ((getStr || obj.seconds) ?  + ':' + date.getSeconds() : '');
+            // For todays date;
+            Date.prototype.today = function () {
+                return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
+            }
 
-            return time;
+            // For the time now
+            Date.prototype.timeNow = function () {
+                 return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+            }
+
+            const defaultDate = this.ignore(obj);
+            const newDate = new Date();
+
+            let date = (defaultDate || obj.date) ? newDate.today() : '';
+            date = (defaultDate || obj.time) ? date + '@' + newDate.timeNow() : '';
+
+            return date;
         }
 
         this.recursiveReplace = function(str, criteria, obj)
