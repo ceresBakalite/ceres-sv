@@ -134,9 +134,9 @@ window.ceres = {};
         // noddy regex csv parser - better than most, worse than some
         this.parseCSV = function(text, symbol = {})
         {
-            if (!symbol.quote) symbol.quote = '&quot;'; // \x22
-            if (!symbol.comma) symbol.comma = '&comma;'; // \x2c
-            if (!symbol.end) symbol.end = '_&grp';
+            if (!symbol.quote) symbol.quote = '&quot;'; // \x22 etc
+            if (!symbol.comma) symbol.comma = '&comma;'; // \x2c etc
+            if (!symbol.end) symbol.end = '_&grp'; // end of character group
 
             const textArray = text.split('\n');
             const regex = /,"[^]*?",|"[^]*?"$/g;
@@ -149,7 +149,6 @@ window.ceres = {};
                 newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
 
-                //return ', ' + rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + symbol.end; // replace remaining commas and quotes with symbols
                 return ', ' + newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
