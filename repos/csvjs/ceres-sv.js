@@ -146,7 +146,7 @@ window.ceres = {};
                 let newRow = String(row).replace(/,(?!\s)/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
 
-console.log('time: ' + this.getCurrentDateTime({ time: true }));
+console.log('time: ' + this.getCurrentDateTime({ date: true, time: true }));
 
                 groups.forEach((group) =>
                 {
