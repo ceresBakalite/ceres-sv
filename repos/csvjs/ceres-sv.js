@@ -151,6 +151,14 @@ window.ceres = {};
                 return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
+            const parseRow = function(row)
+            {
+                let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
+                newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+
+                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');
+            }
+
             let i = 0;
 
             textArray.forEach((row) =>
@@ -167,15 +175,11 @@ window.ceres = {};
                     newRow = newRow.replace(group, newGroup);
                 });
 
-                newRow = newRow.replace(re, ''); // replace the end symbol if it appears at the end of a row
-                newRow = newRow.replaceAll(symbol.end, ', ').replace(/(?<!\s)[,](?!\s)/g, ', '); // replace any remaining end symbols with comma seperators
+                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + parseRow(newRow));
 
-                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + newRow);
-
-                newArray.push(newRow);
+                newArray.push(parseRow(newRow));
             });
 
-            console.log('time: ' + this.getCurrentDateTime({ time: true, ms: true }));
             return newArray.join('\n');
         }
 
