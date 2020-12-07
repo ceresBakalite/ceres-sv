@@ -97,7 +97,7 @@ window.ceres = {};
             // For the time now
             Date.prototype.timeNow = function () {
                 let time = ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
-                return (obj.seconds) ? time + "." + ((this.getUTCMilliseconds() < 10)?"0":"") + this.getUTCMilliseconds() : time;
+                return (obj.ms) ? time + "." + ((this.getUTCMilliseconds() < 10)?"0":"") + this.getUTCMilliseconds() : time;
             }
 
             const newDate = new Date();
@@ -147,7 +147,7 @@ window.ceres = {};
                 let newRow = String(row).replace(/,(?!\s)/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
 
-                console.log('time: ' + this.getCurrentDateTime({ time: true }));
+                console.log('time: ' + this.getCurrentDateTime({ time: true, ms: true }));
                 console.log('groups: ' + groups.length);
 
                 groups.forEach((group) =>
