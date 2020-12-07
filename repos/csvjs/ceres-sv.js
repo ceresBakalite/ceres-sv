@@ -139,25 +139,18 @@ window.ceres = {};
             if (!symbol.end) symbol.end = '_&grp'; // end of character group
 
             const textArray = text.split('\n');
-            const regex = /,"[^]*?",|"[^]*?"$/g;
+            const regex = /"[^]*?",|"[^]*?"$/g;
             const symbols = { '"': symbol.quote, ',': symbol.comma };
             const newArray = new Array(textArray.length);
 
             const parseGroup = function(group)
             {
-                let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, ''); // replace leading/trailing commas
+                let newGroup = String(group).replace(/\s*?, *$/, ''); // replace trailing commas
+                //let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, ''); // replace leading/trailing commas
                 newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
 
-                return ', ' + newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
-            }
-
-            const parseRow = function(row)
-            {
-                let newRow = row.replace(/_&grp\s*?$/, ''); // cleanup trailing symbol
-                return newRow.replace(/_&grp/, ''); // cleanup remaining symbols
-
-                return ', ' + newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
+                return ', ' + newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + ', ' + symbol.end; // replace remaining commas and quotes with symbols
             }
 
             let i = 0;
