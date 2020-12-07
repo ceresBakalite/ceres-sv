@@ -168,7 +168,8 @@ window.ceres = {};
                     testRow = testRow.replace(group, newGroup);
                 });
 
-                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow ' + j + ': ' + testRow);
+                testRow = testRow.replace(/_&grp\s*?$/, ''); // cleanup trailing symbol
+                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow ' + j + ': ' + testRow.replace(/_&grp\s*?$/, ''));
 
 
                 groups.forEach((group) =>
