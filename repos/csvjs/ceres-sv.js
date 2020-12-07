@@ -107,13 +107,14 @@ window.ceres = {};
             return doc.body.textContent || doc.body.innerText;
         }
 
+        // noddy csv parser - better than most, worse than some
         this.parseCSV = function(text, delimeter = {})
         {
-            if (!delimeter.quote) delimeter.quote = '&quot;';
-            if (!delimeter.comma) delimeter.comma = '&comma;';
+            if (!delimeter.quote) delimeter.quote = '&quot;'; // \x22
+            if (!delimeter.comma) delimeter.comma = '&comma;'; // \x2c
 
             const textArray = text.split('\n');
-            const regex = /"[^&]*?"[\s]*?,/g;
+            const regex = /,"[^&]*?",|"[^&]*?"/g;
             const symbols = { '"': delimeter.quote, ',': delimeter.comma };
             const newArray = new Array(textArray.length);
 
@@ -121,6 +122,8 @@ window.ceres = {};
             {
                 let newRow = String(row + ',').replace(/,(?!\s)/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
+
+
 
                 groups.forEach((group) =>
                 {
