@@ -140,9 +140,7 @@ window.ceres = {};
 
             const textArray = text.split('\n');
             const regex = /"[^]*?",|"[^]*?"$/g;
-            const endSymbol = symbol.end + '\s*?$';
-            const re = new RegExp(endSymbol, 'g');
-            const symbols = { '"': symbol.quote, ',': symbol.comma };
+            const re = new RegExp(symbol.end + '\s*?$', 'g');
             const newArray = new Array(textArray.length);
 
             const parseGroup = function(group)
