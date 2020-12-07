@@ -145,12 +145,20 @@ window.ceres = {};
 
             const parseGroup = function(group)
             {
-                let newGroup = String(group).replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
-                newGroup = newGroup.replace(/"\s*?$|"\s*?,\s*?$/, ','); // replace any remaining trailing quote (retain any trailing comma);
-                //newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
-                newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
+                // 1) remove leading quote and trailing quote and comma
+                // 2) remove leading / trailing quotes
+                // 3) replace double quotes with a single quote
+                // 4) replace remaining commas and quotes with symbols
+                // 5) add endgroup symbol
 
-                return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
+
+                let newGroup = String(group).replace(/^\s*?"/, '').replace(/^\s*?"/, ''); // remove leading quote and trailing quote and comma 
+                //newGroup = newGroup.replace(/"\s*?$|"\s*?,\s*?$/, ','); // replace any remaining trailing quote (retain any trailing comma);
+                //newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
+                //newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
+
+                return newGroup;
+                //return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
             let i = 0;
