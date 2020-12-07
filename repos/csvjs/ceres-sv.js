@@ -143,11 +143,19 @@ window.ceres = {};
             const symbols = { '"': delimeter.quote, ',': delimeter.comma };
             const newArray = new Array(textArray.length);
 
+            const parseGroup = function(group)
+            {
+                let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, ''); // replace leading/trailing commas
+                newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
+                newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
+
+                return ', ' + rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + delimeter.end; // replace remaining commas and quotes with symbols
+            }
+
             let i = 0;
 
             textArray.forEach((row) =>
             {
-                //let newRow = String(row).replace(/,(?!\s)/g, ', ');
                 let newRow = String(row);
                 let groups = [...newRow.matchAll(regex)];
 
@@ -155,10 +163,7 @@ window.ceres = {};
 
                 groups.forEach((group) =>
                 {
-                    let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, ''); // replace leading/trailing commas
-                    newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
-                    newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                    newGroup = ', ' + rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols) + delimeter.end; // replace remaining commas and quotes with symbols
+                    let newGroup = parseGroup(group);
                     console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + newGroup);
                 });
 
