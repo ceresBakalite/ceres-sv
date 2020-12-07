@@ -155,6 +155,7 @@ window.ceres = {};
                 groups.forEach((group) =>
                 {
                     let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, '');
+                    newGroup = newGroup.replace(/^\s*?" */, '').replace(/\s*?" *$/, '');
                     console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + newGroup);
                 });
 
