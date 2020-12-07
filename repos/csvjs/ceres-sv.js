@@ -156,7 +156,8 @@ window.ceres = {};
                 {
                     let newGroup = String(group).replace(/^\s*?, */, '').replace(/\s*?, *$/, ''); // replace leading/trailing commas
                     newGroup = newGroup.replace(/^\s*?"/, '').replace(/"\s*?$/, ''); // replace leading/trailing quotes
-                    newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with single quote
+                    newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
+                    newGroup = rsc.recursiveReplace(newGroup, RegExp(/"|,/g), symbols); // replace remaining commas and quotes with symbols
                     console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' ' + j + ': ' + newGroup);
                 });
 
