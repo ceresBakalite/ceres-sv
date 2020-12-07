@@ -156,7 +156,6 @@ window.ceres = {};
             textArray.forEach((row) =>
             {
                 let newRow = String(row);
-                let testRow = newRow;
                 let groups = [...newRow.matchAll(regex)]; // get character groups in need of parsing
 
                 let j = i++;
@@ -165,22 +164,15 @@ window.ceres = {};
                 {
                     let newGroup = parseGroup(group);
                     //console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testGroup ' + j + ': [' + group + '] - [' + newGroup + ']');
-                    testRow = testRow.replace(group, newGroup);
+                    newRow = newRow.replace(group, newGroup);
                 });
 
-                testRow = testRow.replace(/_&grp\s*?$/, ''); // replace the end symbol if it appears at the end of a row
-                testRow = testRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+                newRow = newRow.replace(/_&grp\s*?$/, ''); // replace the end symbol if it appears at the end of a row
+                newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+
                 console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow ' + j + ': ' + testRow);
 
-
-                groups.forEach((group) =>
-                {
-                    let newGroup = rsc.recursiveReplace(String(group).replace(/^\s*?"/, '').replace(/"\s*?,\s*? $/, ''), RegExp(/"|,/g), symbols) + ',';
-                    newRow = String(newRow).replace(group, newGroup);
-                });
-
-
-                newArray.push(newRow.trim().slice(0,-1));
+                newArray.push(newRow);
             });
 
             console.log('time: ' + this.getCurrentDateTime({ time: true, ms: true }));
