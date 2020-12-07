@@ -145,7 +145,7 @@ window.ceres = {};
             textArray.forEach((row) =>
             {
                 let newRow = String(row).replace(/,(?!\s)/g, ', ');
-                let groups = [...newRow.match(regex)];
+                let groups = [...newRow.matchAll(regex)];
 
                 groups.forEach((group) =>
                 {
