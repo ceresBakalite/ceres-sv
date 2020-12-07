@@ -152,6 +152,14 @@ window.ceres = {};
                 return ', ' + newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
+            const parseRow = function(row)
+            {
+                let newRow = row.replace(/_&grp\s*?$/, ''); // cleanup trailing symbol
+                return newRow.replace(/_&grp/, ''); // cleanup remaining symbols
+
+                return ', ' + newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
+            }
+
             let i = 0;
 
             textArray.forEach((row) =>
@@ -168,8 +176,8 @@ window.ceres = {};
                     testRow = testRow.replace(group, newGroup);
                 });
 
-                testRow = testRow.replace(/_&grp\s*?$/, ''); // cleanup trailing symbol
-                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow ' + j + ': ' + testRow.replace(/_&grp\s*?$/, ''));
+                testRow = testRow.replace(/_&grp/, ''); // cleanup symbols
+                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow ' + j + ': ' + testRow);
 
 
                 groups.forEach((group) =>
