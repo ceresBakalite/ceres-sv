@@ -139,15 +139,14 @@ window.ceres = {};
             if (!symbol.end) symbol.end = '_&grp'; // end of character group
 
             const textArray = text.split('\n');
+            const newArray = new Array(textArray.length);
             const regex = /"[^]*?",|"[^]*?"$/gm;
             const re = new RegExp(symbol.end + '\s*?$', 'g');
-            const newArray = new Array(textArray.length);
 
             const parseGroup = function(group)
             {
                 let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-
                 return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
@@ -155,7 +154,6 @@ window.ceres = {};
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
                 newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
-
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');
             }
 
@@ -175,7 +173,7 @@ window.ceres = {};
                     newRow = newRow.replace(group, newGroup);
                 });
 
-                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + parseRow(newRow));
+                //console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + parseRow(newRow));
 
                 newArray.push(parseRow(newRow));
             });
