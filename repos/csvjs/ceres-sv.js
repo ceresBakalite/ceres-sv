@@ -120,7 +120,7 @@ window.ceres = {};
 
             textArray.forEach((row) =>
             {
-                let newRow = String(row + ',').replace(/,(?!\s)/g, ', ');
+                let newRow = String(row).replace(/,(?!\s)/g, ', ');
                 let groups = [...newRow.matchAll(regex)];
 
 
