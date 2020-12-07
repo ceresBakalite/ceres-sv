@@ -177,7 +177,7 @@ window.ceres = {};
                 });
 
                 testRow = testRow.replaceAll(symbol.end, ''); // cleanup symbols
-                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow 1 ' + j + ': ' + testRow);
+                console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testRow 2 ' + j + ': ' + testRow);
 
 
                 groups.forEach((group) =>
