@@ -481,8 +481,8 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + atr.parseImageArray(), logtrace: cfg.attrib.trace });
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
@@ -735,21 +735,6 @@ window.ceres = {};
                         if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: rsc.attrib.quoteSymbol, comma: rsc.attrib.commaSymbol});
 
                         return textList;
-                    }
-
-                    this.parseImageArray = function()
-                    {
-                        if (!rsc.fileType(cfg.src, '.csv')) return;
-
-                        let newArray = new Array(cfg.imageArray.length);
-
-                        cfg.imageArray.forEach((row) =>
-                        {
-                            let newRow = String(row).replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
-                            newArray.push(newRow);
-                        });
-
-                        return newArray;
                     }
 
                     this.parseJSON = function(text)
