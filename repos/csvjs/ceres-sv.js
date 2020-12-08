@@ -135,24 +135,24 @@ window.ceres = {};
         this.parseCSV = function(text, symbol = {})
         {
             if (!symbol.comma) symbol.comma = '&comma;'; // \x2c etc
-            if (!symbol.end) symbol.end = '_&grp'; // end of character group
 
             const textArray = text.split('\n');
             const newArray = new Array(textArray.length);
+            const endSymbol = '_&grp';
             const regex = /"[^]*?",|"[^]*?"$/gm;
-            const re = new RegExp(symbol.end + '\s*?$', 'g');
+            const re = new RegExp(endSymbol + '\s*?$', 'g');
 
             const parseGroup = function(group)
             {
                 let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                return newGroup.replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas with symbols
+                return newGroup.replace(/,/g, symbol.comma) + endSymbol; // replace remaining commas with symbols
             }
 
             const parseRow = function(row)
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
-                newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+                newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols with comma seperators
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');  // cleanup
             }
 
