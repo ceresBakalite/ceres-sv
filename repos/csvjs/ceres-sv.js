@@ -750,7 +750,7 @@ window.ceres = {};
                         cfg.imageArray.forEach((row) =>
                         {
                             let newRow = String(row).replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
-                            newArray.push(parseRow(newRow));
+                            newArray.push(newRow);
                         });
 
                         return newArray;
