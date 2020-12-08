@@ -660,13 +660,11 @@ window.ceres = {};
                             {
                                 return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
-                                    : arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
+                                    : arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '"').replaceAll(rsc.attrib.commaSymbol, ',');
                             };
 
-                            const setSubText = function(alt)
+                            const setSubText = function()
                             {
-                                if (alt) return arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '"').replaceAll(rsc.attrib.commaSymbol, ',');
-
                                 return (rsc.ignore(arrayItem[1])) ? null
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
                                     : arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '"').replaceAll(rsc.attrib.commaSymbol, ',');
@@ -691,7 +689,7 @@ window.ceres = {};
                                 imgNode.appendChild(slideNode);
 
                                 if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
-                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubText(true), loading: setLoading() });
+                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubText(), loading: setLoading() });
                                 if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
 
