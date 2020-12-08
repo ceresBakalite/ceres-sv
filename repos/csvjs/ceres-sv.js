@@ -136,12 +136,12 @@ window.ceres = {};
         {
             if (!symbol.seperator) symbol.seperator = '_&c;'; // &comma; &#x2c; &#44; etc
 
-            const textArray = text.split('\n'); // note: this breaks the RFC standard
+            const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
             const newArray = new Array(textArray.length);
             const quoteSymbol = '_&q;';
             const endSymbol = '_&grp;';
             const regex = /"[^]*?",|"[^]*?"$/gm;
-            const re = new RegExp(end + '\s*?$', 'g');
+            const re = new RegExp(endSymbol + '\s*?$', 'g');
 
             const parseGroup = function(group)
             {
