@@ -214,7 +214,7 @@ window.ceres = {};
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
             tArray       : ['link', 'script', 'style'],
-            commaSymbol  : '_&c;',
+            commaSymbol  : '_&c',
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             whitespace   : /\s/g,
             markup       : /(<([^>]+)>)/ig,
