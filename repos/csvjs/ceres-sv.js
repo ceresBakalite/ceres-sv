@@ -134,26 +134,27 @@ window.ceres = {};
         // noddy regex csv parser - better than most, worse than some
         this.parseCSV = function(text, symbol = {})
         {
-            if (!symbol.seperator) symbol.seperator = '&comma;'; // &#x2c; &#44; etc
+            if (!symbol.quote) symbol.quote = '&quot;'; // \x22 etc
+            if (!symbol.comma) symbol.comma = '&comma;'; // \x2c etc
+            if (!symbol.end) symbol.end = '_&grp'; // end of character group
 
             const textArray = text.split('\n');
             const newArray = new Array(textArray.length);
-            const endSymbol = '_&grp;';
             const regex = /"[^]*?",|"[^]*?"$/gm;
-            const re = new RegExp(endSymbol + '\s*?$', 'g');
+            const re = new RegExp(symbol.end + '\s*?$', 'g');
 
             const parseGroup = function(group)
             {
                 let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                return newGroup.replace(/,/g, symbol.seperator) + endSymbol; // replace remaining commas with a seperator symbol
+                return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
             }
 
             const parseRow = function(row)
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
-                newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols with commas
-                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
+                newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ').replaceAll(symbol.quote, '"');  // cleanup and reinstate quotes
             }
 
             let i = 0;
@@ -214,6 +215,7 @@ window.ceres = {};
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
             tArray       : ['link', 'script', 'style'],
+            quoteSymbol  : '_&q',
             commaSymbol  : '_&c',
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             whitespace   : /\s/g,
@@ -739,7 +741,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { comma: rsc.attrib.commaSymbol});
+                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: rsc.attrib.quoteSymbol, comma: rsc.attrib.commaSymbol});
 
                         return textList;
                     }
