@@ -744,7 +744,8 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: rsc.attrib.quoteSymbol, comma: rsc.attrib.commaSymbol});
+                        //if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: rsc.attrib.quoteSymbol, comma: rsc.attrib.commaSymbol});
+                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: '&quot;', comma: '&comma;'});
 
                         return textList;
                     }
