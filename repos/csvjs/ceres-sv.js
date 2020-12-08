@@ -473,12 +473,10 @@ window.ceres = {};
                             const isImageArray = function()
                             {
                                 let imageList = getImageList();
-                                let linefeed = '_&b';
 
                                 if (!rsc.ignore(imageList))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
-                                    //cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, linefeed).split(linefeed) : null;
                                     cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
                                 }
 
@@ -650,22 +648,40 @@ window.ceres = {};
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; }
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; }
-                            const getSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; }
-                            const getSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; }
+                            const getSurtitle = function() { return (cfg.attrib.sur) ? set.surtext : null; }
+                            const getSubtitle = function() { return (cfg.attrib.sub) ? set.subtext : null; }
 
-                            const setSurText = function()
+                            const set =
+                            {
+                                get surtext() 
+                                {
+                                    return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
+                                        : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
+                                        : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                },
+
+                                get subtext()
+                                {
+                                    return (rsc.ignore(arrayItem[1])) ? null
+                                        : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
+                                        : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                }
+
+                            }
+
+                            const xxxsetSurText = function()
                             {
                                 return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
                                     : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
-                            };
+                            }
 
-                            const setSubText = function()
+                            const xxxsetSubText = function()
                             {
                                 return (rsc.ignore(arrayItem[1])) ? null
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
                                     : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
-                            };
+                            }
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             let classlist = atr.getClassList('slide');
