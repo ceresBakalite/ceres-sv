@@ -481,7 +481,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + atr.parseImageArray(imageList), logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
 
@@ -652,11 +652,15 @@ window.ceres = {};
                         images: function(index = 0)
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : index + ' / ' + cfg.imageArray.length; };
-                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : null; };
+                            //const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : index + ' / ' + cfg.imageArray.length; };
+                            //const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : null; };
+                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim() : index + ' / ' + cfg.imageArray.length; };
+                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
                             const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; };
                             const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; };
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; };
+
+                            if (rsc.fileType(cfg.src, '.csv')) cfg.imageArray = atr.parseImageArray();
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             let classlist = atr.getClassList('slide');
@@ -735,6 +739,21 @@ window.ceres = {};
                         if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: rsc.attrib.quoteSymbol, comma: rsc.attrib.commaSymbol});
 
                         return textList;
+                    }
+
+                    this.parseImageArray = function(imageList)
+                    {
+                        let list = (imageList) ? imageList : cfg.imageArray;
+
+                        let newArray = new Array(list.length);
+
+                        list.forEach((row) =>
+                        {
+                            let newRow = String(row).replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
+                            newArray.push(parseRow(newRow));
+                        });
+
+                        return newArray;
                     }
 
                     this.parseJSON = function(text)
