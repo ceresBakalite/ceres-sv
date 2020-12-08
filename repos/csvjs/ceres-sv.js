@@ -138,7 +138,7 @@ window.ceres = {};
 
             const textArray = text.split('\n');
             const newArray = new Array(textArray.length);
-            const endSymbol = '_&grp';
+            const endSymbol = '_&grp;';
             const regex = /"[^]*?",|"[^]*?"$/gm;
             const re = new RegExp(endSymbol + '\s*?$', 'g');
 
@@ -148,7 +148,7 @@ window.ceres = {};
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
                 return newGroup.replace(/,/g, symbol.seperator) + endSymbol; // replace remaining commas with a seperator symbol
             }
-    
+
             const parseRow = function(row)
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
