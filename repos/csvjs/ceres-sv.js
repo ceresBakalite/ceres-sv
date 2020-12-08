@@ -134,11 +134,10 @@ window.ceres = {};
         // noddy regex csv parser - better than most, worse than some
         this.parseCSV = function(text, symbol = {})
         {
-            if (!symbol.seperator) symbol.seperator = '_&c;'; // &comma; &#x2c; &#44; etc
+            if (!symbol.seperator) symbol.seperator = '&comma;'; // &#x2c; &#44; etc
 
-            const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
+            const textArray = text.split('\n');
             const newArray = new Array(textArray.length);
-            const quoteSymbol = '_&q;';
             const endSymbol = '_&grp;';
             const regex = /"[^]*?",|"[^]*?"$/gm;
             const re = new RegExp(endSymbol + '\s*?$', 'g');
@@ -147,16 +146,14 @@ window.ceres = {};
             {
                 let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                //return newGroup.replace(/"/g, quoteSymbol).replace(/,/g, symbol.seperator) + endSymbol; // replace remaining commas and quotes with symbols
-                return newGroup.replace(/,/g, symbol.seperator) + endSymbol; // replace remaining commas and quotes with symbols
+                return newGroup.replace(/,/g, symbol.seperator) + endSymbol; // replace remaining commas with a seperator symbol
             }
 
             const parseRow = function(row)
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
-                newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols with comma seperators
-                //return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ').replaceAll(quoteSymbol, '"');  // reinstate quotes and tidy up
-                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');  // reinstate quotes and tidy up
+                newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols with commas
+                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
             }
 
             let i = 0;
@@ -217,7 +214,7 @@ window.ceres = {};
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
             tArray       : ['link', 'script', 'style'],
-            commaSymbol  : '_&c;',
+            commaSymbol  : '_&c',
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             whitespace   : /\s/g,
             markup       : /(<([^>]+)>)/ig,
