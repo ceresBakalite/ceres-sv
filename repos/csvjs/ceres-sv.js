@@ -652,15 +652,11 @@ window.ceres = {};
                         images: function(index = 0)
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; };
-                            //const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : index + ' / ' + cfg.imageArray.length; };
-                            //const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : null; };
-                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim() : index + ' / ' + cfg.imageArray.length; };
-                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim() : null; };
+                            const setSurText = function() { return (!rsc.ignore(arrayItem[2])) ? arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : index + ' / ' + cfg.imageArray.length; };
+                            const setSubText = function() { return (!rsc.ignore(arrayItem[1])) ? arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;') : null; };
                             const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; };
                             const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; };
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; };
-
-                            if (rsc.fileType(cfg.src, '.csv')) cfg.imageArray = atr.parseImageArray();
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             let classlist = atr.getClassList('slide');
