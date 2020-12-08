@@ -154,6 +154,7 @@ window.ceres = {};
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
                 newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
+                newRow = newRow.replaceAll(symbol.quote, '"'); // reinstate quotation characters
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');
             }
 
