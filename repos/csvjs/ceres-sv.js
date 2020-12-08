@@ -653,8 +653,8 @@ window.ceres = {};
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; }
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; }
-                            const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; }
-                            const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; }
+                            const getSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; }
+                            const getSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; }
 
                             const setSurText = function()
                             {
@@ -663,8 +663,10 @@ window.ceres = {};
                                     : arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
                             };
 
-                            const setSubText = function()
+                            const setSubText = function(alt)
                             {
+                                if (alt) return arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '').replaceAll(rsc.attrib.commaSymbol, '');
+
                                 return (rsc.ignore(arrayItem[1])) ? null
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
                                     : arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
@@ -688,9 +690,9 @@ window.ceres = {};
 
                                 imgNode.appendChild(slideNode);
 
-                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle fade' });
-                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubText(), loading: setLoading() });
-                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle fade' });
+                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
+                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubText(true), loading: setLoading() });
+                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
 
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: cfg.href });
