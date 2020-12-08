@@ -169,11 +169,8 @@ window.ceres = {};
                 groups.forEach((group) =>
                 {
                     let newGroup = parseGroup(group);
-                    //console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' testGroup ' + j + ': [' + group + '] - [' + newGroup + ']');
                     newRow = newRow.replace(group, newGroup);
                 });
-
-                //console.log(this.getCurrentDateTime({ time: true, ms: true }) + ' newRow ' + j + ': ' + parseRow(newRow));
 
                 newArray.push(parseRow(newRow));
             });
