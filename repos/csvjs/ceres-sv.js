@@ -473,11 +473,12 @@ window.ceres = {};
                             const isImageArray = function()
                             {
                                 let imageList = getImageList();
+                                let linefeed = '_&b';
 
                                 if (!rsc.ignore(imageList))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
-                                    cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, '_&test').split('_&test') : null;
+                                    cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, linefeed).split(linefeed) : null;
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
