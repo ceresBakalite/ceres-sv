@@ -665,11 +665,11 @@ window.ceres = {};
 
                             const setSubText = function(alt)
                             {
-                                if (alt) return arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '').replaceAll(rsc.attrib.commaSymbol, '');
+                                if (alt) return arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '"').replaceAll(rsc.attrib.commaSymbol, ',');
 
                                 return (rsc.ignore(arrayItem[1])) ? null
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
-                                    : arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
+                                    : arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '"').replaceAll(rsc.attrib.commaSymbol, ',');
                             };
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
