@@ -1,6 +1,6 @@
 <code id="ceres-csv">
 
-    https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.png, Multi-panel view showing &quot; \, uncommitted comparison matches, Text Header 1
+    https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.png, Multi-panel view showing &quot; \x2c uncommitted comparison matches, Text Header 1
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews04.png, Multi-panel view depicting abbreviations deletion, Text Header 2
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews01.png, Simple comparison representation, Text Header 3
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews03.png, Multi-panel view depicting abbreviations item editing, Text Header 4
