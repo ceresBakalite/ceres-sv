@@ -154,8 +154,7 @@ window.ceres = {};
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
                 newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
-                newRow = newRow.replaceAll(symbol.quote, '"'); // reinstate quotation characters
-                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');
+                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ').replaceAll(symbol.quote, '"');  // cleanup and reinstate quotes
             }
 
             let i = 0;
@@ -482,7 +481,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().replace(/\r\n|\r|\n/gi, ';').split(';') : null;
                                 }
 
@@ -661,14 +660,14 @@ window.ceres = {};
                             {
                                 return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
-                                    : arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '"').replaceAll(rsc.attrib.commaSymbol, ',');
+                                    : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             };
 
                             const setSubText = function()
                             {
                                 return (rsc.ignore(arrayItem[1])) ? null
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
-                                    : arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '"').replaceAll(rsc.attrib.commaSymbol, ',');
+                                    : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             };
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
