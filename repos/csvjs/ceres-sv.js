@@ -653,14 +653,10 @@ window.ceres = {};
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; }
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; }
-                            const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText : null; }
+                            const setSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; }
                             const setSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; }
 
-                            const setSurText = (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
-                                    : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
-                                    : arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
-
-                            const xxxsetSurText = function()
+                            const setSurText = function()
                             {
                                 return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
