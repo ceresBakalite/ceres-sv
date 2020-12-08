@@ -648,35 +648,17 @@ window.ceres = {};
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; }
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; }
-                            const getSurtitle = function() { return (cfg.attrib.sur) ? set.surtext : null; }
-                            const getSubtitle = function() { return (cfg.attrib.sub) ? set.subtext : null; }
+                            const getSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; }
+                            const getSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; }
 
-                            const set =
-                            {
-                                get surtext() 
-                                {
-                                    return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
-                                        : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
-                                        : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
-                                },
-
-                                get subtext()
-                                {
-                                    return (rsc.ignore(arrayItem[1])) ? null
-                                        : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
-                                        : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
-                                }
-
-                            }
-
-                            const xxxsetSurText = function()
+                            const setSurText = function()
                             {
                                 return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
                                     : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
 
-                            const xxxsetSubText = function()
+                            const setSubText = function()
                             {
                                 return (rsc.ignore(arrayItem[1])) ? null
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
