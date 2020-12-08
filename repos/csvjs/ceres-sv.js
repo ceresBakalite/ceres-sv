@@ -661,9 +661,6 @@ window.ceres = {};
                                 return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
                                     : arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
-
-                                //if (rsc.ignore(arrayItem[2])) return index + ' / ' + cfg.imageArray.length;
-                                //return (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim() : arrayItem[2].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
                             };
 
                             const setSubText = function()
@@ -671,9 +668,6 @@ window.ceres = {};
                                 return (rsc.ignore(arrayItem[1])) ? null
                                     : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
                                     : arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
-
-                                //if (rsc.ignore(arrayItem[1])) return null;
-                                //return (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim() : arrayItem[1].trim().replaceAll(rsc.attrib.quoteSymbol, '&quot;').replaceAll(rsc.attrib.commaSymbol, '&comma;');
                             };
 
                             let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
