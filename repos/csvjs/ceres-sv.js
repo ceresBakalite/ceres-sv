@@ -134,7 +134,6 @@ window.ceres = {};
         // noddy regex csv parser - better than most, worse than some
         this.parseCSV = function(text, symbol = {})
         {
-            if (!symbol.quote) symbol.quote = '&quot;'; // \x22 etc
             if (!symbol.comma) symbol.comma = '&comma;'; // \x2c etc
             if (!symbol.end) symbol.end = '_&grp'; // end of character group
 
@@ -147,7 +146,6 @@ window.ceres = {};
             {
                 let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                //return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
                 return newGroup.replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas with symbols
             }
 
@@ -155,7 +153,6 @@ window.ceres = {};
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
                 newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
-                //return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ').replaceAll(symbol.quote, '"');  // cleanup and reinstate quotes
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');  // cleanup
             }
 
@@ -217,7 +214,6 @@ window.ceres = {};
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
             tArray       : ['link', 'script', 'style'],
-            quoteSymbol  : '_&q',
             commaSymbol  : '_&c',
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             whitespace   : /\s/g,
@@ -743,7 +739,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { quote: rsc.attrib.quoteSymbol, comma: rsc.attrib.commaSymbol});
+                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { comma: rsc.attrib.commaSymbol});
 
                         return textList;
                     }
