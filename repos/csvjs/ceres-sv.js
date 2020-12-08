@@ -147,14 +147,16 @@ window.ceres = {};
             {
                 let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                 newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
+                //return newGroup.replace(/"/g, symbol.quote).replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas and quotes with symbols
+                return newGroup.replace(/,/g, symbol.comma) + symbol.end; // replace remaining commas with symbols
             }
 
             const parseRow = function(row)
             {
                 let newRow = row.replace(re, ''); // replace the end symbol if it appears at the end of a row
                 newRow = newRow.replaceAll(symbol.end, ', '); // replace any remaining end symbols with comma seperators
-                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ').replaceAll(symbol.quote, '"');  // cleanup and reinstate quotes
+                //return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ').replaceAll(symbol.quote, '"');  // cleanup and reinstate quotes
+                return newRow.replace(/(?<!\s)[,](?!\s)/g, ', ');  // cleanup
             }
 
             let i = 0;
