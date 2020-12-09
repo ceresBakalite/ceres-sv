@@ -139,8 +139,8 @@ window.ceres = {};
             const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
             const newArray = new Array(textArray.length);
             const endSymbol = '_&grp;';
-            const regex = /"[^]*?",|"[^]*?"$/gm;
-            const re = new RegExp(endSymbol + '\s*?$', 'g');
+            const regex = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
+            const re = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
 
             const parseGroup = function(group)
             {
@@ -151,8 +151,8 @@ window.ceres = {};
 
             const parseRow = function(row)
             {
-                let newRow = row.replace(re, ''); // remove the end symbol if it appears at the end of a row
-                newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols with commas
+                let newRow = row.replace(re, ''); // remove end symbols at the end of a row
+                newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with commas
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
             }
 
@@ -633,7 +633,7 @@ window.ceres = {};
                             cfg.styleNode.className = 'slideview-style';
                             cfg.styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
 
-                            cfg.shadow.append(cfg.styleNode);
+                            cfg.shadow.appendChild(cfg.styleNode);
                         },
 
                         body: function()
