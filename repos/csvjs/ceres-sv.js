@@ -512,7 +512,7 @@ window.ceres = {};
                             atr.compose.images();
                             atr.compose.track();
 
-                            cfg.shadow.append(cfg.bodyNode);
+                            cfg.shadow.appendChild(cfg.bodyNode);
 
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
