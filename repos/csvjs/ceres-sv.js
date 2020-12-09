@@ -19,9 +19,7 @@ window.ceres = {};
         this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
         this.fileName = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
-//        this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.'), path.length).toUpperCase() === type.toUpperCase(); }
-
-        this.fileType = function(path, type) { return (this.fileName(path).substring(path.lastIndexOf('.')+1)).toUpperCase() === type.toUpperCase(); }
+        this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
 
         this.composeElement = function(el, atr)
         {
@@ -656,14 +654,14 @@ window.ceres = {};
                             const setSurText = function()
                             {
                                 return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
-                                    : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[2].trim()
+                                    : (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[2].trim()
                                     : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
 
                             const setSubText = function()
                             {
                                 return (rsc.ignore(arrayItem[1])) ? null
-                                    : (!rsc.fileType(cfg.src, '.csv')) ? arrayItem[1].trim()
+                                    : (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
                                     : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
 
@@ -740,8 +738,8 @@ window.ceres = {};
 
                     this.getFileType = function(textList)
                     {
-                        if (rsc.fileType(cfg.src, '.json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, '.csv')) return rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol});
+                        if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
+                        if (rsc.fileType(cfg.src, 'csv')) return rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol});
 
                         return textList;
                     }
