@@ -7,7 +7,7 @@
  *
  * ceresBakalite/ceres-sv is licensed under the MIT License - http://opensource.org/licenses/MIT
  *
- * Copyright (c) 2020 Alexander Munro
+ * Copyright (c) 2018 - 2020 Alexander Munro
 */
 window.ceres = {};
 (function()
@@ -19,7 +19,9 @@ window.ceres = {};
         this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
         this.fileName = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
-        this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.'), path.length).toUpperCase() === type.toUpperCase(); }
+//        this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.'), path.length).toUpperCase() === type.toUpperCase(); }
+
+        this.fileType = function(path, type) { return (this.fileName(path).substring(path.lastIndexOf('.')+1)).toUpperCase() === type.toUpperCase(); }
 
         this.composeElement = function(el, atr)
         {
