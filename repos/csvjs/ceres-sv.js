@@ -174,11 +174,11 @@ window.ceres = {};
 
                     rowArray.forEach((value) => {
 
-                        jsonString = jsonString + nodeName(i) + '"' + value + '",';
+                        jsonString = jsonString + nodeName(i) + '"' + value + '", ';
                         i++;
                     });
 
-                    jsonString = jsonString + ' }, '
+                    jsonString = jsonString.replace(/,\s*?$/, '') + ' }, '
                     console.log('json row: ' + jsonString);
 
                 });
