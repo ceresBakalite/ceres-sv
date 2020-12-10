@@ -160,6 +160,13 @@ window.ceres = {};
             const composeJSON = function()
             {
                 // apply node names to array values and return a JSON construct
+                symbol.nodes.forEach((item) => {
+
+                    console.log('item node: ' + item);
+
+                });
+
+
                 return newArray.join('\n');
             }
 
