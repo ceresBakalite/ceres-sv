@@ -165,16 +165,18 @@ window.ceres = {};
                     return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
                 }
 
+                let jsonString = '';
+
                 // construct a javascript object
                 newArray.forEach((row) => {
 
-                    let jsonString = '{ ';
+                    jsonString += '{ ';
                     let rowArray = row.split(',');
                     let i = 0;
 
                     rowArray.forEach((value) => {
 
-                        jsonString = jsonString + nodeName(i) + '"' + value + '", ';
+                        jsonString += nodeName(i) + '"' + value + '", ';
                         i++;
                     });
 
