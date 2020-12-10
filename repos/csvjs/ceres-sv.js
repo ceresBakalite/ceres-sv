@@ -160,6 +160,15 @@ window.ceres = {};
             // construct a JSON object
             const composeJSON = function()
             {
+                // construct a javascript object
+                newArray.forEach((item) => {
+
+                    console.log('item node: ' + item);
+
+                });
+
+                //JSON stringify the javascript object
+
                 if (symbol.nodes)
                 {
                     // apply node names to array values
