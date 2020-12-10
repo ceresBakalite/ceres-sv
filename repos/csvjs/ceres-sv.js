@@ -186,7 +186,7 @@ window.ceres = {};
 
                 });
 
-                jsonString = '[ ' + jsonString.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ' ]';
+                jsonString = '[' + jsonString.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ']';
 
                 console.log('json: ' + jsonString);
 
