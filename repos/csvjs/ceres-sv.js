@@ -685,22 +685,10 @@ window.ceres = {};
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; }
                             const getSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; }
+                            const setSurText = function() { return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim() }
+                            const setSubText = function() { return (rsc.ignore(arrayItem[1])) ? null : arrayItem[2].trim() }
                             const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist = atr.getClassList('slide');
-
-                            const setSurText = function()
-                            {
-                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim()
-                                    //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[2].trim()
-                                    //: arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
-                            }
-
-                            const setSubText = function()
-                            {
-                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[2].trim()
-                                    //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
-                                    //: arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
-                            }
 
                             const imgNode = document.createElement('div');
                             imgNode.className = 'slideview-image';
@@ -773,7 +761,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON(rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, json: true, nodes: ['url','sub','sur'] } ));
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, json: true, nodes: ['url','sub','sur'] } ) );
 
                         return textList;
                     }
