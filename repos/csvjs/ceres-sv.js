@@ -135,7 +135,7 @@ window.ceres = {};
 
             const objectType = function()
             {
-                return (json) ? composeJSON(newArray, symbol) : newArray.join('\n');
+                return (json) ? this.composeJSON(newArray, symbol) : newArray.join('\n');
             }
 
             textArray.forEach((row) =>
@@ -178,7 +178,7 @@ window.ceres = {};
                     str += '{ ';
 
                     rowArray.forEach((value) => {
-                        str += nodeName(i) + '"' + String(value).trim().replaceAll('"', '&quot') + '", ';
+                        str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
                         i++;
                     });
 
