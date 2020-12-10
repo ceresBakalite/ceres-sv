@@ -157,7 +157,7 @@ window.ceres = {};
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
             }
 
-            // return a JSON construct
+            // construct a JSON object
             const composeJSON = function()
             {
                 if (symbol.nodes)
