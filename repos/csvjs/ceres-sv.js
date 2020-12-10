@@ -177,7 +177,7 @@ window.ceres = {};
                         let i = 0;
 
                         rowArray.forEach((value) => {
-                            jsonString += nodeName(i) + '"' + value + '", ';
+                            jsonString += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
                             i++;
                         });
 
@@ -186,7 +186,7 @@ window.ceres = {};
 
                 });
 
-                jsonString = '[ ' + jsonString.replace(/,\s*?$/, '').replaceAll(symbol.separator, ',') + ' ]';
+                jsonString = '[ ' + jsonString.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ' ]';
 
                 console.log('json: ' + jsonString);
 
