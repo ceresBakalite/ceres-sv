@@ -160,10 +160,26 @@ window.ceres = {};
             // construct a JSON object
             const composeJSON = function()
             {
-                // construct a javascript object
-                newArray.forEach((item) => {
+                const nodeName = function(i)
+                {
+                    return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
+                }
 
-                    console.log('item node: ' + item);
+                // construct a javascript object
+                newArray.forEach((row) => {
+
+                    let jsonString = '{ ';
+                    let rowArray = row.split(',');
+                    let i = 0;
+
+                    rowArray.forEach((value) => {
+
+                        jsonString = nodeName(i) + '"' + value + '",';
+                        i++;
+                    });
+
+                    jsonString = jsonString + ' }, '
+                    console.log('json row: ' + jsonString);
 
                 });
 
