@@ -135,7 +135,7 @@ window.ceres = {};
         this.parseCSV = function(text, symbol = {})
         {
             if (!symbol.separator) symbol.separator = '_&c'; // &comma; &#x2c; &#44; custom etc
-            const json = (symbol.nodes);
+            const nodes = (symbol.json || symbol.nodes);
 
             const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
             const newArray = new Array(textArray.length);
@@ -157,14 +157,19 @@ window.ceres = {};
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
             }
 
+            // return a JSON construct
             const composeJSON = function()
             {
-                // apply node names to array values and return a JSON construct
-                symbol.nodes.forEach((item) => {
+                if (symbol.nodes)
+                {
+                    // apply node names to array values
+                    symbol.nodes.forEach((item) => {
 
-                    console.log('item node: ' + item);
+                        console.log('item node: ' + item);
 
-                });
+                    });
+
+                }
 
 
                 return newArray.join('\n');
@@ -172,7 +177,7 @@ window.ceres = {};
 
             const objectType = function()
             {
-                return (json) ? composeJSON() : newArray.join('\n');
+                return (nodes) ? composeJSON() : newArray.join('\n');
             }
 
             textArray.forEach((row) =>
@@ -754,7 +759,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, nodes: ['url','sub','sur'] } );
+                        if (rsc.fileType(cfg.src, 'csv')) return rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, json: true, nodes: ['url','sub','sur'] } );
 
                         return textList;
                     }
