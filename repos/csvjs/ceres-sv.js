@@ -156,7 +156,7 @@ window.ceres = {};
         }
 
         // construct a JSON string object
-        const composeJSON = function(ar, obj = {})
+        this.composeJSON = function(ar, obj = {})
         {
             let str = '';
 
@@ -170,7 +170,7 @@ window.ceres = {};
 
             ar.forEach((row) => {
 
-                if (!rsc.ignore(row))
+                if (!this.ignore(row))
                 {
                     let rowArray = row.split(',');
                     let i = 0;
