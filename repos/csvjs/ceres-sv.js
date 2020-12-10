@@ -133,9 +133,40 @@ window.ceres = {};
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
             }
 
+            // construct a JSON object
+            const composeJSON = function()
+            {
+                let str = '';
+
+                const nodeName = function(i)
+                {
+                    return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
+                }
+
+                newArray.forEach((row) => {
+
+                    if (!this.ignore(row))
+                    {
+                        str += '{ ';
+                        let rowArray = row.split(',');
+                        let i = 0;
+
+                        rowArray.forEach((value) => {
+                            str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
+                            i++;
+                        });
+
+                        str = str.replace(/,\s*?$/, '') + ' },\n'
+                    }
+
+                });
+
+                return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ']';
+            }
+
             const objectType = function()
             {
-                return (json) ? this.composeJSON(newArray, symbol) : newArray.join('\n');
+                return (json) ? composeJSON() : newArray.join('\n');
             }
 
             textArray.forEach((row) =>
@@ -153,41 +184,6 @@ window.ceres = {};
             });
 
             return objectType();
-        }
-
-        // construct a JSON string object
-        this.composeJSON = function(ar, obj = {})
-        {
-            let str = '';
-
-            if (!obj.separator) obj.separator = '_&c'; // &comma; &#x2c; &#44; custom etc
-            if (!obj.nodes) obj.nodes = [];
-
-            const nodeName = function(i)
-            {
-                return (obj.nodes[i]) ? '"' + (obj.nodes[i]) + '": ' : '"node' + i+1 + '": ';
-            }
-
-            ar.forEach((row) => {
-
-                if (!this.ignore(row))
-                {
-                    let rowArray = row.split(',');
-                    let i = 0;
-
-                    str += '{ ';
-
-                    rowArray.forEach((value) => {
-                        str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
-                        i++;
-                    });
-
-                    str = str.replace(/,\s*?$/, '') + ' },\n'
-                }
-
-            });
-
-            return '[' + str.replace(/,\s*?$/, '').replaceAll(obj.separator, '&comma') + ']';
         }
 
         this.inspect = function(diagnostic)
