@@ -135,7 +135,7 @@ window.ceres = {};
         this.parseCSV = function(text, symbol = {})
         {
             if (!symbol.separator) symbol.separator = '_&c'; // &comma; &#x2c; &#44; custom etc
-            const nodes = (symbol.json || symbol.nodes);
+            const json = (symbol.json || symbol.nodes);
 
             const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
             const newArray = new Array(textArray.length);
@@ -160,42 +160,37 @@ window.ceres = {};
             // construct a JSON object
             const composeJSON = function()
             {
+                let str = '';
+
                 const nodeName = function(i)
                 {
                     return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
                 }
 
-                let jsonString = '';
-
-                // construct a JSON object
                 newArray.forEach((row) => {
 
                     if (!rsc.ignore(row))
                     {
-                        jsonString += '{ ';
+                        str += '{ ';
                         let rowArray = row.split(',');
                         let i = 0;
 
                         rowArray.forEach((value) => {
-                            jsonString += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
+                            str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
                             i++;
                         });
 
-                        jsonString = jsonString.replace(/,\s*?$/, '') + ' },\n'
+                        str = str.replace(/,\s*?$/, '') + ' },\n'
                     }
 
                 });
 
-                jsonString = '[' + jsonString.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ']';
-
-                console.log('json: ' + jsonString);
-
-                return newArray.join('\n');
+                return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ']';
             }
 
             const objectType = function()
             {
-                return (nodes) ? composeJSON() : newArray.join('\n');
+                return (json) ? composeJSON() : newArray.join('\n');
             }
 
             textArray.forEach((row) =>
@@ -212,7 +207,7 @@ window.ceres = {};
                 newArray.push(parseRow(newRow));
             });
 
-            return objectType(newArray);
+            return objectType();
         }
 
         this.inspect = function(diagnostic)
@@ -777,7 +772,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, json: true, nodes: ['url','sub','sur'] } );
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON(rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
