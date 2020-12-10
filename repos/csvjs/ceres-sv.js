@@ -172,9 +172,10 @@ window.ceres = {};
 
                 if (!rsc.ignore(row))
                 {
-                    str += '{ ';
                     let rowArray = row.split(',');
                     let i = 0;
+
+                    str += '{ ';
 
                     rowArray.forEach((value) => {
                         str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
