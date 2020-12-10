@@ -174,7 +174,7 @@ window.ceres = {};
 
                     rowArray.forEach((value) => {
 
-                        jsonString = nodeName(i) + '"' + value + '",';
+                        jsonString = jsonString + nodeName(i) + '"' + value + '",';
                         i++;
                     });
 
