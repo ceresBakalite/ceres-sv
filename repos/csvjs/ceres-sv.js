@@ -167,7 +167,7 @@ window.ceres = {};
 
                 let jsonString = '';
 
-                // construct a javascript object
+                // construct a JSON object
                 newArray.forEach((row) => {
 
                     if (!rsc.ignore(row))
@@ -189,20 +189,6 @@ window.ceres = {};
                 jsonString = '[ ' + jsonString.replace(/,\s*?$/, '') + ' ]';
 
                 console.log('json: ' + jsonString);
-
-                //JSON stringify the javascript object
-
-                if (symbol.nodes)
-                {
-                    // apply node names to array values
-                    symbol.nodes.forEach((item) => {
-
-                        console.log('item node: ' + item);
-
-                    });
-
-                }
-
 
                 return newArray.join('\n');
             }
