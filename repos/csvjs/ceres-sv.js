@@ -178,10 +178,11 @@ window.ceres = {};
                         i++;
                     });
 
-                    jsonString = jsonString.replace(/,\s*?$/, '') + ' }, '
-                    console.log('json row: ' + jsonString);
+                    jsonString = jsonString.replace(/,\s*?$/, '') + ' },\n'
 
                 });
+
+                console.log('json: ' + jsonString);
 
                 //JSON stringify the javascript object
 
