@@ -134,7 +134,8 @@ window.ceres = {};
         // noddy regex csv parser - better than most, worse than some
         this.parseCSV = function(text, symbol = {})
         {
-            if (!symbol.separator) symbol.separator = '_&c'; // &comma; &#x2c; &#44; etc
+            if (!symbol.separator) symbol.separator = '_&c'; // &comma; &#x2c; &#44; custom etc
+            const json = (symbol.nodes);
 
             const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
             const newArray = new Array(textArray.length);
@@ -156,14 +157,21 @@ window.ceres = {};
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
             }
 
-            let i = 0;
+            const composeJSON = function()
+            {
+                // apply node names to array values and return a JSON construct
+                return newArray.join('\n');
+            }
+
+            const objectType = function()
+            {
+                return (json) ? composeJSON() : newArray.join('\n');
+            }
 
             textArray.forEach((row) =>
             {
                 let newRow = String(row);
                 let groups = [...newRow.matchAll(regex)]; // get character groups in need of parsing
-
-                let j = i++;
 
                 groups.forEach((group) =>
                 {
@@ -174,7 +182,7 @@ window.ceres = {};
                 newArray.push(parseRow(newRow));
             });
 
-            return newArray.join('\n');
+            return objectType(newArray);
         }
 
         this.inspect = function(diagnostic)
@@ -739,7 +747,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol});
+                        if (rsc.fileType(cfg.src, 'csv')) return rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, nodes: ['url','sub','sur'] } );
 
                         return textList;
                     }
