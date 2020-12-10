@@ -84,30 +84,6 @@ window.ceres = {};
             return obj.el;
         }
 
-        this.getCurrentDateTime = function(obj = {})
-        {
-            const newDate = new Date();
-            const defaultDate = this.ignore(obj);
-
-            if (defaultDate) return newDate;
-
-            const getOffset = function(value) { return (value < 10) ? '0' : ''; }
-
-            Date.prototype.today = function () {
-                return getOffset(this.getDate()) + this.getDate() + '/' + getOffset(this.getMonth()+1) + (this.getMonth() + 1) + '/' + this.getFullYear();
-            }
-
-            Date.prototype.timeNow = function () {
-                let time = getOffset(this.getHours()) + this.getHours() + ':' + getOffset(this.getMinutes()) + this.getMinutes() + ':' + getOffset(this.getSeconds()) + this.getSeconds();
-                return (obj.ms) ? time + '.' + getOffset(this.getUTCMilliseconds()) + this.getUTCMilliseconds() : time;
-            }
-
-            let date = (obj.date) ? newDate.today() + ' ' : '';
-            date = (obj.time) ? date + newDate.timeNow() : '';
-
-            return date.trim();
-        }
-
         this.recursiveReplace = function(str, criteria, obj)
         {
             return str.replace(criteria, function(match) { return obj[match]; });
@@ -157,40 +133,9 @@ window.ceres = {};
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
             }
 
-            // construct a JSON object
-            const composeJSON = function()
-            {
-                let str = '';
-
-                const nodeName = function(i)
-                {
-                    return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
-                }
-
-                newArray.forEach((row) => {
-
-                    if (!rsc.ignore(row))
-                    {
-                        str += '{ ';
-                        let rowArray = row.split(',');
-                        let i = 0;
-
-                        rowArray.forEach((value) => {
-                            str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
-                            i++;
-                        });
-
-                        str = str.replace(/,\s*?$/, '') + ' },\n'
-                    }
-
-                });
-
-                return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ']';
-            }
-
             const objectType = function()
             {
-                return (json) ? composeJSON() : newArray.join('\n');
+                return (json) ? composeJSON(newArray, symbol) : newArray.join('\n');
             }
 
             textArray.forEach((row) =>
@@ -208,6 +153,40 @@ window.ceres = {};
             });
 
             return objectType();
+        }
+
+        // construct a JSON object
+        const composeJSON = function(ar, obj = {})
+        {
+            let str = '';
+
+            if (!obj.separator) obj.separator = '_&c'; // &comma; &#x2c; &#44; custom etc
+            if (!obj.nodes) obj.nodes = [];
+
+            const nodeName = function(i)
+            {
+                return (obj.nodes[i]) ? '"' + (obj.nodes[i]) + '": ' : '"node' + i+1 + '": ';
+            }
+
+            ar.forEach((row) => {
+
+                if (!rsc.ignore(row))
+                {
+                    str += '{ ';
+                    let rowArray = row.split(',');
+                    let i = 0;
+
+                    rowArray.forEach((value) => {
+                        str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
+                        i++;
+                    });
+
+                    str = str.replace(/,\s*?$/, '') + ' },\n'
+                }
+
+            });
+
+            return '[' + str.replace(/,\s*?$/, '').replaceAll(obj.separator, '&comma') + ']';
         }
 
         this.inspect = function(diagnostic)
