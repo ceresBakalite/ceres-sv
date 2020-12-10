@@ -651,6 +651,8 @@ window.ceres = {};
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; }
                             const getSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; }
+                            const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+                            const classlist = atr.getClassList('slide');
 
                             const setSurText = function()
                             {
@@ -665,9 +667,6 @@ window.ceres = {};
                                     : (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
                                     : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
-
-                            let zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
-                            let classlist = atr.getClassList('slide');
 
                             const imgNode = document.createElement('div');
                             imgNode.className = 'slideview-image';
