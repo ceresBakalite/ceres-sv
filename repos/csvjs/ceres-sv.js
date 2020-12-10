@@ -145,7 +145,7 @@ window.ceres = {};
 
                 newArray.forEach((row) => {
 
-                    if (!this.ignore(row))
+                    if (!rsc.ignore(row))
                     {
                         str += '{ ';
                         let rowArray = row.split(',');
