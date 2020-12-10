@@ -262,7 +262,6 @@ window.ceres = {};
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.srcRoot = !rsc.ignore(cfg.src);
                 cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-                cfg.href = 'ceres.getSlide(this)';
                 cfg.shadowStyle = '';
                 cfg.attrib = {};
                 cfg.slide = 1;
@@ -627,6 +626,8 @@ window.ceres = {};
 
                     this.compose = { // HTMLElement compose extension
 
+                        href: 'ceres.getSlide(this)',
+
                         styles: function()
                         {
                             cfg.styleNode = document.createElement('style');
@@ -688,8 +689,8 @@ window.ceres = {};
                                 if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
 
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: cfg.href });
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: cfg.href });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: this.href });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: this.href });
                         },
 
                         track: function(index = 0)
@@ -701,7 +702,7 @@ window.ceres = {};
 
                             for (let item = 0; item < cfg.imageArray.length; item++)
                             {
-                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: cfg.href });
+                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.href });
                             }
 
                         }
