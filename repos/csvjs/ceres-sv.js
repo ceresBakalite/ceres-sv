@@ -508,7 +508,8 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
+                                    //rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
                                 }
 
@@ -689,16 +690,16 @@ window.ceres = {};
 
                             const setSurText = function()
                             {
-                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
-                                    : (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[2].trim()
-                                    : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim()
+                                    //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[2].trim()
+                                    //: arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
 
                             const setSubText = function()
                             {
-                                return (rsc.ignore(arrayItem[1])) ? null
-                                    : (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
-                                    : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[2].trim()
+                                    //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
+                                    //: arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
 
                             const imgNode = document.createElement('div');
