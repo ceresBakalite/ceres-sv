@@ -155,7 +155,7 @@ window.ceres = {};
             return objectType();
         }
 
-        // construct a JSON object
+        // construct a JSON string object
         const composeJSON = function(ar, obj = {})
         {
             let str = '';
@@ -178,7 +178,7 @@ window.ceres = {};
                     str += '{ ';
 
                     rowArray.forEach((value) => {
-                        str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
+                        str += nodeName(i) + '"' + String(value).trim().replaceAll('"', '&quot') + '", ';
                         i++;
                     });
 
