@@ -170,19 +170,23 @@ window.ceres = {};
                 // construct a javascript object
                 newArray.forEach((row) => {
 
-                    jsonString += '{ ';
-                    let rowArray = row.split(',');
-                    let i = 0;
+                    if (!rsc.ignore(row))
+                    {
+                        jsonString += '{ ';
+                        let rowArray = row.split(',');
+                        let i = 0;
 
-                    rowArray.forEach((value) => {
+                        rowArray.forEach((value) => {
+                            jsonString += nodeName(i) + '"' + value + '", ';
+                            i++;
+                        });
 
-                        jsonString += nodeName(i) + '"' + value + '", ';
-                        i++;
-                    });
-
-                    jsonString = jsonString.replace(/,\s*?$/, '') + ' },\n'
+                        jsonString = jsonString.replace(/,\s*?$/, '') + ' },\n'
+                    }
 
                 });
+
+                jsonString = '[ ' + jsonString.replace(/,\s*?$/, '') + ' ]';
 
                 console.log('json: ' + jsonString);
 
