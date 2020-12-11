@@ -763,8 +763,8 @@ window.ceres = {};
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + ((node.sub) ? ', ' + node.sub.replace(',', '&comma;') : '')
-                                + ((node.sur) ? ', ' + node.sur.replace(',', '&comma;') : '')
+                                + ((node.sub) ? ', ' + node.sub.replace(',', rsc.separator) : '')
+                                + ((node.sur) ? ', ' + node.sur.replace(',', rsc.separator) : '')
                                 + '\n';
                         });
 
