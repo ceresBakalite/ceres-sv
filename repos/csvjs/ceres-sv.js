@@ -576,16 +576,12 @@ window.ceres = {};
 
                             const setSurText = function()
                             {
-                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim();
-                                    //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[2].trim()
-                                    //: arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');;
                             }
 
                             const setSubText = function()
                             {
-                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[1].trim();
-                                    //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
-                                    //: arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
 
                             const imgNode = document.createElement('div');
@@ -684,9 +680,12 @@ window.ceres = {};
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + ((node.sub) ? ', ' + node.sub.replace(',', rsc.attrib.commaSymbol) : '')
-                                + ((node.sur) ? ', ' + node.sur.replace(',', rsc.attrib.commaSymbol) : '')
+                                + ((node.sub) ? ', ' + node.sub : '')
+                                + ((node.sur) ? ', ' + node.sur : '')
                                 + '\n';
+                                //+ ((node.sub) ? ', ' + node.sub.replace(',', rsc.attrib.commaSymbol) : '')
+                                //+ ((node.sur) ? ', ' + node.sur.replace(',', rsc.attrib.commaSymbol) : '')
+                                //+ '\n';
                         });
 
                         return str;
