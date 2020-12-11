@@ -152,8 +152,8 @@ window.ceres = {};
                         let i = 0;
 
                         rowArray.forEach((value) => {
-                            //str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
-                            str += nodeName(i) + '"' + value.trim() + '", ';
+                            str += nodeName(i) + '"' + value.trim().replaceAll('"', '\"') + '", ';
+                            //str += nodeName(i) + '"' + value.trim() + '", ';
                             i++;
                         });
 
@@ -162,6 +162,7 @@ window.ceres = {};
 
                 });
 
+                //return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ']';
                 return '[' + str.replace(/,\s*?$/, '') + ']';
             }
 
