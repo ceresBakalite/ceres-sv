@@ -655,7 +655,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV(textList, { separator: rsc.attrib.commaSymbol, json: true, nodes: ['url','sub','sur'] } ));
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
@@ -691,7 +691,6 @@ window.ceres = {};
                     // noddy regex csv parser - better than most, worse than some
                     this.parseCSV = function(text, symbol = {})
                     {
-                        if (!symbol.separator) symbol.separator = '_&c'; // &comma; &#x2c; &#44; custom etc
                         const json = (symbol.json || symbol.nodes);
 
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
@@ -704,7 +703,7 @@ window.ceres = {};
                         {
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                            return newGroup.replace(/,/g, symbol.separator) + endSymbol; // replace remaining commas with a separator symbol
+                            return newGroup.replace(/,/g, rsc.attrib.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
                         const parseRow = function(row)
