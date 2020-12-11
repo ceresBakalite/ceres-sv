@@ -133,8 +133,8 @@ window.ceres = {};
                 return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
             }
 
-            // construct a JSON object
-            const composeJSON = function()
+            // construct a JSON object from the CSV construct
+            const convertJSON = function()
             {
                 let str = '';
 
@@ -161,7 +161,6 @@ window.ceres = {};
 
                 });
 
-                console.log('str: ' + '[' + str.replace(/,\s*?$/, '') + ']');
                 return '[' + str.replace(/,\s*?$/, '') + ']';
             }
 
@@ -463,7 +462,7 @@ window.ceres = {};
                                 let shadowList = function()
                                 {
                                     let text = csvRoot.textContent;
-                                    return (!rsc.ignore(text)) ? text : null;
+                                    return (!rsc.ignore(text)) ? text.replace(/&comma;/g, rsc.attrib.commaSymbol) : null;
                                 }
 
                                 let lightList = function()
@@ -473,7 +472,7 @@ window.ceres = {};
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text;
+                                    return text.replace(/&comma;/g, rsc.attrib.commaSymbol);
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
