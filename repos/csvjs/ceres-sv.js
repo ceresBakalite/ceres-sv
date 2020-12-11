@@ -255,6 +255,8 @@ window.ceres = {};
 
             if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }).replace(/&comma;/g, rsc.attrib.commaSymbol));
 
+            console.log(rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }).replace(/&comma;/g, rsc.attrib.commaSymbol));
+
             for (let item of cfg.cssRoot)
             {
                 cfg.shadowStyle += rsc.parseText({ text: await ( await fetch(item) ).text() });
