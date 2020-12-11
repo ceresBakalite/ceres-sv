@@ -253,7 +253,7 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }).replace(/&comma;/g, rsc.attrib.commaSymbol));
 
             for (let item of cfg.cssRoot)
             {
@@ -485,7 +485,7 @@ window.ceres = {};
                                 if (!rsc.ignore(imageList))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
-                                    cfg.imageArray = (imageList) ? imageList.trim().replace(/&comma;/g, rsc.attrib.commaSymbol).split('\n') : null;
+                                    cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
