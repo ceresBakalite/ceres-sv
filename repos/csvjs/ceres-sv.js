@@ -462,7 +462,7 @@ window.ceres = {};
                                 let shadowList = function()
                                 {
                                     let text = csvRoot.textContent;
-                                    return (!rsc.ignore(text)) ? text.replace(/&comma;/g, rsc.attrib.commaSymbol) : null;
+                                    return (!rsc.ignore(text)) ? text : null;
                                 }
 
                                 let lightList = function()
@@ -472,7 +472,7 @@ window.ceres = {};
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text.replace(/&comma;/g, rsc.attrib.commaSymbol);
+                                    return text;
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
@@ -484,9 +484,8 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    //rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList, logtrace: cfg.attrib.trace });
-                                    cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
+                                    cfg.imageArray = (imageList) ? imageList.trim().replace(/&comma;/g, rsc.attrib.commaSymbol).split('\n') : null;
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
