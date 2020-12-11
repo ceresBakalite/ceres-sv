@@ -688,7 +688,7 @@ window.ceres = {};
                         return str;
                     }
 
-                    // noddy regex csv parser - better than most, worse than some
+                    // noddy regex csv parser
                     this.parseCSV = function(text, symbol = {})
                     {
                         const json = (symbol.json || symbol.nodes);
@@ -702,26 +702,28 @@ window.ceres = {};
                         const parseGroup = function(group)
                         {
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
-                            newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
+                            newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
                             return newGroup.replace(/,|&comma;/g, rsc.attrib.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
                         const parseRow = function(row)
                         {
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
-                            newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with commas
+                            newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
                             return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
                         }
 
                         // construct a JSON object from the CSV construct
                         const composeJSON = function()
                         {
-                            let str = '';
+                            const re = new RegExp(',\s*?$', ''); // match end symbols only at the end of a row
 
                             const nodeName = function(i)
                             {
                                 return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
                             }
+
+                            let str = '';
 
                             newArray.forEach((row) => {
 
@@ -736,12 +738,12 @@ window.ceres = {};
                                         i++;
                                     });
 
-                                    str = str.replace(/,\s*?$/, '') + ' },\n'
+                                    str = str.replace(re, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(/,\s*?$/, '') + ']';
+                            return '[' + str.replace(re, '') + ']';
                         }
 
                         const objectType = function()
