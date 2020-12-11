@@ -163,8 +163,8 @@ window.ceres = {};
 
                 });
 
-                console.log('str: ' + '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, ',') + ']');
-                return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, ',') + ']';
+                console.log('str: ' + '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma;') + ']');
+                return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma;') + ']';
             }
 
             const objectType = function()
