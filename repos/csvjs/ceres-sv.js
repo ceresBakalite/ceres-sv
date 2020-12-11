@@ -664,7 +664,8 @@ window.ceres = {};
                     {
                         if (rsc.ignore(obj.text)) return;
 
-                        if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
+                        //if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
+                        if (obj.regex) return obj.text.replace(this.attrib.markup, '');
 
                         if (obj.comma) obj.text = obj.text.replace(/&comma;/g, obj.comma);
 
