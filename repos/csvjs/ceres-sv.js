@@ -673,7 +673,7 @@ window.ceres = {};
 
                             const setSubText = function()
                             {
-                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[2].trim();
+                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[1].trim();
                                     //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
                                     //: arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
@@ -749,7 +749,7 @@ window.ceres = {};
                     this.getFileType = function(textList)
                     {
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON(rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, json: true, nodes: ['url','sub','sur'] } ));
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( rsc.parseCSV(textList, { separator: rsc.attrib.commaSymbol, json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
