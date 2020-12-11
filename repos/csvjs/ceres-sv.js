@@ -84,30 +84,6 @@ window.ceres = {};
             return obj.el;
         }
 
-        this.getCurrentDateTime = function(obj = {})
-        {
-            const newDate = new Date();
-            const defaultDate = this.ignore(obj);
-
-            if (defaultDate) return newDate;
-
-            const getOffset = function(value) { return (value < 10) ? '0' : ''; }
-
-            Date.prototype.today = function () {
-                return getOffset(this.getDate()) + this.getDate() + '/' + getOffset(this.getMonth()+1) + (this.getMonth() + 1) + '/' + this.getFullYear();
-            }
-
-            Date.prototype.timeNow = function () {
-                let time = getOffset(this.getHours()) + this.getHours() + ':' + getOffset(this.getMinutes()) + this.getMinutes() + ':' + getOffset(this.getSeconds()) + this.getSeconds();
-                return (obj.ms) ? time + '.' + getOffset(this.getUTCMilliseconds()) + this.getUTCMilliseconds() : time;
-            }
-
-            let date = (obj.date) ? newDate.today() + ' ' : '';
-            date = (obj.time) ? date + newDate.timeNow() : '';
-
-            return date.trim();
-        }
-
         this.recursiveReplace = function(str, criteria, obj)
         {
             return str.replace(criteria, function(match) { return obj[match]; });
@@ -690,16 +666,16 @@ window.ceres = {};
 
                             const setSurText = function()
                             {
-                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length
-                                    : (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[2].trim()
-                                    : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim();
+                                    //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[2].trim()
+                                    //: arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
 
                             const setSubText = function()
                             {
-                                return (rsc.ignore(arrayItem[1])) ? null
-                                    : (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
-                                    : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[2].trim();
+                                    //: (!rsc.fileType(cfg.src, 'csv')) ? arrayItem[1].trim()
+                                    //: arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
                             }
 
                             const imgNode = document.createElement('div');
