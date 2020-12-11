@@ -152,7 +152,7 @@ window.ceres = {};
                         let i = 0;
 
                         rowArray.forEach((value) => {
-                            str += nodeName(i) + '"' + value.trim().replace(/"/g, '\"') + '", ';
+                            str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", ';
                             i++;
                         });
 
