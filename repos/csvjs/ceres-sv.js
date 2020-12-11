@@ -703,7 +703,7 @@ window.ceres = {};
                         {
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace double quotes with a single quote
-                            return newGroup.replace(/,|&comma;/g, rsc.attrib.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
+                            return newGroup.replace(/,/g, rsc.attrib.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
                         const parseRow = function(row)
