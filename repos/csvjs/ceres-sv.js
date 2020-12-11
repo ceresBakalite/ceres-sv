@@ -680,12 +680,9 @@ window.ceres = {};
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + ((node.sub) ? ', ' + node.sub : '')
-                                + ((node.sur) ? ', ' + node.sur : '')
+                                + ((node.sub) ? ', ' + node.sub.replace(',', rsc.attrib.commaSymbol) : '')
+                                + ((node.sur) ? ', ' + node.sur.replace(',', rsc.attrib.commaSymbol) : '')
                                 + '\n';
-                                //+ ((node.sub) ? ', ' + node.sub.replace(',', rsc.attrib.commaSymbol) : '')
-                                //+ ((node.sur) ? ', ' + node.sur.replace(',', rsc.attrib.commaSymbol) : '')
-                                //+ '\n';
                         });
 
                         return str;
