@@ -666,7 +666,7 @@ window.ceres = {};
 
                     this.parseText = function(obj)
                     {
-                        if (this.ignore(obj.text)) return;
+                        if (rsc.ignore(obj.text)) return;
 
                         if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
