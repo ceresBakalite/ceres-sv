@@ -166,7 +166,7 @@ window.ceres = {};
 
             const objectType = function()
             {
-                return (json) ? composeJSON() : newArray.join('\n');
+                return (json) ? convertJSON() : newArray.join('\n');
             }
 
             textArray.forEach((row) =>
