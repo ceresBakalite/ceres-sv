@@ -716,14 +716,12 @@ window.ceres = {};
                         // construct a JSON object from the CSV construct
                         const composeJSON = function()
                         {
-                            const re = new RegExp(',\s*?$', ''); // match end symbols only at the end of a row
+                            let str = '';
 
                             const nodeName = function(i)
                             {
                                 return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
                             }
-
-                            let str = '';
 
                             newArray.forEach((row) => {
 
@@ -738,12 +736,12 @@ window.ceres = {};
                                         i++;
                                     });
 
-                                    str = str.replace(re, '') + ' },\n'
+                                    str = str.replace(/,\s*?$/, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(re, '') + ']';
+                            return '[' + str.replace(/,\s*?$/, '') + ']';
                         }
 
                         const objectType = function()
