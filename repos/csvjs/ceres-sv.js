@@ -714,7 +714,7 @@ window.ceres = {};
                         }
 
                         // construct a JSON object from the CSV construct
-                        const convertJSON = function()
+                        const composeJSON = function()
                         {
                             let str = '';
 
@@ -746,7 +746,7 @@ window.ceres = {};
 
                         const objectType = function()
                         {
-                            return (json) ? convertJSON() : newArray.join('\n');
+                            return (json) ? composeJSON() : newArray.join('\n');
                         }
 
                         textArray.forEach((row) =>
