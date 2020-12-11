@@ -164,7 +164,7 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText({ comma: rsc.attrib.commaSymbol, text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
 
             for (let item of cfg.cssRoot)
             {
@@ -709,7 +709,7 @@ window.ceres = {};
                         const parseRow = function(row)
                         {
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
-                            newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with commas
+                            newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma sperator
                             return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
                         }
 
