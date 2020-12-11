@@ -164,8 +164,7 @@ window.ceres = {};
                 });
 
                 console.log('str: ' + str);
-                //return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma') + ']';
-                return '[' + str.replace(/,\s*?$/, '') + ']';
+                return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, ',') + ']';
             }
 
             const objectType = function()
