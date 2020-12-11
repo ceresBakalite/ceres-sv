@@ -103,6 +103,8 @@ window.ceres = {};
 
             if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
 
+            if (obj.comma) obj.text = obj.text.replace(/&comma;/g, obj.comma);
+
             let doc = new DOMParser().parseFromString(obj.text, 'text/html');
             return doc.body.textContent || doc.body.innerText;
         }
@@ -253,9 +255,7 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }).replace(/&comma;/g, rsc.attrib.commaSymbol));
-
-            console.log(rsc.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }).replace(/&comma;/g, rsc.attrib.commaSymbol));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', rsc.parseText({ comma: rsc.attrib.commaSymbol, text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
 
             for (let item of cfg.cssRoot)
             {
