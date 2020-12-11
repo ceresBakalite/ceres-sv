@@ -163,7 +163,7 @@ window.ceres = {};
 
                 });
 
-                console.log('str: ' + str);
+                console.log('str: ' + '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, ',') + ']');
                 return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, ',') + ']';
             }
 
