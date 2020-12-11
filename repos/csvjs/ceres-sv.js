@@ -152,9 +152,7 @@ window.ceres = {};
                         let i = 0;
 
                         rowArray.forEach((value) => {
-                            //str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
-                            str += nodeName(i) + '"' + value.trim().replaceAll('"', '\\"') + '", ';
-                            //str += nodeName(i) + '"' + value.trim() + '", ';
+                            str += nodeName(i) + '"' + value.trim().replace(/,/g, '&comma;') + '", ';
                             i++;
                         });
 
@@ -163,8 +161,8 @@ window.ceres = {};
 
                 });
 
-                console.log('str: ' + '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma;') + ']');
-                return '[' + str.replace(/,\s*?$/, '').replaceAll(symbol.separator, '&comma;') + ']';
+                console.log('str: ' + '[' + str.replace(/,\s*?$/, '') + ']');
+                return '[' + str.replace(/,\s*?$/, '') + ']';
             }
 
             const objectType = function()
@@ -765,8 +763,8 @@ window.ceres = {};
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + ((node.sub) ? ', ' + node.sub : '')
-                                + ((node.sur) ? ', ' + node.sur : '')
+                                + ((node.sub) ? ', ' + node.sub.replace(',', '&comma;') : '')
+                                + ((node.sur) ? ', ' + node.sur.replace(',', '&comma;') : '')
                                 + '\n';
                         });
 
