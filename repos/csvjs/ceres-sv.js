@@ -153,7 +153,7 @@ window.ceres = {};
 
                         rowArray.forEach((value) => {
                             //str += nodeName(i) + '"' + value.trim().replaceAll('"', '&quot') + '", ';
-                            str += nodeName(i) + '"' + value.trim().replaceAll('"', '\"') + '", ';
+                            str += nodeName(i) + '"' + value.trim().replaceAll('"', '\\"') + '", ';
                             //str += nodeName(i) + '"' + value.trim() + '", ';
                             i++;
                         });
