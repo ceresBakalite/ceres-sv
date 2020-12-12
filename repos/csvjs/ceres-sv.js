@@ -590,9 +590,10 @@ window.ceres = {};
                             cfg.bodyNode.appendChild(imgNode);
 
                             //for (let item = 0; item < cfg.imageArray.length; item++)
-                            for (let item in cfg.imageArray)
+                            for (let item of cfg.imageArray)
                             {
-                                var arrayItem = cfg.imageArray[item].split(',');
+                                //var arrayItem = cfg.imageArray[item].split(',');
+                                var arrayItem = cfg.imageArray(item).split(',');
 
                                 let slideNode = document.createElement('div');
                                 slideNode.id = 'img' + (++index);
