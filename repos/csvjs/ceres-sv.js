@@ -710,7 +710,6 @@ window.ceres = {};
                         const composeJSON = function()
                         {
                             const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
-                            const re = new RegExp(',\s*?$', 'g'); // match a comma at the end of a string
 
                             let str = '';
 
@@ -727,12 +726,12 @@ window.ceres = {};
                                         i++;
                                     });
 
-                                    str = str.replace(re, '') + ' },\n'
+                                    str = str.replace(/,\s*?$/, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(re, '') + ']';
+                            return '[' + str.replace(/,\s*?$/, '') + ']';
                         }
 
                         const objectType = function()
