@@ -134,7 +134,6 @@ window.ceres = {};
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
             tArray       : ['link', 'script', 'style'],
-            commaSymbol  : '_&c',
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             whitespace   : /\s/g,
             markup       : /(<([^>]+)>)/ig,
@@ -182,6 +181,7 @@ window.ceres = {};
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.srcRoot = !rsc.ignore(cfg.src);
                 cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
                 cfg.attrib = {};
                 cfg.slide = 1;
@@ -395,7 +395,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(rsc.attrib.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
                                     cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
                                 }
 
@@ -576,12 +576,12 @@ window.ceres = {};
 
                             const setSurText = function()
                             {
-                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(rsc.attrib.commaSymbol, ',');;
+                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',');;
                             }
 
                             const setSubText = function()
                             {
-                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[1].trim().replaceAll(rsc.attrib.commaSymbol, ',');
+                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[1].trim().replaceAll(cfg.commaSymbol, ',');
                             }
 
                             const imgNode = document.createElement('div');
@@ -664,7 +664,7 @@ window.ceres = {};
                     {
                         if (rsc.ignore(text)) return;
 
-                        let doc = new DOMParser().parseFromString(text.replace(/&comma;/g, rsc.attrib.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+                        let doc = new DOMParser().parseFromString(text.replace(/&comma;/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
                         return doc.body.textContent || doc.body.innerText;
                     }
 
@@ -676,8 +676,8 @@ window.ceres = {};
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + ((node.sub) ? ', ' + node.sub.replace(',', rsc.attrib.commaSymbol) : '')
-                                + ((node.sur) ? ', ' + node.sur.replace(',', rsc.attrib.commaSymbol) : '')
+                                + ((node.sub) ? ', ' + node.sub.replace(',', cfg.commaSymbol) : '')
+                                + ((node.sur) ? ', ' + node.sur.replace(',', cfg.commaSymbol) : '')
                                 + '\n';
                         });
 
@@ -690,7 +690,6 @@ window.ceres = {};
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
                         const newArray = new Array(textArray.length);
                         const endSymbol = '_&grp;';
-                        const json = (symbol.json || symbol.nodes);
                         const regex = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
                         const re = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
 
@@ -698,7 +697,7 @@ window.ceres = {};
                         {
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
-                            return newGroup.replace(/,|&comma;/g, rsc.attrib.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
+                            return newGroup.replace(/,|&comma;/g, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
                         const parseRow = function(row)
@@ -741,7 +740,7 @@ window.ceres = {};
 
                         const objectType = function()
                         {
-                            return (json) ? composeJSON() : newArray.join('\n');
+                            return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
                         }
 
                         textArray.forEach((row) =>
