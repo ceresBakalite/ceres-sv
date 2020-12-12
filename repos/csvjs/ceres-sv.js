@@ -713,7 +713,7 @@ window.ceres = {};
 
                             const nodeName = function(i)
                             {
-                                return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
+                                return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
                             }
 
                             newArray.forEach((row) => {
