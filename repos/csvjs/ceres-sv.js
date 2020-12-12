@@ -244,7 +244,7 @@ window.ceres = {};
                             {
                                 if (cfg.srcRoot) return 'undefined';
 
-                                let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
+                                let el = cfg.attrib.embed ? document.getElementById(cfg.attrib.embed) : null;
 
                                 if (rsc.ignore(el))
                                 {
