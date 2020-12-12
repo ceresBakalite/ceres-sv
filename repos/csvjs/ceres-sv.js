@@ -668,7 +668,7 @@ window.ceres = {};
                         if (obj.text.includes('</template>')) obj.text = obj.text.replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')
                         if (obj.commaSymbol) obj.text = obj.text.replace(/&comma;/g, obj.commaSymbol);
 
-                        let doc = new DOMParser().parseFromString(obj.text, 'text/html');
+                        let doc = new DOMParser().parseFromString(obj.text.trim(), 'text/html');
                         return doc.body.textContent || doc.body.innerText;
                     }
 
