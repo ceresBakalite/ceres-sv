@@ -396,8 +396,7 @@ window.ceres = {};
                                 if (!rsc.ignore(imageList))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
-                                    //cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
-                                    cfg.imageArray = (imageList) ? imageList.split('\n') : null;
+                                    cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
