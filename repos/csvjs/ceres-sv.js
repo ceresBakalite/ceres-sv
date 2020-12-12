@@ -589,6 +589,22 @@ window.ceres = {};
 
                             cfg.bodyNode.appendChild(imgNode);
 
+                            cfg.imageArray.forEach((item) =>
+                            {
+                                var arrayItem = cfg.imageArray[item].split(',');
+
+                                let slideNode = document.createElement('div');
+                                slideNode.id = 'img' + (++index);
+                                slideNode.className = classlist;
+
+                                imgNode.appendChild(slideNode);
+
+                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
+                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubtitle(), loading: setLoading() });
+                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
+                            });
+
+                            /*
                             for (let item = 0; item < cfg.imageArray.length; item++)
                             {
                                 var arrayItem = cfg.imageArray[item].split(',');
@@ -603,6 +619,7 @@ window.ceres = {};
                                 rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
+                            */
 
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: this.href });
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: this.href });
@@ -619,13 +636,6 @@ window.ceres = {};
                             {
                                 rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.href });
                             });
-
-                            /*
-                            for (let item = 0; item < cfg.imageArray.length; item++)
-                            {
-                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.href });
-                            }
-                            */
                         }
 
                     };
