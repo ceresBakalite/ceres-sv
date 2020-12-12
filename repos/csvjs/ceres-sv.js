@@ -396,7 +396,7 @@ window.ceres = {};
                                 if (!rsc.ignore(imageList))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
-                                    cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
+                                    cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
@@ -413,7 +413,7 @@ window.ceres = {};
                         {
                             const getSwipe = function(swipe)
                             {
-                                let offset = (swipe.action) ? swipe.right : swipe.left;
+                                let offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
                                 atr.get.slide({ shadow: cfg.shadow });
