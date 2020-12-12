@@ -664,7 +664,8 @@ window.ceres = {};
                         if (rsc.ignore(text)) return;
 
                         let doc = new DOMParser().parseFromString(text.replace(/&comma;/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
-                        return doc.body.textContent || doc.body.innerText;
+                        //return doc.body.textContent || doc.body.innerText;
+                        return doc.body.textContent;
                     }
 
                     this.parseJSON = function(text)
