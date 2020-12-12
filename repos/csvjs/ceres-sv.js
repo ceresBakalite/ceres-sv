@@ -664,12 +664,14 @@ window.ceres = {};
                     {
                         if (rsc.ignore(obj.text)) return;
 
-                        //if (obj.regex || obj.text.includes('</template>')) return obj.text.replace(this.attrib.markup, '');
-                        if (obj.regex) return obj.text.replace(this.attrib.markup, '');
+                        let src = String(obj.text);
 
-                        if (obj.comma) obj.text = obj.text.replace(/&comma;/g, obj.comma);
+                        if (obj.regex || src.includes('</template>')) return src.replace(this.attrib.markup, '');
+                        //if (obj.regex) return src.replace(this.attrib.markup, '');
 
-                        let doc = new DOMParser().parseFromString(obj.text, 'text/html');
+                        if (obj.comma) src = src.replace(/&comma;/g, obj.comma);
+
+                        let doc = new DOMParser().parseFromString(src, 'text/html');
                         return doc.body.textContent || doc.body.innerText;
                     }
 
