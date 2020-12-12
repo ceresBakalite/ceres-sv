@@ -567,21 +567,21 @@ window.ceres = {};
 
                         images: function(index = 0)
                         {
-                            const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; }
-                            const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; }
-                            const getSurtitle = function() { return (cfg.attrib.sur) ? setSurtitle() : null; }
-                            const getSubtitle = function() { return (cfg.attrib.sub) ? setSubtitle() : null; }
+                            const setURL = function() { return !rsc.ignore(arrayItem[0]) ? arrayItem[0].trim() : null; }
+                            const setLoading = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
+                            const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
+                            const getSubtitle = function() { return cfg.attrib.sub ? setSubtitle() : null; }
                             const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist = atr.getClassList('slide');
 
                             const setSurtitle = function()
                             {
-                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',');;
+                                return rsc.ignore(arrayItem[2]) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',');;
                             }
 
                             const setSubtitle = function()
                             {
-                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[1].trim().replaceAll(cfg.commaSymbol, ',');
+                                return rsc.ignore(arrayItem[1]) ? null : arrayItem[1].trim().replaceAll(cfg.commaSymbol, ',');
                             }
 
                             const imgNode = document.createElement('div');
@@ -615,11 +615,17 @@ window.ceres = {};
 
                             cfg.bodyNode.appendChild(trackNode);
 
+                            cfg.imageArray.forEach((item) =>
+                            {
+                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.href });
+                            });
+
+                            /*
                             for (let item = 0; item < cfg.imageArray.length; item++)
                             {
                                 rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.href });
                             }
-
+                            */
                         }
 
                     };
