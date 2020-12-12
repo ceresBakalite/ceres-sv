@@ -569,7 +569,7 @@ window.ceres = {};
                         {
                             const setURL = function() { return !rsc.ignore(arrayItem[0]) ? arrayItem[0].trim() : null; }
                             const setLoading = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
-                            const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
+                            const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle(index) : null; }
                             const getSubtitle = function() { return cfg.attrib.sub ? setSubtitle() : null; }
                             const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist = atr.getClassList('slide');
@@ -594,7 +594,7 @@ window.ceres = {};
                             cfg.imageArray.forEach((item, i) =>
                             {
                                 console.log('item: ' + item);
-                                
+
                                 var arrayItem = String(item).split(',');
 
                                 let slideNode = document.createElement('div');
