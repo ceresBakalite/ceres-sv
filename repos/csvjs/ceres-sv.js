@@ -719,11 +719,11 @@ window.ceres = {};
                                 {
                                     str += '{ ';
                                     let rowArray = row.split(',');
-                                    let i = 0;
 
-                                    rowArray.forEach((value) => {
+                                    rowArray.forEach((value, i) => {
+
                                         str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", ';
-                                        i++;
+
                                     });
 
                                     str = str.replace(/,\s*?$/, '') + ' },\n'
