@@ -664,7 +664,6 @@ window.ceres = {};
                         if (rsc.ignore(text)) return;
 
                         let doc = new DOMParser().parseFromString(text.replace(/&comma;/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
-                        //return doc.body.textContent || doc.body.innerText;
                         return doc.body.textContent;
                     }
 
@@ -710,12 +709,10 @@ window.ceres = {};
                         // construct a JSON object from the CSV construct
                         const composeJSON = function()
                         {
-                            let str = '';
+                            const re = new RegExp(',\s*?$'); // match a comma at the end of a string
+                            const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
 
-                            const nodeName = function(i)
-                            {
-                                return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
-                            }
+                            let str = '';
 
                             newArray.forEach((row) => {
 
@@ -730,12 +727,12 @@ window.ceres = {};
                                         i++;
                                     });
 
-                                    str = str.replace(/,\s*?$/, '') + ' },\n'
+                                    str = str.replace(re, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(/,\s*?$/, '') + ']';
+                            return '[' + str.replace(re, '') + ']';
                         }
 
                         const objectType = function()
