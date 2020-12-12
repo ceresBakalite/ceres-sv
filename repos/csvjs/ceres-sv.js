@@ -164,7 +164,7 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText({ text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText({ commaSymbol: rsc.attrib.commaSymbol, text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
 
             for (let item of cfg.cssRoot)
             {
@@ -652,19 +652,19 @@ window.ceres = {};
                         return className += ' none';
                     }
 
-                    this.getFileType = function(text)
+                    this.getFileType = function(textList)
                     {
-                        if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(text);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( text, { json: true, nodes: ['url','sub','sur'] } ));
+                        if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
 
-                        return text;
+                        return textList;
                     }
 
                     this.parseText = function(obj)
                     {
                         if (rsc.ignore(obj.text)) return;
 
-                        obj.text = obj.text.replace(/&comma;/g, rsc.attrib.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '');
+                        obj.text = obj.text.replace(/&comma;/g, obj.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '');
 
                         let doc = new DOMParser().parseFromString(obj.text, 'text/html');
                         return doc.body.textContent || doc.body.innerText;
@@ -715,7 +715,6 @@ window.ceres = {};
                         const composeJSON = function()
                         {
                             let str = '';
-                            const re = new RegExp(',\s*?$'); // match comma appearing at the end of a string
 
                             const nodeName = function(i)
                             {
@@ -735,12 +734,12 @@ window.ceres = {};
                                         i++;
                                     });
 
-                                    str = str.replace(re, '') + ' },\n'
+                                    str = str.replace(/,\s*?$/, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(re, '') + ']';
+                            return '[' + str.replace(/,\s*?$/, '') + ']';
                         }
 
                         const objectType = function()
