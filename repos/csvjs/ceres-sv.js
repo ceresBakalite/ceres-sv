@@ -300,11 +300,11 @@ window.ceres = {};
 
                                         const styleAttribute = function(item)
                                         {
-                                            let re = (Boolean(item.match(/color:/i))) ? /color[^&]*?;/i
-                                                : (Boolean(item.match(/font:/i))) ? /font[^&]*?;/i
-                                                : (Boolean(item.match(/padding:/i))) ? /padding[^&]*?;/i
-                                                : (Boolean(item.match(/top:/i))) ? /top[^&]*?;/i
-                                                : (Boolean(item.match(/bottom:/i))) ? /bottom[^&]*?;/i
+                                            let re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
+                                                : Boolean(item.match(/font:/i)) ? /font[^&]*?;/i
+                                                : Boolean(item.match(/padding:/i)) ? /padding[^&]*?;/i
+                                                : Boolean(item.match(/top:/i)) ? /top[^&]*?;/i
+                                                : Boolean(item.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
                                             if (!rsc.ignore(re))
