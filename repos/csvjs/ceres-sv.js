@@ -565,7 +565,7 @@ window.ceres = {};
                             cfg.shade.appendChild(cfg.bodyNode);
                         },
 
-                        images: function(index = 0)
+                        images: function()
                         {
                             const setURL = function() { return !rsc.ignore(arrayItem[0]) ? arrayItem[0].trim() : null; }
                             const setLoading = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
@@ -588,6 +588,8 @@ window.ceres = {};
                             imgNode.className = 'slideview-image';
 
                             cfg.bodyNode.appendChild(imgNode);
+
+                            let index = 0;
 
                             for (let item in cfg.imageArray)
                             {
@@ -615,9 +617,9 @@ window.ceres = {};
 
                             cfg.bodyNode.appendChild(trackNode);
 
-                            cfg.imageArray.forEach((item) =>
+                            cfg.imageArray.forEach((item, i) =>
                             {
-                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.href });
+                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: this.href });
                             });
                         }
 
