@@ -589,8 +589,7 @@ window.ceres = {};
 
                             cfg.bodyNode.appendChild(imgNode);
 
-                            //for (let item = 0; item < cfg.imageArray.length; item++)
-                            for (let item of cfg.imageArray)
+                            for (let item = 0; item < cfg.imageArray.length; item++)
                             {
                                 var arrayItem = cfg.imageArray[item].split(',');
 
