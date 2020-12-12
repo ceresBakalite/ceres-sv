@@ -164,11 +164,11 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText({ commaSymbol: rsc.attrib.commaSymbol, text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText( atr.getFileType( await ( await fetch(cfg.src) ).text() )));
 
             for (let item of cfg.cssRoot)
             {
-                cfg.shadowStyle += atr.parseText({ text: await ( await fetch(item) ).text() });
+                cfg.shadowStyle += atr.parseText( await ( await fetch(item) ).text() );
             }
 
             if (atr.node.hasContent()) atr.node.showContent();
@@ -652,21 +652,19 @@ window.ceres = {};
                         return className += ' none';
                     }
 
-                    this.getFileType = function(textList)
+                    this.getFileType = function(text)
                     {
-                        if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
+                        if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(text);
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( text, { json: true, nodes: ['url','sub','sur'] } ));
 
-                        return textList;
+                        return text;
                     }
 
-                    this.parseText = function(obj)
+                    this.parseText = function(text)
                     {
-                        if (rsc.ignore(obj.text)) return;
+                        if (rsc.ignore(text)) return;
 
-                        obj.text = obj.text.replace(/&comma;/g, obj.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '');
-
-                        let doc = new DOMParser().parseFromString(obj.text, 'text/html');
+                        let doc = new DOMParser().parseFromString(text.replace(/&comma;/g, rsc.attrib.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
                         return doc.body.textContent || doc.body.innerText;
                     }
 
@@ -689,12 +687,11 @@ window.ceres = {};
                     // noddy regex csv parser
                     this.parseCSV = function(text, symbol = {})
                     {
-                        const json = (symbol.json || symbol.nodes);
-
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
                         const newArray = new Array(textArray.length);
                         const endSymbol = '_&grp;';
                         const regex = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
+                        const json = (symbol.json || symbol.nodes);
                         const re = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
 
                         const parseGroup = function(group)
@@ -715,7 +712,7 @@ window.ceres = {};
                         const composeJSON = function()
                         {
                             let str = '';
-                            const re = new RegExp(',\s*?$'); // match comma appearing at the end of a string
+                            const re = new RegExp(',\s*?$'); // match a comma appearing at the end of a string
 
                             const nodeName = function(i)
                             {
