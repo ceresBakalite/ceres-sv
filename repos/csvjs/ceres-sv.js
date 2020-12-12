@@ -666,6 +666,8 @@ window.ceres = {};
 
                         let src = String(obj.text);
 
+                        if (src.includes('</template>')) console.log('</template>: ' + src);
+
                         if (obj.regex || src.includes('</template>')) return src.replace(this.attrib.markup, '');
                         //if (obj.regex) return src.replace(this.attrib.markup, '');
 
