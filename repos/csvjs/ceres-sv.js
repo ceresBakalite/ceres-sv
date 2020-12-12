@@ -715,7 +715,7 @@ window.ceres = {};
                         const composeJSON = function()
                         {
                             let str = '';
-                            const re = new RegExp(',\s*?$'); // match comma +- whitespace appearing at the end of a string
+                            const re = new RegExp(',\s*?$'); // match comma appearing at the end of a string
 
                             const nodeName = function(i)
                             {
