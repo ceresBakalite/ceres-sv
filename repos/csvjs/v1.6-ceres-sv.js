@@ -244,7 +244,7 @@ window.ceres = {};
                             {
                                 if (cfg.srcRoot) return 'undefined';
 
-                                let el = (cfg.attrib.embed) ? document.getElementById(cfg.attrib.embed) : null;
+                                let el = cfg.attrib.embed ? document.getElementById(cfg.attrib.embed) : null;
 
                                 if (rsc.ignore(el))
                                 {
@@ -300,11 +300,11 @@ window.ceres = {};
 
                                         const styleAttribute = function(item)
                                         {
-                                            let re = (Boolean(item.match(/color:/i))) ? /color[^&]*?;/i
-                                                : (Boolean(item.match(/font:/i))) ? /font[^&]*?;/i
-                                                : (Boolean(item.match(/padding:/i))) ? /padding[^&]*?;/i
-                                                : (Boolean(item.match(/top:/i))) ? /top[^&]*?;/i
-                                                : (Boolean(item.match(/bottom:/i))) ? /bottom[^&]*?;/i
+                                            let re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
+                                                : Boolean(item.match(/font:/i)) ? /font[^&]*?;/i
+                                                : Boolean(item.match(/padding:/i)) ? /padding[^&]*?;/i
+                                                : Boolean(item.match(/top:/i)) ? /top[^&]*?;/i
+                                                : Boolean(item.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
                                             if (!rsc.ignore(re))
@@ -373,7 +373,7 @@ window.ceres = {};
                                 let shadowList = function()
                                 {
                                     let text = csvRoot.textContent;
-                                    return (!rsc.ignore(text)) ? text : null;
+                                    return !rsc.ignore(text) ? text : null;
                                 }
 
                                 let lightList = function()
@@ -396,7 +396,7 @@ window.ceres = {};
                                 if (!rsc.ignore(imageList))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
-                                    cfg.imageArray = (imageList) ? imageList.trim().split('\n') : null;
+                                    cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
                                 }
 
                                 return !rsc.ignore(cfg.imageArray);
@@ -413,7 +413,7 @@ window.ceres = {};
                         {
                             const getSwipe = function(swipe)
                             {
-                                let offset = (swipe.action) ? swipe.right : swipe.left;
+                                let offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
                                 atr.get.slide({ shadow: cfg.shadow });
@@ -513,7 +513,7 @@ window.ceres = {};
                             {
                                 if (!('caches' in window)) return;
 
-                                cfg.shadowsrc = (cfg.srcRoot) ? cfg.src.split() : Array.from('');
+                                cfg.shadowsrc = cfg.srcRoot ? cfg.src.split() : Array.from('');
 
                                 let cacheName = csv + '-cache';
                                 let urlArray = rsc.removeDuplcates(cfg.shadowsrc.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
@@ -675,8 +675,8 @@ window.ceres = {};
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + ((node.sub) ? ', ' + node.sub.replace(',', cfg.commaSymbol) : '')
-                                + ((node.sur) ? ', ' + node.sur.replace(',', cfg.commaSymbol) : '')
+                                + (node.sub ? ', ' + node.sub.replace(',', cfg.commaSymbol) : '')
+                                + (node.sur ? ', ' + node.sur.replace(',', cfg.commaSymbol) : '')
                                 + '\n';
                         });
 
@@ -713,7 +713,7 @@ window.ceres = {};
 
                             const nodeName = function(i)
                             {
-                                return (symbol.nodes[i]) ? '"' + (symbol.nodes[i]) + '": ' : '"node' + i+1 + '": ';
+                                return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
                             }
 
                             newArray.forEach((row) => {
