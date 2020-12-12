@@ -164,7 +164,7 @@ window.ceres = {};
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText({ comma: rsc.attrib.commaSymbol, text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
+            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText({ commaSymbol: rsc.attrib.commaSymbol, text: atr.getFileType( await ( await fetch(cfg.src) ).text() ) }));
 
             for (let item of cfg.cssRoot)
             {
@@ -663,21 +663,12 @@ window.ceres = {};
                     this.parseText = function(obj)
                     {
                         if (rsc.ignore(obj.text)) return;
+                        if (obj.regex) return obj.text.replace(this.attrib.markup, '');
 
-                        let src = String(obj.text);
+                        if (obj.text.includes('</template>')) obj.text = obj.text.replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')
+                        if (obj.commaSymbol) obj.text = obj.text.replace(/&comma;/g, obj.commaSymbol);
 
-                        if (src.includes('</template>'))
-                        {
-                            src = src.replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')
-                            console.log('</template>: ' + src);
-                        }
-
-                        //if (obj.regex || src.includes('</template>')) return src.replace(this.attrib.markup, '');
-                        if (obj.regex) return src.replace(this.attrib.markup, '');
-
-                        if (obj.comma) src = src.replace(/&comma;/g, obj.comma);
-
-                        let doc = new DOMParser().parseFromString(src, 'text/html');
+                        let doc = new DOMParser().parseFromString(obj.text, 'text/html');
                         return doc.body.textContent || doc.body.innerText;
                     }
 
