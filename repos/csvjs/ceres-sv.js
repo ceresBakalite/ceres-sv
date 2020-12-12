@@ -574,7 +574,7 @@ window.ceres = {};
                             const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist = atr.getClassList('slide');
 
-                            const setSurtitle = function()
+                            const setSurtitle = function(index)
                             {
                                 return rsc.ignore(arrayItem[2]) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',');;
                             }
@@ -589,7 +589,7 @@ window.ceres = {};
 
                             cfg.bodyNode.appendChild(imgNode);
 
-                            let index = 0;
+                            //let index = 0;
 
                             cfg.imageArray.forEach((item, i) =>
                             {
@@ -602,7 +602,7 @@ window.ceres = {};
 
                                 imgNode.appendChild(slideNode);
 
-                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
+                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle(i) }, { class: 'surtitle fade' });
                                 rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
 
