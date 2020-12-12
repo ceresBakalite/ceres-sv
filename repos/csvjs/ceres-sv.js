@@ -663,12 +663,13 @@ window.ceres = {};
                     this.parseText = function(obj)
                     {
                         if (rsc.ignore(obj.text)) return;
-                        if (obj.regex) return obj.text.replace(this.attrib.markup, '');
+                        obj.text = obj.text.replace(this.attrib.markup, '').replace(/&comma;/g, rsc.attrib.commaSymbol);;
+                        //if (obj.regex) return obj.text.replace(this.attrib.markup, '');
 
-                        if (obj.text.includes('</template>')) obj.text = obj.text.replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')
-                        if (obj.commaSymbol) obj.text = obj.text.replace(/&comma;/g, obj.commaSymbol);
+                        //if (obj.commaSymbol) obj.text = obj.text.replace(/&comma;/g, obj.commaSymbol);
+                        //if (obj.text.includes('</template>')) obj.text = obj.text.replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')
 
-                        let doc = new DOMParser().parseFromString(obj.text.trim(), 'text/html');
+                        let doc = new DOMParser().parseFromString(obj.text, 'text/html');
                         return doc.body.textContent || doc.body.innerText;
                     }
 
