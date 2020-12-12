@@ -715,6 +715,7 @@ window.ceres = {};
                         const composeJSON = function()
                         {
                             let str = '';
+                            const re = new RegExp(',\s*?$'); // match comma +- whitespace appearing at the end of a string
 
                             const nodeName = function(i)
                             {
@@ -734,12 +735,12 @@ window.ceres = {};
                                         i++;
                                     });
 
-                                    str = str.replace(/,\s*?$/, '') + ' },\n'
+                                    str = str.replace(re, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(/,\s*?$/, '') + ']';
+                            return '[' + str.replace(re, '') + ']';
                         }
 
                         const objectType = function()
