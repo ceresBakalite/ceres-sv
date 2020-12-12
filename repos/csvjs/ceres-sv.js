@@ -569,19 +569,23 @@ window.ceres = {};
                         {
                             const setURL = function() { return (!rsc.ignore(arrayItem[0])) ? arrayItem[0].trim() : null; }
                             const setLoading = function() { return (Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i))) ? cfg.attrib.loading : 'auto'; }
-                            const getSurtitle = function() { return (cfg.attrib.sur) ? setSurText() : null; }
-                            const getSubtitle = function() { return (cfg.attrib.sub) ? setSubText() : null; }
+//                            const getSurtitle = function() { return (cfg.attrib.sur) ? setSurTitle() : null; }
+//                            const getSubtitle = function() { return (cfg.attrib.sub) ? setSubTitle() : null; }
                             const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist = atr.getClassList('slide');
 
-                            const setSurText = function()
+                            const getSurtitle = function()
                             {
-                                return (rsc.ignore(arrayItem[2])) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',');;
+                                return cfg.attrib.sur ? rsc.ignore(arrayItem[2]) ? index + ' / ' + cfg.imageArray.length
+                                    : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',')
+                                    : null;
                             }
 
-                            const setSubText = function()
+                            const getSubtitle = function()
                             {
-                                return (rsc.ignore(arrayItem[1])) ? null : arrayItem[1].trim().replaceAll(cfg.commaSymbol, ',');
+                                return cfg.attrib.sub ? rsc.ignore(arrayItem[1]) ? null
+                                    : arrayItem[1].trim().replaceAll(cfg.commaSymbol, ',')
+                                    : null;
                             }
 
                             const imgNode = document.createElement('div');
