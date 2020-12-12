@@ -594,7 +594,7 @@ window.ceres = {};
                             cfg.imageArray.forEach((item, i) =>
                             {
 
-                                var arrayItem = cfg.imageArray(item).split(',');
+                                var arrayItem = item.split(',');
 
                                 let slideNode = document.createElement('div');
                                 slideNode.id = 'img' + i;
