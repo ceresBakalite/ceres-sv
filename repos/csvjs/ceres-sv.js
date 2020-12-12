@@ -120,7 +120,7 @@ window.ceres = {};
 
         this.getProperties = function(string = {}, str = '')
         {
-            for (let literal of string) str += literal + ': ' + string(literal) + ', ';
+            for (let literal in string) str += literal + ': ' + string[literal] + ', ';
             return str.replace(/, +$/g,'');
         }
 
