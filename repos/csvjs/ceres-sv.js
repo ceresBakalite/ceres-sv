@@ -709,8 +709,8 @@ window.ceres = {};
                         // construct a JSON object from the CSV construct
                         const composeJSON = function()
                         {
-                            const re = new RegExp(',\s*?$'); // match a comma at the end of a string
                             const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
+                            const re = new RegExp(',\s*?$', 'g'); // match a comma at the end of a string
 
                             let str = '';
 
