@@ -265,7 +265,7 @@ window.ceres = {};
                                     let rootAttribute = csvRoot.getAttribute(str);
                                     if (rsc.ignore(rootAttribute)) return false;
 
-                                    let ar = rootAttribute.replace(/ :|: /gi,':').split(',');
+                                    let ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
                                     let item = ar[0];
 
                                     if (!Number.isInteger(parseInt(item)))
