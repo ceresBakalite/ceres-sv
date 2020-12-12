@@ -373,7 +373,7 @@ window.ceres = {};
                                 let shadowList = function()
                                 {
                                     let text = csvRoot.textContent;
-                                    return (!rsc.ignore(text)) ? text : null;
+                                    return !rsc.ignore(text) ? text : null;
                                 }
 
                                 let lightList = function()
