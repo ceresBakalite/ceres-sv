@@ -386,14 +386,18 @@ window.ceres = {};
 
                                     if (cfg.template.tagName == 'TEMPLATE')
                                     {
-                                        const bodyNode = document.createElement('div');
-                                        bodyNode.insertAdjacentHTML('beforeend', cfg.template.content.textContent);
+                                        let range = document.createRange();
+                                        range.selectNode(cfg.template.item(0));
+                                        let clone = range.cloneRange();
 
-                                        document.body.appendChild(bodyNode);
+                                        //const bodyNode = document.createElement('div');
+                                        //bodyNode.insertAdjacentHTML('beforeend', cfg.template.content.textContent);
 
-                                        text = bodyNode.textContent;
+                                        //document.body.appendChild(bodyNode);
 
-                                        console.log('text 3: ' + atr.parseText(String(bodyNode.textContent.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol))));
+                                        //text = bodyNode.textContent;
+
+                                        console.log('text 3: ' + atr.parseText(String(clone.textContent.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol))));
 
                                     }
 
