@@ -245,7 +245,7 @@ window.ceres = {};
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.embed ? document.getElementById(cfg.attrib.embed) : null;
-
+console.log('el: ' + cfg.attrib.embed + ' - ' + el);
                                 if (rsc.ignore(el))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
@@ -380,10 +380,10 @@ window.ceres = {};
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.srcSearch, logtrace: cfg.attrib.trace });
 
-                                    let text = (cfg.template.tagName == 'TEMPLATE') ? atr.parseText(cfg.template.content.textContent) : atr.parseText(cfg.template.textContent);
+                                    let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text; // wrong
+                                    return atr.parseText(text); // wrong
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
