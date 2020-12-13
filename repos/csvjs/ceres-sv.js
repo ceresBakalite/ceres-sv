@@ -246,8 +246,12 @@ window.ceres = {};
 
                                 let el = cfg.attrib.embed ? document.getElementById(cfg.attrib.embed) : null;
 
+console.log('el: ' + el);
+
                                 if (rsc.ignore(el))
                                 {
+                                    console.log('ignore el');
+
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
