@@ -386,22 +386,14 @@ window.ceres = {};
 
                                     if (cfg.template.tagName == 'TEMPLATE')
                                     {
-                                        // create a demo fragment with some HTML mix of text nodes & elements
-                                        var frag = cfg.template.content.textContent;
+                                        const bodyNode = document.createElement('div');
+                                        bodyNode.insertAdjacentHTML('beforeend', cfg.template.content.textContent);
 
-                                        // now the work begins: get only the text nodes from the fragment
-                                        var textNodes = [...frag.childNodes].filter(node => node.nodeType == Node.TEXT_NODE)
+                                        document.body.appendChild(bodyNode);
 
-                                        // print the text nodes as an array
-                                        console.log( textNodes.map(node => node.textContent) )
-                                        //const bodyNode = document.createElement('div');
-                                        //bodyNode.insertAdjacentHTML('beforeend', cfg.template.content.textContent);
+                                        text = atr.parseText(bodyNode.textContent);
 
-                                        //document.body.appendChild(bodyNode);
-
-                                        //text = bodyNode.textContent;
-
-                                        //console.log('text 3: ' + atr.parseText(String(clone.textContent.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol))));
+                                        console.log('text 1: ' + text);
 
                                     }
 
