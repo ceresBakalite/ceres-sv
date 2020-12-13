@@ -383,7 +383,7 @@ window.ceres = {};
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol);
+                                    return text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol); // wrong
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
@@ -664,6 +664,8 @@ window.ceres = {};
                     this.parseText = function(text)
                     {
                         if (rsc.ignore(text)) return;
+
+if (text.includes('</template>')) console.log('template');
 
                         let doc = new DOMParser().parseFromString(text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
                         return doc.body.textContent;
