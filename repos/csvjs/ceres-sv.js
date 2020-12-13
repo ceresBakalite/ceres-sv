@@ -393,7 +393,7 @@ window.ceres = {};
 
                                         text = String(bodyNode.textContent);
 
-                                        bodyNode.removeAttribute('div');
+                                        bodyNode.remove();
 
                                     } else {
 
