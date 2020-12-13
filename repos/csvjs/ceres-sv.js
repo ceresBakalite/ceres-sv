@@ -387,7 +387,7 @@ window.ceres = {};
                                     if (cfg.template.tagName == 'TEMPLATE')
                                     {
                                         let range = document.createRange();
-                                        range.selectNode(cfg.template.item(0));
+                                        range.selectNode(cfg.template);
                                         let clone = range.cloneRange();
 
                                         //const bodyNode = document.createElement('div');
