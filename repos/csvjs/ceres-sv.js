@@ -383,7 +383,7 @@ window.ceres = {};
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text.replace(/&comma;/g, cfg.commaSymbol);
+                                    return text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol);
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
@@ -665,7 +665,7 @@ window.ceres = {};
                     {
                         if (rsc.ignore(text)) return;
 
-                        let doc = new DOMParser().parseFromString(text.replace(/&comma;/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+                        let doc = new DOMParser().parseFromString(text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
                         return doc.body.textContent;
                     }
 
@@ -677,8 +677,8 @@ window.ceres = {};
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + (node.sub ? ', ' + node.sub.replace(',', cfg.commaSymbol) : '')
-                                + (node.sur ? ', ' + node.sur.replace(',', cfg.commaSymbol) : '')
+                                + (node.sub ? ', ' + node.sub.replace(/,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol) : '')
+                                + (node.sur ? ', ' + node.sur.replace(/,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol) : '')
                                 + '\n';
                         });
 
@@ -698,7 +698,7 @@ window.ceres = {};
                         {
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
-                            return newGroup.replace(/,|&comma;/g, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
+                            return newGroup.replace(/,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
                         const parseRow = function(row)
