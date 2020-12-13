@@ -387,7 +387,7 @@ window.ceres = {};
                                     if (cfg.template.tagName == 'TEMPLATE')
                                     {
                                         // create a demo fragment with some HTML mix of text nodes & elements
-                                        var frag = cfg.template.content;
+                                        var frag = cfg.template.content.textContent;
 
                                         // now the work begins: get only the text nodes from the fragment
                                         var textNodes = [...frag.childNodes].filter(node => node.nodeType == Node.TEXT_NODE)
