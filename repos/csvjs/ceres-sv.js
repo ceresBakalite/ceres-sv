@@ -246,12 +246,8 @@ window.ceres = {};
 
                                 let el = cfg.attrib.embed ? document.getElementById(cfg.attrib.embed) : null;
 
-console.log('el: ' + el);
-
                                 if (rsc.ignore(el))
                                 {
-                                    console.log('ignore el');
-
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
@@ -397,7 +393,7 @@ console.log('el: ' + el);
 
                                         text = bodyNode.textContent;
 
-                                        console.log('text 1: ' + atr.parseText(bodyNode.textContent));
+                                        console.log('text 2: ' + atr.parseText(bodyNode.textContent.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol)));
 
                                     }
 
