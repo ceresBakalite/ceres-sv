@@ -391,7 +391,9 @@ window.ceres = {};
 
                                         document.body.appendChild(bodyNode);
 
-                                        text = bodyNode.textContent;
+                                        text = String(bodyNode.textContent);
+
+                                        bodyNode.removeAttribute('div');
 
                                     } else {
 
@@ -660,7 +662,7 @@ window.ceres = {};
                             csvRoot.style.removeProperty('display');
                             csvRoot.style.removeProperty('visibility');
 
-                            if (csvRoot.style.length === 0) csvRoot.removeAttribute("style");
+                            if (csvRoot.style.length === 0) csvRoot.removeAttribute('style');
                         }
 
                     };
