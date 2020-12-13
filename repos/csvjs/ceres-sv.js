@@ -245,9 +245,12 @@ window.ceres = {};
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.embed ? document.getElementById(cfg.attrib.embed) : null;
-console.log('el: ' + cfg.attrib.embed + ' - ' + el.content.cloneNode(true));
+
                                 if (rsc.ignore(el))
                                 {
+
+                                    console.log('ignore el: ' + cfg.attrib.embed + ' - ' + el.content.cloneNode(true));
+
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
