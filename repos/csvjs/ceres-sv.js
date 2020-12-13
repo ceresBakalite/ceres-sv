@@ -393,7 +393,7 @@ window.ceres = {};
 
                                         text = bodyNode.textContent;
 
-                                        console.log('text 2: ' + atr.parseText(bodyNode.textContent.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol)));
+                                        console.log('text 2: ' + atr.parseText(String(bodyNode.textContent.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol))));
 
                                     }
 
