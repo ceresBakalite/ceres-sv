@@ -391,13 +391,13 @@ window.ceres = {};
 
                                         document.body.appendChild(bodyNode);
 
-                                        text = atr.parseText(bodyNode.textContent);
+                                        text = bodyNode.textContent;
 
-                                        console.log('text 1: ' + text);
+                                    } else {
+
+                                        text = cfg.template.textContent;
 
                                     }
-
-                                    text = cfg.template.textContent;
 
 
 //console.log('text 4: ' + atr.parseText(String(cfg.template.content.textContent)));
@@ -405,7 +405,7 @@ window.ceres = {};
 
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol);
+                                    return atr.parseText(text);
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
