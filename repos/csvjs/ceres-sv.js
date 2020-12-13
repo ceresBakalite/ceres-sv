@@ -245,7 +245,7 @@ window.ceres = {};
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.embed ? document.getElementById(cfg.attrib.embed) : null;
-console.log('el: ' + cfg.attrib.embed + ' - ' + el);
+console.log('el: ' + cfg.attrib.embed + ' - ' + el.content);
                                 if (rsc.ignore(el))
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
@@ -666,12 +666,6 @@ console.log('el: ' + cfg.attrib.embed + ' - ' + el);
                         if (rsc.ignore(text)) return;
 
                         let doc = new DOMParser().parseFromString(text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
-
-                        if (text.includes('embed'))
-                        {
-                            console.log('embed: ' + doc);
-                        }
-
                         return doc.body.textContent;
                     }
 
