@@ -383,8 +383,6 @@ window.ceres = {};
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-// WHAT TO DO
-
                                     return atr.parseText(text);
                                 }
 
