@@ -381,32 +381,9 @@ window.ceres = {};
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.srcSearch, logtrace: cfg.attrib.trace });
 
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
-
-                                    /*
-                                    let text = '';
-
-                                    if (cfg.template.tagName == 'TEMPLATE')
-                                    {
-                                        const bodyNode = document.createElement('div');
-                                        //bodyNode.insertAdjacentHTML('beforeend', cfg.template.content.textContent);
-                                        bodyNode.appendChild(document.createTextNode(cfg.template.content.textContent));
-                                        document.body.appendChild(bodyNode);
-
-                                        text = String(bodyNode.textContent);
-
-                                        bodyNode.remove();
-
-                                    } else {
-
-                                        text = cfg.template.textContent;
-
-                                    }
-                                    */
-
-//console.log('text 4: ' + atr.parseText(String(cfg.template.content.textContent)));
-//if (text.includes('&comma;')) console.log('includes &comma symbols');
-
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
+
+// WHAT TO DO
 
                                     return atr.parseText(text);
                                 }
