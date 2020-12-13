@@ -248,9 +248,6 @@ window.ceres = {};
 
                                 if (rsc.ignore(el))
                                 {
-
-                                    console.log('ignore el: ' + cfg.attrib.embed + ' - ' + el.content.cloneNode(true));
-
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
@@ -383,9 +380,9 @@ window.ceres = {};
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.srcSearch, logtrace: cfg.attrib.trace });
 
-                                    let text = (cfg.template.tagName == 'TEMPLATE') ? atr.parseText(cfg.template.content.textContent) : cfg.template.textContent;
+                                    let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
 
-console.log('text: ' + text);
+console.log('text 2: ' + atr.parseText(String(text)));
 
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
