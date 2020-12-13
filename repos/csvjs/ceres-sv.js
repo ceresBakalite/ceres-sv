@@ -667,9 +667,9 @@ console.log('el: ' + cfg.attrib.embed + ' - ' + el);
 
                         let doc = new DOMParser().parseFromString(text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
 
-                        if (text.includes('</template>'))
+                        if (text.includes('embed'))
                         {
-                            console.log('template: ' + doc);
+                            console.log('embed: ' + doc);
                         }
 
                         return doc.body.textContent;
