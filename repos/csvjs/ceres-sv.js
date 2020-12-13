@@ -382,7 +382,7 @@ window.ceres = {};
 
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
 
-console.log('text 2: ' + atr.parseText(String(text)));
+console.log('text 2: ' + atr.parseText(String(cfg.template.content.textContent)));
 if (text.includes('&comma;')) console.log('includes &comma symbols');
 
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
