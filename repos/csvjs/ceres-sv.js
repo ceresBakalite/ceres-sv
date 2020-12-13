@@ -380,10 +380,10 @@ window.ceres = {};
                                 {
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.srcSearch, logtrace: cfg.attrib.trace });
 
-                                    let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
+                                    let text = (cfg.template.tagName == 'TEMPLATE') ? atr.parseText(cfg.template.content.textContent) : atr.parseText(cfg.template.textContent);
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol); // wrong
+                                    return text; // wrong
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
