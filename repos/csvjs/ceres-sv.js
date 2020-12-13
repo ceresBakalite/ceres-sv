@@ -387,8 +387,8 @@ window.ceres = {};
                                     if (cfg.template.tagName == 'TEMPLATE')
                                     {
                                         const bodyNode = document.createElement('div');
-                                        bodyNode.insertAdjacentHTML('beforeend', cfg.template.content.textContent);
-
+                                        //bodyNode.insertAdjacentHTML('beforeend', cfg.template.content.textContent);
+                                        bodyNode.appendChild(document.createTextNode(cfg.template.content.textContent));
                                         document.body.appendChild(bodyNode);
 
                                         text = String(bodyNode.textContent);
