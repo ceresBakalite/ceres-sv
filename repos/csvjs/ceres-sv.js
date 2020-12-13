@@ -665,9 +665,13 @@ console.log('el: ' + cfg.attrib.embed + ' - ' + el);
                     {
                         if (rsc.ignore(text)) return;
 
-if (text.includes('</template>')) console.log('template');
-
                         let doc = new DOMParser().parseFromString(text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+
+                        if (text.includes('</template>'))
+                        {
+                            console.log('template: ' + doc);
+                        }
+
                         return doc.body.textContent;
                     }
 
