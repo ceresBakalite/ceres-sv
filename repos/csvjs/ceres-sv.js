@@ -382,7 +382,7 @@ window.ceres = {};
 
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
 
-console.log('text 3: ' + atr.parseText(String(cfg.template.content.textContent)));
+console.log('text 4: ' + atr.parseText(String(cfg.template.content.textContent)));
 if (text.includes('&comma;')) console.log('includes &comma symbols');
 
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
@@ -669,8 +669,10 @@ if (text.includes('&comma;')) console.log('includes &comma symbols');
                     {
                         if (rsc.ignore(text)) return;
 
-                        let doc = new DOMParser().parseFromString(text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
-                        return doc.body.textContent;
+                        //let doc = new DOMParser().parseFromString(text.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+
+                        let doc = new DOMParser().parseFromString(text.replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+                        return doc.body.textContent.replace(/&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol);
                     }
 
                     this.parseJSON = function(text)
