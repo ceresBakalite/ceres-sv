@@ -393,6 +393,8 @@ window.ceres = {};
 
                                         text = bodyNode.textContent;
 
+                                        console.log('text 1: ' + atr.parseText(bodyNode.textContent));
+
                                     }
 
                                     text = cfg.template.textContent;
