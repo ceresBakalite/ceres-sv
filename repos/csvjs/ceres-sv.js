@@ -383,7 +383,7 @@ window.ceres = {};
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text;
+                                    return text.replace(/&comma;/g, cfg.commaSymbol);
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
