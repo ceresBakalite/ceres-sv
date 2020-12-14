@@ -78,7 +78,7 @@ window.ceres = {};
             if (!obj.name) obj.name = 'n';
             if (!obj.range) obj.range = 100;
 
-            let elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
+            const elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
             while (document.getElementById(obj.el = elName())) {};
 
             return obj.el;
@@ -97,7 +97,7 @@ window.ceres = {};
         this.removeDuplcates = function(obj, sort)
         {
             const key = JSON.stringify;
-            let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+            const ar = [...new Map (obj.map(node => [key(node), node])).values()];
 
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
@@ -106,7 +106,7 @@ window.ceres = {};
         {
             const errorHandler = function(error)
             {
-                let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
                 console.error(err);
 
                 if (error.alert) alert(err);
@@ -265,13 +265,13 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                let getRootAttribute = function(str)
+                                const getRootAttribute = function(str)
                                 {
-                                    let rootAttribute = csvRoot.getAttribute(str);
+                                    const rootAttribute = csvRoot.getAttribute(str);
                                     if (rsc.ignore(rootAttribute)) return false;
 
-                                    let ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
-                                    let item = ar[0];
+                                    const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
+                                    const item = ar[0];
 
                                     if (!Number.isInteger(parseInt(item, 10)))
                                     {
@@ -297,15 +297,15 @@ window.ceres = {};
                                         get attribute() { return ar.map(item => { return item.trim(); }) },
                                     }
 
-                                    let getStyle = function()
+                                    const getStyle = function()
                                     {
                                         if (ar.length == 0) return;
 
-                                        let regex = str == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                        const regex = str == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
 
                                         const styleAttribute = function(item)
                                         {
-                                            let re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
+                                            const re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(item.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(item.match(/padding:/i)) ? /padding[^&]*?;/i
                                                 : Boolean(item.match(/top:/i)) ? /top[^&]*?;/i
@@ -314,11 +314,11 @@ window.ceres = {};
 
                                             if (!rsc.ignore(re))
                                             {
-                                                let group = String(cfg.shadowStyle.match(regex));
+                                                const group = String(cfg.shadowStyle.match(regex));
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(re, item + ';')
+                                                    const newGroup = group.replace(re, item + ';')
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
@@ -375,15 +375,15 @@ window.ceres = {};
 
                             const getImageList = function()
                             {
-                                let shadowList = function()
+                                const shadowList = function()
                                 {
-                                    let text = csvRoot.textContent;
+                                    const text = csvRoot.textContent;
                                     return !rsc.ignore(text) ? text : null;
                                 }
 
-                                let lightList = function()
+                                const lightList = function()
                                 {
-                                    let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
+                                    const text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
                                     return atr.parseText(text);
@@ -394,7 +394,7 @@ window.ceres = {};
 
                             const isImageArray = function()
                             {
-                                let imageList = getImageList();
+                                const imageList = getImageList();
 
                                 if (!rsc.ignore(imageList))
                                 {
@@ -416,7 +416,7 @@ window.ceres = {};
                         {
                             const getSwipe = function(swipe)
                             {
-                                let offset = swipe.action ? swipe.right : swipe.left;
+                                const offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
                                 atr.get.slide({ shadow: cfg.shadow });
@@ -438,10 +438,10 @@ window.ceres = {};
                         {
                             const getShadow = function(node) // shadowRoot slide manager
                             {
-                                let root = node.getRootNode().host;
-                                let shade = document.querySelector('#' + root.id);
-                                let shadow = shade.shadowRoot;
-                                let slide = shadow.querySelector('div.slideview-image > div.active');
+                                const root = node.getRootNode().host;
+                                const shade = document.querySelector('#' + root.id);
+                                const shadow = shade.shadowRoot;
+                                const slide = shadow.querySelector('div.slideview-image > div.active');
 
                                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
@@ -592,7 +592,7 @@ window.ceres = {};
                             {
                                 var ar = cfg.imageArray[item].split(',');
 
-                                let slideNode = document.createElement('div');
+                                const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
                                 slideNode.id = 'img' + (++index);
 
