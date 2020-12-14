@@ -519,10 +519,10 @@ window.ceres = {};
                             {
                                 if (!('caches' in window)) return;
 
-                                cfg.shadowsrc = cfg.srcRoot ? cfg.src.split() : Array.from('');
+                                let src = cfg.srcRoot ? cfg.src.split() : Array.from('');
 
                                 let cacheName = csv + '-cache';
-                                let urlArray = rsc.removeDuplcates(cfg.shadowsrc.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
+                                let urlArray = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
 
                                 urlArray.forEach(url =>
                                 {
