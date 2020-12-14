@@ -84,11 +84,6 @@ window.ceres = {};
             return obj.el;
         }
 
-        this.regexEscape = function(str)
-        {
-            return str.replace(/([.*+?^$|(){}\[\]])/gm, '\\$1');
-        }
-
         this.recursiveReplace = function(str, criteria, obj)
         {
             return str.replace(criteria, function(match) { return obj[match]; });
