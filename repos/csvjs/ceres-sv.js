@@ -134,8 +134,6 @@ window.ceres = {};
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
             tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
-            whitespace   : /\s/g,
-            markup       : /(<([^>]+)>)/ig,
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
