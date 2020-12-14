@@ -227,6 +227,12 @@ window.ceres = {};
                             const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
                             const propertyArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
+                            const elStyle =
+                            {
+                                get property() { return propertyArray.map(item => { return item.trim().toUpperCase(); }) },
+                                get attribute() { return ar.map(item => { return item.trim(); }) },
+                            }
+
                             const attribute = {
                                 nub     : function(atr) { return !rsc.getBoolean(atr); },
                                 fade    : function(atr) { return !rsc.getBoolean(atr); },
@@ -267,12 +273,6 @@ window.ceres = {};
 
                                     const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const item = ar[0];
-
-                                    const elStyle =
-                                    {
-                                        get property() { return propertyArray.map(item => { return item.trim().toUpperCase(); }) },
-                                        get attribute() { return ar.map(item => { return item.trim(); }) },
-                                    }
 
                                     const getStyle = function()
                                     {
