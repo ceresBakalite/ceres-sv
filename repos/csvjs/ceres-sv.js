@@ -573,7 +573,7 @@ window.ceres = {};
 
                         images: function()
                         {
-                            const setURL = function() { return !rsc.ignore(arrayItem[0]) ? arrayItem[0].trim() : null; }
+                            const setURL = function() { return !rsc.ignore(str[0]) ? str[0].trim() : null; }
                             const setLoading = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
                             const getSubtitle = function() { return cfg.attrib.sub ? setSubtitle() : null; }
@@ -582,12 +582,12 @@ window.ceres = {};
 
                             const setSurtitle = function()
                             {
-                                return rsc.ignore(arrayItem[2]) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',');
+                                return rsc.ignore(str[2]) ? index + ' / ' + cfg.imageArray.length : str[2].trim().replaceAll(cfg.commaSymbol, ',');
                             }
 
                             const setSubtitle = function()
                             {
-                                return rsc.ignore(arrayItem[1]) ? null : arrayItem[1].trim().replaceAll(cfg.commaSymbol, ',');
+                                return rsc.ignore(str[1]) ? null : str[1].trim().replaceAll(cfg.commaSymbol, ',');
                             }
 
                             const imgNode = document.createElement('div');
@@ -599,7 +599,7 @@ window.ceres = {};
 
                             for (let item in cfg.imageArray)
                             {
-                                var arrayItem = cfg.imageArray[item].split(',');
+                                var str = cfg.imageArray[item].split(',');
 
                                 let slideNode = document.createElement('div');
                                 slideNode.id = 'img' + (++index);
@@ -618,14 +618,14 @@ window.ceres = {};
 
                         track: function()
                         {
-                            const trackNode = document.createElement('div');
-                            trackNode.className = atr.getClassList('slideview-nub');
+                            const node = document.createElement('div');
+                            node.className = atr.getClassList('slideview-nub');
 
-                            cfg.bodyNode.appendChild(trackNode);
+                            cfg.bodyNode.appendChild(node);
 
                             cfg.imageArray.forEach((item, i) =>
                             {
-                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: this.href });
+                                rsc.composeElement({ type: 'span', parent: node }, { id: 'nub' + i, class: 'nub', onclick: this.href });
                             });
                         }
 
