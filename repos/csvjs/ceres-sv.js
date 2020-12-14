@@ -230,7 +230,7 @@ window.ceres = {};
                             const elStyle =
                             {
                                 get property() { return propertyArray.map(item => { return item.trim().toUpperCase(); }) },
-                                get attribute() { return ar.map(item => { return item.trim(); }) },
+                                get attribute() { return ar.map(item => { return item.trim().toUpperCase(); }) },
                             }
 
                             const attribute = {
@@ -305,7 +305,7 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
+                                            if (elStyle.property.includes(item)) styleAttribute(item);
 
                                         });
 
