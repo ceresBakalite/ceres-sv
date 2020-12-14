@@ -428,7 +428,7 @@ window.ceres = {};
                             shade.attachShadow({ mode: 'open' });
                             cfg.shadow = shade.shadowRoot;
 
-                            atr.compose.styles();
+                            atr.compose.style();
                             atr.compose.body();
 
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
@@ -545,7 +545,7 @@ window.ceres = {};
 
                         href: 'ceres.getSlide(this)',
 
-                        styles: function()
+                        style: function()
                         {
                             const styleNode = document.createElement('style');
                             styleNode.className = 'slideview-style';
