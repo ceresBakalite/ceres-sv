@@ -434,7 +434,6 @@ window.ceres = {};
 
                             atr.compose.styles();
                             atr.compose.body();
-                            //atr.compose.track();
 
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
