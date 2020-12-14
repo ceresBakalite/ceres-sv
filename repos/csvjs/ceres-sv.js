@@ -551,11 +551,11 @@ window.ceres = {};
 
                         styles: function()
                         {
-                            cfg.styleNode = document.createElement('style');
-                            cfg.styleNode.className = 'slideview-style';
-                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
+                            const styleNode = document.createElement('style');
+                            styleNode.className = 'slideview-style';
+                            styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
 
-                            cfg.shadow.appendChild(cfg.styleNode);
+                            cfg.shadow.appendChild(styleNode);
                         },
 
                         body: function()
