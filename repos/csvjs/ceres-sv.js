@@ -520,7 +520,6 @@ window.ceres = {};
                                 if (!('caches' in window)) return;
 
                                 let src = cfg.srcRoot ? cfg.src.split() : Array.from('');
-
                                 let cacheName = csv + '-cache';
                                 let urlArray = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
 
