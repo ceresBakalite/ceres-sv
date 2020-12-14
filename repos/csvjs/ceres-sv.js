@@ -240,7 +240,7 @@ window.ceres = {};
                                 cache   : function(atr) { return !rsc.getBoolean(atr); },
                                 zoom    : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
                                 trace   : function(atr) { return rsc.getBoolean(atr); },
-                                delay   : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
+                                delay   : function(atr) { return Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250; },
                                 loading : function(atr) { return rsc.ignore(atr) ? 'auto' : atr },
                                 embed   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
@@ -273,7 +273,7 @@ window.ceres = {};
                                     let ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
                                     let item = ar[0];
 
-                                    if (!Number.isInteger(parseInt(item)))
+                                    if (!Number.isInteger(parseInt(item, 10)))
                                     {
                                         if (!rsc.getBoolean(item)) return false;
                                         if (ar.length > 1) ar.shift();
@@ -281,8 +281,8 @@ window.ceres = {};
 
                                     if (str == 'auto')
                                     {
-                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0], 10)) ? parseInt(ar[0], 10) : 10;
+                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1], 10)) ? parseInt(ar[1], 10) : 3000;
                                         cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
 
                                         cfg.attrib.fade = cfg.attrib.autopause > 400;
