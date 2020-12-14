@@ -711,7 +711,7 @@ window.ceres = {};
                         {
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
-                            return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
+                            return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
                         }
 
                         // construct a JSON object from the CSV construct
