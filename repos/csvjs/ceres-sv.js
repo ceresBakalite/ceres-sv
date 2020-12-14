@@ -186,6 +186,7 @@ window.ceres = {};
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.srcRoot = !rsc.ignore(cfg.src);
                 cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                cfg.commaCodes = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
                 cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
                 cfg.attrib = {};
@@ -681,8 +682,8 @@ window.ceres = {};
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + (node.sub ? ', ' + node.sub.replace(/,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol) : '')
-                                + (node.sur ? ', ' + node.sur.replace(/,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol) : '')
+                                + (node.sub ? ', ' + node.sub.replace(cfg.commaCodes, cfg.commaSymbol) : '')
+                                + (node.sur ? ', ' + node.sur.replace(cfg.commaCodes, cfg.commaSymbol) : '')
                                 + '\n';
                         });
 
@@ -702,7 +703,7 @@ window.ceres = {};
                         {
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
-                            return newGroup.replace(/,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
+                            return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
                         const parseRow = function(row)
