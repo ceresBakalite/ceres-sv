@@ -436,7 +436,6 @@ window.ceres = {};
                             cfg.bodyNode.className = 'slideview-body';
 
                             atr.compose.styles();
-                            //atr.compose.body();
                             atr.compose.images();
                             atr.compose.track();
 
@@ -564,16 +563,6 @@ window.ceres = {};
 
                             cfg.shadow.appendChild(cfg.styleNode);
                         },
-
-                        /*
-                        body: function()
-                        {
-                            cfg.bodyNode = document.createElement('div');
-                            cfg.bodyNode.className = 'slideview-body';
-
-                            cfg.shade.appendChild(cfg.bodyNode);
-                        },
-                        */
 
                         images: function()
                         {
