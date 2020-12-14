@@ -269,6 +269,8 @@ window.ceres = {};
                                 {
                                     const rootAttribute = csvRoot.getAttribute(str);
 
+                                    console.log('rootAttribute: ' + rootAttribute);
+
                                     if (rsc.ignore(rootAttribute)) return false;
 
                                     const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
