@@ -202,7 +202,7 @@ window.ceres = {};
                         element    : 'The element attributes ',
                         tagSearch  : 'The ' + csv + ' src attribute url is unavailable and there is no \'embed\' elementId. Looking for the first occurance of a <template> or <noscript> tagname',
                         properties : 'Error: Unable to find the ' + csv + ' document element',
-                        list       : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
+                        list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback template elements',
                         template   : 'Error: Unable to find the fallback template element when searching the document body',
                         cache      : 'Warning: cache response status '
                     };
