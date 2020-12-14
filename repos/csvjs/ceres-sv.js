@@ -582,12 +582,12 @@ window.ceres = {};
 
                             const setSurtitle = function()
                             {
-                                return rsc.ignore(arrayItem[2]) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, '&comma;');
+                                return rsc.ignore(arrayItem[2]) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',');
                             }
 
                             const setSubtitle = function()
                             {
-                                return rsc.ignore(arrayItem[1]) ? null : arrayItem[1].trim().replaceAll(cfg.commaSymbol, '&comma;');
+                                return rsc.ignore(arrayItem[1]) ? null : arrayItem[1].trim().replaceAll(cfg.commaSymbol, ',');
                             }
 
                             const imgNode = document.createElement('div');
