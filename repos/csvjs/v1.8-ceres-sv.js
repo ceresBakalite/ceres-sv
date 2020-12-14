@@ -78,15 +78,10 @@ window.ceres = {};
             if (!obj.name) obj.name = 'n';
             if (!obj.range) obj.range = 100;
 
-            let elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
+            const elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
             while (document.getElementById(obj.el = elName())) {};
 
             return obj.el;
-        }
-
-        this.regexEscape = function(str)
-        {
-            return str.replace(/([.*+?^$|(){}\[\]])/gm, '\\$1');
         }
 
         this.recursiveReplace = function(str, criteria, obj)
@@ -97,7 +92,7 @@ window.ceres = {};
         this.removeDuplcates = function(obj, sort)
         {
             const key = JSON.stringify;
-            let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+            const ar = [...new Map (obj.map(node => [key(node), node])).values()];
 
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
@@ -106,7 +101,7 @@ window.ceres = {};
         {
             const errorHandler = function(error)
             {
-                let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
                 console.error(err);
 
                 if (error.alert) alert(err);
@@ -240,7 +235,7 @@ window.ceres = {};
                                 cache   : function(atr) { return !rsc.getBoolean(atr); },
                                 zoom    : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
                                 trace   : function(atr) { return rsc.getBoolean(atr); },
-                                delay   : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
+                                delay   : function(atr) { return Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250; },
                                 loading : function(atr) { return rsc.ignore(atr) ? 'auto' : atr },
                                 embed   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
@@ -265,15 +260,15 @@ window.ceres = {};
                                 if (rsc.ignore(csvRoot)) return false;
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                let getRootAttribute = function(str)
+                                const getRootAttribute = function(str)
                                 {
-                                    let rootAttribute = csvRoot.getAttribute(str);
+                                    const rootAttribute = csvRoot.getAttribute(str);
                                     if (rsc.ignore(rootAttribute)) return false;
 
-                                    let ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
-                                    let item = ar[0];
+                                    const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
+                                    const item = ar[0];
 
-                                    if (!Number.isInteger(parseInt(item)))
+                                    if (!Number.isInteger(parseInt(item, 10)))
                                     {
                                         if (!rsc.getBoolean(item)) return false;
                                         if (ar.length > 1) ar.shift();
@@ -281,8 +276,8 @@ window.ceres = {};
 
                                     if (str == 'auto')
                                     {
-                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0], 10)) ? parseInt(ar[0], 10) : 10;
+                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1], 10)) ? parseInt(ar[1], 10) : 3000;
                                         cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
 
                                         cfg.attrib.fade = cfg.attrib.autopause > 400;
@@ -297,15 +292,15 @@ window.ceres = {};
                                         get attribute() { return ar.map(item => { return item.trim(); }) },
                                     }
 
-                                    let getStyle = function()
+                                    const getStyle = function()
                                     {
                                         if (ar.length == 0) return;
 
-                                        let regex = str == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                        const regex = str == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
 
                                         const styleAttribute = function(item)
                                         {
-                                            let re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
+                                            const re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(item.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(item.match(/padding:/i)) ? /padding[^&]*?;/i
                                                 : Boolean(item.match(/top:/i)) ? /top[^&]*?;/i
@@ -314,11 +309,11 @@ window.ceres = {};
 
                                             if (!rsc.ignore(re))
                                             {
-                                                let group = String(cfg.shadowStyle.match(regex));
+                                                const group = String(cfg.shadowStyle.match(regex));
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(re, item + ';')
+                                                    const newGroup = group.replace(re, item + ';')
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
@@ -375,15 +370,15 @@ window.ceres = {};
 
                             const getImageList = function()
                             {
-                                let shadowList = function()
+                                const shadowList = function()
                                 {
-                                    let text = csvRoot.textContent;
+                                    const text = csvRoot.textContent;
                                     return !rsc.ignore(text) ? text : null;
                                 }
 
-                                let lightList = function()
+                                const lightList = function()
                                 {
-                                    let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
+                                    const text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
                                     return atr.parseText(text);
@@ -394,7 +389,7 @@ window.ceres = {};
 
                             const isImageArray = function()
                             {
-                                let imageList = getImageList();
+                                const imageList = getImageList();
 
                                 if (!rsc.ignore(imageList))
                                 {
@@ -416,7 +411,7 @@ window.ceres = {};
                         {
                             const getSwipe = function(swipe)
                             {
-                                let offset = swipe.action ? swipe.right : swipe.left;
+                                const offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
                                 atr.get.slide({ shadow: cfg.shadow });
@@ -428,7 +423,7 @@ window.ceres = {};
                             shade.attachShadow({ mode: 'open' });
                             cfg.shadow = shade.shadowRoot;
 
-                            atr.compose.styles();
+                            atr.compose.style();
                             atr.compose.body();
 
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
@@ -438,10 +433,10 @@ window.ceres = {};
                         {
                             const getShadow = function(node) // shadowRoot slide manager
                             {
-                                let root = node.getRootNode().host;
-                                let shade = document.querySelector('#' + root.id);
-                                let shadow = shade.shadowRoot;
-                                let slide = shadow.querySelector('div.slideview-image > div.active');
+                                const root = node.getRootNode().host;
+                                const shade = document.querySelector('#' + root.id);
+                                const shadow = shade.shadowRoot;
+                                const slide = shadow.querySelector('div.slideview-image > div.active');
 
                                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
@@ -455,26 +450,26 @@ window.ceres = {};
                             }
 
                             if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : getShadow(obj.node);
-                            let slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
+                            const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
 
                             cfg.slide = !rsc.ignore(obj.autoslide) ? obj.autoslide
                                 : cfg.slide < 1 ? slides.length
                                 : cfg.slide > slides.length ? 1
                                 : cfg.slide;
 
-                            let next = cfg.slide-1;
+                            const next = cfg.slide-1;
 
                             if (rsc.ignore(slides[next])) return;
 
-                            let active = obj.shadow.querySelector('div.slideview-image > div.active');
+                            const active = obj.shadow.querySelector('div.slideview-image > div.active');
                             if (active) active.classList.replace('active', 'none');
 
                             slides[next].classList.replace('none', 'active');
 
-                            let enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
+                            const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
                             if (enabled) enabled.className = 'nub';
 
-                            let nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
+                            const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
                             nub[next].className = 'nub enabled';
                         },
 
@@ -482,13 +477,13 @@ window.ceres = {};
                         {
                             const getAuto = function()
                             {
-                                let slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
-                                let complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                                const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
+                                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
 
-                                let autoCancel = function()
+                                const autoCancel = function()
                                 {
                                     autoslide = autoslide < 1 ? slides.length
                                         : autoslide > slides.length ? 1
@@ -498,7 +493,7 @@ window.ceres = {};
                                     return iteration === complete || (autoslide++, iteration++, false); // stops when complete
                                 }
 
-                                let auto = setInterval(function run()
+                                const auto = setInterval(function run()
                                 {
                                     if (autoCancel()) clearInterval(auto);
                                     atr.get.slide({ autoslide: autoslide-1 });
@@ -511,9 +506,9 @@ window.ceres = {};
                             {
                                 if (!('caches' in window)) return;
 
-                                let src = cfg.srcRoot ? cfg.src.split() : Array.from('');
-                                let cacheName = csv + '-cache';
-                                let urlArray = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
+                                const src = cfg.srcRoot ? cfg.src.split() : Array.from('');
+                                const cacheName = csv + '-cache';
+                                const urlArray = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
 
                                 urlArray.forEach(url =>
                                 {
@@ -545,7 +540,7 @@ window.ceres = {};
 
                         href: 'ceres.getSlide(this)',
 
-                        styles: function()
+                        style: function()
                         {
                             const styleNode = document.createElement('style');
                             styleNode.className = 'slideview-style';
@@ -592,7 +587,7 @@ window.ceres = {};
                             {
                                 var ar = cfg.imageArray[item].split(',');
 
-                                let slideNode = document.createElement('div');
+                                const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
                                 slideNode.id = 'img' + (++index);
 
@@ -656,14 +651,14 @@ window.ceres = {};
                     {
                         if (rsc.ignore(text)) return;
 
-                        let doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+                        const doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
                         return doc.body.textContent;
                     }
 
                     this.parseJSON = function(text)
                     {
+                        const json = JSON.parse(text);
                         let str = '';
-                        let json = JSON.parse(text);
 
                         json.forEach((node) =>
                         {
@@ -703,6 +698,7 @@ window.ceres = {};
                         const composeJSON = function()
                         {
                             const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
+                            const re = /,\s*?$/; // match trailing comma whitespace
 
                             let str = '';
 
@@ -719,12 +715,12 @@ window.ceres = {};
 
                                     });
 
-                                    str = str.replace(/,\s*?$/, '') + ' },\n'
+                                    str = str.replace(re, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(/,\s*?$/, '') + ']';
+                            return '[' + str.replace(re, '') + ']';
                         }
 
                         const objectType = function()
