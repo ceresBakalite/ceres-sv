@@ -305,30 +305,30 @@ window.ceres = {};
 
                                         }
 
-                                        if (!Number.isInteger(parseInt(item, 10)))
-                                        {
-                                            if (!rsc.getBoolean(item)) return false;
-                                            if (ar.length > 1) ar.shift();
-                                        }
-
-                                        if (str == 'auto')
-                                        {
-                                            cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0], 10)) ? parseInt(ar[0], 10) : 10;
-                                            cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1], 10)) ? parseInt(ar[1], 10) : 3000;
-                                            cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
-
-                                            cfg.attrib.fade = cfg.attrib.autopause > 400;
-                                            cfg.attrib.nub  = 'false'; // typeof string
-
-                                            return true;
-                                        }
-
                                         elStyle.attribute.forEach((item) => {
 
                                             if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
 
                                         });
 
+                                    }
+
+                                    if (!Number.isInteger(parseInt(item, 10)))
+                                    {
+                                        if (!rsc.getBoolean(item)) return false;
+                                        if (ar.length > 1) ar.shift();
+                                    }
+
+                                    if (str == 'auto')
+                                    {
+                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0], 10)) ? parseInt(ar[0], 10) : 10;
+                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1], 10)) ? parseInt(ar[1], 10) : 3000;
+                                        cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
+
+                                        cfg.attrib.fade = cfg.attrib.autopause > 400;
+                                        cfg.attrib.nub  = 'false'; // typeof string
+
+                                        return true;
                                     }
 
                                     if (attributeArray.includes(attribute)) getStyle();
