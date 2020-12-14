@@ -289,6 +289,8 @@ window.ceres = {};
                                                 : Boolean(item.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
+console.log('re: ' + re);
+
                                             if (!rsc.ignore(re))
                                             {
                                                 const group = String(cfg.shadowStyle.match(regex));
