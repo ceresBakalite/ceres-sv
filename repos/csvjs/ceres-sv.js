@@ -606,14 +606,14 @@ window.ceres = {};
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: this.href });
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: this.href });
 
-                            const node = document.createElement('div');
-                            node.className = atr.getClassList('slideview-nub');
+                            const trackNode = document.createElement('div');
+                            trackNode.className = atr.getClassList('slideview-nub');
 
-                            cfg.bodyNode.appendChild(node);
+                            cfg.bodyNode.appendChild(trackNode);
 
                             cfg.imageArray.forEach((item, i) =>
                             {
-                                rsc.composeElement({ type: 'span', parent: node }, { id: 'nub' + i, class: 'nub', onclick: this.href });
+                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: this.href });
                             });
 
                             cfg.shadow.appendChild(cfg.bodyNode);
