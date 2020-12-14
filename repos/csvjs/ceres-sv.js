@@ -186,7 +186,6 @@ window.ceres = {};
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.srcRoot = !rsc.ignore(cfg.src);
                 cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-                cfg.commaCodes = '&comma;|&#x2c;|&#44;|U+0002C';
                 cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
                 cfg.attrib = {};
@@ -670,9 +669,7 @@ window.ceres = {};
                     this.parseText = function(text)
                     {
                         if (rsc.ignore(text)) return;
-//var re = new RegExp(rsc.regexEscape('\,|' + cfg.commaCodes), 'g');
-                        //let doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
-                        let doc = new DOMParser().parseFromString(text.replace(new RegExp('\\,|' + cfg.commaCodes, 'g'), cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+                        let doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
                         return doc.body.textContent;
                     }
 
