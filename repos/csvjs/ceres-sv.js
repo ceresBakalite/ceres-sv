@@ -426,11 +426,10 @@ window.ceres = {};
                             }
 
                             const shade = document.querySelector('#' + csvRoot.id);
-                            //rsc.clearElement(shade);
-                            shade.attachShadow({ mode: 'open' });
+                            rsc.clearElement(shade);
 
+                            shade.attachShadow({ mode: 'open' });
                             cfg.shadow = shade.shadowRoot;
-                            rsc.clearElement(cfg.shadow);
 
                             atr.compose.styles();
                             atr.compose.body();
