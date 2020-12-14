@@ -455,26 +455,26 @@ window.ceres = {};
                             }
 
                             if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : getShadow(obj.node);
-                            let slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
+                            const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
 
                             cfg.slide = !rsc.ignore(obj.autoslide) ? obj.autoslide
                                 : cfg.slide < 1 ? slides.length
                                 : cfg.slide > slides.length ? 1
                                 : cfg.slide;
 
-                            let next = cfg.slide-1;
+                            const next = cfg.slide-1;
 
                             if (rsc.ignore(slides[next])) return;
 
-                            let active = obj.shadow.querySelector('div.slideview-image > div.active');
+                            const active = obj.shadow.querySelector('div.slideview-image > div.active');
                             if (active) active.classList.replace('active', 'none');
 
                             slides[next].classList.replace('none', 'active');
 
-                            let enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
+                            const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
                             if (enabled) enabled.className = 'nub';
 
-                            let nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
+                            const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
                             nub[next].className = 'nub enabled';
                         },
 
@@ -482,13 +482,13 @@ window.ceres = {};
                         {
                             const getAuto = function()
                             {
-                                let slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
-                                let complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                                const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
+                                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
 
-                                let autoCancel = function()
+                                const autoCancel = function()
                                 {
                                     autoslide = autoslide < 1 ? slides.length
                                         : autoslide > slides.length ? 1
@@ -498,7 +498,7 @@ window.ceres = {};
                                     return iteration === complete || (autoslide++, iteration++, false); // stops when complete
                                 }
 
-                                let auto = setInterval(function run()
+                                const auto = setInterval(function run()
                                 {
                                     if (autoCancel()) clearInterval(auto);
                                     atr.get.slide({ autoslide: autoslide-1 });
@@ -511,9 +511,9 @@ window.ceres = {};
                             {
                                 if (!('caches' in window)) return;
 
-                                let src = cfg.srcRoot ? cfg.src.split() : Array.from('');
-                                let cacheName = csv + '-cache';
-                                let urlArray = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
+                                const src = cfg.srcRoot ? cfg.src.split() : Array.from('');
+                                const cacheName = csv + '-cache';
+                                const urlArray = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
 
                                 urlArray.forEach(url =>
                                 {
@@ -656,14 +656,14 @@ window.ceres = {};
                     {
                         if (rsc.ignore(text)) return;
 
-                        let doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+                        const doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
                         return doc.body.textContent;
                     }
 
                     this.parseJSON = function(text)
                     {
+                        const json = JSON.parse(text);
                         let str = '';
-                        let json = JSON.parse(text);
 
                         json.forEach((node) =>
                         {
