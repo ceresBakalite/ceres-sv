@@ -687,14 +687,14 @@ window.ceres = {};
 
                         const parseGroup = function(group)
                         {
-                            const newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
+                            let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
                             return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
                         const parseRow = function(row)
                         {
-                            const newRow = row.replace(re, ''); // remove end symbols at the end of a row
+                            let newRow = row.replace(re, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
                             return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
                         }
