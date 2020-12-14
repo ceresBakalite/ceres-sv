@@ -672,7 +672,7 @@ window.ceres = {};
                         if (rsc.ignore(text)) return;
 //var re = new RegExp(rsc.regexEscape('\,|' + cfg.commaCodes), 'g');
                         //let doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
-                        let doc = new DOMParser().parseFromString(text.replace(new RegExp(rsc.regexEscape('\,|' + cfg.commaCodes), 'g'), cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+                        let doc = new DOMParser().parseFromString(text.replace(new RegExp('\\,|' + cfg.commaCodes, 'g'), cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
                         return doc.body.textContent;
                     }
 
