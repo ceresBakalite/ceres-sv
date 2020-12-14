@@ -425,12 +425,12 @@ window.ceres = {};
                                 atr.get.slide({ shadow: cfg.shadow });
                             }
 
-                            cfg.shade = document.querySelector('#' + csvRoot.id);
+                            const shade = document.querySelector('#' + csvRoot.id);
+                            //rsc.clearElement(shade);
+                            shade.attachShadow({ mode: 'open' });
 
-                            rsc.clearElement(cfg.shade);
-
-                            cfg.shade.attachShadow({ mode: 'open' });
-                            cfg.shadow = cfg.shade.shadowRoot;
+                            cfg.shadow = shade.shadowRoot;
+                            rsc.clearElement(cfg.shadow);
 
                             atr.compose.styles();
                             atr.compose.body();
