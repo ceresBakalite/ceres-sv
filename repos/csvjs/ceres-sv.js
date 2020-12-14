@@ -132,7 +132,6 @@ window.ceres = {};
             default      : 98,
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
             tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
             whitespace   : /\s/g,
@@ -258,37 +257,22 @@ window.ceres = {};
                             const getRootProperties = function()
                             {
                                 if (rsc.ignore(csvRoot)) return false;
+
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
                                 const getRootAttribute = function(str)
                                 {
                                     const rootAttribute = csvRoot.getAttribute(str);
+
                                     if (rsc.ignore(rootAttribute)) return false;
 
+                                    const propertyArray = ['color', 'font', 'padding', 'top', 'bottom'];
                                     const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const item = ar[0];
 
-                                    if (!Number.isInteger(parseInt(item, 10)))
-                                    {
-                                        if (!rsc.getBoolean(item)) return false;
-                                        if (ar.length > 1) ar.shift();
-                                    }
-
-                                    if (str == 'auto')
-                                    {
-                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0], 10)) ? parseInt(ar[0], 10) : 10;
-                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1], 10)) ? parseInt(ar[1], 10) : 3000;
-                                        cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
-
-                                        cfg.attrib.fade = cfg.attrib.autopause > 400;
-                                        cfg.attrib.nub  = 'false'; // typeof string
-
-                                        return true;
-                                    }
-
                                     const elStyle =
                                     {
-                                        get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
+                                        get property() { return propertyArray.map(item => { return item.trim().toUpperCase(); }) },
                                         get attribute() { return ar.map(item => { return item.trim(); }) },
                                     }
 
@@ -319,6 +303,24 @@ window.ceres = {};
 
                                             }
 
+                                        }
+
+                                        if (!Number.isInteger(parseInt(item, 10)))
+                                        {
+                                            if (!rsc.getBoolean(item)) return false;
+                                            if (ar.length > 1) ar.shift();
+                                        }
+
+                                        if (str == 'auto')
+                                        {
+                                            cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0], 10)) ? parseInt(ar[0], 10) : 10;
+                                            cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1], 10)) ? parseInt(ar[1], 10) : 3000;
+                                            cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
+
+                                            cfg.attrib.fade = cfg.attrib.autopause > 400;
+                                            cfg.attrib.nub  = 'false'; // typeof string
+
+                                            return true;
                                         }
 
                                         elStyle.attribute.forEach((item) => {
