@@ -567,7 +567,7 @@ window.ceres = {};
                             cfg.bodyNode = document.createElement('div');
                             cfg.bodyNode.className = 'slideview-body';
 
-                            cfg.shade.appendChild(cfg.bodyNode);
+                            //cfg.shade.appendChild(cfg.bodyNode);
                         },
 
                         images: function()
