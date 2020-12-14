@@ -200,10 +200,9 @@ window.ceres = {};
                     const remark = {
                         markup     : 'Image list markup ',
                         element    : 'The element attributes ',
-                        srcSearch  : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
-                        tagSearch  : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
+                        tagSearch  : 'The ' + csv + ' src attribute url is unavailable and there is no \'embed\' elementId. Looking for the first occurance of a <template> or <noscript> tagname',
                         properties : 'Error: Unable to find the ' + csv + ' document element',
-                        list       : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
+                        list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback template elements',
                         template   : 'Error: Unable to find the fallback template element when searching the document body',
                         cache      : 'Warning: cache response status '
                     };
@@ -384,8 +383,6 @@ window.ceres = {};
 
                                 let lightList = function()
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.srcSearch, logtrace: cfg.attrib.trace });
-
                                     let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
