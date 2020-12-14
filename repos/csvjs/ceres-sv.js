@@ -225,6 +225,7 @@ window.ceres = {};
                         properties: function()
                         {
                             const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
+                            const propertyArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
                             const attribute = {
                                 nub     : function(atr) { return !rsc.getBoolean(atr); },
@@ -264,7 +265,6 @@ window.ceres = {};
 
                                     if (rsc.ignore(rootAttribute)) return false;
 
-                                    const propertyArray = ['color', 'font', 'padding', 'top', 'bottom'];
                                     const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const item = ar[0];
 
