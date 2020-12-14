@@ -432,14 +432,9 @@ window.ceres = {};
                             cfg.shade.attachShadow({ mode: 'open' });
                             cfg.shadow = cfg.shade.shadowRoot;
 
-                            cfg.bodyNode = document.createElement('div');
-                            cfg.bodyNode.className = 'slideview-body';
-
                             atr.compose.styles();
-                            atr.compose.images();
-                            atr.compose.track();
-
-                            cfg.shadow.appendChild(cfg.bodyNode);
+                            atr.compose.body();
+                            //atr.compose.track();
 
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
@@ -564,7 +559,7 @@ window.ceres = {};
                             cfg.shadow.appendChild(cfg.styleNode);
                         },
 
-                        images: function()
+                        body: function()
                         {
                             const setURL = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
                             const setLoading = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
@@ -582,6 +577,9 @@ window.ceres = {};
                             {
                                 return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             }
+
+                            cfg.bodyNode = document.createElement('div');
+                            cfg.bodyNode.className = 'slideview-body';
 
                             const imgNode = document.createElement('div');
                             imgNode.className = 'slideview-image';
@@ -607,8 +605,21 @@ window.ceres = {};
 
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: this.href });
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: this.href });
-                        },
 
+                            const node = document.createElement('div');
+                            node.className = atr.getClassList('slideview-nub');
+
+                            cfg.bodyNode.appendChild(node);
+
+                            cfg.imageArray.forEach((item, i) =>
+                            {
+                                rsc.composeElement({ type: 'span', parent: node }, { id: 'nub' + i, class: 'nub', onclick: this.href });
+                            });
+
+                            cfg.shadow.appendChild(cfg.bodyNode);
+                        }
+
+                        /*
                         track: function()
                         {
                             const node = document.createElement('div');
@@ -621,6 +632,7 @@ window.ceres = {};
                                 rsc.composeElement({ type: 'span', parent: node }, { id: 'nub' + i, class: 'nub', onclick: this.href });
                             });
                         }
+                        */
 
                     };
 
