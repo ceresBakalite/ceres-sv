@@ -307,7 +307,7 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            console.log('item: ' + item);
+                                            console.log('item: ' + item + ' - ' + elStyle.property.includes(item));
 
                                             if (elStyle.property.includes(item)) styleAttribute(item);
 
