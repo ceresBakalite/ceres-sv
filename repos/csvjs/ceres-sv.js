@@ -273,7 +273,7 @@ window.ceres = {};
                                     const elStyle =
                                     {
                                         get property() { return propertyArray.map(item => { return item.trim().toUpperCase(); }) },
-                                        get attribute() { return ar.map(item => { return item.trim().toUpperCase(); }) },
+                                        get attribute() { return ar.map(item => { return item.trim().toUpperCase(); }) }
                                     }
 
                                     const getStyle = function()
