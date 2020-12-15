@@ -78,7 +78,7 @@ window.ceres = {};
             if (!obj.name) obj.name = 'n';
             if (!obj.range) obj.range = 100;
 
-            let elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
+            const elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
             while (document.getElementById(obj.el = elName())) {};
 
             return obj.el;
@@ -92,7 +92,7 @@ window.ceres = {};
         this.removeDuplcates = function(obj, sort)
         {
             const key = JSON.stringify;
-            let ar = [...new Map (obj.map(node => [key(node), node])).values()];
+            const ar = [...new Map (obj.map(node => [key(node), node])).values()];
 
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
@@ -101,7 +101,7 @@ window.ceres = {};
         {
             const errorHandler = function(error)
             {
-                let err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
                 console.error(err);
 
                 if (error.alert) alert(err);
@@ -132,11 +132,8 @@ window.ceres = {};
             default      : 98,
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            pArray       : ['color', 'font', 'padding', 'top', 'bottom'],
             tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
-            whitespace   : /\s/g,
-            markup       : /(<([^>]+)>)/ig,
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
@@ -181,6 +178,7 @@ window.ceres = {};
                 cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.srcRoot = !rsc.ignore(cfg.src);
                 cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                cfg.commaCodes = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
                 cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
                 cfg.attrib = {};
@@ -194,10 +192,9 @@ window.ceres = {};
                     const remark = {
                         markup     : 'Image list markup ',
                         element    : 'The element attributes ',
-                        srcSearch  : 'The ' + csv + ' src attribute url is unavailable. Searching for the fallback template element in the document body',
-                        tagSearch  : 'There is no \'embed\' elementId available. Looking for the first occurance of a <template> or <noscript> tagname',
+                        tagSearch  : 'The ' + csv + ' src attribute url is unavailable and there is no \'embed\' elementId. Looking for the first occurance of a <template> or <noscript> tagname',
                         properties : 'Error: Unable to find the ' + csv + ' document element',
-                        list       : 'Error: Unable to find either the fetch ' + csv + ' nor the fallback template elements',
+                        list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback template elements',
                         template   : 'Error: Unable to find the fallback template element when searching the document body',
                         cache      : 'Warning: cache response status '
                     };
@@ -227,15 +224,16 @@ window.ceres = {};
 
                         properties: function()
                         {
-                            const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
+                            const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
+                            const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
-                            const attribute = {
+                            const nodeProperty = {
                                 nub     : function(atr) { return !rsc.getBoolean(atr); },
                                 fade    : function(atr) { return !rsc.getBoolean(atr); },
                                 cache   : function(atr) { return !rsc.getBoolean(atr); },
                                 zoom    : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
                                 trace   : function(atr) { return rsc.getBoolean(atr); },
-                                delay   : function(atr) { return Number.isInteger(parseInt(atr)) ? parseInt(atr) : 250; },
+                                delay   : function(atr) { return Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250; },
                                 loading : function(atr) { return rsc.ignore(atr) ? 'auto' : atr },
                                 embed   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
@@ -255,26 +253,29 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getRootProperties = function()
+                            const getCSVRootProperties = function()
                             {
                                 if (rsc.ignore(csvRoot)) return false;
+
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                let getRootAttribute = function(str)
+                                const getPropertyAttributes = function(propertyName)
                                 {
-                                    let rootAttribute = csvRoot.getAttribute(str);
-                                    if (rsc.ignore(rootAttribute)) return false;
+                                    const nodeAttribute = csvRoot.getAttribute(propertyName);
+                                    if (rsc.ignore(nodeAttribute)) return false;
 
-                                    let ar = rootAttribute.replace(/ :|: /gi,':').split(',');
-                                    let item = ar[0];
+                                    const ar = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
+                                    const attributeArray = ar.map(item => { return item.trim(); });
+                                    const regex = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                    const item = attributeArray[0];
 
                                     if (!Number.isInteger(parseInt(item)))
                                     {
                                         if (!rsc.getBoolean(item)) return false;
-                                        if (ar.length > 1) ar.shift();
+                                        if (attributeArray.length > 1) attributeArray.shift();
                                     }
 
-                                    if (str == 'auto')
+                                    if (propertyName == 'auto')
                                     {
                                         cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                                         cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
@@ -286,34 +287,26 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    const elStyle =
+                                    const getStyle = function()
                                     {
-                                        get property() { return rsc.attrib.pArray.map(item => { return item.trim().toUpperCase(); }) },
-                                        get attribute() { return ar.map(item => { return item.trim(); }) },
-                                    }
+                                        if (attributeArray.length == 0) return;
 
-                                    let getStyle = function()
-                                    {
-                                        if (ar.length == 0) return;
-
-                                        let regex = str == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-
-                                        const styleAttribute = function(item)
+                                        const setStyleAttribute = function(attribute)
                                         {
-                                            let re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
-                                                : Boolean(item.match(/font:/i)) ? /font[^&]*?;/i
-                                                : Boolean(item.match(/padding:/i)) ? /padding[^&]*?;/i
-                                                : Boolean(item.match(/top:/i)) ? /top[^&]*?;/i
-                                                : Boolean(item.match(/bottom:/i)) ? /bottom[^&]*?;/i
+                                            const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
+                                                : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
+                                                : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
+                                                : Boolean(attribute.match(/top:/i)) ? /top[^&]*?;/i
+                                                : Boolean(attribute.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
                                             if (!rsc.ignore(re))
                                             {
-                                                let group = String(cfg.shadowStyle.match(regex));
+                                                const group = String(cfg.shadowStyle.match(regex));
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(re, item + ';')
+                                                    const newGroup = group.replace(re, attribute.replace(/(\s+)?:(\s+)?/g,':') + ';');
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
@@ -321,31 +314,31 @@ window.ceres = {};
 
                                         }
 
-                                        elStyle.attribute.forEach((item) => {
+                                        attributeArray.forEach((attribute) => {
 
-                                            if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
+                                            if (styleArray.includes(attribute.split(':')[0])) setStyleAttribute(attribute);
 
                                         });
 
                                     }
 
-                                    if (attributeArray.includes(attribute)) getStyle();
+                                    if (propertyArray.includes(propertyName)) getStyle();
 
                                     return true;
                                 }
 
-                                cfg.attrib.nub      = attribute.nub(csvRoot.getAttribute('nub')); // enabled
-                                cfg.attrib.fade     = attribute.fade(csvRoot.getAttribute('fade')); // enabled
-                                cfg.attrib.zoom     = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
-                                cfg.attrib.cache    = attribute.cache(csvRoot.getAttribute('cache')); // enabled
-                                cfg.attrib.trace    = attribute.trace(csvRoot.getAttribute('trace')); // disabled
-                                cfg.attrib.delay    = attribute.delay(csvRoot.getAttribute('delay')); // default 250
-                                cfg.attrib.loading  = attribute.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
-                                cfg.attrib.embed    = attribute.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
+                                cfg.attrib.nub      = nodeProperty.nub(csvRoot.getAttribute('nub')); // enabled
+                                cfg.attrib.fade     = nodeProperty.fade(csvRoot.getAttribute('fade')); // enabled
+                                cfg.attrib.zoom     = nodeProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
+                                cfg.attrib.cache    = nodeProperty.cache(csvRoot.getAttribute('cache')); // enabled
+                                cfg.attrib.trace    = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
+                                cfg.attrib.delay    = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
+                                cfg.attrib.loading  = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
+                                cfg.attrib.embed    = nodeProperty.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
 
-                                cfg.attrib.sur      = getRootAttribute('sur'); // disabled
-                                cfg.attrib.sub      = getRootAttribute('sub'); // disabled
-                                cfg.attrib.auto     = getRootAttribute('auto'); // disabled
+                                cfg.attrib.sur      = getPropertyAttributes('sur'); // disabled
+                                cfg.attrib.sub      = getPropertyAttributes('sub'); // disabled
+                                cfg.attrib.auto     = getPropertyAttributes('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
 
@@ -354,7 +347,7 @@ window.ceres = {};
                                 return true;
                             }
 
-                            return getRootProperties();
+                            return getCSVRootProperties();
                         },
 
                         textList: function()
@@ -370,20 +363,18 @@ window.ceres = {};
 
                             const getImageList = function()
                             {
-                                let shadowList = function()
+                                const shadowList = function()
                                 {
-                                    let text = csvRoot.textContent;
+                                    const text = csvRoot.textContent;
                                     return !rsc.ignore(text) ? text : null;
                                 }
 
-                                let lightList = function()
+                                const lightList = function()
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.srcSearch, logtrace: cfg.attrib.trace });
-
-                                    let text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
+                                    const text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
-                                    return text;
+                                    return atr.parseText(text);
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
@@ -391,7 +382,7 @@ window.ceres = {};
 
                             const isImageArray = function()
                             {
-                                let imageList = getImageList();
+                                const imageList = getImageList();
 
                                 if (!rsc.ignore(imageList))
                                 {
@@ -413,25 +404,20 @@ window.ceres = {};
                         {
                             const getSwipe = function(swipe)
                             {
-                                let offset = swipe.action ? swipe.right : swipe.left;
+                                const offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
                                 atr.get.slide({ shadow: cfg.shadow });
                             }
 
-                            cfg.shade = document.querySelector('#' + csvRoot.id);
+                            const shade = document.querySelector('#' + csvRoot.id);
+                            rsc.clearElement(shade);
 
-                            rsc.clearElement(cfg.shade);
+                            shade.attachShadow({ mode: 'open' });
+                            cfg.shadow = shade.shadowRoot;
 
-                            cfg.shade.attachShadow({ mode: 'open' });
-                            cfg.shadow = cfg.shade.shadowRoot;
-
-                            atr.compose.styles();
+                            atr.compose.style();
                             atr.compose.body();
-                            atr.compose.images();
-                            atr.compose.track();
-
-                            cfg.shadow.appendChild(cfg.bodyNode);
 
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
@@ -440,10 +426,10 @@ window.ceres = {};
                         {
                             const getShadow = function(node) // shadowRoot slide manager
                             {
-                                let root = node.getRootNode().host;
-                                let shade = document.querySelector('#' + root.id);
-                                let shadow = shade.shadowRoot;
-                                let slide = shadow.querySelector('div.slideview-image > div.active');
+                                const root = node.getRootNode().host;
+                                const shade = document.querySelector('#' + root.id);
+                                const shadow = shade.shadowRoot;
+                                const slide = shadow.querySelector('div.slideview-image > div.active');
 
                                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
@@ -457,26 +443,26 @@ window.ceres = {};
                             }
 
                             if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : getShadow(obj.node);
-                            let slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
+                            const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
 
                             cfg.slide = !rsc.ignore(obj.autoslide) ? obj.autoslide
                                 : cfg.slide < 1 ? slides.length
                                 : cfg.slide > slides.length ? 1
                                 : cfg.slide;
 
-                            let next = cfg.slide-1;
+                            const next = cfg.slide-1;
 
                             if (rsc.ignore(slides[next])) return;
 
-                            let active = obj.shadow.querySelector('div.slideview-image > div.active');
+                            const active = obj.shadow.querySelector('div.slideview-image > div.active');
                             if (active) active.classList.replace('active', 'none');
 
                             slides[next].classList.replace('none', 'active');
 
-                            let enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
+                            const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
                             if (enabled) enabled.className = 'nub';
 
-                            let nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
+                            const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
                             nub[next].className = 'nub enabled';
                         },
 
@@ -484,13 +470,13 @@ window.ceres = {};
                         {
                             const getAuto = function()
                             {
-                                let slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
-                                let complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                                const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
+                                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
 
-                                let autoCancel = function()
+                                const autoCancel = function()
                                 {
                                     autoslide = autoslide < 1 ? slides.length
                                         : autoslide > slides.length ? 1
@@ -500,7 +486,7 @@ window.ceres = {};
                                     return iteration === complete || (autoslide++, iteration++, false); // stops when complete
                                 }
 
-                                let auto = setInterval(function run()
+                                const auto = setInterval(function run()
                                 {
                                     if (autoCancel()) clearInterval(auto);
                                     atr.get.slide({ autoslide: autoslide-1 });
@@ -513,10 +499,9 @@ window.ceres = {};
                             {
                                 if (!('caches' in window)) return;
 
-                                cfg.shadowsrc = cfg.srcRoot ? cfg.src.split() : Array.from('');
-
-                                let cacheName = csv + '-cache';
-                                let urlArray = rsc.removeDuplcates(cfg.shadowsrc.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
+                                const src = cfg.srcRoot ? cfg.src.split() : Array.from('');
+                                const cacheName = csv + '-cache';
+                                const urlArray = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
 
                                 urlArray.forEach(url =>
                                 {
@@ -548,26 +533,18 @@ window.ceres = {};
 
                         href: 'ceres.getSlide(this)',
 
-                        styles: function()
+                        style: function()
                         {
-                            cfg.styleNode = document.createElement('style');
-                            cfg.styleNode.className = 'slideview-style';
-                            cfg.styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
+                            const styleNode = document.createElement('style');
+                            styleNode.className = 'slideview-style';
+                            styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
 
-                            cfg.shadow.appendChild(cfg.styleNode);
+                            cfg.shadow.appendChild(styleNode);
                         },
 
                         body: function()
                         {
-                            cfg.bodyNode = document.createElement('div');
-                            cfg.bodyNode.className = 'slideview-body';
-
-                            cfg.shade.appendChild(cfg.bodyNode);
-                        },
-
-                        images: function(index = 0)
-                        {
-                            const setURL = function() { return !rsc.ignore(arrayItem[0]) ? arrayItem[0].trim() : null; }
+                            const setURL = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
                             const setLoading = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
                             const getSubtitle = function() { return cfg.attrib.sub ? setSubtitle() : null; }
@@ -576,26 +553,36 @@ window.ceres = {};
 
                             const setSurtitle = function()
                             {
-                                return rsc.ignore(arrayItem[2]) ? index + ' / ' + cfg.imageArray.length : arrayItem[2].trim().replaceAll(cfg.commaSymbol, ',');;
+                                return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ',');
                             }
 
                             const setSubtitle = function()
                             {
-                                return rsc.ignore(arrayItem[1]) ? null : arrayItem[1].trim().replaceAll(cfg.commaSymbol, ',');
+                                return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             }
+
+                            const bodyNode = document.createElement('div');
+                            bodyNode.className = 'slideview-body';
 
                             const imgNode = document.createElement('div');
                             imgNode.className = 'slideview-image';
 
-                            cfg.bodyNode.appendChild(imgNode);
+                            bodyNode.appendChild(imgNode);
+
+                            const trackNode = document.createElement('div');
+                            trackNode.className = atr.getClassList('slideview-nub');
+
+                            bodyNode.appendChild(trackNode);
+
+                            let index = 0;
 
                             for (let item in cfg.imageArray)
                             {
-                                var arrayItem = cfg.imageArray[item].split(',');
+                                var ar = cfg.imageArray[item].split(',');
 
-                                let slideNode = document.createElement('div');
-                                slideNode.id = 'img' + (++index);
+                                const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
+                                slideNode.id = 'img' + (++index);
 
                                 imgNode.appendChild(slideNode);
 
@@ -606,19 +593,13 @@ window.ceres = {};
 
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: this.href });
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: this.href });
-                        },
 
-                        track: function(index = 0)
-                        {
-                            const trackNode = document.createElement('div');
-                            trackNode.className = atr.getClassList('slideview-nub');
-
-                            cfg.bodyNode.appendChild(trackNode);
-
-                            cfg.imageArray.forEach((item) =>
+                            cfg.imageArray.forEach((item, i) =>
                             {
-                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + (++index), class: 'nub', onclick: this.href });
+                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: this.href });
                             });
+
+                            cfg.shadow.appendChild(bodyNode);
                         }
 
                     };
@@ -636,7 +617,7 @@ window.ceres = {};
                             csvRoot.style.removeProperty('display');
                             csvRoot.style.removeProperty('visibility');
 
-                            if (csvRoot.style.length === 0) csvRoot.removeAttribute("style");
+                            if (csvRoot.style.length === 0) csvRoot.removeAttribute('style');
                         }
 
                     };
@@ -663,20 +644,20 @@ window.ceres = {};
                     {
                         if (rsc.ignore(text)) return;
 
-                        let doc = new DOMParser().parseFromString(text.replace(/&comma;/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
-                        return doc.body.textContent || doc.body.innerText;
+                        const doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
+                        return doc.body.textContent;
                     }
 
                     this.parseJSON = function(text)
                     {
+                        const json = JSON.parse(text);
                         let str = '';
-                        let json = JSON.parse(text);
 
                         json.forEach((node) =>
                         {
                             str += node.url
-                                + (node.sub ? ', ' + node.sub.replace(',', cfg.commaSymbol) : '')
-                                + (node.sur ? ', ' + node.sur.replace(',', cfg.commaSymbol) : '')
+                                + (node.sub ? ', ' + node.sub.replace(cfg.commaCodes, cfg.commaSymbol) : '')
+                                + (node.sur ? ', ' + node.sur.replace(cfg.commaCodes, cfg.commaSymbol) : '')
                                 + '\n';
                         });
 
@@ -696,25 +677,23 @@ window.ceres = {};
                         {
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
-                            return newGroup.replace(/,|&comma;/g, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
+                            return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
                         const parseRow = function(row)
                         {
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
-                            return newRow.replace(/(?<!\s)[,](?!\s)/g, ', '); // tidy
+                            return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
                         }
 
                         // construct a JSON object from the CSV construct
                         const composeJSON = function()
                         {
-                            let str = '';
+                            const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
+                            const re = /,\s*?$/; // match trailing comma whitespace
 
-                            const nodeName = function(i)
-                            {
-                                return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
-                            }
+                            let str = '';
 
                             newArray.forEach((row) => {
 
@@ -722,19 +701,19 @@ window.ceres = {};
                                 {
                                     str += '{ ';
                                     let rowArray = row.split(',');
-                                    let i = 0;
 
-                                    rowArray.forEach((value) => {
+                                    rowArray.forEach((value, i) => {
+
                                         str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", ';
-                                        i++;
+
                                     });
 
-                                    str = str.replace(/,\s*?$/, '') + ' },\n'
+                                    str = str.replace(re, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(/,\s*?$/, '') + ']';
+                            return '[' + str.replace(re, '') + ']';
                         }
 
                         const objectType = function()
