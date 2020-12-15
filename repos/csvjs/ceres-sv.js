@@ -259,11 +259,11 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getRootAttribute = function(str)
+                                const getRootAttribute = function(attributeName)
                                 {
-                                    const rootAttribute = csvRoot.getAttribute(str);
+                                    const rootAttribute = csvRoot.getAttribute(attributeName);
 
-                                    if (str == 'sub') console.log('rootAttribute: ' + rootAttribute);
+                                    if (attributeName == 'sub') console.log('rootAttribute: ' + rootAttribute);
 
                                     if (rsc.ignore(rootAttribute)) return false;
 
@@ -273,14 +273,14 @@ window.ceres = {};
                                     const elStyle =
                                     {
                                         get property() { return propertyArray.map(item => { return item.trim().toUpperCase(); }) },
-                                        get attribute() { return ar.map(item => { return item.trim().toUpperCase(); }) }
+                                        get attribute() { return ar.map(item => { return item.trim(); }) }
                                     }
 
                                     const getStyle = function()
                                     {
                                         if (ar.length == 0) return;
 
-                                        const regex = str == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                        const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
 
                                         const styleAttribute = function(item)
                                         {
@@ -307,9 +307,9 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
-                                            console.log('item: ' + item + ' - ' + elStyle.property.includes(item));
+                                            console.log('item: ' + item + ' - ' + elStyle.property.includes(item.toUpperCase()));
 
-                                            if (elStyle.property.includes(item)) styleAttribute(item);
+                                            if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
 
                                         });
 
@@ -321,7 +321,7 @@ window.ceres = {};
                                         if (ar.length > 1) ar.shift();
                                     }
 
-                                    if (str == 'auto')
+                                    if (attributeName == 'auto')
                                     {
                                         cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0], 10)) ? parseInt(ar[0], 10) : 10;
                                         cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1], 10)) ? parseInt(ar[1], 10) : 3000;
@@ -333,9 +333,7 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    console.log('attribute str: ' + str);
-
-                                    if (attributeArray.includes(str)) getStyle();
+                                    if (attributeArray.includes(attributeName)) getStyle();
 
                                     return true;
                                 }
