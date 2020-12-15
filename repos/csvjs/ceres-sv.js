@@ -267,12 +267,12 @@ window.ceres = {};
                                     const ar = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const attributeArray = ar.map(item => { return item.trim(); });
                                     const regex = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                    const item = ar[0];
+                                    const item = attributeArray[0];
 
                                     if (!Number.isInteger(parseInt(item)))
                                     {
                                         if (!rsc.getBoolean(item)) return false;
-                                        if (ar.length > 1) ar.shift();
+                                        if (attributeArray.length > 1) ar.shift();
                                     }
 
                                     if (propertyName == 'auto')
@@ -289,7 +289,7 @@ window.ceres = {};
 
                                     const getStyle = function()
                                     {
-                                        if (ar.length == 0) return;
+                                        if (attributeArray.length == 0) return;
 
                                         const setStyleAttribute = function(attribute)
                                         {
