@@ -291,13 +291,13 @@ window.ceres = {};
                                     {
                                         if (ar.length == 0) return;
 
-                                        const styleAttribute = function(item)
+                                        const styleAttribute = function(property)
                                         {
-                                            let re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
-                                                : Boolean(item.match(/font:/i)) ? /font[^&]*?;/i
-                                                : Boolean(item.match(/padding:/i)) ? /padding[^&]*?;/i
-                                                : Boolean(item.match(/top:/i)) ? /top[^&]*?;/i
-                                                : Boolean(item.match(/bottom:/i)) ? /bottom[^&]*?;/i
+                                            let re = Boolean(property.match(/color:/i)) ? /color[^&]*?;/i
+                                                : Boolean(property.match(/font:/i)) ? /font[^&]*?;/i
+                                                : Boolean(property.match(/padding:/i)) ? /padding[^&]*?;/i
+                                                : Boolean(property.match(/top:/i)) ? /top[^&]*?;/i
+                                                : Boolean(property.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
                                             if (!rsc.ignore(re))
@@ -306,7 +306,10 @@ window.ceres = {};
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(re, item + ';')
+                                                    let newGroup = group.replace(re, property + ';')
+
+                                                    console.log('test:' + group + ' => ' + newGroup);
+
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
