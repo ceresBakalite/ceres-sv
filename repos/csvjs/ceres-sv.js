@@ -272,7 +272,7 @@ window.ceres = {};
                                     if (!Number.isInteger(parseInt(item)))
                                     {
                                         if (!rsc.getBoolean(item)) return false;
-                                        if (attributeArray.length > 1) ar.shift();
+                                        if (attributeArray.length > 1) attributeArray.shift();
                                     }
 
                                     if (propertyName == 'auto')
