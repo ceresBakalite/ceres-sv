@@ -323,12 +323,15 @@ window.ceres = {};
 
                                         elStyle.attribute.forEach((item) => {
 
+                                            //let test = item.split(':')
+                                            console.log('item: ' + item + ' property includes: ' + elStyle.property.includes(item.toUpperCase()));
                                             if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
 
                                         });
 
                                     }
 
+                                    console.log('attribute: ' + attribute);
                                     if (attributeArray.includes(attribute)) getStyle();
 
                                     return true;
