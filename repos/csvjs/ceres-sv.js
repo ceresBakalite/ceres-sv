@@ -333,9 +333,9 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    console.log('attribute: ' + attribute);
+                                    console.log('attribute str: ' + str);
 
-                                    if (attributeArray.includes(attribute)) getStyle();
+                                    if (attributeArray.includes(str)) getStyle();
 
                                     return true;
                                 }
