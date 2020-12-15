@@ -225,9 +225,9 @@ window.ceres = {};
                         properties: function()
                         {
                             const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
-                            const propertyArray = ['color', 'font', 'padding', 'top', 'bottom'];
+                            const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
-                            const attribute = {
+                            const nodeProperty = {
                                 nub     : function(atr) { return !rsc.getBoolean(atr); },
                                 fade    : function(atr) { return !rsc.getBoolean(atr); },
                                 cache   : function(atr) { return !rsc.getBoolean(atr); },
@@ -265,7 +265,7 @@ window.ceres = {};
                                     if (rsc.ignore(rootAttribute)) return false;
 
                                     const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
-                                    const arAttributes = ar.map(item => { return item.trim(); });
+                                    const rootArray = ar.map(item => { return item.trim(); });
                                     const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                     const item = ar[0];
 
@@ -314,9 +314,9 @@ window.ceres = {};
 
                                         }
 
-                                        arAttributes.forEach((item) => {
+                                        rootArray.forEach((property) => {
 
-                                            if (propertyArray.includes(item.split(':')[0])) styleAttribute(item);
+                                            if (styleArray.includes(property.split(':')[0])) styleAttribute(property);
 
                                         });
 
@@ -327,14 +327,14 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.attrib.nub      = attribute.nub(csvRoot.getAttribute('nub')); // enabled
-                                cfg.attrib.fade     = attribute.fade(csvRoot.getAttribute('fade')); // enabled
-                                cfg.attrib.zoom     = attribute.zoom(csvRoot.getAttribute('zoom')); // enabled
-                                cfg.attrib.cache    = attribute.cache(csvRoot.getAttribute('cache')); // enabled
-                                cfg.attrib.trace    = attribute.trace(csvRoot.getAttribute('trace')); // disabled
-                                cfg.attrib.delay    = attribute.delay(csvRoot.getAttribute('delay')); // default 250
-                                cfg.attrib.loading  = attribute.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
-                                cfg.attrib.embed    = attribute.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
+                                cfg.attrib.nub      = nodeProperty.nub(csvRoot.getAttribute('nub')); // enabled
+                                cfg.attrib.fade     = nodeProperty.fade(csvRoot.getAttribute('fade')); // enabled
+                                cfg.attrib.zoom     = nodeProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
+                                cfg.attrib.cache    = nodeProperty.cache(csvRoot.getAttribute('cache')); // enabled
+                                cfg.attrib.trace    = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
+                                cfg.attrib.delay    = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
+                                cfg.attrib.loading  = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
+                                cfg.attrib.embed    = nodeProperty.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
 
                                 cfg.attrib.sur      = getRootAttribute('sur'); // disabled
                                 cfg.attrib.sub      = getRootAttribute('sub'); // disabled
