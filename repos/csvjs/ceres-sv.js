@@ -263,11 +263,12 @@ window.ceres = {};
 
                                 const getRootAttribute = function(attributeName)
                                 {
-                                    let rootAttribute = csvRoot.getAttribute(attributeName);
+                                    const rootAttribute = csvRoot.getAttribute(attributeName);
                                     if (rsc.ignore(rootAttribute)) return false;
 
-                                    let ar = rootAttribute.replace(/ :|: /gi,':').split(',');
-                                    let item = ar[0];
+                                    const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                    const ar = rootAttribute.replace(/ :|: /gi,':').split(',');
+                                    const item = ar[0];
 
                                     if (!Number.isInteger(parseInt(item)))
                                     {
@@ -319,8 +320,6 @@ window.ceres = {};
                                             }
 
                                         }
-
-                                        const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
 
                                         elStyle.attribute.forEach((item) => {
 
