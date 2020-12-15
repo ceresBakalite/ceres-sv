@@ -259,8 +259,7 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const pArray = ['color', 'font', 'padding', 'top', 'bottom'];
-                                const property = pArray.map(item => { return item.trim().toUpperCase(); });
+                                const property = propertyArray.map(item => { return item.trim().toUpperCase(); });
 
                                 const getRootAttribute = function(attributeName)
                                 {
@@ -268,7 +267,7 @@ window.ceres = {};
                                     if (rsc.ignore(rootAttribute)) return false;
 
                                     const ar = rootAttribute.replace(/ :|: /gi,':').split(',');
-                                    const attribute = ar.map(item => { return item.trim(); });
+                                    const arAttributes = ar.map(item => { return item.trim(); });
                                     const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                     const item = ar[0];
 
@@ -317,7 +316,7 @@ window.ceres = {};
 
                                         }
 
-                                        attribute.forEach((item) => {
+                                        arAttributes.forEach((item) => {
 
                                             //let test = item.split(':')
                                             console.log('item: ' + item + ' property includes: ' + property.includes(item.toUpperCase()));
