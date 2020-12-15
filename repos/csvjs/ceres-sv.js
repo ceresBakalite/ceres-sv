@@ -316,9 +316,9 @@ window.ceres = {};
 
                                         arAttributes.forEach((item) => {
 
-                                            //let test = item.split(':')
-                                            console.log('item: ' + item + ' property includes: ' + propertyArray.includes(item));
-                                            if (propertyArray.includes(item)) styleAttribute(item);
+                                            let test = item.split(':');
+                                            console.log('test[0]: ' + test[0] + ' property includes: ' + propertyArray.includes(test[0]));
+                                            if (propertyArray.includes(test[0])) styleAttribute(item);
 
                                         });
 
