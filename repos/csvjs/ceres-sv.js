@@ -307,10 +307,7 @@ window.ceres = {};
                                                 if (group)
                                                 {
                                                     let newGroup = group.replace(re, property + ';')
-
-                                                    console.log('test:' + group + ' => ' + newGroup);
-
-                                                    if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+                                                    if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup.replace(/\s+:\s+/g,':'));
                                                 }
 
                                             }
