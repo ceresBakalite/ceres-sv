@@ -224,7 +224,7 @@ window.ceres = {};
 
                         properties: function()
                         {
-                            const attributeArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
+                            const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
                             const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
                             const nodeProperty = {
@@ -322,7 +322,7 @@ window.ceres = {};
 
                                     }
 
-                                    if (attributeArray.includes(propertyName)) getStyle();
+                                    if (propertyArray.includes(propertyName)) getStyle();
 
                                     return true;
                                 }
