@@ -264,7 +264,7 @@ window.ceres = {};
                                     const rootAttribute = csvRoot.getAttribute(attributeName);
                                     if (rsc.ignore(rootAttribute)) return false;
 
-                                    const ar = rootAttribute.replace(/ :|: /gi,':').split(',');
+                                    const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const arAttributes = ar.map(item => { return item.trim(); });
                                     const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                     const item = ar[0];
