@@ -253,7 +253,7 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getNodeProperties = function()
+                            const getCSVRootProperties = function()
                             {
                                 if (rsc.ignore(csvRoot)) return false;
 
@@ -347,7 +347,7 @@ window.ceres = {};
                                 return true;
                             }
 
-                            return getNodeProperties();
+                            return getCSVRootProperties();
                         },
 
                         textList: function()
