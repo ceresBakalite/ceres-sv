@@ -333,6 +333,8 @@ window.ceres = {};
                                         return true;
                                     }
 
+                                    console.log('attribute: ' + attribute);
+
                                     if (attributeArray.includes(attribute)) getStyle();
 
                                     return true;
