@@ -25,7 +25,8 @@ window.ceres = {};
         {
             if (!el.type) return;
 
-            const precursor = this.attrib.tagName.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+            const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+            //const precursor = this.attrib.tagName.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
             const node = document.createElement(el.type);
 
             Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
@@ -132,12 +133,10 @@ window.ceres = {};
             default      : 98,
             error        : 99,
             bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            tArray       : ['link', 'script', 'style'],
             isWindows    : (navigator.appVersion.indexOf('Win') != -1),
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
-            get tagName() { return this.tArray.map(item => { return item.trim().toUpperCase(); }) },
             get metaUrl() { return import.meta.url; }
         }
 
