@@ -26,7 +26,6 @@ window.ceres = {};
             if (!el.type) return;
 
             const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
-            //const precursor = this.attrib.tagName.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
             const node = document.createElement(el.type);
 
             Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
