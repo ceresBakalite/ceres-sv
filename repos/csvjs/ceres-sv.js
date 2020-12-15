@@ -291,8 +291,6 @@ window.ceres = {};
                                                 : Boolean(item.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
-console.log('re: ' + re);
-
                                             if (!rsc.ignore(re))
                                             {
                                                 const group = String(cfg.shadowStyle.match(regex));
@@ -308,6 +306,8 @@ console.log('re: ' + re);
                                         }
 
                                         elStyle.attribute.forEach((item) => {
+
+                                            console.log('item: ' + item);
 
                                             if (elStyle.property.includes(item)) styleAttribute(item);
 
