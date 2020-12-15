@@ -269,7 +269,7 @@ window.ceres = {};
                                 {
                                     const rootAttribute = csvRoot.getAttribute(str);
 
-                                    console.log('rootAttribute: ' + rootAttribute);
+                                    if (str == 'sub') console.log('rootAttribute: ' + rootAttribute);
 
                                     if (rsc.ignore(rootAttribute)) return false;
 
