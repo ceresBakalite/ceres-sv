@@ -259,63 +259,17 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
+                                const pArray = ['color', 'font', 'padding', 'top', 'bottom'];
+
                                 const getRootAttribute = function(attributeName)
                                 {
-                                    const rootAttribute = csvRoot.getAttribute(attributeName);
-
+                                    let rootAttribute = csvRoot.getAttribute(attributeName);
                                     if (rsc.ignore(rootAttribute)) return false;
 
-                                    const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
-                                    const item = ar[0];
+                                    let ar = rootAttribute.replace(/ :|: /gi,':').split(',');
+                                    let item = ar[0];
 
-                                    if (attributeName == 'sub') console.log('rootAttribute: ' + rootAttribute + ' - ar[0] item: ' + item);
-
-                                    const elStyle =
-                                    {
-                                        get property() { return propertyArray.map(item => { return item.trim().toUpperCase(); }) },
-                                        get attribute() { return ar.map(item => { return item.trim(); }) }
-                                    }
-
-                                    const getStyle = function()
-                                    {
-                                        if (ar.length == 0) return;
-
-                                        const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-
-                                        const styleAttribute = function(item)
-                                        {
-                                            const re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
-                                                : Boolean(item.match(/font:/i)) ? /font[^&]*?;/i
-                                                : Boolean(item.match(/padding:/i)) ? /padding[^&]*?;/i
-                                                : Boolean(item.match(/top:/i)) ? /top[^&]*?;/i
-                                                : Boolean(item.match(/bottom:/i)) ? /bottom[^&]*?;/i
-                                                : null;
-
-                                            if (!rsc.ignore(re))
-                                            {
-                                                const group = String(cfg.shadowStyle.match(regex));
-
-                                                if (group)
-                                                {
-                                                    const newGroup = group.replace(re, item + ';')
-                                                    if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
-                                                }
-
-                                            }
-
-                                        }
-
-                                        elStyle.attribute.forEach((item) => {
-
-                                            console.log('item: ' + item + ' - ' + elStyle.property.includes(item.toUpperCase()));
-
-                                            if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
-
-                                        });
-
-                                    }
-
-                                    if (!Number.isInteger(parseInt(item, 10)))
+                                    if (!Number.isInteger(parseInt(item)))
                                     {
                                         if (!rsc.getBoolean(item)) return false;
                                         if (ar.length > 1) ar.shift();
@@ -323,8 +277,8 @@ window.ceres = {};
 
                                     if (attributeName == 'auto')
                                     {
-                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0], 10)) ? parseInt(ar[0], 10) : 10;
-                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1], 10)) ? parseInt(ar[1], 10) : 3000;
+                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
                                         cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
 
                                         cfg.attrib.fade = cfg.attrib.autopause > 400;
@@ -333,7 +287,50 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    if (attributeArray.includes(attributeName)) getStyle();
+                                    const getStyle = function()
+                                    {
+                                        if (ar.length == 0) return;
+
+                                        const elStyle =
+                                        {
+                                            get property() { return pArray.map(item => { return item.trim().toUpperCase(); }) },
+                                            get attribute() { return ar.map(item => { return item.trim(); }) },
+                                        }
+
+                                        const styleAttribute = function(item)
+                                        {
+                                            let re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
+                                                : Boolean(item.match(/font:/i)) ? /font[^&]*?;/i
+                                                : Boolean(item.match(/padding:/i)) ? /padding[^&]*?;/i
+                                                : Boolean(item.match(/top:/i)) ? /top[^&]*?;/i
+                                                : Boolean(item.match(/bottom:/i)) ? /bottom[^&]*?;/i
+                                                : null;
+
+                                            if (!rsc.ignore(re))
+                                            {
+                                                let group = String(cfg.shadowStyle.match(regex));
+
+                                                if (group)
+                                                {
+                                                    let newGroup = group.replace(re, item + ';')
+                                                    if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
+                                                }
+
+                                            }
+
+                                        }
+
+                                        const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+
+                                        elStyle.attribute.forEach((item) => {
+
+                                            if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
+
+                                        });
+
+                                    }
+
+                                    if (attributeArray.includes(attribute)) getStyle();
 
                                     return true;
                                 }
