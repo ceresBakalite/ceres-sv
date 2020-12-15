@@ -306,7 +306,7 @@ window.ceres = {};
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(re, property.replace(/(\s+)?:(\s+)?/g,':') + ';');
+                                                    let newGroup = group.replace(re, attribute.replace(/(\s+)?:(\s+)?/g,':') + ';');
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
