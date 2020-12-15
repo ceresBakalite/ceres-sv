@@ -259,8 +259,6 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const property = propertyArray.map(item => { return item.trim().toUpperCase(); });
-
                                 const getRootAttribute = function(attributeName)
                                 {
                                     const rootAttribute = csvRoot.getAttribute(attributeName);
@@ -319,8 +317,8 @@ window.ceres = {};
                                         arAttributes.forEach((item) => {
 
                                             //let test = item.split(':')
-                                            console.log('item: ' + item + ' property includes: ' + property.includes(item.toUpperCase()));
-                                            if (property.includes(item.toUpperCase())) styleAttribute(item);
+                                            console.log('item: ' + item + ' property includes: ' + propertyArray.includes(item));
+                                            if (propertyArray.includes(item)) styleAttribute(item);
 
                                         });
 
