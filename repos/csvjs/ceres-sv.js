@@ -316,6 +316,7 @@ window.ceres = {};
 
                                         arAttributes.forEach((item) => {
 
+                                            console.log('split: ' + item.split(':')[0]);
                                             let test = item.split(':');
                                             console.log('test[0]: ' + test[0] + ' property includes: ' + propertyArray.includes(test[0]));
                                             if (propertyArray.includes(test[0])) styleAttribute(item);
