@@ -306,7 +306,7 @@ window.ceres = {};
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(re, property.replace(/\s+:\s+/g,':') + ';');
+                                                    let newGroup = group.replace(re, property.replace(/(\s+)?:(\s+)?/g,':') + ';');
 
                                                     console.log('newGroup: ' + newGroup);
 
