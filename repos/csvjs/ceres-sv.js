@@ -259,14 +259,14 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getRootAttribute = function(attributeName)
+                                const getRootAttribute = function(propertyName)
                                 {
-                                    const rootAttribute = csvRoot.getAttribute(attributeName);
+                                    const rootAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(rootAttribute)) return false;
 
                                     const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const rootArray = ar.map(item => { return item.trim(); });
-                                    const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                    const regex = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                     const item = ar[0];
 
                                     if (!Number.isInteger(parseInt(item)))
@@ -275,7 +275,7 @@ window.ceres = {};
                                         if (ar.length > 1) ar.shift();
                                     }
 
-                                    if (attributeName == 'auto')
+                                    if (propertyName == 'auto')
                                     {
                                         cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
                                         cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
@@ -291,13 +291,13 @@ window.ceres = {};
                                     {
                                         if (ar.length == 0) return;
 
-                                        const setStyleAttribute = function(property)
+                                        const setStyleAttribute = function(attribute)
                                         {
-                                            let re = Boolean(property.match(/color:/i)) ? /color[^&]*?;/i
-                                                : Boolean(property.match(/font:/i)) ? /font[^&]*?;/i
-                                                : Boolean(property.match(/padding:/i)) ? /padding[^&]*?;/i
-                                                : Boolean(property.match(/top:/i)) ? /top[^&]*?;/i
-                                                : Boolean(property.match(/bottom:/i)) ? /bottom[^&]*?;/i
+                                            let re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
+                                                : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
+                                                : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
+                                                : Boolean(attribute.match(/top:/i)) ? /top[^&]*?;/i
+                                                : Boolean(attribute.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
                                             if (!rsc.ignore(re))
@@ -314,15 +314,15 @@ window.ceres = {};
 
                                         }
 
-                                        rootArray.forEach((value) => {
+                                        rootArray.forEach((attribute) => {
 
-                                            if (styleArray.includes(value.split(':')[0])) setStyleAttribute(value);
+                                            if (styleArray.includes(attribute.split(':')[0])) setStyleAttribute(attribute);
 
                                         });
 
                                     }
 
-                                    if (attributeArray.includes(attributeName)) getStyle();
+                                    if (attributeArray.includes(propertyName)) getStyle();
 
                                     return true;
                                 }
