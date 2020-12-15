@@ -291,7 +291,7 @@ window.ceres = {};
                                     {
                                         if (ar.length == 0) return;
 
-                                        const styleAttribute = function(property)
+                                        const setStyleAttribute = function(property)
                                         {
                                             let re = Boolean(property.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(property.match(/font:/i)) ? /font[^&]*?;/i
@@ -307,9 +307,6 @@ window.ceres = {};
                                                 if (group)
                                                 {
                                                     let newGroup = group.replace(re, property.replace(/(\s+)?:(\s+)?/g,':') + ';');
-
-                                                    console.log('newGroup: ' + newGroup);
-
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
@@ -317,9 +314,9 @@ window.ceres = {};
 
                                         }
 
-                                        rootArray.forEach((property) => {
+                                        rootArray.forEach((value) => {
 
-                                            if (styleArray.includes(property.split(':')[0])) styleAttribute(property);
+                                            if (styleArray.includes(value.split(':')[0])) setStyleAttribute(value);
 
                                         });
 
