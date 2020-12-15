@@ -263,12 +263,12 @@ window.ceres = {};
                                 {
                                     const rootAttribute = csvRoot.getAttribute(attributeName);
 
-                                    if (attributeName == 'sub') console.log('rootAttribute: ' + rootAttribute);
-
                                     if (rsc.ignore(rootAttribute)) return false;
 
                                     const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const item = ar[0];
+
+                                    if (attributeName == 'sub') console.log('rootAttribute: ' + rootAttribute + ' - ar[0] item: ' + item);
 
                                     const elStyle =
                                     {
