@@ -253,19 +253,19 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getRootProperties = function()
+                            const getCSVRootProperties = function()
                             {
                                 if (rsc.ignore(csvRoot)) return false;
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getRootAttribute = function(propertyName)
+                                const getCSVRootAttribute = function(propertyName)
                                 {
                                     const rootAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(rootAttribute)) return false;
 
                                     const ar = rootAttribute.replace(/\s+:\s+/g,':').split(',');
-                                    const rootArray = ar.map(item => { return item.trim(); });
+                                    const attributeArray = ar.map(item => { return item.trim(); });
                                     const regex = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                     const item = ar[0];
 
@@ -314,7 +314,7 @@ window.ceres = {};
 
                                         }
 
-                                        rootArray.forEach((attribute) => {
+                                        attributeArray.forEach((attribute) => {
 
                                             if (styleArray.includes(attribute.split(':')[0])) setStyleAttribute(attribute);
 
@@ -336,9 +336,9 @@ window.ceres = {};
                                 cfg.attrib.loading  = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
                                 cfg.attrib.embed    = nodeProperty.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
 
-                                cfg.attrib.sur      = getRootAttribute('sur'); // disabled
-                                cfg.attrib.sub      = getRootAttribute('sub'); // disabled
-                                cfg.attrib.auto     = getRootAttribute('auto'); // disabled
+                                cfg.attrib.sur      = getCSVRootAttribute('sur'); // disabled
+                                cfg.attrib.sub      = getCSVRootAttribute('sub'); // disabled
+                                cfg.attrib.auto     = getCSVRootAttribute('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
 
@@ -347,7 +347,7 @@ window.ceres = {};
                                 return true;
                             }
 
-                            return getRootProperties();
+                            return getCSVRootProperties();
                         },
 
                         textList: function()
