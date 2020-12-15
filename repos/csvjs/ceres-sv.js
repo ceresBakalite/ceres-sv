@@ -260,14 +260,16 @@ window.ceres = {};
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
                                 const pArray = ['color', 'font', 'padding', 'top', 'bottom'];
+                                const property = pArray.map(item => { return item.trim().toUpperCase(); });
 
                                 const getRootAttribute = function(attributeName)
                                 {
                                     const rootAttribute = csvRoot.getAttribute(attributeName);
                                     if (rsc.ignore(rootAttribute)) return false;
 
-                                    const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                     const ar = rootAttribute.replace(/ :|: /gi,':').split(',');
+                                    const attribute = ar.map(item => { return item.trim(); });
+                                    const regex = attributeName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
                                     const item = ar[0];
 
                                     if (!Number.isInteger(parseInt(item)))
@@ -292,12 +294,6 @@ window.ceres = {};
                                     {
                                         if (ar.length == 0) return;
 
-                                        const elStyle =
-                                        {
-                                            get property() { return pArray.map(item => { return item.trim().toUpperCase(); }) },
-                                            get attribute() { return ar.map(item => { return item.trim(); }) },
-                                        }
-
                                         const styleAttribute = function(item)
                                         {
                                             let re = Boolean(item.match(/color:/i)) ? /color[^&]*?;/i
@@ -321,11 +317,11 @@ window.ceres = {};
 
                                         }
 
-                                        elStyle.attribute.forEach((item) => {
+                                        attribute.forEach((item) => {
 
                                             //let test = item.split(':')
-                                            console.log('item: ' + item + ' property includes: ' + elStyle.property.includes(item.toUpperCase()));
-                                            if (elStyle.property.includes(item.toUpperCase())) styleAttribute(item);
+                                            console.log('item: ' + item + ' property includes: ' + property.includes(item.toUpperCase()));
+                                            if (property.includes(item.toUpperCase())) styleAttribute(item);
 
                                         });
 
