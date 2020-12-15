@@ -293,7 +293,7 @@ window.ceres = {};
 
                                         const setStyleAttribute = function(attribute)
                                         {
-                                            let re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
+                                            const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
                                                 : Boolean(attribute.match(/top:/i)) ? /top[^&]*?;/i
@@ -302,11 +302,11 @@ window.ceres = {};
 
                                             if (!rsc.ignore(re))
                                             {
-                                                let group = String(cfg.shadowStyle.match(regex));
+                                                const group = String(cfg.shadowStyle.match(regex));
 
                                                 if (group)
                                                 {
-                                                    let newGroup = group.replace(re, attribute.replace(/(\s+)?:(\s+)?/g,':') + ';');
+                                                    const newGroup = group.replace(re, attribute.replace(/(\s+)?:(\s+)?/g,':') + ';');
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
