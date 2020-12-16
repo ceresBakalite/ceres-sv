@@ -353,7 +353,7 @@ window.ceres = {};
                         textList: () => { return (cfg.srcRoot || cfg.template); },
 
                         textArray: () => {
-
+                            
                             cfg.imageArray = null;
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
@@ -397,8 +397,8 @@ window.ceres = {};
 
                     this.get = { // HTMLElement components
 
-                        shadow: () => {
-
+                        shadow: function()
+                        {
                             const getSwipe = function(swipe)
                             {
                                 const offset = swipe.action ? swipe.right : swipe.left;
@@ -419,8 +419,8 @@ window.ceres = {};
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
 
-                        slide: obj => {
-
+                        slide: function(obj)
+                        {
                             const getShadow = function(node) // shadowRoot slide manager
                             {
                                 const root   = node.getRootNode().host;
@@ -463,8 +463,8 @@ window.ceres = {};
                             nub[next].className = 'nub enabled';
                         },
 
-                        view: () => {
-
+                        view: function()
+                        {
                             const getAuto = function()
                             {
                                 const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
@@ -530,8 +530,8 @@ window.ceres = {};
 
                         href: 'ceres.getSlide(this)',
 
-                        style: () => {
-
+                        style: function()
+                        {
                             const styleNode = document.createElement('style');
                             styleNode.className = 'slideview-style';
                             styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
@@ -539,8 +539,8 @@ window.ceres = {};
                             cfg.shadow.appendChild(styleNode);
                         },
 
-                        body: () => {
-
+                        body: function()
+                        {
                             const setURL      = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
                             const setLoading  = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
@@ -604,14 +604,14 @@ window.ceres = {};
 
                     this.setDisplay = {
 
-                        hide: () => {
-
+                        hide: function()
+                        {
                             csvRoot.style.visibility = 'hidden';
                             csvRoot.style.display = 'none';
                         },
 
-                        show: () => {
-
+                        show: function()
+                        {
                             csvRoot.style.removeProperty('display');
                             csvRoot.style.removeProperty('visibility');
 
@@ -620,8 +620,8 @@ window.ceres = {};
 
                     };
 
-                    this.getClassList = className => {
-
+                    this.getClassList = function(className)
+                    {
                         if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
 
                         if (cfg.attrib.zoom) className += ' zoom';
@@ -630,18 +630,21 @@ window.ceres = {};
                         return className += ' none';
                     }
 
-                    this.getFileType = textList => {
-
+                    this.getFileType = function(textList)
+                    {
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
                         if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
 
-                    this.parseText = text => { return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')); }
+                    this.parseText = function(text)
+                    {
+                        return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''));
+                    }
 
-                    this.parseJSON = text => {
-
+                    this.parseJSON = function(text)
+                    {
                         const json = JSON.parse(text);
                         let str = '';
 
@@ -657,8 +660,8 @@ window.ceres = {};
                     }
 
                     // noddy regex csv parser
-                    this.parseCSV = (text, symbol = {}) => {
-
+                    this.parseCSV = function(text, symbol = {})
+                    {
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
                         const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
