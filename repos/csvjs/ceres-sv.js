@@ -223,8 +223,8 @@ window.ceres = {};
 
                     this.content = { // HTMLElement properties
 
-                        properties: function()
-                        {
+                        properties: () => {
+
                             const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'local', 'fade', 'auto', 'loading'];
                             const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
@@ -239,8 +239,8 @@ window.ceres = {};
                                 local   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const getTemplate = function()
-                            {
+                            const getTemplate = () => {
+
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
@@ -288,12 +288,12 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    const getStyle = function()
-                                    {
+                                    const getStyle = () => {
+
                                         if (atrArray.length == 0) return;
 
-                                        const setStyleAttribute = function(attribute)
-                                        {
+                                        const setStyleAttribute = attribute => {
+
                                             const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
@@ -350,13 +350,10 @@ window.ceres = {};
                             return getCSVRootProperties();
                         },
 
-                        textList: function()
-                        {
-                            return (cfg.srcRoot || cfg.template);
-                        },
+                        textList: () => { return (cfg.srcRoot || cfg.template); },
 
-                        textArray: function()
-                        {
+                        textArray: () => {
+
                             cfg.imageArray = null;
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
