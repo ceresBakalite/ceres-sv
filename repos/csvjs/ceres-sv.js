@@ -15,14 +15,14 @@ window.ceres = {};
     const rsc = {}; // generic resource methods
     (function() {
 
-        this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
-        this.fileName     = path => { return path.substring(path.lastIndexOf('/')+1, path.length); }
-        this.fileType     = path, type => { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
-        this.srcOpen      = obj => { window.open(obj.element.getAttribute('src'), obj.type); }
-        this.isString     = obj => { return Object.prototype.toString.call(obj) == '[object String]'; }
+        this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
+        this.fileName     = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
+        this.fileType     = function(path, type) { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
+        this.srcOpen      = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+        this.isString     = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
 
-        this.composeElement = (el, atr) => {
-
+        this.composeElement = function(el, atr)
+        {
             if (!el.type) return;
 
             const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
@@ -34,8 +34,8 @@ window.ceres = {};
             precursor.appendChild(node);
         }
 
-        this.setSwipe = (touch, callback, args) => { // horizontal swipe
-
+        this.setSwipe = function(touch, callback, args) // horizontal swipe
+        {
             if (!touch.act) touch.act = 80;
 
             touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
@@ -54,8 +54,8 @@ window.ceres = {};
 
         }
 
-        this.ignore = obj => {
-
+        this.ignore = function(obj)
+        {
             if (obj === null || obj == 'undefined') return true;
 
             if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
@@ -65,16 +65,16 @@ window.ceres = {};
             return !obj;
         }
 
-        this.getBoolean = obj => {
-
+        this.getBoolean = function(obj)
+        {
             if (obj === true || obj === false) return atr;
             if (this.ignore(obj) || !this.isString(obj)) return false;
 
             return this.attrib.bool.includes(obj.trim().toUpperCase());
         }
 
-        this.getUniqueId = obj => {
-
+        this.getUniqueId = function(obj)
+        {
             if (!obj.name) obj.name = 'n';
             if (!obj.range) obj.range = 100;
 
@@ -84,12 +84,13 @@ window.ceres = {};
             return obj.el;
         }
 
-        this.recursiveReplace = (str, criteria, obj) => {
+        this.recursiveReplace = function(str, criteria, obj)
+        {
             return str.replace(criteria, function(match) { return obj[match]; });
         }
 
-        this.removeDuplcates = (obj, sort) => {
-
+        this.removeDuplcates = function(obj, sort)
+        {
             const key = JSON.stringify;
             const ar = [...new Map (obj.map(node => [key(node), node])).values()];
 
@@ -97,13 +98,15 @@ window.ceres = {};
         }
 
         this.sanitizeText = (text, type = 'text/html') => {
+
+            if (rsc.ignore(text)) return;
             return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;');
         }
 
-        this.inspect = diagnostic => {
-
-            const errorHandler = error => {
-
+        this.inspect = function(diagnostic)
+        {
+            const errorHandler = function(error)
+            {
                 const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
                 console.error(err);
 
@@ -121,8 +124,8 @@ window.ceres = {};
             lookup[diagnostic.type]() || lookup[this.attrib.default];
         }
 
-        this.getProperties = (string = {}, str = '') => {
-
+        this.getProperties = function(string = {}, str = '')
+        {
             for (let literal in string) str += literal + ': ' + string[literal] + ', ';
             return str.replace(/, +$/g,'');
         }
@@ -223,8 +226,8 @@ window.ceres = {};
 
                     this.content = { // HTMLElement properties
 
-                        properties: () => {
-
+                        properties: function()
+                        {
                             const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'local', 'fade', 'auto', 'loading'];
                             const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
@@ -239,8 +242,8 @@ window.ceres = {};
                                 local   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const getTemplate = () => {
-
+                            const getTemplate = function()
+                            {
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
@@ -254,14 +257,14 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getCSVRootProperties = () => {
-
+                            const getCSVRootProperties = function()
+                            {
                                 if (rsc.ignore(csvRoot)) return false;
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getPropertyAttributes = propertyName => {
-
+                                const getPropertyAttributes = function(propertyName)
+                                {
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
@@ -288,12 +291,12 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    const getStyle = () => {
-
+                                    const getStyle = function()
+                                    {
                                         if (atrArray.length == 0) return;
 
-                                        const setStyleAttribute = attribute => {
-
+                                        const setStyleAttribute = function(attribute)
+                                        {
                                             const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
@@ -350,10 +353,13 @@ window.ceres = {};
                             return getCSVRootProperties();
                         },
 
-                        textList: () => { return (cfg.srcRoot || cfg.template); },
+                        textList: function()
+                        {
+                            return (cfg.srcRoot || cfg.template);
+                        },
 
-                        textArray: () => {
-
+                        textArray: function()
+                        {
                             cfg.imageArray = null;
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
@@ -377,8 +383,8 @@ window.ceres = {};
                                 return cfg.srcRoot ? shadowList() : lightList();
                             }
 
-                            const isImageArray = () => {
-
+                            const isImageArray = function()
+                            {
                                 const imageList = getImageList();
 
                                 if (!rsc.ignore(imageList))
@@ -397,10 +403,10 @@ window.ceres = {};
 
                     this.get = { // HTMLElement components
 
-                        shadow: () => {
-
-                            const getSwipe = swipe => {
-
+                        shadow: function()
+                        {
+                            const getSwipe = function(swipe)
+                            {
                                 const offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
@@ -419,10 +425,10 @@ window.ceres = {};
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
 
-                        slide: (obj) => {
-
-                            const getShadow = node => { // shadowRoot slide manager
-
+                        slide: function(obj)
+                        {
+                            const getShadow = function(node) // shadowRoot slide manager
+                            {
                                 const root   = node.getRootNode().host;
                                 const shade  = document.querySelector('#' + root.id);
                                 const shadow = shade.shadowRoot;
@@ -463,18 +469,18 @@ window.ceres = {};
                             nub[next].className = 'nub enabled';
                         },
 
-                        view: () => {
-
-                            const getAuto = () => {
-
+                        view: function()
+                        {
+                            const getAuto = function()
+                            {
                                 const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
                                 const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
 
-                                const autoCancel = () => {
-
+                                const autoCancel = function()
+                                {
                                     autoslide = autoslide < 1 ? slides.length
                                         : autoslide > slides.length ? 1
                                         : autoslide;
@@ -492,8 +498,8 @@ window.ceres = {};
 
                             }
 
-                            const insertCache = () => { // cache a range of response.status values (200, 304 etc)
-
+                            const insertCache = function() // cache a range of response.status values (200, 304 etc)
+                            {
                                 if (!('caches' in window)) return;
 
                                 const src       = cfg.srcRoot ? cfg.src.split() : Array.from('');
@@ -512,8 +518,8 @@ window.ceres = {};
 
                             }
 
-                            setTimeout(() => {
-
+                            setTimeout(function()
+                            {
                                 if (cfg.attrib.auto) setTimeout(function() { getAuto(); }, cfg.attrib.delay);
                                 atr.setDisplay.show();
 
@@ -530,8 +536,8 @@ window.ceres = {};
 
                         href: 'ceres.getSlide(this)',
 
-                        style: () => {
-
+                        style: function()
+                        {
                             const styleNode = document.createElement('style');
                             styleNode.className = 'slideview-style';
                             styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
@@ -539,8 +545,8 @@ window.ceres = {};
                             cfg.shadow.appendChild(styleNode);
                         },
 
-                        body: () => {
-
+                        body: function()
+                        {
                             const setURL      = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
                             const setLoading  = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
@@ -549,8 +555,15 @@ window.ceres = {};
                             const srcOpen     = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist   = atr.getClassList('slide');
 
-                            const setSurtitle = () => { return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ','); }
-                            const setSubtitle = () => { return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ','); }
+                            const setSurtitle = function()
+                            {
+                                return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ',');
+                            }
+
+                            const setSubtitle = function()
+                            {
+                                return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ',');
+                            }
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
@@ -597,14 +610,14 @@ window.ceres = {};
 
                     this.setDisplay = {
 
-                        hide: () => {
-
+                        hide: function()
+                        {
                             csvRoot.style.visibility = 'hidden';
                             csvRoot.style.display = 'none';
                         },
 
-                        show: () => {
-
+                        show: function()
+                        {
                             csvRoot.style.removeProperty('display');
                             csvRoot.style.removeProperty('visibility');
 
@@ -613,8 +626,8 @@ window.ceres = {};
 
                     };
 
-                    this.getClassList = className => {
-
+                    this.getClassList = function(className)
+                    {
                         if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
 
                         if (cfg.attrib.zoom) className += ' zoom';
@@ -623,18 +636,21 @@ window.ceres = {};
                         return className += ' none';
                     }
 
-                    this.getFileType = textList => {
-
+                    this.getFileType = function(textList)
+                    {
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
                         if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
 
-                    this.parseText = text => { return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')); }
+                    this.parseText = function(text)
+                    {
+                        return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''));
+                    }
 
-                    this.parseJSON = text => {
-
+                    this.parseJSON = function(text)
+                    {
                         const json = JSON.parse(text);
                         let str = '';
 
@@ -650,32 +666,32 @@ window.ceres = {};
                     }
 
                     // noddy regex csv parser
-                    this.parseCSV = (text, symbol = {}) => {
-
+                    this.parseCSV = function(text, symbol = {})
+                    {
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
                         const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
                         const re        = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
 
-                        const parseGroup = group => {
-
+                        const parseGroup = function(group)
+                        {
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
                             return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
-                        const parseRow = row => {
-
+                        const parseRow = function(row)
+                        {
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
                             return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
                         }
 
                         // construct a JSON object from the CSV construct
-                        const composeJSON = () => {
-
-                            const nodeName = i => { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
+                        const composeJSON = function()
+                        {
+                            const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
                             const re = /,\s*?$/; // match trailing comma whitespace
 
                             let str = '';
@@ -701,7 +717,10 @@ window.ceres = {};
                             return '[' + str.replace(re, '') + ']';
                         }
 
-                        const objectType = () => { return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n'); }
+                        const objectType = function()
+                        {
+                            return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
+                        }
 
                         textArray.forEach((row) =>
                         {
