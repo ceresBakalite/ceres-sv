@@ -150,8 +150,8 @@ window.ceres = {};
     {
         async connectedCallback()
         {
-            ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.get.slide({ node: el }); }; // global scope method reference
+            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
+            ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
             const csvRoot = this; // csv root node of a DOM subtree
             const cfg     = {}; // configuration attributes
