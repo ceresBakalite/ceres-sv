@@ -97,7 +97,12 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.sanitizeText = function(text, type = 'text/html')
+        this.sanitizeText = (text, type = 'text/html') =>
+        {
+            return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;');
+        }
+
+        this.xxxsanitizeText = function(text, type = 'text/html')
         {
             if (rsc.ignore(text)) return;
 
