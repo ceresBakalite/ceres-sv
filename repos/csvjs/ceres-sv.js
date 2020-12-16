@@ -17,7 +17,7 @@ window.ceres = {};
 
         this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
         this.fileName     = path => { return path.substring(path.lastIndexOf('/')+1, path.length); }
-        this.fileType     = (path, type) => { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
+        this.fileType     = path, type => { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
         this.srcOpen      = obj => { window.open(obj.element.getAttribute('src'), obj.type); }
         this.isString     = obj => { return Object.prototype.toString.call(obj) == '[object String]'; }
 
