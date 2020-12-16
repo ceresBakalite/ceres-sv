@@ -15,11 +15,11 @@ window.ceres = {};
     const rsc = {}; // generic resource methods
     (function() {
 
-        this.srcOpen = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-        this.isString = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+        this.srcOpen      = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+        this.isString     = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-        this.fileName = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
-        this.fileType = function(path, type) { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
+        this.fileName     = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
+        this.fileType     = function(path, type) { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
 
         this.composeElement = function(el, atr)
         {
@@ -134,13 +134,13 @@ window.ceres = {};
 
         this.attrib =
         {
-            reference    : 1,
-            notify       : 2,
-            warn         : 3,
-            default      : 98,
-            error        : 99,
-            bArray       : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            isWindows    : (navigator.appVersion.indexOf('Win') != -1),
+            reference : 1,
+            notify    : 2,
+            warn      : 3,
+            default   : 98,
+            error     : 99,
+            bArray    : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
+            isWindows : (navigator.appVersion.indexOf('Win') != -1),
 
             get newline() { return this.isWindows ? '\r\n' : '\n'; },
             get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
@@ -179,16 +179,16 @@ window.ceres = {};
             {
                 csvRoot.src = csvRoot.getAttribute('src');
 
-                cfg.defaultCSS = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
-                cfg.css = csvRoot.getAttribute('css') || cfg.defaultCSS;
-                cfg.srcRoot = !rsc.ignore(cfg.src);
-                cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
-                cfg.commaCodes = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
+                cfg.defaultCSS  = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+                cfg.src         = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
+                cfg.css         = csvRoot.getAttribute('css') || cfg.defaultCSS;
+                cfg.srcRoot     = !rsc.ignore(cfg.src);
+                cfg.cssRoot     = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
+                cfg.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
                 cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
-                cfg.attrib = {};
-                cfg.slide = 1;
+                cfg.attrib      = {};
+                cfg.slide       = 1;
 
                 (function() {
 
@@ -270,10 +270,10 @@ window.ceres = {};
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
-                                    const ar = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
+                                    const ar             = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const attributeArray = ar.map(item => { return item.trim(); });
-                                    const regex = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                    const item = attributeArray[0];
+                                    const regex          = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                    const item           = attributeArray[0];
 
                                     if (!Number.isInteger(parseInt(item)))
                                     {
@@ -283,9 +283,9 @@ window.ceres = {};
 
                                     if (propertyName == 'auto')
                                     {
-                                        cfg.attrib.autocycle    = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                                        cfg.attrib.autopause    = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
-                                        cfg.attrib.autocancel   = cfg.attrib.autocycle > -1;
+                                        cfg.attrib.autocycle  = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
+                                        cfg.attrib.autopause  = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                        cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                                         cfg.attrib.fade = cfg.attrib.autopause > 400;
                                         cfg.attrib.nub  = 'false'; // typeof string
@@ -377,7 +377,7 @@ window.ceres = {};
 
                                 const lightList = function()
                                 {
-                                    const text = (cfg.template.tagName == 'TEMPLATE') ? cfg.template.content.textContent : cfg.template.textContent;
+                                    const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
 
                                     return atr.parseText(text);
@@ -432,10 +432,10 @@ window.ceres = {};
                         {
                             const getShadow = function(node) // shadowRoot slide manager
                             {
-                                const root = node.getRootNode().host;
-                                const shade = document.querySelector('#' + root.id);
+                                const root   = node.getRootNode().host;
+                                const shade  = document.querySelector('#' + root.id);
                                 const shadow = shade.shadowRoot;
-                                const slide = shadow.querySelector('div.slideview-image > div.active');
+                                const slide  = shadow.querySelector('div.slideview-image > div.active');
 
                                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
@@ -505,9 +505,9 @@ window.ceres = {};
                             {
                                 if (!('caches' in window)) return;
 
-                                const src = cfg.srcRoot ? cfg.src.split() : Array.from('');
+                                const src       = cfg.srcRoot ? cfg.src.split() : Array.from('');
                                 const cacheName = csv + '-cache';
-                                const urlArray = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
+                                const urlArray  = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
 
                                 urlArray.forEach(url =>
                                 {
@@ -550,12 +550,12 @@ window.ceres = {};
 
                         body: function()
                         {
-                            const setURL = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
-                            const setLoading = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
+                            const setURL      = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
+                            const setLoading  = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
                             const getSubtitle = function() { return cfg.attrib.sub ? setSubtitle() : null; }
-                            const zoomEvent = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
-                            const classlist = atr.getClassList('slide');
+                            const zoomEvent   = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+                            const classlist   = atr.getClassList('slide');
 
                             const setSurtitle = function()
                             {
@@ -671,10 +671,10 @@ window.ceres = {};
                     this.parseCSV = function(text, symbol = {})
                     {
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
-                        const newArray = new Array(textArray.length);
+                        const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
-                        const regex = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
-                        const re = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
+                        const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
+                        const re        = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
 
                         const parseGroup = function(group)
                         {
