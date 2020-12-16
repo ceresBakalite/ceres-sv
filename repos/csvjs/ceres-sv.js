@@ -358,16 +358,16 @@ window.ceres = {};
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
-                            const getImageList = function()
-                            {
-                                const shadowList = function()
-                                {
+                            const getImageList = () => {
+
+                                const shadowList = () => {
+
                                     const text = csvRoot.textContent;
                                     return !rsc.ignore(text) ? text : null;
                                 }
 
-                                const lightList = function()
-                                {
+                                const lightList = () => {
+
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.local + ']' });
 
@@ -377,8 +377,8 @@ window.ceres = {};
                                 return cfg.srcRoot ? shadowList() : lightList();
                             }
 
-                            const isImageArray = function()
-                            {
+                            const isImageArray = () => {
+
                                 const imageList = getImageList();
 
                                 if (!rsc.ignore(imageList))
