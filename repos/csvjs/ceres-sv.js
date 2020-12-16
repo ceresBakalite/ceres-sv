@@ -239,8 +239,8 @@ window.ceres = {};
                                 local   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const getTemplate = function()
-                            {
+                            const getTemplate = () => {
+
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
@@ -254,14 +254,14 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getCSVRootProperties = function()
-                            {
+                            const getCSVRootProperties = () => {
+
                                 if (rsc.ignore(csvRoot)) return false;
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getPropertyAttributes = function(propertyName)
-                                {
+                                const getPropertyAttributes = propertyName => {
+
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
@@ -288,12 +288,12 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    const getStyle = function()
-                                    {
+                                    const getStyle = () => {
+
                                         if (atrArray.length == 0) return;
 
-                                        const setStyleAttribute = function(attribute)
-                                        {
+                                        const setStyleAttribute = attribute => {
+
                                             const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
@@ -358,16 +358,16 @@ window.ceres = {};
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
-                            const getImageList = function()
-                            {
-                                const shadowList = function()
-                                {
+                            const getImageList = () => {
+
+                                const shadowList = () => {
+
                                     const text = csvRoot.textContent;
                                     return !rsc.ignore(text) ? text : null;
                                 }
 
-                                const lightList = function()
-                                {
+                                const lightList = () => {
+
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.local + ']' });
 
@@ -541,23 +541,16 @@ window.ceres = {};
 
                         body: () => {
 
-                            const setURL      = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
-                            const setLoading  = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
-                            const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
-                            const getSubtitle = function() { return cfg.attrib.sub ? setSubtitle() : null; }
+                            const setURL      = () => { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
+                            const setLoading  = () => { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
+                            const getSurtitle = () => { return cfg.attrib.sur ? setSurtitle() : null; }
+                            const getSubtitle = () => { return cfg.attrib.sub ? setSubtitle() : null; }
 
                             const srcOpen     = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist   = atr.getClassList('slide');
 
-                            const setSurtitle = function()
-                            {
-                                return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            }
-
-                            const setSubtitle = function()
-                            {
-                                return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ',');
-                            }
+                            const setSurtitle = () => { return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ','); }
+                            const setSubtitle = () => { return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ','); }
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
@@ -665,23 +658,23 @@ window.ceres = {};
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
                         const re        = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
 
-                        const parseGroup = function(group)
-                        {
+                        const parseGroup = group => {
+
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
                             return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
-                        const parseRow = function(row)
-                        {
+                        const parseRow = row => {
+
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
                             return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
                         }
 
                         // construct a JSON object from the CSV construct
-                        const composeJSON = function()
-                        {
+                        const composeJSON = () => {
+
                             const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
                             const re = /,\s*?$/; // match trailing comma whitespace
 
@@ -708,10 +701,7 @@ window.ceres = {};
                             return '[' + str.replace(re, '') + ']';
                         }
 
-                        const objectType = function()
-                        {
-                            return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
-                        }
+                        const objectType = () => { return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n'); }
 
                         textArray.forEach((row) =>
                         {
