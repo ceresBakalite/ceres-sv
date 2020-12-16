@@ -97,6 +97,14 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
+        this.sanitizeText = function(text, type = 'text/html')
+        {
+            if (rsc.ignore(text)) return;
+
+            const doc = new DOMParser().parseFromString(text, type);
+            return doc.body.textContent;
+        }
+
         this.inspect = function(diagnostic)
         {
             const errorHandler = function(error)
@@ -640,10 +648,7 @@ window.ceres = {};
 
                     this.parseText = function(text)
                     {
-                        if (rsc.ignore(text)) return;
-
-                        const doc = new DOMParser().parseFromString(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''), 'text/html');
-                        return doc.body.textContent;
+                        return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''));
                     }
 
                     this.parseJSON = function(text)
