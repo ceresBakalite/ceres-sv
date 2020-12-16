@@ -272,7 +272,7 @@ window.ceres = {};
 
                                     const ar       = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const atrArray = ar.map(item => { return item.trim(); });
-                                    const regex    = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                    const regex    = propertyName != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const item     = atrArray[0];
 
                                     if (!Number.isInteger(parseInt(item)))
