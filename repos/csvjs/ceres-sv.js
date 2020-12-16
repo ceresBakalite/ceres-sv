@@ -239,8 +239,8 @@ window.ceres = {};
                                 local   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const getTemplate = () => {
-
+                            const getTemplate = function()
+                            {
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
@@ -254,14 +254,14 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getCSVRootProperties = () => {
-
+                            const getCSVRootProperties = function()
+                            {
                                 if (rsc.ignore(csvRoot)) return false;
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getPropertyAttributes = propertyName => {
-
+                                const getPropertyAttributes = function(propertyName)
+                                {
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
@@ -288,12 +288,12 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    const getStyle = () => {
-
+                                    const getStyle = function()
+                                    {
                                         if (atrArray.length == 0) return;
 
-                                        const setStyleAttribute = attribute => {
-
+                                        const setStyleAttribute = function(attribute)
+                                        {
                                             const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
@@ -358,16 +358,16 @@ window.ceres = {};
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
-                            const getImageList = () => {
-
-                                const shadowList = () => {
-
+                            const getImageList = function()
+                            {
+                                const shadowList = function()
+                                {
                                     const text = csvRoot.textContent;
                                     return !rsc.ignore(text) ? text : null;
                                 }
 
-                                const lightList = () => {
-
+                                const lightList = function()
+                                {
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.local + ']' });
 
