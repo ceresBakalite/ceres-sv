@@ -102,8 +102,8 @@ window.ceres = {};
 
         this.inspect = diagnostic => {
 
-            const errorHandler = function(error)
-            {
+            const errorHandler = error => {
+
                 const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
                 console.error(err);
 
@@ -254,14 +254,14 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getCSVRootProperties = function()
-                            {
+                            const getCSVRootProperties = () => {
+
                                 if (rsc.ignore(csvRoot)) return false;
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getPropertyAttributes = function(propertyName)
-                                {
+                                const getPropertyAttributes = propertyName => {
+
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
