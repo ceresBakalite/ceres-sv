@@ -15,14 +15,14 @@ window.ceres = {};
     const rsc = {}; // generic resource methods
     (function() {
 
-        this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-        this.fileName     = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
-        this.fileType     = function(path, type) { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
-        this.srcOpen      = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-        this.isString     = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+        this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
+        this.fileName     = path => { return path.substring(path.lastIndexOf('/')+1, path.length); }
+        this.fileType     = (path, type) => { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
+        this.srcOpen      = obj => { window.open(obj.element.getAttribute('src'), obj.type); }
+        this.isString     = obj => { return Object.prototype.toString.call(obj) == '[object String]'; }
 
-        this.composeElement = function(el, atr)
-        {
+        this.composeElement = (el, atr) => {
+
             if (!el.type) return;
 
             const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
@@ -34,8 +34,8 @@ window.ceres = {};
             precursor.appendChild(node);
         }
 
-        this.setSwipe = function(touch, callback, args) // horizontal swipe
-        {
+        this.setSwipe = (touch, callback, args) => { // horizontal swipe
+
             if (!touch.act) touch.act = 80;
 
             touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
@@ -54,8 +54,8 @@ window.ceres = {};
 
         }
 
-        this.ignore = function(obj)
-        {
+        this.ignore = obj => {
+
             if (obj === null || obj == 'undefined') return true;
 
             if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
@@ -65,16 +65,16 @@ window.ceres = {};
             return !obj;
         }
 
-        this.getBoolean = function(obj)
-        {
+        this.getBoolean = obj => {
+
             if (obj === true || obj === false) return atr;
             if (this.ignore(obj) || !this.isString(obj)) return false;
 
             return this.attrib.bool.includes(obj.trim().toUpperCase());
         }
 
-        this.getUniqueId = function(obj)
-        {
+        this.getUniqueId = obj => {
+
             if (!obj.name) obj.name = 'n';
             if (!obj.range) obj.range = 100;
 
@@ -84,34 +84,24 @@ window.ceres = {};
             return obj.el;
         }
 
-        this.recursiveReplace = function(str, criteria, obj)
-        {
+        this.recursiveReplace = (str, criteria, obj) => {
             return str.replace(criteria, function(match) { return obj[match]; });
         }
 
-        this.removeDuplcates = function(obj, sort)
-        {
+        this.removeDuplcates = (obj, sort) => {
+
             const key = JSON.stringify;
             const ar = [...new Map (obj.map(node => [key(node), node])).values()];
 
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.sanitizeText = (text, type = 'text/html') =>
-        {
+        this.sanitizeText = (text, type = 'text/html') => {
             return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;');
         }
 
-        this.xxxsanitizeText = function(text, type = 'text/html')
-        {
-            if (rsc.ignore(text)) return;
+        this.inspect = diagnostic => {
 
-            const doc = new DOMParser().parseFromString(text, type);
-            return doc.body.textContent;
-        }
-
-        this.inspect = function(diagnostic)
-        {
             const errorHandler = function(error)
             {
                 const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
@@ -131,8 +121,8 @@ window.ceres = {};
             lookup[diagnostic.type]() || lookup[this.attrib.default];
         }
 
-        this.getProperties = function(string = {}, str = '')
-        {
+        this.getProperties = (string = {}, str = '') => {
+
             for (let literal in string) str += literal + ': ' + string[literal] + ', ';
             return str.replace(/, +$/g,'');
         }
