@@ -333,18 +333,17 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.attrib.nub      = nodeProperty.nub(csvRoot.getAttribute('nub')); // enabled
-                                cfg.attrib.fade     = nodeProperty.fade(csvRoot.getAttribute('fade')); // enabled
-                                cfg.attrib.zoom     = nodeProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
-                                cfg.attrib.cache    = nodeProperty.cache(csvRoot.getAttribute('cache')); // enabled
-                                cfg.attrib.trace    = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
-                                cfg.attrib.delay    = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
-                                cfg.attrib.loading  = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
-                                cfg.attrib.embed    = nodeProperty.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
-
-                                cfg.attrib.sur      = getPropertyAttributes('sur'); // disabled
-                                cfg.attrib.sub      = getPropertyAttributes('sub'); // disabled
-                                cfg.attrib.auto     = getPropertyAttributes('auto'); // disabled
+                                cfg.attrib.nub     = nodeProperty.nub(csvRoot.getAttribute('nub')); // enabled
+                                cfg.attrib.fade    = nodeProperty.fade(csvRoot.getAttribute('fade')); // enabled
+                                cfg.attrib.zoom    = nodeProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
+                                cfg.attrib.cache   = nodeProperty.cache(csvRoot.getAttribute('cache')); // enabled
+                                cfg.attrib.trace   = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
+                                cfg.attrib.delay   = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
+                                cfg.attrib.loading = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
+                                cfg.attrib.embed   = nodeProperty.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
+                                cfg.attrib.sur     = getPropertyAttributes('sur'); // disabled
+                                cfg.attrib.sub     = getPropertyAttributes('sub'); // disabled
+                                cfg.attrib.auto    = getPropertyAttributes('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
 
