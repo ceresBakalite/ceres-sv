@@ -15,11 +15,11 @@ window.ceres = {};
     const rsc = {}; // generic resource methods
     (function() {
 
-        this.srcOpen      = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-        this.isString     = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
         this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
         this.fileName     = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
         this.fileType     = function(path, type) { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
+        this.srcOpen      = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
+        this.isString     = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
 
         this.composeElement = function(el, atr)
         {
@@ -553,7 +553,8 @@ window.ceres = {};
                             const setLoading  = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
                             const getSubtitle = function() { return cfg.attrib.sub ? setSubtitle() : null; }
-                            const zoomEvent   = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+
+                            const srcOpen     = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist   = atr.getClassList('slide');
 
                             const setSurtitle = function()
@@ -592,7 +593,7 @@ window.ceres = {};
                                 imgNode.appendChild(slideNode);
 
                                 if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
-                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: zoomEvent, src: setURL(), alt: setSubtitle(), loading: setLoading() });
+                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: srcOpen, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
 
