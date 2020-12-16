@@ -150,8 +150,8 @@ window.ceres = {};
     {
         async connectedCallback()
         {
-            ceres.getImage = function(el) { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
-            ceres.getSlide = function(el) { atr.get.slide({ node: el }); }; // global scope method reference
+            ceres.getImage = el => { rsc.srcOpen({ element: el, type: 'image' }); }; // global scope method reference
+            ceres.getSlide = el => { atr.get.slide({ node: el }); }; // global scope method reference
 
             const csvRoot = this; // csv root node of a DOM subtree
             const cfg     = {}; // configuration attributes
@@ -204,16 +204,16 @@ window.ceres = {};
 
                     this.node = { // HTMLElement instance
 
-                        hasContent: function()
-                        {
+                        hasContent: () => {
+
                             if (!atr.content.properties()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
                             if (!atr.content.textList()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
 
                             return atr.content.textArray();
                         },
 
-                        showContent: function()
-                        {
+                        showContent: () => {
+
                             atr.get.shadow();
                             atr.get.slide({ shadow: cfg.shadow });
                             atr.get.view();
