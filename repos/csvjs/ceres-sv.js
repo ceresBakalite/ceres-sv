@@ -239,8 +239,8 @@ window.ceres = {};
                                 local   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const getTemplate = function()
-                            {
+                            const getTemplate = () => {
+
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
@@ -254,14 +254,14 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getCSVRootProperties = function()
-                            {
+                            const getCSVRootProperties = () => {
+
                                 if (rsc.ignore(csvRoot)) return false;
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getPropertyAttributes = function(propertyName)
-                                {
+                                const getPropertyAttributes = propertyName => {
+
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
@@ -288,12 +288,12 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    const getStyle = function()
-                                    {
+                                    const getStyle = () => {
+
                                         if (atrArray.length == 0) return;
 
-                                        const setStyleAttribute = function(attribute)
-                                        {
+                                        const setStyleAttribute = attribute => {
+
                                             const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
@@ -350,27 +350,24 @@ window.ceres = {};
                             return getCSVRootProperties();
                         },
 
-                        textList: function()
-                        {
-                            return (cfg.srcRoot || cfg.template);
-                        },
+                        textList: () => { return (cfg.srcRoot || cfg.template); },
 
-                        textArray: function()
-                        {
+                        textArray: () => {
+
                             cfg.imageArray = null;
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
 
-                            const getImageList = function()
-                            {
-                                const shadowList = function()
-                                {
+                            const getImageList = () => {
+
+                                const shadowList = () => {
+
                                     const text = csvRoot.textContent;
                                     return !rsc.ignore(text) ? text : null;
                                 }
 
-                                const lightList = function()
-                                {
+                                const lightList = () => {
+
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.local + ']' });
 
@@ -380,8 +377,8 @@ window.ceres = {};
                                 return cfg.srcRoot ? shadowList() : lightList();
                             }
 
-                            const isImageArray = function()
-                            {
+                            const isImageArray = () => {
+
                                 const imageList = getImageList();
 
                                 if (!rsc.ignore(imageList))
@@ -400,10 +397,10 @@ window.ceres = {};
 
                     this.get = { // HTMLElement components
 
-                        shadow: function()
-                        {
-                            const getSwipe = function(swipe)
-                            {
+                        shadow: () => {
+
+                            const getSwipe = swipe => {
+
                                 const offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
@@ -422,10 +419,10 @@ window.ceres = {};
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
 
-                        slide: function(obj)
-                        {
-                            const getShadow = function(node) // shadowRoot slide manager
-                            {
+                        slide: obj => {
+
+                            const getShadow = node => { // shadowRoot slide manager
+
                                 const root   = node.getRootNode().host;
                                 const shade  = document.querySelector('#' + root.id);
                                 const shadow = shade.shadowRoot;
@@ -466,18 +463,18 @@ window.ceres = {};
                             nub[next].className = 'nub enabled';
                         },
 
-                        view: function()
-                        {
-                            const getAuto = function()
-                            {
+                        view: () => {
+
+                            const getAuto = () => {
+
                                 const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
                                 const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
 
-                                const autoCancel = function()
-                                {
+                                const autoCancel = () => {
+
                                     autoslide = autoslide < 1 ? slides.length
                                         : autoslide > slides.length ? 1
                                         : autoslide;
@@ -495,8 +492,8 @@ window.ceres = {};
 
                             }
 
-                            const insertCache = function() // cache a range of response.status values (200, 304 etc)
-                            {
+                            const insertCache = () => { // cache a range of response.status values (200, 304 etc)
+
                                 if (!('caches' in window)) return;
 
                                 const src       = cfg.srcRoot ? cfg.src.split() : Array.from('');
@@ -515,8 +512,8 @@ window.ceres = {};
 
                             }
 
-                            setTimeout(function()
-                            {
+                            setTimeout(() => {
+
                                 if (cfg.attrib.auto) setTimeout(function() { getAuto(); }, cfg.attrib.delay);
                                 atr.setDisplay.show();
 
@@ -533,8 +530,8 @@ window.ceres = {};
 
                         href: 'ceres.getSlide(this)',
 
-                        style: function()
-                        {
+                        style: () => {
+
                             const styleNode = document.createElement('style');
                             styleNode.className = 'slideview-style';
                             styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
@@ -542,8 +539,8 @@ window.ceres = {};
                             cfg.shadow.appendChild(styleNode);
                         },
 
-                        body: function()
-                        {
+                        body: () => {
+
                             const setURL      = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
                             const setLoading  = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
@@ -552,15 +549,8 @@ window.ceres = {};
                             const srcOpen     = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist   = atr.getClassList('slide');
 
-                            const setSurtitle = function()
-                            {
-                                return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            }
-
-                            const setSubtitle = function()
-                            {
-                                return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ',');
-                            }
+                            const setSurtitle = () => { return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ','); }
+                            const setSubtitle = () => { return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ','); }
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
@@ -607,14 +597,14 @@ window.ceres = {};
 
                     this.setDisplay = {
 
-                        hide: function()
-                        {
+                        hide: () => {
+
                             csvRoot.style.visibility = 'hidden';
                             csvRoot.style.display = 'none';
                         },
 
-                        show: function()
-                        {
+                        show: () => {
+
                             csvRoot.style.removeProperty('display');
                             csvRoot.style.removeProperty('visibility');
 
@@ -623,8 +613,8 @@ window.ceres = {};
 
                     };
 
-                    this.getClassList = function(className)
-                    {
+                    this.getClassList = className => {
+
                         if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
 
                         if (cfg.attrib.zoom) className += ' zoom';
@@ -633,21 +623,18 @@ window.ceres = {};
                         return className += ' none';
                     }
 
-                    this.getFileType = function(textList)
-                    {
+                    this.getFileType = textList => {
+
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
                         if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
 
-                    this.parseText = function(text)
-                    {
-                        return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''));
-                    }
+                    this.parseText = text => { return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')); }
 
-                    this.parseJSON = function(text)
-                    {
+                    this.parseJSON = text => {
+
                         const json = JSON.parse(text);
                         let str = '';
 
@@ -663,32 +650,32 @@ window.ceres = {};
                     }
 
                     // noddy regex csv parser
-                    this.parseCSV = function(text, symbol = {})
-                    {
+                    this.parseCSV = (text, symbol = {}) => {
+
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
                         const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
                         const re        = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
 
-                        const parseGroup = function(group)
-                        {
+                        const parseGroup = group => {
+
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
                             return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
-                        const parseRow = function(row)
-                        {
+                        const parseRow = row => {
+
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
                             return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
                         }
 
                         // construct a JSON object from the CSV construct
-                        const composeJSON = function()
-                        {
-                            const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
+                        const composeJSON = () => {
+
+                            const nodeName = i => { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
                             const re = /,\s*?$/; // match trailing comma whitespace
 
                             let str = '';
@@ -714,10 +701,7 @@ window.ceres = {};
                             return '[' + str.replace(re, '') + ']';
                         }
 
-                        const objectType = function()
-                        {
-                            return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
-                        }
+                        const objectType = () => { return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n'); }
 
                         textArray.forEach((row) =>
                         {
