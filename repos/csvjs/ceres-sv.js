@@ -198,7 +198,7 @@ window.ceres = {};
                     const remark = {
                         markup     : 'Image list markup ',
                         element    : 'The element attributes ',
-                        tagSearch  : 'The ' + csv + ' src attribute url is unavailable and there is no \'embed\' elementId. Looking for the first occurance of a <template> or <noscript> tagname',
+                        tagSearch  : 'The ' + csv + ' src attribute url is unavailable and there is no \'local\' elementId. Looking for the first occurance of a <template> or <noscript> tagname',
                         properties : 'Error: Unable to find the ' + csv + ' document element',
                         list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback template elements',
                         template   : 'Error: Unable to find the fallback template element when searching the document body',
@@ -230,7 +230,7 @@ window.ceres = {};
 
                         properties: function()
                         {
-                            const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'embed', 'fade', 'auto', 'loading'];
+                            const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'local', 'fade', 'auto', 'loading'];
                             const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
                             const nodeProperty = {
@@ -241,14 +241,14 @@ window.ceres = {};
                                 trace   : function(atr) { return rsc.getBoolean(atr); },
                                 delay   : function(atr) { return Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250; },
                                 loading : function(atr) { return rsc.ignore(atr) ? 'auto' : atr },
-                                embed   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
+                                local   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
                             const getTemplate = function()
                             {
                                 if (cfg.srcRoot) return 'undefined';
 
-                                let el = cfg.attrib.embed ? document.getElementById(cfg.attrib.embed) : null;
+                                let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
 
                                 if (rsc.ignore(el))
                                 {
@@ -340,14 +340,14 @@ window.ceres = {};
                                 cfg.attrib.trace   = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
                                 cfg.attrib.delay   = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
                                 cfg.attrib.loading = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
-                                cfg.attrib.embed   = nodeProperty.embed(csvRoot.getAttribute('embed')); // template elementId when using embedded image lists
+                                cfg.attrib.local   = nodeProperty.local(csvRoot.getAttribute('local')); // template elementId when using local image lists
                                 cfg.attrib.sur     = getPropertyAttributes('sur'); // disabled
                                 cfg.attrib.sub     = getPropertyAttributes('sub'); // disabled
                                 cfg.attrib.auto    = getPropertyAttributes('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
 
-                                cfg.template = getTemplate(); // element when using embedded image lists
+                                cfg.template = getTemplate(); // element when using local image lists
 
                                 return true;
                             }
@@ -377,7 +377,7 @@ window.ceres = {};
                                 const lightList = function()
                                 {
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
-                                    if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.embed + ']' });
+                                    if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.local + ']' });
 
                                     return atr.parseText(text);
                                 }
@@ -391,7 +391,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.embed + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.local + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
                                     cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
                                 }
 
