@@ -112,8 +112,8 @@ window.ceres = {};
 
             const lookup = {
                 [this.attrib.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.attrib.warn]      : () =>  { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [this.attrib.reference] : () =>  { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
+                [this.attrib.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [this.attrib.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
                 [this.attrib.error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
                 [this.attrib.default]   : () => errorHandler({ notification: 'Unhandled exception' })
             };
@@ -239,8 +239,8 @@ window.ceres = {};
                                 local   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
                             };
 
-                            const getTemplate = function()
-                            {
+                            const getTemplate = () => {
+
                                 if (cfg.srcRoot) return 'undefined';
 
                                 let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
@@ -254,14 +254,14 @@ window.ceres = {};
                                 return rsc.ignore(el) ? 'undefined' : el;
                             }
 
-                            const getCSVRootProperties = function()
-                            {
+                            const getCSVRootProperties = () => {
+
                                 if (rsc.ignore(csvRoot)) return false;
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getPropertyAttributes = function(propertyName)
-                                {
+                                const getPropertyAttributes = propertyName => {
+
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
@@ -288,12 +288,12 @@ window.ceres = {};
                                         return true;
                                     }
 
-                                    const getStyle = function()
-                                    {
+                                    const getStyle = () => {
+
                                         if (atrArray.length == 0) return;
 
-                                        const setStyleAttribute = function(attribute)
-                                        {
+                                        const setStyleAttribute = attribute => {
+
                                             const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
