@@ -353,7 +353,7 @@ window.ceres = {};
                         textList: () => { return (cfg.srcRoot || cfg.template); },
 
                         textArray: () => {
-                            
+
                             cfg.imageArray = null;
 
                             rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
@@ -530,8 +530,8 @@ window.ceres = {};
 
                         href: 'ceres.getSlide(this)',
 
-                        style: function()
-                        {
+                        style: () => {
+
                             const styleNode = document.createElement('style');
                             styleNode.className = 'slideview-style';
                             styleNode.insertAdjacentHTML('beforeend', cfg.shadowStyle);
@@ -539,8 +539,8 @@ window.ceres = {};
                             cfg.shadow.appendChild(styleNode);
                         },
 
-                        body: function()
-                        {
+                        body: () => {
+
                             const setURL      = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
                             const setLoading  = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
                             const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
@@ -604,14 +604,14 @@ window.ceres = {};
 
                     this.setDisplay = {
 
-                        hide: function()
-                        {
+                        hide: () => {
+
                             csvRoot.style.visibility = 'hidden';
                             csvRoot.style.display = 'none';
                         },
 
-                        show: function()
-                        {
+                        show: () => {
+
                             csvRoot.style.removeProperty('display');
                             csvRoot.style.removeProperty('visibility');
 
@@ -620,8 +620,8 @@ window.ceres = {};
 
                     };
 
-                    this.getClassList = function(className)
-                    {
+                    this.getClassList = className => {
+
                         if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
 
                         if (cfg.attrib.zoom) className += ' zoom';
@@ -630,21 +630,18 @@ window.ceres = {};
                         return className += ' none';
                     }
 
-                    this.getFileType = function(textList)
-                    {
+                    this.getFileType = textList => {
+
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
                         if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
 
-                    this.parseText = function(text)
-                    {
-                        return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''));
-                    }
+                    this.parseText = text => { return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')); }
 
-                    this.parseJSON = function(text)
-                    {
+                    this.parseJSON = text => {
+
                         const json = JSON.parse(text);
                         let str = '';
 
@@ -660,8 +657,8 @@ window.ceres = {};
                     }
 
                     // noddy regex csv parser
-                    this.parseCSV = function(text, symbol = {})
-                    {
+                    this.parseCSV = (text, symbol = {}) => {
+
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
                         const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
