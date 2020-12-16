@@ -200,8 +200,8 @@ window.ceres = {};
                         element    : 'The element attributes ',
                         tagSearch  : 'The ' + csv + ' src attribute url is unavailable and there is no \'local\' elementId. Looking for the first occurance of a <template> or <noscript> tagname',
                         properties : 'Error: Unable to find the ' + csv + ' document element',
-                        list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback template elements',
-                        template   : 'Error: Unable to find the fallback template element when searching the document body',
+                        list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback local template elements',
+                        template   : 'Error: Unable to find the local fallback template element when searching the document body',
                         cache      : 'Warning: cache response status '
                     };
 
@@ -340,14 +340,14 @@ window.ceres = {};
                                 cfg.attrib.trace   = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
                                 cfg.attrib.delay   = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
                                 cfg.attrib.loading = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
-                                cfg.attrib.local   = nodeProperty.local(csvRoot.getAttribute('local')); // template elementId when using local image lists
+                                cfg.attrib.local   = nodeProperty.local(csvRoot.getAttribute('local')); // local image list template elementId
                                 cfg.attrib.sur     = getPropertyAttributes('sur'); // disabled
                                 cfg.attrib.sub     = getPropertyAttributes('sub'); // disabled
                                 cfg.attrib.auto    = getPropertyAttributes('auto'); // disabled
 
                                 Object.freeze(cfg.attrib);
 
-                                cfg.template = getTemplate(); // element when using local image lists
+                                cfg.template = getTemplate(); // local image list element
 
                                 return true;
                             }
