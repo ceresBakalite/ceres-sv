@@ -270,21 +270,21 @@ window.ceres = {};
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
-                                    const ar             = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
-                                    const attributeArray = ar.map(item => { return item.trim(); });
-                                    const regex          = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
-                                    const item           = attributeArray[0];
+                                    const ar       = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
+                                    const atrArray = ar.map(item => { return item.trim(); });
+                                    const regex    = propertyName == 'sur' ? /.surtitle[^&]*?}/i : /.subtitle[^&]*?}/i;
+                                    const item     = atrArray[0];
 
                                     if (!Number.isInteger(parseInt(item)))
                                     {
                                         if (!rsc.getBoolean(item)) return false;
-                                        if (attributeArray.length > 1) attributeArray.shift();
+                                        if (atrArray.length > 1) atrArray.shift();
                                     }
 
                                     if (propertyName == 'auto')
                                     {
-                                        cfg.attrib.autocycle  = Number.isInteger(parseInt(attributeArray[0])) ? parseInt(attributeArray[0]) : 10;
-                                        cfg.attrib.autopause  = Number.isInteger(parseInt(attributeArray[1])) ? parseInt(attributeArray[1]) : 3000;
+                                        cfg.attrib.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
+                                        cfg.attrib.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
                                         cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                                         cfg.attrib.fade = cfg.attrib.autopause > 400;
@@ -295,7 +295,7 @@ window.ceres = {};
 
                                     const getStyle = function()
                                     {
-                                        if (attributeArray.length == 0) return;
+                                        if (atrArray.length == 0) return;
 
                                         const setStyleAttribute = function(attribute)
                                         {
@@ -320,7 +320,7 @@ window.ceres = {};
 
                                         }
 
-                                        attributeArray.forEach((attribute) => {
+                                        atrArray.forEach((attribute) => {
 
                                             if (styleArray.includes(attribute.split(':')[0])) setStyleAttribute(attribute);
 
