@@ -15,11 +15,11 @@ window.ceres = {};
     const rsc = {}; // generic resource methods
     (function() {
 
-        this.clearElement = function(el) { while (el.firstChild) el.removeChild(el.firstChild); }
-        this.fileName     = function(path) { return path.substring(path.lastIndexOf('/')+1, path.length); }
-        this.fileType     = function(path, type) { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
-        this.srcOpen      = function(obj) { window.open(obj.element.getAttribute('src'), obj.type); }
-        this.isString     = function(obj) { return Object.prototype.toString.call(obj) == '[object String]'; }
+        this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
+        this.fileName     = path => { return path.substring(path.lastIndexOf('/')+1, path.length); }
+        this.fileType     = path, type => { return path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase(); }
+        this.srcOpen      = obj => { window.open(obj.element.getAttribute('src'), obj.type); }
+        this.isString     = obj => { return Object.prototype.toString.call(obj) == '[object String]'; }
 
         this.composeElement = function(el, atr)
         {
