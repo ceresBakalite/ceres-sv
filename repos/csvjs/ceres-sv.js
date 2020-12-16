@@ -159,8 +159,8 @@ window.ceres = {};
             ceres.getSlide = function(el) { atr.get.slide({ node: el }); }; // global scope method reference
 
             const csvRoot = this; // csv root node of a DOM subtree
-            const cfg = {}; // configuration attributes
-            const atr = {}; // attribute allocation
+            const cfg     = {}; // configuration attributes
+            const atr     = {}; // attribute allocation
 
             configureAttributes();
 
