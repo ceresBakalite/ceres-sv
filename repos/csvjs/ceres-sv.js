@@ -185,7 +185,7 @@ window.ceres = {};
                 cfg.attrib      = {};
                 cfg.slide       = 1;
 
-                (function() {
+                (() => {
 
                     const csv = csvRoot.tagName.toLocaleLowerCase();
                     const srm = new Map(); // shadowroot manager
