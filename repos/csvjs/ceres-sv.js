@@ -283,8 +283,8 @@ window.ceres = {};
 
                                     if (propertyName == 'auto')
                                     {
-                                        cfg.attrib.autocycle  = Number.isInteger(parseInt(ar[0])) ? parseInt(ar[0]) : 10;
-                                        cfg.attrib.autopause  = Number.isInteger(parseInt(ar[1])) ? parseInt(ar[1]) : 3000;
+                                        cfg.attrib.autocycle  = Number.isInteger(parseInt(attributeArray[0])) ? parseInt(attributeArray[0]) : 10;
+                                        cfg.attrib.autopause  = Number.isInteger(parseInt(attributeArray[1])) ? parseInt(attributeArray[1]) : 3000;
                                         cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
 
                                         cfg.attrib.fade = cfg.attrib.autopause > 400;
