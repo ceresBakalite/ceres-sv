@@ -542,23 +542,16 @@ window.ceres = {};
                         body: function()
                         {
 
-                            const setURL      = function() { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
-                            const setLoading  = function() { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
-                            const getSurtitle = function() { return cfg.attrib.sur ? setSurtitle() : null; }
-                            const getSubtitle = function() { return cfg.attrib.sub ? setSubtitle() : null; }
+                            const setURL      = () => { return !rsc.ignore(ar[0]) ? ar[0].trim() : null; }
+                            const setLoading  = () => { return Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto'; }
+                            const getSurtitle = () => { return cfg.attrib.sur ? setSurtitle() : null; }
+                            const getSubtitle = () => { return cfg.attrib.sub ? setSubtitle() : null; }
 
                             const srcOpen     = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist   = atr.getClassList('slide');
 
-                            const setSurtitle = function()
-                            {
-                                return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            }
-
-                            const setSubtitle = function()
-                            {
-                                return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ',');
-                            }
+                            const setSurtitle = () => { return rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ','); }
+                            const setSubtitle = () => { return rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ','); }
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
