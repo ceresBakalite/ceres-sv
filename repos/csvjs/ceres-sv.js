@@ -560,7 +560,7 @@ window.ceres = {};
 
                             bodyNode.appendChild(trackNode);
 
-                            let obj = { index: 0, ar: [] };
+                            const obj = { index: 0, ar: [] };
 
                             for (let item in cfg.imageArray)
                             {
