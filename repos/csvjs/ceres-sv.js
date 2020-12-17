@@ -536,12 +536,12 @@ window.ceres = {};
 
                         body: () => {
 
-                            const setURL      = () => !rsc.ignore(config.ar[0]) ? config.ar[0].trim() : null;
+                            const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
                             const setLoading  = () => Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto';
                             const getSubtitle = () => cfg.attrib.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.attrib.sur ? setSurtitle() : null;
-                            const setSubtitle = () => rsc.ignore(config.ar[1]) ? null : config.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSurtitle = () => rsc.ignore(config.ar[2]) ? config.index + ' / ' + cfg.imageArray.length : config.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
                             const classlist = atr.getClassList('slide');
                             const srcImage  = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
@@ -560,15 +560,15 @@ window.ceres = {};
 
                             bodyNode.appendChild(trackNode);
 
-                            let config = { index: 0, ar: [] };
+                            let obj = { index: 0, ar: [] };
 
                             for (let item in cfg.imageArray)
                             {
-                                config.ar = cfg.imageArray[item].split(',');
+                                obj.ar = cfg.imageArray[item].split(',');
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
-                                slideNode.id = 'img' + (++config.index);
+                                slideNode.id = 'img' + (++obj.index);
 
                                 imgNode.appendChild(slideNode);
 
