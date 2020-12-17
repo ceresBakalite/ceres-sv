@@ -527,8 +527,6 @@ window.ceres = {};
 
                     this.compose = { // HTMLElement compose extension
 
-                        href: 'ceres.getSlide(this)',
-
                         style: () => {
 
                             const styleNode = document.createElement('style');
@@ -538,7 +536,7 @@ window.ceres = {};
                             cfg.shadow.appendChild(styleNode);
                         },
 
-                        body: function() {
+                        body: () => {
 
                             const setURL      = () => !rsc.ignore(config.url) ? config.url.trim() : null;
                             const setLoading  = () => Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto';
@@ -547,6 +545,7 @@ window.ceres = {};
 
                             const srcOpen     = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist   = atr.getClassList('slide');
+                            const href        = 'ceres.getSlide(this)';
 
                             const setSubtitle = () => rsc.ignore(config.sub) ? null : config.sub.trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(config.sur) ? config.index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
@@ -585,12 +584,12 @@ window.ceres = {};
                                 if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
 
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: this.href });
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: this.href });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: href });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: href });
 
                             cfg.imageArray.forEach((item, i) =>
                             {
-                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: this.href });
+                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: href });
                             });
 
                             cfg.shadow.appendChild(bodyNode);
