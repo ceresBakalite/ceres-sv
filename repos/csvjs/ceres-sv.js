@@ -570,7 +570,7 @@ window.ceres = {};
                             {
                                 let ar = cfg.imageArray[item].split(',');
 
-                                let config = Object.assign(...obj.map(o => ({[o]: { url: ar[0], sub: ar[1], sur: ar[2]}})));
+                                let config = Object.assign(...obj.map(o => ({ url: ar[0], sub: ar[1], sur: ar[2]})));
                                 //config.url = ar[0];
                                 //config.sub = ar[1];
                                 //config.sur = ar[2];
