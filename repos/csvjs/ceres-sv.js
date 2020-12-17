@@ -146,16 +146,11 @@ window.ceres = {};
 
     window,
     document,
-    window.customElements.define('ceres-sv', class extends HTMLElement
-    {
-        get getImage(el) {
-            rsc.srcOpen({ element: el, type: 'image' });
-        }
+    window.customElements.define('ceres-sv', class extends HTMLElement {
 
-        async connectedCallback()
-        {
+        async connectedCallback() {
 
-            ceres.xxxgetImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
+            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
             const csvRoot = this; // csv root node of a DOM subtree
@@ -399,8 +394,8 @@ window.ceres = {};
 
                     this.get = { // HTMLElement components
 
-                        shadow: function()
-                        {
+                        shadow: () => {
+
                             const getSwipe = function(swipe)
                             {
                                 const offset = swipe.action ? swipe.right : swipe.left;
@@ -421,8 +416,8 @@ window.ceres = {};
                             if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
 
-                        slide: function(obj)
-                        {
+                        slide: obj => {
+
                             const getShadow = function(node) // shadowRoot slide manager
                             {
                                 const root   = node.getRootNode().host;
@@ -465,8 +460,8 @@ window.ceres = {};
                             nub[next].className = 'nub enabled';
                         },
 
-                        view: function()
-                        {
+                        view: () => {
+
                             const getAuto = function()
                             {
                                 const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
