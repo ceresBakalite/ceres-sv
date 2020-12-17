@@ -202,7 +202,7 @@ window.ceres = {};
 
                     this.node = { // HTMLElement instance
 
-                        hasContent: () => {
+                        get hasContent() {
 
                             if (!atr.content.properties()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
                             if (!atr.content.textList()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
@@ -210,7 +210,7 @@ window.ceres = {};
                             return atr.content.textArray();
                         },
 
-                        showContent: () => {
+                        get showContent() {
 
                             atr.get.shadow();
                             atr.get.slide({ shadow: cfg.shadow });
