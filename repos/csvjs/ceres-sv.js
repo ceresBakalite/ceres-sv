@@ -170,7 +170,7 @@ window.ceres = {};
 
             if (atr.node.hasContent()) atr.node.showContent();
 
-            this.configureAttributes = () => {
+            configureAttributes = () => {
 
                 csvRoot.src = csvRoot.getAttribute('src');
 
