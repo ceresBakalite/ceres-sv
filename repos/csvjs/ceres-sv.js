@@ -549,7 +549,7 @@ window.ceres = {};
                             const classlist   = atr.getClassList('slide');
 
                             const setSubtitle = () => rsc.ignore(config.sub) ? null : config.sub.trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSurtitle = () => rsc.ignore(config.sur) ? index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSurtitle = () => rsc.ignore(config.sur) ? config.index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
@@ -568,7 +568,7 @@ window.ceres = {};
 
                             for (let item in cfg.imageArray)
                             {
-                                var ar = cfg.imageArray[item].split(',');
+                                let ar = cfg.imageArray[item].split(',');
 
                                 config.url = ar[0];
                                 config.sub = ar[1];
