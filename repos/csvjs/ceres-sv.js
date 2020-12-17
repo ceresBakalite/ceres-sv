@@ -105,7 +105,7 @@ window.ceres = {};
         this.sanitizeText = (text, type = 'text/html') => {
 
             if (this.ignore(text)) return;
-            return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;');
+            return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
 
         this.inspect = diagnostic => {
