@@ -480,8 +480,8 @@ window.ceres = {};
                                     return iteration === complete || (autoslide++, iteration++, false); // stops when complete
                                 }
 
-                                const auto = setInterval(function run()
-                                {
+                                const auto = setInterval(function run() {
+
                                     if (autoCancel()) clearInterval(auto);
                                     atr.get.slide({ autoslide: autoslide-1 });
 
@@ -510,8 +510,8 @@ window.ceres = {};
                             }
 
                             setTimeout(() => {
-                                
-                                if (cfg.attrib.auto) setTimeout(function() { getAuto(); }, cfg.attrib.delay);
+
+                                if (cfg.attrib.auto) setTimeout(() => { getAuto(); }, cfg.attrib.delay);
                                 atr.setDisplay.show();
 
                             }, cfg.attrib.delay);
