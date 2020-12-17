@@ -33,7 +33,7 @@ window.ceres = {};
 
         this.composeElement = (el, atr) => {
 
-            if (!el.type) return;
+            if (this.ignore(el.type)) return;
 
             const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
             const node = document.createElement(el.type);
@@ -104,7 +104,7 @@ window.ceres = {};
 
         this.sanitizeText = (text, type = 'text/html') => {
 
-            if (rsc.ignore(text)) return;
+            if (this.ignore(text)) return;
             return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;');
         }
 
