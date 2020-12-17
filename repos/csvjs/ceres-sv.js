@@ -396,8 +396,8 @@ window.ceres = {};
 
                         shadow: () => {
 
-                            const getSwipe = function(swipe)
-                            {
+                            const getSwipe = swipe => {
+
                                 const offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
@@ -418,8 +418,8 @@ window.ceres = {};
 
                         slide: obj => {
 
-                            const getShadow = function(node) // shadowRoot slide manager
-                            {
+                            const getShadow = node => { // shadowRoot slide manager
+
                                 const root   = node.getRootNode().host;
                                 const shade  = document.querySelector('#' + root.id);
                                 const shadow = shade.shadowRoot;
@@ -462,16 +462,16 @@ window.ceres = {};
 
                         view: () => {
 
-                            const getAuto = function()
-                            {
+                            const getAuto = () => {
+
                                 const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
                                 const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
 
-                                const autoCancel = function()
-                                {
+                                const autoCancel = () => {
+
                                     autoslide = autoslide < 1 ? slides.length
                                         : autoslide > slides.length ? 1
                                         : autoslide;
@@ -489,8 +489,8 @@ window.ceres = {};
 
                             }
 
-                            const insertCache = function() // cache a range of response.status values (200, 304 etc)
-                            {
+                            const insertCache = () => { // cache a range of response.status values (200, 304 etc)
+
                                 if (!('caches' in window)) return;
 
                                 const src       = cfg.srcRoot ? cfg.src.split() : Array.from('');
@@ -509,8 +509,8 @@ window.ceres = {};
 
                             }
 
-                            setTimeout(function()
-                            {
+                            setTimeout(() => {
+                                
                                 if (cfg.attrib.auto) setTimeout(function() { getAuto(); }, cfg.attrib.delay);
                                 atr.setDisplay.show();
 
