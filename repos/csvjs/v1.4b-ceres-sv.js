@@ -481,7 +481,7 @@ window.ceres = {};
 
                             const insertCache = () => { // cache a range of response.status values (200, 304 etc)
 
-                                if (!('caches' in window)) return;
+                                if (!window.hasOwnProperty('caches')) return;
 
                                 const src       = cfg.srcRoot ? cfg.src.split() : Array.from('');
                                 const cacheName = csv + '-cache';
