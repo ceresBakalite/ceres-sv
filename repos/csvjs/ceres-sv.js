@@ -54,8 +54,8 @@ window.ceres = {};
             {
                 touch.end = e.changedTouches[0].screenX;
 
-                if (Math.abs(touch.start - touch.end) > touch.act)
-                {
+                if (Math.abs(touch.start - touch.end) > touch.act) {
+
                     args.action = (touch.start > touch.end);
                     callback.call(this, args);
                 }
@@ -262,14 +262,14 @@ window.ceres = {};
                                     const regex    = propertyName != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const item     = atrArray[0];
 
-                                    if (!Number.isInteger(parseInt(item)))
-                                    {
+                                    if (!Number.isInteger(parseInt(item))) {
+
                                         if (!rsc.getBoolean(item)) return false;
                                         if (atrArray.length > 1) atrArray.shift();
                                     }
 
-                                    if (propertyName == 'auto')
-                                    {
+                                    if (propertyName == 'auto') {
+
                                         cfg.node.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
                                         cfg.node.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
                                         cfg.node.autocancel = cfg.node.autocycle > -1;
@@ -293,12 +293,12 @@ window.ceres = {};
                                                 : Boolean(attribute.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
-                                            if (!rsc.ignore(re))
-                                            {
+                                            if (!rsc.ignore(re)) {
+
                                                 const group = String(cfg.shadowStyle.match(regex));
 
-                                                if (group)
-                                                {
+                                                if (group) {
+
                                                     const newGroup = group.replace(re, attribute.replace(/(\s+)?:(\s+)?/g,':') + ';');
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
@@ -368,8 +368,8 @@ window.ceres = {};
 
                                 const imageList = getImageList();
 
-                                if (!rsc.ignore(imageList))
-                                {
+                                if (!rsc.ignore(imageList)) {
+
                                     rsc.inspect({ type: rsc.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.node.local + ' - local template') + ']' + rsc.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;').replace(/\s*\n\s*/g,'\n'), logtrace: cfg.node.trace });
                                     cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
                                 }
@@ -552,8 +552,8 @@ window.ceres = {};
 
                             const obj = { index: 0, ar: [] };
 
-                            for (let item in cfg.imageArray)
-                            {
+                            for (let item in cfg.imageArray) {
+
                                 obj.ar = cfg.imageArray[item].split(',');
 
                                 const slideNode = document.createElement('div');
@@ -643,6 +643,7 @@ window.ceres = {};
 
                             let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
+
                             return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
                         }
 
@@ -650,6 +651,7 @@ window.ceres = {};
 
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
+
                             return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
                         }
 
@@ -663,8 +665,8 @@ window.ceres = {};
 
                             newArray.forEach((row) => {
 
-                                if (!rsc.ignore(row))
-                                {
+                                if (!rsc.ignore(row)) {
+
                                     str += '{ ';
                                     let rowArray = row.split(',');
 
