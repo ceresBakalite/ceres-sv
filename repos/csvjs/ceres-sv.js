@@ -148,6 +148,9 @@ window.ceres = {};
     document,
     window.customElements.define('ceres-sv', class extends HTMLElement
     {
+        get test() {
+            console.log('this isi a test');
+        }
         async connectedCallback()
         {
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
