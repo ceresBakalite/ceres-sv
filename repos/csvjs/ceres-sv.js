@@ -151,9 +151,10 @@ window.ceres = {};
         get test() {
             console.log('this isi a test');
         }
-        
+
         async connectedCallback()
         {
+            test();
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
