@@ -158,7 +158,7 @@ window.ceres = {};
 
             for (let item of cfg.cssRoot) { cfg.shadowStyle += rsc.sanitizeText( await ( await fetch(item) ).text() ); }
 
-            if (atr.node.hasContent()) atr.node.showContent();
+            if (atr.instance.hasContent()) atr.instance.showContent();
 
             function configureAttributes() {
 
@@ -193,7 +193,7 @@ window.ceres = {};
 
                     Object.freeze(remark);
 
-                    this.node = { // HTMLElement instance
+                    this.instance = { // HTMLElement instance
 
                         hasContent: () => {
 
