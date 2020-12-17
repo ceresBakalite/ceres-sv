@@ -470,7 +470,7 @@ window.ceres = {};
                                     return iteration === complete || (autoslide++, iteration++, false); // stops when complete
                                 }
 
-                                const auto = setInterval(function run() {
+                                const auto = setInterval(run => {
 
                                     if (autoCancel()) clearInterval(auto);
                                     atr.get.slide({ autoslide: autoslide-1 });
