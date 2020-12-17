@@ -536,12 +536,12 @@ window.ceres = {};
 
                         body: () => {
 
-                            const setURL      = () => !rsc.ignore(config.url) ? config.url.trim() : null;
+                            const setURL      = () => !rsc.ignore(ar[0]) ? ar[0].trim() : null;
                             const setLoading  = () => Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto';
                             const getSubtitle = () => cfg.attrib.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.attrib.sur ? setSurtitle() : null;
-                            const setSubtitle = () => rsc.ignore(config.sub) ? null : config.sub.trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSurtitle = () => rsc.ignore(config.sur) ? config.index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSubtitle = () => rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSurtitle = () => rsc.ignore(ar[2]) ? config.index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
                             const classlist = atr.getClassList('slide');
                             const srcImage  = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
@@ -560,19 +560,15 @@ window.ceres = {};
 
                             bodyNode.appendChild(trackNode);
 
-                            let config = { index: 0, url: null, sub: null, sur: null };
+                            let index = 0;
 
                             for (let item in cfg.imageArray)
                             {
                                 let ar = cfg.imageArray[item].split(',');
 
-                                config.url = ar[0];
-                                config.sub = ar[1];
-                                config.sur = ar[2];
-
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
-                                slideNode.id = 'img' + (++config.index);
+                                slideNode.id = 'img' + (++index);
 
                                 imgNode.appendChild(slideNode);
 
