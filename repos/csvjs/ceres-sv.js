@@ -549,7 +549,7 @@ window.ceres = {};
                             const classlist   = atr.getClassList('slide');
 
                             const setSubtitle = () => rsc.ignore(config.sub) ? null : config.sub.trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSurtitle = () => rsc.ignore(config.sur) ? obj.index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSurtitle = () => rsc.ignore(config.sur) ? config.index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
@@ -564,20 +564,19 @@ window.ceres = {};
 
                             bodyNode.appendChild(trackNode);
 
-                            let obj = { index: 0, url: null, sub: null, sur: null };
+                            let config = { index: 0, url: null, sub: null, sur: null };
 
                             for (let item in cfg.imageArray)
                             {
                                 let ar = cfg.imageArray[item].split(',');
 
-                                let config = Object.assign(...obj.map(o => ({ url: ar[0], sub: ar[1], sur: ar[2]})));
-                                //config.url = ar[0];
-                                //config.sub = ar[1];
-                                //config.sur = ar[2];
+                                config.url = ar[0];
+                                config.sub = ar[1];
+                                config.sur = ar[2];
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
-                                slideNode.id = 'img' + (++obj.index);
+                                slideNode.id = 'img' + (++config.index);
 
                                 imgNode.appendChild(slideNode);
 
