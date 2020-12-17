@@ -677,7 +677,7 @@ window.ceres = {};
                             return '[' + str.replace(re, '') + ']';
                         }
 
-                        const objectType = () => { return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n'); }
+                        const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
 
                         textArray.forEach((row) => {
 
