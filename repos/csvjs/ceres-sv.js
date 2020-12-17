@@ -370,7 +370,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.node.local + ' - template') + ']' + rsc.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.node.trace });
+                                    rsc.inspect({ type: rsc.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.node.local + ' - template') + ']' + rsc.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;').replace(/\s ?/g,''), logtrace: cfg.node.trace });
                                     cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
                                 }
 
