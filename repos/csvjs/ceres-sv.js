@@ -15,11 +15,21 @@ window.ceres = {};
     const rsc = {}; // generic resource methods
     (function() {
 
+        this.reference = 1;
+        this.notify    = 2;
+        this.warn      = 3;
+        this.default   = 98;
+        this.error     = 99;
+        this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+
         this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
         this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
         this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
         this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
         this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
+        this.newline      = () => rsc.isWindows ? '\r\n' : '\n';
+        this.bool         = () => rsc.bArray.map(item => { return item.trim().toUpperCase(); });
 
         this.composeElement = (el, atr) => {
 
@@ -70,7 +80,7 @@ window.ceres = {};
             if (obj === true || obj === false) return atr;
             if (this.ignore(obj) || !this.isString(obj)) return false;
 
-            return this.attrib.bool.includes(obj.trim().toUpperCase());
+            return this.bool.includes(obj.trim().toUpperCase());
         }
 
         this.getUniqueId = obj => {
@@ -109,35 +119,20 @@ window.ceres = {};
             }
 
             const lookup = {
-                [this.attrib.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.attrib.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [this.attrib.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.attrib.newline + this.attrib.newline + diagnostic.reference); },
-                [this.attrib.error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
-                [this.attrib.default]   : () => errorHandler({ notification: 'Unhandled exception' })
+                [this.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [this.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [this.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+                [this.error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
+                [this.default]   : () => errorHandler({ notification: 'Unhandled exception' })
             };
 
-            lookup[diagnostic.type]() || lookup[this.attrib.default];
+            lookup[diagnostic.type]() || lookup[this.default];
         }
 
         this.getProperties = (string = {}, str = '') => {
 
             for (let literal in string) str += literal + ': ' + string[literal] + ', ';
             return str.replace(/, +$/g,'');
-        }
-
-        this.attrib = {
-
-            reference : 1,
-            notify    : 2,
-            warn      : 3,
-            default   : 98,
-            error     : 99,
-            bArray    : ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'],
-            isWindows : (navigator.appVersion.indexOf('Win') != -1),
-
-            get newline() { return this.isWindows ? '\r\n' : '\n'; },
-            get bool() { return this.bArray.map(item => { return item.trim().toUpperCase(); }) },
-            get metaUrl() { return import.meta.url; }
         }
 
     }).call(rsc); // end resource allocation
@@ -177,7 +172,7 @@ window.ceres = {};
                 cfg.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
                 cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
-                cfg.attrib      = {};
+                cfg.node        = {};
                 cfg.slide       = 1;
 
                 (function() {
@@ -202,8 +197,8 @@ window.ceres = {};
 
                         hasContent: () => {
 
-                            if (!atr.content.properties()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
-                            if (!atr.content.textList()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
+                            if (!atr.content.properties()) return rsc.inspect({ type: rsc.error, notification: remark.properties });
+                            if (!atr.content.textList()) return rsc.inspect({ type: rsc.error, notification: remark.list });
 
                             return atr.content.textArray();
                         },
@@ -240,11 +235,11 @@ window.ceres = {};
 
                                 if (cfg.srcRoot) return 'undefined';
 
-                                let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
+                                let el = cfg.node.local ? document.getElementById(cfg.node.local) : null;
 
                                 if (rsc.ignore(el)) {
 
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.notify, notification: remark.tagSearch, logtrace: cfg.node.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
 
@@ -275,12 +270,12 @@ window.ceres = {};
 
                                     if (propertyName == 'auto')
                                     {
-                                        cfg.attrib.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
-                                        cfg.attrib.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
-                                        cfg.attrib.autocancel = cfg.attrib.autocycle > -1;
+                                        cfg.node.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
+                                        cfg.node.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
+                                        cfg.node.autocancel = cfg.node.autocycle > -1;
 
-                                        cfg.attrib.fade = cfg.attrib.autopause > 400;
-                                        cfg.attrib.nub  = 'false'; // typeof string
+                                        cfg.node.fade = cfg.node.autopause > 400;
+                                        cfg.node.nub  = 'false'; // typeof string
 
                                         return true;
                                     }
@@ -325,19 +320,19 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.attrib.nub     = nodeProperty.nub(csvRoot.getAttribute('nub')); // enabled
-                                cfg.attrib.fade    = nodeProperty.fade(csvRoot.getAttribute('fade')); // enabled
-                                cfg.attrib.zoom    = nodeProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
-                                cfg.attrib.cache   = nodeProperty.cache(csvRoot.getAttribute('cache')); // enabled
-                                cfg.attrib.trace   = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
-                                cfg.attrib.delay   = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
-                                cfg.attrib.loading = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
-                                cfg.attrib.local   = nodeProperty.local(csvRoot.getAttribute('local')); // local image list template elementId
-                                cfg.attrib.sur     = getPropertyAttributes('sur'); // disabled
-                                cfg.attrib.sub     = getPropertyAttributes('sub'); // disabled
-                                cfg.attrib.auto    = getPropertyAttributes('auto'); // disabled
+                                cfg.node.nub     = nodeProperty.nub(csvRoot.getAttribute('nub')); // enabled
+                                cfg.node.fade    = nodeProperty.fade(csvRoot.getAttribute('fade')); // enabled
+                                cfg.node.zoom    = nodeProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
+                                cfg.node.cache   = nodeProperty.cache(csvRoot.getAttribute('cache')); // enabled
+                                cfg.node.trace   = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
+                                cfg.node.delay   = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
+                                cfg.node.loading = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
+                                cfg.node.local   = nodeProperty.local(csvRoot.getAttribute('local')); // local image list template elementId
+                                cfg.node.sur     = getPropertyAttributes('sur'); // disabled
+                                cfg.node.sub     = getPropertyAttributes('sub'); // disabled
+                                cfg.node.auto    = getPropertyAttributes('auto'); // disabled
 
-                                Object.freeze(cfg.attrib);
+                                Object.freeze(cfg.node);
 
                                 cfg.template = getTemplate(); // local image list element
 
@@ -353,7 +348,7 @@ window.ceres = {};
 
                             cfg.imageArray = null;
 
-                            rsc.inspect({ type: rsc.attrib.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.attrib), logtrace: cfg.attrib.trace });
+                            rsc.inspect({ type: rsc.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.node), logtrace: cfg.node.trace });
 
                             const getImageList = () => {
 
@@ -366,7 +361,7 @@ window.ceres = {};
                                 const lightList = () => {
 
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
-                                    if (rsc.ignore(text)) return rsc.inspect({ type: rsc.attrib.error, notification: remark.template + ' [' + cfg.attrib.local + ']' });
+                                    if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.local + ']' });
 
                                     return atr.parseText(text);
                                 }
@@ -380,7 +375,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.attrib.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.attrib.local + ' - template') + ']' + rsc.attrib.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.attrib.trace });
+                                    rsc.inspect({ type: rsc.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.node.local + ' - template') + ']' + rsc.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.node.trace });
                                     cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
                                 }
 
@@ -413,7 +408,7 @@ window.ceres = {};
                             atr.compose.style();
                             atr.compose.body();
 
-                            if (!cfg.attrib.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
+                            if (!cfg.node.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
 
                         slide: obj => {
@@ -465,7 +460,7 @@ window.ceres = {};
                             const getAuto = () => {
 
                                 const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
-                                const complete = cfg.attrib.autocancel && cfg.attrib.autocycle > -1 ? cfg.imageArray.length * cfg.attrib.autocycle : 0;
+                                const complete = cfg.node.autocancel && cfg.node.autocycle > -1 ? cfg.imageArray.length * cfg.node.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
@@ -476,7 +471,7 @@ window.ceres = {};
                                         : autoslide > slides.length ? 1
                                         : autoslide;
 
-                                    if (!cfg.attrib.autocancel) return (autoslide++, false); // never stops
+                                    if (!cfg.node.autocancel) return (autoslide++, false); // never stops
                                     return iteration === complete || (autoslide++, iteration++, false); // stops when complete
                                 }
 
@@ -485,7 +480,7 @@ window.ceres = {};
                                     if (autoCancel()) clearInterval(auto);
                                     atr.get.slide({ autoslide: autoslide-1 });
 
-                                }, cfg.attrib.autopause);
+                                }, cfg.node.autopause);
 
                             }
 
@@ -495,13 +490,13 @@ window.ceres = {};
 
                                 const src       = cfg.srcRoot ? cfg.src.split() : Array.from('');
                                 const cacheName = csv + '-cache';
-                                const urlArray  = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
+                                const urlArray  = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ import.meta.url ])));
 
                                 urlArray.forEach(url => {
 
                                     fetch(url).then(response => {
 
-                                        if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.attrib.trace }); }
+                                        if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.node.trace }); }
                                         return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                                     });
 
@@ -511,14 +506,14 @@ window.ceres = {};
 
                             setTimeout(() => {
 
-                                if (cfg.attrib.auto) setTimeout(() => { getAuto(); }, cfg.attrib.delay);
+                                if (cfg.node.auto) setTimeout(() => { getAuto(); }, cfg.node.delay);
                                 atr.setDisplay.show();
 
-                            }, cfg.attrib.delay);
+                            }, cfg.node.delay);
 
-                            if (cfg.attrib.cache) insertCache();
+                            if (cfg.node.cache) insertCache();
 
-                            rsc.inspect({ type: rsc.attrib.notify, notification: cfg.shadow, logtrace: cfg.attrib.trace });
+                            rsc.inspect({ type: rsc.notify, notification: cfg.shadow, logtrace: cfg.node.trace });
                         }
 
                     };
@@ -537,14 +532,14 @@ window.ceres = {};
                         body: () => {
 
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
-                            const setLoading  = () => Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto';
-                            const getSubtitle = () => cfg.attrib.sub ? setSubtitle() : null;
-                            const getSurtitle = () => cfg.attrib.sur ? setSurtitle() : null;
+                            const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
+                            const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
+                            const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
                             const classlist = atr.getClassList('slide');
-                            const srcImage  = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+                            const srcImage  = cfg.node.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const hrefSlide = 'ceres.getSlide(this)';
 
                             const bodyNode = document.createElement('div');
@@ -572,9 +567,9 @@ window.ceres = {};
 
                                 imgNode.appendChild(slideNode);
 
-                                if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
+                                if (cfg.node.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
                                 rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: srcImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
-                                if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
+                                if (cfg.node.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
 
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: hrefSlide });
@@ -610,10 +605,10 @@ window.ceres = {};
 
                     this.getClassList = className => {
 
-                        if (className != 'slide') return cfg.attrib.nub && cfg.attrib.auto ? className += ' none' : className;
+                        if (className != 'slide') return cfg.node.nub && cfg.node.auto ? className += ' none' : className;
 
-                        if (cfg.attrib.zoom) className += ' zoom';
-                        if (cfg.attrib.fade) className += ' fade';
+                        if (cfg.node.zoom) className += ' zoom';
+                        if (cfg.node.fade) className += ' fade';
 
                         return className += ' none';
                     }
