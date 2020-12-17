@@ -258,7 +258,7 @@ window.ceres = {};
                                     if (rsc.ignore(nodeAttribute)) return false;
 
                                     const ar       = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
-                                    const atrArray = ar.map(item => { return item.trim(); });
+                                    const atrArray = ar.map(item => item.trim());
                                     const regex    = propertyName != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const item     = atrArray[0];
 
