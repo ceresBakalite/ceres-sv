@@ -84,8 +84,6 @@ window.ceres = {};
             return obj.el;
         }
 
-        this.recursiveReplace = (str, criteria, obj) => str.replace(criteria, match => obj[match]);
-
         this.removeDuplcates = (obj, sort) => {
 
             const key = JSON.stringify;
@@ -542,9 +540,8 @@ window.ceres = {};
                             const setLoading  = () => Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto';
                             const getSubtitle = () => cfg.attrib.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.attrib.sur ? setSurtitle() : null;
-
                             const setSubtitle = () => rsc.ignore(config.sub) ? null : config.sub.trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSurtitle = () => rsc.ignore(config.sur) ? config.index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSurtitle = () => rsc.ignore(config.sur) ? index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
 
                             const classlist = atr.getClassList('slide');
                             const srcImage  = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
@@ -563,19 +560,22 @@ window.ceres = {};
 
                             bodyNode.appendChild(trackNode);
 
-                            let config = { index: 0, url: null, sub: null, sur: null };
+                            let index = 0;
+                            let config = { url: null, sub: null, sur: null };
 
                             for (let item in cfg.imageArray)
                             {
                                 let ar = cfg.imageArray[item].split(',');
 
-                                config.url = ar[0];
-                                config.sub = ar[1];
-                                config.sur = ar[2];
+                                ar.forEach((value, i) => { config[i] = value; });
+
+                                //config.url = ar[0];
+                                //config.sub = ar[1];
+                                //config.sur = ar[2];
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
-                                slideNode.id = 'img' + (++config.index);
+                                slideNode.id = 'img' + (++index);
 
                                 imgNode.appendChild(slideNode);
 
