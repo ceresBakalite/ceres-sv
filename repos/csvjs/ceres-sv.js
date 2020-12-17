@@ -543,12 +543,12 @@ window.ceres = {};
                             const getSubtitle = () => cfg.attrib.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.attrib.sur ? setSurtitle() : null;
 
-                            const srcOpen     = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
-                            const classlist   = atr.getClassList('slide');
-                            const href        = 'ceres.getSlide(this)';
-
                             const setSubtitle = () => rsc.ignore(config.sub) ? null : config.sub.trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(config.sur) ? config.index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
+
+                            const classlist = atr.getClassList('slide');
+                            const srcImage  = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+                            const hrefSlide = 'ceres.getSlide(this)';
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
@@ -580,16 +580,16 @@ window.ceres = {};
                                 imgNode.appendChild(slideNode);
 
                                 if (cfg.attrib.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
-                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: srcOpen, src: setURL(), alt: setSubtitle(), loading: setLoading() });
+                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: srcImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 if (cfg.attrib.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
 
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: href });
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: href });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: hrefSlide });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: hrefSlide });
 
                             cfg.imageArray.forEach((item, i) =>
                             {
-                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: href });
+                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: hrefSlide });
                             });
 
                             cfg.shadow.appendChild(bodyNode);
