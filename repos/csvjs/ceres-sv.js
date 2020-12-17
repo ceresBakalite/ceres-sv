@@ -307,12 +307,7 @@ window.ceres = {};
 
                                         }
 
-                                        atrArray.forEach((attribute) => {
-
-                                            if (styleArray.includes(attribute.split(':')[0])) setStyleAttribute(attribute);
-
-                                        });
-
+                                        atrArray.forEach((attribute) => { if (styleArray.includes(attribute.split(':')[0])) setStyleAttribute(attribute); });
                                     }
 
                                     if (propertyArray.includes(propertyName)) getStyle();
@@ -575,11 +570,7 @@ window.ceres = {};
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: hrefSlide });
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: hrefSlide });
 
-                            cfg.imageArray.forEach((item, i) =>
-                            {
-                                rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: hrefSlide });
-                            });
-
+                            cfg.imageArray.forEach((item, i) => { rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: hrefSlide }); });
                             cfg.shadow.appendChild(bodyNode);
                         }
 
@@ -628,8 +619,8 @@ window.ceres = {};
                         const json = JSON.parse(text);
                         let str = '';
 
-                        json.forEach((node) =>
-                        {
+                        json.forEach((node) => {
+
                             str += node.url
                                 + (node.sub ? ', ' + node.sub.replace(cfg.commaCodes, cfg.commaSymbol) : '')
                                 + (node.sur ? ', ' + node.sur.replace(cfg.commaCodes, cfg.commaSymbol) : '')
@@ -677,12 +668,7 @@ window.ceres = {};
                                     str += '{ ';
                                     let rowArray = row.split(',');
 
-                                    rowArray.forEach((value, i) => {
-
-                                        str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", ';
-
-                                    });
-
+                                    rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", '; });
                                     str = str.replace(re, '') + ' },\n'
                                 }
 
@@ -693,13 +679,13 @@ window.ceres = {};
 
                         const objectType = () => { return (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n'); }
 
-                        textArray.forEach((row) =>
-                        {
+                        textArray.forEach((row) => {
+
                             let newRow = String(row);
                             let groups = [...newRow.matchAll(regex)]; // get character groups in need of parsing
 
-                            groups.forEach((group) =>
-                            {
+                            groups.forEach((group) => {
+
                                 let newGroup = parseGroup(group);
                                 newRow = newRow.replace(group, newGroup);
                             });
