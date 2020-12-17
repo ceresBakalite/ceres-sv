@@ -210,7 +210,7 @@ window.ceres = {};
                             return atr.content.textArray();
                         },
 
-                        get showContent() {
+                        showContent: () => {
 
                             atr.get.shadow();
                             atr.get.slide({ shadow: cfg.shadow });
