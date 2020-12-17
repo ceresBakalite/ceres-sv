@@ -221,7 +221,7 @@ window.ceres = {};
 
                     this.content = { // HTMLElement properties
 
-                        get properties() {
+                        properties: () => {
 
                             const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'local', 'fade', 'auto', 'loading'];
                             const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
