@@ -188,6 +188,7 @@ window.ceres = {};
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
+
                         markup     : 'Image list markup ',
                         element    : 'The element attributes ',
                         tagSearch  : 'The ' + csv + ' src attribute url is unavailable and there is no \'local\' elementId. Looking for the first occurance of a <template> or <noscript> tagname',
@@ -226,6 +227,7 @@ window.ceres = {};
                             const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
                             const nodeProperty = {
+
                                 nub     : function(atr) { return !rsc.getBoolean(atr); },
                                 fade    : function(atr) { return !rsc.getBoolean(atr); },
                                 cache   : function(atr) { return !rsc.getBoolean(atr); },
@@ -242,8 +244,8 @@ window.ceres = {};
 
                                 let el = cfg.attrib.local ? document.getElementById(cfg.attrib.local) : null;
 
-                                if (rsc.ignore(el))
-                                {
+                                if (rsc.ignore(el)) {
+
                                     rsc.inspect({ type: rsc.attrib.notify, notification: remark.tagSearch, logtrace: cfg.attrib.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
@@ -497,10 +499,10 @@ window.ceres = {};
                                 const cacheName = csv + '-cache';
                                 const urlArray  = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ rsc.attrib.metaUrl ])));
 
-                                urlArray.forEach(url =>
-                                {
-                                    fetch(url).then(response =>
-                                    {
+                                urlArray.forEach(url => {
+
+                                    fetch(url).then(response => {
+
                                         if (!response.ok) { rsc.inspect({ type: rsc.attrib.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.attrib.trace }); }
                                         return caches.open(cacheName).then(cache => { return cache.put(url, response); });
                                     });
