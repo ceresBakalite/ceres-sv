@@ -127,8 +127,8 @@ window.ceres = {};
             return str.replace(/, +$/g,'');
         }
 
-        this.attrib =
-        {
+        this.attrib = {
+
             reference : 1,
             notify    : 2,
             warn      : 3,
@@ -202,7 +202,7 @@ window.ceres = {};
 
                     this.node = { // HTMLElement instance
 
-                        get hasContent() {
+                        hasContent: () => {
 
                             if (!atr.content.properties()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.properties });
                             if (!atr.content.textList()) return rsc.inspect({ type: rsc.attrib.error, notification: remark.list });
