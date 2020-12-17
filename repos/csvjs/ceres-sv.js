@@ -28,8 +28,8 @@ window.ceres = {};
         this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
         this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
         this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-        this.newline      = rsc.isWindows ? '\r\n' : '\n';
-        this.bool         = rsc.bArray.map(item => { return item.trim().toUpperCase(); });
+        this.newline      = this.isWindows ? '\r\n' : '\n';
+        this.bool         = this.bArray.map(item => { return item.trim().toUpperCase(); });
 
         this.composeElement = (el, atr) => {
 
