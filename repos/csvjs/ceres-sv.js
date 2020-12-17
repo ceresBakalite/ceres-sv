@@ -538,18 +538,18 @@ window.ceres = {};
                             cfg.shadow.appendChild(styleNode);
                         },
 
-                        body: (() => {
+                        body: function() {
 
-                            const setURL      = () => !rsc.ignore(ar[0]) ? ar[0].trim() : null;
+                            const setURL      = () => !rsc.ignore(config.url) ? config.url.trim() : null;
                             const setLoading  = () => Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto';
-                            const getSurtitle = () => cfg.attrib.sur ? setSurtitle() : null;
                             const getSubtitle = () => cfg.attrib.sub ? setSubtitle() : null;
+                            const getSurtitle = () => cfg.attrib.sur ? setSurtitle() : null;
 
                             const srcOpen     = cfg.attrib.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const classlist   = atr.getClassList('slide');
 
-                            const setSurtitle = () => rsc.ignore(ar[2]) ? index + ' / ' + cfg.imageArray.length : ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSubtitle = () => rsc.ignore(ar[1]) ? null : ar[1].trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSubtitle = () => rsc.ignore(config.sub) ? null : config.sub.trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSurtitle = () => rsc.ignore(config.sur) ? index + ' / ' + cfg.imageArray.length : config.sur.trim().replaceAll(cfg.commaSymbol, ',');
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
@@ -564,15 +564,19 @@ window.ceres = {};
 
                             bodyNode.appendChild(trackNode);
 
-                            let index = 0;
+                            let config = { index: 0, url: null, sub: null, sur: null };
 
                             for (let item in cfg.imageArray)
                             {
                                 var ar = cfg.imageArray[item].split(',');
 
+                                config.url = ar[0];
+                                config.sub = ar[1];
+                                config.sur = ar[2];
+
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
-                                slideNode.id = 'img' + (++index);
+                                slideNode.id = 'img' + (++config.index);
 
                                 imgNode.appendChild(slideNode);
 
@@ -590,7 +594,7 @@ window.ceres = {};
                             });
 
                             cfg.shadow.appendChild(bodyNode);
-                        })
+                        }
 
                     };
 
