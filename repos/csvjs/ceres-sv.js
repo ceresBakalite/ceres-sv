@@ -228,14 +228,14 @@ window.ceres = {};
 
                             const nodeProperty = {
 
-                                nub     : function(atr) { return !rsc.getBoolean(atr); },
-                                fade    : function(atr) { return !rsc.getBoolean(atr); },
-                                cache   : function(atr) { return !rsc.getBoolean(atr); },
-                                zoom    : function(atr) { return !!rsc.ignore(atr) || rsc.getBoolean(atr); },
-                                trace   : function(atr) { return rsc.getBoolean(atr); },
-                                delay   : function(atr) { return Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250; },
-                                loading : function(atr) { return rsc.ignore(atr) ? 'auto' : atr },
-                                local   : function(atr) { return rsc.ignore(atr) ? false : atr } // typeof boolean or typeof string
+                                nub     : atr => !rsc.getBoolean(atr),
+                                fade    : atr => !rsc.getBoolean(atr),
+                                cache   : atr => !rsc.getBoolean(atr),
+                                zoom    : atr => !!rsc.ignore(atr) || rsc.getBoolean(atr),
+                                trace   : atr => rsc.getBoolean(atr),
+                                delay   : atr => Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250,
+                                loading : atr => rsc.ignore(atr) ? 'auto' : atr,
+                                local   : atr => rsc.ignore(atr) ? false : atr // typeof boolean or typeof string
                             };
 
                             const getTemplate = () => {
@@ -538,8 +538,7 @@ window.ceres = {};
                             cfg.shadow.appendChild(styleNode);
                         },
 
-                        body: function()
-                        {
+                        body: () => {
 
                             const setURL      = () => !rsc.ignore(ar[0]) ? ar[0].trim() : null;
                             const setLoading  = () => Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto';
@@ -675,7 +674,7 @@ window.ceres = {};
                         // construct a JSON object from the CSV construct
                         const composeJSON = () => {
 
-                            const nodeName = function(i) { return symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": '; }
+                            const nodeName = i => symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
                             const re = /,\s*?$/; // match trailing comma whitespace
 
                             let str = '';
