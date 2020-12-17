@@ -564,15 +564,16 @@ window.ceres = {};
 
                             bodyNode.appendChild(trackNode);
 
-                            let config = { index: 0, url: null, sub: null, sur: null };
+                            let obj = { index: 0, url: null, sub: null, sur: null };
 
                             for (let item in cfg.imageArray)
                             {
                                 let ar = cfg.imageArray[item].split(',');
 
-                                config.url = ar[0];
-                                config.sub = ar[1];
-                                config.sur = ar[2];
+                                let config = Object.assign(...obj.map(o => ({[o]: { url: ar[0], sub: ar[1], sur: ar[2]}})));
+                                //config.url = ar[0];
+                                //config.sub = ar[1];
+                                //config.sur = ar[2];
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
