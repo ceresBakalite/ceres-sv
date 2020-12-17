@@ -538,7 +538,7 @@ window.ceres = {};
                             cfg.shadow.appendChild(styleNode);
                         },
 
-                        body: () => {
+                        body: function() {
 
                             const setURL      = () => !rsc.ignore(ar[0]) ? ar[0].trim() : null;
                             const setLoading  = () => Boolean(cfg.attrib.loading.match(/lazy|eager|auto/i)) ? cfg.attrib.loading : 'auto';
