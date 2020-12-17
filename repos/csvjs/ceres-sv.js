@@ -163,15 +163,12 @@ window.ceres = {};
 
             if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText( atr.getFileType( await ( await fetch(cfg.src) ).text() ) ));
 
-            for (let item of cfg.cssRoot)
-            {
-                cfg.shadowStyle += rsc.sanitizeText( await ( await fetch(item) ).text() );
-            }
+            for (let item of cfg.cssRoot) { cfg.shadowStyle += rsc.sanitizeText( await ( await fetch(item) ).text() ); }
 
             if (atr.node.hasContent()) atr.node.showContent();
 
             function configureAttributes() {
-                
+
                 csvRoot.src = csvRoot.getAttribute('src');
 
                 cfg.defaultCSS  = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
