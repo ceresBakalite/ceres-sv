@@ -157,7 +157,7 @@ window.ceres = {};
             const cfg     = {}; // configuration attributes
             const atr     = {}; // attribute allocation
 
-            cfg.configureAttributes();
+            configureAttributes();
 
             atr.setDisplay.hide();
 
@@ -170,8 +170,8 @@ window.ceres = {};
 
             if (atr.node.hasContent()) atr.node.showContent();
 
-            cfg.configureAttributes = () => {
-
+            function configureAttributes() {
+                
                 csvRoot.src = csvRoot.getAttribute('src');
 
                 cfg.defaultCSS  = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
