@@ -78,13 +78,13 @@ window.ceres = {};
             if (!obj.name) obj.name = 'n';
             if (!obj.range) obj.range = 100;
 
-            const elName = function() { return obj.name + Math.floor(Math.random() * obj.range) };
+            const elName = () => obj.name + Math.floor(Math.random() * obj.range);
             while (document.getElementById(obj.el = elName())) {};
 
             return obj.el;
         }
 
-        this.recursiveReplace = (str, criteria, obj) => { return str.replace(criteria, function(match) { return obj[match]; }); }
+        this.recursiveReplace = (str, criteria, obj) => str.replace(criteria, match => obj[match]);
 
         this.removeDuplcates = (obj, sort) => {
 
