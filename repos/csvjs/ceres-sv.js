@@ -370,7 +370,7 @@ window.ceres = {};
 
                                 if (!rsc.ignore(imageList))
                                 {
-                                    rsc.inspect({ type: rsc.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.node.local + ' - template') + ']' + rsc.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;').replace(/\s*\n\s*/g,'\n'), logtrace: cfg.node.trace });
+                                    rsc.inspect({ type: rsc.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.node.local + ' - template') + ']' + rsc.newline + imageList.replaceAll(cfg.commaSymbol, '&comma;'), logtrace: cfg.node.trace });
                                     cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
                                 }
 
@@ -650,7 +650,7 @@ window.ceres = {};
 
                             let newRow = row.replace(re, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
-                            return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
+                            return newRow.replace(/(?!\s)[,](?!\s)/g, ', ').replace(/\s*\n\s*/g,'\n'); // tidy
                         }
 
                         // construct a JSON object from the CSV construct
