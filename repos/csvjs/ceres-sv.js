@@ -261,9 +261,9 @@ window.ceres = {};
                                         'delay'  : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
-                                    console.log('test: ' + ftr.hasOwnProperty(name) + ' - ' + name);
-                                    if (ftr.hasOwnProperty(name)) console.log('found: ' + ftr[name]);
+                                    if (ftr.hasOwnProperty(name)) return ftr[name];
 
+                                    /*
                                     if (name == 'nub') return !rsc.getBoolean(factor); // enabled
                                     if (name == 'fade') return !rsc.getBoolean(factor); // enabled
                                     if (name == 'cache') return !rsc.getBoolean(factor); // enabled
@@ -272,7 +272,8 @@ window.ceres = {};
                                     if (name == 'local') return factor || false; // local image list template elementId
                                     if (name == 'zoom') return !!factor || rsc.getBoolean(factor);
                                     if (name == 'delay') return Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250;
-
+                                    */
+                                    
                                     if (rsc.ignore(factor)) return false;
 
                                     const ar       = factor.replace(/\s+:\s+/g,':').split(',');
