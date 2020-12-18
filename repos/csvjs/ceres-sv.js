@@ -385,7 +385,7 @@ window.ceres = {};
                                 }
 
                                 rsc.inspect({ type: rsc.notify, notification: parseList(), logtrace: cfg.node.trace });
-                                cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
+                                cfg.imageArray = imageList ? imageList.split('\n') : null;
 
                                 return !rsc.ignore(cfg.imageArray);
                             }
