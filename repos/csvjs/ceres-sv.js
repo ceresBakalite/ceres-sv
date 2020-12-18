@@ -355,7 +355,7 @@ window.ceres = {};
                                 const shadowList = () => {
 
                                     const text = csvRoot.textContent;
-                                    return !rsc.ignore(text) ? text.replace(/\s*\n\s*/g,'\n') : null;
+                                    return !rsc.ignore(text) ? text.replace(/\s*\n\s*/g,'\n') : null; // remove whitespace surrounding linefeed
                                 }
 
                                 const lightList = () => {
@@ -363,7 +363,7 @@ window.ceres = {};
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.local + ']' });
 
-                                    return atr.parseText(text).replace(/\s*\n\s*/g,'\n');
+                                    return atr.parseText(text).replace(/\s*\n\s*/g,'\n'); // remove whitespace surrounding linefeed
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
