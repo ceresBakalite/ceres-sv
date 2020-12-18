@@ -245,22 +245,22 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const factor = name => {
+                                const nodeAttribute = name => {
 
-                                    const nodeAttribute = csvRoot.getAttribute(name);
+                                    const factor = csvRoot.getAttribute(name);
 
-                                    if (name == 'nub') return !rsc.getBoolean(nodeAttribute); // enabled
-                                    if (name == 'fade') return !rsc.getBoolean(nodeAttribute); // enabled
-                                    if (name == 'cache') return !rsc.getBoolean(nodeAttribute); // enabled
-                                    if (name == 'trace') return rsc.getBoolean(nodeAttribute); // disabled
-                                    if (name == 'loading') return nodeAttribute || 'auto'; // enabled (default auto)
-                                    if (name == 'local') return nodeAttribute || false; // local image list template elementId
-                                    if (name == 'zoom') return !!nodeAttribute || rsc.getBoolean(nodeAttribute);
-                                    if (name == 'delay') return Number.isInteger(parseInt(nodeAttribute, 10)) ? parseInt(nodeAttribute, 10) : 250;
+                                    if (name == 'nub') return !rsc.getBoolean(factor); // enabled
+                                    if (name == 'fade') return !rsc.getBoolean(factor); // enabled
+                                    if (name == 'cache') return !rsc.getBoolean(factor); // enabled
+                                    if (name == 'trace') return rsc.getBoolean(factor); // disabled
+                                    if (name == 'loading') return factor || 'auto'; // enabled (default auto)
+                                    if (name == 'local') return factor || false; // local image list template elementId
+                                    if (name == 'zoom') return !!factor || rsc.getBoolean(factor);
+                                    if (name == 'delay') return Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250;
 
-                                    if (rsc.ignore(nodeAttribute)) return false;
-                                    
-                                    const ar       = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
+                                    if (rsc.ignore(factor)) return false;
+
+                                    const ar       = factor.replace(/\s+:\s+/g,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const item     = atrArray[0];
@@ -318,17 +318,17 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.node.nub     = factor('nub'); // enabled
-                                cfg.node.fade    = factor('fade'); // enabled
-                                cfg.node.cache   = factor('cache'); // enabled
-                                cfg.node.trace   = factor('trace'); // disabled
-                                cfg.node.loading = factor('loading'); // enabled (default auto)
-                                cfg.node.local   = factor('local'); // local image list template elementId
-                                cfg.node.zoom    = factor('zoom'); // enabled
-                                cfg.node.delay   = factor('delay'); // default 250
-                                cfg.node.sur     = factor('sur'); // disabled
-                                cfg.node.sub     = factor('sub'); // disabled
-                                cfg.node.auto    = factor('auto'); // disabled
+                                cfg.node.nub     = nodeAttribute('nub'); // enabled
+                                cfg.node.fade    = nodeAttribute('fade'); // enabled
+                                cfg.node.cache   = nodeAttribute('cache'); // enabled
+                                cfg.node.trace   = nodeAttribute('trace'); // disabled
+                                cfg.node.loading = nodeAttribute('loading'); // enabled (default auto)
+                                cfg.node.local   = nodeAttribute('local'); // local image list template elementId
+                                cfg.node.zoom    = nodeAttribute('zoom'); // enabled
+                                cfg.node.delay   = nodeAttribute('delay'); // default 250
+                                cfg.node.sur     = nodeAttribute('sur'); // disabled
+                                cfg.node.sub     = nodeAttribute('sub'); // disabled
+                                cfg.node.auto    = nodeAttribute('auto'); // disabled
 
                                 Object.freeze(cfg.node);
 
