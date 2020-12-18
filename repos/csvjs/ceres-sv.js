@@ -684,7 +684,7 @@ window.ceres = {};
                         const composeJSON = () => {
 
                             const nodeName = i => symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
-                            const re = /,\s*?$/; // match trailing comma whitespace
+                            const ex = /,\s*?$/; // match trailing comma whitespace
 
                             let str = '';
 
@@ -696,12 +696,12 @@ window.ceres = {};
                                     let rowArray = row.split(',');
 
                                     rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", '; });
-                                    str = str.replace(re, '') + ' },\n'
+                                    str = str.replace(ex, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(re, '') + ']';
+                            return '[' + str.replace(ex, '') + ']';
                         }
 
                         const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
