@@ -355,7 +355,7 @@ window.ceres = {};
                                 const shadowList = () => {
 
                                     const text = csvRoot.textContent;
-                                    return !rsc.ignore(text) ? text.replace(/\s*\n\s*/g,'\n') : null; // tidy
+                                    return !rsc.ignore(text) ? text.replace(/\s*\n\s*/g,'\n') : null; // tidy - remove whitespace surrounding linefeed
                                 }
 
                                 const lightList = () => {
@@ -363,7 +363,7 @@ window.ceres = {};
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.local + ']' });
 
-                                    return atr.parseText(text).replace(/\s*\n\s*/g,'\n'); // tidy
+                                    return atr.parseText(text).replace(/\s*\n\s*/g,'\n'); // tidy - remove whitespace surrounding linefeed
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
@@ -375,7 +375,7 @@ window.ceres = {};
 
                                 if (rsc.ignore(imageList)) return false;
 
-                                const parseList = () => {
+                                const parseInspect = () => {
 
                                     return remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
                                         : cfg.node.local + ' - local template') + ']' + rsc.newline + imageList
@@ -384,7 +384,7 @@ window.ceres = {};
                                             .replace(/&gt;/g, '>');
                                 }
 
-                                rsc.inspect({ type: rsc.notify, notification: parseList(), logtrace: cfg.node.trace });
+                                rsc.inspect({ type: rsc.notify, notification: parseInspect(), logtrace: cfg.node.trace });
                                 cfg.imageArray = imageList || null;
 
                                 return !rsc.ignore(cfg.imageArray);
