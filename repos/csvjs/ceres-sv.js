@@ -262,7 +262,7 @@ window.ceres = {};
                                     }
 
                                     console.log('test: ' + ftr.hasOwnProperty(name) + ' - ' + name);
-                                    if (ftr.hasOwnProperty(name)) console.log('found: ' + ftr.name);
+                                    if (ftr.hasOwnProperty(name)) console.log('found: ' + ftr[name]);
 
                                     if (name == 'nub') return !rsc.getBoolean(factor); // enabled
                                     if (name == 'fade') return !rsc.getBoolean(factor); // enabled
