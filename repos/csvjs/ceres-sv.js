@@ -248,7 +248,6 @@ window.ceres = {};
                                 const factor = name => {
 
                                     const nodeAttribute = csvRoot.getAttribute(name);
-                                    if (rsc.ignore(nodeAttribute)) return false;
 
                                     if (name == 'nub') return !rsc.getBoolean(nodeAttribute); // enabled
                                     if (name == 'fade') return !rsc.getBoolean(nodeAttribute); // enabled
@@ -259,6 +258,8 @@ window.ceres = {};
                                     if (name == 'zoom') return !!nodeAttribute || rsc.getBoolean(nodeAttribute);
                                     if (name == 'delay') return Number.isInteger(parseInt(nodeAttribute, 10)) ? parseInt(nodeAttribute, 10) : 250;
 
+                                    if (rsc.ignore(nodeAttribute)) return false;
+                                    
                                     const ar       = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
