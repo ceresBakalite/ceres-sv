@@ -661,8 +661,8 @@ window.ceres = {};
                         const endRow    = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
 
-                        symbol.entities = symbol.entities || cfg.commaCodes;
-                        symbol.comma    = symbol.comma || cfg.commaSymbol;
+                        symbol.entities = symbol.entities || cfg.commaCodes || /,|&comma;|&#x2c;|&#44;|U+0002C/g;
+                        symbol.comma    = symbol.comma || cfg.commaSymbol || '_&c';
 
                         const parseGroup = group => {
 
