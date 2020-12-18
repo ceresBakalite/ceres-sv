@@ -12,8 +12,8 @@
 window.ceres = {};
 (function()
 {
-    const rsc = {}; // generic resource methods
-    (() => {
+    //const rsc = {}; // generic resource methods
+    const rsc = () => {
 
         this.reference = 1;
         this.notify    = 2;
@@ -137,7 +137,7 @@ window.ceres = {};
             return str.replace(/, +$/g,'');
         }
 
-    }).call(rsc); // end resource allocation
+    } // end resource allocation
 
     window,
     document,
