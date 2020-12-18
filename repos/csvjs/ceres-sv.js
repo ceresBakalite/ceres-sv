@@ -377,13 +377,15 @@ window.ceres = {};
 
                                 const inspectList = () => {
 
-                                    return imageList.replaceAll(cfg.commaSymbol, '&comma;')
-                                        .replace(/\s*\n\s*/g,'\n') // white space surrounding linefeed
-                                        .replace(/&lt;/g, '<')
-                                        .replace(/&gt;/g, '>');
+                                    return remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
+                                        : cfg.node.local + ' - local template') + ']' + rsc.newline + imageList
+                                            .replaceAll(cfg.commaSymbol, '&comma;')
+                                            .replace(/\s*\n\s*/g,'\n') // white space surrounding linefeed
+                                            .replace(/&lt;/g, '<')
+                                            .replace(/&gt;/g, '>');
                                 }
 
-                                rsc.inspect({ type: rsc.notify, notification: remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src) : cfg.node.local + ' - local template') + ']' + rsc.newline + inspectList(), logtrace: cfg.node.trace });
+                                rsc.inspect({ type: rsc.notify, notification: inspectList(), logtrace: cfg.node.trace });
                                 cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
 
                                 return !rsc.ignore(cfg.imageArray);
