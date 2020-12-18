@@ -226,14 +226,14 @@ window.ceres = {};
 
                             const nodeProperty = {
 
-                                nub     : atr => !rsc.getBoolean(atr),
-                                fade    : atr => !rsc.getBoolean(atr),
-                                cache   : atr => !rsc.getBoolean(atr),
+                                nub     : !rsc.getBoolean(csvRoot.getAttribute('nub')),
+                                fade    : !rsc.getBoolean(csvRoot.getAttribute('fade')),
+                                cache   : !rsc.getBoolean(csvRoot.getAttribute('cache')),
+                                trace   : rsc.getBoolean(csvRoot.getAttribute('trace')),
+                                loading : csvRoot.getAttribute('loading') || 'auto',
+                                local   : csvRoot.getAttribute('local') || false, // typeof string or typeof boolean
                                 zoom    : atr => !!rsc.ignore(atr) || rsc.getBoolean(atr),
-                                trace   : atr => rsc.getBoolean(atr),
-                                delay   : atr => Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250,
-                                loading : atr => atr || 'auto',
-                                local   : atr => atr || false // typeof string or typeof boolean
+                                delay   : atr => Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250
                             };
 
                             const getTemplate = () => {
@@ -320,14 +320,14 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.node.nub     = nodeProperty.nub(csvRoot.getAttribute('nub')); // enabled
-                                cfg.node.fade    = nodeProperty.fade(csvRoot.getAttribute('fade')); // enabled
+                                cfg.node.nub     = nodeProperty.nub(); // enabled
+                                cfg.node.fade    = nodeProperty.fade(); // enabled
+                                cfg.node.cache   = nodeProperty.cache(); // enabled
+                                cfg.node.trace   = nodeProperty.trace(); // disabled
+                                cfg.node.loading = nodeProperty.loading(); // enabled (default auto)
+                                cfg.node.local   = nodeProperty.local(); // local image list template elementId
                                 cfg.node.zoom    = nodeProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
-                                cfg.node.cache   = nodeProperty.cache(csvRoot.getAttribute('cache')); // enabled
-                                cfg.node.trace   = nodeProperty.trace(csvRoot.getAttribute('trace')); // disabled
                                 cfg.node.delay   = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
-                                cfg.node.loading = nodeProperty.loading(csvRoot.getAttribute('loading')); // enabled (default auto)
-                                cfg.node.local   = nodeProperty.local(csvRoot.getAttribute('local')); // local image list template elementId
                                 cfg.node.sur     = getPropertyAttributes('sur'); // disabled
                                 cfg.node.sub     = getPropertyAttributes('sub'); // disabled
                                 cfg.node.auto    = getPropertyAttributes('auto'); // disabled
@@ -584,6 +584,7 @@ window.ceres = {};
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: hrefSlide });
 
                             cfg.imageArray.forEach((item, i) => { rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: hrefSlide }); });
+
                             cfg.shadow.appendChild(bodyNode);
                         }
 
