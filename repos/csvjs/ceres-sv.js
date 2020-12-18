@@ -659,7 +659,6 @@ window.ceres = {};
                         const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
-                        const re        = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols only at the end of a row
 
                         const parseGroup = group => {
 
@@ -674,7 +673,7 @@ window.ceres = {};
 
                         const parseRow = row => {
 
-                            let newRow = row.replace(re, ''); // remove end symbols at the end of a row
+                            let newRow = row.replace(new RegExp(endSymbol + '\s*?$', 'g'), ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
 
                             return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
@@ -684,7 +683,7 @@ window.ceres = {};
                         const composeJSON = () => {
 
                             const nodeName = i => symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
-                            const ex = /,\s*?$/; // match trailing comma whitespace
+                            const re = /,\s*?$/; // match trailing comma whitespace
 
                             let str = '';
 
@@ -696,12 +695,12 @@ window.ceres = {};
                                     let rowArray = row.split(',');
 
                                     rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", '; });
-                                    str = str.replace(ex, '') + ' },\n'
+                                    str = str.replace(re, '') + ' },\n'
                                 }
 
                             });
 
-                            return '[' + str.replace(ex, '') + ']';
+                            return '[' + str.replace(re, '') + ']';
                         }
 
                         const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
