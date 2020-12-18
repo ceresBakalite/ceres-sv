@@ -224,7 +224,7 @@ window.ceres = {};
                             const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'local', 'fade', 'auto', 'loading'];
                             const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
-                            const nodeProperty = {
+                            const getProperty = {
 
                                 nub     : !rsc.getBoolean(csvRoot.getAttribute('nub')),
                                 fade    : !rsc.getBoolean(csvRoot.getAttribute('fade')),
@@ -320,14 +320,14 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.node.nub     = nodeProperty.nub(); // enabled
-                                cfg.node.fade    = nodeProperty.fade(); // enabled
-                                cfg.node.cache   = nodeProperty.cache(); // enabled
-                                cfg.node.trace   = nodeProperty.trace(); // disabled
-                                cfg.node.loading = nodeProperty.loading(); // enabled (default auto)
-                                cfg.node.local   = nodeProperty.local(); // local image list template elementId
-                                cfg.node.zoom    = nodeProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
-                                cfg.node.delay   = nodeProperty.delay(csvRoot.getAttribute('delay')); // default 250
+                                cfg.node.nub     = getProperty.nub(); // enabled
+                                cfg.node.fade    = getProperty.fade(); // enabled
+                                cfg.node.cache   = getProperty.cache(); // enabled
+                                cfg.node.trace   = getProperty.trace(); // disabled
+                                cfg.node.loading = getProperty.loading(); // enabled (default auto)
+                                cfg.node.local   = getProperty.local(); // local image list template elementId
+                                cfg.node.zoom    = getProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
+                                cfg.node.delay   = getProperty.delay(csvRoot.getAttribute('delay')); // default 250
                                 cfg.node.sur     = getPropertyAttributes('sur'); // disabled
                                 cfg.node.sub     = getPropertyAttributes('sub'); // disabled
                                 cfg.node.auto    = getPropertyAttributes('auto'); // disabled
