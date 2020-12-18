@@ -624,7 +624,7 @@ window.ceres = {};
                     this.getFileType = textList => {
 
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'], comma: cfg.commaSymbol, entities: cfg.commaCodes } ));
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
@@ -660,6 +660,9 @@ window.ceres = {};
                         const endSymbol = '_&grp;';
                         const endRow    = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
+
+                        symbol.entities = symbol.entities || cfg.commaCodes;
+                        symbol.comma    = symbol.comma || cfg.commaCodes;
 
                         const parseGroup = group => {
 
