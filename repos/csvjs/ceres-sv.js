@@ -652,7 +652,7 @@ window.ceres = {};
                         return str;
                     }
 
-                    // noddy regex csv parser
+                    // noddy regex comma separated value parser
                     this.parseCSV = (text, symbol = {}) => {
 
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
@@ -660,9 +660,6 @@ window.ceres = {};
                         const endSymbol = '_&grp;';
                         const endRow    = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
-
-                        symbol.entities = symbol.entities || cfg.commaCodes || /,|&comma;|&#x2c;|&#44;|U+0002C/g;
-                        symbol.comma    = symbol.comma || cfg.commaSymbol || '_&c';
 
                         const parseGroup = group => {
 
@@ -672,7 +669,7 @@ window.ceres = {};
 
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
 
-                            return newGroup.replace(symbol.entities, symbol.comma) + endSymbol; // replace remaining comma entities with a separator symbol
+                            return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace any remaining comma entities with a separator symbol
                         }
 
                         const parseRow = row => {
