@@ -165,7 +165,7 @@ window.ceres = {};
                 csvRoot.src = csvRoot.getAttribute('src');
 
                 cfg.defaultCSS  = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src         = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
+                cfg.src         = csvRoot.src.trim() || null;
                 cfg.css         = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.srcRoot     = !rsc.ignore(cfg.src);
                 cfg.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
@@ -232,15 +232,15 @@ window.ceres = {};
                                 zoom    : atr => !!rsc.ignore(atr) || rsc.getBoolean(atr),
                                 trace   : atr => rsc.getBoolean(atr),
                                 delay   : atr => Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250,
-                                loading : atr => rsc.ignore(atr) ? 'auto' : atr,
-                                local   : atr => rsc.ignore(atr) ? false : atr // typeof boolean or typeof string
+                                loading : atr => atr || 'auto',
+                                local   : atr => atr || false // typeof string or typeof boolean
                             };
 
                             const getTemplate = () => {
 
                                 if (cfg.srcRoot) return 'undefined';
 
-                                let el = cfg.node.local ? document.getElementById(cfg.node.local) : null;
+                                let el = document.getElementById(cfg.node.local) || null;
 
                                 if (rsc.ignore(el)) {
 
@@ -248,7 +248,7 @@ window.ceres = {};
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 }
 
-                                return rsc.ignore(el) ? 'undefined' : el;
+                                return el || 'undefined';
                             }
 
                             const getCSVRootProperties = () => {
@@ -355,7 +355,7 @@ window.ceres = {};
                                 const shadowList = () => {
 
                                     const text = csvRoot.textContent;
-                                    return !rsc.ignore(text) ? text.replace(/\s*\n\s*/g,'\n') : null; // remove whitespace surrounding linefeed
+                                    return text.replace(/\s*\n\s*/g,'\n') || null; // remove whitespace surrounding linefeed
                                 }
 
                                 const lightList = () => {
@@ -539,12 +539,12 @@ window.ceres = {};
 
                         body: () => {
 
-                            const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
+                            const setURL      = () => obj.ar[0].trim() || null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
-                            const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSubtitle = () => obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',') || null;
+                            const setSurtitle = () => obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',') || obj.index + ' / ' + cfg.imageArray.length;
 
                             const classlist = atr.getClassList('slide');
                             const srcImage  = cfg.node.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
