@@ -249,7 +249,7 @@ window.ceres = {};
 
                                     const factor = csvRoot.getAttribute(name);
 
-                                    const ftr = {
+                                    const property = {
 
                                         'nub'    : !rsc.getBoolean(factor), // enabled
                                         'fade'   : !rsc.getBoolean(factor), // enabled
@@ -261,7 +261,7 @@ window.ceres = {};
                                         'delay'  : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
-                                    if (ftr.hasOwnProperty(name)) return ftr[name];
+                                    if (property.hasOwnProperty(name)) return property[name];
 
                                     if (rsc.ignore(factor)) return false;
 
