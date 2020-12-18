@@ -250,13 +250,13 @@ window.ceres = {};
                                     const nodeAttribute = csvRoot.getAttribute(name);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
-                                    if (name == 'nub') return !rsc.getBoolean(csvRoot.getAttribute('nub')); // enabled
-                                    if (name == 'fade') return !rsc.getBoolean(csvRoot.getAttribute('fade')); // enabled
-                                    if (name == 'cache') return !rsc.getBoolean(csvRoot.getAttribute('cache')); // enabled
-                                    if (name == 'trace') return rsc.getBoolean(csvRoot.getAttribute('trace')); // disabled
-                                    if (name == 'loading') return csvRoot.getAttribute('loading') || 'auto'; // enabled (default auto)
-                                    if (name == 'local') return csvRoot.getAttribute('local') || false; // local image list template elementId
-                                    if (name == 'zoom') return !!rsc.ignore(nodeAttribute) || rsc.getBoolean(nodeAttribute);
+                                    if (name == 'nub') return !rsc.getBoolean(nodeAttribute); // enabled
+                                    if (name == 'fade') return !rsc.getBoolean(nodeAttribute); // enabled
+                                    if (name == 'cache') return !rsc.getBoolean(nodeAttribute); // enabled
+                                    if (name == 'trace') return rsc.getBoolean(nodeAttribute); // disabled
+                                    if (name == 'loading') return nodeAttribute || 'auto'; // enabled (default auto)
+                                    if (name == 'local') return nodeAttribute || false; // local image list template elementId
+                                    if (name == 'zoom') return !!nodeAttribute || rsc.getBoolean(nodeAttribute);
                                     if (name == 'delay') return Number.isInteger(parseInt(nodeAttribute, 10)) ? parseInt(nodeAttribute, 10) : 250;
 
                                     const ar       = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
