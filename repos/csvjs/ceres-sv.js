@@ -261,8 +261,8 @@ window.ceres = {};
                                         'delay'  : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
-                                    console.log('test: ' + ftr.hasOwnProperty(factor) + ' - ' + factor);
-                                    if (ftr.hasOwnProperty(factor)) console.log('found: ' + ftr.factor);
+                                    console.log('test: ' + ftr.hasOwnProperty(name) + ' - ' + name);
+                                    if (ftr.hasOwnProperty(name)) console.log('found: ' + ftr.name);
 
                                     if (name == 'nub') return !rsc.getBoolean(factor); // enabled
                                     if (name == 'fade') return !rsc.getBoolean(factor); // enabled
