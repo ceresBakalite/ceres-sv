@@ -10,8 +10,8 @@
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
 window.ceres = {};
-(() => {
-    
+(function()
+{
     const rsc = {}; // generic resource methods
     (() => {
 
