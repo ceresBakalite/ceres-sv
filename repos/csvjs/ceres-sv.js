@@ -196,7 +196,7 @@ window.ceres = {};
                         list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback local template elements',
                         template   : 'Error: Unable to find the local fallback template element when searching the document body',
                         cache      : 'Warning: cache response status '
-                    };
+                    }
 
                     Object.freeze(remark);
 
@@ -253,14 +253,14 @@ window.ceres = {};
 
                                     const property = {
 
-                                        'nub'    : !rsc.getBoolean(factor),
-                                        'fade'   : !rsc.getBoolean(factor),
-                                        'cache'  : !rsc.getBoolean(factor),
-                                        'trace'  : rsc.getBoolean(factor),
-                                        'loading': factor || 'auto',
-                                        'local'  : factor || false,
-                                        'zoom'   : !!factor || rsc.getBoolean(factor),
-                                        'delay'  : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
+                                        nub     : !rsc.getBoolean(factor),
+                                        fade    : !rsc.getBoolean(factor),
+                                        cache   : !rsc.getBoolean(factor),
+                                        trace   : rsc.getBoolean(factor),
+                                        loading : factor || 'auto',
+                                        local   : factor || false,
+                                        zoom    : !!factor || rsc.getBoolean(factor),
+                                        delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
                                     if (property.hasOwnProperty(name)) return property[name];
