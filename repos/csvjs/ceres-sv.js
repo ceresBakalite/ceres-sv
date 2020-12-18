@@ -165,7 +165,7 @@ window.ceres = {};
                 csvRoot.src = csvRoot.getAttribute('src');
 
                 cfg.defaultCSS  = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-                cfg.src         = csvRoot.src.trim() || null;
+                cfg.src         = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
                 cfg.css         = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.srcRoot     = !rsc.ignore(cfg.src);
                 cfg.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
@@ -385,7 +385,7 @@ window.ceres = {};
                                 }
 
                                 rsc.inspect({ type: rsc.notify, notification: parseList(), logtrace: cfg.node.trace });
-                                cfg.imageArray = imageList.trim().split('\n') || null;
+                                cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
 
                                 return !rsc.ignore(cfg.imageArray);
                             }
@@ -539,12 +539,12 @@ window.ceres = {};
 
                         body: () => {
 
-                            const setURL      = () => obj.ar[0].trim() || null;
+                            const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
-                            const setSubtitle = () => obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',') || null;
-                            const setSurtitle = () => obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',') || obj.index + ' / ' + cfg.imageArray.length;
+                            const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
                             const classlist = atr.getClassList('slide');
                             const srcImage  = cfg.node.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
