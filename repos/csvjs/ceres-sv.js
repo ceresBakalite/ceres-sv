@@ -105,7 +105,7 @@ window.ceres = {};
         this.sanitizeText = (text, type = 'text/html') => {
 
             if (this.ignore(text)) return;
-            return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;');
         }
 
         this.inspect = diagnostic => {
@@ -168,12 +168,17 @@ window.ceres = {};
                 cfg.src         = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
                 cfg.css         = csvRoot.getAttribute('css') || cfg.defaultCSS;
                 cfg.srcRoot     = !rsc.ignore(cfg.src);
-                cfg.cssRoot     = rsc.removeDuplcates(cfg.css.trim().replace(/,/gi, ';').replace(/;+$/g, '').replace(/[^\x00-\xFF]| /g, '').split(';'));
                 cfg.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
                 cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
                 cfg.node        = {};
                 cfg.slide       = 1;
+
+                cfg.cssRoot = rsc.removeDuplcates(cfg.css.trim()
+                    .replace(/,/gi, ';')
+                    .replace(/;+$/g, '')
+                    .replace(/[^\x00-\xFF]| /g, '')
+                    .split(';'));
 
                 (function() {
 
@@ -619,7 +624,12 @@ window.ceres = {};
                         return textList;
                     }
 
-                    this.parseText = text => { return rsc.sanitizeText(text.replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol).replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, '')); }
+                    this.parseText = text => {
+
+                        return rsc.sanitizeText(text
+                            .replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol)
+                            .replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''));
+                    }
 
                     this.parseJSON = text => {
 
@@ -648,7 +658,10 @@ window.ceres = {};
 
                         const parseGroup = group => {
 
-                            let newGroup = String(group).replace(/"\s*?$|"\s*?,\s*?$/, '').replace(/^\s*?"/, ''); // remove leading quotes and trailing quotes and commas
+                            let newGroup = String(group)  // remove leading quotes and trailing quotes and commas
+                                .replace(/"\s*?$|"\s*?,\s*?$/, '')
+                                .replace(/^\s*?"/, '');
+
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
 
                             return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
