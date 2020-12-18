@@ -375,7 +375,7 @@ window.ceres = {};
 
                                 if (rsc.ignore(imageList)) return false;
 
-                                const inspectList = () => {
+                                const parseInspection = () => {
 
                                     return remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
                                         : cfg.node.local + ' - local template') + ']' + rsc.newline + imageList
@@ -385,7 +385,7 @@ window.ceres = {};
                                             .replace(/&gt;/g, '>');
                                 }
 
-                                rsc.inspect({ type: rsc.notify, notification: inspectList(), logtrace: cfg.node.trace });
+                                rsc.inspect({ type: rsc.notify, notification: parseInspection(), logtrace: cfg.node.trace });
                                 cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
 
                                 return !rsc.ignore(cfg.imageArray);
