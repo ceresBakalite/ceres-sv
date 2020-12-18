@@ -662,7 +662,7 @@ window.ceres = {};
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
 
                         symbol.entities = symbol.entities || cfg.commaCodes;
-                        symbol.comma    = symbol.comma || cfg.commaCodes;
+                        symbol.comma    = symbol.comma || cfg.commaSymbol;
 
                         const parseGroup = group => {
 
