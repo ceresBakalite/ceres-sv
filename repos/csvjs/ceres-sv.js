@@ -102,7 +102,7 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        this.sanitizeText = (text, type = 'text/html') => {
+        this.softSanitize = (text, type = 'text/html') => {
 
             if (this.ignore(text)) return;
             return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;');
@@ -156,7 +156,7 @@ window.ceres = {};
 
             if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText( atr.getFileType( await ( await fetch(cfg.src) ).text() ) ));
 
-            for (let item of cfg.cssRoot) { cfg.shadowStyle += rsc.sanitizeText( await ( await fetch(item) ).text() ); }
+            for (let item of cfg.cssRoot) { cfg.shadowStyle += rsc.softSanitize( await ( await fetch(item) ).text() ); }
 
             if (atr.instance.hasContent()) atr.instance.showContent();
 
@@ -627,7 +627,7 @@ window.ceres = {};
 
                     this.parseText = text => {
 
-                        return rsc.sanitizeText(text
+                        return rsc.softSanitize(text
                             .replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol)
                             .replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''));
                     }
