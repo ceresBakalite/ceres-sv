@@ -245,23 +245,23 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getAttributes = propertyName => {
+                                const factor = name => {
 
-                                    const nodeAttribute = csvRoot.getAttribute(propertyName);
+                                    const nodeAttribute = csvRoot.getAttribute(name);
                                     if (rsc.ignore(nodeAttribute)) return false;
 
-                                    if (propertyName == 'nub') return !rsc.getBoolean(csvRoot.getAttribute('nub')); // enabled
-                                    if (propertyName == 'fade') return !rsc.getBoolean(csvRoot.getAttribute('fade')); // enabled
-                                    if (propertyName == 'cache') return !rsc.getBoolean(csvRoot.getAttribute('cache')); // enabled
-                                    if (propertyName == 'trace') return rsc.getBoolean(csvRoot.getAttribute('trace')); // disabled
-                                    if (propertyName == 'loading') return csvRoot.getAttribute('loading') || 'auto'; // enabled (default auto)
-                                    if (propertyName == 'local') return csvRoot.getAttribute('local') || false; // local image list template elementId
-                                    if (propertyName == 'zoom') return !!rsc.ignore(nodeAttribute) || rsc.getBoolean(nodeAttribute);
-                                    if (propertyName == 'delay') return Number.isInteger(parseInt(nodeAttribute, 10)) ? parseInt(nodeAttribute, 10) : 250;
+                                    if (name == 'nub') return !rsc.getBoolean(csvRoot.getAttribute('nub')); // enabled
+                                    if (name == 'fade') return !rsc.getBoolean(csvRoot.getAttribute('fade')); // enabled
+                                    if (name == 'cache') return !rsc.getBoolean(csvRoot.getAttribute('cache')); // enabled
+                                    if (name == 'trace') return rsc.getBoolean(csvRoot.getAttribute('trace')); // disabled
+                                    if (name == 'loading') return csvRoot.getAttribute('loading') || 'auto'; // enabled (default auto)
+                                    if (name == 'local') return csvRoot.getAttribute('local') || false; // local image list template elementId
+                                    if (name == 'zoom') return !!rsc.ignore(nodeAttribute) || rsc.getBoolean(nodeAttribute);
+                                    if (name == 'delay') return Number.isInteger(parseInt(nodeAttribute, 10)) ? parseInt(nodeAttribute, 10) : 250;
 
                                     const ar       = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
-                                    const regex    = propertyName != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
+                                    const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const item     = atrArray[0];
 
                                     if (!Number.isInteger(parseInt(item))) {
@@ -270,7 +270,7 @@ window.ceres = {};
                                         if (atrArray.length > 1) atrArray.shift();
                                     }
 
-                                    if (propertyName == 'auto') {
+                                    if (name == 'auto') {
 
                                         cfg.node.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
                                         cfg.node.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
@@ -312,25 +312,22 @@ window.ceres = {};
                                         atrArray.forEach((attribute) => { if (styleArray.includes(attribute.split(':')[0])) setStyleAttribute(attribute); });
                                     }
 
-                                    if (propertyArray.includes(propertyName)) getStyle();
+                                    if (propertyArray.includes(name)) getStyle();
 
                                     return true;
                                 }
 
-                                const getZoomProperty = atr => !!rsc.ignore(atr) || rsc.getBoolean(atr);
-                                const getDelayProperty = atr => Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250;
-
-                                cfg.node.nub     = getAttributes('nub'); // enabled
-                                cfg.node.fade    = getAttributes('fade'); // enabled
-                                cfg.node.cache   = getAttributes('cache'); // enabled
-                                cfg.node.trace   = getAttributes('trace'); // disabled
-                                cfg.node.loading = getAttributes('loading'); // enabled (default auto)
-                                cfg.node.local   = getAttributes('local'); // local image list template elementId
-                                cfg.node.zoom    = getAttributes('zoom'); // enabled
-                                cfg.node.delay   = getAttributes('delay'); // default 250
-                                cfg.node.sur     = getAttributes('sur'); // disabled
-                                cfg.node.sub     = getAttributes('sub'); // disabled
-                                cfg.node.auto    = getAttributes('auto'); // disabled
+                                cfg.node.nub     = factor('nub'); // enabled
+                                cfg.node.fade    = factor('fade'); // enabled
+                                cfg.node.cache   = factor('cache'); // enabled
+                                cfg.node.trace   = factor('trace'); // disabled
+                                cfg.node.loading = factor('loading'); // enabled (default auto)
+                                cfg.node.local   = factor('local'); // local image list template elementId
+                                cfg.node.zoom    = factor('zoom'); // enabled
+                                cfg.node.delay   = factor('delay'); // default 250
+                                cfg.node.sur     = factor('sur'); // disabled
+                                cfg.node.sub     = factor('sub'); // disabled
+                                cfg.node.auto    = factor('auto'); // disabled
 
                                 Object.freeze(cfg.node);
 
