@@ -224,18 +224,6 @@ window.ceres = {};
                             const propertyArray = ['nub', 'sub', 'sur', 'zoom', 'cache', 'trace', 'delay', 'local', 'fade', 'auto', 'loading'];
                             const styleArray = ['color', 'font', 'padding', 'top', 'bottom'];
 
-                            const getProperty = {
-
-                                nub     : !rsc.getBoolean(csvRoot.getAttribute('nub')),
-                                fade    : !rsc.getBoolean(csvRoot.getAttribute('fade')),
-                                cache   : !rsc.getBoolean(csvRoot.getAttribute('cache')),
-                                trace   : rsc.getBoolean(csvRoot.getAttribute('trace')),
-                                loading : csvRoot.getAttribute('loading') || 'auto',
-                                local   : csvRoot.getAttribute('local') || false, // typeof string or typeof boolean
-                                zoom    : atr => !!rsc.ignore(atr) || rsc.getBoolean(atr),
-                                delay   : atr => Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250
-                            };
-
                             const getTemplate = () => {
 
                                 if (cfg.srcRoot) return 'undefined';
@@ -257,10 +245,19 @@ window.ceres = {};
 
                                 csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
-                                const getPropertyAttributes = propertyName => {
+                                const getAttributes = propertyName => {
 
                                     const nodeAttribute = csvRoot.getAttribute(propertyName);
                                     if (rsc.ignore(nodeAttribute)) return false;
+
+                                    if (propertyName == 'nub') return !rsc.getBoolean(csvRoot.getAttribute('nub')); // enabled
+                                    if (propertyName == 'fade') return !rsc.getBoolean(csvRoot.getAttribute('fade')); // enabled
+                                    if (propertyName == 'cache') return !rsc.getBoolean(csvRoot.getAttribute('cache')); // enabled
+                                    if (propertyName == 'trace') return rsc.getBoolean(csvRoot.getAttribute('trace')); // disabled
+                                    if (propertyName == 'loading') return csvRoot.getAttribute('loading') || 'auto'; // enabled (default auto)
+                                    if (propertyName == 'local') return csvRoot.getAttribute('local') || false; // local image list template elementId
+                                    if (propertyName == 'zoom') return !!rsc.ignore(nodeAttribute) || rsc.getBoolean(nodeAttribute);
+                                    if (propertyName == 'delay') return Number.isInteger(parseInt(nodeAttribute, 10)) ? parseInt(nodeAttribute, 10) : 250;
 
                                     const ar       = nodeAttribute.replace(/\s+:\s+/g,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
@@ -320,17 +317,20 @@ window.ceres = {};
                                     return true;
                                 }
 
-                                cfg.node.nub     = getProperty.nub(); // enabled
-                                cfg.node.fade    = getProperty.fade(); // enabled
-                                cfg.node.cache   = getProperty.cache(); // enabled
-                                cfg.node.trace   = getProperty.trace(); // disabled
-                                cfg.node.loading = getProperty.loading(); // enabled (default auto)
-                                cfg.node.local   = getProperty.local(); // local image list template elementId
-                                cfg.node.zoom    = getProperty.zoom(csvRoot.getAttribute('zoom')); // enabled
-                                cfg.node.delay   = getProperty.delay(csvRoot.getAttribute('delay')); // default 250
-                                cfg.node.sur     = getPropertyAttributes('sur'); // disabled
-                                cfg.node.sub     = getPropertyAttributes('sub'); // disabled
-                                cfg.node.auto    = getPropertyAttributes('auto'); // disabled
+                                const getZoomProperty = atr => !!rsc.ignore(atr) || rsc.getBoolean(atr);
+                                const getDelayProperty = atr => Number.isInteger(parseInt(atr, 10)) ? parseInt(atr, 10) : 250;
+
+                                cfg.node.nub     = getAttributes('nub'); // enabled
+                                cfg.node.fade    = getAttributes('fade'); // enabled
+                                cfg.node.cache   = getAttributes('cache'); // enabled
+                                cfg.node.trace   = getAttributes('trace'); // disabled
+                                cfg.node.loading = getAttributes('loading'); // enabled (default auto)
+                                cfg.node.local   = getAttributes('local'); // local image list template elementId
+                                cfg.node.zoom    = getAttributes('zoom'); // enabled
+                                cfg.node.delay   = getAttributes('delay'); // default 250
+                                cfg.node.sur     = getAttributes('sur'); // disabled
+                                cfg.node.sub     = getAttributes('sub'); // disabled
+                                cfg.node.auto    = getAttributes('auto'); // disabled
 
                                 Object.freeze(cfg.node);
 
