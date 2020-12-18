@@ -119,6 +119,7 @@ window.ceres = {};
             }
 
             const lookup = {
+
                 [this.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
                 [this.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
                 [this.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
@@ -262,7 +263,6 @@ window.ceres = {};
                                     }
 
                                     if (property.hasOwnProperty(name)) return property[name];
-
                                     if (rsc.ignore(factor)) return false;
 
                                     const ar       = factor.replace(/\s+:\s+/g,':').split(',');
