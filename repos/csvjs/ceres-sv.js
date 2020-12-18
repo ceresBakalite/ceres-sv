@@ -624,7 +624,7 @@ window.ceres = {};
                     this.getFileType = textList => {
 
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'], comma: cfg.commaSymbol, commaCodes: cfg.commaCodes } ));
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'], comma: cfg.commaSymbol, entities: cfg.commaCodes } ));
 
                         return textList;
                     }
@@ -669,7 +669,7 @@ window.ceres = {};
 
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
 
-                            return newGroup.replace(symbol.commaCodes, symbol.comma) + endSymbol; // replace remaining comma entities with a separator symbol
+                            return newGroup.replace(symbol.entities, symbol.comma) + endSymbol; // replace remaining comma entities with a separator symbol
                         }
 
                         const parseRow = row => {
