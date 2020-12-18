@@ -104,8 +104,9 @@ window.ceres = {};
 
         this.softSanitize = (text, type = 'text/html') => {
 
-            if (this.ignore(text)) return;
-            return new DOMParser().parseFromString(text, type).documentElement.textContent.replace(/</g, '&lt;');
+            return this.ignore(text) ? null : new DOMParser()
+                .parseFromString(text, type).documentElement.textContent
+                .replace(/</g, '&lt;');
         }
 
         this.inspect = diagnostic => {
