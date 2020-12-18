@@ -252,12 +252,12 @@ window.ceres = {};
 
                                     const property = {
 
-                                        'nub'    : !rsc.getBoolean(factor), // enabled
-                                        'fade'   : !rsc.getBoolean(factor), // enabled
-                                        'cache'  : !rsc.getBoolean(factor), // enabled
-                                        'trace'  : rsc.getBoolean(factor), // disabled
-                                        'loading': factor || 'auto', // enabled (default auto)
-                                        'local'  : factor || false, // local image list template elementId
+                                        'nub'    : !rsc.getBoolean(factor),
+                                        'fade'   : !rsc.getBoolean(factor),
+                                        'cache'  : !rsc.getBoolean(factor),
+                                        'trace'  : rsc.getBoolean(factor),
+                                        'loading': factor || 'auto',
+                                        'local'  : factor || false,
                                         'zoom'   : !!factor || rsc.getBoolean(factor),
                                         'delay'  : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
@@ -624,7 +624,7 @@ window.ceres = {};
                     this.getFileType = textList => {
 
                         if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
+                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'], comma: cfg.commaSymbol, commaCodes: cfg.commaCodes } ));
 
                         return textList;
                     }
@@ -669,7 +669,7 @@ window.ceres = {};
 
                             newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
 
-                            return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace remaining commas with a separator symbol
+                            return newGroup.replace(symbol.commaCodes, symbol.comma) + endSymbol; // replace remaining comma entities with a separator symbol
                         }
 
                         const parseRow = row => {
