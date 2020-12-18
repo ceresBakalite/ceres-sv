@@ -249,6 +249,20 @@ window.ceres = {};
 
                                     const factor = csvRoot.getAttribute(name);
 
+                                    const ftr = {
+
+                                        'nub'    : !rsc.getBoolean(factor), // enabled
+                                        'fade'   : !rsc.getBoolean(factor), // enabled
+                                        'cache'  : !rsc.getBoolean(factor), // enabled
+                                        'trace'  : rsc.getBoolean(factor), // disabled
+                                        'loading': factor || 'auto', // enabled (default auto)
+                                        'local'  : factor || false, // local image list template elementId
+                                        'zoom'   : !!factor || rsc.getBoolean(factor),
+                                        'delay'  : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
+                                    }
+
+                                    if (ftr.hasOwnProperty(factor)) console.log('found: ' + ftr.factor);
+
                                     if (name == 'nub') return !rsc.getBoolean(factor); // enabled
                                     if (name == 'fade') return !rsc.getBoolean(factor); // enabled
                                     if (name == 'cache') return !rsc.getBoolean(factor); // enabled
