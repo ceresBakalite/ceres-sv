@@ -658,6 +658,7 @@ window.ceres = {};
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
                         const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
+                        const endRow    = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
                         const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
 
                         const parseGroup = group => {
@@ -673,7 +674,7 @@ window.ceres = {};
 
                         const parseRow = row => {
 
-                            let newRow = row.replace(new RegExp(endSymbol + '\s*?$', 'g'), ''); // remove end symbols at the end of a row
+                            let newRow = row.replace(endRow, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
 
                             return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
