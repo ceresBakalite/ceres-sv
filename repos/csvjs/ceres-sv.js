@@ -12,15 +12,19 @@
 window.ceres = {};
 (() => {
 
-    const rsc = { allocateResources }; // the resource namespace object
+    const rsc = {
 
+        initialise: allocateResources()
 
+    }; // the resource namespace object
 
     window,
     document,
     window.customElements.define('ceres-sv', class extends HTMLElement {
 
         async connectedCallback() {
+
+            rsc.initialise();
 
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
