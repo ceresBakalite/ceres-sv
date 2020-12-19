@@ -9,11 +9,11 @@
  *
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
-//window.ceres = {};
-//(() => {
+window.ceres = {}; // ceres-sv global object namespace
+(() => {
 
-    const rsc = {}; // the resource namespace object
-    assignResources(); // resource methods
+    const rsc = {}; // the resource object namespace
+    assignResources(); // resource object methods
 
     window,
     document,
@@ -21,8 +21,8 @@
 
         async connectedCallback() {
 
-            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
-            ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
+            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope object method reference
+            ceres.getSlide = el => atr.get.slide({ node: el }); // global scope object method reference
 
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
@@ -739,4 +739,4 @@
 
     }
 
-//})();
+})();
