@@ -204,17 +204,17 @@ window.ceres = {};
 
                         hasContent: () => {
 
-                            if (!atr.content.properties()) return rsc.inspect({ type: rsc.error, notification: remark.properties });
-                            if (!atr.content.textList()) return rsc.inspect({ type: rsc.error, notification: remark.list });
+                            if (!this.content.properties()) return rsc.inspect({ type: rsc.error, notification: remark.properties });
+                            if (!this.content.textList()) return rsc.inspect({ type: rsc.error, notification: remark.list });
 
                             return atr.content.textArray();
                         },
 
                         showContent: () => {
 
-                            atr.get.shadow();
-                            atr.get.slide({ shadow: cfg.shadow });
-                            atr.get.view();
+                            this.get.shadow();
+                            this.get.slide({ shadow: cfg.shadow });
+                            this.get.view();
                         }
 
                     };
