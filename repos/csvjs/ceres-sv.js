@@ -274,7 +274,7 @@ window.ceres = {}; // ceres-sv global object namespace
 
                     };
 
-                    this.get = { // HTMLElement components
+                    this.get = { // the custom HTMLElement extension
 
                         shadow: () => {
 
@@ -405,7 +405,7 @@ window.ceres = {}; // ceres-sv global object namespace
 
                     };
 
-                    this.compose = { // HTMLElement compose extension
+                    this.compose = { // compose the custom HTMLElement extension
 
                         style: () => {
 
@@ -607,7 +607,7 @@ window.ceres = {}; // ceres-sv global object namespace
 
         }
 
-    }); // end HTMLElement extension
+    }); // end of the custom HTMLElement extension
 
     function assignResources() {
 
