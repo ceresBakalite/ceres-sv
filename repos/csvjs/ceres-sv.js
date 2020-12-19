@@ -207,7 +207,7 @@ window.ceres = {};
                             if (!this.content.properties()) return rsc.inspect({ type: rsc.error, notification: remark.properties });
                             if (!this.content.textList()) return rsc.inspect({ type: rsc.error, notification: remark.list });
 
-                            return atr.content.textArray();
+                            return this.content.textArray();
                         },
 
                         showContent: () => {
@@ -367,7 +367,7 @@ window.ceres = {};
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.local + ']' });
 
-                                    return atr.parseText(text).replace(/\s*\n\s*/g,'\n'); // remove whitespace surrounding linefeed
+                                    return this.parseText(text).replace(/\s*\n\s*/g,'\n'); // remove whitespace surrounding linefeed
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
@@ -408,7 +408,7 @@ window.ceres = {};
                                 const offset = swipe.action ? swipe.right : swipe.left;
                                 cfg.slide = cfg.slide += offset;
 
-                                atr.get.slide({ shadow: cfg.shadow });
+                                this.get.slide({ shadow: cfg.shadow });
                             }
 
                             const shade = document.querySelector('#' + csvRoot.id);
@@ -417,8 +417,8 @@ window.ceres = {};
                             shade.attachShadow({ mode: 'open' });
                             cfg.shadow = shade.shadowRoot;
 
-                            atr.compose.style();
-                            atr.compose.body();
+                            this.compose.style();
+                            this.compose.body();
 
                             if (!cfg.node.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
                         },
@@ -550,7 +550,7 @@ window.ceres = {};
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
-                            const classlist = atr.getClassList('slide');
+                            const classlist = this.getClassList('slide');
                             const srcImage  = cfg.node.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
                             const hrefSlide = 'ceres.getSlide(this)';
 
@@ -563,7 +563,7 @@ window.ceres = {};
                             bodyNode.appendChild(imgNode);
 
                             const trackNode = document.createElement('div');
-                            trackNode.className = atr.getClassList('slideview-nub');
+                            trackNode.className = this.getClassList('slideview-nub');
 
                             bodyNode.appendChild(trackNode);
 
@@ -584,8 +584,8 @@ window.ceres = {};
                                 if (cfg.node.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             }
 
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: atr.getClassList('left'), onclick: hrefSlide });
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: atr.getClassList('right'), onclick: hrefSlide });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
+                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClassList('right'), onclick: hrefSlide });
 
                             cfg.imageArray.forEach((item, i) => { rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: hrefSlide }); });
 
@@ -624,8 +624,8 @@ window.ceres = {};
 
                     this.getFileType = textList => {
 
-                        if (rsc.fileType(cfg.src, 'json')) return atr.parseJSON(textList);
-                        if (rsc.fileType(cfg.src, 'csv')) return atr.parseJSON( atr.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
+                        if (rsc.fileType(cfg.src, 'json')) return this.parseJSON(textList);
+                        if (rsc.fileType(cfg.src, 'csv')) return this.parseJSON( this.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
 
                         return textList;
                     }
