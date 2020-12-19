@@ -13,7 +13,7 @@ window.ceres = {};
 (() => {
 
     const rsc = {}; // the resource namespace object
-    intialiseResources(); // resource methods
+    assignResources(); // resource methods
 
     window,
     document,
@@ -609,7 +609,7 @@ window.ceres = {};
 
     }); // end HTMLElement extension
 
-    function intialiseResources() {
+    function assignResources() {
 
         (function() { // methods belonging to the resource object
 
