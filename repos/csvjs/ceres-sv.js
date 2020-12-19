@@ -12,10 +12,7 @@
 window.ceres = {}; // ceres-sv global object namespace
 (() => {
 
-    const cfg = {}; // configuration object
-    const atr = {}; // attribute object
     const rsc = {}; // the resource object namespace
-
     rscMethods(); // resource object methods
 
     window,
@@ -26,6 +23,9 @@ window.ceres = {}; // ceres-sv global object namespace
 
             ceres.getImage = el => helper.srcOpen({ element: el, type: 'image' }); // global scope object method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope object method reference
+
+            const cfg = {}; // configuration object
+            const atr = {}; // attribute object
 
             initialise(this); // a csv root node of the DOM subtree
 
