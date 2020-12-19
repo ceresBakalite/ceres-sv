@@ -134,7 +134,8 @@ window.ceres = {};
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
                                         local   : factor || false,
-                                        zoom    : !!rsc.ignore(factor) || rsc.getBoolean(factor),
+                                        zoom    : !factor || rsc.getBoolean(factor),
+                                        //zoom    : !!rsc.ignore(factor) || rsc.getBoolean(factor),
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
