@@ -9,7 +9,7 @@
  *
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
-window.ceres = {}; // ceres-sv global object namespace
+globalThis.ceres = {}; // ceres-sv global object namespace
 (() => {
 
     const rsc = {}; // the resource object namespace
