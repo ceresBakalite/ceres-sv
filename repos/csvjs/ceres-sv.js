@@ -10,7 +10,7 @@
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
 window.ceres = {};
-(function() {
+(() => {
 
     const rsc = {}; // generic resource methods
     (function() {
@@ -259,7 +259,7 @@ window.ceres = {};
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
                                         local   : factor || false,
-                                        zoom    : !!rsc.ignore(factor) || rsc.getBoolean(factor), // ERROR
+                                        zoom    : !!rsc.ignore(factor) || rsc.getBoolean(factor),
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
@@ -734,4 +734,4 @@ window.ceres = {};
 
     }); // end HTMLElement extension
 
-})();
+}).call(window.ceres);
