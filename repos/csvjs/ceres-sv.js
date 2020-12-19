@@ -13,7 +13,7 @@ window.ceres = {};
 (() => {
 
     const rsc = {}; // the resource namespace object
-    (function() { // generic namespace methods
+    (function() { // generic resource namespace methods
 
         this.reference = 1;
         this.notify    = 2;
@@ -182,7 +182,7 @@ window.ceres = {};
                     .replace(/[^\x00-\xFF]| /g, '')
                     .split(';'));
 
-                (function() {
+                (function() { // namespace methods belonging to the attribute allocation object
 
                     const csv = csvRoot.tagName.toLocaleLowerCase();
                     const srm = new Map(); // shadowroot manager
