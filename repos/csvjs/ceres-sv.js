@@ -12,6 +12,12 @@
 window.ceres = {};
 (() => {
 
+    const tst = {}; // resource namespace
+
+    initResource();
+
+    console.log('call tst: ' + tst.sayHello());
+
     const rsc = {}; // the resource namespace object
     (function() { // generic resource namespace methods
 
@@ -732,5 +738,19 @@ window.ceres = {};
         }
 
     }); // end HTMLElement extension
+
+    function initResource(csvRoot) {
+
+        (function() { // namespace methods belonging to the resource namespace
+
+            this.sayHello = () => {
+
+                return 'hello there...'
+            }
+
+        }).call(tst); // end resource namespace
+
+
+    }
 
 })();
