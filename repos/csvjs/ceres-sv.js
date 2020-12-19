@@ -12,7 +12,7 @@
 window.ceres = {};
 (() => {
 
-    var rsc = {}; // generic resource methods
+    window.rsc = {}; // generic resource methods
     (() => {
 
         this.reference = 1;
@@ -137,7 +137,7 @@ window.ceres = {};
             return str.replace(/, +$/g,'');
         }
 
-    }).call(rsc); // end resource allocation
+    }).call(window.rsc); // end resource allocation
 
     window,
     document,
