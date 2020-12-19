@@ -12,8 +12,8 @@
 window.ceres = {};
 (() => {
 
-    const rsc = {}; // generic resource methods
-    (function() {
+    const rsc = {}; // the resource namespace object
+    (function() { // generic namespace methods
 
         this.reference = 1;
         this.notify    = 2;
