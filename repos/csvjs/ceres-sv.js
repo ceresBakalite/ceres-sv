@@ -13,7 +13,7 @@ window.ceres = {}; // ceres-sv global object namespace
 (() => {
 
     const rsc = {}; // the resource object namespace
-    assignResources(); // resource object methods
+    rscMethods(); // resource object methods
 
     window,
     document,
@@ -21,7 +21,7 @@ window.ceres = {}; // ceres-sv global object namespace
 
         async connectedCallback() {
 
-            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope object method reference
+            ceres.getImage = el => helper.srcOpen({ element: el, type: 'image' }); // global scope object method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope object method reference
 
             const cfg = {}; // configuration attributes
@@ -609,7 +609,7 @@ window.ceres = {}; // ceres-sv global object namespace
 
     }); // end of the custom HTMLElement extension
 
-    function assignResources() {
+    function rscMethods() {
 
         (function() { // methods belonging to the resource object
 
