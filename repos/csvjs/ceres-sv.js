@@ -9,8 +9,8 @@
  *
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
-window.ceres = {};
-(() => {
+//window.ceres = {};
+//(() => {
 
     const rsc = {}; // the resource namespace object
     assignResources(); // resource methods
@@ -739,4 +739,4 @@ window.ceres = {};
 
     }
 
-})();
+//})();
