@@ -12,15 +12,13 @@
 window.ceres = {};
 (() => {
 
-    const rsc = {}; // the resource namespace object
-
     window,
     document,
     window.customElements.define('ceres-sv', class extends HTMLElement {
 
         async connectedCallback() {
 
-            allocateResources();
+            allocateResources(); // resource methods
 
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
@@ -612,7 +610,8 @@ window.ceres = {};
 
     function allocateResources() {
 
-        (function() { // namespace methods belonging to the resource namespace
+        const rsc = {}; // the resource namespace object
+        (function() { // methods belonging to the resource object
 
             this.reference = 1;
             this.notify    = 2;
