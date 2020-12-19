@@ -15,7 +15,7 @@ globalThis.ceres = {}; // ceres-sv global object namespace
     const rsc = {}; // the resource object namespace
     rscMethods(); // resource object methods
 
-    this.customElements.define('ceres-sv', class extends HTMLElement {
+    globalThis.customElements.define('ceres-sv', class extends HTMLElement {
 
         async connectedCallback() {
 
