@@ -12,21 +12,20 @@
 window.ceres = {};
 (() => {
 
-    const rsc = {}; // the resource namespace object
-
     window,
     document,
     window.customElements.define('ceres-sv', class extends HTMLElement {
-
-        get initResource(){};
 
         async connectedCallback() {
 
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
+            const rsc = {}; // the resource namespace object
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
+
+            initResource();
 
             initialise(this); // the csv root node of the current DOM subtree
 
@@ -604,140 +603,140 @@ window.ceres = {};
 
                 }).call(atr); // end attribute allocation
 
+                function initResource(csvRoot) {
+
+                    (function() { // namespace methods belonging to the resource namespace
+
+                        this.reference = 1;
+                        this.notify    = 2;
+                        this.warn      = 3;
+                        this.default   = 98;
+                        this.error     = 99;
+                        this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+                        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+
+                        this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
+                        this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
+                        this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
+                        this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
+                        this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
+                        this.newline      = this.isWindows ? '\r\n' : '\n';
+                        this.bool         = this.bArray.map(item => { return item.trim().toUpperCase(); });
+
+                        this.composeElement = (el, atr) => {
+
+                            if (this.ignore(el.type)) return;
+
+                            const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+                            const node = document.createElement(el.type);
+
+                            Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
+                            if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+
+                            precursor.appendChild(node);
+                        }
+
+                        this.setSwipe = (touch, callback, args) => { // horizontal swipe
+
+                            if (!touch.act) touch.act = 80;
+
+                            touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
+                            touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
+                            touch.node.addEventListener('touchend', e =>
+                            {
+                                touch.end = e.changedTouches[0].screenX;
+
+                                if (Math.abs(touch.start - touch.end) > touch.act) {
+
+                                    args.action = (touch.start > touch.end);
+                                    callback.call(this, args);
+                                }
+
+                            }, { passive: true });
+
+                        }
+
+                        this.ignore = obj => {
+
+                            if (obj === null || obj == 'undefined') return true;
+
+                            if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+                            if (Array.isArray(obj)) return (obj.length === 0);
+                            if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
+
+                            return !obj;
+                        }
+
+                        this.getBoolean = obj => {
+
+                            if (obj === true || obj === false) return atr;
+                            if (this.ignore(obj) || !this.isString(obj)) return false;
+
+                            return this.bool.includes(obj.trim().toUpperCase());
+                        }
+
+                        this.getUniqueId = obj => {
+
+                            if (!obj.name) obj.name = 'n';
+                            if (!obj.range) obj.range = 100;
+
+                            const elName = () => obj.name + Math.floor(Math.random() * obj.range);
+                            while (document.getElementById(obj.el = elName())) {};
+
+                            return obj.el;
+                        }
+
+                        this.removeDuplcates = (obj, sort) => {
+
+                            const key = JSON.stringify;
+                            const ar = [...new Map (obj.map(node => [key(node), node])).values()];
+
+                            return sort ? ar.sort((a, b) => a - b) : ar;
+                        }
+
+                        this.softSanitize = (text, type = 'text/html') => {
+
+                            return this.ignore(text) ? null : new DOMParser()
+                                .parseFromString(text, type).documentElement.textContent
+                                .replace(/</g, '&lt;');
+                        }
+
+                        this.inspect = diagnostic => {
+
+                            const errorHandler = error => {
+
+                                const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
+                                console.error(err);
+
+                                if (error.alert) alert(err);
+                            }
+
+                            const lookup = {
+
+                                [this.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                                [this.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                                [this.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+                                [this.error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
+                                [this.default]   : () => errorHandler({ notification: 'Unhandled exception' })
+                            };
+
+                            lookup[diagnostic.type]() || lookup[this.default];
+                        }
+
+                        this.getProperties = (string = {}, str = '') => {
+
+                            for (let literal in string) str += literal + ': ' + string[literal] + ', ';
+                            return str.replace(/, +$/g,'');
+                        }
+
+                    }).call(rsc); // end resource namespace
+
+                }
+
             }
 
         }
 
     }); // end HTMLElement extension
-
-    function initResource(csvRoot) {
-
-        (function() { // namespace methods belonging to the resource namespace
-
-            this.reference = 1;
-            this.notify    = 2;
-            this.warn      = 3;
-            this.default   = 98;
-            this.error     = 99;
-            this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-            this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
-
-            this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
-            this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
-            this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
-            this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
-            this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-            this.newline      = this.isWindows ? '\r\n' : '\n';
-            this.bool         = this.bArray.map(item => { return item.trim().toUpperCase(); });
-
-            this.composeElement = (el, atr) => {
-
-                if (this.ignore(el.type)) return;
-
-                const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
-                const node = document.createElement(el.type);
-
-                Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
-                if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
-
-                precursor.appendChild(node);
-            }
-
-            this.setSwipe = (touch, callback, args) => { // horizontal swipe
-
-                if (!touch.act) touch.act = 80;
-
-                touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
-                touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                touch.node.addEventListener('touchend', e =>
-                {
-                    touch.end = e.changedTouches[0].screenX;
-
-                    if (Math.abs(touch.start - touch.end) > touch.act) {
-
-                        args.action = (touch.start > touch.end);
-                        callback.call(this, args);
-                    }
-
-                }, { passive: true });
-
-            }
-
-            this.ignore = obj => {
-
-                if (obj === null || obj == 'undefined') return true;
-
-                if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
-                if (Array.isArray(obj)) return (obj.length === 0);
-                if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
-
-                return !obj;
-            }
-
-            this.getBoolean = obj => {
-
-                if (obj === true || obj === false) return atr;
-                if (this.ignore(obj) || !this.isString(obj)) return false;
-
-                return this.bool.includes(obj.trim().toUpperCase());
-            }
-
-            this.getUniqueId = obj => {
-
-                if (!obj.name) obj.name = 'n';
-                if (!obj.range) obj.range = 100;
-
-                const elName = () => obj.name + Math.floor(Math.random() * obj.range);
-                while (document.getElementById(obj.el = elName())) {};
-
-                return obj.el;
-            }
-
-            this.removeDuplcates = (obj, sort) => {
-
-                const key = JSON.stringify;
-                const ar = [...new Map (obj.map(node => [key(node), node])).values()];
-
-                return sort ? ar.sort((a, b) => a - b) : ar;
-            }
-
-            this.softSanitize = (text, type = 'text/html') => {
-
-                return this.ignore(text) ? null : new DOMParser()
-                    .parseFromString(text, type).documentElement.textContent
-                    .replace(/</g, '&lt;');
-            }
-
-            this.inspect = diagnostic => {
-
-                const errorHandler = error => {
-
-                    const err = error.notification + ' [ DateTime: ' + new Date().toLocaleString() + ' ]';
-                    console.error(err);
-
-                    if (error.alert) alert(err);
-                }
-
-                const lookup = {
-
-                    [this.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                    [this.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                    [this.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
-                    [this.error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
-                    [this.default]   : () => errorHandler({ notification: 'Unhandled exception' })
-                };
-
-                lookup[diagnostic.type]() || lookup[this.default];
-            }
-
-            this.getProperties = (string = {}, str = '') => {
-
-                for (let literal in string) str += literal + ': ' + string[literal] + ', ';
-                return str.replace(/, +$/g,'');
-            }
-
-        }).call(rsc); // end resource namespace
-
-    }
 
 })();
