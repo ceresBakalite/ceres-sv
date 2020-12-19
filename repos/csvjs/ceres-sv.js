@@ -734,4 +734,4 @@ window.ceres = {};
 
     }); // end HTMLElement extension
 
-}).call(window.ceres);
+})();
