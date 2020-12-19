@@ -259,7 +259,7 @@ window.ceres = {};
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
                                         local   : factor || false,
-                                        zoom    : !!factor || rsc.getBoolean(factor), // ERROR
+                                        zoom    : !!rsc.ignore(factor) || rsc.getBoolean(factor), // ERROR
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
