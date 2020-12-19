@@ -21,11 +21,11 @@ window.ceres = {}; // ceres-sv global object namespace
 
         async connectedCallback() {
 
-            ceres.getImage = el => helper.srcOpen({ element: el, type: 'image' }); // global scope object method reference
-            ceres.getSlide = el => atr.get.slide({ node: el }); // global scope object method reference
+            ceres.getImage = el => helper.srcOpen({ element: el, type: 'image' }); // global scope method reference
+            ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
-            const cfg = {}; // configuration object
-            const atr = {}; // attribute object
+            const cfg = {}; // configuration object namespace
+            const atr = {}; // attribute object namespace
 
             initialise(this); // a csv root node of the DOM subtree
 
@@ -57,7 +57,7 @@ window.ceres = {}; // ceres-sv global object namespace
                     .replace(/[^\x00-\xFF]| /g, '')
                     .split(';'));
 
-                (function() { // namespace methods belonging to the attribute allocation object
+                (function() { // methods belonging to the attribute object
 
                     const csv = csvRoot.tagName.toLocaleLowerCase();
                     const srm = new Map(); // shadowroot manager
