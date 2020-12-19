@@ -148,21 +148,21 @@ window.ceres = {};
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
-            const csvRoot = this; // for legibility the csv root node of the current DOM subtree
+            //const csvRoot = this; // for legibility the csv root node of the current DOM subtree
             const cfg     = {}; // configuration attributes
             const atr     = {}; // attribute allocation
 
-            initialise();
+            initialise.call(this);
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) csvRoot.insertAdjacentHTML('afterbegin', atr.parseText( atr.getFileType( await ( await fetch(cfg.src) ).text() ) ));
+            if (cfg.srcRoot) this.insertAdjacentHTML('afterbegin', atr.parseText( atr.getFileType( await ( await fetch(cfg.src) ).text() ) ));
 
             for (let item of cfg.cssRoot) { cfg.shadowStyle += rsc.softSanitize( await ( await fetch(item) ).text() ); }
 
             if (atr.instance.hasContent()) atr.instance.showContent();
 
-            function initialise() {
+            function initialise(csvRoot) {
 
                 csvRoot.src = csvRoot.getAttribute('src');
 
