@@ -12,17 +12,13 @@
 window.ceres = {};
 (() => {
 
-    const rsc = {
-
-        initialise: allocateResources()
-
-    }; // the resource namespace object
-
     window,
     document,
     window.customElements.define('ceres-sv', class extends HTMLElement {
 
         async connectedCallback() {
+
+            const rsc = { initialise: allocateResources() }; // the resource namespace object
 
             rsc.initialise();
 
