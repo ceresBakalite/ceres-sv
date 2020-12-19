@@ -12,9 +12,9 @@
 window.ceres = {};
 (() => {
 
-    const rsc = {}; // the resource namespace object
+    const rsc = { allocateResources }; // the resource namespace object
 
-    allocateResources();
+
 
     window,
     document,
