@@ -27,7 +27,7 @@ window.ceres = {}; // ceres-sv global object namespace
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
 
-            initialise(this); // the csv root node of the current DOM subtree
+            initialise(this); // a csv root node of the DOM subtree
 
             atr.setDisplay.hide();
 
