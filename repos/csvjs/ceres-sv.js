@@ -15,25 +15,25 @@ window.ceres = {};
     const rsc = {}; // generic resource methods
     (function() {
 
-        const reference = 1;
-        const notify    = 2;
-        const warn      = 3;
-        const xdefault   = 98;
-        const error     = 99;
-        const bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-        const isWindows = (navigator.appVersion.indexOf('Win') != -1);
+        this.reference = 1;
+        this.notify    = 2;
+        this.warn      = 3;
+        this.default   = 98;
+        this.error     = 99;
+        this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
 
-        const clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
-        const fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
-        const fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
-        const srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
-        const isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-        const newline      = isWindows ? '\r\n' : '\n';
-        const bool         = bArray.map(item => { return item.trim().toUpperCase(); });
+        this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
+        this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
+        this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
+        this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
+        this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
+        this.newline      = this.isWindows ? '\r\n' : '\n';
+        this.bool         = this.bArray.map(item => { return item.trim().toUpperCase(); });
 
-        const composeElement = (el, atr) => {
+        this.composeElement = (el, atr) => {
 
-            if (ignore(el.type)) return;
+            if (this.ignore(el.type)) return;
 
             const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
             const node = document.createElement(el.type);
@@ -44,7 +44,7 @@ window.ceres = {};
             precursor.appendChild(node);
         }
 
-        const setSwipe = (touch, callback, args) => { // horizontal swipe
+        this.setSwipe = (touch, callback, args) => { // horizontal swipe
 
             if (!touch.act) touch.act = 80;
 
@@ -64,26 +64,26 @@ window.ceres = {};
 
         }
 
-        const ignore = obj => {
+        this.ignore = obj => {
 
             if (obj === null || obj == 'undefined') return true;
 
-            if (isString(obj)) return (obj.length === 0 || !obj.trim());
+            if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
             if (Array.isArray(obj)) return (obj.length === 0);
             if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
 
             return !obj;
         }
 
-        const getBoolean = obj => {
+        this.getBoolean = obj => {
 
             if (obj === true || obj === false) return atr;
-            if (ignore(obj) || !isString(obj)) return false;
+            if (this.ignore(obj) || !this.isString(obj)) return false;
 
-            return bool.includes(obj.trim().toUpperCase());
+            return this.bool.includes(obj.trim().toUpperCase());
         }
 
-        const getUniqueId = obj => {
+        this.getUniqueId = obj => {
 
             if (!obj.name) obj.name = 'n';
             if (!obj.range) obj.range = 100;
@@ -94,7 +94,7 @@ window.ceres = {};
             return obj.el;
         }
 
-        const removeDuplcates = (obj, sort) => {
+        this.removeDuplcates = (obj, sort) => {
 
             const key = JSON.stringify;
             const ar = [...new Map (obj.map(node => [key(node), node])).values()];
@@ -102,14 +102,14 @@ window.ceres = {};
             return sort ? ar.sort((a, b) => a - b) : ar;
         }
 
-        const softSanitize = (text, type = 'text/html') => {
+        this.softSanitize = (text, type = 'text/html') => {
 
-            return ignore(text) ? null : new DOMParser()
+            return this.ignore(text) ? null : new DOMParser()
                 .parseFromString(text, type).documentElement.textContent
                 .replace(/</g, '&lt;');
         }
 
-        const inspect = diagnostic => {
+        this.inspect = diagnostic => {
 
             const errorHandler = error => {
 
@@ -121,17 +121,17 @@ window.ceres = {};
 
             const lookup = {
 
-                [notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + newline + newline + diagnostic.reference); },
-                [error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
-                [xdefault]   : () => errorHandler({ notification: 'Unhandled exception' })
+                [this.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [this.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [this.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+                [this.error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
+                [this.default]   : () => errorHandler({ notification: 'Unhandled exception' })
             };
 
-            lookup[diagnostic.type]() || lookup[xdefault];
+            lookup[diagnostic.type]() || lookup[this.default];
         }
 
-        const getProperties = (string = {}, str = '') => {
+        this.getProperties = (string = {}, str = '') => {
 
             for (let literal in string) str += literal + ': ' + string[literal] + ', ';
             return str.replace(/, +$/g,'');
