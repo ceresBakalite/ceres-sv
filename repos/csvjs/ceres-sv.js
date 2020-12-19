@@ -28,12 +28,12 @@ window.ceres = {};
         const fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
         const srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
         const isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-        const newline      = this.isWindows ? '\r\n' : '\n';
-        const bool         = this.bArray.map(item => { return item.trim().toUpperCase(); });
+        const newline      = isWindows ? '\r\n' : '\n';
+        const bool         = bArray.map(item => { return item.trim().toUpperCase(); });
 
         const composeElement = (el, atr) => {
 
-            if (this.ignore(el.type)) return;
+            if (ignore(el.type)) return;
 
             const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
             const node = document.createElement(el.type);
@@ -68,7 +68,7 @@ window.ceres = {};
 
             if (obj === null || obj == 'undefined') return true;
 
-            if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+            if (isString(obj)) return (obj.length === 0 || !obj.trim());
             if (Array.isArray(obj)) return (obj.length === 0);
             if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
 
@@ -78,9 +78,9 @@ window.ceres = {};
         const getBoolean = obj => {
 
             if (obj === true || obj === false) return atr;
-            if (this.ignore(obj) || !this.isString(obj)) return false;
+            if (ignore(obj) || !isString(obj)) return false;
 
-            return this.bool.includes(obj.trim().toUpperCase());
+            return bool.includes(obj.trim().toUpperCase());
         }
 
         const getUniqueId = obj => {
@@ -104,7 +104,7 @@ window.ceres = {};
 
         const softSanitize = (text, type = 'text/html') => {
 
-            return this.ignore(text) ? null : new DOMParser()
+            return ignore(text) ? null : new DOMParser()
                 .parseFromString(text, type).documentElement.textContent
                 .replace(/</g, '&lt;');
         }
@@ -121,14 +121,14 @@ window.ceres = {};
 
             const lookup = {
 
-                [this.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
-                [this.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                [this.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
-                [this.error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
-                [this.xdefault]   : () => errorHandler({ notification: 'Unhandled exception' })
+                [notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
+                [warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
+                [reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + newline + newline + diagnostic.reference); },
+                [error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
+                [xdefault]   : () => errorHandler({ notification: 'Unhandled exception' })
             };
 
-            lookup[diagnostic.type]() || lookup[this.xdefault];
+            lookup[diagnostic.type]() || lookup[xdefault];
         }
 
         const getProperties = (string = {}, str = '') => {
