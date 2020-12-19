@@ -18,9 +18,9 @@ window.ceres = {};
     document,
     window.customElements.define('ceres-sv', class extends HTMLElement {
 
-        async connectedCallback() {
+        get initResource(){};
 
-            initResource();
+        async connectedCallback() {
 
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
