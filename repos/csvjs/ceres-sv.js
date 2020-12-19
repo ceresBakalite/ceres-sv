@@ -152,7 +152,7 @@ window.ceres = {};
             const cfg     = {}; // configuration attributes
             const atr     = {}; // attribute allocation
 
-            configureAttributes();
+            initialise();
 
             atr.setDisplay.hide();
 
@@ -162,7 +162,7 @@ window.ceres = {};
 
             if (atr.instance.hasContent()) atr.instance.showContent();
 
-            function configureAttributes() {
+            function initialise() {
 
                 csvRoot.src = csvRoot.getAttribute('src');
 
