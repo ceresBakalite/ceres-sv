@@ -151,7 +151,7 @@ window.ceres = {};
             const cfg = {}; // configuration attributes
             const atr = {}; // attribute allocation
 
-            initialise(this);
+            initialise(this); // the csv root node of the current DOM subtree
 
             atr.setDisplay.hide();
 
