@@ -12,8 +12,8 @@
 window.ceres = {};
 (() => {
 
-    const rsc = {}; // generic resource methods
-    (function() {
+    var rsc = {}; // generic resource methods
+    (() => {
 
         this.reference = 1;
         this.notify    = 2;
