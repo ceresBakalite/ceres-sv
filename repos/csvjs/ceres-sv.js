@@ -15,13 +15,13 @@ window.ceres = {};
     const rsc = {}; // generic resource methods
     (function() {
 
-        const reference = 1;
-        const notify    = 2;
-        const warn      = 3;
+        this.reference = 1;
+        this.notify    = 2;
+        this.warn      = 3;
         this.default   = 98;
-        const error     = 99;
-        const bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-        const isWindows = (navigator.appVersion.indexOf('Win') != -1);
+        this.error     = 99;
+        this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+        this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
 
         this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
         this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
