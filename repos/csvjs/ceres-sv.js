@@ -15,8 +15,6 @@ window.ceres = {}; // ceres-sv global object namespace
     const rsc = {}; // the resource object namespace
     rscMethods(); // resource object methods
 
-    window,
-    document,
     window.customElements.define('ceres-sv', class extends HTMLElement {
 
         async connectedCallback() {
