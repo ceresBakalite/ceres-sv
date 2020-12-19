@@ -152,7 +152,7 @@ window.ceres = {};
             const cfg     = {}; // configuration attributes
             const atr     = {}; // attribute allocation
 
-            initialise.call(this);
+            initialise(this);
 
             atr.setDisplay.hide();
 
