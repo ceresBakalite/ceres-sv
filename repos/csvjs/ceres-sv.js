@@ -148,8 +148,8 @@ window.ceres = {};
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
-            const cfg     = {}; // configuration attributes
-            const atr     = {}; // attribute allocation
+            const cfg = {}; // configuration attributes
+            const atr = {}; // attribute allocation
 
             initialise(this);
 
