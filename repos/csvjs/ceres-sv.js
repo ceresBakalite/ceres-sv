@@ -143,15 +143,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const item     = atrArray[0];
 
+
                                     if (name == 'cache') {
 
-                                        if (atrArray.length > 1) {
+                                        if (!factor) return true; // default is true
+                                        if (atrArray.length > 1) cfg.node.cacheImages = atrArray[1].includes('image');
 
-                                            if (rsc.getBoolean(item)) cfg.node.cacheImages = atrArray[1].includes('image');
-                                            return true;
-                                        }
-
-                                        return !rsc.getBoolean(factor);
+                                        return rsc.getBoolean(item);
                                     }
 
                                     if (!Number.isInteger(parseInt(item))) {
