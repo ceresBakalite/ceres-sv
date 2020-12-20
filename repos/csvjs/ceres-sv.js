@@ -136,9 +136,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     }
 
                                     if (property.hasOwnProperty(name)) return property[name];
-                                    if (name == 'cache' && rsc.ignore(factor)) return true; // default
-
-                                    if (rsc.ignore(factor)) return false; // remaining defaults
+                                    if (name == 'cache' && rsc.ignore(factor)) return true;
+                                    if (rsc.ignore(factor)) return false;
 
                                     const ar       = factor.replace(/\s+:\s+/g,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
