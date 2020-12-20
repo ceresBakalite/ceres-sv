@@ -147,9 +147,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     if (name == 'cache') {
 
                                         let cacheall = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
-                                        if (!rsc.ignore(cacheall)) cfg.node.cacheall = cacheall;
+                                        let cache = item.includes('image') || rsc.getBoolean(item);
 
-                                        return item.includes('image') || rsc.getBoolean(item);
+                                        if (cache && !rsc.ignore(cacheall)) cfg.node.cacheall = cacheall;
+
+                                        return cache;
                                     }
 
 
