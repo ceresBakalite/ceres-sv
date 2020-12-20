@@ -146,10 +146,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     if (name == 'cache') {
 
-                                        if (!factor) return true; // default is true
-                                        if (atrArray.length > 1) cfg.node.cacheImages = atrArray[1].includes('image');
+                                        if (!factor) return true; // default
+                                        cfg.node.cacheImages = (item.includes('image') || atrArray[1].includes('image'));
 
-                                        return rsc.getBoolean(item);
+                                        if (!item.includes('image')) return rsc.getBoolean(item);
                                     }
 
                                     if (!Number.isInteger(parseInt(item))) {
