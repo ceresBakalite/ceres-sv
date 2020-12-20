@@ -253,7 +253,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.local + ']' });
 
-                                    return this.parseText(text.trim()).replace(regex,'\n');
+                                    return this.parseText(text).replace(regex,'\n');
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
@@ -729,7 +729,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 return this.ignore(text) ? null : new DOMParser()
                     .parseFromString(text, type).documentElement.textContent
-                    .replace(/</g, '&lt;');
+                    .replace(/</g, '&lt;')
+                    .trim();
             }
 
             this.inspect = diagnostic => {
