@@ -29,9 +29,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             atr.setDisplay.hide();
 
-            if (cfg.srcRoot) this.insertAdjacentHTML('afterbegin', atr.getFileType( await ( await fetch(cfg.src) ).text() ));
+            if (cfg.srcRoot) this.insertAdjacentHTML('afterbegin', atr.parseFile( await ( await fetch(cfg.src) ).text() ));
 
-            for (let item of cfg.cssRoot) { cfg.shadowStyle += rsc.softSanitize( await ( await fetch(item) ).text() ); }
+            for (let url of cfg.cssRoot) { cfg.shadowStyle += rsc.softSanitize( await ( await fetch(url) ).text() ); }
 
             if (atr.instance.hasContent()) atr.instance.showContent();
 
@@ -497,7 +497,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         return className += ' none';
                     }
 
-                    this.getFileType = textList => {
+                    this.parseFile = textList => {
 
                         if (rsc.fileType(cfg.src, 'json')) textList = this.parseJSON(textList);
                         if (rsc.fileType(cfg.src, 'csv')) textList = this.parseJSON( this.parseCSV( textList, { json: true, nodes: ['url','sub','sur'] } ));
