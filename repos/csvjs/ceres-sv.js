@@ -46,6 +46,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 cfg.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
                 cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
+                cfg.imageCache  = '';
                 cfg.node        = {};
                 cfg.slide       = 1;
 
@@ -189,7 +190,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                         }
 
-                                        atrArray.forEach((attribute) => { if (styleAttributes.includes(attribute.split(':')[0])) setStyleAttribute(attribute); });
+                                        atrArray.forEach(attribute => { if (styleAttributes.includes(attribute.split(':')[0])) setStyleAttribute(attribute); });
                                     }
 
                                     if (styleProperties.includes(name)) getStyle();
@@ -375,6 +376,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (!window.hasOwnProperty('caches')) return;
 
+                                cfg.imageCache.forEach(url => {
+                                    console.log('image: ' + url)
+                                });
+
+
                                 const src       = cfg.srcRoot ? cfg.src.split() : Array.from('');
                                 const cacheName = csv + '-cache';
                                 const urlArray  = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ import.meta.url ])));
@@ -419,6 +425,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         body: () => {
 
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
+                            const cacheURL    = () => !rsc.ignore(obj.ar[0]) ? cfg.imageCache += ar[0].trim() : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
@@ -447,6 +454,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             for (let item in cfg.imageArray) {
 
                                 obj.ar = cfg.imageArray[item].split(',');
+
+                                if (cfg.node.cache) cacheURL();
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
@@ -517,7 +526,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         const json = JSON.parse(text);
                         let str = '';
 
-                        json.forEach((node) => {
+                        json.forEach(node => {
 
                             str += node.url
                                 + (node.sub ? ', ' + node.sub.replace(cfg.commaCodes, cfg.commaSymbol) : '')
@@ -564,7 +573,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             let str = '';
 
-                            newArray.forEach((row) => {
+                            newArray.forEach(row => {
 
                                 if (!rsc.ignore(row)) {
 
@@ -582,12 +591,12 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
 
-                        textArray.forEach((row) => {
+                        textArray.forEach(row => {
 
                             let newRow = String(row);
                             let groups = [...newRow.matchAll(regex)]; // get character groups in need of parsing
 
-                            groups.forEach((group) => {
+                            groups.forEach(group => {
 
                                 let newGroup = parseGroup(group);
                                 newRow = newRow.replace(group, newGroup);
