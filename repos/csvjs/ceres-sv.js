@@ -377,20 +377,20 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const name = csv + '-cache';
                                 const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
-                                const obj  = { ar: [], imageCache: [] };
+                                const img  = [];
 
                                 cfg.imageArray.forEach(item => {
 
-                                    obj.ar = item.split(',');
-                                    if (!rsc.ignore(obj.ar[0])) obj.imageCache.push(obj.ar[0].trim());
+                                    let ar = item.split(',');
+                                    if (!rsc.ignore(ar[0])) img.push(ar[0].trim());
 
                                 });
 
-                                obj.imageCache.forEach(url => {
+                                img.forEach(url => {
                                     console.log('image: ' + url)
                                 });
 
-                                const urlArray  = rsc.removeDuplcates(obj.imageCache.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
+                                const urlArray  = rsc.removeDuplcates(img.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
 
                                 urlArray.forEach(url => {
 
