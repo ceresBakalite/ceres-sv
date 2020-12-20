@@ -9,7 +9,7 @@
  *
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
-globalThis.ceres = {}; // ceres slideview global object namespace
+globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object namespace
 (() => {
 
     const rsc = {}; // the resource object namespace
