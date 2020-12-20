@@ -599,7 +599,7 @@ globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object nam
 
                     Object.seal(atr);
 
-                }).call(atr); // end attribute allocation
+                }).call(atr); // end of attribute allocation
 
             }
 
@@ -616,7 +616,7 @@ globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object nam
             this.warn      = 3;
             this.default   = 98;
             this.error     = 99;
-            this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+            this.bPositive = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
             this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
@@ -625,7 +625,7 @@ globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object nam
             this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.newline      = this.isWindows ? '\r\n' : '\n';
-            this.bool         = this.bArray.map(item => { return item.trim().toUpperCase(); });
+            this.bool         = this.bPositive.map(item => { return item.trim().toUpperCase(); });
 
             this.composeElement = (el, atr) => {
 
