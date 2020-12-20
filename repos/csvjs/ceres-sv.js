@@ -387,7 +387,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
                                 const img  = [];
 
-                                if (cfg.node.cacheImages) {
+                                if (cfg.node.cacheall) {
 
                                     cfg.imageArray.forEach(item => {
 
