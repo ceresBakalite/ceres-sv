@@ -459,7 +459,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             cfg.imageArray.forEach(item => {
 
-                                obj.ar = cfg.imageArray[item].split(',');
+                                obj.ar = item.split(',');
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
