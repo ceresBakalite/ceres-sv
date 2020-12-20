@@ -128,7 +128,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                         nub     : !rsc.getBoolean(factor),
                                         fade    : !rsc.getBoolean(factor),
-                                        cache   : !rsc.getBoolean(factor),
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
                                         local   : factor || false,
@@ -143,6 +142,17 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     const atrArray = ar.map(item => item.trim());
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const item     = atrArray[0];
+
+                                    if (name == 'cache') {
+
+                                        if (atrArray.length > 1) {
+
+                                            if (rsc.getBoolean(item)) cfg.node.cacheImages = atrArray[1] == 'images';
+                                            return true;
+                                        }
+
+                                        return !rsc.getBoolean(factor);
+                                    }
 
                                     if (!Number.isInteger(parseInt(item))) {
 
@@ -379,12 +389,16 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
                                 const img  = [];
 
-                                cfg.imageArray.forEach(item => {
+                                if (cfg.node.cacheImages) {
 
-                                    let ar = item.split(',');
-                                    if (!rsc.ignore(ar[0])) img.push(ar[0].trim());
+                                    cfg.imageArray.forEach(item => {
 
-                                });
+                                        let ar = item.split(',');
+                                        if (!rsc.ignore(ar[0])) img.push(ar[0].trim());
+
+                                    });
+
+                                }
 
                                 const urlArray = rsc.removeDuplcates(img.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
 
@@ -394,6 +408,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                         if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.node.trace }); }
                                         return caches.open(name).then(cache => { return cache.put(url, response); });
+
                                     });
 
                                 });
