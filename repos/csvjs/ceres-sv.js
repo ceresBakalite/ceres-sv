@@ -534,7 +534,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         return rsc.softSanitize(text
                             .replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol)
-                            .replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''));
+                            .replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''))
+                            .trim();
                     }
 
                     this.parseJSON = text => {
@@ -729,8 +730,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 return this.ignore(text) ? null : new DOMParser()
                     .parseFromString(text, type).documentElement.textContent
-                    .replace(/</g, '&lt;')
-                    .trim();
+                    .replace(/</g, '&lt;');
             }
 
             this.inspect = diagnostic => {
