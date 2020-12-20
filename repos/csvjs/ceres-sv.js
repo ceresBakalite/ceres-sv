@@ -464,7 +464,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
                                 //slideNode.id = 'img' + (++obj.index);
-                                slideNode.id = 'img' + (++i);
+                                slideNode.id = 'img' + i++;
 
                                 imgNode.appendChild(slideNode);
 
@@ -476,7 +476,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClassList('right'), onclick: hrefSlide });
 
-                            cfg.imageArray.forEach((item, i) => { rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i, class: 'nub', onclick: hrefSlide }); });
+                            cfg.imageArray.forEach((item, i) => { rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + i++, class: 'nub', onclick: hrefSlide }); });
 
                             cfg.shadow.appendChild(bodyNode);
                         }
