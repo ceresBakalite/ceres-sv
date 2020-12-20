@@ -386,11 +386,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 });
 
-                                const urlArray  = rsc.removeDuplcates(img.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
+                                const urlArray = rsc.removeDuplcates(img.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
 
                                 urlArray.forEach(url => {
-
-                                    console.log('urlArray: ' + url)
 
                                     fetch(url).then(response => {
 
