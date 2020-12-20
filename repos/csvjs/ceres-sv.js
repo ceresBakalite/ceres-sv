@@ -453,18 +453,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const obj = { index: 0, ar: [] };
 
-                            //for (let item in cfg.imageArray) {
-
-                                //obj.ar = cfg.imageArray[item].split(',');
-
-                            cfg.imageArray.forEach((item, i) => {
+                            cfg.imageArray.forEach(item => {
 
                                 obj.ar = item.split(',');
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
-                                //slideNode.id = 'img' + (++obj.index);
-                                slideNode.id = 'img' + ++i;
+                                slideNode.id = 'img' + ++obj.index;
 
                                 imgNode.appendChild(slideNode);
 
