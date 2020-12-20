@@ -453,7 +453,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const obj = { index: 0, ar: [] };
 
-                            for (let item in cfg.imageArray) {
+                            //for (let item in cfg.imageArray) {
+
+                                //obj.ar = cfg.imageArray[item].split(',');
+
+                            cfg.imageArray.forEach(item => {
 
                                 obj.ar = cfg.imageArray[item].split(',');
 
@@ -466,7 +470,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 if (cfg.node.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
                                 rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: srcImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 if (cfg.node.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
-                            }
+                            });
 
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClassList('right'), onclick: hrefSlide });
