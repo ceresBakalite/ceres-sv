@@ -46,7 +46,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 cfg.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
                 cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
-                cfg.imageCache  = '';
                 cfg.node        = {};
                 cfg.slide       = 1;
 
@@ -376,21 +375,29 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (!window.hasOwnProperty('caches')) return;
 
-                                cfg.imageCache.forEach(url => {
+                                const name = csv + '-cache';
+                                const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
+                                const obj  = { ar: [], imageCache: [] };
+
+                                cfg.imageArray.forEach(item => {
+
+                                    obj.ar = item.split(',');
+                                    if (!rsc.ignore(obj.ar[0])) obj.imageCache.push(obj.ar[0].trim());
+
+                                });
+
+                                obj.imageCache.forEach(url => {
                                     console.log('image: ' + url)
                                 });
 
-
-                                const src       = cfg.srcRoot ? cfg.src.split() : Array.from('');
-                                const cacheName = csv + '-cache';
-                                const urlArray  = rsc.removeDuplcates(src.concat(cfg.cssRoot.concat([ import.meta.url ])));
+                                const urlArray  = rsc.removeDuplcates(obj.imageCache.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
 
                                 urlArray.forEach(url => {
 
                                     fetch(url).then(response => {
 
                                         if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.node.trace }); }
-                                        return caches.open(cacheName).then(cache => { return cache.put(url, response); });
+                                        return caches.open(name).then(cache => { return cache.put(url, response); });
                                     });
 
                                 });
@@ -425,7 +432,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         body: () => {
 
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
-                            const cacheURL    = () => !rsc.ignore(obj.ar[0]) ? cfg.imageCache += obj.ar[0].trim() : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
@@ -454,8 +460,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             for (let item in cfg.imageArray) {
 
                                 obj.ar = cfg.imageArray[item].split(',');
-
-                                if (cfg.node.cache) cacheURL();
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
