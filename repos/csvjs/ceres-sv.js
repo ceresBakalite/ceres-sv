@@ -9,7 +9,7 @@
  *
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
-globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object namespace
+globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namespace
 (() => {
 
     const rsc = {}; // the resource object namespace
@@ -73,7 +73,7 @@ globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object nam
 
                     Object.freeze(remark);
 
-                    this.instance = { // HTMLElement instance
+                    this.instance = { // an instance of the custom HTMLElement extension
 
                         hasContent: () => {
 
@@ -92,12 +92,12 @@ globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object nam
 
                     };
 
-                    this.content = { // HTMLElement properties
+                    this.content = { // the custom HTMLElement extension properties
 
                         properties: () => {
 
-                            const styleAttributes = ['color', 'font', 'padding', 'top', 'bottom'];
-                            const styleProperties = ['sub', 'sur'];
+                            const styleAttributes = ['color', 'font', 'padding', 'top', 'bottom'];  // configurable styles
+                            const styleProperties = ['sub', 'sur']; // configurable properties
 
                             const getTemplate = () => {
 
@@ -227,12 +227,14 @@ globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object nam
 
                             rsc.inspect({ type: rsc.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.node), logtrace: cfg.node.trace });
 
+                            const regex = /\s*\n\s*/g; // match whitespace surrounding linefeed
+
                             const getImageList = () => {
 
                                 const shadowList = () => {
 
                                     const text = csvRoot.textContent;
-                                    return text.replace(/\s*\n\s*/g,'\n') || null; // remove whitespace surrounding linefeed
+                                    return text.replace(regex,'\n') || null;
                                 }
 
                                 const lightList = () => {
@@ -240,7 +242,7 @@ globalThis.ceres = {}; // ceres slideview global (ie actual or proxy) object nam
                                     const text = (cfg.template.tagName != 'TEMPLATE') ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.local + ']' });
 
-                                    return this.parseText(text).replace(/\s*\n\s*/g,'\n'); // remove whitespace surrounding linefeed
+                                    return this.parseText(text).replace(regex,'\n');
                                 }
 
                                 return cfg.srcRoot ? shadowList() : lightList();
