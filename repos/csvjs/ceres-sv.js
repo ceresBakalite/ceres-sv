@@ -464,7 +464,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const slideNode = document.createElement('div');
                                 slideNode.className = classlist;
                                 //slideNode.id = 'img' + (++obj.index);
-                                slideNode.id = 'img' + i;
+                                slideNode.id = 'img' + (++i);
 
                                 imgNode.appendChild(slideNode);
 
