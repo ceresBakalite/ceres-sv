@@ -9,13 +9,13 @@
  *
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
-globalThis.ceres = {}; // ceres-sv global object namespace
+globalThis.ceres = {}; // ceres slideview global object namespace
 (() => {
 
     const rsc = {}; // the resource object namespace
     rscMethods(); // resource object methods
 
-    globalThis.customElements.define('ceres-sv', class extends HTMLElement {
+    globalThis.customElements.define('ceres-sv', class extends HTMLElement { // ceres-sv global class
 
         async connectedCallback() {
 
