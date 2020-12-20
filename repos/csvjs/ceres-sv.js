@@ -136,21 +136,21 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     }
 
                                     if (property.hasOwnProperty(name)) return property[name];
-                                    if (rsc.ignore(factor)) return false;
+                                    if (name == 'cache' && rsc.ignore(factor)) return true; // default
+
+                                    if (rsc.ignore(factor)) return false; // remaining defaults
 
                                     const ar       = factor.replace(/\s+:\s+/g,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const item     = atrArray[0];
 
-
                                     if (name == 'cache') {
 
-                                        if (!factor) return true; // default
-                                        cfg.node.cacheImages = (item.includes('image') || atrArray[1].includes('image'));
-
+                                        cfg.node.cacheImages = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image');
                                         if (!item.includes('image')) return rsc.getBoolean(item);
                                     }
+
 
                                     if (!Number.isInteger(parseInt(item))) {
 
