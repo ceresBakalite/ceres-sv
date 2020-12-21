@@ -97,7 +97,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         properties: () => {
 
                             const styleAttributes = ['color', 'font', 'padding', 'top', 'bottom'];  // configurable styles
-                            const styleProperties = ['sub', 'sur']; // configurable properties
+                            const styleProperties = ['sub', 'sur']; // style compliant properties
 
                             const getTemplate = () => {
 
