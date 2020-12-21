@@ -142,6 +142,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     const ar       = factor.replace(/\s+:\s+/g,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
+                                    const regx     = /(\s+)?:(\s+)?/g;
                                     const item     = atrArray[0];
 
                                     if (name == 'cache') {
@@ -191,7 +192,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                                 if (group) {
 
-                                                    const newGroup = group.replace(re, attribute.replace(/(\s+)?:(\s+)?/g,':') + ';');
+                                                    const newGroup = group.replace(re, attribute.replace(regx,':') + ';');
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 }
 
