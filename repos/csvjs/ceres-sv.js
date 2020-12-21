@@ -19,7 +19,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
         async connectedCallback() {
 
-            ceres.getImage = el => helper.srcOpen({ element: el, type: 'image' }); // global scope method reference
+            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
             const cfg = {}; // configuration object namespace
@@ -645,7 +645,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.default   = 98;
             this.error     = 99;
             this.bPositive = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-            this.isWindows = (navigator.appVersion.indexOf('Win') != -1);
+            this.isWindows = navigator.appVersion.indexOf('Win') != -1;
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
