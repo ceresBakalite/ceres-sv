@@ -146,10 +146,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     if (name == 'cache') {
 
-                                        const cacheall = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
+                                        const images = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
                                         const cache = item.includes('image') || rsc.getBoolean(item);
 
-                                        if (cache && !rsc.ignore(cacheall)) cfg.node.cacheall = cacheall;
+                                        if (cache && !rsc.ignore(images)) cfg.node.cacheimages = images;
 
                                         return cache;
                                     }
@@ -390,7 +390,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
                                 const img  = [];
 
-                                if (cfg.node.cacheall) {
+                                if (cfg.node.cacheimages) {
 
                                     cfg.imageArray.forEach(item => {
 
