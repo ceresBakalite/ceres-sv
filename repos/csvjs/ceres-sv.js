@@ -154,7 +154,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         return cache;
                                     }
 
-
                                     if (!Number.isInteger(parseInt(item))) {
 
                                         if (!rsc.getBoolean(item)) return false;
