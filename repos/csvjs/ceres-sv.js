@@ -650,18 +650,18 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.warn      = 3;
             this.default   = 98;
             this.error     = 99;
-            this.bPositive = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+            this.boolArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
             this.elArray   = ['link', 'script', 'style'];
             this.isWindows = navigator.appVersion.indexOf('Win') != -1;
+            this.newline   = this.isWindows ? '\r\n' : '\n';
+            this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
+            this.bool      = this.boolArray.map(item => { return item.trim().toUpperCase(); });
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-            this.newline      = this.isWindows ? '\r\n' : '\n';
-            this.docHead      = this.elArray.map(item => { return item.trim().toUpperCase(); });
-            this.bool         = this.bPositive.map(item => { return item.trim().toUpperCase(); });
 
             this.composeElement = (el, atr) => {
 
