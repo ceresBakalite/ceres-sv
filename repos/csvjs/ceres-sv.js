@@ -650,12 +650,12 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.warn      = 3;
             this.default   = 98;
             this.error     = 99;
-            this.boolArray = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+            this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
             this.elArray   = ['link', 'script', 'style'];
             this.isWindows = navigator.appVersion.indexOf('Win') != -1;
             this.newline   = this.isWindows ? '\r\n' : '\n';
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
-            this.bool      = this.boolArray.map(item => { return item.trim().toUpperCase(); });
+            this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
