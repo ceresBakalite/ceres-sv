@@ -563,11 +563,12 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         const reA = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
                         const reB = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
-                        const reC = /"\s*?$|"\s*?,\s*?$/; // match trailing quotes and commas
-                        const reD = /^\s*?"/; // match leading quotes
+                        const reC = /"\s*?$|"\s*?,\s*?$/; // match trailing quotes & commas & whitespace
+                        const reD = /^\s*?"/; // match leading quotes & whitespace
                         const reE = /""/g; // match two ajoining double quotes
                         const reF = /(?!\s)[,](?!\s)/g; // match whitespace surrounding a comma
                         const reG = /,\s*?$/; // match trailing comma whitespace
+                        const reH = /"/g; // match single double quotes
 
                         const parseGroup = group => {
 
@@ -602,7 +603,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     str += '{ ';
                                     let rowArray = row.split(',');
 
-                                    rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", '; });
+                                    rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(reH, '\\"') + '", '; });
                                     str = str.replace(reG, '') + ' },\n'; // replace trailing comma whitespace
                                 }
 
