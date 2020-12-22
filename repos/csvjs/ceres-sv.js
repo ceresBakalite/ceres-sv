@@ -598,7 +598,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     let rowArray = row.split(',');
 
                                     rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", '; });
-                                    str = str.replace(re, '') + ' },\n'
+                                    str = str.replace(re, '') + ' },\n';
                                 }
 
                             });
