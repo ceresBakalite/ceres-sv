@@ -567,8 +567,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         const reD = /^\s*?"/; // match leading quotes & whitespace
                         const reE = /""/g; // match two ajoining double quotes
                         const reF = /(?!\s)[,](?!\s)/g; // match whitespace surrounding a comma
-                        const reG = /,\s*?$/; // match trailing comma whitespace
-                        const reH = /"/g; // match single double quotes
+                        const reG = /,\s*?$/; // match trailing comma & whitespace
+                        const reH = /"/g; // match double quotes
 
                         const parseGroup = group => {
 
@@ -586,7 +586,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             let newRow = row.replace(reA, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
 
-                            return newRow.replace(reF, ', '); // replace whitespace surrounding a comma
+                            return newRow.replace(reF, ', '); // replace comma & surrounding whitespace
                         }
 
                         // construct a JSON object from the CSV construct
@@ -651,6 +651,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.default   = 98;
             this.error     = 99;
             this.bPositive = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+            this.elHead    = ['link', 'script', 'style'];
             this.isWindows = navigator.appVersion.indexOf('Win') != -1;
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
@@ -659,13 +660,14 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.newline      = this.isWindows ? '\r\n' : '\n';
+            this.elArray      = this.elHead.map(item => { return item.trim().toUpperCase(); });
             this.bool         = this.bPositive.map(item => { return item.trim().toUpperCase(); });
 
             this.composeElement = (el, atr) => {
 
                 if (this.ignore(el.type)) return;
 
-                const precursor = ['LINK', 'SCRIPT', 'STYLE'].includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+                const precursor = this.elArray.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
                 const node = document.createElement(el.type);
 
                 Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
