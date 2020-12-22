@@ -603,7 +603,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     str += '{ ';
                                     let rowArray = row.split(',');
 
-                                    rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(reH, '\\"') + '", '; });
+                                    rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(reH, '\\"') + '", '; }); // replace quotes with escaped quotes
                                     str = str.replace(reG, '') + ' },\n'; // replace trailing comma whitespace
                                 }
 
