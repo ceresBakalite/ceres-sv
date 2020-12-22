@@ -560,33 +560,38 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
                         const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
-                        const endRow    = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
-                        const regex     = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
+
+                        const reA = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
+                        const reB = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
+                        const reC = /"\s*?$|"\s*?,\s*?$/; // match trailing quotes and commas
+                        const reD = /^\s*?"/; // match leading quotes
+                        const reE = /""/g; // match two ajoining double quotes
+                        const reF = /(?!\s)[,](?!\s)/g; // match whitespace surrounding a comma
+                        const reG = /,\s*?$/; // match trailing comma whitespace
 
                         const parseGroup = group => {
 
-                            let newGroup = String(group)  // remove leading quotes and trailing quotes and commas
-                                .replace(/"\s*?$|"\s*?,\s*?$/, '')
-                                .replace(/^\s*?"/, '');
+                            let newGroup = String(group)
+                                .replace(reC, '') // remove trailing quotes and commas
+                                .replace(reD, ''); // remove leading quotes
 
-                            newGroup = newGroup.replace(/""/g, '"'); // replace two ajoining double quotes with one double quote
+                            newGroup = newGroup.replace(reE, '"'); // replace two ajoining double quotes with one double quote
 
                             return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace any remaining comma entities with a separator symbol
                         }
 
                         const parseRow = row => {
 
-                            let newRow = row.replace(endRow, ''); // remove end symbols at the end of a row
+                            let newRow = row.replace(reA, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
 
-                            return newRow.replace(/(?!\s)[,](?!\s)/g, ', '); // tidy
+                            return newRow.replace(reF, ', '); // replace whitespace surrounding a comma
                         }
 
                         // construct a JSON object from the CSV construct
                         const composeJSON = () => {
 
                             const nodeName = i => symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
-                            const re = /,\s*?$/; // match trailing comma whitespace
 
                             let str = '';
 
@@ -598,12 +603,12 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     let rowArray = row.split(',');
 
                                     rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(/"/g, '\\"') + '", '; });
-                                    str = str.replace(re, '') + ' },\n';
+                                    str = str.replace(reG, '') + ' },\n'; // replace trailing comma whitespace
                                 }
 
                             });
 
-                            return '[' + str.replace(re, '') + ']';
+                            return '[' + str.replace(reG, '') + ']'; // replcae trailing comma whitespace
                         }
 
                         const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
@@ -611,7 +616,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         textArray.forEach(row => {
 
                             let newRow = String(row);
-                            let groups = [...newRow.matchAll(regex)]; // get character groups in need of parsing
+                            let groups = [...newRow.matchAll(reB)]; // get character groups in need of parsing
 
                             groups.forEach(group => {
 
