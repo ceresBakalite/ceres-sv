@@ -651,7 +651,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.default   = 98;
             this.error     = 99;
             this.bPositive = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
-            this.elHead    = ['link', 'script', 'style'];
+            this.elArray   = ['link', 'script', 'style'];
             this.isWindows = navigator.appVersion.indexOf('Win') != -1;
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
@@ -660,14 +660,14 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.srcOpen      = obj => window.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.newline      = this.isWindows ? '\r\n' : '\n';
-            this.elArray      = this.elHead.map(item => { return item.trim().toUpperCase(); });
+            this.docHead      = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool         = this.bPositive.map(item => { return item.trim().toUpperCase(); });
 
             this.composeElement = (el, atr) => {
 
                 if (this.ignore(el.type)) return;
 
-                const precursor = this.elArray.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+                const precursor = this.docHead.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
                 const node = document.createElement(el.type);
 
                 Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
