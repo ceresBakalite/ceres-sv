@@ -451,7 +451,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
                             const classlist = this.getClassList('slide');
-                            const srcImage  = cfg.node.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);'
+                            //const hrefImage = cfg.node.zoom ? 'ceres.getImage(this);' : 'javascript:void(0);';
+                            const hrefImage = cfg.node.zoom ? 'ceres.getImage(this);' : null;
                             const hrefSlide = 'ceres.getSlide(this)';
 
                             const bodyNode = document.createElement('div');
@@ -480,7 +481,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 imgNode.appendChild(slideNode);
 
                                 if (cfg.node.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
-                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: srcImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
+                                rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 if (cfg.node.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
                             });
 
