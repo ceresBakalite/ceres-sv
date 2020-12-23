@@ -155,6 +155,16 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         return cache;
                                     }
 
+                                    if (name == 'evt') {
+
+                                        //const images = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
+                                        //const cache = item.includes('image') || rsc.getBoolean(item);
+
+                                        //if (cache && !rsc.ignore(images)) cfg.node.cacheimages = images;
+
+                                        return rsc.getBoolean(item);
+                                    }
+
                                     if (!Number.isInteger(parseInt(item))) {
 
                                         if (!rsc.getBoolean(item)) return false;
@@ -216,6 +226,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 cfg.node.local   = getProperty('local'); // local image list template elementId
                                 cfg.node.zoom    = getProperty('zoom'); // enabled
                                 cfg.node.delay   = getProperty('delay'); // default 250
+                                cfg.node.evt     = getProperty('evt'); // disabled
                                 cfg.node.sur     = getProperty('sur'); // disabled
                                 cfg.node.sub     = getProperty('sub'); // disabled
                                 cfg.node.auto    = getProperty('auto'); // disabled
