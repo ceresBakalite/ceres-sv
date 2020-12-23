@@ -157,11 +157,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     if (name == 'evt') {
 
-                                        //const images = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
-                                        //const cache = item.includes('image') || rsc.getBoolean(item);
-
-                                        //if (cache && !rsc.ignore(images)) cfg.node.cacheimages = images;
-
+                                        //provides a link to a user defined top level event that uses 'this' to perform an action
                                         return rsc.getBoolean(item);
                                     }
 
