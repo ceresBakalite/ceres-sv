@@ -609,7 +609,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             });
 
-                            return '[' + str.replace(reG, '') + ']'; // replcae trailing comma whitespace
+                            return '[' + str.replace(reG, '') + ']'; // replace trailing comma whitespace
                         }
 
                         const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
