@@ -671,7 +671,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 const precursor = this.docHead.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
                 const node = document.createElement(el.type);
 
-                Object.entries(atr).forEach(([key, value]) => { node.setAttribute(key, value); });
+                Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
                 if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
                 precursor.appendChild(node);
