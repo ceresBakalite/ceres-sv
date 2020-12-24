@@ -131,7 +131,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
                                         local   : factor || false,
-                                        zoom    : !factor || rsc.getBoolean(factor),
+                                        //zoom    : !factor || rsc.getBoolean(factor),
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
@@ -155,10 +155,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         return cache;
                                     }
 
-                                    if (name == 'evt') {
+                                    if (name == 'zoom') {
 
-                                        //provides a link to a user defined top level event that uses 'this' to perform an action
-                                        return rsc.getBoolean(item);
+                                        cfg.node.clickevent = atrArray.length > 1 ? atrArray[1]
+                                            : (item === true || item === false) ? null
+                                            : item;
+
+                                        return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
                                     }
 
                                     if (!Number.isInteger(parseInt(item))) {
