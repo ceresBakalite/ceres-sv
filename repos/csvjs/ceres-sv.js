@@ -123,6 +123,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const getProperty = name => {
 
                                     const factor = csvRoot.getAttribute(name);
+                                    const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
+                                    const regx     = /(\s+)?:(\s+)?/g;
+                                    const ar       = factor.replace(regx,':').split(',');
+                                    const atrArray = ar.map(item => item.trim());
+                                    const item     = atrArray[0];
 
                                     const evalAttribute = () => {
 
@@ -163,11 +168,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     if (property.hasOwnProperty(name)) return property[name];
                                     //if (!factor) { return (name == 'cache' || name == 'zoom') ? true : false; }
 
-                                    const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
-                                    const regx     = /(\s+)?:(\s+)?/g;
-                                    const ar       = factor.replace(regx,':').split(',');
-                                    const atrArray = ar.map(item => item.trim());
-                                    const item     = atrArray[0];
                                     /*
                                     if (name == 'cache') {
 
