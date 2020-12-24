@@ -155,8 +155,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     if (name == 'zoom') {
 
-                                        if (!rsc.getBoolean(item)) return false;
-                                        cfg.node.clickevent = atrArray.length > 1 ? atrArray[1] : rsc.getBoolean(item) ? null : item;
+                                        if (/^false$/i.test(item)) return false;
+                                        cfg.node.clickevent = atrArray.length > 1 ? atrArray[1] : /^true$/i.test(item) ? null : item;
 
                                         return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
                                     }
@@ -717,7 +717,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 if (obj === true || obj === false) return obj;
                 if (this.ignore(obj) || !this.isString(obj)) return false;
-                if (/^true$/i.test(obj) || /^false$/i.test(obj)) return !!obj;
 
                 return this.bool.includes(obj.trim().toUpperCase());
             }
