@@ -131,7 +131,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
                                         local   : factor || false,
-                                        //zoom    : !factor || rsc.getBoolean(factor),
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
@@ -156,13 +155,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     if (name == 'zoom') {
 
-console.log('hello from zoom: ' + item);
-
                                         if (/false/i.test(item)) return false;
-
-                                        cfg.node.clickevent = atrArray.length > 1 ? atrArray[1]
-                                            : /true/i.test(item) ? null
-                                            : item;
+                                        cfg.node.clickevent = atrArray.length > 1 ? atrArray[1] : /true/i.test(item) ? null : item;
 
                                         return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
                                     }
