@@ -137,7 +137,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     if (property.hasOwnProperty(name)) return property[name];
 
-                                    if (!factor) { return (name == 'cache' || name == 'zoom') ? true : false; }
+                                    if (!factor) {
+
+                                        console.log('name: ' + name)
+                                        return (name == 'cache' || name == 'zoom') ? true : false;
+                                    }
 
                                     //if (!factor && (name == 'cache' || name == 'zoom')) return true;
                                     //if (!factor) return false;
