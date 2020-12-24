@@ -164,9 +164,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     if (name == 'zoom') {
 
-console.log('hello from zoom');
+console.log('hello from zoom: ' + item);
                                         cfg.node.clickevent = atrArray.length > 1 ? atrArray[1]
-                                            : (item === true || item === false) ? null
+                                            : (item == 'true' || item == 'false') ? null
                                             : item;
 
                                         return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
@@ -233,7 +233,6 @@ console.log('hello from zoom');
                                 cfg.node.local   = getProperty('local'); // local image list template elementId
                                 cfg.node.zoom    = getProperty('zoom'); // enabled
                                 cfg.node.delay   = getProperty('delay'); // default 250
-                                cfg.node.evt     = getProperty('evt'); // disabled
                                 cfg.node.sur     = getProperty('sur'); // disabled
                                 cfg.node.sub     = getProperty('sub'); // disabled
                                 cfg.node.auto    = getProperty('auto'); // disabled
