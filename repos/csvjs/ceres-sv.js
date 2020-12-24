@@ -145,13 +145,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                             return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
                                         }
 
-                                        if (!Number.isInteger(parseInt(item))) {
-
-                                            if (!rsc.getBoolean(item)) return false;
-                                            if (atrArray.length > 1) atrArray.shift();
-                                        }
-
                                         if (name == 'auto') {
+
+                                            if (!Number.isInteger(parseInt(item))) {
+
+                                                if (!rsc.getBoolean(item)) return false;
+                                                if (atrArray.length > 1) atrArray.shift();
+                                            }
 
                                             cfg.node.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
                                             cfg.node.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
