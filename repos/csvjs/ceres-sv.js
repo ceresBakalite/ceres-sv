@@ -156,9 +156,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     if (name == 'zoom') {
 
-                                        if (/false/i.test(item)) return false;
 console.log('hello from zoom: ' + item);
 
+                                        if (/false/i.test(item)) return false;
 
                                         cfg.node.clickevent = atrArray.length > 1 ? atrArray[1]
                                             : /true/i.test(item) ? null
