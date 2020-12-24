@@ -124,25 +124,51 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     const factor = csvRoot.getAttribute(name);
 
+                                    const evalAttribute = () => {
+
+                                        if (!factor) { return (name == 'cache' || name == 'zoom') ? true : false; }
+
+                                        if (name == 'cache') {
+
+                                            const images = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
+                                            const cache = item.includes('image') || rsc.getBoolean(item);
+
+                                            if (cache && !rsc.ignore(images)) cfg.node.cacheimages = images;
+
+                                            return cache;
+                                        }
+
+                                        if (name == 'zoom') {
+
+                                            if (/^false$/i.test(item)) return false;
+                                            cfg.node.clickevent = atrArray.length > 1 ? atrArray[1] : /^true$/i.test(item) ? null : item;
+
+                                            return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
+                                        }
+
+                                    }
+
                                     const property = {
 
                                         nub     : !rsc.getBoolean(factor),
                                         fade    : !rsc.getBoolean(factor),
                                         trace   : rsc.getBoolean(factor),
+                                        cache   : evalAttribute(),
+                                        zoom    : evalAttribute(),
                                         loading : factor || 'auto',
                                         local   : factor || false,
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     }
 
                                     if (property.hasOwnProperty(name)) return property[name];
-                                    if (!factor) { return (name == 'cache' || name == 'zoom') ? true : false; }
+                                    //if (!factor) { return (name == 'cache' || name == 'zoom') ? true : false; }
 
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const regx     = /(\s+)?:(\s+)?/g;
                                     const ar       = factor.replace(regx,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
                                     const item     = atrArray[0];
-
+                                    /*
                                     if (name == 'cache') {
 
                                         const images = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
@@ -160,7 +186,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                         return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
                                     }
-
+                                    */
                                     if (!Number.isInteger(parseInt(item))) {
 
                                         if (!rsc.getBoolean(item)) return false;
