@@ -136,15 +136,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     }
 
                                     if (property.hasOwnProperty(name)) return property[name];
-
-                                    if (!factor) {
-
-                                        console.log('name: ' + name)
-                                        return (/cache/i.test(name) || /zoom/i.test(name)) ? true : false;
-                                    }
-
-                                    //if (!factor && (name == 'cache' || name == 'zoom')) return true;
-                                    //if (!factor) return false;
+                                    if (!factor) { return (name == 'cache' || name == 'zoom') ? true : false; }
 
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const regx     = /(\s+)?:(\s+)?/g;
@@ -152,7 +144,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     const atrArray = ar.map(item => item.trim());
                                     const item     = atrArray[0];
 
-                                    if (/cache/i.test(name)) {
+                                    if (name == 'cache') {
 
                                         const images = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
                                         const cache = item.includes('image') || rsc.getBoolean(item);
@@ -162,7 +154,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         return cache;
                                     }
 
-                                    if (/zoom/i.test(name)) {
+                                    if (name == 'zoom') {
 
 console.log('hello from zoom: ' + item);
                                         cfg.node.clickevent = atrArray.length > 1 ? atrArray[1]
@@ -178,7 +170,7 @@ console.log('hello from zoom: ' + item);
                                         if (atrArray.length > 1) atrArray.shift();
                                     }
 
-                                    if (/auto/i.test(name)) {
+                                    if (name == 'auto') {
 
                                         cfg.node.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
                                         cfg.node.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
