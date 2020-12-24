@@ -464,7 +464,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
                             const classlist = this.getClassList('slide');
-                            const hrefImage = cfg.node.zoom ? 'ceres.getImage(this);' : null;
+                            const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
                             const hrefSlide = 'ceres.getSlide(this)';
 
                             const bodyNode = document.createElement('div');
