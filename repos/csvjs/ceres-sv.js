@@ -123,7 +123,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const getProperty = name => {
 
                                     const factor = csvRoot.getAttribute(name);
-                                    const evaluate = (name == 'cache' || name == 'zoom' || name == 'auto');
+                                    const evaluate = (name == 'cache' || name == 'zoom');
 
                                     const evalAttribute = () => {
 
@@ -143,24 +143,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                             cfg.node.clickevent = atrArray.length > 1 ? atrArray[1] : /^true$/i.test(item) ? null : item;
 
                                             return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
-                                        }
-
-                                        if (name == 'auto') {
-
-                                            if (!Number.isInteger(parseInt(item))) {
-
-                                                if (!rsc.getBoolean(item)) return false;
-                                                if (atrArray.length > 1) atrArray.shift();
-                                            }
-
-                                            cfg.node.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
-                                            cfg.node.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
-                                            cfg.node.autocancel = cfg.node.autocycle > -1;
-
-                                            cfg.node.fade = cfg.node.autopause > 400;
-                                            cfg.node.nub  = 'false'; // typeof string
-
-                                            return true;
                                         }
 
                                     }
@@ -185,6 +167,24 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     const item     = atrArray[0];
 
                                     if (evaluate) return evalAttribute();
+
+                                    if (!Number.isInteger(parseInt(item))) {
+
+                                        if (!rsc.getBoolean(item)) return false;
+                                        if (atrArray.length > 1) atrArray.shift();
+                                    }
+
+                                    if (name == 'auto') {
+
+                                        cfg.node.autocycle  = Number.isInteger(parseInt(atrArray[0])) ? parseInt(atrArray[0]) : 10;
+                                        cfg.node.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
+                                        cfg.node.autocancel = cfg.node.autocycle > -1;
+
+                                        cfg.node.fade = cfg.node.autopause > 400;
+                                        cfg.node.nub  = 'false'; // typeof string
+
+                                        return true;
+                                    }
 
                                     const getStyle = () => {
 
