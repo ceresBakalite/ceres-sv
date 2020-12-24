@@ -166,7 +166,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     const atrArray = ar.map(item => item.trim());
                                     const item     = atrArray[0];
 
-                                    if (evaluate) evalAttribute();
+                                    if (evaluate) return evalAttribute();
 
                                     if (!Number.isInteger(parseInt(item))) {
 
