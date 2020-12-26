@@ -158,7 +158,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     };
 
                                     if (property.hasOwnProperty(name)) return property[name];
-                                    if (!factor) { return !!evaluate; };
+                                    if (!factor) return !!evaluate;
 
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const regx     = /(\s+)?:(\s+)?/g;
