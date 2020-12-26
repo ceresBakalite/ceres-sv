@@ -397,7 +397,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const insertCache = () => { // cache a range of response.status values (200, 304 etc)
 
-                                if (!window.hasOwnProperty('caches')) return;
+                                if (!globalThis.hasOwnProperty('caches')) return;
 
                                 const name = csv + '-cache';
                                 const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
