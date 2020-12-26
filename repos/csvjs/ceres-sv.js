@@ -69,7 +69,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback local template elements',
                         template   : 'Error: Unable to find the local fallback template element when searching the document body',
                         cache      : 'Warning: cache response status '
-                    }
+                    };
 
                     Object.freeze(remark);
 
@@ -109,7 +109,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     rsc.inspect({ type: rsc.notify, notification: remark.tagSearch, logtrace: cfg.node.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
-                                }
+                                };
 
                                 return el || 'undefined';
                             }
@@ -135,7 +135,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                             if (cache && !rsc.ignore(images)) cfg.node.cacheimages = images;
 
                                             return cache;
-                                        }
+                                        };
 
                                         if (name == 'zoom') {
 
@@ -143,7 +143,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                             cfg.node.clickevent = atrArray.length > 1 ? atrArray[1] : /^true$/i.test(item) ? null : item;
 
                                             return rsc.ignore(cfg.node.clickevent) ? rsc.getBoolean(item) : true;
-                                        }
+                                        };
 
                                     }
 
@@ -155,10 +155,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         loading : factor || 'auto',
                                         local   : factor || false,
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
-                                    }
+                                    };
 
                                     if (property.hasOwnProperty(name)) return property[name];
-                                    if (!factor) { return evaluate ? true : false; }
+                                    if (!factor) { return evaluate ? true : false; };
 
                                     const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const regx     = /(\s+)?:(\s+)?/g;
@@ -172,7 +172,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                         if (!rsc.getBoolean(item)) return false;
                                         if (atrArray.length > 1) atrArray.shift();
-                                    }
+                                    };
 
                                     if (name == 'auto') {
 
@@ -184,7 +184,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         cfg.node.nub  = 'false'; // typeof string
 
                                         return true;
-                                    }
+                                    };
 
                                     const getStyle = () => {
 
@@ -207,9 +207,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                                     const newGroup = group.replace(re, attribute.replace(regx,':') + ';');
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
-                                                }
+                                                };
 
-                                            }
+                                            };
 
                                         }
 
@@ -412,7 +412,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     });
 
-                                }
+                                };
 
                                 const urlArray = rsc.removeDuplcates(img.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
 
@@ -420,7 +420,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     fetch(url).then(response => {
 
-                                        if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.node.trace }); }
+                                        if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.node.trace }); };
                                         return caches.open(name).then(cache => { return cache.put(url, response); });
 
                                     });
@@ -618,7 +618,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(reH, '\\"') + '", '; }); // replace quotes with escaped quotes
                                     str = str.replace(reG, '') + ' },\n'; // replace trailing comma whitespace
-                                }
+                                };
 
                             });
 
@@ -703,7 +703,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         args.action = (touch.start > touch.end);
                         callback.call(this, args);
-                    }
+                    };
 
                 }, { passive: true });
 
