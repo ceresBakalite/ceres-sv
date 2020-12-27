@@ -19,6 +19,7 @@ Working well, but still very much in final development...
 [@ceresbakalite]: https://github.com/ceresbakalite
 
 <style>
+
 .img-pointer {
   max-width: 100%;
   vertical-align:bottom;
@@ -33,4 +34,32 @@ Working well, but still very much in final development...
   position: relative;
   z-index: -1;
 }
+
+.section-body-container {
+  display: table;
+  empty-cells: show;
+  border-collapse: collapse;
+  width: 100%;
+  height: 100%;
+}
+
+.section-frame-container {
+  height: 100%;
+  display: table-row;
+  box-shadow: inset 0px 11px 8px -10px rgba(0,0,0,0.19);
+  position: relative;
+}
+
+.section-frame-container::after
+{
+  height: 100%;
+  /* overflow: hidden; */
+}
+
+.section-frame-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 </style>
