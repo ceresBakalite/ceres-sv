@@ -1,6 +1,6 @@
 ## Welcome to ceres-sv
 
-### *Very simple multi-image slide viewer*<div id="logo-container"><img id="logo-default" title="No readable content. Just a page logo" class="img-logo" align="right" src="/images/CSV-02/Logo01.png"></div>
+### *Very simple multi-image slide viewer*<div id="logo-container"><img id="logo-default" title="No readable content. Just a page logo" class="img-logo" align="right" src="/ceres-sv/images/CSV-02/Logo01.png"></div>
 
 **ceres-sv** is a simple means to display a series of images as a sliding view.  
 
@@ -8,7 +8,7 @@
 
 ***
 
-### Data Repositories <img class="img-pointer" src="/images/CSVPeriscope.png">
+### Data Repositories <img class="img-pointer" src="/ceres-sv/images/CSVPeriscope.png">
 
 Working well, but still very much in final development...
 
