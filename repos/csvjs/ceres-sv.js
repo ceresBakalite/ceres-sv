@@ -57,8 +57,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 (function() { // methods belonging to the attribute object
 
-                    //const csv = csvRoot.tagName.toLocaleLowerCase();
-                    const csv = csvRoot.tagName;
+                    const csv = csvRoot.tagName.toLocaleLowerCase();
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
