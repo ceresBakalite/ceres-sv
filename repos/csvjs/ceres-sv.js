@@ -15,7 +15,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
     const rsc = {}; // the resource object namespace
     rscMethods(); // resource object methods
 
-    globalThis.customElements.define('CERES-SV', class extends HTMLElement { // ceres-sv global class
+    globalThis.customElements.define('ceres-sv', class extends HTMLElement { // ceres-sv global class
 
         async connectedCallback() {
 
