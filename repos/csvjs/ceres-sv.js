@@ -536,9 +536,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                     this.parseFile = text => {
 
-                        const str = rsc.fileType(cfg.src, 'json') ? this.parseText( this.parseJSON(text) )
-                            : rsc.fileType(cfg.src, 'csv') ? this.parseText( this.parseJSON( this.parseCSV( text, { json: true, nodes: ['url','sub','sur'] } )))
-                            : this.parseText(text);
+                        const str = rsc.fileType(cfg.src, 'json') ? this.parseJSON(text)
+                            : rsc.fileType(cfg.src, 'csv') ? this.parseJSON( this.parseCSV( text, { json: true, nodes: ['url','sub','sur'] } ))
+                            : text;
 
                         return this.parseText(str);
 
