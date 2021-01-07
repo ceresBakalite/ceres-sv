@@ -697,8 +697,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
                 touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
-                touch.node.addEventListener('touchend', e =>
-                {
+                touch.node.addEventListener('touchend', e => {
+                    
                     touch.end = e.changedTouches[0].screenX;
 
                     if (Math.abs(touch.start - touch.end) > touch.act) {
