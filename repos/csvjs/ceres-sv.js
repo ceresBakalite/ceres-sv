@@ -532,11 +532,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         //if (cfg.node.zoom) className += ' zoom';
                         //if (cfg.node.fade) className += ' fade';
 
-                        className = cfg.node.zoom ? className += ' zoom'
+                        return cfg.node.zoom ? className += ' zoom'
                             : cfg.node.fade ? className += ' fade'
                             : className += ' none';
 
-                        return className;
                     }
 
                     this.parseFile = text => {
