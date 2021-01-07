@@ -77,11 +77,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         hasContent: () => {
 
-                            //if (!this.content.properties()) return rsc.inspect({ type: rsc.error, notification: remark.properties });
-                            //if (!this.content.textList()) return rsc.inspect({ type: rsc.error, notification: remark.list });
-
-                            //return this.content.textArray();
-
                             return !this.content.properties() ? rsc.inspect({ type: rsc.error, notification: remark.properties })
                                 : !this.content.textList() ? rsc.inspect({ type: rsc.error, notification: remark.list })
                                 : this.content.textArray();
@@ -719,14 +714,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             this.ignore = obj => {
 
-                //if (obj === null || obj == 'undefined') return true;
-
-                //if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
-                //if (Array.isArray(obj)) return (obj.length === 0);
-                //if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
-
-                //return !obj;
-
                 return (obj === null || obj == 'undefined') ? true
                     : this.isString(obj) ? (obj.length === 0 || !obj.trim())
                     : Array.isArray(obj) ? (obj.length === 0)
@@ -735,11 +722,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             }
 
             this.getBoolean = obj => {
-
-                //if (obj === true || obj === false) return obj;
-                //if (this.ignore(obj) || !this.isString(obj)) return false;
-
-                //return this.bool.includes(obj.trim().toUpperCase());
 
                 return (obj === true || obj === false) ? obj
                     : (this.ignore(obj) || !this.isString(obj)) ? false
