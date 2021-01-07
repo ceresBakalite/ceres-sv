@@ -587,8 +587,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         const parseGroup = group => {
 
                             let newGroup = String(group)
-                                .replace(reC, '') // remove trailing quotes and commas
-                                .replace(reD, ''); // remove leading quotes
+                                .replace(reC, '') // remove trailing quotes & commas & whitespace
+                                .replace(reD, ''); // remove leading quotes & whitespace
 
                             newGroup = newGroup.replace(reE, '"'); // replace two ajoining double quotes with one double quote
 
@@ -618,12 +618,12 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     let rowArray = row.split(',');
 
                                     rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(reH, '\\"') + '", '; }); // replace quotes with escaped quotes
-                                    str = str.replace(reG, '') + ' },\n'; // replace trailing comma whitespace
+                                    str = str.replace(reG, '') + ' },\n'; // replace trailing comma & whitespace
                                 };
 
                             });
 
-                            return '[' + str.replace(reG, '') + ']'; // replace trailing comma whitespace
+                            return '[' + str.replace(reG, '') + ']'; // replace trailing comma & whitespace
                         }
 
                         const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
@@ -698,7 +698,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 touch.node.addEventListener('touchstart', e => { touch.start = e.changedTouches[0].screenX; }, { passive: true });
                 touch.node.addEventListener('touchmove', e => { e.preventDefault(); }, { passive: true });
                 touch.node.addEventListener('touchend', e => {
-                    
+
                     touch.end = e.changedTouches[0].screenX;
 
                     if (Math.abs(touch.start - touch.end) > touch.act) {
