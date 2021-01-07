@@ -77,14 +77,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         hasContent: () => {
 
-                            //if (!this.content.properties()) return rsc.inspect({ type: rsc.error, notification: remark.properties });
-                            //if (!this.content.textList()) return rsc.inspect({ type: rsc.error, notification: remark.list });
+                            if (!this.content.properties()) return rsc.inspect({ type: rsc.error, notification: remark.properties });
+                            if (!this.content.textList()) return rsc.inspect({ type: rsc.error, notification: remark.list });
 
-                            //return this.content.textArray();
-
-                            return !this.content.properties() ? rsc.inspect({ type: rsc.error, notification: remark.properties })
-                                : !this.content.textList() ? rsc.inspect({ type: rsc.error, notification: remark.list })
-                                : this.content.textArray();
+                            return this.content.textArray();
                         },
 
                         showContent: () => {
@@ -540,6 +536,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             : cfg.node.fade ? className += ' fade'
                             : className += ' none';
 
+                        return className;
                     }
 
                     this.parseFile = text => {
