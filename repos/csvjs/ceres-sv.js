@@ -529,14 +529,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         if (className != 'slide') return cfg.node.nub && cfg.node.auto ? className += ' none' : className;
 
-                        //if (cfg.node.zoom) className += ' zoom';
-                        //if (cfg.node.fade) className += ' fade';
+                        if (cfg.node.zoom) className += ' zoom';
+                        if (cfg.node.fade) className += ' fade';
 
-                        //return className += ' none';
-
-                        return cfg.node.zoom ? className += ' zoom'
-                            : cfg.node.fade ? className += ' fade'
-                            : className += ' none';
+                        return className += ' none';
 
                     };
 
