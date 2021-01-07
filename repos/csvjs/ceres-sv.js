@@ -529,21 +529,16 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         if (className != 'slide') return cfg.node.nub && cfg.node.auto ? className += ' none' : className;
 
-                        //if (cfg.node.zoom) className += ' zoom';
-                        //if (cfg.node.fade) className += ' fade';
+                        if (cfg.node.zoom) className += ' zoom';
+                        if (cfg.node.fade) className += ' fade';
 
-                        return cfg.node.zoom ? className += ' zoom'
-                            : cfg.node.fade ? className += ' fade'
-                            : className += ' none';
-
-                        return className;
+                        return className += ' none';
                     }
 
                     this.parseFile = text => {
 
-                        text = rsc.fileType(cfg.src, 'json') ? this.parseJSON(text)
-                            : rsc.fileType(cfg.src, 'csv') ? this.parseJSON( this.parseCSV( text, { json: true, nodes: ['url','sub','sur'] } ))
-                            : text;
+                        if (rsc.fileType(cfg.src, 'json')) text = this.parseJSON(text);
+                        if (rsc.fileType(cfg.src, 'csv')) text = this.parseJSON( this.parseCSV( text, { json: true, nodes: ['url','sub','sur'] } ));
 
                         return this.parseText(text);
                     }
