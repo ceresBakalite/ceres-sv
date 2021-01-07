@@ -542,7 +542,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             : text;
 
                         return this.parseText(str);
-
                     }
 
                     this.parseText = text => {
