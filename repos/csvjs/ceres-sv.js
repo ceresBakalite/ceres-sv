@@ -720,21 +720,33 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             this.ignore = obj => {
 
-                if (obj === null || obj == 'undefined') return true;
+                //if (obj === null || obj == 'undefined') return true;
 
-                if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
-                if (Array.isArray(obj)) return (obj.length === 0);
-                if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
+                //if (this.isString(obj)) return (obj.length === 0 || !obj.trim());
+                //if (Array.isArray(obj)) return (obj.length === 0);
+                //if (obj && obj.constructor === Object) return (Object.keys(obj).length === 0);
 
-                return !obj;
+
+                return (obj === null || obj == 'undefined') ? true
+                    : this.isString(obj) ? (obj.length === 0 || !obj.trim())
+                    : Array.isArray(obj) ? obj.length === 0
+                    : obj && obj.constructor === Object ? Object.keys(obj).length === 0
+                    : !obj;
+
+                //return !obj;
             }
 
             this.getBoolean = obj => {
 
-                if (obj === true || obj === false) return obj;
-                if (this.ignore(obj) || !this.isString(obj)) return false;
+                //if (obj === true || obj === false) return obj;
+                //if (this.ignore(obj) || !this.isString(obj)) return false;
 
-                return this.bool.includes(obj.trim().toUpperCase());
+                //return this.bool.includes(obj.trim().toUpperCase());
+
+                return (obj === true || obj === false) ? obj
+                    : (this.ignore(obj) || !this.isString(obj)) ? false
+                    : this.bool.includes(obj.trim().toUpperCase());
+
             }
 
             this.getUniqueId = obj => {
