@@ -57,7 +57,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 (function() { // methods belonging to the attribute object
 
-                    const csv = rsc.elementName({ node: csvRoot }); // the UTF-16 lowercase element name in the HTML namespace
+                    const csv = rsc.elementName(csvRoot); // the UTF-16 lowercase element name in the HTML namespace
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
@@ -262,7 +262,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const lightList = () => {
 
-                                    const text = rsc.elementName({ node: cfg.template }) != 'template' ? cfg.template.textContent : cfg.template.content.textContent;
+                                    const text = rsc.elementName(cfg.template) != 'template' ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.local + ']' });
 
                                     return this.parseText(text).replace(regex,'\n');
@@ -672,7 +672,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
-            this.elementName  = el => el.tag ? el.tag.tagName : el.node.nodeName;
+            this.elementName  = el => el.nodeName;
             //this.elementName  = el => { return el.tag ? el.tag.tagName : el.node.nodeName };
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
