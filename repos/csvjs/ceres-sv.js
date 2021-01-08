@@ -280,7 +280,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const parseList = () => {
 
                                     return remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
-                                        : csvRoot.id + ' - local nodename: ' + cfg.node.local) + ']' + rsc.newline + imageList
+                                        : csvRoot.id + ' - node name: ' + cfg.node.local) + ']' + rsc.newline + imageList
                                             .replaceAll(cfg.commaSymbol, '&comma;')
                                             .replace(/&lt;/g, '<')
                                             .replace(/&gt;/g, '>');
