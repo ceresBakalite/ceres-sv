@@ -779,7 +779,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 //for (let literal in string) str += literal + ': ' + string[literal] + ', ';
 
-                string.forEach((key, value) => { if (value) node.setAttribute(key, value); });
+                string.forEach((key, value) => str += key + ': ' + value + ', ');
 
                 return str.replace(/, +$/g,'');
             }
