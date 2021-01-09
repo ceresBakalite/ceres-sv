@@ -14,7 +14,7 @@ https://github.com/terser/terser
 
 *with source map*
 
-        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m reserved=['getImage','getSlide'] -f quote_style=1 --module --source-map  "root='https://ceresbakalite.github.io/ceres-sv/prod',url='ceres-sv.min.js.map'"
+        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m reserved=['getImage','getSlide'] -f quote_style=1 --module --source-map  "root='/prod',url='ceres-sv.min.js.map'"
 
 **Example 3**
 
