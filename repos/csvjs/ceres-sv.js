@@ -12,7 +12,7 @@
 globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namespace
 (() => {
 
-    rsc(); // resource object methods
+    rscMethods(); // resource object methods
 
     globalThis.customElements.define('ceres-sv', class extends HTMLElement { // ceres-sv global class
 
@@ -654,9 +654,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
     }); // end of the custom HTMLElement extension
 
-    const rsc = {}; // the resource object namespace
     //function rscMethods() {
+    function rscMethods() {
 
+        const rsc = {}; // the resource object namespace
         (function() { // methods belonging to the resource object
 
             this.reference = 1;
@@ -783,6 +784,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
         }).call(rsc); // end resource namespace
 
-//    }
+    }
 
 })();
