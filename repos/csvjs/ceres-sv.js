@@ -64,7 +64,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         markup     : 'Image list markup ',
                         element    : 'The element attributes ',
-                        tagSearch  : 'The ' + csv + ' src attribute url is unavailable and there is no \'local\' elementId. Looking for the first occurance of a <template> or <noscript> tagname',
+                        nodeSearch : 'The ' + csv + ' src attribute url is unavailable and there is no node name. Looking for the first occurance of a <template> or <noscript> tagname',
                         properties : 'Error: Unable to find the ' + csv + ' document element',
                         list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback local template elements',
                         template   : 'Error: Unable to find the local fallback template element when searching the document body',
@@ -106,7 +106,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (rsc.ignore(el)) {
 
-                                    rsc.inspect({ type: rsc.notify, notification: remark.tagSearch, logtrace: cfg.node.trace });
+                                    rsc.inspect({ type: rsc.notify, notification: remark.nodeSearch, logtrace: cfg.node.trace });
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 };
 
