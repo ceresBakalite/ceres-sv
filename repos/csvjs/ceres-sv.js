@@ -456,7 +456,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         body: () => {
 
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
-                            const setVideo    = () => !rsc.ignore(obj.ar[0]) ? rsc.video.includes(obj.ar[0].trim().toUpperCase()) : null;
+                            const setVideo    = () => !rsc.ignore(obj.ar[0]) ? rsc.video.includes(obj.ar[0].substring(obj.ar[0].lastIndexOf('.')+1, obj.ar[0].length).toLowerCase()) : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
