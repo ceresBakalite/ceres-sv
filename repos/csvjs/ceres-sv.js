@@ -682,7 +682,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
             this.video     = this.videotype.map(item => { return item.trim().toUpperCase(); });
+
             this.mediaType = new Map();
+            this.mediaType.set('mp4', 'video/mp4');
+            this.mediaType.set('ogg', 'video/ogg');
+            this.mediaType.set('webm', 'video/webm');
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.elementName  = el => el.nodeName.toLocaleLowerCase();
@@ -691,10 +695,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.getMediaType = path => { return mediaType.get(path.substring(path.lastIndexOf('.')+1, path.length).toLowerCase()); }
-
-            mediaType.set('mp4', 'video/mp4');
-            mediaType.set('ogg', 'video/ogg');
-            mediaType.set('webm', 'video/webm');
 
             this.composeElement = (el, atr) => {
 
