@@ -460,11 +460,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const composeMedia = () => {
 
-                                const getSubtitle = cfg.node.sub ? setSubtitle() : null;
-                                const getSurtitle = cfg.node.sur ? setSurtitle() : null;
+                                const setURL      = !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
                                 const setSubtitle = rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                                 const setSurtitle = rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                                const setURL      = !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
+                                const getSubtitle = cfg.node.sub ? setSubtitle() : null;
+                                const getSurtitle = cfg.node.sur ? setSurtitle() : null;
                                 const setLoading  = Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                                 const setVideo    = !rsc.ignore(obj.ar[0]) ? rsc.video.includes(obj.ar[0].trim().toUpperCase()) : null;
                                 const hrefImage   = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
