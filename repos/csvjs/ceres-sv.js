@@ -696,6 +696,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.getMediaType = path => { return this.mediaType.get(path.substring(path.lastIndexOf('.')+1, path.length).toLowerCase()); }
 
+            //rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType('https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.ogg') });
+
             this.composeElement = (el, atr) => {
 
                 if (this.ignore(el.nodeType)) return;
@@ -703,8 +705,22 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 const precursor = this.docHead.includes(el.nodeType.trim().toUpperCase()) ? document.head : (el.parent || document.body);
                 const node = document.createElement(el.nodeType);
 
-                Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
-                if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+                if (node.toLowerCase() === 'video') {
+
+                    if (atr.src) {
+
+                        if (atr.class) node.setAttribute('class',  atr.class);
+                        if (atr.onclick) node.setAttribute('onclick',  atr.onclick);
+                        if (atr.alt) node.setAttribute('alt',  atr.alt);
+
+                        node.insertAdjacentHTML('afterbegin', '<source src=\'' + atr.src + '\' type=\'' + atr.type + '\' >');
+                    }
+
+                } else {
+
+                    Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
+                    if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+                }
 
                 precursor.appendChild(node);
             }
