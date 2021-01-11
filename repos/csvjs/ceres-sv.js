@@ -456,7 +456,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         body: () => {
 
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
-                            const setVideo    = () => !rsc.ignore(obj.ar[0]) ? rsc.video.includes(obj.ar[0].substring(obj.ar[0].lastIndexOf('.')+1, obj.ar[0].length).toLowerCase()) : null;
+                            const setVideo    = () => !rsc.ignore(obj.ar[0]) ? rsc.videotype.includes(rsc.fileExt(obj.ar[0].toLowerCase())) : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
@@ -495,7 +495,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
-                                console.log('setVideo() - ' + setVideo() + ' - ' + obj.ar[0] + ' - ' + obj.ar[0].substring(obj.ar[0].lastIndexOf('.')+1, obj.ar[0].length).toLowerCase());
+                                console.log('setVideo() - ' + setVideo() + ' - ' + obj.ar[0] + ' - ' + rsc.fileExt(obj.ar[0].toLowerCase()));
 
                                 if (setVideo()) {
 
@@ -695,6 +695,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.elementName  = el => el.nodeName.toLocaleLowerCase();
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
+            this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
