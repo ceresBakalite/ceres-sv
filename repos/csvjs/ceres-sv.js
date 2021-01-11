@@ -685,10 +685,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.newline   = this.isWindows ? '\r\n' : '\n';
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
-//            this.video     = this.videotype.map(item => { return item.trim().toUpperCase(); });
+            this.video     = this.videotype.map(item => { return item.trim().toUpperCase(); });
 
             this.vt    = { mp4: 'video/mp4', ogg: 'video/ogg', webm: 'video/webm' };
-            this.video = this.vt.map(item => { return item.trim().toUpperCase(); });
+            //this.video = this.vt.map(item => { return item.trim().toUpperCase(); });
             this.mtest = this.vt.map((item, value) => { return this.mtest.set(item, value); });
 
             this.mediaType = new Map();
