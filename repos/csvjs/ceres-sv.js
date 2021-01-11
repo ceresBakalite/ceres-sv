@@ -498,8 +498,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 if (setVideo()) {
                                     rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType(obj.ar[0]) });
                                 } else {
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType('https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.ogg') });
-//                                    rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
+                                    //rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType('https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.ogg') });
+                                    rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 }
 
                                 if (cfg.node.sub) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
