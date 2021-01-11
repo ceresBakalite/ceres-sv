@@ -456,7 +456,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         body: () => {
 
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
-                            //const setVideo    = () => !rsc.ignore(obj.ar[0]) ? rsc.videotype.includes(rsc.fileExt(obj.ar[0].toLowerCase())) : null;
                             const setVideo    = () => !rsc.ignore(obj.ar[0]) ? rsc.mediaType.has(rsc.fileExt(obj.ar[0].toLowerCase())) : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
@@ -681,19 +680,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.error     = 99;
             this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
             this.elArray   = ['link', 'script', 'style'];
-            //this.videotype = ['mp4', 'ogg', 'webm'];
             this.isWindows = navigator.appVersion.indexOf('Win') != -1;
             this.newline   = this.isWindows ? '\r\n' : '\n';
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
 
-            this.mediaType = new Map();
-            this.mediaType.set('mp4', 'video/mp4');
-            this.mediaType.set('ogg', 'video/ogg');
-            this.mediaType.set('webm', 'video/webm');
-
-            //this.video        = this.videotype.map(item => { return item.trim().toUpperCase(); });
-            //this.video        = this.mediaType.keys();
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.elementName  = el => el.nodeName.toLocaleLowerCase();
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
@@ -703,7 +694,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.getMediaType = path => { return this.mediaType.get(path.substring(path.lastIndexOf('.')+1, path.length).toLowerCase()); }
 
-            //rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType('https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.ogg') });
+            this.mediaType = new Map();
+            this.mediaType.set('mp4', 'video/mp4');
+            this.mediaType.set('ogg', 'video/ogg');
+            this.mediaType.set('webm', 'video/webm');
 
             this.composeElement = (el, atr) => {
 
