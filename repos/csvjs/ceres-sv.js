@@ -481,7 +481,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             bodyNode.appendChild(trackNode);
 
-                            const obj = { index: 0, ar: [] };
+                            const obj = { index: 0, ar: [], media: null };
 
                             cfg.imageArray.forEach(item => {
 
@@ -493,17 +493,16 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 imgNode.appendChild(slideNode);
 
-                                console.log('is a video: ' + setVideo());
-
                                 if (cfg.node.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
-                                if (setVideo) {
+                                if (setVideo()) {
                                     rsc.composeElement({ type: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 } else {
                                     rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 }
 
                                 if (cfg.node.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
+
                             });
 
                             rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
