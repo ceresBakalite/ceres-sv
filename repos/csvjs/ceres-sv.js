@@ -714,6 +714,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                     if (atr.src) {
 
+                        node.setAttribute('controls', 'true');
+                        
                         if (atr.class) node.setAttribute('class',  atr.class);
                         if (atr.onclick) node.setAttribute('onclick',  atr.onclick);
                         if (atr.alt) node.setAttribute('alt',  atr.alt);
