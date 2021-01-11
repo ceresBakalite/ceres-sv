@@ -685,7 +685,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.newline   = this.isWindows ? '\r\n' : '\n';
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
-            this.video     = this.videotype.map(item => { return item.trim().toUpperCase(); });
+//            this.video     = this.videotype.map(item => { return item.trim().toUpperCase(); });
+
+            this.vt    = { mp4: 'video/mp4', ogg: 'video/ogg', webm: 'video/webm' };
+            this.video = this.vt.map(item => { return item.trim().toUpperCase(); });
+            this.mtest = this.vt.map((item, value) => { return this.mtest.set(item, value); });
 
             this.mediaType = new Map();
             this.mediaType.set('mp4', 'video/mp4');
@@ -699,7 +703,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-            this.getMediaType = path => { return this.mediaType.get(path.substring(path.lastIndexOf('.')+1, path.length).toLowerCase()); }
+            //this.getMediaType = path => { return this.mediaType.get(path.substring(path.lastIndexOf('.')+1, path.length).toLowerCase()); }
+            this.getMediaType = path => { return this.mtest.get(path.substring(path.lastIndexOf('.')+1, path.length).toLowerCase()); }
 
             //rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType('https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.ogg') });
 
@@ -715,7 +720,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                     if (atr.src) {
 
                         node.setAttribute('controls', 'true');
-                        
+
                         if (atr.class) node.setAttribute('class',  atr.class);
                         if (atr.onclick) node.setAttribute('onclick',  atr.onclick);
                         if (atr.alt) node.setAttribute('alt',  atr.alt);
