@@ -494,23 +494,23 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 imgNode.appendChild(slideNode);
 
-                                if (cfg.node.sur) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
+                                if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
                                 if (setVideo()) {
-                                    rsc.composeElement({ type: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), mediaType: getMedia() });
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: getMedia() });
                                 } else {
-                                    rsc.composeElement({ type: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), mediaType: getMedia() });
-//                                    rsc.composeElement({ type: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: getMedia() });
+//                                    rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 }
 
-                                if (cfg.node.sub) rsc.composeElement({ type: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
+                                if (cfg.node.sub) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
 
                             });
 
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
-                            rsc.composeElement({ type: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClassList('right'), onclick: hrefSlide });
+                            rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
+                            rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClassList('right'), onclick: hrefSlide });
 
-                            cfg.imageArray.forEach((item, i) => { rsc.composeElement({ type: 'span', parent: trackNode }, { id: 'nub' + ++i, class: 'nub', onclick: hrefSlide }); });
+                            cfg.imageArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { id: 'nub' + ++i, class: 'nub', onclick: hrefSlide }); });
 
                             cfg.shadow.appendChild(bodyNode);
                         }
@@ -693,10 +693,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             this.composeElement = (el, atr) => {
 
-                if (this.ignore(el.type)) return;
+                if (this.ignore(el.nodeType)) return;
 
-                const precursor = this.docHead.includes(el.type.trim().toUpperCase()) ? document.head : (el.parent || document.body);
-                const node = document.createElement(el.type);
+                const precursor = this.docHead.includes(el.nodeType.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+                const node = document.createElement(el.nodeType);
 
                 Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
                 if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
