@@ -495,7 +495,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
-                                console.log('setVideo() - ' + setVideo() + ' - ' + obj.ar[0]);
+                                console.log('setVideo() - ' + setVideo() + ' - ' + obj.ar[0] + ' - ' + obj.ar[0].substring(obj.ar[0].lastIndexOf('.')+1, obj.ar[0].length).toLowerCase());
 
                                 if (setVideo()) {
 
