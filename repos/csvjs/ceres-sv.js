@@ -705,7 +705,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 const precursor = this.docHead.includes(el.nodeType.trim().toUpperCase()) ? document.head : (el.parent || document.body);
                 const node = document.createElement(el.nodeType);
 
-                if (node.toLowerCase() === 'video') {
+                if (el.nodeType.trim().toLowerCase() === 'video') {
 
                     if (atr.src) {
 
