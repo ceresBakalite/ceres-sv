@@ -1,7 +1,7 @@
 <code id="ceres-csv">
 
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews02.png, Multi-panel view showing &quot; uncommitted&comma; comparison matches, Text Header 1
-    https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews04.png, Multi-panel&comma; view depicting&comma; abbreviations\, deletion, Text Header 2
+    https://www.w3schools.com/html/mov_bbb.mp4, Multi-panel&comma; view depicting&comma; abbreviations\, deletion, Text Header 2
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews01.png, Simple comparison &quot;representation&quot;&comma;, Text Header 3
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews03.png, Multi-panel view depicting abbreviations item editing, Text Header 4
     https://ceresbakalite.github.io/similarity/images/slide/NAVScreenViews05.png, Multi-panel view showing right panel matches flagged for removal, Text Header 5
