@@ -694,7 +694,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-            this.getMediaType = path => { return mediaType.get(path.substring(path.lastIndexOf('.')+1, path.length).toLowerCase()); }
+            this.getMediaType = path => { return this.mediaType.get(path.substring(path.lastIndexOf('.')+1, path.length).toLowerCase()); }
 
             this.composeElement = (el, atr) => {
 
