@@ -702,7 +702,22 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.mediaType.set('ogv', 'video/ogg');
             this.mediaType.set('webm', 'video/webm');
 
-            this.composeVideo = node => {
+            this.composeElement = (el, atr) => {
+
+                if (this.ignore(el.nodeType)) return;
+
+                const precursor = this.docHead.includes(el.nodeType.trim().toUpperCase()) ? document.head : (el.parent || document.body);
+                const node = document.createElement(el.nodeType);
+
+                Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
+                if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+
+                if (el.nodeType === 'video') this.composeVideo(node, el.src, el.type);
+
+                precursor.appendChild(node);
+            }
+
+            this.composeVideo = (node, src, type) => {
 
                 let playState = null;
 
@@ -739,28 +754,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 };
 
                 const source = document.createElement('source');
-                source.setAttribute('src', el.src);
-                source.setAttribute('type', el.type);
+                source.setAttribute('src', src);
+                source.setAttribute('type', type);
 
                 node.appendChild(source);
 
                 observer.observe(node);
                 node.addEventListener("visibilitychange", onVisibilityChange);
-            }
-
-            this.composeElement = (el, atr) => {
-
-                if (this.ignore(el.nodeType)) return;
-
-                const precursor = this.docHead.includes(el.nodeType.trim().toUpperCase()) ? document.head : (el.parent || document.body);
-                const node = document.createElement(el.nodeType);
-
-                Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
-                if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
-
-                if (el.nodeType === 'video') this.composeVideo(node);
-
-                precursor.appendChild(node);
             }
 
             this.setSwipe = (touch, callback, args) => { // horizontal swipe
