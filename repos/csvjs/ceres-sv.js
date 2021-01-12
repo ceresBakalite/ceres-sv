@@ -463,6 +463,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
+                            const classlist = this.getClassList('slide');
+                            const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
+                            const hrefSlide = 'ceres.getSlide(this)';
+
                             const composeNode = {
 
                                 video: () => {
@@ -477,10 +481,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 }
 
                             };
-
-                            const classlist = this.getClassList('slide');
-                            const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
-                            const hrefSlide = 'ceres.getSlide(this)';
 
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
@@ -509,7 +509,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
-                                setVideo() ? composeNode.video : composeNode.image;
+                                setVideo() ? composeNode.video() : composeNode.image();
 
                                 /*
                                 if (setVideo())
