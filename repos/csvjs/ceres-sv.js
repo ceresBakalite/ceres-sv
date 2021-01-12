@@ -463,6 +463,21 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
 
+                            const composeNode = {
+
+                                video: () => {
+
+                                    slideNode.classList.remove('zoom');
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
+                                },
+
+                                image: () => {
+
+                                    rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
+                                }
+
+                            };
+
                             const classlist = this.getClassList('slide');
                             const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
                             const hrefSlide = 'ceres.getSlide(this)';
@@ -494,7 +509,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
-                                if (setVideo()) {
+                                setVideo() ? composeNode.video : composeNode.image;
+
+                                /*
+                                if (setVideo())
 
                                     slideNode.classList.remove('zoom');
                                     rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
@@ -504,6 +522,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 }
+                                */
 
                                 if (cfg.node.sub) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
 
