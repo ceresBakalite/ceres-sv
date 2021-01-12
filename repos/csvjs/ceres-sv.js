@@ -467,21 +467,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
                             const hrefSlide = 'ceres.getSlide(this)';
 
-                            const composeNode = {
-
-                                video: () => {
-
-                                    slideNode.classList.remove('zoom');
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
-                                },
-
-                                image: () => {
-
-                                    rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
-                                }
-
-                            };
-
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
 
@@ -509,20 +494,15 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
-                                setVideo() ? composeNode.video() : composeNode.image();
-
-                                /*
-                                if (setVideo())
+                                if (setVideo()) {
 
                                     slideNode.classList.remove('zoom');
                                     rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
 
                                 } else {
 
-
                                     rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 }
-                                */
 
                                 if (cfg.node.sub) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
 
