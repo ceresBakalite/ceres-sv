@@ -708,23 +708,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 const precursor = this.docHead.includes(el.nodeType.trim().toUpperCase()) ? document.head : (el.parent || document.body);
                 const node = document.createElement(el.nodeType);
 
-                /*
-                if (el.nodeType.trim().toLowerCase() === 'video') {
-
-                    if (atr.src) {
-
-                        node.setAttribute('controls', 'true');
-
-                        if (atr.class) node.setAttribute('class',  atr.class);
-                        if (atr.onclick) node.setAttribute('onclick',  atr.onclick);
-                        if (atr.alt) node.setAttribute('alt',  atr.alt);
-
-                        node.insertAdjacentHTML('afterbegin', '<source src=\'' + atr.src + '\' type=\'' + atr.type + '\' >');
-                    }
-
-                } else {
-                */
-
                 Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
                 if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
