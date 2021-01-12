@@ -725,8 +725,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 }, {});
 
-                //const onVisibilityChange = () => { document.hidden ? node.pause() : node.play() };
-
                 const source = document.createElement('source');
                 source.setAttribute('src', src);
                 source.setAttribute('type', type);
@@ -734,7 +732,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 node.appendChild(source);
 
                 observer.observe(node);
-                //node.addEventListener("visibilitychange", onVisibilityChange);
             }
 
             this.setSwipe = (touch, callback, args) => { // horizontal swipe
