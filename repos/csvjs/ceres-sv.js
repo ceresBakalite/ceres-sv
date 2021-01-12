@@ -685,7 +685,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.newline   = this.isWindows ? '\r\n' : '\n';
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
-            this.playState = null;
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.elementName  = el => el.nodeName.toLocaleLowerCase();
@@ -715,14 +714,48 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 if (el.nodeType === 'video') {
 
+                    let playState = null;
+
+                    const observer = new IntersectionObserver((entries) => {
+
+                      entries.forEach((entry) => {
+
+                        if (!entry.isIntersecting) {
+
+                          node.pause();
+                          rsc.playState = false;
+
+                        } else {
+
+                          node.play();
+                          rsc.playState = true;
+                        }
+
+                      });
+
+                    }, {});
+
+                    const onVisibilityChange = () => {
+
+                      if (document.hidden || !rsc.playState) {
+
+                        node.pause();
+
+                      } else {
+
+                        node.play();
+                      }
+
+                    };
+
                     const source = document.createElement('source');
                     source.setAttribute('src', el.src);
                     source.setAttribute('type', el.type);
 
                     node.appendChild(source);
 
-                    rsc.observer.observe(node);
-                    node.addEventListener("visibilitychange", rsc.onVisibilityChange);
+                    observer.observe(node);
+                    node.addEventListener("visibilitychange", onVisibilityChange);
                 }
 
                 precursor.appendChild(node);
@@ -747,38 +780,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 }, { passive: true });
 
             }
-
-            this.observer = new IntersectionObserver((entries) => {
-
-              entries.forEach((entry) => {
-
-                if (!entry.isIntersecting) {
-
-                  video.pause();
-                  rsc.playState = false;
-
-                } else {
-
-                  video.play();
-                  rsc.playState = true;
-                }
-
-              });
-
-            }, {});
-
-            this.onVisibilityChange = () => {
-
-              if (document.hidden || !rsc.playState) {
-
-                video.pause();
-
-              } else {
-
-                video.play();
-              }
-
-            };
 
             this.ignore = obj => {
 
