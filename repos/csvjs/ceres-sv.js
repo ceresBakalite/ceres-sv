@@ -481,7 +481,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             bodyNode.appendChild(trackNode);
 
-                            const obj = { index: 0, ar: [], media: null };
+                            const obj = { index: 0, ar: [] };
 
                             cfg.imageArray.forEach(item => {
 
@@ -499,7 +499,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (setVideo()) {
 
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType(obj.ar[0]) });
+                                    //rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType(obj.ar[0]) });
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { class: 'slide', onclick: hrefVideo, autoplay: true, loop: true });
 
                                 } else {
 
@@ -706,6 +707,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 const precursor = this.docHead.includes(el.nodeType.trim().toUpperCase()) ? document.head : (el.parent || document.body);
                 const node = document.createElement(el.nodeType);
 
+                /*
                 if (el.nodeType.trim().toLowerCase() === 'video') {
 
                     if (atr.src) {
@@ -720,9 +722,18 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                     }
 
                 } else {
+                */
 
-                    Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
-                    if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+                Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
+                if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
+
+                if (el.nodeType === 'video') {
+
+                    const source = document.createElement('source');
+                    source.setAttribute('src', el.src);
+                    source.setAttribute('type', el.type);
+
+                    node.appendChild(source);
                 }
 
                 precursor.appendChild(node);
