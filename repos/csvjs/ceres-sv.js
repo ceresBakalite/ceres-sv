@@ -20,7 +20,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
         async connectedCallback() {
 
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
-            ceres.getVideo = el => rsc.srcOpen({ element: el, type: '_blank' }); // global scope method reference
+            ceres.getVideo = url => rsc.urlOpen(url); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
             const cfg = {}; // configuration object namespace
@@ -696,6 +696,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
+            this.urlOpen      = url => globalThis.open(url, '_blank');
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.getMediaType = path => { return this.mediaType.get(this.fileExt(path).toLowerCase()); }
 
