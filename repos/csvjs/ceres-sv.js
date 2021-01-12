@@ -494,8 +494,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
-                                console.log('setVideo() - ' + setVideo() + ' - ' + obj.ar[0] + ' - ' + rsc.fileExt(obj.ar[0].toLowerCase()) + ' - ' + hrefVideo());
-
                                 if (setVideo()) {
 
                                     slideNode.classList.remove('zoom');
