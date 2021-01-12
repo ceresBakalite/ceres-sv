@@ -512,8 +512,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             });
 
-                            rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
-                            rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClassList('right'), onclick: hrefSlide });
+                            if (cfg.imageArray.length > 1) {
+
+                                rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
+                                rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClassList('right'), onclick: hrefSlide });
+                            }
 
                             cfg.imageArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { id: 'nub' + ++i, class: 'nub', onclick: hrefSlide }); });
 
