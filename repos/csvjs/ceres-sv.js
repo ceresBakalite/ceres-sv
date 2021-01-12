@@ -721,11 +721,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 const observer = new IntersectionObserver((entries) => {
 
-                    entries.forEach((entry) => { if (!entry.isIntersecting) { node.pause(); } else { node.play(); } } );
+                    //entries.forEach(entry => { if (!entry.isIntersecting) { node.pause(); } else { node.play(); } } );
+                    entries.forEach(entry => { !entry.isIntersecting ? node.pause() : node.play() } );
 
                 }, {});
 
-                const onVisibilityChange = () => { if (document.hidden) { node.pause(); } else { node.play(); } };
+                //const onVisibilityChange = () => { if (document.hidden) { node.pause(); } else { node.play(); } };
+                const onVisibilityChange = () => { document.hidden ? node.pause() : node.play() };
 
                 const source = document.createElement('source');
                 source.setAttribute('src', src);
