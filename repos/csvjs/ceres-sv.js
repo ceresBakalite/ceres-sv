@@ -679,12 +679,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.warn      = 3;
             this.default   = 98;
             this.error     = 99;
-            this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes'];
+            this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes']; // typeof string element property
             this.elArray   = ['link', 'script', 'style'];
             this.isWindows = navigator.appVersion.indexOf('Win') != -1;
             this.newline   = this.isWindows ? '\r\n' : '\n';
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
+            this.playState = null;
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.elementName  = el => el.nodeName.toLocaleLowerCase();
@@ -697,7 +698,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             this.mediaType = new Map();
             this.mediaType.set('mp4', 'video/mp4');
+            this.mediaType.set('m4v', 'video/m4v');
             this.mediaType.set('ogg', 'video/ogg');
+            this.mediaType.set('ogv', 'video/ogg');
             this.mediaType.set('webm', 'video/webm');
 
             this.composeElement = (el, atr) => {
@@ -717,6 +720,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                     source.setAttribute('type', el.type);
 
                     node.appendChild(source);
+
+                    rsc.observer.observe(node);
+                    node.addEventListener("visibilitychange", rsc.onVisibilityChange);
                 }
 
                 precursor.appendChild(node);
@@ -741,6 +747,38 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 }, { passive: true });
 
             }
+
+            this.observer = new IntersectionObserver((entries) => {
+
+              entries.forEach((entry) => {
+
+                if (!entry.isIntersecting) {
+
+                  video.pause();
+                  rsc.playState = false;
+
+                } else {
+
+                  video.play();
+                  rsc.playState = true;
+                }
+
+              });
+
+            }, {});
+
+            this.onVisibilityChange = () => {
+
+              if (document.hidden || !rsc.playState) {
+
+                video.pause();
+
+              } else {
+
+                video.play();
+              }
+
+            };
 
             this.ignore = obj => {
 
