@@ -456,7 +456,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         body: () => {
 
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
-                            const setVideo    = () => !rsc.ignore(obj.ar[0]) ? rsc.mediaType.has(rsc.fileExt(obj.ar[0].toLowerCase())) : null;
+                            const setVideo    = () => !rsc.ignore(obj.ar[0]) ? rsc.media.has(rsc.fileExt(obj.ar[0].toLowerCase())) : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
@@ -497,7 +497,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 if (setVideo()) {
 
                                     slideNode.classList.remove('zoom');
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.mediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
 
                                 } else {
 
@@ -688,19 +688,19 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
             this.elementName  = el => el.nodeName.toLocaleLowerCase();
+            this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
+            this.mediaType    = path => { return this.media.get(this.fileExt(path).toLowerCase()); }
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
-            this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-            this.getMediaType = path => { return this.mediaType.get(this.fileExt(path).toLowerCase()); }
 
-            this.mediaType = new Map();
-            this.mediaType.set('mp4', 'video/mp4');
-            this.mediaType.set('m4v', 'video/m4v');
-            this.mediaType.set('ogg', 'video/ogg');
-            this.mediaType.set('ogv', 'video/ogg');
-            this.mediaType.set('webm', 'video/webm');
+            this.media = new Map();
+            this.media.set('mp4', 'video/mp4');
+            this.media.set('m4v', 'video/m4v');
+            this.media.set('ogg', 'video/ogg');
+            this.media.set('ogv', 'video/ogg');
+            this.media.set('webm', 'video/webm');
 
             this.composeElement = (el, atr) => {
 
