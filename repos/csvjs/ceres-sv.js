@@ -500,7 +500,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 if (setVideo()) {
 
                                     //rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType(obj.ar[0]) });
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { class: 'slide', onclick: hrefVideo, autoplay: true, loop: true });
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
 
                                 } else {
 
