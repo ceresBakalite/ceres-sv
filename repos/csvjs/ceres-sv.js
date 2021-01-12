@@ -702,6 +702,52 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.mediaType.set('ogv', 'video/ogg');
             this.mediaType.set('webm', 'video/webm');
 
+            this.composeVideo = node => {
+
+                let playState = null;
+
+                const observer = new IntersectionObserver((entries) => {
+
+                    entries.forEach((entry) => {
+
+                      if (!entry.isIntersecting) {
+
+                          node.pause();
+                          rsc.playState = false;
+
+                      } else {
+
+                          node.play();
+                          rsc.playState = true;
+                      }
+
+                    });
+
+                }, {});
+
+                const onVisibilityChange = () => {
+
+                    if (document.hidden || !rsc.playState) {
+
+                        node.pause();
+
+                    } else {
+
+                        node.play();
+                    }
+
+                };
+
+                const source = document.createElement('source');
+                source.setAttribute('src', el.src);
+                source.setAttribute('type', el.type);
+
+                node.appendChild(source);
+
+                observer.observe(node);
+                node.addEventListener("visibilitychange", onVisibilityChange);
+            }
+
             this.composeElement = (el, atr) => {
 
                 if (this.ignore(el.nodeType)) return;
@@ -712,51 +758,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
                 if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
-                if (el.nodeType === 'video') {
-
-                    let playState = null;
-
-                    const observer = new IntersectionObserver((entries) => {
-
-                      entries.forEach((entry) => {
-
-                        if (!entry.isIntersecting) {
-
-                          node.pause();
-                          rsc.playState = false;
-
-                        } else {
-
-                          node.play();
-                          rsc.playState = true;
-                        }
-
-                      });
-
-                    }, {});
-
-                    const onVisibilityChange = () => {
-
-                      if (document.hidden || !rsc.playState) {
-
-                        node.pause();
-
-                      } else {
-
-                        node.play();
-                      }
-
-                    };
-
-                    const source = document.createElement('source');
-                    source.setAttribute('src', el.src);
-                    source.setAttribute('type', el.type);
-
-                    node.appendChild(source);
-
-                    observer.observe(node);
-                    node.addEventListener("visibilitychange", onVisibilityChange);
-                }
+                if (el.nodeType === 'video') this.composeVideo(node);
 
                 precursor.appendChild(node);
             }
