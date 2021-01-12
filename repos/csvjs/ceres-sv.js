@@ -710,8 +710,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 const node = document.createElement(el.nodeType);
 
                 Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
-                if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
 
+                if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
                 if (el.nodeType === 'video') this.composeVideo(node, el.src, el.type);
 
                 precursor.appendChild(node);
