@@ -465,6 +465,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
                             const hrefVideo   = () => cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getVideo(\'' + obj.ar[0] + '\')' : cfg.node.clickevent : null;
 
+
                             const classlist = this.getClassList('slide');
                             const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
                             const hrefSlide = 'ceres.getSlide(this)';
@@ -496,11 +497,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
 
-                                console.log('setVideo() - ' + setVideo() + ' - ' + obj.ar[0] + ' - ' + rsc.fileExt(obj.ar[0].toLowerCase()));
+                                console.log('setVideo() - ' + setVideo() + ' - ' + obj.ar[0] + ' - ' + rsc.fileExt(obj.ar[0].toLowerCase()) + ' - ' + hrefVideo());
 
                                 if (setVideo()) {
 
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false, onclick: hrefVideo });
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false, onclick: hrefVideo() });
 
                                 } else {
 
