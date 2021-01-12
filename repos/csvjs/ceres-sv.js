@@ -20,7 +20,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
         async connectedCallback() {
 
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
-            ceres.getVideo = url => rsc.urlOpen(url); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
             const cfg = {}; // configuration object namespace
@@ -463,8 +462,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            const hrefVideo   = () => cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getVideo(\'' + obj.ar[0] + '\')' : cfg.node.clickevent : null;
-
 
                             const classlist = this.getClassList('slide');
                             const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
@@ -501,7 +498,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (setVideo()) {
 
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false, onclick: hrefVideo() });
+                                    slideNode.classList.remove('zoom');
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
 
                                 } else {
 
@@ -697,7 +695,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
-            this.urlOpen      = url => globalThis.open(url, '_blank');
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.getMediaType = path => { return this.mediaType.get(this.fileExt(path).toLowerCase()); }
 
