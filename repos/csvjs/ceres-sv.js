@@ -20,6 +20,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
         async connectedCallback() {
 
             ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
+            ceres.getVideo = el => rsc.srcOpen({ element: el, type: 'video' }); // global scope method reference
             ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
 
             const cfg = {}; // configuration object namespace
@@ -500,9 +501,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 if (setVideo()) {
 
                                     //rsc.composeElement({ nodeType: 'video', parent: slideNode }, { class: 'slide', onclick: hrefVideo, src: setURL(), alt: setSubtitle(), type: rsc.getMediaType(obj.ar[0]) });
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
-
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.getMediaType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false, onclick: hrefVideo });
                                 } else {
+
 
                                     rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: hrefImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
                                 }
