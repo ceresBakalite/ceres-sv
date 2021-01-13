@@ -601,7 +601,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         const parseGroup = group => {
 
-                            const newGroup = String(group)
+                            let newGroup = String(group)
                                 .replace(reC, '') // remove trailing quotes & commas & whitespace
                                 .replace(reD, ''); // remove leading quotes & whitespace
 
@@ -612,7 +612,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         const parseRow = row => {
 
-                            const newRow = row.replace(reA, ''); // remove end symbols at the end of a row
+                            let newRow = row.replace(reA, ''); // remove end symbols at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
 
                             return newRow.replace(reF, ', '); // replace comma & surrounding whitespace
