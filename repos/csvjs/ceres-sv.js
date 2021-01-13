@@ -455,13 +455,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         body: () => {
 
-                            const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
-                            const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
                             const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.media.has(rsc.fileExt(obj.ar[0].toLowerCase()));
+                            const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
+                            const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
 
                             const classlist = this.getClassList('slide');
                             const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
@@ -686,12 +686,12 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
 
-            this.clearElement = el => { while (el.firstChild) el.removeChild(el.firstChild); }
-            this.elementName  = el => el.nodeName.toLocaleLowerCase();
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
-            this.mediaType    = path => { return this.media.get(this.fileExt(path).toLowerCase()); }
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
+            this.mediaType    = path => { return this.media.get(this.fileExt(path).toLowerCase()); }
+            this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
+            this.elementName  = node => node.nodeName.toLocaleLowerCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
 
@@ -702,26 +702,26 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.media.set('ogv', 'video/ogg');
             this.media.set('webm', 'video/webm');
 
-            this.composeElement = (el, atr) => {
+            this.composeElement = (obj, atr) => {
 
-                if (this.ignore(el.nodeType)) return;
+                if (this.ignore(obj.nodeType)) return;
 
-                const precursor = this.docHead.includes(el.nodeType.trim().toUpperCase()) ? document.head : (el.parent || document.body);
-                const node = document.createElement(el.nodeType);
+                const precursor = this.docHead.includes(obj.nodeType.trim().toUpperCase()) ? document.head : (obj.parent || document.body);
+                const node = document.createElement(obj.nodeType);
 
                 Object.entries(atr).forEach(([key, value]) => { if (value) node.setAttribute(key, value); });
 
-                if (el.markup) node.insertAdjacentHTML('afterbegin', el.markup);
-                if (el.nodeType === 'video') this.composeVideo(node, el.src, el.type);
+                if (obj.markup) node.insertAdjacentHTML('afterbegin', obj.markup);
+                if (obj.nodeType === 'video') this.composeVideo(node, obj.src, obj.type);
 
                 precursor.appendChild(node);
             }
 
             this.composeVideo = (node, src, type) => {
 
-                const observer = new IntersectionObserver((entries) => {
+                const observer = new IntersectionObserver(entries => {
 
-                    entries.forEach(entry => { !entry.isIntersecting ? node.pause() : node.play() } );
+                    entries.forEach(entry => { entry.isIntersecting ? node.play() : node.pause() });
 
                 }, {});
 
