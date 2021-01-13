@@ -459,7 +459,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.videoMedium.has(rsc.fileExt(obj.ar[0].toLowerCase()));
+                            const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.media.has(rsc.fileExt(obj.ar[0].toLowerCase()));
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
 
@@ -497,7 +497,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 if (videoMedia()) {
 
                                     slideNode.classList.remove('zoom');
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.videoType(obj.ar[0]) }, { width: '100%', autoplay: true });
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.mediaType(obj.ar[0]) }, { width: '100%', autoplay: true });
 
                                 } else {
 
@@ -679,7 +679,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.warn      = 3;
             this.default   = 98;
             this.error     = 99;
-            this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes']; // typeof string element property
+            this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes']; // typeof string property
             this.elArray   = ['link', 'script', 'style'];
             this.isWindows = navigator.appVersion.indexOf('Win') != -1;
             this.newline   = this.isWindows ? '\r\n' : '\n';
@@ -689,18 +689,18 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
-            this.videoType    = path => { return this.videoMedium.get(this.fileExt(path).toLowerCase()); }
+            this.mediaType    = path => { return this.media.get(this.fileExt(path).toLowerCase()); }
             this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
             this.elementName  = node => node.nodeName.toLocaleLowerCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
 
-            this.videoMedium = new Map();
-            this.videoMedium.set('mp4', 'video/mp4');
-            this.videoMedium.set('m4v', 'video/m4v');
-            this.videoMedium.set('ogg', 'video/ogg');
-            this.videoMedium.set('ogv', 'video/ogg');
-            this.videoMedium.set('webm', 'video/webm');
+            this.media = new Map();
+            this.media.set('mp4', 'video/mp4');
+            this.media.set('m4v', 'video/m4v');
+            this.media.set('ogg', 'video/ogg');
+            this.media.set('ogv', 'video/ogg');
+            this.media.set('webm', 'video/webm');
 
             this.composeElement = (obj, atr) => {
 
