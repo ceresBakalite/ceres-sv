@@ -587,7 +587,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                     this.parseCSV = (text, symbol = {}) => {
 
                         const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
-                        const newArray  = new Array(textArray.length);
+                        const newArray  = new Array(textArray.length * 2);
                         const endSymbol = '_&grp;';
 
                         const reA = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
