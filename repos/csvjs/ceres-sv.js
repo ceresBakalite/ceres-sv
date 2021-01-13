@@ -459,7 +459,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.video.has(rsc.fileExt(obj.ar[0].toLowerCase()));
+                            const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.videoMedium.has(rsc.fileExt(obj.ar[0].toLowerCase()));
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const setURL      = () => !rsc.ignore(obj.ar[0]) ? obj.ar[0].trim() : null;
 
@@ -689,18 +689,18 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
-            this.videoType    = path => { return this.video.get(this.fileExt(path).toLowerCase()); }
+            this.videoType    = path => { return this.videoMedium.get(this.fileExt(path).toLowerCase()); }
             this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
             this.elementName  = node => node.nodeName.toLocaleLowerCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
 
-            this.video = new Map();
-            this.video.set('mp4', 'video/mp4');
-            this.video.set('m4v', 'video/m4v');
-            this.video.set('ogg', 'video/ogg');
-            this.video.set('ogv', 'video/ogg');
-            this.video.set('webm', 'video/webm');
+            this.videoMedium = new Map();
+            this.videoMedium.set('mp4', 'video/mp4');
+            this.videoMedium.set('m4v', 'video/m4v');
+            this.videoMedium.set('ogg', 'video/ogg');
+            this.videoMedium.set('ogv', 'video/ogg');
+            this.videoMedium.set('webm', 'video/webm');
 
             this.composeElement = (obj, atr) => {
 
