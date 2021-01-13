@@ -497,7 +497,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 if (videoMedia()) {
 
                                     slideNode.classList.remove('zoom');
-                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.videoType(obj.ar[0]) }, { width: '100%', autoplay: true, loop: false });
+                                    rsc.composeElement({ nodeType: 'video', parent: slideNode, src: setURL(), type: rsc.videoType(obj.ar[0]) }, { width: '100%', autoplay: true });
 
                                 } else {
 
