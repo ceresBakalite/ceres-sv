@@ -690,8 +690,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.isVideo      = path => this.media.has(this.fileExt(path).toLowerCase());
             this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
-            this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
             this.elementName  = node => node.nodeName.toLocaleLowerCase();
+            this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
 
             this.media = new Map();
             this.media.set('mp4', 'video/mp4');
@@ -752,21 +752,16 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             }
 
-            this.ignore = obj => {
+            this.ignore = obj => (obj === null || obj == 'undefined') ? true
+                : this.isString(obj) ? (obj.length === 0 || !obj.trim())
+                : Array.isArray(obj) ? (obj.length === 0)
+                : (obj && obj.constructor === Object) ? Object.keys(obj).length === 0
+                : !obj;
 
-                return (obj === null || obj == 'undefined') ? true
-                    : this.isString(obj) ? (obj.length === 0 || !obj.trim())
-                    : Array.isArray(obj) ? (obj.length === 0)
-                    : (obj && obj.constructor === Object) ? Object.keys(obj).length === 0
-                    : !obj;
-            }
 
-            this.getBoolean = obj => {
-
-                return (obj === true || obj === false) ? obj
-                    : (this.ignore(obj) || !this.isString(obj)) ? false
-                    : this.bool.includes(obj.trim().toUpperCase());
-            }
+            this.getBoolean = obj => (obj === true || obj === false) ? obj
+                : (this.ignore(obj) || !this.isString(obj)) ? false
+                : this.bool.includes(obj.trim().toUpperCase());
 
             this.getUniqueId = obj => {
 
@@ -787,12 +782,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 return sort ? ar.sort((a, b) => a - b) : ar;
             }
 
-            this.softSanitize = (text, type = 'text/html') => {
-
-                return this.ignore(text) ? null : new DOMParser()
-                    .parseFromString(text, type).documentElement.textContent
-                    .replace(/</g, '&lt;');
-            }
+            this.softSanitize = (text, type = 'text/html') => this.ignore(text) ? null : new DOMParser()
+                .parseFromString(text, type).documentElement.textContent
+                .replace(/</g, '&lt;');
 
             this.inspect = diagnostic => {
 
