@@ -19,8 +19,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
         async connectedCallback() {
 
-            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // global scope method reference
-            ceres.getSlide = el => atr.get.slide({ node: el }); // global scope method reference
+            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // html namespace method reference
+            ceres.getSlide = el => atr.get.slide({ node: el }); // html namespace method reference
 
             const cfg = {}; // configuration object namespace
             const atr = {}; // attribute object namespace
