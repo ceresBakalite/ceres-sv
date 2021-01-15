@@ -254,7 +254,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const getImageList = () => {
 
-                                const shadowList = csvRoot.textContent.replace(regex,'\n') || null;
+                                const shadowList = () => { return csvRoot.textContent.replace(regex,'\n') || null; }
 
                                 const lightList = () => {
 
