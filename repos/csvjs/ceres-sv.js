@@ -161,7 +161,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     const reA      = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
                                     const reB      = /(\s+)?:(\s+)?/g;
-                                    const ar       = factor.replace(regx,':').split(',');
+                                    const ar       = factor.replace(reB,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
                                     const item     = atrArray[0];
 
