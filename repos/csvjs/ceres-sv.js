@@ -537,7 +537,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                     this.getClassList = className => {
 
-                        if (className != 'slide') return cfg.node.nub && cfg.node.auto ? className += ' none' : className;
+                        if (className != 'slide') return (cfg.node.nub && cfg.node.auto) || cfg.imageArray.length < 2 ? className += ' none' : className;
 
                         if (cfg.node.zoom) className += ' zoom';
                         if (cfg.node.fade) className += ' fade';
