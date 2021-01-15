@@ -686,12 +686,12 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
-            this.mediaType    = path => { return this.media.get(this.fileExt(path).toLowerCase()); }
-            this.isVideo      = path => { return this.media.has(this.fileExt(path).toLowerCase()) };
+            this.mediaType    = path => this.media.get(this.fileExt(path).toLowerCase());
+            this.isVideo      = path => this.media.has(this.fileExt(path).toLowerCase());
+            this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
+            this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
             this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
             this.elementName  = node => node.nodeName.toLocaleLowerCase();
-            this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
-            this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
 
             this.media = new Map();
             this.media.set('mp4', 'video/mp4');
