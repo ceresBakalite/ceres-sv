@@ -242,7 +242,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             return getCSVRootProperties();
                         },
 
-                        textList: () => (cfg.srcRoot || cfg.template),
+                        textList: () => cfg.srcRoot || cfg.template,
 
                         textArray: () => {
 
