@@ -159,8 +159,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     if (property.hasOwnProperty(name)) return property[name];
                                     if (!factor) return !!evaluate;
 
-                                    const regex    = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
-                                    const regx     = /(\s+)?:(\s+)?/g;
+                                    const reA      = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
+                                    const reB      = /(\s+)?:(\s+)?/g;
                                     const ar       = factor.replace(regx,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
                                     const item     = atrArray[0];
@@ -191,20 +191,20 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                         const setStyleAttribute = attribute => {
 
-                                            const re = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
+                                            const reC = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
                                                 : Boolean(attribute.match(/top:/i)) ? /top[^&]*?;/i
                                                 : Boolean(attribute.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
-                                            if (!rsc.ignore(re)) {
+                                            if (!rsc.ignore(reC)) {
 
-                                                const group = String(cfg.shadowStyle.match(regex));
+                                                const group = String(cfg.shadowStyle.match(reA));
 
                                                 if (group) {
 
-                                                    const newGroup = group.replace(re, attribute.replace(regx,':') + ';');
+                                                    const newGroup = group.replace(reC, attribute.replace(reB,':') + ';');
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 };
 
