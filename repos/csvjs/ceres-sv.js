@@ -180,7 +180,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         cfg.node.autocancel = cfg.node.autocycle > -1;
 
                                         cfg.node.fade = cfg.node.autopause > 400;
-                                        cfg.node.nub  = 'false'; // typeof string
+                                        cfg.node.nub  = 'false'; // typeof string property
 
                                         return true;
                                     };
