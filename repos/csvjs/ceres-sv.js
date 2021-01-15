@@ -457,7 +457,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setURL      = () => rsc.ignore(obj.ar[0]) ? null : obj.ar[0].trim();
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
                             const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.media.has(rsc.fileExt(obj.ar[0].toLowerCase()));
+                            const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.isVideo(obj.ar[0]);
 
                             const classlist = this.getClassList('slide');
                             const hrefImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
@@ -687,6 +687,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
             this.mediaType    = path => { return this.media.get(this.fileExt(path).toLowerCase()); }
+            this.isVideo      = path => { return this.media.has(this.fileExt(path).toLowerCase()) };
             this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
             this.elementName  = node => node.nodeName.toLocaleLowerCase();
             this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
