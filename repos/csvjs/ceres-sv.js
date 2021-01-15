@@ -693,6 +693,20 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.elementName  = node => node.nodeName.toLocaleLowerCase();
             this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
 
+            this.softSanitize = (text, type = 'text/html') => this.ignore(text) ? null : new DOMParser()
+                .parseFromString(text, type).documentElement.textContent
+                .replace(/</g, '&lt;');
+
+            this.ignore = obj => (obj === null || obj == 'undefined') ? true
+                : this.isString(obj) ? (obj.length === 0 || !obj.trim())
+                : Array.isArray(obj) ? (obj.length === 0)
+                : (obj && obj.constructor === Object) ? Object.keys(obj).length === 0
+                : !obj;
+
+            this.getBoolean = obj => (obj === true || obj === false) ? obj
+                : (this.ignore(obj) || !this.isString(obj)) ? false
+                : this.bool.includes(obj.trim().toUpperCase());
+
             this.media = new Map();
             this.media.set('mp4', 'video/mp4');
             this.media.set('m4v', 'video/m4v');
@@ -752,17 +766,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             }
 
-            this.ignore = obj => (obj === null || obj == 'undefined') ? true
-                : this.isString(obj) ? (obj.length === 0 || !obj.trim())
-                : Array.isArray(obj) ? (obj.length === 0)
-                : (obj && obj.constructor === Object) ? Object.keys(obj).length === 0
-                : !obj;
-
-
-            this.getBoolean = obj => (obj === true || obj === false) ? obj
-                : (this.ignore(obj) || !this.isString(obj)) ? false
-                : this.bool.includes(obj.trim().toUpperCase());
-
             this.getUniqueId = obj => {
 
                 if (!obj.name) obj.name = 'n';
@@ -781,10 +784,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 return sort ? ar.sort((a, b) => a - b) : ar;
             }
-
-            this.softSanitize = (text, type = 'text/html') => this.ignore(text) ? null : new DOMParser()
-                .parseFromString(text, type).documentElement.textContent
-                .replace(/</g, '&lt;');
 
             this.inspect = diagnostic => {
 
