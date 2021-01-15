@@ -273,14 +273,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (rsc.ignore(imageList)) return false;
 
-                                const parseList = () => {
-
-                                    return remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
-                                        : csvRoot.id + ' - Node name: ' + cfg.node.local) + ']' + rsc.newline + imageList
-                                            .replaceAll(cfg.commaSymbol, '&comma;')
-                                            .replace(/&lt;/g, '<')
-                                            .replace(/&gt;/g, '>');
-                                }
+                                const parseList = () => remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
+                                    : csvRoot.id + ' - Node name: ' + cfg.node.local) + ']' + rsc.newline + imageList
+                                        .replaceAll(cfg.commaSymbol, '&comma;')
+                                        .replace(/&lt;/g, '<')
+                                        .replace(/&gt;/g, '>');
 
                                 rsc.inspect({ type: rsc.notify, notification: parseList(), logtrace: cfg.node.trace });
                                 cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
@@ -555,13 +552,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         return this.parseText(str);
                     }
 
-                    this.parseText = text => {
-
-                        return rsc.softSanitize(text
-                            .replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol)
-                            .replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''))
-                            .trim();
-                    }
+                    this.parseText = text => rsc.softSanitize(text
+                        .replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol)
+                        .replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''))
+                        .trim();
 
                     this.parseJSON = text => {
 
