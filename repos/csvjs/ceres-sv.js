@@ -683,7 +683,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
             this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
 
-            this.fileType     = (path, type) => path.substring(path.lastIndexOf('.')+1, path.length).toUpperCase() === type.toUpperCase();
+            this.fileType     = (path, type) => this.fileExt(path).toUpperCase() === type.toUpperCase();
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
             this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
             this.mediaType    = path => this.media.get(this.fileExt(path).toLowerCase());
