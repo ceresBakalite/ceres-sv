@@ -807,7 +807,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                     [this.notify]    : () => { if (diagnostic.logtrace) console.info(diagnostic.notification); },
                     [this.warn]      : () => { if (diagnostic.logtrace) console.warn(diagnostic.notification); },
-                    [this.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.reference); },
+                    [this.reference] : () => { if (diagnostic.logtrace) console.log('Reference: ' + this.newline + this.newline + diagnostic.notification); },
                     [this.error]     : () => errorHandler({ notification: diagnostic.notification, alert: diagnostic.logtrace }),
                     [this.default]   : () => errorHandler({ notification: 'Unhandled exception' })
                 };
