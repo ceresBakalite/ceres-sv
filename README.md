@@ -10,7 +10,7 @@
 
 ### Data Repositories <img class="img-pointer" src="/ceres-sv/images/CSVPeriscope.png">
 
-Working well, but still very much in final development...
+Working well with both images and video, but still needs final production examples and place holder...
 
 <br>
 
