@@ -586,7 +586,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         const newArray  = new Array(textArray.length);
                         const endSymbol = '_&grp;';
 
-                        const reA = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols at the end of a row
+                        const reA = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols & whitespace at the end of a row
                         const reB = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
                         const reC = /"\s*?$|"\s*?,\s*?$/; // match trailing quotes & commas & whitespace
                         const reD = /^\s*?"/; // match leading quotes & whitespace
@@ -608,7 +608,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         const parseRow = row => {
 
-                            let newRow = row.replace(reA, ''); // remove end symbols at the end of a row
+                            let newRow = row.replace(reA, ''); // remove end symbols & whitespace at the end of a row
                             newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
 
                             return newRow.replace(reF, ', '); // replace comma & surrounding whitespace
