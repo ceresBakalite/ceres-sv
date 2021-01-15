@@ -674,8 +674,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
             this.elArray   = ['link', 'script', 'style'];
             this.isWindows = navigator.appVersion.indexOf('Win') != -1;
             this.newline   = this.isWindows ? '\r\n' : '\n';
-            this.docHead   = this.elArray.map(item => { return item.trim().toUpperCase(); });
-            this.bool      = this.bArray.map(item => { return item.trim().toUpperCase(); });
+            this.docHead   = this.elArray.map(item => item.trim().toUpperCase() );
+            this.bool      = this.bArray.map(item => item.trim().toUpperCase() );
 
             this.fileType     = (path, type) => this.fileExt(path).toUpperCase() === type.toUpperCase();
             this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
