@@ -55,7 +55,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                     .replace(/[^\x00-\xFF]| /g, '')
                     .split(';'));
 
-                (() => { // methods belonging to the attribute object
+                (function() { // methods belonging to the attribute object
 
                     const csv = rsc.elementName(csvRoot); // the UTF-16 lowercase element name in the HTML namespace DOM subtree
                     const srm = new Map(); // shadowroot manager
