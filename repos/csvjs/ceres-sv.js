@@ -603,7 +603,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             newGroup = newGroup.replace(reE, '"'); // replace two ajoining double quotes with one double quote
 
-                            return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace any remaining comma entities with a separator symbol
+                            return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace any remaining comma codes with a separator symbol
                         }
 
                         const parseRow = row => {
@@ -654,7 +654,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         });
 
                         return objectType();
-                    }
+
+                    } // end CSV parser
 
                     Object.seal(atr);
 
@@ -715,7 +716,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             this.composeVideo = (node, src, type) => {
 
-                const observer = new IntersectionObserver(entries => {
+                const observer = new IntersectionObserver(entries => { // play when visible
 
                     entries.forEach(entry => { entry.isIntersecting ? node.play() : node.pause() });
 
