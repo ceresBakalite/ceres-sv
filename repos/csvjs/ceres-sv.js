@@ -15,12 +15,12 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
     const rsc = {}; // the resource object namespace
     rscMethods(); // resource object methods
 
-    globalThis.customElements.define('ceres-sv', class extends HTMLElement { // ceres-sv html namespace DOM subtree class
+    globalThis.customElements.define('ceres-sv', class extends HTMLElement { // ceres-sv HTML namespace DOM subtree class
 
         async connectedCallback() {
 
-            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // html namespace DOM subtree method reference
-            ceres.getSlide = el => atr.get.slide({ node: el }); // html namespace DOM subtree method reference
+            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // HTML namespace DOM subtree method reference
+            ceres.getSlide = el => atr.get.slide({ node: el }); // HTML namespace DOM subtree method reference
 
             const cfg = {}; // configuration object namespace
             const atr = {}; // attribute object namespace
@@ -57,7 +57,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 (function() { // methods belonging to the attribute object
 
-                    const csv = rsc.elementName(csvRoot); // the UTF-16 lowercase element name in the HTML namespace
+                    const csv = rsc.elementName(csvRoot); // the UTF-16 lowercase element name in the HTML namespace DOM subtree
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
