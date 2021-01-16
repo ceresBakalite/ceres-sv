@@ -102,7 +102,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (cfg.srcRoot) return 'undefined';
 
-                                let el = document.getElementById(cfg.node.local) || null;
+                                let el = document.getElementById(cfg.node.id) || null;
 
                                 if (rsc.ignore(el)) {
 
@@ -225,7 +225,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 cfg.node.cache   = getProperty('cache'); // enabled
                                 cfg.node.trace   = getProperty('trace'); // disabled
                                 cfg.node.loading = getProperty('loading'); // enabled (default auto)
-                                cfg.node.local   = getProperty('local'); // local image list template elementId
+                                cfg.node.id      = getProperty('node'); // local image list template elementId
                                 cfg.node.zoom    = getProperty('zoom'); // enabled
                                 cfg.node.delay   = getProperty('delay'); // default 250
                                 cfg.node.sur     = getProperty('sur'); // disabled
@@ -259,7 +259,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const lightList = () => {
 
                                     const text = rsc.elementName(cfg.template) != 'template' ? cfg.template.textContent : cfg.template.content.textContent;
-                                    if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.local + ']' });
+                                    if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.id + ']' });
 
                                     return this.parseText(text).replace(regex,'\n');
                                 }
@@ -274,7 +274,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 if (rsc.ignore(imageList)) return false;
 
                                 const parseList = () => remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
-                                    : csvRoot.id + ' - Node name: ' + cfg.node.local) + ']' + rsc.newline + imageList
+                                    : csvRoot.id + ' - Node name: ' + cfg.node.id) + ']' + rsc.newline + imageList
                                         .replaceAll(cfg.commaSymbol, '&comma;')
                                         .replace(/&lt;/g, '<')
                                         .replace(/&gt;/g, '>');
