@@ -62,7 +62,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                     const remark = {
 
-                        markup     : 'Image list markup ',
+                        markup     : 'Media list markup ',
                         element    : 'The element attributes ',
                         nodeSearch : 'The ' + csv + ' src attribute url is unavailable and there is no node name. Looking for the first occurance of a <template> or <noscript> tagname',
                         properties : 'Error: Unable to find the ' + csv + ' document element',
@@ -128,10 +128,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                         if (name == 'cache') {
 
-                                            const images = atrArray.length > 1 ? atrArray[1].includes('image') : item.includes('image') || null;
-                                            const cache = item.includes('image') || rsc.getBoolean(item);
+                                            const media = atrArray.length > 1 ? atrArray[1].includes('media') : item.includes('media') || null;
+                                            const cache = item.includes('media') || rsc.getBoolean(item);
 
-                                            if (cache && !rsc.ignore(images)) cfg.node.cacheimages = images;
+                                            if (cache && !rsc.ignore(media)) cfg.node.cachemedia = media;
 
                                             return cache;
                                         };
@@ -225,7 +225,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 cfg.node.cache   = getProperty('cache'); // enabled
                                 cfg.node.trace   = getProperty('trace'); // disabled
                                 cfg.node.loading = getProperty('loading'); // enabled (default auto)
-                                cfg.node.name    = getProperty('name'); // local image list template nodeName
+                                cfg.node.name    = getProperty('name'); // local media list template nodeName
                                 cfg.node.zoom    = getProperty('zoom'); // enabled
                                 cfg.node.delay   = getProperty('delay'); // default 250
                                 cfg.node.sur     = getProperty('sur'); // disabled
@@ -234,7 +234,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 Object.freeze(cfg.node);
 
-                                cfg.template = getTemplate(); // local image list element
+                                cfg.template = getTemplate(); // local media list element
 
                                 return true;
                             }
@@ -246,13 +246,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         textArray: () => {
 
-                            cfg.imageArray = null;
+                            cfg.mediaArray = null;
 
                             rsc.inspect({ type: rsc.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.node), logtrace: cfg.node.trace });
 
                             const regex = /\s*\n\s*/g; // match whitespace surrounding linefeed
 
-                            const getImageList = () => {
+                            const getMediaList = () => {
 
                                 const shadowList = () => csvRoot.textContent.replace(regex,'\n') || null;
 
@@ -267,25 +267,25 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 return cfg.srcRoot ? shadowList() : lightList();
                             }
 
-                            const isImageArray = () => {
+                            const isMediaArray = () => {
 
-                                const imageList = getImageList();
+                                const mediaList = getMediaList();
 
-                                if (rsc.ignore(imageList)) return false;
+                                if (rsc.ignore(mediaList)) return false;
 
                                 const parseList = () => remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
-                                    : csvRoot.id + ' - node name: ' + cfg.node.name) + ']' + rsc.newline + imageList
+                                    : csvRoot.id + ' - node name: ' + cfg.node.name) + ']' + rsc.newline + mediaList
                                         .replaceAll(cfg.commaSymbol, '&comma;')
                                         .replace(/&lt;/g, '<')
                                         .replace(/&gt;/g, '>');
 
                                 rsc.inspect({ type: rsc.notify, notification: parseList(), logtrace: cfg.node.trace });
-                                cfg.imageArray = imageList ? imageList.trim().split('\n') : null;
+                                cfg.mediaArray = mediaList ? mediaList.trim().split('\n') : null;
 
-                                return !rsc.ignore(cfg.imageArray);
+                                return !rsc.ignore(cfg.mediaArray);
                             }
 
-                            return isImageArray();
+                            return isMediaArray();
                         }
 
                     };
@@ -311,7 +311,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             this.compose.style();
                             this.compose.body();
 
-                            if (!cfg.node.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-image') }, getSwipe, { left: -1, right: 1 });
+                            if (!cfg.node.auto) rsc.setSwipe({ node: cfg.shadow.querySelector('div.slideview-body > div.slideview-media') }, getSwipe, { left: -1, right: 1 });
                         },
 
                         slide: obj => {
@@ -321,7 +321,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const root   = node.getRootNode().host;
                                 const shade  = document.querySelector('#' + root.id);
                                 const shadow = shade.shadowRoot;
-                                const slide  = shadow.querySelector('div.slideview-image > div.active');
+                                const slide  = shadow.querySelector('div.slideview-media > div.active');
 
                                 cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
 
@@ -335,7 +335,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             }
 
                             if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : getShadow(obj.node);
-                            const slides = obj.shadow.querySelectorAll('div.slideview-image > div.slide');
+                            const slides = obj.shadow.querySelectorAll('div.slideview-media > div.slide');
 
                             cfg.slide = !rsc.ignore(obj.autoslide) ? obj.autoslide
                                 : cfg.slide < 1 ? slides.length
@@ -346,7 +346,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             if (rsc.ignore(slides[next])) return;
 
-                            const active = obj.shadow.querySelector('div.slideview-image > div.active');
+                            const active = obj.shadow.querySelector('div.slideview-media > div.active');
                             if (active) active.classList.replace('active', 'none');
 
                             slides[next].classList.replace('none', 'active');
@@ -362,8 +362,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const getAuto = () => {
 
-                                const slides = cfg.shadow.querySelectorAll('div.slideview-image > div.slide');
-                                const complete = cfg.node.autocancel && cfg.node.autocycle > -1 ? cfg.imageArray.length * cfg.node.autocycle : 0;
+                                const slides = cfg.shadow.querySelectorAll('div.slideview-media > div.slide');
+                                const complete = cfg.node.autocancel && cfg.node.autocycle > -1 ? cfg.mediaArray.length * cfg.node.autocycle : 0;
 
                                 let iteration = 0;
                                 let autoslide = 1;
@@ -395,9 +395,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
                                 const img  = [];
 
-                                if (cfg.node.cacheimages) {
+                                if (cfg.node.cachemedia) {
 
-                                    cfg.imageArray.forEach(item => {
+                                    cfg.mediaArray.forEach(item => {
 
                                         let ar = item.split(',');
                                         if (!rsc.ignore(ar[0])) img.push(ar[0].trim());
@@ -453,7 +453,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
                             const setURL      = () => rsc.ignore(obj.ar[0]) ? null : obj.ar[0].trim();
                             const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.imageArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.mediaArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
                             const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.isVideo(obj.ar[0]);
 
                             const classlist = this.getClassList('slide');
@@ -464,7 +464,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             bodyNode.className = 'slideview-body';
 
                             const imgNode = document.createElement('div');
-                            imgNode.className = 'slideview-image';
+                            imgNode.className = 'slideview-media';
 
                             bodyNode.appendChild(imgNode);
 
@@ -475,7 +475,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const obj = { index: 0, ar: [] };
 
-                            cfg.imageArray.forEach(item => {
+                            cfg.mediaArray.forEach(item => {
 
                                 obj.ar = item.split(',');
 
@@ -501,13 +501,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             });
 
-                            if (cfg.imageArray.length > 1) {
+                            if (cfg.mediaArray.length > 1) {
 
                                 rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClassList('left'), onclick: hrefSlide });
                                 rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClassList('right'), onclick: hrefSlide });
                             }
 
-                            cfg.imageArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { id: 'nub' + ++i, class: 'nub', onclick: hrefSlide }); });
+                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { id: 'nub' + ++i, class: 'nub', onclick: hrefSlide }); });
 
                             cfg.shadow.appendChild(bodyNode);
                         }
@@ -534,7 +534,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                     this.getClassList = className => {
 
-                        if (className != 'slide') return cfg.node.nub && (cfg.node.auto || cfg.imageArray.length < 2) ? className += ' none' : className;
+                        if (className != 'slide') return cfg.node.nub && (cfg.node.auto || cfg.mediaArray.length < 2) ? className += ' none' : className;
 
                         if (cfg.node.zoom) className += ' zoom';
                         if (cfg.node.fade) className += ' fade';
