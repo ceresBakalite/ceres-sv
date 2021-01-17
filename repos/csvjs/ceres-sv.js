@@ -160,7 +160,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     if (!factor) return !!evaluate;
 
                                     const reA      = name != 'sur' ? /.subtitle[^&]*?}/i : /.surtitle[^&]*?}/i;
-                                    const reB      = /(\s+)?:(\s+)?/g; // whitespace surrounding anything ending in a semi-colon
+                                    const reB      = /(\s+)?:(\s+)?/g; // whitespace surrounding a colon
                                     const ar       = factor.replace(reB,':').split(',');
                                     const atrArray = ar.map(item => item.trim());
                                     const item     = atrArray[0];
