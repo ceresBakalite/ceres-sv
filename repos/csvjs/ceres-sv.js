@@ -450,10 +450,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const setURL      = () => rsc.ignore(obj.ar[0]) ? null : obj.ar[0].trim();
                             const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.isVideo(obj.ar[0]);
-                            const setSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
-                            const setSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.mediaArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
-                            const getSubtitle = () => cfg.node.sub ? setSubtitle() : null;
-                            const getSurtitle = () => cfg.node.sur ? setSurtitle() : null;
+                            const getSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
+                            const getSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.mediaArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
+                            const setSubtitle = () => cfg.node.sub ? getSubtitle() : null;
+                            const setSurtitle = () => cfg.node.sur ? getSurtitle() : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
 
                             const setImage = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
@@ -485,7 +485,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 imgNode.appendChild(slideNode);
 
-                                if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSurtitle() }, { class: 'surtitle fade' });
+                                if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle fade' });
 
                                 if (videoMedia()) {
 
@@ -494,10 +494,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 } else {
 
-                                    rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: setImage, src: setURL(), alt: setSubtitle(), loading: setLoading() });
+                                    rsc.composeElement({ nodeType: 'img', parent: slideNode }, { class: 'slide', onclick: setImage, src: setURL(), alt: getSubtitle(), loading: setLoading() });
                                 }
 
-                                if (cfg.node.sub) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: getSubtitle() }, { class: 'subtitle fade' });
+                                if (cfg.node.sub) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: setSubtitle() }, { class: 'subtitle fade' });
 
                             });
 
