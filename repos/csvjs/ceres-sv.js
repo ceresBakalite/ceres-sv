@@ -152,7 +152,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         fade    : !rsc.getBoolean(factor),
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
-                                        name    : factor || false,
+                                        name    : factor || 'undefined',
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     };
 
