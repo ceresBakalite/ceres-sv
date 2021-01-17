@@ -152,7 +152,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         fade    : !rsc.getBoolean(factor),
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
-                                        name    : factor || null,
+                                        name    : factor || csvRoot.id,
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     };
 
@@ -273,7 +273,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (rsc.ignore(mediaList)) return false;
 
-                                const parseList = () => remark.markup + '[' + (cfg.srcRoot ? csvRoot.id + ' - ' + rsc.fileName(cfg.src)
+                                const parseList = () => remark.markup + '[' + (cfg.srcRoot ?  + ' - ' + rsc.fileName(cfg.src)
                                     : csvRoot.id + ' - node name: ' + cfg.node.name) + ']' + rsc.newline + mediaList
                                         .replaceAll(cfg.commaSymbol, '&comma;')
                                         .replace(/&lt;/g, '<')
