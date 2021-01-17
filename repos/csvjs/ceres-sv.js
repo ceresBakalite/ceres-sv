@@ -63,7 +63,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                     const remark = {
 
                         markup     : 'Media list markup ',
-                        element    : 'The element attributes ',
+                        element    : 'The element attributes - ',
                         nodeSearch : 'The ' + csv + ' src attribute url is unavailable and there is no node name. Looking for the first occurance of a <template> or <noscript> tagname',
                         properties : 'Error: Unable to find the ' + csv + ' document element',
                         list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback local template elements',
@@ -152,7 +152,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         fade    : !rsc.getBoolean(factor),
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
-                                        name    : factor || null,
+                                        name    : factor || csvRoot.id,
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     };
 
@@ -248,7 +248,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             cfg.mediaArray = null;
 
-                            rsc.inspect({ type: rsc.notify, notification: remark.element + '[' + csvRoot.id + '] ' + rsc.getProperties(cfg.node), logtrace: cfg.node.trace });
+                            rsc.inspect({ type: rsc.notify, notification: remark.element + rsc.getProperties(cfg.node), logtrace: cfg.node.trace });
 
                             const regex = /\s*\n\s*/g; // match whitespace surrounding linefeed
 
