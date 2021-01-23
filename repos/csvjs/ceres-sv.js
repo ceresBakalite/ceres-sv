@@ -546,7 +546,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                     this.parseFile = text => {
 
                         const str = rsc.fileType(cfg.src, 'json') ? this.parseJSON(text)
-                            : rsc.fileType(cfg.src, 'csv') ? this.parseJSON( this.parseCSV( text, { json: true, nodes: ['url','sub','sur'] } ))
+                            : rsc.fileType(cfg.src, 'csv') ? this.parseJSON( rsc.parseCSV( text, { json: true, nodes: ['url','sub','sur'], commaCodes: cfg.commaCodes, commaSymbol: cfg.commaSymbol } ))
                             : text;
 
                         return this.parseText(str);
@@ -572,84 +572,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         return str;
                     }
-
-                    // noddy regex comma separated value parser
-                    this.parseCSV = (text, symbol = {}) => {
-
-                        const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
-                        const newArray  = new Array(textArray.length);
-                        const endSymbol = '_&grp;';
-
-                        const reA = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols & whitespace at the end of a row
-                        const reB = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
-                        const reC = /"\s*?$|"\s*?,\s*?$/; // match trailing quotes & commas & whitespace
-                        const reD = /^\s*?"/; // match leading quotes & whitespace
-                        const reE = /""/g; // match two ajoining double quotes
-                        const reF = /(?!\s)[,](?!\s)/g; // match whitespace surrounding a comma
-                        const reG = /,\s*?$/; // match trailing comma & whitespace
-                        const reH = /"/g; // match double quotes
-
-                        const parseGroup = group => {
-
-                            let newGroup = String(group)
-                                .replace(reC, '') // remove trailing quotes & commas & whitespace
-                                .replace(reD, ''); // remove leading quotes & whitespace
-
-                            newGroup = newGroup.replace(reE, '"'); // replace two ajoining double quotes with one double quote
-
-                            return newGroup.replace(cfg.commaCodes, cfg.commaSymbol) + endSymbol; // replace any remaining comma codes with a separator symbol
-                        }
-
-                        const parseRow = row => {
-
-                            let newRow = row.replace(reA, ''); // remove end symbols & whitespace at the end of a row
-                            newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
-
-                            return newRow.replace(reF, ', '); // replace comma & surrounding whitespace
-                        }
-
-                        // construct a JSON object from the CSV construct
-                        const composeJSON = () => {
-
-                            const nodeName = i => symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
-
-                            let str = '';
-
-                            newArray.forEach(row => {
-
-                                if (!rsc.ignore(row)) {
-
-                                    str += '{ ';
-                                    let rowArray = row.split(',');
-
-                                    rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(reH, '\\"') + '", '; }); // replace quotes with escaped quotes
-                                    str = str.replace(reG, '') + ' },\n'; // replace trailing comma & whitespace
-                                };
-
-                            });
-
-                            return '[' + str.replace(reG, '') + ']'; // replace trailing comma & whitespace
-                        }
-
-                        const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
-
-                        textArray.forEach(row => {
-
-                            let newRow = String(row);
-                            let groups = [...newRow.matchAll(reB)]; // get character groups in need of parsing
-
-                            groups.forEach(group => {
-
-                                let newGroup = parseGroup(group);
-                                newRow = newRow.replace(group, newGroup);
-                            });
-
-                            newArray.push(parseRow(newRow));
-                        });
-
-                        return objectType();
-
-                    } // end CSV parser
 
                     Object.seal(atr);
 
@@ -759,6 +681,84 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 }, { passive: true });
 
             }
+
+            // noddy regex comma separated value parser
+            this.parseCSV = (text, symbol = {}) => {
+
+                const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
+                const newArray  = new Array(textArray.length);
+                const endSymbol = '_&grp;';
+
+                const reA = new RegExp(endSymbol + '\s*?$', 'g'); // match end symbols & whitespace at the end of a row
+                const reB = /"[^]*?",|"[^]*?"$/gm; // match character groups in need of parsing
+                const reC = /"\s*?$|"\s*?,\s*?$/; // match trailing quotes & commas & whitespace
+                const reD = /^\s*?"/; // match leading quotes & whitespace
+                const reE = /""/g; // match two ajoining double quotes
+                const reF = /(?!\s)[,](?!\s)/g; // match whitespace surrounding a comma
+                const reG = /,\s*?$/; // match trailing comma & whitespace
+                const reH = /"/g; // match double quotes
+
+                const parseGroup = group => {
+
+                    let newGroup = String(group)
+                        .replace(reC, '') // remove trailing quotes & commas & whitespace
+                        .replace(reD, ''); // remove leading quotes & whitespace
+
+                    newGroup = newGroup.replace(reE, '"'); // replace two ajoining double quotes with one double quote
+
+                    return newGroup.replace(symbol.commaCodes, symbol.commaSymbol) + endSymbol; // replace any remaining comma codes with a separator symbol
+                }
+
+                const parseRow = row => {
+
+                    let newRow = row.replace(reA, ''); // remove end symbols & whitespace at the end of a row
+                    newRow = newRow.replaceAll(endSymbol, ', '); // replace any remaining end symbols inside character groups with a comma value separator
+
+                    return newRow.replace(reF, ', '); // replace comma & surrounding whitespace
+                }
+
+                // construct a JSON object from the CSV construct
+                const composeJSON = () => {
+
+                    const nodeName = i => symbol.nodes[i] ? '"' + symbol.nodes[i] + '": ' : '"node' + i+1 + '": ';
+
+                    let str = '';
+
+                    newArray.forEach(row => {
+
+                        if (!rsc.ignore(row)) {
+
+                            str += '{ ';
+                            let rowArray = row.split(',');
+
+                            rowArray.forEach((value, i) => { str += nodeName(i) + '"' + value.trim().replace(reH, '\\"') + '", '; }); // replace quotes with escaped quotes
+                            str = str.replace(reG, '') + ' },\n'; // replace trailing comma & whitespace
+                        };
+
+                    });
+
+                    return '[' + str.replace(reG, '') + ']'; // replace trailing comma & whitespace
+                }
+
+                const objectType = () => (symbol.json || symbol.nodes) ? composeJSON() : newArray.join('\n');
+
+                textArray.forEach(row => {
+
+                    let newRow = String(row);
+                    let groups = [...newRow.matchAll(reB)]; // get character groups in need of parsing
+
+                    groups.forEach(group => {
+
+                        let newGroup = parseGroup(group);
+                        newRow = newRow.replace(group, newGroup);
+                    });
+
+                    newArray.push(parseRow(newRow));
+                });
+
+                return objectType();
+
+            } // end CSV parser
 
             this.getUniqueId = obj => {
 
