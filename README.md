@@ -18,19 +18,4 @@ Working well with both images and video, but still needs final production exampl
 [@jbtule]: https://gist.github.com/jbtule/4336842
 [@ceresbakalite]: https://github.com/ceresbakalite
 
-<style>
-.img-pointer {
-  max-width: 100%;
-  vertical-align:bottom;
-  float:left;
-  margin: 0px 15px 0px 0px;
-}
-
-.img-logo {
-  width: 35%;
-  opacity: 0.999;
-  margin: 15px 0px 15px 0px;
-  position: relative;
-  z-index: -1;
-}
-</style>
+<div align="center"><img src="/repos/stylesheets/ceres-sv.svg" width="1" height="1" alt="css source"></div>
