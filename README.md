@@ -18,4 +18,4 @@ Working well with both images and video, but still needs final production exampl
 [@jbtule]: https://gist.github.com/jbtule/4336842
 [@ceresbakalite]: https://github.com/ceresbakalite
 
-<div align="center"><img src="/repos/stylesheets/ceres-sv.svg" width="1" height="1" alt="css source"></div>
+<div align="center"><img src="https://ceresbakalite.github.io/ceres-sv/repos/stylesheets/ceres-sv.svg" width="1" height="1" alt="css source"></div>
