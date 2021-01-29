@@ -191,7 +191,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                         const setStyleAttribute = attribute => {
 
-                                            const reC = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
+                                            const regex = Boolean(attribute.match(/color:/i)) ? /color[^&]*?;/i
                                                 : Boolean(attribute.match(/font:/i)) ? /font[^&]*?;/i
                                                 : Boolean(attribute.match(/padding:/i)) ? /padding[^&]*?;/i
                                                 : Boolean(attribute.match(/top:/i)) ? /top[^&]*?;/i
@@ -204,7 +204,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                                 if (group) {
 
-                                                    const newGroup = group.replace(reC, attribute.replace(reB,':') + ';');
+                                                    const newGroup = group.replace(regex, attribute.replace(reB,':') + ';');
                                                     if (newGroup) cfg.shadowStyle = cfg.shadowStyle.replace(group, newGroup);
                                                 };
 
