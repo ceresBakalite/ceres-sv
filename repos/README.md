@@ -1,4 +1,4 @@
 Repository root includes:
 
-    javascript orginal source
-    test json, csv, txt, md etc files
+    1. javascript orginal source
+    2. test json, csv, txt, md etc files
