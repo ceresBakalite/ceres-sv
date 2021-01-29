@@ -1,6 +1,5 @@
 <div>
   <img src="https://ceresbakalite.github.io/ceres-sv/repos/stylesheets/ceres-sv.svg" width="1" height="1" alt="css source">
-  
 ## Welcome to ceres-sv
 
 ### *Very simple multi-image and video slide viewer*<div id="logo-container"><img id="logo-default" title="No readable content. Just a page logo" class="img-logo" align="right" src="/images/CSV-02/Logo01.png"></div>
