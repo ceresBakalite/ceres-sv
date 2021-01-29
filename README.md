@@ -1,4 +1,4 @@
-<div align="center">
+<div>
   <img src="https://ceresbakalite.github.io/ceres-sv/repos/stylesheets/ceres-sv.svg" width="1" height="1" alt="css source">
   
 ## Welcome to ceres-sv
