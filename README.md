@@ -11,7 +11,7 @@
 
 ***
 
-### Progress <img class="img-pointer" src="/images/CSVPeriscope.png">
+### Progress<img class="img-pointer" align="left" src="/images/CSVPeriscope.png">
 
 Working well with both images and video, but still needs final production examples, FAQ, and place holder...
 
