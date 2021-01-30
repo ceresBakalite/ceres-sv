@@ -1,6 +1,6 @@
 ## Welcome to ceres-sv
 
-### *Very simple multi-image slide viewer*<div id="logo-container"><img id="logo-default" title="No readable content. Just a page logo" class="img-logo" align="right" src="../ceres-sv/images/CSV-02/Logo01.png"></div>
+### *Very simple multi-image slide viewer*<div id="logo-container"><img id="logo-default" title="No readable content. Just a page logo" class="img-logo" align="right" src="/ceres-sv/images/CSV-02/Logo01.png"></div>
 
 **ceres-sv** is a simple means to display a series of image and video files in a sliding view.  
 
