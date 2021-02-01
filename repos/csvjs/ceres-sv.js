@@ -198,7 +198,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                                 : Boolean(attribute.match(/bottom:/i)) ? /bottom[^&]*?;/i
                                                 : null;
 
-                                            if (!rsc.ignore(reC)) {
+                                            if (!rsc.ignore(regex)) {
 
                                                 const group = String(cfg.shadowStyle.match(reA));
 
