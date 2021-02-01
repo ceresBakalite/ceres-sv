@@ -68,7 +68,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         properties : 'Error: Unable to find the ' + csv + ' document element',
                         list       : 'Error: Unable to find either the ' + csv + ' document element nor the fallback local template elements',
                         template   : 'Error: Unable to find the local fallback template element when searching the document body',
-                        cache      : 'Warning: cache response status '
+                        cache      : 'Warning: cache response status'
                     };
 
                     Object.freeze(remark);
@@ -412,7 +412,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     fetch(url).then(response => {
 
-                                        if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cache + '[' + response.status + '] - ' + url, logtrace: cfg.node.trace }); };
+                                        if (!response.ok) { rsc.inspect({ type: rsc.warn, notification: remark.cache + ' [' + response.status + '] - ' + url, logtrace: cfg.node.trace }); };
                                         return caches.open(name).then(cache => { return cache.put(url, response); });
 
                                     });
