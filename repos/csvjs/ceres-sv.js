@@ -323,7 +323,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const shadow = shade.shadowRoot;
                                 const slide  = shadow.querySelector('div.slideview-media > div.active');
 
-                                cfg.slide = Number.parseInt(slide.id.replace('img', ''), 10);
+                                cfg.slide = Number.parseInt(slide.id.replace('svm', ''), 10);
 
                                 srm.set('left', cfg.slide - 1);
                                 srm.set('right', cfg.slide + 1);
@@ -393,20 +393,20 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const name = csv + '-cache';
                                 const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
-                                const img  = [];
+                                const svm  = [];
 
                                 if (cfg.node.cachemedia) {
 
                                     cfg.mediaArray.forEach(item => {
 
                                         let ar = item.split(',');
-                                        if (!rsc.ignore(ar[0])) img.push(ar[0].trim());
+                                        if (!rsc.ignore(ar[0])) svm.push(ar[0].trim());
 
                                     });
 
                                 };
 
-                                const urlArray = rsc.removeDuplcates(img.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
+                                const urlArray = rsc.removeDuplcates(svm.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
 
                                 urlArray.forEach(url => {
 
@@ -463,10 +463,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const bodyNode = document.createElement('div');
                             bodyNode.className = 'slideview-body';
 
-                            const imgNode = document.createElement('div');
-                            imgNode.className = 'slideview-media';
+                            const mediaNode = document.createElement('div');
+                            mediaNode.className = 'slideview-media';
 
-                            bodyNode.appendChild(imgNode);
+                            bodyNode.appendChild(mediaNode);
 
                             const trackNode = document.createElement('div');
                             trackNode.className = this.getClass('slideview-nub');
@@ -481,9 +481,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = setClass;
-                                slideNode.id = 'img' + ++obj.index;
+                                slideNode.id = 'svm' + ++obj.index;
 
-                                imgNode.appendChild(slideNode);
+                                mediaNode.appendChild(slideNode);
 
                                 if (cfg.node.sur) rsc.composeElement({ nodeType: 'div', parent: slideNode, markup: setSurtitle() }, { class: 'surtitle fade' });
 
@@ -503,8 +503,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             if (cfg.mediaArray.length > 1) {
 
-                                rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10094;' }, { class: this.getClass('left'), onclick: setSlide });
-                                rsc.composeElement({ nodeType: 'a', parent: imgNode, markup: '&#10095;' }, { class: this.getClass('right'), onclick: setSlide });
+                                rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#10094;' }, { class: this.getClass('left'), onclick: setSlide });
+                                rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#10095;' }, { class: this.getClass('right'), onclick: setSlide });
                             }
 
                             cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { id: 'nub' + ++i, class: 'nub', onclick: setSlide }); });
