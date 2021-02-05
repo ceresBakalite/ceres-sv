@@ -323,7 +323,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const shadow = shade.shadowRoot;
                                 const slide  = shadow.querySelector('div.slideview-media > div.active');
 
-                                cfg.slide = Number.parseInt(slide.id.replace('svm', ''), 10);
+                                cfg.slide = Number.parseInt(slide.id.replace('sn', ''), 10);
 
                                 srm.set('left', cfg.slide - 1);
                                 srm.set('right', cfg.slide + 1);
@@ -391,22 +391,22 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (!globalThis.hasOwnProperty('caches')) return;
 
-                                const name = csv + '-cache';
-                                const src  = cfg.srcRoot ? cfg.src.split() : Array.from('');
-                                const svm  = [];
+                                const src   = cfg.srcRoot ? cfg.src.split() : Array.from('');
+                                const name  = csv + '-cache';
+                                const slide = [];
 
                                 if (cfg.node.cachemedia) {
 
                                     cfg.mediaArray.forEach(item => {
 
                                         let ar = item.split(',');
-                                        if (!rsc.ignore(ar[0])) svm.push(ar[0].trim());
+                                        if (!rsc.ignore(ar[0])) slide.push(ar[0].trim());
 
                                     });
 
                                 };
 
-                                const urlArray = rsc.removeDuplcates(svm.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
+                                const urlArray = rsc.removeDuplcates(slide.concat(src.concat(cfg.cssRoot.concat([ import.meta.url ]))));
 
                                 urlArray.forEach(url => {
 
@@ -481,7 +481,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = setClass;
-                                slideNode.id = 'svm' + ++obj.index;
+                                slideNode.id = 'sn' + ++obj.index;
 
                                 mediaNode.appendChild(slideNode);
 
