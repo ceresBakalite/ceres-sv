@@ -323,7 +323,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const shadow = shade.shadowRoot;
                                 const slide  = shadow.querySelector('div.slideview-media > div.active');
 
-                                cfg.slide = Number.parseInt(slide.id.replace('sn', ''), 10);
+                                cfg.slide = Number.parseInt(slide.id.replace('slide', ''), 10);
 
                                 srm.set('left', cfg.slide - 1);
                                 srm.set('right', cfg.slide + 1);
@@ -481,7 +481,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = setClass;
-                                slideNode.id = 'sn' + ++obj.index;
+                                slideNode.id = 'slide' + ++obj.index;
 
                                 mediaNode.appendChild(slideNode);
 
