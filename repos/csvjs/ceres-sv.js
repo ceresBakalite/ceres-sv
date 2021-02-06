@@ -148,7 +148,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     const property = {
 
-                                        track     : !rsc.getBoolean(factor),
+                                        track   : !rsc.getBoolean(factor),
                                         fade    : !rsc.getBoolean(factor),
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
@@ -327,7 +327,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 srm.set('left', cfg.slide - 1);
                                 srm.set('right', cfg.slide + 1);
-                                srm.set('track', Number.parseInt(node.id.replace('svt', ''), 10));
+                                srm.set('stud', Number.parseInt(node.id.replace('svt', ''), 10));
 
                                 cfg.slide = srm.get(node.className);
 
@@ -352,10 +352,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             slides[next].classList.replace('none', 'active');
 
                             const enabled = obj.shadow.querySelector('div.slideview-track > span.enabled');
-                            if (enabled) enabled.className = 'track';
+                            if (enabled) enabled.className = 'stud';
 
-                            const track = obj.shadow.querySelectorAll('div.slideview-track > span.track');
-                            track[next].className = 'track enabled';
+                            const stud = obj.shadow.querySelectorAll('div.slideview-track > span.stud');
+                            stud[next].className = 'stud enabled';
                         },
 
                         view: () => {
@@ -507,7 +507,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#10095;' }, { class: this.getClass('right'), onclick: setSlide });
                             }
 
-                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { class: 'track', id: 'svt' + ++i, onclick: setSlide }); });
+                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { class: 'stud', id: 'svt' + ++i, onclick: setSlide }); });
 
                             cfg.shadow.appendChild(bodyNode);
                         }
