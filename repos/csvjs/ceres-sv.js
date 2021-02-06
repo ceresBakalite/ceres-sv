@@ -507,7 +507,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#10095;' }, { class: this.getClass('right'), onclick: setSlide });
                             }
 
-                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { id: 'svn' + ++i, class: 'nub', onclick: setSlide }); });
+                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { class: 'nub', id: 'svn' + ++i, onclick: setSlide }); });
 
                             cfg.shadow.appendChild(bodyNode);
                         }
