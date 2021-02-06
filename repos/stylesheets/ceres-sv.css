@@ -31,7 +31,7 @@
     margin: 0px;
 }
 
-.slideview-nub {
+.slideview-track {
     text-align:center;
     cursor: default;
  }
@@ -101,7 +101,7 @@
     top: 0;
 }
 
-.nub {
+.track {
     cursor: pointer;
     height: 8px;
     width: 8px;
@@ -112,7 +112,7 @@
     transition: background-color 0.6s ease;
 }
 
-.enabled, .nub:hover {
+.enabled, .track:hover {
     background-color: #717171;
 }
 

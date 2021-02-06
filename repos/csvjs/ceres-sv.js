@@ -148,7 +148,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                     const property = {
 
-                                        nub     : !rsc.getBoolean(factor),
+                                        track     : !rsc.getBoolean(factor),
                                         fade    : !rsc.getBoolean(factor),
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
@@ -179,8 +179,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         cfg.node.autopause  = Number.isInteger(parseInt(atrArray[1])) ? parseInt(atrArray[1]) : 3000;
                                         cfg.node.autocancel = cfg.node.autocycle > -1;
 
-                                        cfg.node.fade = cfg.node.autopause > 400;
-                                        cfg.node.nub  = 'false'; // typeof string property
+                                        cfg.node.fade  = cfg.node.autopause > 400;
+                                        cfg.node.track = 'false'; // typeof string property
 
                                         return true;
                                     };
@@ -220,7 +220,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     return true;
                                 }
 
-                                cfg.node.nub     = getProperty('nub'); // enabled
+                                cfg.node.track   = getProperty('track'); // enabled
                                 cfg.node.fade    = getProperty('fade'); // enabled
                                 cfg.node.cache   = getProperty('cache'); // enabled
                                 cfg.node.trace   = getProperty('trace'); // disabled
@@ -327,7 +327,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 srm.set('left', cfg.slide - 1);
                                 srm.set('right', cfg.slide + 1);
-                                srm.set('nub', Number.parseInt(node.id.replace('svn', ''), 10));
+                                srm.set('track', Number.parseInt(node.id.replace('svn', ''), 10));
 
                                 cfg.slide = srm.get(node.className);
 
@@ -351,11 +351,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             slides[next].classList.replace('none', 'active');
 
-                            const enabled = obj.shadow.querySelector('div.slideview-nub > span.enabled');
-                            if (enabled) enabled.className = 'nub';
+                            const enabled = obj.shadow.querySelector('div.slideview-track > span.enabled');
+                            if (enabled) enabled.className = 'track';
 
-                            const nub = obj.shadow.querySelectorAll('div.slideview-nub > span.nub');
-                            nub[next].className = 'nub enabled';
+                            const track = obj.shadow.querySelectorAll('div.slideview-track > span.track');
+                            track[next].className = 'track enabled';
                         },
 
                         view: () => {
@@ -469,7 +469,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             bodyNode.appendChild(mediaNode);
 
                             const trackNode = document.createElement('div');
-                            trackNode.className = this.getClass('slideview-nub');
+                            trackNode.className = this.getClass('slideview-track');
 
                             bodyNode.appendChild(trackNode);
 
@@ -507,7 +507,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#10095;' }, { class: this.getClass('right'), onclick: setSlide });
                             }
 
-                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { class: 'nub', id: 'svn' + ++i, onclick: setSlide }); });
+                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { class: 'track', id: 'svn' + ++i, onclick: setSlide }); });
 
                             cfg.shadow.appendChild(bodyNode);
                         }
@@ -534,7 +534,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                     this.getClass = className => {
 
-                        if (className != 'slide') return cfg.node.nub && (cfg.node.auto || cfg.mediaArray.length < 2) ? className += ' none' : className;
+                        if (className != 'slide') return cfg.node.track && (cfg.node.auto || cfg.mediaArray.length < 2) ? className += ' none' : className;
 
                         if (cfg.node.zoom) className += ' zoom';
                         if (cfg.node.fade) className += ' fade';
