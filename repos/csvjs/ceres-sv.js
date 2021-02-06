@@ -327,7 +327,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 srm.set('left', cfg.slide - 1);
                                 srm.set('right', cfg.slide + 1);
-                                srm.set('track', Number.parseInt(node.id.replace('svn', ''), 10));
+                                srm.set('track', Number.parseInt(node.id.replace('svt', ''), 10));
 
                                 cfg.slide = srm.get(node.className);
 
@@ -507,7 +507,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#10095;' }, { class: this.getClass('right'), onclick: setSlide });
                             }
 
-                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { class: 'track', id: 'svn' + ++i, onclick: setSlide }); });
+                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { class: 'track', id: 'svt' + ++i, onclick: setSlide }); });
 
                             cfg.shadow.appendChild(bodyNode);
                         }
