@@ -354,8 +354,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const enabled = obj.shadow.querySelector('div.slideview-track > span.enabled');
                             if (enabled) enabled.className = 'stud';
 
-                            const stud = obj.shadow.querySelectorAll('div.slideview-track > span.stud');
-                            stud[next].className = 'stud enabled';
+                            const studs = obj.shadow.querySelectorAll('div.slideview-track > span.stud');
+                            studs[next].className = 'stud enabled';
                         },
 
                         view: () => {
