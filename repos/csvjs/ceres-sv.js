@@ -323,11 +323,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const shadow = shade.shadowRoot;
                                 const slide  = shadow.querySelector('div.slideview-media > div.active');
 
-                                cfg.slide = Number.parseInt(slide.id.replace('slide', ''), 10);
+                                cfg.slide = Number.parseInt(slide.id.replace('svn', ''), 10);
 
                                 srm.set('left', cfg.slide - 1);
                                 srm.set('right', cfg.slide + 1);
-                                srm.set('nub', Number.parseInt(node.id.replace('nub', ''), 10));
+                                srm.set('nub', Number.parseInt(node.id.replace('svt', ''), 10));
 
                                 cfg.slide = srm.get(node.className);
 
@@ -481,7 +481,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const slideNode = document.createElement('div');
                                 slideNode.className = setClass;
-                                slideNode.id = 'slide' + ++obj.index;
+                                slideNode.id = 'svn' + ++obj.index;
 
                                 mediaNode.appendChild(slideNode);
 
@@ -507,7 +507,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#10095;' }, { class: this.getClass('right'), onclick: setSlide });
                             }
 
-                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { id: 'nub' + ++i, class: 'nub', onclick: setSlide }); });
+                            cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { id: 'svt' + ++i, class: 'nub', onclick: setSlide }); });
 
                             cfg.shadow.appendChild(bodyNode);
                         }
