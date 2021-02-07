@@ -321,9 +321,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 const root   = node.getRootNode().host;
                                 const shade  = document.querySelector('#' + root.id);
                                 const shadow = shade.shadowRoot;
-                                const slide  = shadow.querySelector('div.slideview-media > div.active');
+                                const active = shadow.querySelector('div.slideview-media > div.active');
 
-                                cfg.slide = Number.parseInt(slide.id.replace('svm', ''), 10);
+                                cfg.slide = Number.parseInt(active.id.replace('svm', ''), 10);
 
                                 srm.set('left', cfg.slide - 1);
                                 srm.set('right', cfg.slide + 1);
@@ -336,8 +336,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : getShadow(obj.node);
 
-                            const slides  = obj.shadow.querySelectorAll('div.slideview-media > div.slide');
-                            const studs   = obj.shadow.querySelectorAll('div.slideview-track > span.stud');
+                            const media   = obj.shadow.querySelectorAll('div.slideview-media > div.slide');
+                            const track   = obj.shadow.querySelectorAll('div.slideview-track > span.stud');
                             const active  = obj.shadow.querySelector('div.slideview-media > div.active');
                             const enabled = obj.shadow.querySelector('div.slideview-track > span.enabled');
 
@@ -353,8 +353,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             if (active) active.classList.replace('active', 'none');
                             if (enabled) enabled.className = 'stud';
 
-                            slides[next].classList.replace('none', 'active');
-                            studs[next].className = 'stud enabled';
+                            media[next].classList.replace('none', 'active');
+                            track[next].className = 'stud enabled';
                         },
 
                         view: () => {
