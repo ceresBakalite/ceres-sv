@@ -335,7 +335,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             }
 
                             if (rsc.ignore(obj.shadow)) obj.shadow = rsc.ignore(obj.node) ? cfg.shadow : getShadow(obj.node);
-                            const slides = obj.shadow.querySelectorAll('div.slideview-media > div.slide');
+
+                            const slides  = obj.shadow.querySelectorAll('div.slideview-media > div.slide');
+                            const studs   = obj.shadow.querySelectorAll('div.slideview-track > span.stud');
+                            const active  = obj.shadow.querySelector('div.slideview-media > div.active');
+                            const enabled = obj.shadow.querySelector('div.slideview-track > span.enabled');
 
                             cfg.slide = !rsc.ignore(obj.autoslide) ? obj.autoslide
                                 : cfg.slide < 1 ? slides.length
@@ -346,15 +350,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             if (rsc.ignore(slides[next])) return;
 
-                            const active = obj.shadow.querySelector('div.slideview-media > div.active');
                             if (active) active.classList.replace('active', 'none');
-
-                            slides[next].classList.replace('none', 'active');
-
-                            const enabled = obj.shadow.querySelector('div.slideview-track > span.enabled');
                             if (enabled) enabled.className = 'stud';
 
-                            const studs = obj.shadow.querySelectorAll('div.slideview-track > span.stud');
+                            slides[next].classList.replace('none', 'active');
                             studs[next].className = 'stud enabled';
                         },
 
