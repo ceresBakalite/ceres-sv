@@ -342,13 +342,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const enabled = obj.shadow.querySelector('div.slideview-track > span.enabled');
 
                             cfg.slide = !rsc.ignore(obj.autoslide) ? obj.autoslide
-                                : cfg.slide < 1 ? slides.length
-                                : cfg.slide > slides.length ? 1
+                                : cfg.slide < 1 ? media.length
+                                : cfg.slide > media.length ? 1
                                 : cfg.slide;
 
                             const next = cfg.slide-1;
 
-                            if (rsc.ignore(slides[next])) return;
+                            if (rsc.ignore(media[next])) return;
 
                             if (active) active.classList.replace('active', 'none');
                             if (enabled) enabled.className = 'stud';
@@ -361,7 +361,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const getAuto = () => {
 
-                                const slides = cfg.shadow.querySelectorAll('div.slideview-media > div.slide');
+                                const media = cfg.shadow.querySelectorAll('div.slideview-media > div.slide');
                                 const complete = cfg.node.autocancel && cfg.node.autocycle > -1 ? cfg.mediaArray.length * cfg.node.autocycle : 0;
 
                                 let iteration = 0;
@@ -369,8 +369,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const autoCancel = () => {
 
-                                    autoslide = autoslide < 1 ? slides.length
-                                        : autoslide > slides.length ? 1
+                                    autoslide = autoslide < 1 ? media.length
+                                        : autoslide > media.length ? 1
                                         : autoslide;
 
                                     if (!cfg.node.autocancel) return (autoslide++, false); // never stops
