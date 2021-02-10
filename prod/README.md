@@ -7,8 +7,15 @@ Minified using the following applications:
 
 ##### terser CLI
 
-    https://github.com/terser/terser
+<sup>_ref._ [https://github.com/terser/terser][]</sup>
+
 
 ##### clean-css CLI
 
-    https://github.com/jakubpawlowicz/clean-css-cli
+<sup>_ref._ [https://github.com/jakubpawlowicz/clean-css-cli][]</sup>
+    
+<br>    
+    
+[https://github.com/terser/terser]: https://github.com/terser/terser
+[https://github.com/jakubpawlowicz/clean-css-cli]: https://github.com/jakubpawlowicz/clean-css-cli
+    
