@@ -13,9 +13,8 @@ Minified using the following applications:
 ##### clean-css CLI
 
 <sup>_ref._ [https://github.com/jakubpawlowicz/clean-css-cli][]</sup>
-    
+
 <br>    
-    
+
 [https://github.com/terser/terser]: https://github.com/terser/terser
 [https://github.com/jakubpawlowicz/clean-css-cli]: https://github.com/jakubpawlowicz/clean-css-cli
-    
