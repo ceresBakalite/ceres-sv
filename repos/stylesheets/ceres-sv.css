@@ -74,8 +74,12 @@
     border-radius: 3px 0 0 3px;
 }
 
-.left:after, .right:after {
-    content: attr(cssmarkup);
+.left:after {
+    content: '<';
+}
+
+.right:after {
+    content: '>';
 }
 
 .left:hover, .right:hover {
