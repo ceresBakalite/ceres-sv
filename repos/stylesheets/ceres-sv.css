@@ -74,6 +74,10 @@
     border-radius: 3px 0 0 3px;
 }
 
+.left:after, .right:after {
+    content: attr(cssmarkup);
+}
+
 .left:hover, .right:hover {
     background-color: rgba(0,0,0,0.3);
     text-decoration: none;

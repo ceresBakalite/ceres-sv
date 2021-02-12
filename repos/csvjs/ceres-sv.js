@@ -502,8 +502,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             if (cfg.mediaArray.length > 1) {
 
-                                rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#x276e;' }, { class: this.getClass('left'), onclick: setSlide });
-                                rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#x276f;' }, { class: this.getClass('right'), onclick: setSlide });
+                                // rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#x276e;' }, { class: this.getClass('left'), onclick: setSlide });
+                                // rsc.composeElement({ nodeType: 'a', parent: mediaNode, markup: '&#x276f;' }, { class: this.getClass('right'), onclick: setSlide });
+                                rsc.composeElement({ nodeType: 'a', parent: mediaNode }, { class: this.getClass('left'), cssmarkup: '&#x276e;', onclick: setSlide });
+                                rsc.composeElement({ nodeType: 'a', parent: mediaNode }, { class: this.getClass('right'), cssmarkup: '&#x276f;', onclick: setSlide });
                             }
 
                             cfg.mediaArray.forEach((item, i) => { rsc.composeElement({ nodeType: 'span', parent: trackNode }, { class: 'stud', id: 'svt' + ++i, onclick: setSlide }); });
