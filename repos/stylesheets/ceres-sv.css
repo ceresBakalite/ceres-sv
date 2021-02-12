@@ -75,11 +75,11 @@
 }
 
 .left:after {
-    content: '&#x276e;';
+    content: '\&#x276e;';
 }
 
 .right:after {
-    content: '&#x276f;';
+    content: '\&#x276f;';
 }
 
 .left:hover, .right:hover {
