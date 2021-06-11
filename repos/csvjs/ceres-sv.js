@@ -681,7 +681,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             }
 
-            // noddy regex comma separated value parser - can returns either a json or an array construct
+            // noddy regex comma separated value parser - can return either a json or an array construct
             this.parseCSV = (text, symbol = {}) => {
 
                 const textArray = text.split('\n'); // this assumes incorrectly that line breaks only occur at the end of rows
