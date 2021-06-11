@@ -110,7 +110,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                     el = document.getElementsByTagName('template')[0] || document.getElementsByTagName('noscript')[0];
                                 };
 
-                                return el || 'undefined';
+                                return el || 'undefined'; // typeof string property
                             }
 
                             const getCSVRootProperties = () => {
