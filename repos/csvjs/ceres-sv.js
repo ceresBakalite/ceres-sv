@@ -39,12 +39,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 csvRoot.src = csvRoot.getAttribute('src');
 
-                cfg.defaultCSS  = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
                 cfg.src         = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
-                cfg.css         = csvRoot.getAttribute('css') || cfg.defaultCSS;
+                cfg.css         = csvRoot.getAttribute('css') || rsc.defaultCSS;
                 cfg.srcRoot     = !rsc.ignore(cfg.src);
-                cfg.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
-                cfg.commaSymbol = '_&c';
                 cfg.shadowStyle = '';
                 cfg.node        = {};
                 cfg.slide       = 1;
@@ -275,7 +272,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const parseList = () => remark.markup + ' [' + csvRoot.id + (cfg.srcRoot ? ' - file name: ' + rsc.fileName(cfg.src)
                                     : ' - node name: ' + cfg.node.name) + ']' + rsc.newline + mediaList
-                                        .replaceAll(cfg.commaSymbol, '&comma;')
+                                        .replaceAll(rsc.commaSymbol, '&comma;')
                                         .replace(/&lt;/g, '<')
                                         .replace(/&gt;/g, '>');
 
@@ -449,8 +446,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const setURL      = () => rsc.ignore(obj.ar[0]) ? null : obj.ar[0].trim();
                             const videoMedia  = () => rsc.ignore(obj.ar[0]) ? false : rsc.isVideo(obj.ar[0]);
-                            const getSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(cfg.commaSymbol, ',');
-                            const getSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.mediaArray.length : obj.ar[2].trim().replaceAll(cfg.commaSymbol, ',');
+                            const getSubtitle = () => rsc.ignore(obj.ar[1]) ? null : obj.ar[1].trim().replaceAll(rsc.commaSymbol, ',');
+                            const getSurtitle = () => rsc.ignore(obj.ar[2]) ? obj.index + ' / ' + cfg.mediaArray.length : obj.ar[2].trim().replaceAll(rsc.commaSymbol, ',');
                             const setSubtitle = () => cfg.node.sub ? getSubtitle() : null;
                             const setSurtitle = () => cfg.node.sur ? getSurtitle() : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
@@ -545,14 +542,14 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                     this.parseFile = text => {
 
                         const str = rsc.fileType(cfg.src, 'json') ? this.parseJSON(text)
-                            : rsc.fileType(cfg.src, 'csv') ? this.parseJSON( rsc.parseCSV( text, { json: true, nodes: ['url','sub','sur'], commaCodes: cfg.commaCodes, commaSymbol: cfg.commaSymbol } ))
+                            : rsc.fileType(cfg.src, 'csv') ? this.parseJSON( rsc.parseCSV( text, { json: true, nodes: ['url','sub','sur'], commaCodes: rsc.commaCodes, commaSymbol: rsc.commaSymbol } ))
                             : text;
 
                         return this.parseText(str);
                     }
 
                     this.parseText = text => rsc.softSanitize(text
-                        .replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, cfg.commaSymbol)
+                        .replace(/\\,|&comma;|&#x2c;|&#44;|U+0002C/g, rsc.commaSymbol)
                         .replace(/^\s*?<template(.*?)>|<\/template>\s*?$/, ''))
                         .trim();
 
@@ -564,8 +561,8 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                         json.forEach(node => {
 
                             str += node.url
-                                + (node.sub ? ', ' + node.sub.replace(cfg.commaCodes, cfg.commaSymbol) : '')
-                                + (node.sur ? ', ' + node.sur.replace(cfg.commaCodes, cfg.commaSymbol) : '')
+                                + (node.sub ? ', ' + node.sub.replace(rsc.commaCodes, rsc.commaSymbol) : '')
+                                + (node.sur ? ', ' + node.sur.replace(rsc.commaCodes, rsc.commaSymbol) : '')
                                 + '\n';
                         });
 

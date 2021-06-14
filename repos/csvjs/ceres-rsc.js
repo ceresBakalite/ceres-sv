@@ -10,22 +10,25 @@
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
 
-export { ceresResourceLibrary as rsc }
+export { ceresSlideViewResourceLibrary as rsc }
 
-var ceresResourceLibrary = {}; // ceres slideview resource object namespace
+var ceresSlideViewResourceLibrary = {}; // ceres slideview resource object namespace
 (function() { // methods belonging to the ceres-sv resource object
 
-    this.reference = 1;
-    this.notify    = 2;
-    this.warn      = 3;
-    this.default   = 98;
-    this.error     = 99;
-    this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes']; // typeof string property
-    this.elArray   = ['link', 'script', 'style'];
-    this.isWindows = navigator.appVersion.indexOf('Win') != -1;
-    this.newline   = this.isWindows ? '\r\n' : '\n';
-    this.docHead   = this.elArray.map(item => item.trim().toUpperCase() );
-    this.bool      = this.bArray.map(item => item.trim().toUpperCase() );
+    this.reference   = 1;
+    this.notify      = 2;
+    this.warn        = 3;
+    this.default     = 98;
+    this.error       = 99;
+    this.defaultCSS  = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
+    this.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
+    this.commaSymbol = '_&c';
+    this.bArray      = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes']; // typeof string property
+    this.elArray     = ['link', 'script', 'style'];
+    this.isWindows   = navigator.appVersion.indexOf('Win') != -1;
+    this.newline     = this.isWindows ? '\r\n' : '\n';
+    this.docHead     = this.elArray.map(item => item.trim().toUpperCase() );
+    this.bool        = this.bArray.map(item => item.trim().toUpperCase() );
 
     this.fileType     = (path, type) => this.fileExt(path).toUpperCase() === type.toUpperCase();
     this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
@@ -235,4 +238,4 @@ var ceresResourceLibrary = {}; // ceres slideview resource object namespace
         return str.replace(/, +$/g,'');
     }
 
-}).call(ceresResourceLibrary); // end resource object namespace
+}).call(ceresSlideViewResourceLibrary); // end resource object namespace
