@@ -10,36 +10,36 @@
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
 
-export { rsc }
+export { ceresResourceLibrary as rsc }
 
-var rsc = {}; // ceres slideview resource object namespace
+var ceresResourceLibrary = {}; // ceres slideview resource object namespace
 (function() { // methods belonging to the ceres-sv resource object
 
-        this.reference = 1;
-        this.notify    = 2;
-        this.warn      = 3;
-        this.default   = 98;
-        this.error     = 99;
-        this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes']; // typeof string property
-        this.elArray   = ['link', 'script', 'style'];
-        this.isWindows = navigator.appVersion.indexOf('Win') != -1;
-        this.newline   = this.isWindows ? '\r\n' : '\n';
-        this.docHead   = this.elArray.map(item => item.trim().toUpperCase() );
-        this.bool      = this.bArray.map(item => item.trim().toUpperCase() );
+    this.reference = 1;
+    this.notify    = 2;
+    this.warn      = 3;
+    this.default   = 98;
+    this.error     = 99;
+    this.bArray    = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes']; // typeof string property
+    this.elArray   = ['link', 'script', 'style'];
+    this.isWindows = navigator.appVersion.indexOf('Win') != -1;
+    this.newline   = this.isWindows ? '\r\n' : '\n';
+    this.docHead   = this.elArray.map(item => item.trim().toUpperCase() );
+    this.bool      = this.bArray.map(item => item.trim().toUpperCase() );
 
-        this.fileType     = (path, type) => this.fileExt(path).toUpperCase() === type.toUpperCase();
-        this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
-        this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
-        this.mediaType    = path => this.media.get(this.fileExt(path).toLowerCase());
-        this.isVideo      = path => this.media.has(this.fileExt(path).toLowerCase());
-        this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-        this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
-        this.elementName  = node => node.nodeName.toLocaleLowerCase();
-        this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
+    this.fileType     = (path, type) => this.fileExt(path).toUpperCase() === type.toUpperCase();
+    this.fileName     = path => path.substring(path.lastIndexOf('/')+1, path.length);
+    this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
+    this.mediaType    = path => this.media.get(this.fileExt(path).toLowerCase());
+    this.isVideo      = path => this.media.has(this.fileExt(path).toLowerCase());
+    this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
+    this.srcOpen      = obj => globalThis.open(obj.element.getAttribute('src'), obj.type);
+    this.elementName  = node => node.nodeName.toLocaleLowerCase();
+    this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
 
-        this.softSanitize = (text, type = 'text/html') => this.ignore(text) ? null : new DOMParser()
-            .parseFromString(text, type).documentElement.textContent
-            .replace(/</g, '&lt;');
+    this.softSanitize = (text, type = 'text/html') => this.ignore(text) ? null : new DOMParser()
+        .parseFromString(text, type).documentElement.textContent
+        .replace(/</g, '&lt;');
 
         this.ignore = obj => (obj === null || obj == 'undefined') ? true
             : this.isString(obj) ? (obj.length === 0 || !obj.trim())
@@ -235,4 +235,4 @@ var rsc = {}; // ceres slideview resource object namespace
             return str.replace(/, +$/g,'');
         }
 
-}).call(rsc); // end resource object namespace
+}).call(ceresResourceLibrary); // end resource object namespace
