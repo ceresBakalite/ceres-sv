@@ -9,11 +9,17 @@
  *
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
+
+import { rsc } from '../prod/ceres-rsc.js';
+
 globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namespace
 (() => {
 
-    const rsc = {}; // the resource object namespace
-    rscMethods(); // resource object methods
+    //const rsc = {}; // the resource object namespace
+    //rsc.rscMethods(); // resource object methods
+
+    //const rsc = {}; // the resource object namespace
+    //rscMethods(); // resource object methods
 
     globalThis.customElements.define('ceres-sv', class extends HTMLElement { // ceres-sv HTML namespace DOM subtree class
 
@@ -806,7 +812,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                 return str.replace(/, +$/g,'');
             }
 
-        }).call(rsc); // end resource namespace
+        }).call(xxxrsc); // end resource namespace
 
     }
 
