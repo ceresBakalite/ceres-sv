@@ -12,7 +12,7 @@
 
 export { rsc }
 
-var rsc = {};  // ceres-sv generic resource object namespace
+var rsc = {}; // ceres slideview resource object namespace
 (function() { // methods belonging to the ceres-sv resource object
 
         this.reference = 1;
@@ -235,4 +235,4 @@ var rsc = {};  // ceres-sv generic resource object namespace
             return str.replace(/, +$/g,'');
         }
 
-}).call(rsc); // end resource namespace
+}).call(rsc); // end resource object namespace
