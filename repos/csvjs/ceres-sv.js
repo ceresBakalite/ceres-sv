@@ -10,7 +10,7 @@
  * Copyright (c) 2018 - 2020 Alexander Munro
 */
 
-import { rsc } from '../prod/ceres-rsc.js';
+import { rsc } from '../prod/ceres-rsc.min.js';
 
 globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namespace
 (() => {
