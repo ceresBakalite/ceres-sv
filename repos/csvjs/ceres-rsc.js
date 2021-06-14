@@ -12,7 +12,7 @@
 
 export { rsc }
 
-var rsc = {};  // ceres-sv generic resource namespace
+var rsc = {};  // ceres-sv generic resource object namespace
 (function() { // methods belonging to the ceres-sv resource object
 
         this.reference = 1;
