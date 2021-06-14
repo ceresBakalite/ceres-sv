@@ -1,6 +1,6 @@
 /**
  * @license
- * ceres-rsc v1.0.0
+ * ceresSlideViewResourceLibrary v1.0.0
  *
  * Minified using terser v5.5.1
  * Original file: ceresbakalite/ceres-sv/repos/csvjs/ceres-rsc.js
