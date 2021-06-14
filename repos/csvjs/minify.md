@@ -8,9 +8,9 @@ https://github.com/terser/terser
 
 *recommended usage*
 
-        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m reserved=['getImage','getSlide'] -f quote_style=1 --module
+        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m reserved=['getImage','getSlide','rsc'] -f quote_style=1 --module
 
-        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-rsc.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-rsc.min.js -c -m reserved=['getImage','getSlide'] -f quote_style=1 --module
+        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-rsc.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-rsc.min.js -c -m reserved=['getImage','getSlide','rsc'] -f quote_style=1 --module
 
 **Example 2**
 
