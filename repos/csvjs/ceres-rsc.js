@@ -21,10 +21,10 @@ var ceresSlideViewResourceLibrary = {}; // ceres slideview resource object names
     this.default     = 98;
     this.error       = 99;
     this.defaultCSS  = 'https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.css'; // the default slideview stylesheet
-    this.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
-    this.commaSymbol = '_&c';
     this.bArray      = ['true', '1', 'enable', 'confirm', 'grant', 'active', 'on', 'yes']; // typeof string property
     this.elArray     = ['link', 'script', 'style'];
+    this.commaCodes  = /,|&comma;|&#x2c;|&#44;|U+0002C/g;
+    this.commaSymbol = '_&c';
     this.isWindows   = navigator.appVersion.indexOf('Win') != -1;
     this.newline     = this.isWindows ? '\r\n' : '\n';
     this.docHead     = this.elArray.map(item => item.trim().toUpperCase() );
