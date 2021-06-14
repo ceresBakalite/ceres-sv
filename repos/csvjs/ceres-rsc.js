@@ -1,3 +1,15 @@
+/**
+ * @license
+ * ceres-rsc v1.0.0
+ *
+ * Minified using terser v5.5.1
+ * Original file: ceresbakalite/ceres-sv/repos/csvjs/ceres-rsc.js
+ *
+ * ceresBakalite/ceres-rsc is licensed under the MIT License - http://opensource.org/licenses/MIT
+ *
+ * Copyright (c) 2018 - 2020 Alexander Munro
+*/
+
 export { rsc }
 
 var rsc = {};  // ceres-sv generic resource namespace
