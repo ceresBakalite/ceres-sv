@@ -10,13 +10,15 @@ https://github.com/terser/terser
 
         1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m reserved=['getImage','getSlide','rsc'] -f quote_style=1 --module
 
-        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-rsc.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-rsc.min.js -c -m reserved=['getImage','getSlide','rsc'] -f quote_style=1 --module
+        2. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-rsc.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-rsc.min.js -c -m reserved=['getImage','getSlide','rsc'] -f quote_style=1 --module
 
 **Example 2**
 
 *with source map*
 
-        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m reserved=['getImage','getSlide'] -f quote_style=1 --module --source-map  "root='C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs',url='ceres-sv.min.js.map'"
+        1. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-sv.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-sv.min.js -c -m reserved=['getImage','getSlide'] -f quote_style=1 --module --source-map "root='C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs',url='https://ceresbakalite.github.io/ceres-sv/prod/ceres-sv.min.js.map'"
+
+        2. terser C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs\ceres-rsc.js -o C:\Users\Sandy\Documents\GitHub\ceres-sv\prod\ceres-rsc.min.js -c -m reserved=['getImage','getSlide','rsc'] -f quote_style=1 --module --source-map "root='C:\Users\Sandy\Documents\GitHub\ceres-sv\repos\csvjs',url='https://ceresbakalite.github.io/ceres-sv/prod/ceres-rsc.min.js.map'"
 
 **Example 3**
 
