@@ -87,7 +87,9 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         eventAction: el => {
 
-                            el.nodeName.toLowerCase() === 'img' ? rsc.srcOpen({ element: el, type: 'image' }) : atr.get.slide({ node: el });
+                            let node = rsc.elementName(el);
+
+                            node === 'img' ? rsc.srcOpen({ element: node, type: 'image' }) : atr.get.slide({ node: node });
                         }
 
 
