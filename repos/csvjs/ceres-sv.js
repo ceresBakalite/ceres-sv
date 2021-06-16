@@ -53,7 +53,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 (function() { // methods belonging to the attribute object
 
-                    const csv = rsc.elementType(csvRoot); // the UTF-16 lowercase ceres sideview element name in the HTML namespace DOM subtree
+                    const csv = rsc.nodeType(csvRoot); // the UTF-16 lowercase ceres sideview element name in the HTML namespace DOM subtree
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
@@ -87,7 +87,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         eventAction: node => {
 
-                            rsc.elementType(node) === 'img' ? rsc.srcOpen({ node: node, type: 'image' }) : atr.get.slide({ node: node });
+                            rsc.nodeType(node) === 'img' ? rsc.srcOpen({ node: node, type: 'image' }) : atr.get.slide({ node: node });
                         }
 
 
@@ -260,7 +260,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 const lightList = () => {
 
-                                    const text = rsc.elementType(cfg.template) != 'template' ? cfg.template.textContent : cfg.template.content.textContent;
+                                    const text = rsc.nodeType(cfg.template) != 'template' ? cfg.template.textContent : cfg.template.content.textContent;
                                     if (rsc.ignore(text)) return rsc.inspect({ type: rsc.error, notification: remark.template + ' [' + cfg.node.name + ']' });
 
                                     return this.parseText(text).replace(regex,'\n');
