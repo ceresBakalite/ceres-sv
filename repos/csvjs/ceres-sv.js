@@ -19,10 +19,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
         async connectedCallback() {
 
-            //ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // HTML namespace DOM subtree method reference
-            //ceres.getSlide = el => atr.get.slide({ node: el }); // HTML namespace DOM subtree method reference
-
-            ceres.event = el => el.nodeName === 'img' ? rsc.srcOpen({ element: el, type: 'image' }) : atr.get.slide({ node: el }); // HTML namespace DOM subtree method reference
+            ceres.event = el => el.nodeName.toLowerCase() === 'img' ? rsc.srcOpen({ element: el, type: 'image' }) : atr.get.slide({ node: el }); // HTML namespace DOM subtree method reference
 
             const cfg = {}; // configuration object namespace
             const atr = {}; // attribute object namespace
