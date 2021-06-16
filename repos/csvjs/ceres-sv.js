@@ -452,7 +452,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setSurtitle = () => cfg.node.sur ? getSurtitle() : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
 
-                            const setImageEvent = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this);' : cfg.node.clickevent : null;
+                            const setImageEvent = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this)' : cfg.node.clickevent : null;
                             const setSlideEvent = 'ceres.getSlide(this)';
                             const setSlideClass = this.getClass('slide');
 
