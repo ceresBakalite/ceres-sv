@@ -19,8 +19,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
         async connectedCallback() {
 
-            const csvRoot = this; // ceres-sv instance DOM subtree class handle
-
             const cfg = {}; // configuration object namespace
             const atr = {}; // attribute object namespace
 
@@ -36,7 +34,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             if (atr.instance.hasContent()) atr.instance.showContent();
 
-            function initialise() {
+            function initialise(csvRoot = this) {
 
                 csvRoot.src = csvRoot.getAttribute('src');
 
