@@ -19,7 +19,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
         async connectedCallback() {
 
-            ceres.event = el => atr.setDisplay.action(el); // HTML namespace DOM subtree method reference
+            ceres.event = el => atr.instance.eventAction(el); // HTML namespace DOM subtree method reference
 
             const cfg = {}; // configuration object namespace
             const atr = {}; // attribute object namespace
@@ -83,7 +83,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             this.get.shadow();
                             this.get.slide({ shadow: cfg.shadow });
                             this.get.view();
+                        },
+
+                        eventAction: el => {
+
+                            el.nodeName.toLowerCase() === 'img' ? rsc.srcOpen({ element: el, type: 'image' }) : atr.get.slide({ node: el });
                         }
+
 
                     };
 
@@ -526,13 +532,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             csvRoot.style.removeProperty('visibility');
 
                             if (csvRoot.style.length === 0) csvRoot.removeAttribute('style');
-                        },
-
-                        action: el => {
-
-                            el.nodeName.toLowerCase() === 'img' ? rsc.srcOpen({ element: el, type: 'image' }) : atr.get.slide({ node: el });
                         }
-
 
                     };
 
