@@ -19,8 +19,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
         async connectedCallback() {
 
-            ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // HTML namespace DOM subtree method reference
-            ceres.getSlide = el => atr.get.slide({ node: el }); // HTML namespace DOM subtree method reference
+            //ceres.getImage = el => rsc.srcOpen({ element: el, type: 'image' }); // HTML namespace DOM subtree method reference
+            //ceres.getSlide = el => atr.get.slide({ node: el }); // HTML namespace DOM subtree method reference
+
+            ceres.event = el => el === 'img' ? rsc.srcOpen({ element: el, type: 'image' }) : atr.get.slide({ node: el }); // HTML namespace DOM subtree method reference
 
             const cfg = {}; // configuration object namespace
             const atr = {}; // attribute object namespace
@@ -452,8 +454,11 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             const setSurtitle = () => cfg.node.sur ? getSurtitle() : null;
                             const setLoading  = () => Boolean(cfg.node.loading.match(/lazy|eager|auto/i)) ? cfg.node.loading : 'auto';
 
-                            const setImageEvent = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this)' : cfg.node.clickevent : null;
-                            const setSlideEvent = 'ceres.getSlide(this)';
+                            //const setImageEvent = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.getImage(this)' : cfg.node.clickevent : null;
+                            //const setSlideEvent = 'ceres.getSlide(this)';
+                            const setImageEvent = cfg.node.zoom ? rsc.ignore(cfg.node.clickevent) ? 'ceres.event(this)' : cfg.node.clickevent : null;
+                            const setSlideEvent = 'ceres.event(this)';
+
                             const setSlideClass = this.getClass('slide');
 
                             const bodyNode = document.createElement('div');
