@@ -305,7 +305,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             }
 
                             const shade = document.querySelector('#' + csvRoot.id);
-                            rsc.clearElement(shade);
+                            rsc.clearNode(shade);
 
                             shade.attachShadow({ mode: 'open' });
                             cfg.shadow = shade.shadowRoot;
