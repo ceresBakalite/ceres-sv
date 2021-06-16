@@ -35,10 +35,10 @@ var ceresSlideViewResourceLibrary = {}; // ceres slideview resource object names
     this.fileExt      = path => path.substring(path.lastIndexOf('.')+1, path.length);
     this.mediaType    = path => this.media.get(this.fileExt(path).toLowerCase());
     this.isVideo      = path => this.media.has(this.fileExt(path).toLowerCase());
-    this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
-    this.srcOpen      = obj => globalThis.open(obj.node.getAttribute('src'), obj.type);
     this.nodeType     = node => node.nodeName.toLocaleLowerCase();
     this.clearElement = node => { while (node.firstChild) node.removeChild(node.firstChild); }
+    this.isString     = obj => Object.prototype.toString.call(obj) == '[object String]';
+    this.srcOpen      = obj => globalThis.open(obj.node.getAttribute('src'), obj.type);
 
     this.softSanitize = (text, type = 'text/html') => this.ignore(text) ? null : new DOMParser()
         .parseFromString(text, type).documentElement.textContent
