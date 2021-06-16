@@ -38,10 +38,10 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
             function initialise() {
 
-                csvRoot.src = csvRoot.getAttribute('src');
+                this.src = this.getAttribute('src');
 
-                cfg.src         = rsc.ignore(csvRoot.src) ? null : csvRoot.src.trim();
-                cfg.css         = csvRoot.getAttribute('css') || rsc.defaultCSS;
+                cfg.src         = rsc.ignore(this.src) ? null : this.src.trim();
+                cfg.css         = this.getAttribute('css') || rsc.defaultCSS;
                 cfg.srcRoot     = !rsc.ignore(cfg.src);
                 cfg.shadowStyle = '';
                 cfg.node        = {};
@@ -55,7 +55,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                 (function() { // methods belonging to the attribute object
 
-                    const csv = rsc.elementName(csvRoot); // the UTF-16 lowercase ceres sideview element name in the HTML namespace DOM subtree
+                    const csv = rsc.elementName(this); // the UTF-16 lowercase ceres sideview element name in the HTML namespace DOM subtree
                     const srm = new Map(); // shadowroot manager
 
                     const remark = {
@@ -119,13 +119,13 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const getCSVRootProperties = () => {
 
-                                if (rsc.ignore(csvRoot)) return false;
+                                if (rsc.ignore(this)) return false;
 
-                                csvRoot.id = rsc.getUniqueId({ name: csv, range: 1000 });
+                                this.id = rsc.getUniqueId({ name: csv, range: 1000 });
 
                                 const getProperty = name => {
 
-                                    const factor = csvRoot.getAttribute(name);
+                                    const factor = this.getAttribute(name);
                                     const evaluate = (name == 'cache' || name == 'zoom');
 
                                     const evalAttribute = () => {
@@ -156,7 +156,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                         fade    : !rsc.getBoolean(factor),
                                         trace   : rsc.getBoolean(factor),
                                         loading : factor || 'auto',
-                                        name    : factor || csvRoot.id,
+                                        name    : factor || this.id,
                                         delay   : Number.isInteger(parseInt(factor, 10)) ? parseInt(factor, 10) : 250
                                     };
 
@@ -258,7 +258,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                             const getMediaList = () => {
 
-                                const shadowList = () => csvRoot.textContent.replace(regex,'\n') || null;
+                                const shadowList = () => this.textContent.replace(regex,'\n') || null;
 
                                 const lightList = () => {
 
@@ -277,7 +277,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                                 if (rsc.ignore(mediaList)) return false;
 
-                                const parseList = () => remark.markup + ' [' + csvRoot.id + (cfg.srcRoot ? ' - file name: ' + rsc.fileName(cfg.src)
+                                const parseList = () => remark.markup + ' [' + this.id + (cfg.srcRoot ? ' - file name: ' + rsc.fileName(cfg.src)
                                     : ' - node name: ' + cfg.node.name) + ']' + rsc.newline + mediaList
                                         .replaceAll(rsc.commaSymbol, '&comma;')
                                         .replace(/&lt;/g, '<')
@@ -306,7 +306,7 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                                 this.get.slide({ shadow: cfg.shadow });
                             }
 
-                            const shade = document.querySelector('#' + csvRoot.id);
+                            const shade = document.querySelector('#' + this.id);
                             rsc.clearElement(shade);
 
                             shade.attachShadow({ mode: 'open' });
@@ -521,16 +521,16 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
 
                         hide: () => {
 
-                            csvRoot.style.visibility = 'hidden';
-                            csvRoot.style.display = 'none';
+                            this.style.visibility = 'hidden';
+                            this.style.display = 'none';
                         },
 
                         show: () => {
 
-                            csvRoot.style.removeProperty('display');
-                            csvRoot.style.removeProperty('visibility');
+                            this.style.removeProperty('display');
+                            this.style.removeProperty('visibility');
 
-                            if (csvRoot.style.length === 0) csvRoot.removeAttribute('style');
+                            if (this.style.length === 0) this.removeAttribute('style');
                         }
 
                     };
