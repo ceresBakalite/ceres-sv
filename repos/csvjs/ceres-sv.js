@@ -90,7 +90,6 @@ globalThis.ceres = {}; // ceres slideview global (actual or proxy) object namesp
                             'img' != rsc.nodeType(node) ? atr.get.slide({ node: node }) : rsc.srcOpen({ node: node, type: 'image' });
                         }
 
-
                     };
 
                     this.content = { // the custom HTMLElement extension properties
